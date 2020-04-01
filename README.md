@@ -20,7 +20,7 @@ To run and/or build Vue application you need to have installed:
 
 Some kind of code editor, along with a project in repository configuration files are provided for [Visual Studio Code](https://code.visualstudio.com/).
 
-Run in console/terminal in main Vue folder (fibo/etc/fibo-vue):
+Run in console/terminal in main Vue folder ('fibo' or 'auto'):
 
 ```
 yarn
@@ -36,7 +36,7 @@ yarn serve
 ```
 you can serve Vue application on your local machine. Also, Webpack will watch for changes in files and will rebuild application whenever any file will be changed.
 
-Run in console/terminal in main Vue folder ([fibo/etc/fibo-vue](./etc/fibo-vue)):
+Run in console/terminal in main Vue folder ([fibo](./fibo) or [auto](./auto)):
 
 ```
 yarn serve
@@ -48,10 +48,17 @@ The address will be printed by the script but the default is:
 localhost:8080/fibo
 ```
 
-## Editing the FIBO website content
+or 
+
+```
+localhost:8080/auto
+```
+
+
+## Editing the FIBO (AUTO) website content
 Most static content is served as static HTML templates.
 
-To find in what file content is hardcoded please refer to router.js file: [fibo/etc/fibo-vue/src/router.js](./etc/fibo-vue/src/router.js)
+To find in what file content is hardcoded please refer to router.js file: [fibo/src/router.js](./fibo/src/router.js) (or [auto/src/router.js](./auto/src/router.js))
 
 
 You can find an array of routes where by name and corresponding file name you can find a template for the desired route:
