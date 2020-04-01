@@ -5,7 +5,9 @@
 # Updating the spec.edmcouncil.org websites
 
 ## Sources location
-FIBO Vue application sources are located in FIBO main repository. In file-structure Vue source code is located under: [html-pages/fibo/](./etc/fibo-vue/)
+
+- FIBO Vue source code is located under: [html-pages/fibo/](./fibo/)
+- AUTO Vue source code is located under: [html-pages/auto/](./auto/)
 
 
 ## Requirements
