@@ -96,7 +96,7 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-            >EDUCATION</a>
+            >TRAINING</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <router-link class="dropdown-item" replace :to="{ path: router('courses') }">Courses</router-link>
               <router-link class="dropdown-item" replace :to="{ path: router('use-cases') }">Use cases</router-link>
