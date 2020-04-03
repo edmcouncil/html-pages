@@ -13,12 +13,16 @@
                     <p>
                         Businesses today need to have comprehensive control and understanding of the data both within the enterprise and from outside. Regulatory pressure in many industries requires that an enterprise be able to find all relevant data about customers, products, business relations, and in fact, any aspect of the business quickly and accurately. Advances in data analytics have shown that the more meaningful data an enterprise can bring to bear, the more accurately business drivers can be predicted. For this reason, many businesses are migrating from viewing their enterprise information as a collection of data to viewing it as an ongoing graph of meaningful knowledge.
                     </p>
-                </div>
+                </div><br><br>
+
+                    <img style='width: 70%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/openfibo.jpg" alt="Open FIBO" />
+
+
                 <h3>
 <span>Offer</span>
 </h3>
                 <div style="text-align: justify;">
-                    <p>EDMC offers courses in Knowledge Graph, available in multiple forms:</p>
+                    <p>EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms:</p>
                     <ol>
                         <li>Instructor led virtual training course by one of the EDM Council&rsquo;s certified trainers. These courses are open enrollment, registration at the EDM Council web site,</li>
                         <li>Enterprise focused instruction. The same course material and instructor as our open enrollment course, but with the audience limited to knowledge workers from your organization. This allows a more specific focus on use cases and industries of interest to your needs.</li>
@@ -42,9 +46,9 @@
 
 
                     <h4>
-<span>Open Knowledge Graph and FIBO Fundamentals Course</span>
+<span>Knowledge Graph and FIBO Course</span>
 </h4>
-                    <p>In these challenging times EDMC will provide on <b>May 5-6</b>, <b>May 12-13</b> and <b>May 19-20</b> with&nbsp;<b><em>Open Knowledge Graph and FIBO Fundamentals Course</em></b>:</p>
+                    <p>In these challenging times EDMC will provide on <b>May 5-6</b>, <b>May 12-13</b> and <b>May 19-20</b> with&nbsp;<b><em>Knowledge Graph and FIBO Course</em></b>:</p>
 
                     <h5>
 <span>3 class timezones, 6 hours, over 2 consecutive days course</span>
@@ -71,7 +75,7 @@
     </ul>
 </ul>
 
-                    <h5><span>Open Knowledge Graph and FIBO Fundamentals Course</span></h5>
+                    <h5><span>Knowledge Graph and FIBO Course</span></h5>
             <p>This course is targeted to data professionals. This includes Database Administrators, data scientists, analysts, as well as business architects and product managers for data-driven applications. In general, this course is for anyone who knows a good data model when they see it, and who knows why that is important.</p>                    
                     <p>This course will be virtually delivered on two consecutive days, 9:00am &ndash; 3:00pm Eastern Time each day&nbsp;with breaks.</p>
                     <p>It will consist of 5 main modules:</p>
@@ -115,7 +119,7 @@
                     </ul>
 
                     <h3><span>Course Palette</span></h3>
-                    <p><em>Open Knowledge Graph and FIBO Fundamentals Course</em> is just part of our educational offer. Our full offer of courses covers different areas of Knowledge Graph Industry. These are shown below as a mind map that interlinks different learning topics.</p>
+                    <p><em>Knowledge Graph and FIBO Course</em> is just part of our educational offer. Our full offer of courses covers different areas of Knowledge Graph Industry. These are shown below as a mind map that interlinks different learning topics.</p>
                     <p> </p>
                     <br>
                     <img style='height: 100%; width: 100%; object-fit: contain' src="../assets/img/course_palette.png" alt="FIBO Course Map" />
