@@ -3,7 +3,7 @@
     <main>
       <article>
         <h1>
-          <span>Fibo Ontology</span>
+          <span>FIBO Ontology Tools</span>
         </h1>
         <h2>
           The FIBO ontology is best viewed using a dedicated ontology tool. We include instructions here for three
@@ -41,7 +41,7 @@
           FIBO is also available for offline use by downloading a .zip of the current state.
           FIBO is updated every three months, so any such offline downloaded version will quickly be out of date.
         </p>
-        <h3>NEW in 2019 Q1</h3>
+    <!--    <h3>NEW in 2019 Q1</h3>
 
         <ul>
           <li>
@@ -53,7 +53,8 @@
             FIBO Namespace Prefixes (see
             <a href="#namespace">below</a>)
           </li>
-        </ul>
+        </ul> -->
+
         <h3>Collaborations</h3>
         <p>
           The EDM Council is working in collaboration with many companies to offer open, easy access to FIBO content for discovery and analysis. Available now are:
