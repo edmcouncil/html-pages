@@ -290,7 +290,7 @@
                   <p><b>FIBO Production</b> is made up of the release ontologies only. <b>FIBO development</b> is made up of all ontologies, i.e., those that are released, provisional, and informative.</p> 
 
                   <br>
-                <p>FIBO Viewer uses colors to indicate the status of an ontology. Each ontology is either <font color="#51d355">green</font> or <font color="#f1df3f">yellow</font>. <font color="#51d355">Green</font> color indicates that an ontology has a "release" maturity level, whereas <font color="#f1df3f">yellow</font> means that it provisional or informative. Domains or modules are <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) if they contain only <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) ontologies. Domains or modules are <font color="#51d355">green</font>-<font color="#f1df3f">yellow</font> is they include green and <font color="#f1df3f">yellow</font> ontologies.</p> 
+                <p>FIBO Viewer uses colors to indicate the status of an ontology. Each ontology is either <font color="#51d355">green</font> or <font color="#f1df3f">yellow</font>. <font color="#51d355">Green</font> color indicates that an ontology has a "release" maturity level, whereas <font color="#f1df3f">yellow</font> means that it provisional or informative. Domains or modules are <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) if they contain only <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) ontologies. Domains or modules are <font color="#51d355">green</font>-<font color="#f1df3f">yellow</font> is they include <font color="#51d355">green</font> and <font color="#f1df3f">yellow</font> ontologies.</p> 
 
 
                   <br>
