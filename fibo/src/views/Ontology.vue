@@ -221,8 +221,10 @@
                   <p class="text">
                     To fully benefit from the FIBO Viewer, one should keep in mind two very important things about FIBO.
                   </p>
+
+                  <br>
                   <p>
-                    1) FIBO is a set of ontologies. It is organized in a hierarchical directory structure to organize the ontologies.
+                    1) <b>FIBO is a set of ontologies. It is organized in a hierarchical directory structure to organize the ontologies.</b> 
                     Top-level directories are called <i>domains</i>; beneath that may be one or two levels of <i>sub-domain</i>
                     and then <i>modules</i> and dozens of <i>ontologies</i> at the bottom level:
                   </p>
@@ -252,44 +254,57 @@
                     On the left-hand side, there is a list of eleven FIBO Domains staring with the Business Entities at the top and ending with Securities at the bottom.
                   </p>
 
+                  <br>
                   <p class="text">
                     2) Each FIBO ontology has one of <strong>three levels of maturity</strong>.
                   </p>
 
                   <p class="">
-                    <strong>Release</strong>
+                    <strong>release</strong>
                   </p>
                   <ul class="maturity-levels">
                     <li>
-                      Release ontologies have undergone unit and integration testing, and have passed the most rigorous tests for completeness, consistency, and correctness.
+                      Release ontologies are ones that are considered to be stable and mature from a development perspective.
                     </li>
                   </ul>
 
                   <p class="">
-                    <strong>Provisional</strong>
+                    <strong>provisional</strong>
                   </p>
                   <ul class="maturity-levels">
                     <li>
-                      Provisional ontologies were developed in the early days of FIBO but have not been vetted or tested to the level of Release.
+                      Provisional ontologies are ones that are considered to be under development.
                     </li>
                   </ul>
 
                   <p class="">
-                    <strong>Informative</strong>
+                    <strong>informative</strong>
                   </p>
                   <ul class="maturity-levels">
                     <li>
-                      Informative ontologies are ones that have been considered by the FIBO Community but have been explicitly rejected.
-                      They are included in FIBO sources because they include information, without which FIBO would fail basic referential
-                      consistency tests. Casual users should usually ignore them. Developers should consider these for information only,
-                      to determine the detailed meaning of the things that reference them.
+                      Provisional ontologies are ones that are considered deprecated but included for informational purposes because they are referenced by some provisional concept.
                     </li>
                   </ul>
 
+
+                  <p><b>FIBO Production</b> is made up of the release ontologies only. <b>FIBO development</b> is made up of all ontologies, i.e., those that are released, provisional, and informative.</p> 
+
+                  <br>
+                <p>FIBO Viewer uses colors to indicate the status of an ontology. Each ontology is either <font color="#51d355">green</font> or <font color="#f1df3f">yellow</font>. <font color="#51d355">Green</font> color indicates that an ontology has a "release" maturity level, whereas <font color="#f1df3f">yellow</font> means that it provisional or informative. Domains or modules are <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) if they contain only <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) ontologies. Domains or modules are <font color="#51d355">green</font>-<font color="#f1df3f">yellow</font> is they include green and <font color="#f1df3f">yellow</font> ontologies.</p> 
+
+
+                  <br>
                   <p class="text">
                     One can see the maturity level for each FIBO ontology, see e.g.
                     <a href="https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/FunctionalEntities/">https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/FunctionalEntities/</a>
                   </p>
+
+
+
+
+
+
+
                 </article>
               </main>
             </div>
