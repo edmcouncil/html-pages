@@ -12,7 +12,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE ONTOLOGY</h2>
             <p>...</p>
-            <router-link replace :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
+            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
           </div>
         </div>
         <div class="carousel-item">
@@ -20,7 +20,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE ONTOLOGY</h2>
             <p>...</p>
-            <router-link replace :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
+            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
           </div>
         </div>
         <div class="carousel-item">
@@ -28,7 +28,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE ONTOLOGY</h2>
             <p>...</p>
-            <router-link replace :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
+            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
           </div>
         </div>
       </div>

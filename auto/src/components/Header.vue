@@ -49,13 +49,13 @@
         <ul class="navbar-nav ml-auto">
 
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router() }">About</router-link>
+            <router-link class="nav-link" :to="{ path: router() }">About</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('ontology') }">AUTO Viewer</router-link>
+            <router-link class="nav-link" :to="{ path: router('ontology') }">AUTO Viewer</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('documentation') }">Documentation</router-link>
+            <router-link class="nav-link" :to="{ path: router('documentation') }">Documentation</router-link>
           </li>
 <!--          <li class="nav-item dropdown">
             <a
@@ -68,17 +68,17 @@
               aria-expanded="false"
             >Documentation</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" replace :to="{ path: router('aim-and-scope') }">Aim and Scope</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('aim-and-scope') }">Aim and Scope</router-link>
             </div>
           </li> --> 
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('products') }">Products</router-link>
+            <router-link class="nav-link" :to="{ path: router('products') }">Products</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('applications') }">Applications</router-link>
+            <router-link class="nav-link" :to="{ path: router('applications') }">Applications</router-link>
           </li>          
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('community') }">Community</router-link>
+            <router-link class="nav-link" :to="{ path: router('community') }">Community</router-link>
           </li>
 
 <!--          <li class="nav-item dropdown">
@@ -92,8 +92,8 @@
               aria-expanded="false"
             >EDMC Specs</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" replace :to="{ path: router() }">AUTO ontology</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router() }">AUTO ontology</router-link>
+              <router-link class="dropdown-item" :to="{ path: router() }">AUTO ontology</router-link>
+              <router-link class="dropdown-item" :to="{ path: router() }">AUTO ontology</router-link>
             </div>
           </li>  -->        
         </ul>
