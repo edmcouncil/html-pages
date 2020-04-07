@@ -3,24 +3,25 @@
         <main>
             <article>
                 <h1>
-<span>Courses</span>
-</h1>
+                    <span>Courses</span>
+                </h1>
 
                 <h3>
-<span>Invitation</span>
-</h3>
+                    <span>Invitation</span>
+                </h3>
+
                 <div style="text-align: justify;">
                     <p>
                         Businesses today need to have comprehensive control and understanding of the data both within the enterprise and from outside. Regulatory pressure in many industries requires that an enterprise be able to find all relevant data about customers, products, business relations, and in fact, any aspect of the business quickly and accurately. Advances in data analytics have shown that the more meaningful data an enterprise can bring to bear, the more accurately business drivers can be predicted. For this reason, many businesses are migrating from viewing their enterprise information as a collection of data to viewing it as an ongoing graph of meaningful knowledge.
                     </p>
                 </div><br><br>
 
-                    <img style='width: 70%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/openfibo.jpg" alt="Open FIBO" />
-
+                <img style='width: 70%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/openfibo.jpg" alt="Open FIBO" />
 
                 <h3>
-<span>Offer</span>
-</h3>
+                    <span>Offer</span>
+                </h3>
+
                 <div style="text-align: justify;">
                     <p>EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms:</p>
                     <ol>
@@ -29,54 +30,50 @@
                         <li>Formal ELearning courses (to be available summer, 2020). The EDM Council is developing a Certification Package in Knowledge Graph. This is a deep-dive into the full details of knowledge graph technology and business practice.</li>
                     </ol>
 
-            <h3><span>Course Objectives</span></h3>
-            <p>After completing the course, attendees will be familliar with:</p>
-            <ol>
-            <li>What a Knowledge Graph is, what are its uses, and how does it provide business value.</li>
-            <li>Different approaches to Knowledge Graphs, and when to use them</li>
-            <li>Knowledge Graph standards and their importance in governance and application sustainability</li>
-            <li>Categories of tools for building, deploying and maintaining knowledge graphs</li>
-            <li>Best Practices for data publication, use and re-use</li>
-            <li>How to build a simple example of a knowledge graph using sample data combined with public data.</li>
-            </ol>
-
-
-
-
-
+                    <h3><span>Course Objectives</span></h3>
+                    <p>After completing the course, attendees will be familliar with:</p>
+                    <ol>
+                        <li>What a Knowledge Graph is, what are its uses, and how does it provide business value.</li>
+                        <li>Different approaches to Knowledge Graphs, and when to use them</li>
+                        <li>Knowledge Graph standards and their importance in governance and application sustainability</li>
+                        <li>Categories of tools for building, deploying and maintaining knowledge graphs</li>
+                        <li>Best Practices for data publication, use and re-use</li>
+                        <li>How to build a simple example of a knowledge graph using sample data combined with public data.</li>
+                    </ol>
 
                     <h4>
-<span>Knowledge Graph and FIBO Course</span>
-</h4>
+                        <span>Knowledge Graph and FIBO Course</span>
+                    </h4>
                     <p>In these challenging times EDMC will provide on <b>May 5-6</b>, <b>May 12-13</b> and <b>May 19-20</b> with&nbsp;<b><em>Knowledge Graph and FIBO Course</em></b>:</p>
 
                     <h5>
-<span>3 class timezones, 6 hours, over 2 consecutive days course</span>
-</h5>
-<ul>
-    <li><b>AMERICAS</b></li>
-    <ul>
-        <li>May 5-6</li>
-        <li>11a – 5p EDT / 8a – 2p PDT</li>
-        <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1359357&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
+                        <span>3 class timezones, 6 hours, over 2 consecutive days course</span>
+                    </h5>
 
-    </ul>
-    <li><b>APAC</b></li>
-        <ul>
-        <li>May 12-13</li>
-        <li>8a - 2p SGT / 10a – 4p AEDT</li>
-        <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1359364&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
-    </ul>
-    <li><b>UK / EUROPE / INDIA</b></li>
-        <ul>
-        <li>May 19-20</li>
-        <li>UK 8.30a - 2.30p GMT / Europe 9.30a - 3.30p CET / India 1 - 7p IST</li>
-        <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1359363&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
-    </ul>
-</ul>
+                    <ul>
+                        <li><b>AMERICAS</b></li>
+                        <ul>
+                            <li>May 5-6</li>
+                            <li>11a – 5p EDT / 8a – 2p PDT</li>
+                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1359357&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
+
+                        </ul>
+                        <li><b>APAC</b></li>
+                            <ul>
+                            <li>May 12-13</li>
+                            <li>8a - 2p SGT / 10a – 4p AEDT</li>
+                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1359364&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
+                        </ul>
+                        <li><b>UK / EUROPE / INDIA</b></li>
+                            <ul>
+                            <li>May 19-20</li>
+                            <li>UK 8.30a - 2.30p GMT / Europe 9.30a - 3.30p CET / India 1 - 7p IST</li>
+                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1359363&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
+                        </ul>
+                    </ul>
 
                     <h5><span>Knowledge Graph and FIBO Course</span></h5>
-            <p>This course is targeted to data professionals. This includes Database Administrators, data scientists, analysts, as well as business architects and product managers for data-driven applications. In general, this course is for anyone who knows a good data model when they see it, and who knows why that is important.</p>                    
+                    <p>This course is targeted to data professionals. This includes Database Administrators, data scientists, analysts, as well as business architects and product managers for data-driven applications. In general, this course is for anyone who knows a good data model when they see it, and who knows why that is important.</p>                    
                     <p>This course will be virtually delivered on two consecutive days, 9:00am &ndash; 3:00pm Eastern Time each day&nbsp;with breaks.</p>
                     <p>It will consist of 5 main modules:</p>
                     <ul>
@@ -134,14 +131,7 @@
 
 
                 <h4><span>Dean Allemang, PhD</span></h4>
-                <img style=' width: 200px;
- height: 200px;
- background-size: cover;
- display: block;
- border-radius: 100px;
- -webkit-border-radius: 100px;
- margin: 0px 30px
- -moz-border-radius: 100px;' src="../assets/img/dean.jpg" alt="Dean Allemang, PhD" align="left" />
+                <img class="img-avatar" src="../assets/img/dean.jpg" alt="Dean Allemang, PhD" align="left" />
                 <ul>
                     <li>Chief Scientist, TopQuadrant Inc, Capsicum Business Architects PTY LLC</li>
                     <li>Advisor, Open PHACTS project</li>
@@ -154,24 +144,13 @@
 
 
                 <h4><span>Pawel Garbacz, PhD</span></h4>
-                <img style=' width: 200px;
- height: 200px;
- background-size: cover;
- display: block;
- border-radius: 100px;
- -webkit-border-radius: 100px;
- margin: 0px 30px
- -moz-border-radius: 100px;' src="../assets/img/garbacz.jpg" alt="Pawel Garbacz, PhD" align="left" />
+                <img  class="img-avatar" src="../assets/img/garbacz.jpg" alt="Pawel Garbacz, PhD" align="left" />
                 <ul>
                     <li>Associate Professor in Department of Foundations of Computer Science (John Paul II Catholic University of Lublin)</li>
                     <li>Principal Ontologist in BORO Solutions Ltd.</li>
                     <li>Former Research Consultant in Centre for Industrial Applications of Mathematics and Systems Engineering </li>
                     <li>Editor of Journal of Applied Ontology</li>                    
                 </ul>
-
-
-
-
 
             </article>
         </main>
@@ -197,5 +176,14 @@
 </script>
 
 <style lang="scss" scoped>
-
+.img-avatar{
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    display: block;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    margin: 0px 30px;
+    -moz-border-radius: 100px;
+}
 </style>
