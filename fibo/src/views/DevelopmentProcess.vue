@@ -29,7 +29,7 @@
           <li>
             FIBO sources are managed in GitHub, in RDF/XML format.  The FIBO products are published in many formats and serializations
             (RDF/XML, ttl, json-ld, csv, MS Excel(tm), SKOS, SMIF, etc.) on the
-            <router-link class="" replace :to="{ path: router() }">http://spec.edmcouncil.org/fibo</router-link> web site. 
+            <router-link class="" :to="{ path: router() }">http://spec.edmcouncil.org/fibo</router-link> web site. 
           </li>
           <li>
             The sources are edited by developers using development tools (which can range in sophistication from text editing tools to elaborate WYSIWYG environments).  Products are automatically produced from an integrated testing environment. 

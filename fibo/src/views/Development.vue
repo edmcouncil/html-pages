@@ -77,7 +77,7 @@
           <a
             href="fibo_owl.html"
           >OWL formats</a>,
-          <router-link replace :to="{ path: router('vocabulary') }">SKOS</router-link>,
+          <router-link :to="{ path: router('vocabulary') }">SKOS</router-link>,
           <a href>a Data Dictionary</a>,
           <a href>
             a Natural Language
