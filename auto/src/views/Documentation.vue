@@ -8,7 +8,7 @@
 
 
         <p class="text">
-          Since April 2020, AUTO has been developed by an open community process. Official documentation of the AUTO project is located in its Github repository. The following files are important for any FIBO contributors:
+          Since April 2020, AUTO has been developed by an open community process. Official documentation of the AUTO project is located in its Github repository. The following files are important for any AUTO contributors:
         </p>
 
         <ul>

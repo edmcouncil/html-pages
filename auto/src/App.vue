@@ -70,7 +70,7 @@ hr {
   top: 40%;
   left: 10%;
 }
-.fill-image-fibo {
+.fill-image-auto {
   width: 324px;
   height: 388px;
   background: url("./assets/img/fill.png") no-repeat;
@@ -81,7 +81,7 @@ hr {
 }
 
 @media (max-width: 1559px) {
-  .fill-image-fibo {
+  .fill-image-auto {
     display: none;
   }
 }

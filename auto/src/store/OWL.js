@@ -2,7 +2,7 @@ export default {
   state: {
     serializations: [
       {
-        name: 'FIBO (Production) (zip)',
+        name: 'AUTO (Production) (zip)',
         xml: [{
           name: 'prod.rdf.zip',
           PRODUCT: 'ontology',
@@ -17,17 +17,17 @@ export default {
         }],
         nq: [
           {
-            name: 'prod.fibo.nq',
+            name: 'prod.auto.nq',
             PRODUCT: 'ontology',
           },
           {
-            name: 'prod.fibo.nq.zip',
+            name: 'prod.auto.nq.zip',
             PRODUCT: 'ontology',
           },
         ],
       },
       {
-        name: 'FIBO (Development) (zip)',
+        name: 'AUTO (Development) (zip)',
         xml: [{
           name: 'dev.rdf.zip',
           product: 'ontology',
@@ -42,87 +42,87 @@ export default {
         }],
         nq: [
           {
-            name: 'dev.fibo.nq',
+            name: 'dev.auto.nq',
             product: 'ontology',
           },
           {
-            name: 'dev.fibo.nq.zip',
+            name: 'dev.auto.nq.zip',
             product: 'ontology',
           },
         ],
       },
       {
-        name: 'FIBO (Production)',
+        name: 'AUTO (Production)',
         link: {
           name: 'follow your nose starting point',
           url: 'http://patterns.dataincubator.org/book/follow-your-nose.html',
         },
         xml: [{
-          name: 'LoadFIBOProd.rdf',
+          name: 'LoadAUTOProd.rdf',
           PRODUCT: 'ontology',
         }],
         ttl: [{
-          name: 'LoadFIBOProd.ttl',
+          name: 'LoadAUTOProd.ttl',
           PRODUCT: 'ontology',
         }],
         json: [{
-          name: 'LoadFIBOProd.jsonld',
+          name: 'LoadAUTOProd.jsonld',
           PRODUCT: 'ontology',
         }],
         nq: [
         ],
       },
       {
-        name: 'FIBO (Development)',
+        name: 'AUTO (Development)',
         link: {
           name: 'follow your nose starting point',
           url: 'http://patterns.dataincubator.org/book/follow-your-nose.html',
         },
         xml: [{
-          name: 'LoadFIBODev.rdf',
+          name: 'LoadAUTODev.rdf',
           product: 'ontology',
         }],
         ttl: [{
-          name: 'LoadFIBODev.ttl',
+          name: 'LoadAUTODev.ttl',
           product: 'ontology',
         }],
         json: [{
-          name: 'LoadFIBODev.jsonld',
+          name: 'LoadAUTODev.jsonld',
           product: 'ontology',
         }],
         nq: [
         ],
       },
       {
-        name: 'FIBO (Production) (Quickstart)',
+        name: 'AUTO (Production) (Quickstart)',
         ttl: [{
-          name: 'prod.fibo-quickstart.ttl',
+          name: 'prod.auto-quickstart.ttl',
           PRODUCT: 'ontology',
         }],
         nq: [
           {
-            name: 'prod.fibo-quickstart.nt',
+            name: 'prod.auto-quickstart.nt',
             PRODUCT: 'ontology',
           },
           {
-            name: 'prod.fibo-quickstart.nt.zip',
+            name: 'prod.auto-quickstart.nt.zip',
             PRODUCT: 'ontology',
           },
         ],
       },
       {
-        name: 'FIBO (Development) (Quickstart)',
+        name: 'AUTO (Development) (Quickstart)',
         ttl: [{
-          name: 'dev.fibo-quickstart.ttl',
+          name: 'dev.auto-quickstart.ttl',
           product: 'ontology',
         }],
         nq: [
           {
-            name: 'dev.fibo-quickstart.nt',
+            name: 'dev.auto-quickstart.nt',
             product: 'ontology',
           },
           {
-            name: 'dev.fibo-quickstart.nt.zip',
+            name: 'dev.auto-quickstart.nt.zip',
             product: 'ontology',
           },
         ],
