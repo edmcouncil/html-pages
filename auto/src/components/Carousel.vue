@@ -50,7 +50,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-      <div class="fill-image-fibo"></div>
+      <div class="fill-image-auto"></div>
     </div>
   </div>
 </template>

@@ -30,7 +30,7 @@
             <!-- <div class="col-md-6">
               <ul>
                 <li>
-                  <router-link replace :to="{ path: router('vocabulary') }">FIBO vocabulary</router-link>
+                  <router-link replace :to="{ path: router('vocabulary') }">AUTO vocabulary</router-link>
                 </li>
               </ul>
             </div> -->
@@ -59,7 +59,7 @@
       <div class="row">
         <div class="col-md-8">
           <p>
-            © 2020 EDM Council. All rights reserved. DCAM and FIBO are registered trademarks of EDM Council.
+            © 2020 EDM Council. All rights reserved. DCAM and AUTO are registered trademarks of EDM Council.
             All other marks are the property of their respective owners. Membership Management Software Powered by
             YourMembership
           </p>
