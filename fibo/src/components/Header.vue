@@ -48,10 +48,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router() }">About</router-link>
+            <router-link class="nav-link" :to="{ path: router() }">About</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('ontology') }">FIBO VIEWER</router-link>
+            <router-link class="nav-link" :to="{ path: router('ontology') }">FIBO VIEWER</router-link>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -64,12 +64,12 @@
               aria-expanded="false"
             >Documentation</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" replace :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link>
-              <!-- <router-link class="dropdown-item" replace :to="{ path: router('development-process') }">Development process</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('') }">Ontology guide</router-link> -->
-              <router-link class="dropdown-item" replace :to="{ path: router('how-to-contribute') }">How to contribute</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('FIBO-Release-Notes') }">FIBO Release Notes</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('ontology-tools') }">FIBO Ontology Tools</router-link>              
+              <router-link class="dropdown-item" :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link>
+              <!-- <router-link class="dropdown-item" :to="{ path: router('development-process') }">Development process</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('') }">Ontology guide</router-link> -->
+              <router-link class="dropdown-item" :to="{ path: router('how-to-contribute') }">How to contribute</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('FIBO-Release-Notes') }">FIBO Release Notes</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('ontology-tools') }">FIBO Ontology Tools</router-link>              
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -83,9 +83,9 @@
               aria-expanded="false"
             >Products</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" replace :to="{ path: router('OWL') }">FIBO OWL ontology</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('vocabulary') }">FIBO SKOS vocabulary</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('data-dictionary') }">FIBO data dictionary</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('OWL') }">FIBO OWL ontology</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('vocabulary') }">FIBO SKOS vocabulary</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('data-dictionary') }">FIBO data dictionary</router-link>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -99,8 +99,8 @@
               aria-expanded="false"
             >TRAINING</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" replace :to="{ path: router('courses') }">Courses</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('use-cases') }">Use cases</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('courses') }">Courses</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('use-cases') }">Use cases</router-link>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -114,8 +114,8 @@
               aria-expanded="false"
             >PARTNERS</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" replace :to="{ path: router('schema') }">FIBO SCHEMA.ORG</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('FIB-DM') }">FIB-DM</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('schema') }">FIBO SCHEMA.ORG</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('FIB-DM') }">FIB-DM</router-link>
             </div>
           </li>
           <!-- <li class="nav-item dropdown">
@@ -129,13 +129,13 @@
               aria-expanded="false"
             >?</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" replace :to="{ path: router('contact') }">Contact</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('ontology-tools') }">Dedicated ontology tools</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('SMIF-UML') }" >SMIF/UML Diagrams for FIBO</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('development') }">FIBO Development Process</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('working-group') }">FIBO Working Groups</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('products') }">All FIBO Products</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router('schema') }">FIBO extension to schema.org</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('contact') }">Contact</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('ontology-tools') }">Dedicated ontology tools</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('SMIF-UML') }" >SMIF/UML Diagrams for FIBO</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('development') }">FIBO Development Process</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('working-group') }">FIBO Working Groups</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('products') }">All FIBO Products</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('schema') }">FIBO extension to schema.org</router-link>
             </div>
           </li> -->
         </ul>

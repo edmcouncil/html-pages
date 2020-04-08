@@ -2,7 +2,7 @@
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
       <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
-        <img id="logo-fibo" src="@/assets/img/logo.png">
+        <img id="logo-auto" src="@/assets/img/logo.png">
       </a>
       <button
         class="navbar-toggler"
@@ -49,13 +49,13 @@
         <ul class="navbar-nav ml-auto">
 
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router() }">About</router-link>
+            <router-link class="nav-link" :to="{ path: router() }">About</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('ontology') }">AUTO Viewer</router-link>
+            <router-link class="nav-link" :to="{ path: router('ontology') }">AUTO Viewer</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('documentation') }">Documentation</router-link>
+            <router-link class="nav-link" :to="{ path: router('documentation') }">Documentation</router-link>
           </li>
 <!--          <li class="nav-item dropdown">
             <a
@@ -68,17 +68,17 @@
               aria-expanded="false"
             >Documentation</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" replace :to="{ path: router('aim-and-scope') }">Aim and Scope</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('aim-and-scope') }">Aim and Scope</router-link>
             </div>
           </li> --> 
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('products') }">Products</router-link>
+            <router-link class="nav-link" :to="{ path: router('products') }">Products</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('applications') }">Applications</router-link>
+            <router-link class="nav-link" :to="{ path: router('applications') }">Applications</router-link>
           </li>          
           <li class="nav-item">
-            <router-link class="nav-link" replace :to="{ path: router('community') }">Community</router-link>
+            <router-link class="nav-link" :to="{ path: router('community') }">Community</router-link>
           </li>
 
 <!--          <li class="nav-item dropdown">
@@ -92,8 +92,8 @@
               aria-expanded="false"
             >EDMC Specs</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" replace :to="{ path: router() }">FIBO ontology</router-link>
-              <router-link class="dropdown-item" replace :to="{ path: router() }">AUTO ontology</router-link>
+              <router-link class="dropdown-item" :to="{ path: router() }">AUTO ontology</router-link>
+              <router-link class="dropdown-item" :to="{ path: router() }">AUTO ontology</router-link>
             </div>
           </li>  -->        
         </ul>
@@ -156,7 +156,7 @@ export default {
 .navbar-links li:before {
   border: none !important;
 }
-.navbarfibo {
+.navbarauto {
   align-self: end;
   justify-content: flex-end;
   padding-bottom: 15px;
@@ -296,7 +296,7 @@ export default {
   right: 0px;
 }
 @media (max-width: 1559px) {
-  #logo-fibo {
+  #logo-auto {
     width: 140px;
     margin-top: 43px;
   }
@@ -320,7 +320,7 @@ export default {
   }
 }
 @media (max-width: 991px) {
-  #logo-fibo {
+  #logo-auto {
     margin-bottom: 20px;
   }
 }
@@ -329,7 +329,7 @@ export default {
     margin-top: 40px;
     width: 260px;
   }
-  #logo-fibo {
+  #logo-auto {
     margin-bottom: 10px;
   }
   .carousel-caption.d-none {

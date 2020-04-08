@@ -12,7 +12,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO OWL</h2>
             <p>FIBO is developed as an ontology in the Web Ontology Language (OWL)</p>
-            <router-link replace :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD FIBO OWL</router-link>
+            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD FIBO OWL</router-link>
           </div>
         </div>
         <div class="carousel-item">
@@ -20,7 +20,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO SKOS Vocabulary</h2>
             <p>The FIBO vocabulary is distributed using the Simple Knowledge Organization System (SKOS)</p>
-            <router-link replace :to="{ path: router('vocabulary') }" class="btn-sl">DOWNLOAD FIBO SKOS Vocabulary</router-link>
+            <router-link :to="{ path: router('vocabulary') }" class="btn-sl">DOWNLOAD FIBO SKOS Vocabulary</router-link>
           </div>
         </div>
         <div class="carousel-item">
@@ -28,7 +28,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO Data Dictionary</h2>
             <p>FIBO data dictionary is downloadable in CSV and Excel formats</p>
-            <router-link replace :to="{ path: router('data-dictionary') }" class="btn-sl">DOWNLOAD FIBO Data Dictionary</router-link>
+            <router-link :to="{ path: router('data-dictionary') }" class="btn-sl">DOWNLOAD FIBO Data Dictionary</router-link>
           </div>
         </div>
       </div>
