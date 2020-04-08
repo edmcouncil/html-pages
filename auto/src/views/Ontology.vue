@@ -192,7 +192,7 @@
                   <p>
                     AUTO Viewer is a JAVA application that is specifically designed to access both the AUTO structure and its content
                     in the easiest possible way. It can serve both as a web application and REST API. AUTO Viewer is an open-source
-                    project that is hosted by EDM Council.  See <a href="https://github.com/edmcouncil/fibo-viewer">https://github.com/edmcouncil/fibo-viewer</a> for details.
+                    project that is hosted by EDM Council.  See <a href="https://github.com/edmcouncil/auto-viewer">https://github.com/edmcouncil/auto-viewer</a> for details.
                   </p>
 
                   <h3>AUTO structure and maturity levels</h3>
@@ -364,8 +364,8 @@ export default {
     let queryParam = '';
 
     if (this.$route.params && this.$route.params[1]) {
-      const ontologyQuery = window.location.pathname.replace('/fibo/ontology/', '');
-      queryParam = `https://spec.edmcouncil.org/fibo/ontology/${ontologyQuery}`;
+      const ontologyQuery = window.location.pathname.replace('/auto/ontology/', '');
+      queryParam = `https://spec.edmcouncil.org/auto/ontology/${ontologyQuery}`;
     } else if (this.$route.query && this.$route.query.query) {
       queryParam = this.$route.query.query || '';
     }
@@ -430,9 +430,9 @@ export default {
     },
     searchBox_optionSelected(selectedOption, id){
       var destRoute = selectedOption.iri;
-      if(destRoute.startsWith('https://spec.edmcouncil.org/fibo')){
+      if(destRoute.startsWith('https://spec.edmcouncil.org/auto')){
         //internal ontology
-        destRoute = destRoute.replace('https://spec.edmcouncil.org/fibo', '');
+        destRoute = destRoute.replace('https://spec.edmcouncil.org/auto', '');
         this.$router.push(destRoute);
       }else{
         //external ontology
@@ -512,10 +512,10 @@ export default {
       if (to.query && to.query.query) {
         queryParam = to.query.query || '';
       } else {
-        queryParam = 'https://spec.edmcouncil.org/fibo' + to.path;
+        queryParam = 'https://spec.edmcouncil.org/auto' + to.path;
       }
       this.query = queryParam;
-      if(this.query == 'https://spec.edmcouncil.org/fibo/ontology'){
+      if(this.query == 'https://spec.edmcouncil.org/auto/ontology'){
         this.query = '';
         this.data = null;
       }
