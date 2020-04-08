@@ -1,5 +1,5 @@
 process.env.VUE_APP_PRODUCT   = process.env.PRODUCT || process.env.ontology_publisher_current_product || 'htmlpages'
-process.env.VUE_APP_BRANCH    = (process.env.BRANCH || ( process.env.BRANCH_NAME === process.env.TAG_NAME ? 'master' : process.env.BRANCH_NAME || 'master')).toLowerCase()
+process.env.VUE_APP_BRANCH    = process.env.BRANCH || ( process.env.BRANCH_NAME === process.env.TAG_NAME ? 'master' : process.env.BRANCH_NAME || 'master')
 process.env.VUE_APP_TAG       = process.env.TAG || process.env.TAG_NAME || 'latest'
 process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || '2020Q1'
 
@@ -18,13 +18,13 @@ module.exports = {
   devServer: {
     proxy: {
       '^/search/json': {
-        target: 'https://spec.edmcouncil.org',
+        target: 'http://172.30.1.116:9000',
       },
       '^/module/json$': {
-        target: 'https://spec.edmcouncil.org',
+        target: 'http://172.30.1.116:9000',
       },
       '^/hint': {
-        target: 'https://spec.edmcouncil.org',
+        target: 'http://172.30.1.116:9000',
       },
     },
   },
