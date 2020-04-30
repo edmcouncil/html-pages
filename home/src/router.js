@@ -24,29 +24,6 @@ export default new Router({
       component: () => import(/* webpackChunkName: "Products" */ './views/Products.vue'),
     },
     {
-      path: '/members',
-      name: 'Members',
-      component: () => import(/* webpackChunkName: "Members" */ './views/Members.vue'),
-    },
-    {
-      path: '/applications',
-      name: 'Applications',
-      component: () => import(/* webpackChunkName: "Applications" */ './views/Applications.vue'),
-    },
-    {
-      path: '/community',
-      name: 'Community',
-      component: () => import(/* webpackChunkName: "Community" */ './views/Community.vue'),
-    },
-    {
-      path: '/ontology/:1?/:2?/:3?/:4?/:5?',
-      name: 'ontology',
-      component: () => import(/* webpackChunkName: "Schema" */ './views/Ontology.vue'),
-      meta: {
-        plainLayout: false, // Layout without banner
-      },
-    },
-    {
       path: '*',
       redirect: '/',
     },

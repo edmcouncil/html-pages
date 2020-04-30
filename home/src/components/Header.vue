@@ -52,50 +52,12 @@
             <router-link class="nav-link" :to="{ path: router() }">About</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('ontology') }">AUTO Viewer</router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('documentation') }">Documentation</router-link>
           </li>
-<!--          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >Documentation</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" :to="{ path: router('aim-and-scope') }">Aim and Scope</router-link>
-            </div>
-          </li> --> 
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('products') }">Products</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('applications') }">Applications</router-link>
-          </li>          
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('community') }">Community</router-link>
-          </li>
-
-<!--          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >EDMC Specs</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" :to="{ path: router() }">AUTO ontology</router-link>
-              <router-link class="dropdown-item" :to="{ path: router() }">AUTO ontology</router-link>
-            </div>
-          </li>  -->        
+          
         </ul>
       </div>
     </nav>

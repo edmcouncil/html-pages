@@ -11,19 +11,10 @@
                   <router-link :to="{ path: router() }">About AUTO</router-link>
                 </li>
                 <li>
-                  <router-link :to="{ path: router('ontology') }">AUTO Viewer</router-link>
-                </li>
-                <li>
                   <router-link :to="{ path: router('documentation') }">Documentation</router-link>
                 </li>
                 <li>
                   <router-link :to="{ path: router('products') }">Products</router-link>
-                </li>
-                <li>
-                  <router-link :to="{ path: router('applications') }">Applications</router-link>
-                </li>
-                <li>
-                  <router-link :to="{ path: router('community') }">Community</router-link>
                 </li>
               </ul>
             </div>

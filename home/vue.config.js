@@ -4,7 +4,7 @@ process.env.VUE_APP_TAG       = process.env.TAG || process.env.TAG_NAME || 'late
 process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || '2020Q1'
 
 module.exports = {
-  publicPath: `/${process.env.ONTPUB_FAMILY || 'auto'}/`,
+  publicPath: `/${process.env.ONTPUB_FAMILY || 'home'}/`,
   assetsDir: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
   indexPath: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/index.html`,
   css: {
@@ -15,29 +15,15 @@ module.exports = {
     },
   },
   runtimeCompiler: true,
-  devServer: {
-    proxy: {
-      '^/auto/search/json$': {
-        target: 'http://auto-viewer.spec.edmcouncil.org',
-        changeOrigin: true,
-        secure:false,
-        pathRewrite: {'^/auto': '/'},
-        //logLevel: 'debug'
-      },
-      '^/auto/module/json$': {
-        target: 'http://auto-viewer.spec.edmcouncil.org',
-        changeOrigin: true,
-        secure:false,
-        pathRewrite: {'^/auto': '/'},
-        //logLevel: 'debug'
-      },
-      '^/auto/hint': {
-        target: 'http://auto-viewer.spec.edmcouncil.org',
-        changeOrigin: true,
-        secure:false,
-        pathRewrite: {'^/auto': '/'},
-        //logLevel: 'debug'
-      },
-    },
-  },
+  // devServer: {
+  //   proxy: {
+  //     '^/auto/hint': {
+  //       target: 'http://auto-viewer.spec.edmcouncil.org',
+  //       changeOrigin: true,
+  //       secure:false,
+  //       pathRewrite: {'^/auto': '/'},
+  //       //logLevel: 'debug'
+  //     },
+  //   },
+  // },
 };
