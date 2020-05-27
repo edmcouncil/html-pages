@@ -8,7 +8,7 @@
 
                 <h3>What is FIBO</h3>
 
-                <img src="../assets/img/FIBO_logo.jpg" class="fibo-logo img-fluid" />
+                <img src="../assets/img/FIBO with tagline.png" width="25%" class="fibo-logo img-fluid" />
 
                 <p>
                     The Financial Industry Business Ontology (FIBO) defines the sets of things that are of interest in financial business applications and the ways that those things can relate to one another. In this way, FIBO can give meaning to any data (e.g., spreadsheets, relational databases, XML documents) that describe the business of finance.
