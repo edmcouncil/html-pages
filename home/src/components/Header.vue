@@ -49,15 +49,31 @@
         <ul class="navbar-nav ml-auto">
 
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router() }">About</router-link>
+            <router-link class="nav-link" :to="{ path: router() }">About OKG</router-link>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >EDMC Knowledge Graphs</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <router-link class="dropdown-item" :to="{ path: router('FIBO') }">Financial Industry Business Ontology (FIBO)</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('AUTO') }">Automotive Ontology (AUTO)</router-link>
+            </div>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('documentation') }">Documentation</router-link>
-          </li>
+            <router-link class="nav-link" :to="{ path: router('okgl') }">OKG Lab</router-link>
+          </li>                    
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('products') }">Products</router-link>
+            <router-link class="nav-link" :to="{ path: router('courses') }">OKG Training</router-link>
           </li>
-          
+
         </ul>
       </div>
     </nav>

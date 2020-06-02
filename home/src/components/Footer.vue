@@ -8,14 +8,23 @@
             <div class="col-md-6">
               <ul>
                 <li>
-                  <router-link :to="{ path: router() }">About AUTO</router-link>
+                  <router-link :to="{ path: router() }">About OKG</router-link>
                 </li>
                 <li>
-                  <router-link :to="{ path: router('documentation') }">Documentation</router-link>
+                  <router-link :to="{ path: router('courses') }">FIBO</router-link>
                 </li>
                 <li>
+                  <router-link :to="{ path: router('courses') }">AUTO</router-link>
+                </li>                
+                <li>
+                  <router-link :to="{ path: router('okgl') }">OKG Lab</router-link>
+                </li>                                
+                <li>
+                  <router-link :to="{ path: router('courses') }">OKG Traning</router-link>
+                </li>
+                <!--<li>
                   <router-link :to="{ path: router('products') }">Products</router-link>
-                </li>
+                </li>-->
               </ul>
             </div>
             <!-- <div class="col-md-6">

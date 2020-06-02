@@ -5,30 +5,40 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="../assets/img/baner2.png" alt="First slide">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="First slide">
           <div class="carousel-caption d-none d-md-block">
-            <h2>AUTOMOTIVE ONTOLOGY</h2>
-            <p>...</p>
-            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
+            <h2>Open Knowledge Graph Training</h2>
+            <p>EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms.</p>
+            <router-link :to="{ path: router('courses') }" class="btn-sl">Check and register!</router-link>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/baner2.png" alt="Second slide">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="Third slide">
           <div class="carousel-caption d-none d-md-block">
-            <h2>AUTOMOTIVE ONTOLOGY</h2>
-            <p>...</p>
-            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
+            <h2>OPEN KNOWLEDGE GRAPH LAB</h2>
+            <p>We deliver Graph Powered Agile Intelligence</p>
+            <router-link :to="{ path: router('OWL') }" class="btn-sl">OKGL MISSION</router-link>
+          </div>
+        </div>        
+        <div class="carousel-item">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="Second slide">
+          <div class="carousel-caption d-none d-md-block">
+            <h2>FIBO</h2>
+            <p>The Financial Industry Business Ontology (FIBO) defines the sets of things that are of interest in financial business applications and the ways that those things can relate to one another</p>
+            <router-link :to="{ path: router('OWL') }" class="btn-sl">Official FIBO website</router-link>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/baner2.png" alt="Third slide">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="Third slide">
           <div class="carousel-caption d-none d-md-block">
-            <h2>AUTOMOTIVE ONTOLOGY</h2>
-            <p>...</p>
-            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
+            <h2>AUTO</h2>
+            <p>The Automotive Ontology (AUTO) defines the shared conceptual structures in the automotive industry.</p>
+            <router-link :to="{ path: router('OWL') }" class="btn-sl">Official AUTO website</router-link>
           </div>
         </div>
       </div>

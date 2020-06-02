@@ -3,20 +3,40 @@
         <main>
             <article>
                 <h1>
-                    <span>What is Automotive Ontology (AUTO)</span>
+                    <span>About</span>
                 </h1>
-<img src="../assets/img/aowg_logo.png" class="automotive-logo img-fluid" />
-
-                <p>The Automotive Ontology (AUTO) defines the shared conceptual structures in the automotive industry. It is an OWL ontology. It is build upon the <a href="https://schema.org/docs/automotive.html" v-on:click="outboundLinkClick('https://schema.org/docs/automotive.html')"> auto schema.org extension </a> created by the <a href="https://www.w3.org/community/gao/" v-on:click="outboundLinkClick('https://www.w3.org/community/gao/')"> W3C Automotive Ontology Community Group</a> and it refers to the essential real-world objects related to popular vehicles like cars, buses (coaches), and motorcycles.</p>
-                <br>
+<img style='width: 70%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/Open Knowledge Graph logo.png" alt="Open FIBO" />
 
 
-<p>The <a href="https://schema.org/docs/automotive.html" v-on:click="outboundLinkClick('https://schema.org/docs/automotive.html')"> auto schema.org extension </a>authors were motivated by the principles of simplicity and practicality. ‘Simplicity’ led to an extremely small set of terms, resulting in a lean ontology, whilst ‘practicality’ limited the scope of terms to reflect the most important objects, as seen from the automotive market perspective. The principle of ‘Occam’s Razor’ dictated the focus on terms, reflecting general consumer preferences observed from the perspective of their searches and typical digital activities related to automobiles.
-Thanks to such an approach, the ontology has immediate application for the vehicle description in the carmakers and the dealers’ websites, informational and e-commerce alike.</p>  
+<h4>Why Graphs</h4> 
 
-<br>
-<p>However, this is just a beginning. It is our intention to develop it into truly foundational ontology for the automotive industry, that can help in creation of Knowledge Graphs, can add power to the Machine Learning algorithms and much more.
-</p>
+<h5>This is the world we living</h5>
+
+<p>We live in a hyper-connected world where an invisible bio-adversary can deliver a toxic shock to our global system with a largely unmeasurable impact on our Lives and Livelihood. As businesses strive to understand the Risk impact, assess their business resiliency and pivot to growth, we are struggling to stitch together holistic, continuous, and contextually relevant Intelligence at a scale and speed we need.</p><br>
+
+<p>Per IDC estimation, in 2020 we’ll produce and consume more than 59 Zettabytes of data with 26% growth over next 3 years and a larger portion of this will be un-structured data. While we have made tremendous progress in applying machine intelligence to understand and derive Insights from our internal data, our data ecosystems remain disjointed with significant lack of Trust. Our current architectures and technology are not able to connect and integrate internal and external data to enable Intelligence we need. This further inhibits our ability to develop newer Products and Services and maintain and grow a trusted relationship with our customers and partners while lowering our Risk profile.</p><br>
+
+<h5>What we really need?</h5>
+<p>What we really need is new strategy, architecture, and solutions to develop the Agile Intelligence we urgently need. <b>Knowledge Graphs</b> are well suited to serve as the DNA of this new architecture. Knowledge Graphs mimic how humans brain thinks – in terms of connections and relationships. Adding advanced machine intelligence to the underlying Graph databases enables the Enterprise Digital Brain.</p><br>
+
+
+<h4>Market Size, Growth Trajectory</h4>
+<p>Per Marketsandmarkets, Knowledge Graph market is poised to experience hyper-growth ($3B and 23% CAGR by 2023). Other industry analysts such as Gartner are bullish on the Knowledge Graph market trends. <b>Gartner lists Graph powered augmented analytics to be among top 10 trends with 30% of the global organizations making Graph powered decisions</b>. </p>
+
+<h5>Key use cases of Knowledge Graphs</h5>
+<p>Key use cases of Knowledge Graphs range from Risk, Fraud, Recommendation Engines, Supply-Chain analytics, Customer analysis. Industries such as Financial Services, Insurance, Life-Sciences, Healthcare are leading the way. Cloud based Knowledge Graph applications Marketplaces are in development.</p>
+
+<h4>EDMC Advocates Knowledge Graph Adoption</h4> 
+<!--<img src="../assets/img/EDM-council-RGB_200w.png" class="fibo-logo img-fluid"/>-->
+
+<p>In particula, the role of EDMC is to</p>
+<ul>
+    <li>Provide Knowledge Graph Awareness, Training and Certification Programs</li>
+    <li>Support Shared Industry Ontologies as Accelerators to Business Solutions</li>
+    <li>Support a Community of Knowledge Graph Advocates</li>
+</ul>
+
+
 
 
 

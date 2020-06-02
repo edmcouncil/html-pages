@@ -77,7 +77,7 @@ hr {
   position: absolute;
   top: 40%;
   left: 10%;
-  opacity: 0.07;
+  opacity: 0.01;
 }
 
 @media (max-width: 1559px) {
