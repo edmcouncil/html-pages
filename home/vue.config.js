@@ -4,7 +4,7 @@ process.env.VUE_APP_TAG       = process.env.TAG || process.env.TAG_NAME || 'late
 process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || '2020Q1'
 
 module.exports = {
-  publicPath: `/${process.env.ONTPUB_FAMILY || ''}/`,
+  publicPath: `/${process.env.ONTPUB_FAMILY || ''}${process.env.ONTPUB_FAMILY ? '/' : ''}`,
   assetsDir: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
   indexPath: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/index.html`,
   css: {
