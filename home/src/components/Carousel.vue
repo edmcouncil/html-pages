@@ -14,7 +14,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>Open Knowledge Graph Training</h2>
             <p>EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms.</p>
-            <router-link :to="{ path: router('courses') }" class="btn-sl">Check and register!</router-link>
+            <router-link :to="{ path: router('courses') }" class="btn-sl">CHECK AND REGISTER</router-link>
           </div>
         </div>
         <div class="carousel-item">
@@ -22,7 +22,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>OPEN KNOWLEDGE GRAPH LAB</h2>
             <p>We deliver Graph Powered Agile Intelligence</p>
-            <router-link :to="{ path: router('OWL') }" class="btn-sl">OKGL MISSION</router-link>
+            <router-link :to="{ path: router('OKGL') }" class="btn-sl">OKGL MISSION</router-link>
           </div>
         </div>        
         <div class="carousel-item">
@@ -30,7 +30,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO</h2>
             <p>The Financial Industry Business Ontology (FIBO) defines the sets of things that are of interest in financial business applications and the ways that those things can relate to one another</p>
-            <router-link :to="{ path: router('OWL') }" class="btn-sl">Official FIBO website</router-link>
+            <a href="https://spec.edmcouncil.org/fibo/" class="btn-sl" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')">Official FIBO website</a>
           </div>
         </div>
         <div class="carousel-item">
@@ -38,7 +38,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTO</h2>
             <p>The Automotive Ontology (AUTO) defines the shared conceptual structures in the automotive industry.</p>
-            <router-link :to="{ path: router('OWL') }" class="btn-sl">Official AUTO website</router-link>
+            <a href="https://spec.edmcouncil.org/auto/" class="btn-sl" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">Official AUTO website</a>
           </div>
         </div>
       </div>
