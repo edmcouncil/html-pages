@@ -11,10 +11,10 @@
                   <router-link :to="{ path: router() }">About OKG</router-link>
                 </li>
                 <li>
-                  <router-link :to="{ path: router('courses') }">FIBO</router-link>
+                  <a href="https://spec.edmcouncil.org/fibo/" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')">FIBO</a>
                 </li>
                 <li>
-                  <router-link :to="{ path: router('courses') }">AUTO</router-link>
+                  <a href="https://spec.edmcouncil.org/auto/" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">AUTO</a>
                 </li>                
                 <li>
                   <router-link :to="{ path: router('okgl') }">OKG Lab</router-link>
