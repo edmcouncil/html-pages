@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 //
-// The main Jenkinsfile for AUTO html-pages
+// The main Jenkinsfile for html-pages
 //
 // Note that this file is in the so called "Declarative Pipeline" syntax
 //
@@ -8,15 +8,15 @@
 //
 //
 // Jenkins requirements:
-//	* "pipeline-npm" plugin + "auto" Npm config file
+//	* "pipeline-npm" plugin + "home" Npm config file
 
-env.ONTPUB_FAMILY='auto'
+env.ONTPUB_FAMILY=''
 env.ONTPUB_SPEC_HOST='spec.edmcouncil.org'
 env.ONTPUB_IS_DARK_MODE='1'
 env.LC_ALL='en_US.UTF-8'
 env.LANG='en_US.UTF-8'
 env.LANGUAGE='en_US.UTF-8'
-env.NGINX_SPEC_ROOT='/opt/html-pages/auto'
+env.NGINX_SPEC_ROOT='/opt/html-pages'
 
 properties([
   buildDiscarder(
@@ -48,8 +48,8 @@ node {
         try {
           echo "Branch is ${env.BRANCH_NAME}..."
           checkout scm
-          dir('auto') {
-            withNPM(npmrcConfig:'auto') {
+          dir('home') {
+            withNPM(npmrcConfig:'home') {
               sh "set &>${env.BUILD_TAG}.log"
               echo "Performing npm install..."
               sh "npm --no-progress --no-color install &>>${env.BUILD_TAG}.log"
@@ -58,7 +58,7 @@ node {
               sh "mv -vf ${env.BUILD_TAG}.log dist/"
               echo 'Stashing dist/**'
               dir('dist') {
-                stash name: "auto", includes: "htmlpages/**,*.log"
+                stash name: "home", includes: "htmlpages/**,*.log"
               }
             }
           }
@@ -80,7 +80,7 @@ node {
         try {
           dir("${NGINX_SPEC_ROOT}") {
             echo 'Unstashing the output of the publish stage'
-            unstash 'auto'
+            unstash 'home'
             archiveArtifacts artifacts: '*.log', allowEmptyArchive: true
           }
         } catch (e) {
