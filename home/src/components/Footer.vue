@@ -22,9 +22,9 @@
                 <li>
                   <router-link :to="{ path: router('courses') }">OKG Traning</router-link>
                 </li>
-                <!--<li>
-                  <router-link :to="{ path: router('products') }">Products</router-link>
-                </li>-->
+                <li>
+                  <router-link :to="{ path: router('contact') }">Contact Person</router-link>
+                </li>
               </ul>
             </div>
             <!-- <div class="col-md-6">

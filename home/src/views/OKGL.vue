@@ -22,7 +22,7 @@
     <li>(2) Develop open source, re-usable, Plug and Play knowledge Graphs of high mutualized value via a Cloud marketplace with Sandbox to test drive use-cases in an accelerated manner.</li>
     <li>(3) Provide training and mentorship to participants on Knowledge Graph architectures, supporting Ontology development while promoting adoption of relevant industry standards.</li>
     <li>(4) Develop and provide industry benchmarks to demonstrate adoption across various industries.</li>            
-</ul><br>
+</ul>
 
 <h4>OKGL roll-out</h4>
   
