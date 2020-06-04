@@ -29,6 +29,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "Products" */ './views/Courses.vue'),
     },
     {
+      path: '/contact',
+      name: 'Contact',
+      component: () => import(/* webpackChunkName: "Products" */ './views/Contact.vue'),
+    },    
+    {
       path: '*',
       redirect: '/',
     },

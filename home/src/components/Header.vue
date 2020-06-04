@@ -63,8 +63,8 @@
               aria-expanded="false"
             >EDMC Knowledge Graphs</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" :to="{ path: router('FIBO') }">Financial Industry Business Ontology (FIBO)</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('AUTO') }">Automotive Ontology (AUTO)</router-link>
+              <a href="https://spec.edmcouncil.org/fibo/" class="dropdown-item" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')">Financial Industry Business Ontology (FIBO)</a>
+              <a href="https://spec.edmcouncil.org/auto/" class="dropdown-item" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">Automotive Ontology (AUTO)</a>
             </div>
           </li>
           <li class="nav-item">
@@ -73,6 +73,9 @@
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('courses') }">OKG Training</router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: router('contact') }">Contact</router-link>
+          </li>          
 
         </ul>
       </div>
