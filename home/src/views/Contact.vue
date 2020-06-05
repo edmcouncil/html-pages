@@ -5,21 +5,27 @@
         <span>Contact Person</span>
       </h1>
 
-                <h4><span>Harsh Sharma, PhD</span></h4>
-<img class="img-avatar" src="../assets/img/harsh.jpeg" alt="Harsh Sharma, PhD" align="left" />                <ul>
-                    <li>Pragmatic, business value driven Global Data Management Executive dedicated to helping organizations transform their data into a high value ‘Business Asset’.</li>
-                    <li>Proven track record in delivery of innovative solutions to support business imperatives such as regulatory compliance & audit, risk management, data simplification, operational efficiency and monetizing data assets.</li>
-                    <li>Industry standards leader and strategic advisor to C-level business & IT leadership across private and public sector.</li>
-                    <li>Adept at developing high-performance, award winning teams to deliver results in ever-changing business world.</li>                    
+                <h4><span>Michael Meriton, EDMC Co-Founder & COO</span></h4>
+<img class="img-avatar" src="../assets/img/edm_staff_michael_meriton.png" alt="Harsh Sharma, PhD" align="left" />                <ul>
+                    <li>Mike is a Co-Founder of the EDM Council and served as the first Chairman and active Board member since inception in 2005. </li>
+                    <li>Mike joined in 2015 as a Senior Advisor, promoted to COO in 2020, to lead Industry Engagement strategy, new member services and Council Operations. </li>
+                    <li>Previously, Mike was the CEO of GoldenSource and held key executive roles at CheckFree (Fiserv), D&B and Oracle.</li>
                 </ul>      
+
+
+
+ 
+
+
+
 
                       
       <p class="text">
         <a
           class="bttn"
           id="email_1524650877557"
-          href="mailto:hsharma@edmcouncil.org?subject=OKGL"
-        ><b>Contact Harsh Sharma</b></a> to learn more about OKGL.</p><br><br>
+          href="mailto:mmeriton@edmcouncil.org?subject=OKGL"
+        ><b>Contact Michael Meriton</b></a> to learn more about OKG initiative and OKG training opportunities.</p><br><br>
 
 
 <!-- Contacts

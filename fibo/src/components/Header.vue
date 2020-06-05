@@ -48,8 +48,11 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router() }">About</router-link>
+            <router-link class="nav-link" :to="{ path: router() }">About FIBO</router-link>
           </li>
+          <li class="nav-item">
+            <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG</a>
+          </li>          
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('ontology') }">FIBO VIEWER</router-link>
           </li>
@@ -99,7 +102,7 @@
               aria-expanded="false"
             >TRAINING</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" :to="{ path: router('courses') }">Courses</router-link>
+              <a href="https://spec.edmcouncil.org/courses" class="dropdown-item" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/courses')">OKG Courses</a>
               <router-link class="dropdown-item" :to="{ path: router('use-cases') }">Use cases</router-link>
             </div>
           </li>

@@ -9,14 +9,6 @@
 
       </ol>
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img class="d-block w-100" src="../assets/img/baner1.png" alt="First slide">
-          <div class="carousel-caption d-none d-md-block">
-            <h2>Open Knowledge Graph Training</h2>
-            <p>EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms.</p>
-            <router-link :to="{ path: router('courses') }" class="btn-sl">CHECK AND REGISTER</router-link>
-          </div>
-        </div>
         <div class="carousel-item">
           <img class="d-block w-100" src="../assets/img/baner1.png" alt="Third slide">
           <div class="carousel-caption d-none d-md-block">
@@ -24,7 +16,15 @@
             <p>We deliver Graph Powered Agile Intelligence</p>
             <router-link :to="{ path: router('OKGL') }" class="btn-sl">OKGL MISSION</router-link>
           </div>
-        </div>        
+        </div>         
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="First slide">
+          <div class="carousel-caption d-none d-md-block">
+            <h2>Open Knowledge Graph Training</h2>
+            <p>EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms.</p>
+            <router-link :to="{ path: router('courses') }" class="btn-sl">CHECK AND REGISTER</router-link>
+          </div>
+        </div>       
         <div class="carousel-item">
           <img class="d-block w-100" src="../assets/img/baner1.png" alt="Second slide">
           <div class="carousel-caption d-none d-md-block">

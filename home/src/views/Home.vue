@@ -8,7 +8,7 @@
 <img style='width: 70%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/Open Knowledge Graph logo.png" alt="Open FIBO" />
 
 
-<h4>Why Graphs</h4> 
+<h4>Why Knowledge Graphs</h4> 
 
 <h5>This is the world we living</h5>
 <p  class="text">We live in a hyper-connected world where an invisible bio-adversary can deliver a toxic shock to our global system with a largely unmeasurable impact on our Lives and Livelihood. As businesses strive to understand the Risk impact, assess their business resiliency and pivot to growth, we are unable to  stitch together holistic, continuous, and contextually relevant Intelligence at a scale and speed we need to deal with the 'New Normal'.</p>

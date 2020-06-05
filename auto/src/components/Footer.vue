@@ -11,6 +11,9 @@
                   <router-link :to="{ path: router() }">About AUTO</router-link>
                 </li>
                 <li>
+                  <a href="https://spec.edmcouncil.org" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG</a>
+                </li>                  
+                <li>
                   <router-link :to="{ path: router('ontology') }">AUTO Viewer</router-link>
                 </li>
                 <li>

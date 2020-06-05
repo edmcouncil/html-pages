@@ -49,8 +49,11 @@
         <ul class="navbar-nav ml-auto">
 
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router() }">About</router-link>
+            <router-link class="nav-link" :to="{ path: router() }">About AUTO</router-link>
           </li>
+          <li class="nav-item">
+            <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG</a>
+          </li>            
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('ontology') }">AUTO Viewer</router-link>
           </li>

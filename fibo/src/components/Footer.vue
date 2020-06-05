@@ -8,8 +8,11 @@
             <div class="col-md-6">
               <ul>
                 <li>
-                  <router-link :to="{ path: router() }">About</router-link>
+                  <router-link :to="{ path: router() }">About FIBO</router-link>
                 </li>
+                <li>
+                  <a href="https://spec.edmcouncil.org" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG</a>
+                </li>                
                 <li>
                   <router-link :to="{ path: router('ontology') }">FIBO Viewer</router-link>
                 </li>
@@ -36,7 +39,7 @@
                   <router-link :to="{ path: router('data-dictionary') }">FIBO data dict.</router-link>
                 </li>
                 <li>
-                  <router-link :to="{ path: router('courses') }">FIBO courses</router-link>
+                  <a href="https://spec.edmcouncil.org/courses" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/courses')">FIBO courses</a>
                 </li>
                 <li>
                   <router-link :to="{ path: router('use-cases') }">FIBO use cases</router-link>
