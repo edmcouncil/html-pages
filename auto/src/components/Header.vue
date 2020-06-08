@@ -58,7 +58,7 @@
             <router-link class="nav-link" :to="{ path: router('ontology') }">AUTO Viewer</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('documentation') }">Documentation</router-link>
+            <router-link class="nav-link" :to="{ path: router('documentation') }">Docs</router-link>
           </li>
 <!--          <li class="nav-item dropdown">
             <a

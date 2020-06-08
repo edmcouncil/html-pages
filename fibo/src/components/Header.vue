@@ -65,7 +65,7 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-            >Documentation</a>
+            >Docs</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <router-link class="dropdown-item" :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link>
               <!-- <router-link class="dropdown-item" :to="{ path: router('development-process') }">Development process</router-link>
