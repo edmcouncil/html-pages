@@ -44,31 +44,25 @@
                     <h4>
                         <span>Knowledge Graph and FIBO Course</span>
                     </h4>
-                    <p>In these challenging times EDMC will provide on <b>May 5-6</b>, <b>May 12-13</b> and <b>May 19-20</b> with&nbsp;<b><em>Knowledge Graph and FIBO Course</em></b>:</p>
+                    <p>In these challenging times EDMC will provide on <b>July 13-14 (830am-230pm BST / 930am-330pm CEST / 1-7pm IST daily)</b> and <b>July 27-28 (8am-2pm Pacific / 11am-5pm Eastern daily)</b> with&nbsp;<b><em>Knowledge Graph and FIBO Course</em></b>:</p>
 
                     <h5>
-                        <span>3 class timezones, 6 hours, over 2 consecutive days course</span>
+                        <span>2 class timezones, 6 hours, over 2 consecutive days course</span>
                     </h5>
 
                     <ul>
+                       <li><b>UK / EUROPE / INDIA</b></li>
+                            <ul>
+                            <li>July 13-14</li>
+                            <li>830am-230pm BST / 930am-330pm CEST / 1-7pm IST daily</li>
+                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1386801&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
+                            </ul>                        
                         <li><b>AMERICAS</b></li>
                         <ul>
-                            <li>May 5-6</li>
-                            <li>11a – 5p EDT / 8a – 2p PDT</li>
-                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1359357&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
+                            <li>July 27-28</li>
+                            <li>8am-2pm Pacific / 11am-5pm Eastern daily</li>
+                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1386800&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
 
-                        </ul>
-                        <li><b>APAC</b></li>
-                            <ul>
-                            <li>May 12-13</li>
-                            <li>8a - 2p SGT / 10a – 4p AEDT</li>
-                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1359364&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
-                        </ul>
-                        <li><b>UK / EUROPE / INDIA</b></li>
-                            <ul>
-                            <li>May 19-20</li>
-                            <li>UK 8.30a - 2.30p GMT / Europe 9.30a - 3.30p CET / India 1 - 7p IST</li>
-                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1359363&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
                         </ul>
                     </ul>
 
