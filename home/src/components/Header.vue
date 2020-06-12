@@ -52,7 +52,7 @@
             <router-link class="nav-link" :to="{ path: router() }">About OKG</router-link>
           </li>
 
-          <li class="nav-item dropdown">
+          <!--<li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -66,13 +66,19 @@
               <a href="https://spec.edmcouncil.org/fibo/" class="dropdown-item" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')">Financial Industry Business Ontology (FIBO)</a>
               <a href="https://spec.edmcouncil.org/auto/" class="dropdown-item" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">Automotive Ontology (AUTO)</a>
             </div>
-          </li>
+          </li>-->                   
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('okgl') }">OKG Lab</router-link>
-          </li>                    
+          </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('courses') }">OKG Training</router-link>
+          </li>                               
+          <li class="nav-item">
+            <a href="https://spec.edmcouncil.org/fibo/" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')">FIBO home</a>
           </li>
+          <li class="nav-item">
+            <a href="https://spec.edmcouncil.org/auto/" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">AUTO home</a>
+          </li>                     
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('contact') }">Contact</router-link>
           </li>          
