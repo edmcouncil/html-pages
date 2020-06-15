@@ -37,7 +37,7 @@
                href="mailto:rrummel@edmcouncil.org?subject=Question about the OKG Training"
                ><b>Contact Robert Rummel</b></a> to learn more about Open Knowledge Graph training opportunities.
          </p>
-         <br><br>
+         <br><br><br><br>
 
 
          <h5><span>Colin Gibson, EMEA Regional Advocate</span></h5>
@@ -53,7 +53,7 @@
                href="mailto:cgibson@edmcouncil.org?subject=Question about the OKG Training"
                ><b>Contact Colin Gibson</b></a> to learn more about Open Knowledge Graph training opportunities.
          </p>
-         <br><br>
+         <br>
 
          <h5><span>Preeti Singh, VP & Country Head - India</span></h5>
          <img class="img-avatar" src="../assets/img/edm_staff_preeti_singh.png" alt="Preeti Singh, VP & Country Head - India" align="left" />                
