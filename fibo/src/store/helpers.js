@@ -15,13 +15,13 @@ export default {
     router(product) {
       const s = [];
       if (typeof product === 'string') s.push(product);
-      return `/${s.join('/')}${typeof this.$route.query.tag === 'string' ? `?tag=${this.$route.query.tag}` : ''}`;
+      return `/${s.join('/')}${typeof this.$route.query.branch === 'string' ? `?branch=${this.$route.query.branch}` : ''}`;
     },
     hrefD(path, product) {
       return require('path').join(process.env.BASE_URL,
         (typeof product	=== 'string' ? product : this.$options.name),
-        this.branch,
-        (typeof this.$route.query.tag === 'string' ? this.$route.query.tag : this.tag),
+        (typeof this.$route.query.branch === 'string' ? this.$route.query.branch : this.branch),
+        this.tag,
         (typeof path	=== 'string' ? path : ''));
     },
     hrefP(path, product, addBaseUrl = true) {
