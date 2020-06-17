@@ -8,25 +8,22 @@
             <div class="col-md-6">
               <ul>
                 <li>
-                  <router-link :to="{ path: router() }">About AUTO</router-link>
+                  <router-link :to="{ path: router() }">About OKG</router-link>
                 </li>
                 <li>
-                  <a href="https://spec.edmcouncil.org" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG</a>
-                </li>                  
-                <li>
-                  <router-link :to="{ path: router('ontology') }">AUTO Viewer</router-link>
+                  <a href="https://spec.edmcouncil.org/fibo/" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')">FIBO</a>
                 </li>
                 <li>
-                  <router-link :to="{ path: router('documentation') }">Documentation</router-link>
+                  <a href="https://spec.edmcouncil.org/auto/" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">AUTO</a>
+                </li>                
+                <li>
+                  <router-link :to="{ path: router('okgl') }">OKG Lab</router-link>
+                </li>                                
+                <li>
+                  <router-link :to="{ path: router('courses') }">OKG Traning</router-link>
                 </li>
                 <li>
-                  <router-link :to="{ path: router('products') }">Products</router-link>
-                </li>
-                <li>
-                  <router-link :to="{ path: router('applications') }">Applications</router-link>
-                </li>
-                <li>
-                  <router-link :to="{ path: router('community') }">Community</router-link>
+                  <router-link :to="{ path: router('contact') }">Contact Person</router-link>
                 </li>
               </ul>
             </div>

@@ -49,42 +49,10 @@
         <ul class="navbar-nav ml-auto">
 
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router() }">About AUTO</router-link>
-          </li>
-          <li class="nav-item">
-            <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG</a>
-          </li>            
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('ontology') }">AUTO Viewer</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('documentation') }">Docs</router-link>
-          </li>
-<!--          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >Documentation</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" :to="{ path: router('aim-and-scope') }">Aim and Scope</router-link>
-            </div>
-          </li> --> 
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('products') }">Products</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('applications') }">Applications</router-link>
-          </li>          
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('community') }">Community</router-link>
+            <router-link class="nav-link" :to="{ path: router() }">About OKG</router-link>
           </li>
 
-<!--          <li class="nav-item dropdown">
+          <!--<li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -93,12 +61,28 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-            >EDMC Specs</a>
+            >EDMC Knowledge Graphs</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" :to="{ path: router() }">AUTO ontology</router-link>
-              <router-link class="dropdown-item" :to="{ path: router() }">AUTO ontology</router-link>
+              <a href="https://spec.edmcouncil.org/fibo/" class="dropdown-item" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')">Financial Industry Business Ontology (FIBO)</a>
+              <a href="https://spec.edmcouncil.org/auto/" class="dropdown-item" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">Automotive Ontology (AUTO)</a>
             </div>
-          </li>  -->        
+          </li>-->                   
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: router('okgl') }">OKG Lab</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: router('courses') }">OKG Training</router-link>
+          </li>                               
+          <li class="nav-item">
+            <a href="https://spec.edmcouncil.org/fibo/" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')">FIBO home</a>
+          </li>
+          <li class="nav-item">
+            <a href="https://spec.edmcouncil.org/auto/" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">AUTO home</a>
+          </li>                     
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: router('contact') }">Contact</router-link>
+          </li>          
+
         </ul>
       </div>
     </nav>
