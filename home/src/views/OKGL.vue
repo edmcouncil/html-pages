@@ -14,7 +14,7 @@
 
 
 <h4>OKGL Mission, Participants</h4>
-
+<img style='width: 45%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/gpi.png" alt="Open FIBO" align="right"/>
 
 <p class="text">EDMC recognizes the urgent need to bring this new architecture and approach to its members and beyond. In consultations with various members, analysts, and software vendors, we have launched the Open Knowledge Graph Lab (OKGL). OKGL mission is to:</p>
 <ul>

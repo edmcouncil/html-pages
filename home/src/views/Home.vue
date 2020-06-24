@@ -11,6 +11,8 @@
 <h4>Why Knowledge Graphs</h4> 
 
 <h5>This is the world we live in</h5>
+<img style='width: 45%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/60s.png" alt="Open FIBO" align="right" />
+
 <p  class="text">We live in a hyper-connected world where an invisible bio-adversary can deliver a toxic shock to our global system with a largely unmeasurable impact on our Lives and Livelihood. As businesses strive to understand the Risk impact, assess their business resiliency, and pivot to growth, we are unable to  stitch together holistic, continuous, and contextually relevant Intelligence at a scale and speed we need to deal with the 'New Normal'.</p>
 
 <p class="text">Per IDC estimation, in 2020, we’ll produce and consume more than 59 Zettabytes of data with 26% growth over the next 3 years, and a larger portion of this will be unstructured data. While we have made tremendous progress in applying machine intelligence to understand and derive Insights from our internal data, our data ecosystems remain disjointed with a significant lack of Trust. Our current architectures and technology are not able to connect and integrate internal and external data to enable Agile Intelligence we need. This further inhibits our ability to develop newer Products and Services,  maintain and grow a trusted relationship with our customers and partners while lowering our Risk profile.</p>
