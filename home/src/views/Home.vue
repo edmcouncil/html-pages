@@ -2,6 +2,12 @@
     <div class="container">
         <main>
             <article>
+
+                <h1>
+                    <span> webinar: Knowledge Graph in Action</span>
+                </h1>
+<a href="https://register.gotowebinar.com/register/3618900380478224"><img style='width: 70%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/OKGWebinar.png" alt="REGISTER" /></a><br>
+
                 <h1>
                     <span>About</span>
                 </h1>
