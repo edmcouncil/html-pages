@@ -11,24 +11,24 @@
           <img class="d-block w-100" src="../assets/img/baner2.png" alt="First slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE ONTOLOGY</h2>
-            <p>...</p>
-            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
+            <p>The entirely new branch of the EDMC OKG initiative focused on Automotive Industry applications of Knowledge Graphs</p>
+            <router-link :to="{ path: router('') }" class="btn-sl">ABOUT</router-link>
           </div>
         </div>
         <div class="carousel-item">
           <img class="d-block w-100" src="../assets/img/baner2.png" alt="Second slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE ONTOLOGY</h2>
-            <p>...</p>
-            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
+            <p>A wide range of vital applications from the unique aspects of traditional and autonomous vehicles safety to the cross-industry edge computing applications</p>
+            <router-link :to="{ path: router('Applications') }" class="btn-sl">APPLICATIONS</router-link>
           </div>
         </div>
         <div class="carousel-item">
           <img class="d-block w-100" src="../assets/img/baner2.png" alt="Third slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE ONTOLOGY</h2>
-            <p>...</p>
-            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD AUTOMOTIVE ONTOLOGY OWL</router-link>
+            <p>The new activity will engage members of existing  W3C’s Automotive Ontology Community Group</p>
+            <router-link :to="{ path: router('Community') }" class="btn-sl">COMMUNITY</router-link>
           </div>
         </div>
       </div>
