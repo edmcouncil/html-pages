@@ -404,8 +404,8 @@ export default {
     let queryParam = '';
 
     if (this.$route.params && this.$route.params[1]) {
-      const ontologyQuery = window.location.pathname.replace(/^\/fibo\/ontology\/(viewer\/)?/, '');
-      queryParam = `https://spec.edmcouncil.org/fibo/ontology/${ontologyQuery}`;
+      const p = window.location.pathname.match(/^\/([^\/]+)\/[^\/]+\/(.*)$/);
+      queryParam = 'https://spec.edmcouncil.org/' + p[1] + '/ontology/' + p[2].replace(/^(?:[^\/]+\/[^\/]+\/)?([A-Z]{2,4}\/.*)$/,'$1');
     } else if (this.$route.query && this.$route.query.query) {
       queryParam = this.$route.query.query || '';
     }
