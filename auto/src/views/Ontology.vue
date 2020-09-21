@@ -473,7 +473,7 @@ export default {
 
       this.searchBox.isLoading = true
       try {
-        const result = await getHint(query, '/auto/hint');
+        const result = await getHint(query, '/api/hint');
         const hints = await result.json();
         hints.forEach(el => {
           el.labelForInternalSearch = el.label + " "; //this is hacky to make it possible to search text (add tag) the same as the label in hint results
