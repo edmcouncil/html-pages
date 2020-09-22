@@ -109,7 +109,7 @@
                     {{data.iri}}
                     <button v-clipboard="data.iri" type="button" class="btn btn-sm btn-outline-primary">Copy</button>
                   </h6>
-                  <h6 class="card-subtitle mb-2 text-muted" v-if="data.qName">
+                  <h6 class="card-subtitle mb-2 text-muted" v-if="data.qName && data.qName !== ''">
                     {{data.qName}}
                     <button v-clipboard="data.qName.replace('QName: ', '')" type="button" class="btn btn-sm btn-outline-primary">Copy</button>
                   </h6>
