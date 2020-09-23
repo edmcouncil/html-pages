@@ -515,7 +515,7 @@ export default {
 
       this.searchBox.isLoading = true;
       try {
-        const result = await getHint(query, '/api/hint');
+        const result = await getHint(query, '/fibo/ontology/api/hint');
         const hints = await result.json();
         hints.forEach((el) => {
           // eslint-disable-next-line no-param-reassign
