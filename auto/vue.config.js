@@ -17,21 +17,21 @@ module.exports = {
   runtimeCompiler: true,
   devServer: {
     proxy: {
-      '^/api/search$': {
+      '^/auto/ontology/api/search$': {
         target: 'http://auto-viewer.spec.edmcouncil.org',
         // changeOrigin: true,
         // secure:false,
         // pathRewrite: {'^/auto': '/'},
         //logLevel: 'debug'
       },
-      '^/api/module$': {
+      '^/auto/ontology/api/module$': {
         target: 'http://auto-viewer.spec.edmcouncil.org',
         // changeOrigin: true,
         // secure:false,
         // pathRewrite: {'^/auto': '/'},
         //logLevel: 'debug'
       },
-      '^/api/hint': {
+      '^/auto/ontology/api/hint': {
         target: 'http://auto-viewer.spec.edmcouncil.org',
         // changeOrigin: true,
         // secure:false,

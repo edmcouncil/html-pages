@@ -17,13 +17,13 @@ module.exports = {
   runtimeCompiler: true,
   devServer: {
     proxy: {
-      '^/api/search': {
+      '^/fibo/ontology/api/search': {
         target: 'https://spec.edmcouncil.org',
       },
-      '^/api/module$': {
+      '^/fibo/ontology/api/module$': {
         target: 'https://spec.edmcouncil.org',
       },
-      '^/api/hint': {
+      '^/fibo/ontology/api/hint': {
         target: 'https://spec.edmcouncil.org',
       },
     },
