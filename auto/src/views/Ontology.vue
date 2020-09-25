@@ -109,14 +109,14 @@
                     {{data.iri}}
                     <button v-clipboard="data.iri" type="button" class="btn btn-sm btn-outline-primary">Copy</button>
                   </h6>
-                  <h6 class="card-subtitle mb-2 text-muted" v-if="data.qName">
+                  <h6 class="card-subtitle mb-2 text-muted" v-if="data.qName && data.qName !== ''">
                     {{data.qName}}
                     <button v-clipboard="data.qName.replace('QName: ', '')" type="button" class="btn btn-sm btn-outline-primary">Copy</button>
                   </h6>
                   <span v-if="data.taxonomy && data.taxonomy.value">
-                    <p v-for="taxonomy in data.taxonomy.value" :key="taxonomy" class="taxonomy">
-                      <span v-for="(element,index) in taxonomy" :key="element">
-                        <customLink :name="element.valueA.value" :query="element.valueB.value"></customLink>
+                    <p v-for="(taxonomy, tIndex) in data.taxonomy.value" :key="'taxonomyParagraph'+tIndex" class="taxonomy">
+                      <span v-for="(element,index) in taxonomy" :key="'taxonomyEl'+tIndex+element.iri">
+                        <customLink :name="element.label" :query="element.iri"></customLink>
                         <span
                           class="card-subtitle mb-2 text-muted"
                           v-if="index != Object.keys(taxonomy).length - 1"
@@ -473,7 +473,7 @@ export default {
 
       this.searchBox.isLoading = true
       try {
-        const result = await getHint(query, '/auto/hint');
+        const result = await getHint(query, '/auto/ontology/api/hint');
         const hints = await result.json();
         hints.forEach(el => {
           el.labelForInternalSearch = el.label + " "; //this is hacky to make it possible to search text (add tag) the same as the label in hint results

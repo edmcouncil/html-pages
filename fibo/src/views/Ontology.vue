@@ -131,7 +131,7 @@
                     {{data.iri}}
                     <button v-clipboard="data.iri" type="button" class="btn btn-sm btn-outline-primary">Copy</button>
                   </h6>
-                  <h6 class="card-subtitle mb-2 text-muted" v-if="data.qName">
+                  <h6 class="card-subtitle mb-2 text-muted" v-if="data.qName && data.qName !== ''">
                     {{data.qName}}
                     <button v-clipboard="data.qName.replace('QName: ', '')" type="button" class="btn btn-sm btn-outline-primary">Copy</button>
                   </h6>
@@ -515,7 +515,7 @@ export default {
 
       this.searchBox.isLoading = true;
       try {
-        const result = await getHint(query, '/hint');
+        const result = await getHint(query, '/fibo/ontology/api/hint');
         const hints = await result.json();
         hints.forEach((el) => {
           // eslint-disable-next-line no-param-reassign

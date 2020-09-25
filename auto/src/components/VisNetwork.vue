@@ -60,8 +60,8 @@ export default {
   props: ['data'],
   mounted() {
     if (this.data) {
-      const nodes = new vis.DataSet(JSON.parse(this.data.nodes));
-      const edges = new vis.DataSet(JSON.parse(this.data.edges));
+      const nodes = new vis.DataSet(this.data.nodes);
+      const edges = new vis.DataSet(this.data.edges);
 
       const container = document.getElementById('ontograph');
       const edgeFilters = document.getElementsByName('edgesFilter');
