@@ -192,7 +192,7 @@
                   <p>
                     AUTO Viewer is a JAVA application that is specifically designed to access both the AUTO structure and its content
                     in the easiest possible way. It can serve both as a web application and REST API. AUTO Viewer is an open-source
-                    project that is hosted by EDM Council.  See <a href="https://github.com/edmcouncil/auto-viewer">https://github.com/edmcouncil/auto-viewer</a> for details.
+                    project that is hosted by EDM Council.  See <a href="https://github.com/edmcouncil/onto-viewer">https://github.com/edmcouncil/onto-viewer</a> for details.
                   </p>
 
                   <h3>AUTO structure and maturity levels</h3>
