@@ -140,6 +140,7 @@
     };
 </script>
 
+<!--
 <script>
 import { mapState } from 'vuex';
 import helpers from '../store/helpers.js';
@@ -170,7 +171,7 @@ export default {
     outboundLinkClick,
   },
 };
-</script>
+</script> -->
 
 <style lang="scss" scoped>
 
