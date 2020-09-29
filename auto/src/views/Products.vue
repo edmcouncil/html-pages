@@ -89,7 +89,7 @@
                             <td>Auto schema.org ontology: A schema.org-compliant fundamental ontology for vehicle information in e-commerce</td>
                             <td>Released</td>
                             <!--<td><a href="../ontology?query=https%3A%2F%2Fspec.edmcouncil.org%2Fauto%2Fontology%2FEC%2FSchemaAutomotive%2FAutoSchemaOrg%2F">Auto Viewer</a></td>-->
-                            <td><router-link :to="{ path: router('ontology'), query: { query: encodeURI('https://spec.edmcouncil.org/auto/ontology/EC/SchemaAutomotive/AutoSchemaOrg/')}}">Auto Viewer</router-link></td>
+                            <td><router-link :to="{ path: router('ontology'), query: { query: encodeURI('https://spec.edmcouncil.org/auto/ontology/EC/AutoSchemaOrg/')}}">Auto Viewer</router-link></td>
 
                         </tr>
                         <tr>
