@@ -8,6 +8,7 @@
                 </h1>
                 <p class="text"><b>2020</b></p>
                 <ul>
+                	<li><a href="#2020Q3">2020 Q3</a></li>
                     <li><a href="#2020Q2">2020 Q2</a></li>
                     <li><a href="#2020Q1">2020 Q1</a></li>
                 </ul>
@@ -34,6 +35,60 @@
                 <h1>
                   <span>@@@</span>
                 </h1>
+
+                <h3 id="2020Q3"><strong>2020 Q3</strong></h3>
+                <h4>Revisions Summary</h4>
+                <p>This quarter we made progress in a number of areas, as outlined below.  A number of new ontologies and extensions of others, including additional jurisdictions, merchant category codes, security-based derivatives (provisional), credit cards (provisional), market indices, and preferred share representation are included in the release.</p>                
+
+                <h4>Business Entities (BE)</h4>
+                <p>This quarter’s BE updates include extensions to FIBO’s representation of government entities and jurisdictions, which now cover all countries in North America and Europe, including the devolved government entities in the U.K.  We expect to integrate entities and jurisdictions for all countries represented in ISO 3166 over the coming months.  We also added support for ISO merchant category codes this quarter, which are important for credit card transactions, among other use cases.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3ABE+">All 2020 BE Q3 PRs and Issues</a>
+
+
+                <h4>Derivatives (DER)</h4>
+                <p>The focus in derivatives over the quarter is reflected primarily in the development (provisional) area, rather than on fully released ontologies. The FIBO DER working group has refactored the development class hierarchy related to security-based derivatives (formerly called asset derivatives, which some of our users found confusing).  We have streamlined some of the content defining equity and debt security (bonds, for example) based derivatives, and will be releasing some of this work in Q4, as it matures enough to do so.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3ADER+">All 2020 DER Q3 PRs and Issues</a>
+
+                <h4>Financial Business and Commerce (FBC)</h4>
+                <p>Notable revisions to FBC this quarter include (1) alignment of concepts related to accounts and account-specific properties with the new situational pattern (see FND), (2) release of the credit events ontology, in support of our indicators use case, and (3) new support for credit cards and credit card accounts, which we needed to complete the mapping to schema.org.  The credit card ontology is provisional, but we plan to release it as it matures over the coming months.  We also generalized representation of redemption provisions for securities in response to requirements for preferred share representation in SEC.  </p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3AFBC+">All 2020 FBC Q3 PRs and Issues</a>
+
+                <h4>Foundations (FND)</h4>
+                <p>Most of the work performed in FND this quarter bug fixing and content clean-up.  A Important revisions include: (1) elimination of redundancies and confusion with respect to the date/time and quantities ontologies, (2) refactoring of some domain/range definitions, unions “on the righthand side” of some axioms, and restrictions that force FIBO to be outside of OWL RL (ongoing work that we hope will make FIBO more usable with commercial rule engines), (3) simplification of the dependencies included in some ontologies to make them more reusable, and (4) introduction of a new set of situational patterns to allow more sophisticated representation and querying of time-sensitive relationships across FIBO.  The new situational patterns, which include ownership and control, streamline and extend FIBO’s ability to connect the dots between parties via the roles that they play under various circumstances, using a number of new property chains.  By overlaying our existing ownership-specific relations with these new patterns and eliminating non-compliant properties and restrictions, not only are we seeing better results in some FIBO user applications, but we’ve reduced the reasoning overhead in many of our domain areas by 10% to 25%.  This streamlining work will continue over the coming months to complete the changes with respect to control relationships, among others, and augment FIBO with new relationship patterns as they are identified by our use cases.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3AFND+">All 2020 FND Q3 PRs and Issues</a>
+
+                <h4>Hygiene tests</h4>
+                <p>This quarter we extended the set of hygiene tests. Some hygiene tests were refactored.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3Ahygiene+">All 2020 hygiene Q3 PRs and Issues</a> 
+
+
+                <h4>Indicators and Indices (IND)</h4>
+                <p>Changes in Q3 addressed two areas: (1) to extend the representation of various populations related to unemployment to better support some of the content published by the Bureau of Labor Statistics, Statistics Canada, and other countries about changes in the workforce (e.g., tracking the underemployed and people employed part-time for economic reasons, discouraged and marginally attached population), and (2) release of the market indices ontology, including examples such as the Dow Jones Industrial Average (DJIA) and S&P 500.  The changes in employment population representation were motivated by the dramatic changes in employment due to the COVID pandemic.  The examples we’ve included regarding market indices show how to model the value of an index and its constituents, but are not exhaustively complete.  Next steps include integrating more details about the constituents of an index, such as how changes in the value of a given constituent impact the value of the index.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3AIND+">All 2020 IND Q3 PRs and Issues</a>
+
+
+                <h4>Loans (LOAN)</h4>
+                <p>This quarter we continued streamlining and merging some of the content in LOAN, which will be an ongoing effort over the coming months in preparation for a new working group in this area.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3ALOAN+">All 2020 LOAN Q3 PRs and Issues</a>                                               
+
+                <h4>Ontology Guide (OG)</h4>
+                <p>This quarter the Ontology Guide was updated with information about new hygiene tests. Some clarifications were added regarding the PROV-O ontology.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3AONTOLOGY_GUIDE.md+">All 2020 Ontology Guide Q3 PRs and Issues</a>   
+
+     
+                <h4>Securities (SEC)</h4>
+                <p>This quarter the SEC working group focused mainly on extending the equities ontology to provide better representation of preferred shares.  Other changes included revision of our representation of a ticker symbol so that the same symbol can be reused over time as well as represent listings on more than one exchange, and a few bug fixes in Bonds.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3ASEC+">All 2020 SEC Q3 PRs and Issues</a>   
+
 
 
                 <h3 id="2020Q2"><strong>2020 Q2</strong></h3>
@@ -77,7 +132,6 @@
                 <p>Primary changes in this release involved revising the equities ontologies to enable support for the ISO CFI classification scheme, including examples.  We've completed an initial pass for common shares, and will be working on preferred shares and other equity concepts as well as bonds over the coming months.  We also integrated a new pricing ontology, which leveraged work in provisional ontologies and has been tested with example shares we've added.</p>
 
                 <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q2+FIBO+Release%22+label%3ASEC+">All 2020 SEC Q2 PRs and Issues</a>   
-
 
 
                 <h3 id="2020Q1"><strong>2020 Q1</strong></h3>
