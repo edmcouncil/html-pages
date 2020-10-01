@@ -61,6 +61,12 @@
 
                 <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3AFND+">All 2020 FND Q3 PRs and Issues</a>
 
+                <h4>Hygiene tests</h4>
+                <p>This quarter we extended the set of hygiene tests. Some hygiene tests were refactored.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3Ahygiene+">All 2020 hygiene Q3 PRs and Issues</a> 
+
+
                 <h4>Indicators and Indices (IND)</h4>
                 <p>Changes in Q3 addressed two areas: (1) to extend the representation of various populations related to unemployment to better support some of the content published by the Bureau of Labor Statistics, Statistics Canada, and other countries about changes in the workforce (e.g., tracking the underemployed and people employed part-time for economic reasons, discouraged and marginally attached population), and (2) release of the market indices ontology, including examples such as the Dow Jones Industrial Average (DJIA) and S&P 500.  The changes in employment population representation were motivated by the dramatic changes in employment due to the COVID pandemic.  The examples we’ve included regarding market indices show how to model the value of an index and its constituents, but are not exhaustively complete.  Next steps include integrating more details about the constituents of an index, such as how changes in the value of a given constituent impact the value of the index.</p>
 
@@ -70,10 +76,13 @@
                 <h4>Loans (LOAN)</h4>
                 <p>This quarter we continued streamlining and merging some of the content in LOAN, which will be an ongoing effort over the coming months in preparation for a new working group in this area.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3ALOAN+">All 2020 LOAN Q3 PRs and Issues</a>                                                
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3ALOAN+">All 2020 LOAN Q3 PRs and Issues</a>                                               
 
-                <h4>Metadata (META)</h4>
-                <p>Changes this quarter are primarily to address bugs identified through testing of our deployment processes.</p>
+                <h4>Ontology Guide (OG)</h4>
+                <p>This quarter the Ontology Guide was updated with information about new hygiene tests. Some clarifications were added regarding the PROV-O ontology.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3AONTOLOGY_GUIDE.md+">All 2020 Ontology Guide Q3 PRs and Issues</a>   
+
      
                 <h4>Securities (SEC)</h4>
                 <p>This quarter the SEC working group focused mainly on extending the equities ontology to provide better representation of preferred shares.  Other changes included revision of our representation of a ticker symbol so that the same symbol can be reused over time as well as represent listings on more than one exchange, and a few bug fixes in Bonds.</p>
@@ -123,7 +132,6 @@
                 <p>Primary changes in this release involved revising the equities ontologies to enable support for the ISO CFI classification scheme, including examples.  We've completed an initial pass for common shares, and will be working on preferred shares and other equity concepts as well as bonds over the coming months.  We also integrated a new pricing ontology, which leveraged work in provisional ontologies and has been tested with example shares we've added.</p>
 
                 <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q2+FIBO+Release%22+label%3ASEC+">All 2020 SEC Q2 PRs and Issues</a>   
-
 
 
                 <h3 id="2020Q1"><strong>2020 Q1</strong></h3>
