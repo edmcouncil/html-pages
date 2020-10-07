@@ -42,9 +42,8 @@
                     </ol>
 
                     <h4>
-                        <span>Knowledge Graph and FIBO Course</span>
+                        <span>Knowledge Graph and FIBO trainings</span>
                     </h4>
-                    <p>In these challenging times EDMC will provide on <b>July 13-14 (830am-230pm BST / 930am-330pm CEST / 1-7pm IST daily)</b> and <b>July 27-28 (8am-2pm Pacific / 11am-5pm Eastern daily)</b> with&nbsp;<b><em>Knowledge Graph and FIBO Course</em></b>:</p>
 
                     <h5>
                         <span>2 class timezones, 6 hours, over 2 consecutive days course</span>
