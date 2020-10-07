@@ -51,17 +51,17 @@
                     </h5>
 
                     <ul>
-                       <li><b>UK / EUROPE / INDIA</b></li>
+                       <li><b>UK / EUROPE / INDIA / APAC</b></li>
                             <ul>
-                            <li>July 13-14</li>
+                            <li>October 22-23</li>
                             <li>830am-230pm BST / 930am-330pm CEST / 1-7pm IST daily</li>
-                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1386801&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
+                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1406530&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
                             </ul>                        
                         <li><b>AMERICAS</b></li>
                         <ul>
-                            <li>July 27-28</li>
-                            <li>8am-2pm Pacific / 11am-5pm Eastern daily</li>
-                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1386800&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
+                            <li>November 19-20</li>
+                            <li> 8am-2pm Pacific / 11am-5pm Eastern daily</li>
+                            <li><button type="button" onclick="window.location.href = 'https://edmcouncil.org/events/EventDetails.aspx?id=1406921&group=';" style="background-color: #e78747;"><b>REGISTER</b></button></li>
 
                         </ul>
                     </ul>
