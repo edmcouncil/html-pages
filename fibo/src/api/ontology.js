@@ -8,24 +8,22 @@ const parseServerError = function (response) {
 const getOntology = function (query, domain) {
   return fetch(domain, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Accept': 'application/json', 'Content-Type': 'text/plain' },
     body: query,
-    mode: 'no-cors',
   }).then(parseServerError);
 };
 const getModules = function (domain) {
   return fetch(domain, {
     method: 'GET',
-    mode: 'no-cors',
+    headers: { 'Accept': 'application/json' },
   }).then(parseServerError);
 };
 
 const getHint = function (query, domain) {
   return fetch(domain + '/', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Accept': 'application/json', 'Content-Type': 'text/plain' },
     body: query,
-    mode: 'no-cors',
   }).then(parseServerError);
 };
 
