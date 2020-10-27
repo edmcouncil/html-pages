@@ -13,7 +13,7 @@ Vue.use(Clipboard);
 Vue.config.productionTip = false;
 
 Vue.use(VueAnalytics, {
-  id: 'UA-YYYYY-X',
+  id: 'G-WM9XRFEHTR',
   router,
 });
 
