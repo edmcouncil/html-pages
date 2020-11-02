@@ -1,7 +1,7 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Vue from 'vue';
-import VueAnalytics from 'vue-analytics';
+import VueGtag  from 'vue-gtag';
 import Clipboard from 'v-clipboard';
 import App from './App.vue';
 import router from './router';
@@ -12,9 +12,8 @@ Vue.use(Clipboard);
 
 Vue.config.productionTip = false;
 
-Vue.use(VueAnalytics, {
-  id: 'G-WM9XRFEHTR',
-  router,
+Vue.use(VueGtag, {
+  config: { id: "G-WM9XRFEHTR" }
 });
 
 new Vue({
