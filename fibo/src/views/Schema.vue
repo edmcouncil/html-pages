@@ -23,90 +23,98 @@
         <h5>Types:</h5>
         <ul>
           <li>
-            <a href="http://pending.schema.org/Thing" style="text-decoration: none;" class="external-link" rel="nofollow">Thing</a>
+            <a href="http://schema.org/Thing" style="text-decoration: none;" class="external-link" rel="nofollow">Thing</a>
             <ul>
               <li>
-                <a style="text-decoration: none;" href="http://pending.schema.org/Action" class="external-link" rel="nofollow">Action</a>
+                <a style="text-decoration: none;" href="http://schema.org/Action" class="external-link" rel="nofollow">Action</a>
                 <ul>
                   <li>
-                    <a href="http://pending.schema.org/TransferAction" style="text-decoration: none;" class="external-link" rel="nofollow">TransferAction</a>
+                    <a href="http://schema.org/TransferAction" style="text-decoration: none;" class="external-link" rel="nofollow">TransferAction</a>
                     <ul>
                       <li>
-                        <a href="http://pending.schema.org/MoneyTransfer" style="text-decoration: none;" class="external-link" rel="nofollow">MoneyTransfer</a>
+                        <a href="http://schema.org/MoneyTransfer" style="text-decoration: none;" class="external-link" rel="nofollow">MoneyTransfer</a>
                       </li>
                     </ul>
                   </li>
                 </ul>
               </li>
               <li>
-                <a style="text-decoration: none;" href="http://pending.schema.org/Intangible" class="external-link" rel="nofollow">Intangible</a>
+                <a style="text-decoration: none;" href="http://schema.org/Intangible" class="external-link" rel="nofollow">Intangible</a>
                 <ul>
                   <li>
-                    <a style="text-decoration: none;" href="http://pending.schema.org/Service" class="external-link" rel="nofollow">Service</a>
+                    <a style="text-decoration: none;" href="http://schema.org/Service" class="external-link" rel="nofollow">Service</a>
                     <ul>
                       <li>
-                        <a style="text-decoration: none;" href="http://pending.schema.org/FinancialProduct" class="external-link" rel="nofollow">FinancialProduct</a>
+                        <span>
+                        <a style="text-decoration: none;" href="http://schema.org/FinancialProduct" class="external-link" rel="nofollow">FinancialProduct</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/FinancialProduct">FinancialProduct</a>)
+                        </span>
                         <ul>
                           <li>
-                            <a style="text-decoration: none;" href="http://pending.schema.org/BankAccount" class="external-link" rel="nofollow">BankAccount</a>
+                            <span>
+                            <a style="text-decoration: none;" href="http://schema.org/BankAccount" class="external-link" rel="nofollow">BankAccount</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/BankAccount">BankAccount</a>)
+                            </span>
                             <ul>
                               <li>
-                                <a href="http://pending.schema.org/DepositAccount" style="text-decoration: none;" class="external-link" rel="nofollow">DepositAccount</a>
+                                <span>
+                                <a href="http://schema.org/DepositAccount" style="text-decoration: none;" class="external-link" rel="nofollow">DepositAccount</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/DepositAccount">DepositAccount</a>)
+                                </span>
                               </li>
                             </ul>
                           </li>
                           <li>
-                            <a style="text-decoration: none;" href="http://pending.schema.org/CurrencyConversionService" class="external-link" rel="nofollow">CurrencyConversionService</a>
+                            <span>
+                            <a style="text-decoration: none;" href="http://schema.org/CurrencyConversionService" class="external-link" rel="nofollow">CurrencyConversionService</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/IND/ForeignExchange/ForeignExchange/CurrencyConversionService">CurrencyConversionService</a>)
+                            </span>
                           </li>
                           <li>
-                            <a style="text-decoration: none;" href="http://pending.schema.org/InvestmentOrDeposit" class="external-link" rel="nofollow">InvestmentOrDeposit</a>
+                            <a style="text-decoration: none;" href="http://schema.org/InvestmentOrDeposit" class="external-link" rel="nofollow">InvestmentOrDeposit</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/InvestmentOrDepositAccount">InvestmentOrDepositAccount</a>)
                             <ul>
                               <li>
-                                <a href="http://pending.schema.org/BrokerageAccount" style="text-decoration: none;" class="external-link" rel="nofollow">BrokerageAccount</a>
+                                <a href="http://schema.org/BrokerageAccount" style="text-decoration: none;" class="external-link" rel="nofollow">BrokerageAccount</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/BrokerageAccount">BrokerageAccount</a>)
                               </li>
                               <li>
-                                <a style="text-decoration: none;" href="http://pending.schema.org/DepositAccount" class="external-link" rel="nofollow">DepositAccount</a>
+                                <a style="text-decoration: none;" href="http://schema.org/DepositAccount" class="external-link" rel="nofollow">DepositAccount</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/DepositAccount">DepositAccount</a>)
                               </li>
                               <li>
-                                <a href="http://pending.schema.org/InvestmentFund" style="text-decoration: none;" class="external-link" rel="nofollow">InvestmentFund</a>
+                                <a href="http://schema.org/InvestmentFund" style="text-decoration: none;" class="external-link" rel="nofollow">InvestmentFund</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/InvestmentService">InvestmentService</a>)
                               </li>
                             </ul>
                           </li>
                           <li>
-                            <a style="text-decoration: none;" href="http://pending.schema.org/LoanOrCredit" class="external-link" rel="nofollow">LoanOrCredit</a>
+                            <a style="text-decoration: none;" href="http://schema.org/LoanOrCredit" class="external-link" rel="nofollow">LoanOrCredit</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount">LoanOrCreditAccount</a>)
                             <ul>
                               <li>
-                                <a style="text-decoration: none;" href="http://pending.schema.org/CreditCard" class="external-link" rel="nofollow">CreditCard</a>
+                                <a style="text-decoration: none;" href="http://schema.org/CreditCard" class="external-link" rel="nofollow">CreditCard</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/ProductsAndServices/CardAccounts/CreditCardProduct">CreditCardProduct</a>)
                               </li>
                               <li>
-                                <a style="text-decoration: none;" href="http://pending.schema.org/MortgageLoan" class="external-link" rel="nofollow">MortgageLoan</a>
+                                <a style="text-decoration: none;" href="http://schema.org/MortgageLoan" class="external-link" rel="nofollow">MortgageLoan</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/LOAN/LoanTypes/LoanProducts/LoanMarketCategory-Mortgage">LoanMarketCategory-Mortgage</a>)
                               </li>
                             </ul>
                           </li>
                           <li>
-                            <a href="http://pending.schema.org/PaymentCard" style="text-decoration: none;" class="external-link" rel="nofollow">PaymentCard</a>
+                            <a href="http://schema.org/PaymentCard" style="text-decoration: none;" class="external-link" rel="nofollow">PaymentCard</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/ProductsAndServices/CardAccounts/CardProduct">CardProduct</a>)
                             <ul>
                               <li>
-                                <a style="text-decoration: none;" href="http://pending.schema.org/CreditCard" class="external-link" rel="nofollow">CreditCard</a>
+                                <a style="text-decoration: none;" href="http://schema.org/CreditCard" class="external-link" rel="nofollow">CreditCard</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/ProductsAndServices/CardAccounts/CreditCardProduct">CreditCardProduct</a>)
                               </li>
                             </ul>
                           </li>
                           <li>
-                            <a style="text-decoration: none;" href="http://pending.schema.org/PaymentService" class="external-link" rel="nofollow">PaymentService</a>
+                            <a style="text-decoration: none;" href="http://schema.org/PaymentService" class="external-link" rel="nofollow">PaymentService</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/PaymentService">PaymentService</a>)
                           </li>
                         </ul>
                       </li>
                       <li>
-                        <a href="http://pending.schema.org/StructuredValue" style="text-decoration: none;" class="external-link" rel="nofollow">StructuredValue</a>
+                        <a href="http://schema.org/StructuredValue" style="text-decoration: none;" class="external-link" rel="nofollow">StructuredValue</a>
                         <ul>
                           <li>
-                            <a href="http://pending.schema.org/ExchangeRateSpecification" style="text-decoration: none;" class="external-link" rel="nofollow">ExchangeRateSpecification</a>
+                            <a href="http://schema.org/ExchangeRateSpecification" style="text-decoration: none;" class="external-link" rel="nofollow">ExchangeRateSpecification</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FND/Accounting/CurrencyAmount/ExchangeRate">ExchangeRate</a>)
                           </li>
                           <li>
-                            <a href="http://pending.schema.org/MonetaryAmount" style="text-decoration: none;" class="external-link" rel="nofollow">MonetaryAmount</a>
+                            <a href="http://schema.org/MonetaryAmount" style="text-decoration: none;" class="external-link" rel="nofollow">MonetaryAmount</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount">MonetaryAmount</a>)
                           </li>
                           <li>
-                            <a href="http://pending.schema.org/RepaymentSpecification" style="text-decoration: none;" class="external-link" rel="nofollow">RepaymentSpecification</a>
+                            <a href="http://schema.org/RepaymentSpecification" style="text-decoration: none;" class="external-link" rel="nofollow">RepaymentSpecification</a> (in FIBO - <a style="text-decoration: none;" href="/fibo/ontology/FBC/DebtAndEquities/Debt/PrincipalRepaymentTerms">PrincipalRepaymentTerms</a>)
                           </li>
                         </ul>
                       </li>
@@ -121,121 +129,121 @@
           <br>
           </p>
           <p style="text-align: left;">
-            <a style="text-decoration: none;" href="http://pending.schema.org/MoneyTransfer" class="external-link" rel="nofollow">MoneyTransfer</a>,&nbsp;<a href="http://pending.schema.org/FinancialProduct" style="text-decoration: none;" class="external-link" rel="nofollow">FinancialProduct</a>&nbsp;and all its subtypes, and all subtypes of&nbsp;<a href="http://pending.schema.org/StructuredValue" style="text-decoration: none;" class="external-link" rel="nofollow">StructuredValue</a>&nbsp;are the FIBO schema.org extension terms<span>. The other terms&nbsp; have&nbsp;<span>already been defined in the <a href="http://schema.org" class="external-link" rel="nofollow">schema.org</a>.</span>
+            <a style="text-decoration: none;" href="http://schema.org/MoneyTransfer" class="external-link" rel="nofollow">MoneyTransfer</a>,&nbsp;<a href="http://schema.org/FinancialProduct" style="text-decoration: none;" class="external-link" rel="nofollow">FinancialProduct</a>&nbsp;and all its subtypes, and all subtypes of&nbsp;<a href="http://schema.org/StructuredValue" style="text-decoration: none;" class="external-link" rel="nofollow">StructuredValue</a>&nbsp;are the FIBO schema.org extension terms<span>. The other terms&nbsp; have&nbsp;<span>already been defined in the <a href="http://schema.org" class="external-link" rel="nofollow">schema.org</a>.</span>
             </span>
           </p>
           <h5>Properties:</h5>
-          <p class="text">All properties below except&nbsp;<a style="text-decoration: none;" href="http://pending.schema.org/identifier" class="external-link" rel="nofollow">identifier</a>&nbsp;and&nbsp;<a href="http://pending.schema.org/duration" style="text-decoration: none;" class="external-link" rel="nofollow">duration</a>&nbsp;are the FIBO <a href="http://schema.org" class="external-link" rel="nofollow">schema.org</a> extension terms<span>. </span>
+          <p class="text">All properties below except&nbsp;<a style="text-decoration: none;" href="http://schema.org/identifier" class="external-link" rel="nofollow">identifier</a>&nbsp;and&nbsp;<a href="http://schema.org/duration" style="text-decoration: none;" class="external-link" rel="nofollow">duration</a>&nbsp;are the FIBO <a href="http://schema.org" class="external-link" rel="nofollow">schema.org</a> extension terms<span>. </span>
           </p>
           <ul>
             <li>
-              <a href="http://pending.schema.org/Thing" style="text-decoration: none;" class="external-link" rel="nofollow">Thing</a>
+              <a href="http://schema.org/Thing" style="text-decoration: none;" class="external-link" rel="nofollow">Thing</a>
               <ul>
                 <li>
-                  <a style="text-decoration: none;" href="http://pending.schema.org/Property" class="external-link" rel="nofollow">Property</a>
+                  <a style="text-decoration: none;" href="http://schema.org/Property" class="external-link" rel="nofollow">Property</a>
                   <ul>
                     <li>
-                      <a href="http://pending.schema.org/annualPercentageRate" style="text-decoration: none;" class="external-link" rel="nofollow">annualPercentageRate</a>
+                      <a href="http://schema.org/annualPercentageRate" style="text-decoration: none;" class="external-link" rel="nofollow">annualPercentageRate</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/feesAndCommissionsSpecification" style="text-decoration: none;" class="external-link" rel="nofollow">feesAndCommissionsSpecification</a>
+                      <a href="http://schema.org/feesAndCommissionsSpecification" style="text-decoration: none;" class="external-link" rel="nofollow">feesAndCommissionsSpecification</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/interestRate" class="external-link" rel="nofollow">interestRate</a>
+                      <a style="text-decoration: none;" href="http://schema.org/interestRate" class="external-link" rel="nofollow">interestRate</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/identifier" style="text-decoration: none;" class="external-link" rel="nofollow">identifier</a>
+                      <a href="http://schema.org/identifier" style="text-decoration: none;" class="external-link" rel="nofollow">identifier</a>
                       <ul>
                         <li>
-                          <a href="http://pending.schema.org/leiCode" style="text-decoration: none;" class="external-link" rel="nofollow">leiCode</a>
+                          <a href="http://schema.org/leiCode" style="text-decoration: none;" class="external-link" rel="nofollow">leiCode</a>
                         </li>
                       </ul>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/duration" style="text-decoration: none;" class="external-link" rel="nofollow">duration</a>
+                      <a href="http://schema.org/duration" style="text-decoration: none;" class="external-link" rel="nofollow">duration</a>
                       <ul>
                         <li>
-                          <a style="text-decoration: none;" href="http://pending.schema.org/loanTerm" class="external-link" rel="nofollow">loanTerm</a>
+                          <a style="text-decoration: none;" href="http://schema.org/loanTerm" class="external-link" rel="nofollow">loanTerm</a>
                         </li>
                       </ul>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/requiredCollateral" class="external-link" rel="nofollow">requiredCollateral</a>
+                      <a style="text-decoration: none;" href="http://schema.org/requiredCollateral" class="external-link" rel="nofollow">requiredCollateral</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/accountMinimumInflow" class="external-link" rel="nofollow">accountMinimumInflow</a>
+                      <a style="text-decoration: none;" href="http://schema.org/accountMinimumInflow" class="external-link" rel="nofollow">accountMinimumInflow</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/accountOverdraftLimit" style="text-decoration: none;" class="external-link" rel="nofollow">accountOverdraftLimit</a>
+                      <a href="http://schema.org/accountOverdraftLimit" style="text-decoration: none;" class="external-link" rel="nofollow">accountOverdraftLimit</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/amount" class="external-link" rel="nofollow">amount</a>
+                      <a style="text-decoration: none;" href="http://schema.org/amount" class="external-link" rel="nofollow">amount</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/bankAccountType" class="external-link" rel="nofollow">bankAccountType</a>
+                      <a style="text-decoration: none;" href="http://schema.org/bankAccountType" class="external-link" rel="nofollow">bankAccountType</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/beneficiaryBank" class="external-link" rel="nofollow">beneficiaryBank</a>
+                      <a style="text-decoration: none;" href="http://schema.org/beneficiaryBank" class="external-link" rel="nofollow">beneficiaryBank</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/cashBack" style="text-decoration: none;" class="external-link" rel="nofollow">cashBack</a>
+                      <a href="http://schema.org/cashBack" style="text-decoration: none;" class="external-link" rel="nofollow">cashBack</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/contactlessPayment" style="text-decoration: none;" class="external-link" rel="nofollow">contactlessPayment</a>
+                      <a href="http://schema.org/contactlessPayment" style="text-decoration: none;" class="external-link" rel="nofollow">contactlessPayment</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/currency" class="external-link" rel="nofollow">currency</a>
+                      <a style="text-decoration: none;" href="http://schema.org/currency" class="external-link" rel="nofollow">currency</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/currentExchangeRate" class="external-link" rel="nofollow">currentExchangeRate</a>
+                      <a style="text-decoration: none;" href="http://schema.org/currentExchangeRate" class="external-link" rel="nofollow">currentExchangeRate</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/domiciledMortgage" class="external-link" rel="nofollow">domiciledMortgage</a>
+                      <a style="text-decoration: none;" href="http://schema.org/domiciledMortgage" class="external-link" rel="nofollow">domiciledMortgage</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/downPayment" class="external-link" rel="nofollow">downPayment</a>
+                      <a style="text-decoration: none;" href="http://schema.org/downPayment" class="external-link" rel="nofollow">downPayment</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/earlyPrepaymentPenalty" class="external-link" rel="nofollow">earlyPrepaymentPenalty</a>
+                      <a style="text-decoration: none;" href="http://schema.org/earlyPrepaymentPenalty" class="external-link" rel="nofollow">earlyPrepaymentPenalty</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/exchangeRate" style="text-decoration: none;" class="external-link" rel="nofollow">exchangeRate</a>
+                      <a href="http://schema.org/exchangeRate" style="text-decoration: none;" class="external-link" rel="nofollow">exchangeRate</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/exchangeRateSpread" style="text-decoration: none;" class="external-link" rel="nofollow">exchangeRateSpread</a>
+                      <a href="http://schema.org/exchangeRateSpread" style="text-decoration: none;" class="external-link" rel="nofollow">exchangeRateSpread</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/floorLimit" style="text-decoration: none;" class="external-link" rel="nofollow">floorLimit</a>
+                      <a href="http://schema.org/floorLimit" style="text-decoration: none;" class="external-link" rel="nofollow">floorLimit</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/gracePeriod" class="external-link" rel="nofollow">gracePeriod</a>
+                      <a style="text-decoration: none;" href="http://schema.org/gracePeriod" class="external-link" rel="nofollow">gracePeriod</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/loanMortgageMandateAmount" class="external-link" rel="nofollow">loanMortgageMandateAmount</a>
+                      <a style="text-decoration: none;" href="http://schema.org/loanMortgageMandateAmount" class="external-link" rel="nofollow">loanMortgageMandateAmount</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/loanPaymentAmount" style="text-decoration: none;" class="external-link" rel="nofollow">loanPaymentAmount</a>
+                      <a href="http://schema.org/loanPaymentAmount" style="text-decoration: none;" class="external-link" rel="nofollow">loanPaymentAmount</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/loanPaymentFrequency" style="text-decoration: none;" class="external-link" rel="nofollow">loanPaymentFrequency</a>
+                      <a href="http://schema.org/loanPaymentFrequency" style="text-decoration: none;" class="external-link" rel="nofollow">loanPaymentFrequency</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/loanRepaymentForm" style="text-decoration: none;" class="external-link" rel="nofollow">loanRepaymentForm</a>
+                      <a href="http://schema.org/loanRepaymentForm" style="text-decoration: none;" class="external-link" rel="nofollow">loanRepaymentForm</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/loanType" style="text-decoration: none;" class="external-link" rel="nofollow">loanType</a>
+                      <a href="http://schema.org/loanType" style="text-decoration: none;" class="external-link" rel="nofollow">loanType</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/monthlyMinimumRepaymentAmount" style="text-decoration: none;" class="external-link" rel="nofollow">monthlyMinimumRepaymentAmount</a>
+                      <a href="http://schema.org/monthlyMinimumRepaymentAmount" style="text-decoration: none;" class="external-link" rel="nofollow">monthlyMinimumRepaymentAmount</a>
                     </li>
                     <li>
-                      <a style="text-decoration: none;" href="http://pending.schema.org/numberOfLoanPayments" class="external-link" rel="nofollow">numberOfLoanPayments</a>
+                      <a style="text-decoration: none;" href="http://schema.org/numberOfLoanPayments" class="external-link" rel="nofollow">numberOfLoanPayments</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/recourseLoan" style="text-decoration: none;" class="external-link" rel="nofollow">recourseLoan</a>
+                      <a href="http://schema.org/recourseLoan" style="text-decoration: none;" class="external-link" rel="nofollow">recourseLoan</a>
                     </li>
                     <li>
-                      <a href="http://pending.schema.org/renegotiableLoan" style="text-decoration: none;" class="external-link" rel="nofollow">renegotiableLoan</a>
+                      <a href="http://schema.org/renegotiableLoan" style="text-decoration: none;" class="external-link" rel="nofollow">renegotiableLoan</a>
                     </li>
                   </ul>
                 </li>
@@ -271,7 +279,7 @@
               <h5>CreditCard</h5>
               <p style="text-align: left;">This example illustrates the use of FIBO schema.org financial extension for the description of credit cards. The specific card being described is identified by its name (<a href="http://schema.org/name" style="text-decoration: none;" class="external-link" rel="nofollow">name</a>). The details of the offer presented by the card are expressed through:<span>&nbsp;</span>
                 <a style="text-decoration: none;" href="http://schema.org/annualPercentageRate" class="external-link" rel="nofollow">annualPercentageRate</a>,<span>&nbsp;</span>
-                <a style="text-decoration: none;" href="http://schema.org/interestRate" class="external-link" rel="nofollow">interestRate</a>, a percentage of "<a style="text-decoration: none;" href="http://pending.schema.org/cashBack" class="external-link" rel="nofollow">cashback</a>" (if applicable), the card grace period (<a href="http://pending.schema.org/gracePeriod" style="text-decoration: none;" class="external-link" rel="nofollow">gracePeriod</a>) and the flag for the contactless payments (<a href="http://schema.org/contactlessPayment" style="text-decoration: none;" class="external-link" rel="nofollow">contactlessPayment</a>). The additional properties, like<span>&nbsp;</span>
+                <a style="text-decoration: none;" href="http://schema.org/interestRate" class="external-link" rel="nofollow">interestRate</a>, a percentage of "<a style="text-decoration: none;" href="http://schema.org/cashBack" class="external-link" rel="nofollow">cashback</a>" (if applicable), the card grace period (<a href="http://schema.org/gracePeriod" style="text-decoration: none;" class="external-link" rel="nofollow">gracePeriod</a>) and the flag for the contactless payments (<a href="http://schema.org/contactlessPayment" style="text-decoration: none;" class="external-link" rel="nofollow">contactlessPayment</a>). The additional properties, like<span>&nbsp;</span>
                 <a href="http://schema.org/offeredBy" style="text-decoration: none;" class="external-link" rel="nofollow">offeredBy</a>
                 <span>&nbsp;</span>allow indicating the issuer of the card and annual cardholder’s cost of the card (<a style="text-decoration: none;" href="http://schema.org/price" class="external-link" rel="nofollow">price</a>) – further detailed by its currency (<a href="http://schema.org/currency" style="text-decoration: none;" class="external-link" rel="nofollow">currency</a>) and type ("@type").</p>
               <h6><br>Without markup</h6>
