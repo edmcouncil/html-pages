@@ -176,9 +176,24 @@
                         v-for="( property, name ) in data.properties[sectionName]"
                         :key="name"
                       >
-                        <dt class="col-sm-3">{{name}}</dt>
-                        <dd class="col-sm-9">
+                        <dt class="col-sm-12">{{name}}</dt>
+                        <dd class="col-sm-12">
+                          <ul v-if="property.length > 1">
+                            <li
+                              v-for="field in property"
+                              :key="field.id"
+                            >
+                              <component
+                                :is="field.type"
+                                :value="field.value"
+                                :entityMaping="field.entityMaping"
+                                v-bind="field"
+                              ></component>
+                            </li>
+                          </ul>
+                          
                           <component
+                            v-else
                             v-for="field in property"
                             :key="field.id"
                             :is="field.type"
@@ -691,6 +706,18 @@ article ul.maturity-levels li:before{
     .page-link{
       background-color: #2a83be;
     }
+  }
+}
+dd{
+  margin-left: 20px;
+
+  ul{
+    padding-left: 0px;
+  }
+
+  > div{
+    margin-top: 5px;
+    margin-left: 7px;
   }
 }
 </style>
