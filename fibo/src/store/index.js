@@ -7,8 +7,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    ontologyDefaultDomain: '/fibo/ontology/api/search',
-    modulesDefaultDomain: '/fibo/ontology/api/module',
+    ontologyDefaultDomain: '/fibo/ontology/{version}api/search',
+    modulesDefaultDomain: '/fibo/ontology/{version}api/module',
   },
   mutations: {
 
