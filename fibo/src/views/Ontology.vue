@@ -611,15 +611,38 @@ export default {
       if (destRoute.startsWith('https://spec.edmcouncil.org/fibo')) {
         // internal ontology
         destRoute = destRoute.replace('https://spec.edmcouncil.org/fibo', '');
-        this.$router.push(destRoute);
+        this.$router.push({
+          path: destRoute,
+          query: {
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null)
+          }
+        });
       } else {
         // external ontology
-        this.$router.push({ path: '/ontology', query: { query: encodeURI(destRoute) } });
+        this.$router.push({
+          path: '/ontology',
+          query: {
+            ...{ query: encodeURI(destRoute) },
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null)
+          }
+        });
       }
       this.scrollToOntologyViewerTopOfContainer();
     },
     async searchBox_addTag(newTag) {
-      this.$router.push({ path: '/ontology', query: { searchBoxQuery: encodeURI(newTag) } });
+      this.$router.push({
+        path: '/ontology',
+        query: {
+          ...{ searchBoxQuery: encodeURI(newTag) },
+          ...(this.$route.query && this.$route.query.version
+            ? { version: encodeURI(this.$route.query.version) }
+            : null)
+        }
+      });
     },
     async handleSearchBoxQuery(searchBQuery, pageIndex = null) {
       try {
