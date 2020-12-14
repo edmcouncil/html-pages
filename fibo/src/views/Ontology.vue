@@ -462,6 +462,10 @@ export default {
       hintServer: null,
       hintDefaultDomain: '/fibo/ontology/{version}api/hint/',
       version: null,
+      versionDefaultSelectedData: {
+        '@id': 'default',
+        'url': ''
+      },
       modulesList: null,
       error: false,
       searchBox: {
@@ -560,6 +564,7 @@ export default {
         const result = await getOntologyVersions();
         const ontologyVersions = await result.json();
         this.ontologyVersionsDropdownData.data = ontologyVersions;
+        ontologyVersions.unshift(this.versionDefaultSelectedData); // add default at the beginning
 
         if (this.version !== null) {
           this.ontologyVersionsDropdownData.selectedData = ontologyVersions.find((val, ind) => {
@@ -569,7 +574,7 @@ export default {
             return false;
           });
         } else {
-          this.ontologyVersionsDropdownData.selectedData = null;
+          this.ontologyVersionsDropdownData.selectedData = this.versionDefaultSelectedData;
         }
         this.error = false;
       } catch (err) {
@@ -589,7 +594,12 @@ export default {
 
     // vue-multiselect ontologyVersions
     ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
-      this.$router.push({ query: { version: encodeURI(selectedOntologyVersion['@id']) } });
+      if(selectedOntologyVersion['@id'] === this.versionDefaultSelectedData['@id']){
+        //default selected
+        this.$router.push({ query: { } });
+      }else{
+        this.$router.push({ query: { version: encodeURI(selectedOntologyVersion['@id']) } });
+      }
 
       //clear search results after changing version
       this.searchBox = {
