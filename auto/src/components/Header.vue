@@ -326,6 +326,12 @@ export default {
   #logo-auto {
     margin-bottom: 20px;
   }
+  .navbar-nav {
+    margin-top: 0px;
+  }
+  .navbar-collapse {
+    padding-top: 0px;
+  }
 }
 @media (max-width: 767px) {
   .navbar-brand img {
