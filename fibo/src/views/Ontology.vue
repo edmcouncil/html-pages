@@ -596,9 +596,17 @@ export default {
     ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
       if(selectedOntologyVersion['@id'] === this.versionDefaultSelectedData['@id']){
         //default selected
-        this.$router.push({ query: { } });
+        const {version, ...rest} = this.$route.query; //get rid of version
+        this.$router.push({ query: rest });
       }else{
-        this.$router.push({ query: { version: encodeURI(selectedOntologyVersion['@id']) } });
+        this.$router.push({
+          query: {
+            ...this.$route.query,
+            ...{
+              version: encodeURI(selectedOntologyVersion['@id'])
+            }
+          }
+        });
       }
 
       //clear search results after changing version
