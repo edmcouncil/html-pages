@@ -8,7 +8,8 @@
                 </h1>
                 <p class="text"><b>2020</b></p>
                 <ul>
-                	<li><a href="#2020Q3">2020 Q3</a></li>
+                	<li><a href="#2020Q4">2020 Q4</a></li>
+                    <li><a href="#2020Q3">2020 Q3</a></li>
                     <li><a href="#2020Q2">2020 Q2</a></li>
                     <li><a href="#2020Q1">2020 Q1</a></li>
                 </ul>
@@ -35,6 +36,77 @@
                 <h1>
                   <span>@@@</span>
                 </h1>
+
+                <h3 id="2020Q4"><strong>2020 Q4</strong></h3>
+                <h4>Revisions Summary</h4>
+                <p>A number of ontologies were created and/or promoted to release status this quarter. These include</p>
+
+                        <ul><li>security-based derivatives and equity swaps, </li>
+                                <li>funds, which have been moved from their own CIV domain to SEC/Funds, and (3) new government entity and jurisdiction ontologies for Central and South America as well as a start on Asian entities (Eastern Asia).</li></ul>
+
+                <p>Additional areas of significant effort stemmed from support of the EDM Council's AML working group (new legal entities, new relationships under ownership and control, streamlining of relationship patterns for better query and reasoning results), and changes identified through our ongoing use-case based example work, including clean-up and extension of provisional derivatives and corporate actions ontologies.</p>                
+
+
+
+                <h4>Business Entities (BE)</h4>
+                <p>This quarter's updates include further additions to the set of government legal entities, governments, and jurisdictions FIBO covers, including Central and South America as well as Eastern Asia.  We anticipate completing the Asian entities and jurisdictions in Q1 of 2021 and will incorporate Oceania and Africa over the coming months.</p>
+
+                <p>Also, this quarter we supported work going on in the EDM Council's AML working group by adding legal entities, such as limited liability companies and improving on our representation of trusts, adding other relationships and identifiers covering tax authorities, and streamlining control relationships, such as for beneficial ownership, and integrating their properties into our party patterns.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3ABE+">All 2020 BE Q4 PRs and Issues</a>
+
+
+                <h4>Derivatives (DER)</h4>
+                <p>Our primary achievements this quarter include the promotion of two derivatives ontologies into production: Security-Based Derivatives and Equity Swaps.  These new ontologies reflect months of work in the DER working group, where we also merged a number of smaller ontologies, eliminated duplication across a number of derivatives provisional ontologies, and initiated another round of work on Forwards and Options.</p>
+
+                <p>We plan to continue work on commodity swaps as well as on forwards and options in Q1 2021, and hope to release at least one of those ontologies by the end of Q1.  Users should be aware that we will likely be merging more small ontologies in derivatives as we work through this process.  </p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3ADER+">All 2020 DER Q4 PRs and Issues</a>
+
+                <h4>Financial Business and Commerce (FBC)</h4>
+                <p>This quarter the FBC working group focused largely on supporting other FIBO working groups through adding legal entities -  Association, Development Bank, Money Services Business, Mortgage Company, Registered Investment Advisor, and so forth.  Other notable revisions include updates to the MIC codes to reflect changes published by ISO, and revision of all of our reference and example LEI URIs and related data to conform with the new reference data published by the GLEIF on data.world.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3AFBC+">All 2020 FBC Q4 PRs and Issues</a>
+
+                <h4>Foundations (FND)</h4>
+                <p>Work on Foundations this quarter mainly involved continued simplification in areas such as the contract party hierarchy and additions of explicit concepts, such as DateOfBirth and DateOf Death, in support of the EDM Council's AML working group.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3AFND+">All 2020 FND Q4 PRs and Issues</a>
+
+                <h4>Hygiene tests</h4>
+                <p>This quarter we extended the set of hygiene tests on:</p>
+
+                <ul>
+                        <li>hygiene test for class hierarchy cycles</li>
+                        <li>hygiene test for property hierarchy cycles</li>
+                        <li>hygiene test for direct circularity in owl imports</li>
+                        <li>hygiene test for dots in local names of FIBO classes and properties</li>
+                </ul>
+
+                <p>Test for ambiguous definitions (i.e., the definitions that include 'or') has been removed. The test was supposed to find ambiguous definitions, but it turned out to produce a number of false positives.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3Ahygiene+">All 2020 hygiene Q4 PRs and Issues</a> 
+
+
+                <h4>Indicators and Indices (IND)</h4>
+                <p>This quarter the IND working group focused mainly on clean-up and supporting other working groups. One notable achievement includes significant clean-up of the provisional corporate actions (CAE) ontology in support of our use case involving management of market indicies and how they change over time.  We plan to continue the work on corporate actions based on our IND use cases in Q1 2021, and hope to release the securities-specific corporate actions ontology by the end of Q2.  FIBO users should be aware that the securities-specific CAE ontology, which covers the relevant events but not message content, may be moved to a new sub-domain of SEC, but is still in its own domain for the time being.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3AIND+">All 2020 IND Q4 PRs and Issues</a>
+
+                <h4>Ontology Guide (OG)</h4>
+                <p>Test candidate T6. "Partial modeling" has been removed from the ontology guide.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3AONTOLOGY_GUIDE.md+">All 2020 Ontology Guide Q4 PRs and Issues</a>   
+
+     
+                <h4>Securities (SEC)</h4>
+                <p>This quarter the SEC working group continued work initiated earlier this year on the equities ontology to improve the representation of preferred shares and address issues uncovered in representing static data for listings and shares more generally, including new examples.</p>
+
+                <p>In addition, we moved what was a separate CIV (and special purpose vehicles) domain area under Securities.  The original domain included one CIV ontology, which we've largely retained, but is now SEC/Funds/CIV.rdf.  The new SEC/Funds module actually includes two ontologies: a high-level Funds ontology, released this quarter, as well as the remainder of the original CIV ontology, which we plan to work through over the coming months.  We anticipate that at least some of the content of the CIV ontology will move to the new Funds ontology as we work with example data and further flesh out some of the details.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3ASEC+">All 2020 SEC Q4 PRs and Issues</a>   
+
+
 
                 <h3 id="2020Q3"><strong>2020 Q3</strong></h3>
                 <h4>Revisions Summary</h4>
