@@ -113,6 +113,9 @@ export default {
       network.redraw();
 
       network.on('doubleClick', (params) => {
+        var versionQueryStringPart = (this.$route.query && this.$route.query.version
+          ? 'version=' + encodeURI(this.$route.query.version)
+          : null);
         params.event = '[original event]';
         const selectedNodes = params.nodes;
         const selectedEdges = params.edges;
@@ -122,9 +125,9 @@ export default {
           nodes.forEach((entry) => {
             if (entry.id === sNode) {
               if(entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/fibo/)){
-                window.location.href = `/fibo${entry.iri.replace('https://spec.edmcouncil.org/fibo', '')}`; //&scrollToTop=true
+                window.location.href = `/fibo${entry.iri.replace('https://spec.edmcouncil.org/fibo', '')}?${versionQueryStringPart}`; //&scrollToTop=true
               }else{
-                window.location.href = `/fibo/ontology?query=${entry.iri}`; //&scrollToTop=true
+                window.location.href = `/fibo/ontology?query=${entry.iri}&${versionQueryStringPart}`; //&scrollToTop=true
               }
             }
           });
@@ -133,9 +136,9 @@ export default {
           edgesView.forEach((entry) => {
             if (entry.id === sEgde) {
               if(entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/fibo/)){
-                window.location.href = `/fibo${entry.iri.replace('https://spec.edmcouncil.org/fibo', '')}`; //&scrollToTop=true
+                window.location.href = `/fibo${entry.iri.replace('https://spec.edmcouncil.org/fibo', '')}?${versionQueryStringPart}`; //&scrollToTop=true
               }else{
-                window.location.href = `/fibo/ontology?query=${entry.iri}`; //&scrollToTop=true
+                window.location.href = `/fibo/ontology?query=${entry.iri}&${versionQueryStringPart}`; //&scrollToTop=true
               }
             }
           });
