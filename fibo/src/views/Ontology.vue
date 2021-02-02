@@ -162,6 +162,10 @@
                   <h6 class="card-subtitle mb-2 text-muted" v-if="data.iri">
                     {{data.iri}}
                     <button v-clipboard="data.iri" type="button" class="btn btn-sm btn-outline-primary">Copy</button>
+                    <button 
+                      v-if="this.$route.query && this.$route.query.version"
+                      v-clipboard="data.iri + '?version=' + encodeURI(this.$route.query.version)" 
+                      type="button" class="btn btn-sm btn-outline-primary">Copy versioned IRI</button>
                   </h6>
                   <h6 class="card-subtitle mb-2 text-muted" v-if="data.qName && data.qName !== ''">
                     {{data.qName}}
@@ -463,7 +467,7 @@ export default {
       hintDefaultDomain: '/fibo/ontology/{version}api/hint/',
       version: null,
       versionDefaultSelectedData: {
-        '@id': 'default',
+        '@id': '<DEFAULT>',
         'url': ''
       },
       modulesList: null,
