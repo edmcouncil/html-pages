@@ -852,6 +852,7 @@ article ul.maturity-levels li:before{
 }
 .multiselect-xxl-container{
   margin-top: 20px;
+  min-width: 250px;
 }
 </style>
 
