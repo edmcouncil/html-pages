@@ -4,6 +4,38 @@
     <div class="row">
       <div class="col-2 col-xxxl-3 d-none d-xxl-block">
         <div class="module-tree float-right">
+          <div class="multiselect-xxl-container">
+            <multiselect v-model="ontologyVersionsDropdownData.selectedData"
+                        id="ontologyVersionsMultiselect"
+                        label="@id"
+                        track-by="url"
+                        placeholder="Search..."
+                        tagPlaceholder="Search for..."
+                        selectLabel=""
+                        open-direction="bottom"
+                        :options="ontologyVersionsDropdownData.data"
+                        :multiple="false"
+                        :searchable="false"
+                        :loading="ontologyVersionsDropdownData.isLoading"
+                        :internal-search="false"
+                        :clear-on-select="false"
+                        :close-on-select="true"
+                        :max-height="600"
+                        :preserve-search="true"
+                        :show-no-results="false"
+                        :hide-selected="true"
+                        :taggable="true"
+                        @select="ontologyVersions_optionSelected">
+              <template slot="tag" slot-scope="{ option, remove }"><span class="custom__tag"><span>{{ option.label }}</span><span class="custom__remove" @click="remove(option)">❌</span></span></template>
+              <!-- <template slot="clear" slot-scope="props">
+                <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData" @mousedown.prevent.stop="clearAll(props.search)"></div>
+              </template> -->
+              <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+            </multiselect>
+            <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
+            <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
+          </div>
+
           <ul class="modules-list list-unstyled">
             <module-tree :item="item" v-for="item in modulesList" :location="data" :key="item.label" />
           </ul>
@@ -121,7 +153,7 @@
 
               <div class="alert alert-primary alert-maturity" role="alert" v-if="data.maturityLevel.label != 'release' && data.maturityLevel.label != ''">
                 This resource has maturity level <strong>{{this.data.maturityLevel.label}}</strong>. Read more about
-                <customLink class="custom-link" :name="this.data.maturityLevel.label" :query="data.maturityLevel.iri" :customLinkOnClick="this.ontologyClicked"></customLink>.
+                <customLink class="custom-link" :name="this.data.maturityLevel.label" :query="data.maturityLevel.iri"></customLink>.
               </div>
 
               <div class="card">
@@ -152,6 +184,38 @@
           </div>
           <div class="row">
             <div class="module-tree col-md-12 col-lg-4 d-xxl-none">
+              <div class="multiselect-container">
+                <multiselect v-model="ontologyVersionsDropdownData.selectedData"
+                            id="ontologyVersionsMultiselect2"
+                            label="@id"
+                            track-by="url"
+                            placeholder="Search..."
+                            tagPlaceholder="Search for..."
+                            selectLabel=""
+                            open-direction="bottom"
+                            :options="ontologyVersionsDropdownData.data"
+                            :multiple="false"
+                            :searchable="false"
+                            :loading="ontologyVersionsDropdownData.isLoading"
+                            :internal-search="false"
+                            :clear-on-select="false"
+                            :close-on-select="true"
+                            :max-height="600"
+                            :preserve-search="true"
+                            :show-no-results="false"
+                            :hide-selected="true"
+                            :taggable="true"
+                            @select="ontologyVersions_optionSelected">
+                  <template slot="tag" slot-scope="{ option, remove }"><span class="custom__tag"><span>{{ option.label }}</span><span class="custom__remove" @click="remove(option)">❌</span></span></template>
+                  <!-- <template slot="clear" slot-scope="props">
+                    <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData" @mousedown.prevent.stop="clearAll(props.search)"></div>
+                  </template> -->
+                  <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                </multiselect>
+                <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
+                <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
+              </div>
+
               <ul class="modules-list list-unstyled">
                 <module-tree :item="item" v-for="item in modulesList" :location="data" :key="item.label" />
               </ul>
@@ -361,6 +425,7 @@
             </template><span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
           </multiselect>
           <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
+          <!-- <pre class="language-json"><code>{{ searchBox.data }}</code></pre> -->
         </div>
       </div>
     </div>
@@ -371,7 +436,7 @@
 import { mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
 import Paginate from 'vuejs-paginate';
-import { getOntology, getModules, getHint } from '../api/ontology';
+import { getOntology, getModules, getHint, getOntologyVersions } from '../api/ontology';
 
 export default {
   components: {
@@ -394,6 +459,13 @@ export default {
       query: '',
       ontologyServer: null,
       modulesServer: null,
+      hintServer: null,
+      hintDefaultDomain: '/fibo/ontology/{version}api/hint/',
+      version: null,
+      versionDefaultSelectedData: {
+        '@id': 'default',
+        'url': ''
+      },
       modulesList: null,
       error: false,
       searchBox: {
@@ -403,6 +475,11 @@ export default {
         searchResults: null,
         maxPage: null, // contains number of pages in searchResults. This prop. is handler for pagination
         lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
+      },
+      ontologyVersionsDropdownData: {
+        selectedData: null,
+        data: [],
+        isLoading: false,
       },
       scrollToOntologyViewerTopOfContainer() {
         const element = document.getElementById('ontologyViewerTopOfContainer');
@@ -425,29 +502,41 @@ export default {
       queryParam = this.$route.query.query || '';
     }
 
-    if (this.$route.query && this.$route.query.domain) {
-      this.ontologyServer = this.$route.query.domain;
-    } else {
-      this.ontologyServer = this.ontologyDefaultDomain;
-    }
-
-    if (this.$route.query && this.$route.query.modules) {
-      this.modulesServer = this.$route.query.modules;
-    } else {
-      this.modulesServer = this.modulesDefaultDomain;
-    }
+    this.updateServers();
 
     this.query = queryParam;
-    this.$nextTick(async function () {
-      this.fetchData(this.query);
-    });
+    this.fetchData(this.query);
     this.fetchModules();
   },
   methods: {
-    queryForOntology() {
-      const { query } = this;
-      this.$router.push({ path: this.$route.path, query: { query } });
-      this.fetchData(this.query);
+    updateServers(to) {
+      let internalRoute = this.$route;
+      if (to !== undefined) {
+        internalRoute = to;
+      }
+      if (internalRoute.query && internalRoute.query.domain) {
+        this.ontologyServer = internalRoute.query.domain;
+      } else {
+        this.ontologyServer = this.ontologyDefaultDomain;
+      }
+
+      if (internalRoute.query && internalRoute.query.modules) {
+        this.modulesServer = internalRoute.query.modules;
+      } else {
+        this.modulesServer = this.modulesDefaultDomain;
+      }
+
+      if (internalRoute.query && internalRoute.query.version) {
+        this.ontologyServer = this.ontologyServer.replace('{version}', internalRoute.query.version + '/');
+        this.modulesServer = this.modulesServer.replace('{version}', internalRoute.query.version + '/');
+        this.hintServer = this.hintDefaultDomain.replace('{version}', internalRoute.query.version + '/');
+        this.version = internalRoute.query.version;
+      } else {
+        this.ontologyServer = this.ontologyServer.replace('{version}', '');
+        this.modulesServer = this.modulesServer.replace('{version}', '');
+        this.hintServer = this.hintDefaultDomain.replace('{version}', '');
+        this.version = null;
+      }
     },
     async fetchData(query) {
       if (query) {
@@ -468,6 +557,28 @@ export default {
 
         this.loader = false;
       }
+      
+      try {
+        const result = await getOntologyVersions();
+        const ontologyVersions = await result.json();
+        this.ontologyVersionsDropdownData.data = ontologyVersions;
+        ontologyVersions.unshift(this.versionDefaultSelectedData); // add default at the beginning
+
+        if (this.version !== null) {
+          this.ontologyVersionsDropdownData.selectedData = ontologyVersions.find((val, ind) => {
+            if (val['@id'] === this.version){
+              return true;
+            }
+            return false;
+          });
+        } else {
+          this.ontologyVersionsDropdownData.selectedData = this.versionDefaultSelectedData;
+        }
+        this.error = false;
+      } catch (err) {
+        console.error(err);
+        this.error = true;
+      }
     },
     async fetchModules() {
       try {
@@ -479,6 +590,34 @@ export default {
       }
     },
 
+    // vue-multiselect ontologyVersions
+    ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
+      if(selectedOntologyVersion['@id'] === this.versionDefaultSelectedData['@id']){
+        //default selected
+        const {version, ...rest} = this.$route.query; //get rid of version
+        this.$router.push({ query: rest });
+      }else{
+        this.$router.push({
+          query: {
+            ...this.$route.query,
+            ...{
+              version: encodeURI(selectedOntologyVersion['@id'])
+            }
+          }
+        });
+      }
+
+      //clear search results after changing version
+      this.searchBox = {
+        selectedData: null,
+        data: [],
+        isLoading: false,
+        searchResults: null,
+        maxPage: null, // contains number of pages in searchResults. This prop. is handler for pagination
+        lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
+      };
+    },
+
     // vue-multiselect
     searchBox_limitText(count) {
       return `and ${count} other results`;
@@ -488,15 +627,38 @@ export default {
       if (destRoute.startsWith('https://spec.edmcouncil.org/fibo')) {
         // internal ontology
         destRoute = destRoute.replace('https://spec.edmcouncil.org/fibo', '');
-        this.$router.push(destRoute);
+        this.$router.push({
+          path: destRoute,
+          query: {
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null)
+          }
+        });
       } else {
         // external ontology
-        this.$router.push({ path: '/ontology', query: { query: encodeURI(destRoute) } });
+        this.$router.push({
+          path: '/ontology',
+          query: {
+            ...{ query: encodeURI(destRoute) },
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null)
+          }
+        });
       }
       this.scrollToOntologyViewerTopOfContainer();
     },
     async searchBox_addTag(newTag) {
-      this.$router.push({ path: '/ontology', query: { searchBoxQuery: encodeURI(newTag) } });
+      this.$router.push({
+        path: '/ontology',
+        query: {
+          ...{ searchBoxQuery: encodeURI(newTag) },
+          ...(this.$route.query && this.$route.query.version
+            ? { version: encodeURI(this.$route.query.version) }
+            : null)
+        }
+      });
     },
     async handleSearchBoxQuery(searchBQuery, pageIndex = null) {
       try {
@@ -530,7 +692,7 @@ export default {
 
       this.searchBox.isLoading = true;
       try {
-        const result = await getHint(query, '/fibo/ontology/api/hint');
+        const result = await getHint(query, this.hintServer);
         const hints = await result.json();
         hints.forEach((el) => {
           // eslint-disable-next-line no-param-reassign
@@ -564,8 +726,25 @@ export default {
     '$route.query.query': function (query) {
       this.fetchData(query);
     },
+    '$route.query.version': function (version) {
+      this.updateServers();
+      
+      this.fetchData(this.query);
+      this.fetchModules();
+
+      //clear search results after changing version
+      this.searchBox = {
+        selectedData: null,
+        data: [],
+        isLoading: false,
+        searchResults: null,
+        maxPage: null, // contains number of pages in searchResults. This prop. is handler for pagination
+        lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
+      };
+    },
   },
   beforeRouteUpdate(to, from, next) {
+    this.updateServers(to);
     this.$root.ontologyRouteIsUpdating = true;
     if (to !== from) {
       let queryParam = '';
@@ -673,6 +852,7 @@ article ul.maturity-levels li:before{
 }
 .multiselect-xxl-container{
   margin-top: 20px;
+  min-width: 250px;
 }
 </style>
 
@@ -685,6 +865,11 @@ article ul.maturity-levels li:before{
 @media (min-width: 1900px){
   #ontograph{
     height: 1000px;
+  }
+}
+@media (min-width: 992px){
+  .module-tree .multiselect-container {
+    margin-right: 0px;
   }
 }
 .multiselect__option--highlight,
