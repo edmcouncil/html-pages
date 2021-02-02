@@ -505,9 +505,7 @@ export default {
     this.updateServers();
 
     this.query = queryParam;
-    this.$nextTick(async function () {
-      this.fetchData(this.query);
-    });
+    this.fetchData(this.query);
     this.fetchModules();
   },
   methods: {

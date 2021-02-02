@@ -46,9 +46,18 @@ export default {
       this.isOpen = !this.isOpen;
     },
     ontologyClicked(event) {
+    },
+    expandOpened(loc) {
+      if (loc && loc.locationInModules) {
+        this.isSelected = loc.locationInModules.some(
+          location => location == this.item.iri,
+        );
+        this.isOpen = /* this.isOpen || */ this.isSelected; //isOpen is commented out to enable collapsing tree after opening different branch 
+      }
     }
   },
   mounted() {
+    this.expandOpened(this.location);
   },
   computed: {
     isFolder() {
@@ -58,12 +67,7 @@ export default {
   watch: {
     location: {
       handler(val, oldVal) {
-        if (val && val.locationInModules) {
-          this.isSelected = val.locationInModules.some(
-            location => location == this.item.iri,
-          );
-          this.isOpen = /* this.isOpen || */ this.isSelected; //isOpen is commented out to enable collapsing tree after opening different branch 
-        }
+        this.expandOpened(val);
       },
       deep: true,
     },
