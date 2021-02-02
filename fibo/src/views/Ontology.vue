@@ -153,7 +153,7 @@
 
               <div class="alert alert-primary alert-maturity" role="alert" v-if="data.maturityLevel.label != 'release' && data.maturityLevel.label != ''">
                 This resource has maturity level <strong>{{this.data.maturityLevel.label}}</strong>. Read more about
-                <customLink class="custom-link" :name="this.data.maturityLevel.label" :query="data.maturityLevel.iri" :customLinkOnClick="this.ontologyClicked"></customLink>.
+                <customLink class="custom-link" :name="this.data.maturityLevel.label" :query="data.maturityLevel.iri"></customLink>.
               </div>
 
               <div class="card">
