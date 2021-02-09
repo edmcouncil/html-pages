@@ -10,25 +10,28 @@
         <div class="carousel-item active">
           <img class="d-block w-100" src="../assets/img/baner2.png" alt="First slide">
           <div class="carousel-caption d-none d-md-block">
-            <h2>FIBO OWL</h2>
-            <p>FIBO is developed as an ontology in the Web Ontology Language (OWL)</p>
-            <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD FIBO OWL</router-link>
+            <h2>FIBO Interest Group</h2>
+            <p>EDMConnect FIBO Community Space for thoughts sharing</p>
+            <!-- <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD FIBO OWL</router-link> -->
+            <a href="https://edmconnect.edmcouncil.org/fibointerestgroup/home" v-on:click="outboundLinkClick('https://edmconnect.edmcouncil.org/fibointerestgroup/home')" class="btn-sl">Visit FIBO Interest Group</a>
           </div>
         </div>
         <div class="carousel-item">
           <img class="d-block w-100" src="../assets/img/baner2.png" alt="Second slide">
           <div class="carousel-caption d-none d-md-block">
-            <h2>FIBO SKOS Vocabulary</h2>
-            <p>The FIBO vocabulary is distributed using the Simple Knowledge Organization System (SKOS)</p>
-            <router-link :to="{ path: router('vocabulary') }" class="btn-sl">DOWNLOAD FIBO SKOS Vocabulary</router-link>
+            <h2>FIBO GitHub Space</h2>
+            <p>Since January 2020, FIBO has been developed by an open community process</p>
+            <!-- <router-link :to="{ path: router('vocabulary') }" class="btn-sl">DOWNLOAD FIBO SKOS Vocabulary</router-link> -->
+            <a href="ttps://github.com/edmcouncil/fibo/blob/master/README.md" v-on:click="outboundLinkClick('https://github.com/edmcouncil/fibo/blob/master/README.md')" class="btn-sl">Visit FIBO GitHub Space</a>
           </div>
         </div>
         <div class="carousel-item">
           <img class="d-block w-100" src="../assets/img/baner2.png" alt="Third slide">
           <div class="carousel-caption d-none d-md-block">
-            <h2>FIBO Data Dictionary</h2>
-            <p>FIBO data dictionary is downloadable in CSV and Excel formats</p>
-            <router-link :to="{ path: router('data-dictionary') }" class="btn-sl">DOWNLOAD FIBO Data Dictionary</router-link>
+            <h2>FIBO Training</h2>
+            <p>FIBO & Knowledge Graph Fundamentals Training</p>
+            <!-- <router-link :to="{ path: router('data-dictionary') }" class="btn-sl">DOWNLOAD FIBO Data Dictionary</router-link> -->
+            <a href="https://edmcouncil.org/page/OKGVirtualTraining" v-on:click="outboundLinkClick('https://edmcouncil.org/page/OKGVirtualTraining')" class="btn-sl">Learn more</a>            
           </div>
         </div>
       </div>

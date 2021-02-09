@@ -12,10 +12,10 @@
 -->
 
                 <h1>
-          <span>What is FIBO</span>
+          <span>About FIBO</span>
         </h1>
 
-                <h3>What is FIBO</h3>
+                <h3>The Financial Industry Business Ontology</h3>
 
                 <img src="../assets/img/FIBO with tagline.png" width="25%" class="fibo-logo img-fluid" />
 
