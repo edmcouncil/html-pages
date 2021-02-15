@@ -17,11 +17,15 @@
           The FIBO vocabulary is distributed as a machine-readable file in which the FIBO class hierarchy is rendered as a tree structure of broader and narrower terms. Properties in FIBO appear as properties in the FIBO vocabulary. Logical restrictions relating pairs of FIBO classes are rendered as simple relationships between corresponding concepts in FIBO Vocabulary. The FIBO Vocabulary, therefore, does not reflect the full richness of the FIBO Ontologies and is provided to support knowledge organization applications that do not require the full logic of FIBO.
         </p>
 
-        <p>
+        <p class="text">
           The FIBO Vocabulary machine-readable files are intended to provide input to a range of tools, usually characterized as Glossary or Vocabulary tools. These tools are generally used to provide further business-facing presentations of the content of these files.
         </p>
 
-        <div class="table-responsive">
+                <p>FIBO Vocabulary is available for download in the EDMConnect FIBO Interest Community space.</p>
+ 
+        <h3><a href="https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-voc" v-on:click="outboundClick('https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-voc')">Download FIBO Vocabulary</a> </h3>
+
+<!--         <div class="table-responsive">
           <table class="table table-style-grey">
             <tr>
               <th>FIBO SKOS</th>
@@ -68,7 +72,7 @@
               </td>
             </tr>
           </table>
-        </div>
+        </div> -->
       </article>
     </main>
   </div>
