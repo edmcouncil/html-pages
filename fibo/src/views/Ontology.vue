@@ -292,54 +292,49 @@
                   <h1>
                     <span>FIBO Viewer</span>
                   </h1>
+                  <h4>How to use FIBO Viewer</h4>
 
-                  <h3>About FIBO Viewer</h3>
-                  <p>
-                    FIBO Viewer is a JAVA application that is specifically designed to access both the FIBO structure and its content
-                    in the easiest possible way. It can serve both as a web application and REST API. FIBO Viewer is an open-source
-                    project that is hosted by EDM Council.  See <a href="https://github.com/edmcouncil/fibo-viewer">https://github.com/edmcouncil/fibo-viewer</a> for details.
-                  </p>
+                  <p class="text">To start using FIBO Viewer, search for interesting concepts by walking through the FIBO directory structure on the left-hand side or use the full-text search function.</p>
 
-                  <h3>FIBO structure and maturity levels</h3>
-                  <p class="text">
+               <h4>FIBO time machine</h4>
+
+                <p class="text">FIBO Viewer allows for browsing the past versions of FIBO. It also helps developers to see the changes proposed to FIBO in pull requests before their approval. To see the content of the past FIBO releases or recent pull requests, choose them from the drop-down list.</p>
+
+
+                  <h4>FIBO structure</h4>
+<!--                   <p class="text">
                     To fully benefit from the FIBO Viewer, one should keep in mind two very important things about FIBO.
-                  </p>
+                  </p> -->
 
-                  <br>
-                  <p>
-                    1) <b>FIBO is a set of ontologies. It is organized in a hierarchical directory structure to organize the ontologies.</b> 
+                  <p class="text">
+                    <b>FIBO is a set of ontologies. It is organized in a hierarchical directory structure.</b> 
                     Top-level directories are called <i>domains</i>; beneath that may be one or two levels of <i>sub-domain</i>
-                    and then <i>modules</i> and dozens of <i>ontologies</i> at the bottom level:
+                    and then <i>modules</i> and dozens of <i>ontologies</i> at the bottom level, e.g.:
                   </p>
 
                   <ul>
-                    <li>
-                      FIBO domain
+                    <li><a href="https://spec.edmcouncil.org/fibo/ontology/BE/MetadataBE/BEDomain">Business Entities</a> (FIBO domain)
                       <ul>
                         <li>
-                          (FIBO sub-domain)
-                          <ul>
-                            <li>
-                              FIBO module
+                            <a href="https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/MetadataBELegalEntities/LegalEntitiesModule">Legal Entities</a> (FIBO module)
                               <ul>
                                 <li>
-                                  FIBO ontology
+                                  <a href="https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/">Legal Entity Identifier (LEI) Entities Ontology</a>  (FIBO ontology)
                                 </li>
                               </ul>
-                            </li>
-                          </ul>
+                            
                         </li>
                       </ul>
                     </li>
                   </ul>
 
-                  <p>
-                    On the left-hand side, there is a list of eleven FIBO Domains staring with the Business Entities at the top and ending with Securities at the bottom.
+                  <p class="text">
+                    On the left-hand side, there is a list of eleven FIBO Domains, starting with the <a href="https://spec.edmcouncil.org/fibo/ontology/BE/MetadataBE/BEDomain">Business Entities</a> at the top and ending with <a href="https://spec.edmcouncil.org/fibo/ontology/SEC/MetadataSEC/SECDomain">Securities</a> at the bottom.
                   </p>
 
-                  <br>
+                  <h4>FIBO maturity levels</h4>
                   <p class="text">
-                    2) Each FIBO ontology has one of <strong>three levels of maturity</strong>.
+                    Each FIBO ontology has one of <strong>three levels of maturity</strong>.
                   </p>
 
                   <p class="">
@@ -370,19 +365,30 @@
                   </ul>
 
 
-                  <p><b>FIBO Production</b> is made up of the release ontologies only. <b>FIBO development</b> is made up of all ontologies, i.e., those that are released, provisional, and informative.</p> 
+                  <p p class="text"><b>FIBO production</b> is made up of the release ontologies only. </p> 
 
-                  <br>
-                <p>FIBO Viewer uses colors to indicate the status of an ontology. Each ontology is either <font color="#51d355">green</font> or <font color="#f1df3f">yellow</font>. <font color="#51d355">Green</font> color indicates that an ontology has a "release" maturity level, whereas <font color="#f1df3f">yellow</font> means that it provisional or informative. Domains or modules are <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) if they contain only <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) ontologies. Domains or modules are <font color="#51d355">green</font>-<font color="#f1df3f">yellow</font> is they include <font color="#51d355">green</font> and <font color="#f1df3f">yellow</font> ontologies.</p> 
+                  <p p class="text"><b>FIBO development</b> is made up of all ontologies, i.e., those that are released, provisional, and informative.</p> 
 
+                <p class="text">FIBO Viewer uses colors to indicate the status of an ontology. Each ontology is either <font color="#51d355">green</font> or <font color="#f1df3f">yellow</font>. The <font color="#51d355">green</font> color indicates that an ontology has a "release" maturity level, whereas <font color="#f1df3f">yellow</font> means that it provisional or informative. Domains or modules are <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) if they contain only <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) ontologies. Domains or modules are <font color="#51d355">green</font>-<font color="#f1df3f">yellow</font> is they include <font color="#51d355">green</font> and <font color="#f1df3f">yellow</font> ontologies.</p> 
+
+                <h4>FIBO time machine</h4>
+
+                <p class="text">FIBO Viewer allows for browsing the past versions of FIBO. It also helps developers to see the changes proposed in pull requests. To see the content of the past FIBO releases or recent pull requests, choose them from the drop-down list.</p>
+
+
+<!-- 
 
                   <br>
                   <p class="text">
                     One can see the maturity level for each FIBO ontology, see e.g.
                     <a href="https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/FunctionalEntities/">https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/FunctionalEntities/</a>
+                  </p> -->
+
+                  <h4>About FIBO Viewer</h4>
+                  <p class="text">
+                    FIBO Viewer is a JAVA application that is specifically designed to access both the FIBO structure and its content
+                    in the easiest possible way. It can serve both as a web application and REST API. FIBO Viewer is an open-source project that EDM Council hosts.  See <a href="https://github.com/edmcouncil/fibo-viewer">https://github.com/edmcouncil/fibo-viewer</a> for details.
                   </p>
-
-
 
 
 
