@@ -371,11 +371,6 @@
 
                 <p class="text">FIBO Viewer uses colors to indicate the status of an ontology. Each ontology is either <font color="#51d355">green</font> or <font color="#f1df3f">yellow</font>. The <font color="#51d355">green</font> color indicates that an ontology has a "release" maturity level, whereas <font color="#f1df3f">yellow</font> means that it provisional or informative. Domains or modules are <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) if they contain only <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) ontologies. Domains or modules are <font color="#51d355">green</font>-<font color="#f1df3f">yellow</font> is they include <font color="#51d355">green</font> and <font color="#f1df3f">yellow</font> ontologies.</p> 
 
-                <h4>FIBO time machine</h4>
-
-                <p class="text">FIBO Viewer allows for browsing the past versions of FIBO. It also helps developers to see the changes proposed in pull requests. To see the content of the past FIBO releases or recent pull requests, choose them from the drop-down list.</p>
-
-
 <!-- 
 
                   <br>
