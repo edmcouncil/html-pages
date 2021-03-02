@@ -22,7 +22,7 @@
             <h2>FIBO GitHub Space</h2>
             <p>Since January 2020, FIBO has been developed by an open community process</p>
             <!-- <router-link :to="{ path: router('vocabulary') }" class="btn-sl">DOWNLOAD FIBO SKOS Vocabulary</router-link> -->
-            <a href="ttps://github.com/edmcouncil/fibo/blob/master/README.md" v-on:click="outboundLinkClick('https://github.com/edmcouncil/fibo/blob/master/README.md')" class="btn-sl">Visit FIBO GitHub Space</a>
+            <a href="https://github.com/edmcouncil/fibo/blob/master/README.md" v-on:click="outboundLinkClick('https://github.com/edmcouncil/fibo/blob/master/README.md')" class="btn-sl">Visit FIBO GitHub Space</a>
           </div>
         </div>
         <div class="carousel-item">
