@@ -158,7 +158,17 @@
 
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">{{data.label.toUpperCase()}}</h5>
+                  
+                  <h5 class="card-title">
+                    {{data.label.toUpperCase()}}
+                    <a
+                      v-if="!data.iri.startsWith('http://')"
+                      :href="`https://github.com/edmcouncil/fibo/issues/new` +
+                                `?labels=${encodeURI(githubNewIssueDetails().label)}` +
+                                `&template=issue.md` +
+                                `&title=${encodeURI(githubNewIssueDetails().title)}`" class="btn btn-sm btn-outline-primary btn-report-a-problem"
+                      >Report a problem</a>
+                    </h5>
                   <h6 class="card-subtitle mb-2 text-muted" v-if="data.iri">
                     {{data.iri}}
                     <button v-clipboard="data.iri" type="button" class="btn btn-sm btn-outline-primary">Copy</button>
@@ -495,6 +505,14 @@ export default {
         window.scrollTo(0, scrollTop);
         this.$root.ontologyRouteIsUpdating = false;
       },
+      githubNewIssueDetails() {
+        const ontologyQuery = this.data.iri.replace('https://spec.edmcouncil.org/fibo/ontology/', '');
+        const label = ontologyQuery.substring(0, ontologyQuery.indexOf('/'));
+        return {
+          label,
+          title: `Problem with Board Agreement ${label}`
+        }
+      }
     };
   },
   mounted() {
@@ -503,6 +521,7 @@ export default {
     if (this.$route.params && this.$route.params[1]) {
       const ontologyQuery = window.location.pathname.replace('/fibo/ontology/', '');
       queryParam = `https://spec.edmcouncil.org/fibo/ontology/${ontologyQuery}`;
+      // this.githubNewIssue.title = this.githubNewIssue.titleTemplate.replace('<LABEL>', this.githubNewIssue.label);
     } else if (this.$route.query && this.$route.query.query) {
       queryParam = this.$route.query.query || '';
     }
@@ -858,6 +877,15 @@ article ul.maturity-levels li:before{
 .multiselect-xxl-container{
   margin-top: 20px;
   min-width: 250px;
+}
+.btn-report-a-problem{
+  // position: absolute;
+  // top: 1.25rem;
+  // right: 1.25rem;
+  float: right;
+  background-color: rgb(46, 164, 79);
+  color: white;
+  border-color: rgba(27, 31, 35, 0.15);
 }
 </style>
 
