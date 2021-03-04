@@ -21,7 +21,6 @@
           name="edgesFilter"
           id="external"
           value="external"
-          checked="true"
         />
         <label class="form-check-label" for="external">inherited</label>
       </div>
@@ -70,7 +69,7 @@ export default {
         optional: true,
         non_optional: true,
         internal: true,
-        external: true,
+        external: false,
       };
       const edgesFilter = edge => edgesFilterValues[edge.optional] && edgesFilterValues[edge.type];
       edgeFilters.forEach(

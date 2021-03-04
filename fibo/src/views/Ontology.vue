@@ -163,10 +163,13 @@
                     {{data.label.toUpperCase()}}
                     <a
                       v-if="!data.iri.startsWith('http://')"
+                      class="btn btn-sm btn-outline-primary btn-report-a-problem"
+                      target="_blank"
                       :href="`https://github.com/edmcouncil/fibo/issues/new` +
                                 `?labels=${encodeURI(githubNewIssueDetails().label)}` +
                                 `&template=issue.md` +
-                                `&title=${encodeURI(githubNewIssueDetails().title)}`" class="btn btn-sm btn-outline-primary btn-report-a-problem"
+                                `&title=${encodeURI(githubNewIssueDetails().title)}` +
+                                `&body=${encodeURI(githubNewIssueDetails().body)}`"
                       >Report a problem</a>
                     </h5>
                   <h6 class="card-subtitle mb-2 text-muted" v-if="data.iri">
@@ -510,7 +513,8 @@ export default {
         const label = ontologyQuery.substring(0, ontologyQuery.indexOf('/'));
         return {
           label,
-          title: `Problem with Board Agreement ${label}`
+          title: `Problem with ${this.data.label.toUpperCase()}`,
+          body: `Resource URL:\n${this.data.iri}`
         }
       }
     };
