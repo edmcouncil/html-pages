@@ -16,6 +16,10 @@ export default {
   computed: {
     processedHtml() {
       let html = this.value;
+      html = html.replace(
+        '/arg1/',
+        '<b>/arg1/</b>',
+      );
       if (this.entityMaping) {
         Object.keys(this.entityMaping).forEach((name) => {
           const value = this.entityMaping[name];
