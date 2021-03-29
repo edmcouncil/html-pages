@@ -14,7 +14,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>OPEN KNOWLEDGE GRAPH LAB</h2>
             <p>We deliver Graph Powered Agile Intelligence</p>
-            <router-link :to="{ path: router('OKGL') }" class="btn-sl">OKGL MISSION</router-link>
+            <a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-shared-lab" class="btn-sl" v-on:click="outboundLinkClick('https://edmconnect.edmcouncil.org/okginterestcommunity/okg-shared-lab')">OKGSL mission</a>
           </div>
         </div>         
         <div class="carousel-item active">
@@ -22,7 +22,7 @@
           <div class="carousel-caption d-none d-md-block">
             <h2>Open Knowledge Graph Training</h2>
             <p>EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms.</p>
-            <router-link :to="{ path: router('courses') }" class="btn-sl">CHECK AND REGISTER</router-link>
+            <a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-training/okg-training-events" class="btn-sl" v-on:click="outboundLinkClick('https://edmconnect.edmcouncil.org/okginterestcommunity/okg-training/okg-training-events')">CHECK AND REGISTER</a>
           </div>
         </div>       
         <div class="carousel-item">

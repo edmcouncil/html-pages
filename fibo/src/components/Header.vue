@@ -106,7 +106,11 @@
             </div>
           </li>
 
-          <li class="nav-item dropdown">
+          <li class="nav-item">
+             <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG Home</a>
+          </li>  
+
+<!--           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -119,9 +123,8 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a href="https://spec.edmcouncil.org" class="dropdown-item" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG Home</a>
               <a href="https://spec.edmcouncil.org/courses" class="dropdown-item" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/courses')">OKG/FIBO Training</a>
-              <!-- <router-link class="dropdown-item" :to="{ path: router('use-cases') }">Use cases</router-link> -->
             </div>
-          </li>
+          </li> -->
 <!--           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"

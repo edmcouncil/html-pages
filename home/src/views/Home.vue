@@ -10,48 +10,52 @@
 <a href="https://register.gotowebinar.com/register/3618900380478224"><img style='width: 70%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/OKGWebinar.png" alt="REGISTER" /></a><br>
 -->
                 <h1>
-                    <span>About</span>
+                    <span>EDMC OPEN KNOWLEDGE GRAPH SPECIFICATIONS</span>
                 </h1>
-<img style='width: 70%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/Open Knowledge Graph logo.png" alt="Open FIBO" />
 
-
-<h4>Why Knowledge Graphs</h4> 
-
-<h5>This is the world we live in</h5>
-<img style='width: 45%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/60s.png" alt="Open FIBO" align="right" />
-
-<p  class="text">We live in a hyper-connected world where an invisible bio-adversary can deliver a toxic shock to our global system with a largely unmeasurable impact on our Lives and Livelihood. As businesses strive to understand the Risk impact, assess their business resiliency, and pivot to growth, we are unable to  stitch together holistic, continuous, and contextually relevant Intelligence at a scale and speed we need to deal with the 'New Normal'.</p>
-
-<p class="text">Per IDC estimation, in 2020, we’ll produce and consume more than 59 Zettabytes of data with 26% growth over the next 3 years, and a larger portion of this will be unstructured data. While we have made tremendous progress in applying machine intelligence to understand and derive Insights from our internal data, our data ecosystems remain disjointed with a significant lack of Trust. Our current architectures and technology are not able to connect and integrate internal and external data to enable Agile Intelligence we need. This further inhibits our ability to develop newer Products and Services,  maintain and grow a trusted relationship with our customers and partners while lowering our Risk profile.</p>
-
-<h5>What we urgently need</h5>
-
-<p class="text">What we urgently need is a new strategy, architecture, and solutions to develop Agile Intelligence. <b>Knowledge Graphs</b> are well suited to serve as the DNA (core?) of this new architecture. <b>Knowledge Graphs mimic how humans brain thinks – in terms of connections and relationships</b>. Adding advanced machine intelligence to the underlying Graph databases enables the Enterprise Digital Brain that can deliver the <b>enterprise-level Agile Intelligence</b>.</p>
-
-
-<h4>Knowledge Graph Market Size and Growth Trajectory</h4>
-<p class="text">Per Marketsandmarkets, the Knowledge Graph industry is poised to experience hyper-growth ($3B and 23% CAGR by 2023). Other industry analysts such as Gartner are bullish on the Knowledge Graph market trends. <b>Gartner lists Graph powered augmented analytics to be among the top 10 trends, with 30% of the global organizations making Graph powered decisions</b>.</p>
-
-<h5>Knowledge Graphs use cases</h5>
-<p class="text">Key use cases of Knowledge Graphs include 
+<h4>OKG Community spaces</h4>
+<img style='width: 30%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;' src="../assets/img/Open Knowledge Graph logo.png" alt="Open FIBO"  align="right"/>
+<p>
 <ul>
-    <li>Risk</li>
-    <li>Fraud</li>
-    <li>Recommendation Engines</li>
-    <li>IoT streaming analytics</li>
-    <li>Supply-Chain analytics and</li>
-    <li>Customer analysis</li>
+  <li>the <a href="https://github.com/edmcouncil/" v-on:click="outboundLinkClick('https://github.com/edmcouncil/fibo')">EDMC GitHub space</a> is the main EDMC development space and the space where all the official dev materials are located, and </li>
+  <li>the <a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community" v-on:click="outboundLinkClick('https://edmconnect.edmcouncil.org/fibointerestgroup/home')">EDMConnect platform</a> is an official discussion forum for the OKG Community.</li>
 </ul>
-Industries such as Financial Services, Insurance, Life-Sciences, Healthcare are leading the way. Cloud-based Knowledge Graph applications Marketplaces are in development.</p>
 
-<h4>EDMC Advocates Knowledge Graph Adoption</h4> 
+</p>
 
-<p class="text">In particular, the role of EDMC is to</p>
+
+<h4>Quick access</h4> 
+
+<h5>FIBO and AUTO specifications</h5>
 <ul>
-    <li>Provide Knowledge Graph Awareness, Training and Certification Programs</li>
-    <li>Support Shared Industry Ontologies as Accelerators to Business Solutions</li>
-    <li>Support a Community of Knowledge Graph Advocates</li>
+    <li><a href="https://spec.edmcouncil.org/fibo/">FIBO Home</a></li>   
+    <li><a href="https://spec.edmcouncil.org/auto/">AUTO Home</a></li>
 </ul>
+
+
+<h5>OKG Shared Lab</h5>
+
+<p class="text">EDMC recognizes the urgent need to bring this new architecture and approach to its members and beyond. In consultations with various members, analysts, and software vendors, we have launched the Open Knowledge Graph Shared Lab (OKGSL):</p>
+
+<ul>
+    <li><a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community">OKG Interest Community Page</a></li>   
+    <li><a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-shared-lab">OKG Shared Lab Page</a></li>
+</ul>
+
+
+<h5>OKG Training</h5>
+<p class="text">EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms:</p>
+
+<ul>
+    <li><a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-training/okg-course-description">OKG Training Palette</a></li>
+    <li><a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-training/okg-training-events">OKG Training Events</a></li>
+    <li><a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-training/regional-advocates">Contact regional advocates</a></li>        
+</ul>
+
+
+
+
+
 
 
 
