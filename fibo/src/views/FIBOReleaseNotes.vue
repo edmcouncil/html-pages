@@ -6,6 +6,10 @@
                 <h1>
                   <span>FIBO Release Notes</span>
                 </h1>
+                <p class="text"><b>2021</b></p>
+                <ul>
+                    <li><a href="#2021Q1">2021 Q1</a></li>
+                </ul>
                 <p class="text"><b>2020</b></p>
                 <ul>
                 	<li><a href="#2020Q4">2020 Q4</a></li>
@@ -36,6 +40,73 @@
                 <h1>
                   <span>@@@</span>
                 </h1>
+
+
+                <h3 id="2021Q1"><strong>2021 Q1</strong></h3>
+                <h4>Revisions Summary by Elisa Kendall</h4>
+                <p class="text">This quarter we made significant progress across domain areas, as discussed below. One major accomplishment is that although we’ve added many new hygiene tests, especially in the last several months, we’ve also eliminated all of the errors in the production ontologies using those tests. In other words, there are NO remaining hygiene errors in the production ontologies. This doesn’t mean that there aren’t any issues, of course, just that for the set of tests we have automated to date, the production FIBO ontologies are error-free. We will continue to add to that arsenal of tests which will likely find more issues, but with 21 tests today, we believe that the contributions of any community member are much more likely to be of higher quality that they would be otherwise.</p>
+
+                <p class="text">New production concepts for credit facilities, additional common contract clauses, futures, and forwards are now available. We’ve also updated the ISO 10383 MIC codes and FpML interest rates to the latest released versions. And, we now have an exhaustive set of classes representing the ISO 10962 CFI codes for common and preferred shares.</p>                
+
+
+                <h4>Business Entities (BE)</h4>
+                <p class="text">This quarter’s revisions were primarily syntactic, with a handful of exceptions. We updated our reference data for jurisdictions in general to handle language-specific diacritic and other special characters properly, revised references that were no longer available, eliminated remaining circular definitions, and addressed other hygiene issues. One interesting change involved revising the jurisdiction reference data for the European Union to reflect Brexit. We also added a new <a href="https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/CorporateBylaws">CorporateBylaws class</a> including a restriction related to hasAuthorizedShares; added a property for hasNominalValue, and used that property in a new top-level restriction on financial instruments to address use cases we are working on in securities and derivatives.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ABE+">All 2021 BE Q1 PRs and Issues</a>
+
+
+                <h4>Derivatives (DER)</h4>
+                <p class="text">Our primary achievement this quarter was to revise and promote FuturesAndForwards (formerly called Forwards in the DerivativesContracts module) to release status. We made significant revisions to the provisional Options ontology with an eye towards release in Q2, including merging exchange-traded options with over-the-counter options ontologies, whose features largely overlapped, better integration of the options content with other released ontologies, and started reviewing, cleaning up, and extending the remaining content. This work involved refactoring across a number of the provisional ontologies in derivatives, including significant clean-up in any that were related to options or forwards/futures. Some concepts/properties were moved “higher up the food chain”, to DerivativesBasics or to FBC, depending on the situation, mainly for reusability purposes. It is likely that we will extract content specific to exotic options from the main ontology as we move towards releasing the main options ontology for better modularity and ease of use. As part of our clean-up effort, we also merged some of the small asset class-specific ontologies to aid usability and reduce overhead related to maintenance costs. Finally, we eliminated all remaining hygiene issues in the released ontologies.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ADER+">All 2021 DER Q1 PRs and Issues</a>
+
+                <h4>Financial Business and Commerce (FBC)</h4>
+                <p class="text">Notable revisions to FBC this quarter include (1) integration of the provisional credit facilities ontology with the debt ontology and thus promoting that content to release status, (2) integration of the provisional communications ontology content with reporting in FND and loan applications in Loans, with some impact to FBC but mainly FND, (3) revised the ISO 10383 MIC codes to reflect the latest ISO publication, (4) migration of PromissoryNote from Contracts in FND to Debt in FBC, integrating it with the new credit facility concepts, and (5) revised references that were no longer available, eliminated remaining circular definitions and other hygiene issues. We also made a few changes to the provisional settlement and instrument pricing ontologies to reflect requirements bubbled up through securities and derivatives.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3AFBC+">All 2021 FBC Q1 PRs and Issues</a>
+
+                <h4>Foundations (FND)</h4>
+                <p class="text">Important revisions in Q1include integration of concepts from the informative AgreementsExt module reflecting contractual commitments into contracts, and elimination of the informative module. Other changes involved minor updates supporting various other domain areas, and addressing syntactic issues, including revising references that were no longer available, eliminating remaining circular definitions, and resolving other remaining hygiene issues. We also revised content related to use cases from other domain areas, for example, merging what was the provisional communications ontology into other released ontologies to minimize maintenance overhead and support consistency.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3AFND+">All 2021 FND Q1 PRs and Issues</a>
+
+                <h4>Hygiene tests</h4>
+                <p class="text">In Q1 we've introduced four new hygiene tests:</p>
+
+                <ul>
+                        <li>a test <a href="https://github.com/edmcouncil/fibo/blob/master/etc/testing/hygiene/testHygiene1289.sparql">testHygiene1289.sparql</a> that searches for object properties that may be isA impostors. The search looks for object properties whose local names: are identical to 'isA' string, start with 'may' string and contain either 'become' or 'also' strings,</li>
+                        <li>a test <a href="https://github.com/edmcouncil/fibo/blob/master/etc/testing/hygiene/testHygiene1290.sparql">testHygiene1290.sparql</a> that finds all top-level classes outside FND, FBC, and LCC domains,</li>
+                        <li>a test <a href="https://github.com/edmcouncil/fibo/blob/master/etc/testing/hygiene/testHygiene1292.sparql">testHygiene1292.sparql</a> that find classes that refer to multiple concepts by means of the logical constructs of conjunctions and disjunctions,</li>
+                        <li>a test <a href="https://github.com/edmcouncil/fibo/blob/master/etc/testing/hygiene/testHygiene1293.sparql">testHygiene1293.sparql</a> that searches for the min 1 cardinality restrictions - both qualified and non-qualified.,</li>
+                </ul>
+
+                <p class="text">Three hygiene tests: <a href="https://github.com/edmcouncil/fibo/blob/master/etc/testing/hygiene/testHygiene0114.sparql">testHygiene0114.sparql</a>, <a href="https://github.com/edmcouncil/fibo/blob/master/etc/testing/hygiene/testHygiene1289.sparql">testHygiene1289.sparql</a>, and <a href="https://github.com/edmcouncil/fibo/blob/master/etc/testing/hygiene/testHygiene1290.sparql">testHygiene1290.sparql</a> have been promoted to prod errors.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3Ahygiene+">All 2021 hygiene Q1 PRs and Issues</a> 
+
+
+                <h4>Indicators and Indices (IND)</h4>
+                <p class="text">Most of the revisions made in Q1 were driven by testing, cleaning up some minor issues we discovered, and eliminating issues uncovered through expanded hygiene testing. One notable change is that we updated the FpML reference interest rates to reflect the latest version. We also extended the definition of volatility to include implied and historical volatility, which, as it happens, are critical to understanding when reflecting on issues related to recent developments in the markets such as the Archegos debacle.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3AIND+">All 2021 IND Q1 PRs and Issues</a>
+
+
+                <h4>Loans (LOAN)</h4>
+                <p class="text">This quarter we continued the clean-up work we have been doing in LOANs, and integrated the now released credit facility concepts, allowing us to merge/eliminate another provisional loans ontology (LoansBasicTerms).</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ALOAN+">All 2021 LOAN Q1 PRs and Issues</a>  
+
+
+                <h4>Developer Guide (DG)</h4>
+                <p class="text">Changes to the CONTRIBUTING.md file mostly concerning new community spaces.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ACONTRIBUTING.md+">All 2021 Developer Guide Q1 PRs and Issues</a>   
+
+     
+                <h4>Securities (SEC)</h4>
+                <p class="text">In Q1 we continued our focus on the representation of preferred shares, and on building out the exhaustive set of classes needed to fully model the ISO 10962 CFI standard with respect to common and preferred shares. That effort is now complete, using multiple inheritance to expand the flattened hierarchy included in the ISO standard, and we anticipate continuing that process to add the exhaustive set of classes for representing convertible common and preferred shares in Q2, as well as coverage of limited partnership units. Other changes reflect the further revision of concepts related to Bonds, such as a better representation of zero coupon vs. OID bonds, the distinctions related to call vs. put, maturity dates, and so forth, so that the same concepts could be used across bonds and preferred shares. Finally, we eliminated all remaining hygiene issues in the released ontologies.</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q1 PRs and Issues</a>                  
 
                 <h3 id="2020Q4"><strong>2020 Q4</strong></h3>
                 <h4>Revisions Summary</h4>
