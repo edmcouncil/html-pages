@@ -10,7 +10,6 @@
           name="edgesFilter"
           id="internal"
           value="internal"
-          checked="true"
         />
         <label class="form-check-label" for="internal">class specific</label>
       </div>
@@ -31,7 +30,6 @@
           name="edgesFilter"
           id="optional"
           value="optional"
-          checked="true"
         />
         <label class="form-check-label" for="optional">optional</label>
       </div>
@@ -42,7 +40,6 @@
           name="edgesFilter"
           id="non_optional"
           value="non_optional"
-          checked="true"
         />
         <label class="form-check-label" for="non_optional">required</label>
       </div>
@@ -65,18 +62,21 @@ export default {
       const container = document.getElementById('ontograph');
       const edgeFilters = document.getElementsByName('edgesFilter');
 
+      const isSomeGreenSquare = this.data.nodes.some(node => node.color == '#C2FABC');
+
+      //initial checkboxes setting
       const edgesFilterValues = {
         optional: true,
         non_optional: true,
         internal: true,
-        external: false,
+        external: !isSomeGreenSquare || false,
       };
-      const edgesFilter = edge => edgesFilterValues[edge.optional] && edgesFilterValues[edge.type];
       edgeFilters.forEach(
-        filter => function (e) {
-          filter.checked = 'checked';
+        filter => {
+          filter.checked = edgesFilterValues[filter.value];
         },
       );
+      const edgesFilter = edge => edgesFilterValues[edge.optional] && edgesFilterValues[edge.type];
 
       edgeFilters.forEach(filter => filter.addEventListener('change', (e) => {
         const { value, checked } = e.target;

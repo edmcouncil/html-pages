@@ -162,7 +162,7 @@
                   <h5 class="card-title">
                     {{data.label.toUpperCase()}}
                     <a
-                      v-if="!data.iri.startsWith('http://')"
+                      v-if="!data.iri.startsWith('http://') && !(this.$route.query && this.$route.query.version)"
                       class="btn btn-sm btn-outline-primary btn-report-a-problem"
                       target="_blank"
                       :href="`https://github.com/edmcouncil/fibo/issues/new` +
