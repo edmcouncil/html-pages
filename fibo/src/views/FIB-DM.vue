@@ -26,14 +26,16 @@
 
         <hr class="wp-block-separator">
 
-        <p class="text">Many midsize EDMC members want to leverage the industry standard, but don’t have ontology tooling, databases, and the human expertise inhouse yet. </p>
+        <p class="text">Midsize EDM Council members want to use the industry standard, but many don’t have ontology tooling, databases, and human expertise in-house yet. </p>
+		
+		<p class="text">Large financial institutions want to leverage their customized ontologies for the whole enterprise beyond the Semantic Center of Excellence (CoE). </p>
 
-        <p>The FIBO development team created FIBO-derived glossaries and dictionaries available in MS-Excel to help. However, data architects still have to manually transcribe diagrams into their data modeling tool and copy &amp; paste definitions. The Financial Industry Business Data Model supplements the EDMC FIBO-derived formats.</p>
+        <p>The FIBO development team created FIBO-derived glossaries and dictionaries to help. However, data architects still have to manually transcribe diagrams into their data modeling tool and copy &amp; paste definitions. The Financial Industry Business Data Model supplements the EDMC FIBO-derived formats.</p>
 
         <hr class="wp-block-separator">
 
 
-        <p class="text">We created FIB-DM with CODT our&nbsp;<a href="https://fib-dm.com/patent/">patent-pending</a>&nbsp;Configurable Ontology to Data-model Transformation. </p>
+        <p class="text">Jayzed Data Models Inc. derived FIB-DM with CODT our&nbsp;<a href="https://fib-dm.com/patent/">patent-pending</a>&nbsp;Configurable Ontology to Data-model Transformation. </p>
 
         <figure class="wp-block-image size-large text-center">
           <a href="https://www.linkedin.com/pulse/open-source-data-model-financial-industry-jurgen-ziemer/"
@@ -53,6 +55,8 @@
 
         <p class="text">Strategically, adopting the industry standard for relational and object modeling today, you are fully prepared for Semantic Enterprise Information Architecture with the ontology at the apex and derived models for data, message, object, and process in the future.</p>
 
+		<hr class="wp-block-separator">
+	
         <figure class="wp-block-image size-large text-center">
           <a href="https://fib-dm.com/semantics-for-finance-users/" target="_blank" rel="noreferrer noopener">
             <img src="@/assets/img/Semantic-Enterprise-Information-Architecture-1024x418.png"
@@ -65,11 +69,14 @@
         <hr class="wp-block-separator">
 
 
-        <p class="text">FIB-DM core is the Open Source (<a aria-label=" (opens in a new tab)" rel="noreferrer noopener" href="https://opensource.org/licenses/GPL-3.0" target="_blank">GPL-3.0</a> copyleft) version for smaller financial institutions, academic research, and your unlimited evaluation. The 1029-entity model derived from FIBO Foundation, Business Entities, and Finance Business &amp; Commerce modules. More than two hundred users already downloaded the model. </p>
+        <p class="text">FIB-DM core is the Open Source (<a aria-label=" (opens in a new tab)" rel="noreferrer noopener" href="https://opensource.org/licenses/GPL-3.0" target="_blank">GPL-3.0</a> copyleft) version for smaller financial institutions, academic research, and your unlimited evaluation. The 1029-entity model derived from FIBO Foundation, Business Entities, and Finance Business &amp; Commerce modules. One thousand five hundred architects downloaded the model already. </p>
+
+		<figure class="wp-block-image size-large text-center"><img width="1024" height="729" src="@/assets/img/FIB-DM-2021-01-Packages-PowerDesigner-screenshot-1024x729.png" alt="FIB-DM Packages (PowerDesigner screenshot)" class="wp-image-5136"  /><figcaption>FIB-DM Packages (PowerDesigner screenshot)</figcaption></figure>
+
 
         <p class="text">FIB-DM extended is the full 1875-entity version including current FIBO Production modules for Securities, Derivatives, and Indices &amp; Indicators. Licensees with a maintenance contract receive upgrades when new modules for Loans, Business Processes, Corporate Actions, Collective Investment Vehicles, and Market Data release into FIBO production in 2020.</p>
 
-        <p class="text">Both models are released as SAP PowerDesigner Conceptual and Logical Data Models. Most data modeling tools can import native PowerDesigner files. For other tools and uses <a href="https://fib-dm.com/tutorial-1-addendum/">FIB-UM</a>, the Universal Model is the FIBO in    UML-XMI. </p>
+        <p class="text">Both models are released as SAP PowerDesigner Conceptual and Logical Data Models. Most data modeling tools can import native PowerDesigner files. For other tools and uses <a href="https://fib-dm.com/tutorial-1-addendum/">FIB-UM</a>, the Universal Model is the FIBO in UML-XMI. </p>
 
         <p>Licenses are priced for institution size, using your EDMC membership tier as a segment.   </p>
 
