@@ -47,10 +47,7 @@
       </ul>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router() }">About</router-link>
-          </li>
-
+          
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('ontology') }">FIBO VIEWER &#x2193;</router-link>
           </li>
