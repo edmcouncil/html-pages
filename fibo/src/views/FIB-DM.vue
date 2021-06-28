@@ -21,9 +21,6 @@
         </figure>
 
 
-
-        
-
         <hr class="wp-block-separator">
 
         <p class="text">Midsize EDM Council members want to use the industry standard, but many don’t have ontology tooling, databases, and human expertise in-house yet. </p>
@@ -51,7 +48,9 @@
         <hr class="wp-block-separator">
 
 
-        <p class="text">Standalone FIB-DM is an Enterprise Data Model, a lower-cost alternative to industry vendor models. We believe that the ontology-derived data model is also more comprehensive, modern, and conceptually sound, thanks to the exceptional work of the FIBO development team and EDMC members supporting the content groups. </p>
+        <p class="text">Standalone FIB-DM is an Enterprise Data Model, a lower-cost alternative to industry vendor models. </p>
+
+		<p class="text">We believe that the ontology-derived data model is also more comprehensive, modern, and conceptually sound, thanks to the exceptional work of the FIBO development team and EDMC members supporting the content groups. </p>
 
         <p class="text">Strategically, adopting the industry standard for relational and object modeling today, you are fully prepared for Semantic Enterprise Information Architecture with the ontology at the apex and derived models for data, message, object, and process in the future.</p>
 
@@ -64,7 +63,9 @@
                 sizes="(max-width: 1024px) 100vw, 1024px">
           </a><figcaption>Semantic Enterprise Information Architecture.</figcaption></figure>
 
-        <p>As a FIB-DM architect, you can easily learn OWL and ontology tooling because you recognize the familiar concepts and design patterns. As a business user or analyst, you find the FIB-CM concept maps intuitive and far less complicated than graphs and data models. Common names and definitions across the enterprise facilitate integration between applications, RDBMS and RDF-stores.  </p>
+        <p>As a FIB-DM architect, you can easily learn OWL and ontology tooling because you recognize the familiar concepts and design patterns. As a business user or analyst, you find the FIB-CM concept maps intuitive and far less complicated than graphs and data models. As an ontologist, you reverse-engineer in-house data models into RDF/OWL, accelerating your Enterprise Ontology design for Knowledge Graph and other use cases. In addition, you generate data models for conventional data architecture. </p>
+
+		<p>Common names and definitions across the enterprise facilitate integration between applications, RDBMS and RDF-stores.  </p>
 
         <hr class="wp-block-separator">
 
@@ -74,18 +75,18 @@
 		<figure class="wp-block-image size-large text-center"><img width="1024" height="729" src="@/assets/img/FIB-DM-2021-01-Packages-PowerDesigner-screenshot-1024x729.png" alt="FIB-DM Packages (PowerDesigner screenshot)" class="wp-image-5136"  /><figcaption>FIB-DM Packages (PowerDesigner screenshot)</figcaption></figure>
 
 
-        <p class="text">FIB-DM extended is the full 1875-entity version including current FIBO Production modules for Securities, Derivatives, and Indices &amp; Indicators. Licensees with a maintenance contract receive upgrades when new modules for Loans, Business Processes, Corporate Actions, Collective Investment Vehicles, and Market Data release into FIBO production in 2020.</p>
+        <p class="text">FIB-DM Normative is the full 2380-entity version, derived from the latest FIBO Production, including modules for Securities, Derivatives, and Indices & Indicators. The Informative version, derived from FIBO Development, provides two thousand additional entities.</p>
 
-        <p class="text">Both models are released as SAP PowerDesigner Conceptual and Logical Data Models. Most data modeling tools can import native PowerDesigner files. For other tools and uses <a href="https://fib-dm.com/tutorial-1-addendum/">FIB-UM</a>, the Universal Model is the FIBO in UML-XMI. </p>
+        <p class="text">We release the industry models as SAP PowerDesigner Conceptual and Logical Data Models. Most data modeling tools can import native PowerDesigner files. For other tools and uses FIB-UM, the Universal Model is the FIBO in UML-XMI. </p>
 
-        <p>Licenses are priced for institution size, using your EDMC membership tier as a segment.   </p>
+        <p>Licenses are priced for institution size, using your EDMC membership tier as a segment. You can license the CODT transformation technology as a bundle or add-on to FIB-DM.  </p>
 
         <hr class="wp-block-separator">
 
 
         <p class="text">To learn more watch the introduction videos, “Semantics for midsize Banks/for Managers/for Finance Users/for Data Architects” on <a aria-label=" (opens in a new tab)" rel="noreferrer noopener" href="https://www.youtube.com/c/fib-dm" target="_blank">YouTube</a>, download the data model, diagrams, education PowerPoints, and the full model report on the <a href="https://fib-dm.com/">FIB-DM website</a>, and follow the discussion on <a aria-label=" (opens in a new tab)" rel="noreferrer noopener" href="https://www.linkedin.com/showcase/fib-dm" target="_blank">LinkedIn</a>.</p>
 
-        <p>Please contact me with any questions or to arrange an overview meeting. Thanks, Jurgen Ziemer, ontologist and data architect (<a href="mailto:jziemer@jayzed.com">jziemer@jayzed.com</a>).</p>
+        <p>Please contact me with any questions or to arrange an overview meeting. Thanks, ontologist and data architect (<a href="mailto:jziemer@jayzed.com">jziemer@jayzed.com</a>).</p>
 
       </article>
     </main>
