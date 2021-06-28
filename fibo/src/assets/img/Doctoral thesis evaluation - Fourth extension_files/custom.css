@@ -1,0 +1,27 @@
+/******************
+    User custom CSS
+    ---------------
+
+    In this file you can add your own custom CSS
+    It will be loaded last, so you can override any other property.
+    Also, it will never be updated. So if you inheritate a core template and just add here some CSS, you'll still benefit of all the updates
+*/
+
+
+.logo-container { background-color: #C1092A; }
+.navbar-header { background-color: #C1092A; }
+.navbar { background-color: #C1092A; }
+.navbar-default .navbar-nav > li > a { color: white; }
+
+.ls-question-message,
+.ls-em-tip,
+.em_default, 
+.ls-em-success{
+  font-size: 15px;
+  margin-bottom:5px;
+}
+
+.ls-label-question{
+  font-size: 22px;
+  margin-bottom:5px;
+}
