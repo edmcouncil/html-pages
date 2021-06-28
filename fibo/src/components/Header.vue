@@ -57,7 +57,11 @@
 
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('FIBO-Groups') }">FIBO Community</router-link>
-          </li>  
+          </li> 
+
+		  <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: router('FIB-DM') }">FIB-DM</router-link>
+          </li> 
 
           <li class="nav-item dropdown">
             <a
