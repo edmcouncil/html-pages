@@ -29,29 +29,99 @@ yarn
 It will execute yarn to fetch necessary packages and setup project files for you automatically.
 
 ## Running the content of website locally
+### Requirements:
 
-By running
-```
-yarn serve
-```
-you can serve Vue application on your local machine. Also, Webpack will watch for changes in files and will rebuild application whenever any file will be changed.
+* [docker](https://docs.docker.com/get-docker/)
+* [docker-compose](https://docs.docker.com/compose/install/)
 
-Run in console/terminal in main Vue folder ([fibo](./fibo) or [auto](./auto)):
+### Deploy [OKG HOME](./home) with docker-compose
 
 ```
-yarn serve
+$ docker-compose --profile home up -d
+Creating network "html-pages_default" with the default driver
+Building home
+Sending build context to Docker daemon  18.86MB
+Step 1/9 : FROM node:12-alpine
+...
+Creating html-pages_home_1 ... done
 ```
 
-The address will be printed by the script but the default is:
+Listing containers must show one container running and the port mapping as below:
+```
+$ docker-compose ps
+      Name                     Command               State                    Ports                  
+-----------------------------------------------------------------------------------------------------
+html-pages_home_1   docker-entrypoint.sh yarn  ...   Up      0.0.0.0:8080->8080/tcp,:::8080->8080/tcp
+```
+
+After the application starts, navigate to [http://localhost:8080](http://localhost:8080) in your web browser.
+
+Stop and remove the containers:
+```
+$ docker-compose down
+Stopping html-pages_home_1 ... done
+Removing html-pages_home_1 ... done
+Removing network html-pages_default
+```
+
+### Deploy [FIBO HOME](./fibo) with docker-compose
 
 ```
-localhost:8080/fibo
+$ docker-compose --profile fibo up -d
+Creating network "html-pages_default" with the default driver
+Building fibo
+Sending build context to Docker daemon  14.62MB
+Step 1/9 : FROM node:12-alpine
+...
+Creating html-pages_fibo_1 ... done
 ```
 
-or 
+Listing containers must show one container running and the port mapping as below:
+```
+$ docker-compose ps
+      Name                     Command               State                    Ports                  
+-----------------------------------------------------------------------------------------------------
+html-pages_fibo_1   docker-entrypoint.sh yarn  ...   Up      0.0.0.0:8080->8080/tcp,:::8080->8080/tcp
+```
+
+After the application starts, navigate to [http://localhost:8080/fibo](http://localhost:8080/fibo) in your web browser.
+
+Stop and remove the containers:
+```
+$ docker-compose down
+Stopping html-pages_fibo_1 ... done
+Removing html-pages_fibo_1 ... done
+Removing network html-pages_default
+```
+
+### Deploy [AUTO HOME](./auto) with docker-compose
 
 ```
-localhost:8080/auto
+$ docker-compose --profile auto up -d
+Creating network "html-pages_default" with the default driver
+Building auto
+Sending build context to Docker daemon  14.62MB
+Step 1/9 : FROM node:12-alpine
+...
+Creating html-pages_auto_1 ... done
+```
+
+Listing containers must show one container running and the port mapping as below:
+```
+$ docker-compose ps
+      Name                     Command               State                    Ports                  
+-----------------------------------------------------------------------------------------------------
+html-pages_auto_1   docker-entrypoint.sh yarn  ...   Up      0.0.0.0:8080->8080/tcp,:::8080->8080/tcp
+```
+
+After the application starts, navigate to [http://localhost:8080/auto](http://localhost:8080/auto) in your web browser.
+
+Stop and remove the containers:
+```
+$ docker-compose down
+Stopping html-pages_auto_1 ... done
+Removing html-pages_auto_1 ... done
+Removing network html-pages_default
 ```
 
 

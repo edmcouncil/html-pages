@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  home:
+    profiles: ["home"]
+    build:
+      context: ./home
+      dockerfile: ../Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./home:/project
+      - /project/node_modules
+  fibo:
+    profiles: ["fibo"]
+    build:
+      context: ./fibo
+      dockerfile: ../Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./fibo:/project
+      - /project/node_modules
+  auto:
+    profiles: ["auto"]
+    build:
+      context: ./auto
+      dockerfile: ../Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./auto:/project
+      - /project/node_modules
