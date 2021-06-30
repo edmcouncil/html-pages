@@ -49,13 +49,14 @@
         <ul class="navbar-nav ml-auto">
 
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router() }">About AUTO</router-link>
-          </li>
-          <li class="nav-item">
-            <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG</a>
-          </li>            
-          <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('ontology') }">AUTO Viewer</router-link>
+          </li>
+		  
+		  <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: router('community') }">Community</router-link>
+          </li>
+		  <li class="nav-item">
+            <router-link class="nav-link" :to="{ path: router('products') }">Products</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('documentation') }">Docs</router-link>
@@ -74,15 +75,15 @@
               <router-link class="dropdown-item" :to="{ path: router('aim-and-scope') }">Aim and Scope</router-link>
             </div>
           </li> --> 
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('products') }">Products</router-link>
-          </li>
+          
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('applications') }">Applications</router-link>
           </li>          
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('community') }">Community</router-link>
-          </li>
+          
+		  <li class="nav-item">
+            <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG</a>
+          </li>            
+          
 
 <!--          <li class="nav-item dropdown">
             <a
