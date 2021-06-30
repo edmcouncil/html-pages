@@ -42,7 +42,7 @@
                   <span>@@@</span>
                 </h1>
 
-				<h3 id="2021Q2"><strong>2021 Q1</strong></h3>
+				<h3 id="2021Q2"><strong>2021 Q2</strong></h3>
                 <h4>Revisions Summary by Elisa Kendall</h4>
 				<p class="text">The most important change this quarter is the release of the Options ontology by the DER FCT. In addition, the SEC FCT released the depositary receipts ontology, and new international jurisdictions and government entities for Asia are now available in BE (5 ontologies), which are essential to KYC, AML and regulatory reporting use cases. Other updates include better integration of situational patterns for ownership and control, new Canadian tax authorities and identifiers in FBC, new classes supporting naming patterns that can be used to address interoperability, data lineage, and related requirements in FND, and bug fixing as needed.</p>
 				
