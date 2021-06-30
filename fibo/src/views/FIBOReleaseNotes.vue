@@ -8,6 +8,7 @@
                 </h1>
                 <p class="text"><b>2021</b></p>
                 <ul>
+					<li><a href="#2021Q2">2021 Q2</a></li>
                     <li><a href="#2021Q1">2021 Q1</a></li>
                 </ul>
                 <p class="text"><b>2020</b></p>
@@ -41,6 +42,47 @@
                   <span>@@@</span>
                 </h1>
 
+				<h3 id="2021Q2"><strong>2021 Q2</strong></h3>
+                <h4>Revisions Summary by Elisa Kendall</h4>
+				<p class="text">The most important change this quarter is the release of the Options ontology by the DER FCT. In addition, the SEC FCT released the depositary receipts ontology, and new international jurisdictions and government entities for Asia are now available in BE (5 ontologies), which are essential to KYC, AML and regulatory reporting use cases. Other updates include better integration of situational patterns for ownership and control, new Canadian tax authorities and identifiers in FBC, new classes supporting naming patterns that can be used to address interoperability, data lineage, and related requirements in FND, and bug fixing as needed.</p>
+				
+				<h4>Business Entities (BE)</h4>
+				<p class="text">This quarter’s notable revisions for business entities included restructuring high level ownership and control relations to better reflect patterns implemented in FND over the last several months for situational knowledge. We also updated our reference data for jurisdictions to include Asian jurisdictions at the country level, for all independent countries identified in the U.N. M49 as being part of the continent of Asia. We anticipate adding Oceania and Africa over the coming months, which will give us complete coverage of jurisdictions at the country level as needed for regulatory reporting, KYC, AML, and other use cases.</p>
+				<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ABE+">All 2021 BE Q2 PRs and Issues</a>
+
+				<h4>Derivatives (DER)</h4>
+                <p class="text">Our primary achievement this quarter was to revise and promote the Options ontology to release status. The effort, which we initiated in Q1, included moving some concepts related to exotic options to a new ExoticOptions provisional ontology, which we will address over the coming months. We also merged some concepts related to currency contracts into a single ontology, which we moved from a subordinate module into Derivatives Contracts, again provisionally, but stay tuned for that to be released over the coming months. We also cleaned up the provisional commodities ontologies as part of that effort.</p>
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ADER+">All 2021 DER Q2 PRs and Issues</a>
+
+				<h4>Financial Business and Commerce (FBC)</h4>
+                <p class="text">FBC mainly played a supporting role to changes that propagated from securities and derivatives this quarter. Some tweaks reflected revisions to the situational pattern changes in BE, minor bug fixes, and a few issues identified through work on the newly released options ontology related to pricing. We also integrated tax identifiers for Canadian business entities with the assistance of new FIBO users who needed them for their application this quarter.</p>
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3AFBC+">All 2021 FBC Q2 PRs and Issues</a>
+
+				<h4>Foundations (FND)</h4>
+                <p class="text">Like FBC, changes to FND in Q2 were mainly related to (1) further refinements of the situational pattern for ownership and control, (2) minor bug fixes, and (3) changes that propagated from securities and derivatives. Notably, we added new classes for reified names, including Name in Agents and ContextualName in Parties, which allow for aggregation of various properties such as name prefixes and suffixes for people, and most importantly, support user extensions for pedigree, provenance, and data lineage related to names. We also simplified the hierarchy involving independent parties, people, and organizations, thereby reducing confusion that some FIBO users had identified.</p>
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3AFND+">All 2021 FND Q2 PRs and Issues</a>
+
+				<h4>Hygiene tests</h4>
+                <p class="text">The only changes to hygiene tests this quarter involved clean up of some duplication, and clean-up of the test descriptions in the ontology guide.</p>
+				<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3Ahygiene+">All 2021 hygiene Q2 PRs and Issues</a> 
+
+				<h4>Indicators and Indices (IND)</h4>
+                <p class="text">This quarter most of the changes to IND ontologies involved bug-fixes identified through usability testing. The IND ontologies are relatively stable at this point, and we have met a number of the goals set out in our IND use cases. Next steps for IND will focus on corporate actions, and the impact such actions have on various indicators. We will be developing additional examples as a consequence, as well as further testing our time series representation not only for market rates but for economic indicators.</p>
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3AIND+">All 2021 IND Q2 PRs and Issues</a>
+				
+				<h4>Loans (LOAN)</h4>
+                <p class="text">There were no changes to the provisional loan content this quarter. We anticipate ramping that effort back up so that we can release the provisional LoanCore and LoanApplications ontologies soon, however.</p>
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ALOAN+">All 2021 LOAN Q2 PRs and Issues</a>  
+
+				<h4>Developer Guide (DG)</h4>
+                <p class="text">This quarter's efforts did include a refresh on the developers guide (see hygiene related detailed issues for more information on the changes).</p>
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ACONTRIBUTING.md+">All 2021 Developer Guide Q2 PRs and Issues</a>   
+
+				<h4>Securities (SEC)</h4>
+                <p class="text">The most visible change made to securities this quarter was finalization and release of the depositary receipts ontology in SEC/Equities. Other changes included (1) addressing downstream impacts of the changes related to the situational ownership and control patterns, (2) addressing the downstream impact of eliminating the confusion between independent parties, people, and organizations, (3) clean-up of equivalences related to the legal structure of a fund and common shares, (4) correcting logic issues in the provisional CIV ontology, and (5) addressing a gap related to the number of shares outstanding for any class of shares.</p>
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q2 PRs and Issues</a>                  
+
+			
 
                 <h3 id="2021Q1"><strong>2021 Q1</strong></h3>
                 <h4>Revisions Summary by Elisa Kendall</h4>
