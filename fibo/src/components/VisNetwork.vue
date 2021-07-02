@@ -1,5 +1,5 @@
 <template>
-  <div id='graphWindowWraper'>
+  <div id="graphWindowWraper">
     <b class="mr-1 ml-4">Connections:</b>
     <br />
     <div class="ml-4">
@@ -45,12 +45,12 @@
       </div>
       <div class="form-check form-check-inline">
         <button
-        type="button"
-        class="btn btn-link"
-        v-on:click="swapGraphContent()"
-      >
-        expand...
-      </button>
+          type="button"
+          class="btn btn-sm btn-outline-primary"
+          v-on:click="swapGraphContent()"
+        >
+          Expand diagram
+        </button>
       </div>
     </div>
 
@@ -74,7 +74,7 @@
         <div class="modal-content-full-width modal-content">
           <div class="modal-header-full-width modal-header">
             <h5 class="modal-title w-100" id="graphModalLabel">
-              <b class="mr-1 ml-4">Data model for "<i>${clazz.label}</i>"</b>
+              <b class="mr-1 ml-4">Data model for "<i>{{title}}</i>"</b>
             </h5>
             <button
               type="button"
@@ -98,7 +98,7 @@ import vis from 'vis-network';
 
 export default {
   name: 'vis-network',
-  props: ['data'],
+  props: ['data', 'title'],
   data() {
     return {
       modalVisible: false,
@@ -205,10 +205,9 @@ export default {
   },
   methods: {
     swapGraphContent() {
-      console.log('test');
-      document.getElementById('graphModalBody').appendChild(
-        document.getElementById('ontograph'),
-      );
+      document
+        .getElementById('graphModalBody')
+        .appendChild(document.getElementById('ontograph'));
 
       const options = {
         edges: {
@@ -217,14 +216,13 @@ export default {
             forceDirection: 'none',
             roundness: 0.15,
           },
-
         },
         physics: {
           forceAtlas2Based: {
             gravitationalConstant: -95,
             centralGravity: 0.005,
             springLength: 400,
-            springConstant: 0.410,
+            springConstant: 0.41,
           },
           minVelocity: 0.75,
           solver: 'forceAtlas2Based',
@@ -236,12 +234,12 @@ export default {
 
       setTimeout(() => {
         window.network.fit();
-      }, 0);
+      }, 100);
     },
     hideModal() {
-      document.getElementById('smallGraph').appendChild(
-        document.getElementById('ontograph'),
-      );
+      document
+        .getElementById('smallGraph')
+        .appendChild(document.getElementById('ontograph'));
       const options = {
         edges: {
           smooth: {
@@ -249,7 +247,6 @@ export default {
             forceDirection: 'none',
             roundness: 0.15,
           },
-
         },
         physics: {
           forceAtlas2Based: {
@@ -282,5 +279,4 @@ export default {
     display: none;
   }
 }
-
 </style>
