@@ -158,7 +158,7 @@
 
               <div class="card">
                 <div class="card-body">
-                  
+
                   <h5 class="card-title">
                     {{data.label.toUpperCase()}}
                     <a
@@ -175,9 +175,9 @@
                   <h6 class="card-subtitle mb-2 text-muted" v-if="data.iri">
                     {{data.iri}}
                     <button v-clipboard="data.iri" type="button" class="btn btn-sm btn-outline-primary">Copy</button>
-                    <button 
+                    <button
                       v-if="this.$route.query && this.$route.query.version"
-                      v-clipboard="data.iri + '?version=' + encodeURI(this.$route.query.version)" 
+                      v-clipboard="data.iri + '?version=' + encodeURI(this.$route.query.version)"
                       type="button" class="btn btn-sm btn-outline-primary">Copy versioned IRI</button>
                   </h6>
                   <h6 class="card-subtitle mb-2 text-muted" v-if="data.qName && data.qName !== ''">
@@ -272,7 +272,7 @@
                               ></component>
                             </li>
                           </ul>
-                          
+
                           <component
                             v-else
                             v-for="field in property"
@@ -293,7 +293,7 @@
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Data model for {{data.label}}</h5>
-                      <vis-network :data="data.graph" />
+                      <vis-network :data="data.graph" :title="data.label" />
                     </div>
                   </div>
                 </div>
@@ -320,7 +320,7 @@
                   </p> -->
 
                   <p class="text">
-                    <b>FIBO is a set of ontologies. It is organized in a hierarchical directory structure.</b> 
+                    <b>FIBO is a set of ontologies. It is organized in a hierarchical directory structure.</b>
                     Top-level directories are called <i>domains</i>; beneath that may be one or two levels of <i>sub-domain</i>
                     and then <i>modules</i> and dozens of <i>ontologies</i> at the bottom level, e.g.:
                   </p>
@@ -335,7 +335,7 @@
                                   <a href="https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/">Legal Entity Identifier (LEI) Entities Ontology</a>  (FIBO ontology)
                                 </li>
                               </ul>
-                            
+
                         </li>
                       </ul>
                     </li>
@@ -378,13 +378,13 @@
                   </ul>
 
 
-                  <p p class="text"><b>FIBO production</b> is made up of the release ontologies only. </p> 
+                  <p p class="text"><b>FIBO production</b> is made up of the release ontologies only. </p>
 
-                  <p p class="text"><b>FIBO development</b> is made up of all ontologies, i.e., those that are released, provisional, and informative.</p> 
+                  <p p class="text"><b>FIBO development</b> is made up of all ontologies, i.e., those that are released, provisional, and informative.</p>
 
-                <p class="text">FIBO Viewer uses colors to indicate the status of an ontology. Each ontology is either <font color="#51d355">green</font> or <font color="#f1df3f">yellow</font>. The <font color="#51d355">green</font> color indicates that an ontology has a "release" maturity level, whereas <font color="#f1df3f">yellow</font> means that it provisional or informative. Domains or modules are <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) if they contain only <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) ontologies. Domains or modules are <font color="#51d355">green</font>-<font color="#f1df3f">yellow</font> is they include <font color="#51d355">green</font> and <font color="#f1df3f">yellow</font> ontologies.</p> 
+                <p class="text">FIBO Viewer uses colors to indicate the status of an ontology. Each ontology is either <font color="#51d355">green</font> or <font color="#f1df3f">yellow</font>. The <font color="#51d355">green</font> color indicates that an ontology has a "release" maturity level, whereas <font color="#f1df3f">yellow</font> means that it provisional or informative. Domains or modules are <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) if they contain only <font color="#51d355">green</font> (<font color="#f1df3f">yellow</font>) ontologies. Domains or modules are <font color="#51d355">green</font>-<font color="#f1df3f">yellow</font> is they include <font color="#51d355">green</font> and <font color="#f1df3f">yellow</font> ontologies.</p>
 
-<!-- 
+<!--
 
                   <br>
                   <p class="text">
@@ -397,9 +397,6 @@
                     FIBO Viewer is a JAVA application that is specifically designed to access both the FIBO structure and its content
                     in the easiest possible way. It can serve both as a web application and REST API. FIBO Viewer is an open-source project that EDM Council hosts.  See <a href="https://github.com/edmcouncil/fibo-viewer">https://github.com/edmcouncil/fibo-viewer</a> for details.
                   </p>
-
-
-
 
 
                 </article>
@@ -454,7 +451,9 @@
 import { mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
 import Paginate from 'vuejs-paginate';
-import { getOntology, getModules, getHint, getOntologyVersions } from '../api/ontology';
+import {
+  getOntology, getModules, getHint, getOntologyVersions,
+} from '../api/ontology';
 
 export default {
   components: {
@@ -482,7 +481,7 @@ export default {
       version: null,
       versionDefaultSelectedData: {
         '@id': '<DEFAULT>',
-        'url': ''
+        url: '',
       },
       modulesList: null,
       error: false,
@@ -514,9 +513,9 @@ export default {
         return {
           label,
           title: `Problem with ${this.data.label.toUpperCase()}`,
-          body: `Resource URL:\n${this.data.iri}`
-        }
-      }
+          body: `Resource URL:\n${this.data.iri}`,
+        };
+      },
     };
   },
   mounted() {
@@ -555,9 +554,9 @@ export default {
       }
 
       if (internalRoute.query && internalRoute.query.version) {
-        this.ontologyServer = this.ontologyServer.replace('{version}', internalRoute.query.version + '/');
-        this.modulesServer = this.modulesServer.replace('{version}', internalRoute.query.version + '/');
-        this.hintServer = this.hintDefaultDomain.replace('{version}', internalRoute.query.version + '/');
+        this.ontologyServer = this.ontologyServer.replace('{version}', `${internalRoute.query.version}/`);
+        this.modulesServer = this.modulesServer.replace('{version}', `${internalRoute.query.version}/`);
+        this.hintServer = this.hintDefaultDomain.replace('{version}', `${internalRoute.query.version}/`);
         this.version = internalRoute.query.version;
       } else {
         this.ontologyServer = this.ontologyServer.replace('{version}', '');
@@ -585,7 +584,7 @@ export default {
 
         this.loader = false;
       }
-      
+
       try {
         const result = await getOntologyVersions();
         const ontologyVersions = await result.json();
@@ -594,7 +593,7 @@ export default {
 
         if (this.version !== null) {
           this.ontologyVersionsDropdownData.selectedData = ontologyVersions.find((val, ind) => {
-            if (val['@id'] === this.version){
+            if (val['@id'] === this.version) {
               return true;
             }
             return false;
@@ -620,22 +619,22 @@ export default {
 
     // vue-multiselect ontologyVersions
     ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
-      if(selectedOntologyVersion['@id'] === this.versionDefaultSelectedData['@id']){
-        //default selected
-        const {version, ...rest} = this.$route.query; //get rid of version
+      if (selectedOntologyVersion['@id'] === this.versionDefaultSelectedData['@id']) {
+        // default selected
+        const { version, ...rest } = this.$route.query; // get rid of version
         this.$router.push({ query: rest });
-      }else{
+      } else {
         this.$router.push({
           query: {
             ...this.$route.query,
             ...{
-              version: encodeURI(selectedOntologyVersion['@id'])
-            }
-          }
+              version: encodeURI(selectedOntologyVersion['@id']),
+            },
+          },
         });
       }
 
-      //clear search results after changing version
+      // clear search results after changing version
       this.searchBox = {
         selectedData: null,
         data: [],
@@ -660,8 +659,8 @@ export default {
           query: {
             ...(this.$route.query && this.$route.query.version
               ? { version: encodeURI(this.$route.query.version) }
-              : null)
-          }
+              : null),
+          },
         });
       } else {
         // external ontology
@@ -671,8 +670,8 @@ export default {
             ...{ query: encodeURI(destRoute) },
             ...(this.$route.query && this.$route.query.version
               ? { version: encodeURI(this.$route.query.version) }
-              : null)
-          }
+              : null),
+          },
         });
       }
       this.scrollToOntologyViewerTopOfContainer();
@@ -684,8 +683,8 @@ export default {
           ...{ searchBoxQuery: encodeURI(newTag) },
           ...(this.$route.query && this.$route.query.version
             ? { version: encodeURI(this.$route.query.version) }
-            : null)
-        }
+            : null),
+        },
       });
     },
     async handleSearchBoxQuery(searchBQuery, pageIndex = null) {
@@ -756,11 +755,11 @@ export default {
     },
     '$route.query.version': function (version) {
       this.updateServers();
-      
+
       this.fetchData(this.query);
       this.fetchModules();
 
-      //clear search results after changing version
+      // clear search results after changing version
       this.searchBox = {
         selectedData: null,
         data: [],
