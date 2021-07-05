@@ -41,7 +41,7 @@
               target="_blank" rel="noreferrer noopener">
             <img src="@/assets/img/Ontology-Graph-to-Entity-Relationship-mapping-diagram.png"
                 alt="Ontology Graph to Entity Replationship diagram" class="wp-image-103" 
-                sizes="(max-width: 885px) 100vw, 885px">
+                sizes="(max-width: 600px) 100vw, 600px">
           </a>
         <figcaption>Ontology Graph to Entity Relationship diagram</figcaption></figure>
 
