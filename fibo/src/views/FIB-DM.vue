@@ -39,7 +39,7 @@
         <figure class="wp-block-image size-large text-center">
           <a href="https://www.linkedin.com/pulse/open-source-data-model-financial-industry-jurgen-ziemer/"
               target="_blank" rel="noreferrer noopener">
-            <img src="@/assets/img/Ontology-Graph-to-Entity-Replationship-diagram.png"
+            <img src="@/assets/img/Ontology-Graph-to-Entity-Relationship-mapping-diagram.png"
                 alt="Ontology Graph to Entity Replationship diagram" class="wp-image-103" 
                 sizes="(max-width: 990px) 100vw, 990px">
           </a>
