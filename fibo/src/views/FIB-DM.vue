@@ -7,7 +7,7 @@
         </h1>
 
         <p class="text-margin-top text">
-          FIB-DM is a complete model transformation of the FIBO into a Conceptual Data Model.
+          FIB-DM is a complete transformation of the FIBO into a Conceptual Data Model.
         </p>
         
         <figure class="wp-block-image size-large text-center">
@@ -22,12 +22,14 @@
 
 
         <hr class="wp-block-separator">
-
-        <p class="text">Midsize EDM Council members want to use the industry standard, but many don’t have ontology tooling, databases, and human expertise in-house yet. </p>
 		
-		<p class="text">Large financial institutions want to leverage their customized ontologies for the whole enterprise beyond the Semantic Center of Excellence (CoE). </p>
+		<ul>
+		  <li>Midsize EDM Council members want to use the industry standard, but many don’t have ontology tooling, databases, and human expertise in-house yet.</li>
+		  <li>Large financial institutions want to leverage their customized ontologies for the whole enterprise beyond the Semantic Center of Excellence (CoE).</li>
+		</ul>
+			
 
-        <p>The FIBO development team created FIBO-derived glossaries and dictionaries to help. However, data architects still have to manually transcribe diagrams into their data modeling tool and copy &amp; paste definitions. The Financial Industry Business Data Model supplements the EDMC FIBO-derived formats.</p>
+        <p>The FIBO development team created FIBO-derived glossaries and dictionaries to help. However, data architects still have to manually transcribe diagrams into their data modeling tool and copy &amp; paste definitions. The Financial Industry Business Data Model supplements the EDMC ontology-derived formats.</p>
 
         <hr class="wp-block-separator">
 
@@ -43,12 +45,12 @@
           </a>
         <figcaption>Ontology Graph to Entity Relationship diagram</figcaption></figure>
 
-        <p>CODT derives FIB-DM entities from FIBO classes, associative entities from object properties, relationships from the domain, range, and class restrictions, and attributes from data properties. The data model entities contain the complete FIBO documentation and lineage to the source FIBO class URI link.</p>
+        <p>CODT derives FIB-DM entities from FIBO classes, associative entities from object properties, relationships from the domain, range, and class restrictions, and attributes from data properties. The data model entities contain the complete FIBO documentation and lineage with the source FIBO class URI link.</p>
 
         <hr class="wp-block-separator">
 
 
-        <p class="text">Standalone FIB-DM is an Enterprise Data Model, a lower-cost alternative to industry vendor models. </p>
+        <p class="text">Standalone FIB-DM is an encyclopedia of subject matter design patterns and blueprints and an authoritative Enterprise Data Model. </p>
 
 		<p class="text">We believe that the ontology-derived data model is also more comprehensive, modern, and conceptually sound, thanks to the exceptional work of the FIBO development team and EDMC members supporting the content groups. </p>
 
@@ -63,14 +65,19 @@
                 sizes="(max-width: 1024px) 100vw, 1024px">
           </a><figcaption>Semantic Enterprise Information Architecture.</figcaption></figure>
 
-        <p>As a FIB-DM architect, you can easily learn OWL and ontology tooling because you recognize the familiar concepts and design patterns. As a business user or analyst, you find the FIB-CM concept maps intuitive and far less complicated than graphs and data models. As an ontologist, you reverse-engineer in-house data models into RDF/OWL, accelerating your Enterprise Ontology design for Knowledge Graph and other use cases. In addition, you generate data models for conventional data architecture. </p>
-
+		
+		<ul>
+		  <li>As a FIB-DM architect, you can easily learn OWL and ontology tooling because you recognize the familiar concepts and design patterns.</li>
+		  <li>As a business user or analyst, you find the FIB-CM concept maps intuitive and far less complicated than graphs and data models.</li>
+		  <li>As an ontologist, you reverse-engineer in-house data models into RDF/OWL, accelerating your Enterprise Ontology design for Knowledge Graph and other use cases. In addition, you generate data models for conventional data architecture.</li>
+		</ul>
+		
 		<p>Common names and definitions across the enterprise facilitate integration between applications, RDBMS and RDF-stores.  </p>
 
         <hr class="wp-block-separator">
 
 
-        <p class="text">FIB-DM core is the Open Source (<a aria-label=" (opens in a new tab)" rel="noreferrer noopener" href="https://opensource.org/licenses/GPL-3.0" target="_blank">GPL-3.0</a> copyleft) version for smaller financial institutions, academic research, and your unlimited evaluation. The 1029-entity model derived from FIBO Foundation, Business Entities, and Finance Business &amp; Commerce modules. One thousand five hundred architects downloaded the model already. </p>
+        <p class="text">FIB-DM core is the Open Source (<a aria-label=" (opens in a new tab)" rel="noreferrer noopener" href="https://opensource.org/licenses/GPL-3.0" target="_blank">GPL-3.0</a> copyleft) version for smaller financial institutions, academic research, and your technical evaluation. The 1029-entity model derived from FIBO Foundation, Business Entities, and Finance Business &amp; Commerce modules. One thousand five hundred architects downloaded the model already. </p>
 
 		<figure class="wp-block-image size-large text-center"><img width="1024" height="729" src="@/assets/img/FIB-DM-2021-01-Packages-PowerDesigner-screenshot-1024x729.png" alt="FIB-DM Packages (PowerDesigner screenshot)" class="wp-image-5136"  /><figcaption>FIB-DM Packages (PowerDesigner screenshot)</figcaption></figure>
 
