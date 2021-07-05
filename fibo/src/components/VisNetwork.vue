@@ -43,19 +43,21 @@
         />
         <label class="form-check-label" for="non_optional">required</label>
       </div>
-      <div class="form-check form-check-inline">
-        <button
+    </div>
+
+    <div id="smallGraph">
+      <div id="ontograph"></div>
+    </div>
+
+    <div class="row justify-content-md-center">
+
+            <button
           type="button"
           class="btn btn-sm btn-outline-primary"
           v-on:click="swapGraphContent()"
         >
           Expand diagram
         </button>
-      </div>
-    </div>
-
-    <div id="smallGraph">
-      <div id="ontograph"></div>
     </div>
 
     <div
