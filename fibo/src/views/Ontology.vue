@@ -246,7 +246,7 @@
               <div class="row">
                 <div
                   class="col-md-12"
-                  v-for="(section, sectionName) in data.properties"
+                  v-for="(section, sectionName, sectionIndex) in data.properties"
                   :key="sectionName"
                 >
                   <div class="card">
@@ -254,14 +254,14 @@
                       <h5 class="card-title">{{sectionName}}</h5>
                       <dl
                         class="row"
-                        v-for="( property, name ) in data.properties[sectionName]"
+                        v-for="( property, name, propertyIndex ) in data.properties[sectionName]"
                         :key="name"
                       >
                         <dt class="col-sm-12">{{name}}</dt>
                         <dd class="col-sm-12">
                           <ul v-if="property.length > 1">
                             <li
-                              v-for="field in property"
+                              v-for="field in property.slice(0, 5)"
                               :key="field.id"
                             >
                               <component
@@ -269,7 +269,42 @@
                                 :value="field.value"
                                 :entityMaping="field.entityMaping"
                                 v-bind="field"
-                              ></component>
+                              />
+                            </li>
+
+                            {{(() => {
+                              if(sectionsVisibilitySettings[sectionIndex] === undefined) {
+                                sectionsVisibilitySettings[sectionIndex] = [];
+                              }
+                              if(sectionsVisibilitySettings[sectionIndex][propertyIndex] === undefined) {
+                                sectionsVisibilitySettings[sectionIndex][propertyIndex] = false;
+                              }
+                            })()}}
+
+                            <li
+                              v-if="property.length > 5"
+                              :class="'seeMoreBtn_' + sectionIndex + '_' + propertyIndex"
+                              v-show="!sectionsVisibilitySettings[sectionIndex][propertyIndex]"
+                              >
+                                <a
+                                  href="#"
+                                  @click.prevent="toggleSectionsVisibility(sectionIndex, propertyIndex)"
+                                >
+                                  See more...
+                                </a>
+                            </li>
+
+                            <li
+                              v-for="(field) in property.slice(5)"
+                              v-show="sectionsVisibilitySettings[sectionIndex][propertyIndex]"
+                              :key="field.id"
+                            >
+                              <component
+                                :is="field.type"
+                                :value="field.value"
+                                :entityMaping="field.entityMaping"
+                                v-bind="field"
+                              />
                             </li>
                           </ul>
 
@@ -471,6 +506,8 @@ export default {
   props: ['ontology'],
   data() {
     return {
+      sectionsVisibilitySettings: [],
+      mountedTimestamp: null,
       loader: false,
       data: null,
       query: '',
@@ -520,6 +557,7 @@ export default {
   },
   mounted() {
     let queryParam = '';
+    this.mountedTimestamp = Math.floor(Date.now() / 1000);
 
     if (this.$route.params && this.$route.params[1]) {
       const ontologyQuery = window.location.pathname.replace('/fibo/ontology/', '');
@@ -742,6 +780,14 @@ export default {
     paginateClickCallback(pageIndex) {
       this.handleSearchBoxQuery(this.searchBox.lastSearchBQuery, pageIndex);
     },
+    toggleSectionsVisibility(sectionIndex, propertyIndex) {
+      // make a copy of the "row"
+      const newRow = this.sectionsVisibilitySettings[sectionIndex].slice(0);
+      // update the value
+      newRow[propertyIndex] = !this.sectionsVisibilitySettings[sectionIndex][propertyIndex];
+      // update it in the sectionsVisibilitySettings
+      this.$set(this.sectionsVisibilitySettings, sectionIndex, newRow);
+    },
   },
   computed: {
     ...mapState({
@@ -799,13 +845,19 @@ export default {
       || (this.$route.query.scrollToTop === 'true')
     ) {
       this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
+      this.scrollToOntologyViewerTopOfContainer(); // scroll only after internal navigaion
     }
-    this.scrollToOntologyViewerTopOfContainer(); // move it to above IF to scroll only after internal navigaion (not on page load)
+
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    if (this.mountedTimestamp + 4 >= currentTimestamp) { // this IF makes trick to execute only on page load
+      this.scrollToOntologyViewerTopOfContainer(); // scroll only on page load
+    }
 
     if (
       this.$route.query.searchBoxQuery
       && (this.$route.query.searchBoxQuery_isExecuted !== true)
     ) {
+      this.scrollToOntologyViewerTopOfContainer();
       this.handleSearchBoxQuery(decodeURI(this.$route.query.searchBoxQuery));
       this.$route.query.searchBoxQuery_isExecuted = true;
     }
