@@ -91,11 +91,11 @@
 </template>
 
 <script>
-import vis from "vis-network";
+import vis from 'vis-network';
 
 export default {
-  name: "vis-network",
-  props: ["data", "title"],
+  name: 'vis-network',
+  props: ['data', 'title'],
   data() {
     return {
       modalVisible: false,
@@ -106,9 +106,8 @@ export default {
       const nodes = new vis.DataSet(this.data.nodes);
       const edges = new vis.DataSet(this.data.edges);
 
-      const container = document.getElementById("ontograph");
-      const edgeFilters = document.getElementsByName("edgesFilter");
-      const nodeFilters = document.getElementsByName("edgesFilter");
+      const container = document.getElementById('ontograph');
+      const edgeFilters = document.getElementsByName('edgesFilter');
 
       const isSomeGreenSquare = this.data.nodes.some((node) => node.color == "#C2FABC");
 
@@ -126,7 +125,7 @@ export default {
         edgesFilterValues[edge.optional] && edgesFilterValues[edge.type];
 
       edgeFilters.forEach((filter) =>
-        filter.addEventListener("change", (e) => {
+        filter.addEventListener('change', (e) => {
           const { value, checked } = e.target;
           edgesFilterValues[value] = checked;
           edgesView.refresh();

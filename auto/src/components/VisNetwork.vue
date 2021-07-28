@@ -83,10 +83,23 @@ export default {
         const { value, checked } = e.target;
         edgesFilterValues[value] = checked;
         edgesView.refresh();
+        nodeView.refresh();
       }));
       const edgesView = new vis.DataView(edges, { filter: edgesFilter });
+      
+      var nodeView = new vis.DataView(nodes, {
+        filter: function (node) {
+          let connEdges = edgesView.get({
+            filter: function (edge) {
+              return edge.to === node.id || edge.from === node.id;
+            },
+          });
+          return connEdges.length > 0 || node.id === 1;
+        },
+      });
+      
       const data = {
-        nodes,
+        nodes: nodeView,
         edges: edgesView,
       };
       const options = {
