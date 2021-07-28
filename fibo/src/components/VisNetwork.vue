@@ -137,7 +137,7 @@ export default {
 
       var nodeView = new vis.DataView(nodes, {
         filter: function (node) {
-          connEdges = edgesView.get({
+          let connEdges = edgesView.get({
             filter: function (edge) {
               return edge.to === node.id || edge.from === node.id;
             },
