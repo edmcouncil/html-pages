@@ -50,14 +50,9 @@
     </div>
 
     <div class="row justify-content-md-center">
-
-            <button
-          type="button"
-          class="btn btn-sm btn-outline-primary"
-          v-on:click="swapGraphContent()"
-        >
-          Expand diagram
-        </button>
+      <button type="button" class="btn btn-sm btn-outline-primary" v-on:click="swapGraphContent()">
+        Expand diagram
+      </button>
     </div>
 
     <div
@@ -69,14 +64,14 @@
       aria-hidden="true"
       v-bind:class="{ fade: !modalVisible }"
     >
-      <div
-        class="modal-dialog-full-width modal-dialog momodel modal-fluid"
-        role="document"
-      >
+      <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
         <div class="modal-content-full-width modal-content">
           <div class="modal-header-full-width modal-header">
             <h5 class="modal-title w-100" id="graphModalLabel">
-              <b class="mr-1 ml-4">Data model for "<i>{{title}}</i>"</b>
+              <b class="mr-1 ml-4"
+                >Data model for "<i>{{ title }}</i
+                >"</b
+              >
             </h5>
             <button
               type="button"
@@ -114,9 +109,7 @@ export default {
       const container = document.getElementById('ontograph');
       const edgeFilters = document.getElementsByName('edgesFilter');
 
-      const isSomeGreenSquare = this.data.nodes.some(
-        node => node.color == '#C2FABC',
-      );
+      const isSomeGreenSquare = this.data.nodes.some((node) => node.color == "#C2FABC");
 
       // initial checkboxes setting
       const edgesFilterValues = {
@@ -128,23 +121,39 @@ export default {
       edgeFilters.forEach((filter) => {
         filter.checked = edgesFilterValues[filter.value];
       });
-      const edgesFilter = edge => edgesFilterValues[edge.optional] && edgesFilterValues[edge.type];
+      const edgesFilter = (edge) =>
+        edgesFilterValues[edge.optional] && edgesFilterValues[edge.type];
 
-      edgeFilters.forEach(filter => filter.addEventListener('change', (e) => {
-        const { value, checked } = e.target;
-        edgesFilterValues[value] = checked;
-        edgesView.refresh();
-      }));
+      edgeFilters.forEach((filter) =>
+        filter.addEventListener('change', (e) => {
+          const { value, checked } = e.target;
+          edgesFilterValues[value] = checked;
+          edgesView.refresh();
+          nodeView.refresh();
+        })
+      );
       const edgesView = new vis.DataView(edges, { filter: edgesFilter });
+
+      var nodeView = new vis.DataView(nodes, {
+        filter: function (node) {
+          let connEdges = edgesView.get({
+            filter: function (edge) {
+              return edge.to === node.id || edge.from === node.id;
+            },
+          });
+          return connEdges.length > 0 || node.id === 1;
+        },
+      });
+
       const data = {
-        nodes,
+        nodes: nodeView,
         edges: edgesView,
       };
       const options = {
         edges: {
           smooth: {
-            type: 'cubicBezier',
-            forceDirection: 'none',
+            type: "cubicBezier",
+            forceDirection: "none",
             roundness: 0.15,
           },
         },
@@ -156,7 +165,7 @@ export default {
             springConstant: 0.415,
           },
           minVelocity: 0.75,
-          solver: 'forceAtlas2Based',
+          solver: "forceAtlas2Based",
         },
       };
       const network = new vis.Network(container, data, options);
@@ -165,11 +174,12 @@ export default {
 
       network.redraw();
 
-      network.on('doubleClick', (params) => {
-        const versionQueryStringPart = this.$route.query && this.$route.query.version
-          ? `version=${encodeURI(this.$route.query.version)}`
-          : null;
-        params.event = '[original event]';
+      network.on("doubleClick", (params) => {
+        const versionQueryStringPart =
+          this.$route.query && this.$route.query.version
+            ? `version=${encodeURI(this.$route.query.version)}`
+            : null;
+        params.event = "[original event]";
         const selectedNodes = params.nodes;
         const selectedEdges = params.edges;
 
@@ -179,8 +189,8 @@ export default {
             if (entry.id === sNode) {
               if (entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/fibo/)) {
                 window.location.href = `/fibo${entry.iri.replace(
-                  'https://spec.edmcouncil.org/fibo',
-                  '',
+                  "https://spec.edmcouncil.org/fibo",
+                  ""
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
                 window.location.href = `/fibo/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
@@ -193,8 +203,8 @@ export default {
             if (entry.id === sEgde) {
               if (entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/fibo/)) {
                 window.location.href = `/fibo${entry.iri.replace(
-                  'https://spec.edmcouncil.org/fibo',
-                  '',
+                  "https://spec.edmcouncil.org/fibo",
+                  ""
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
                 window.location.href = `/fibo/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
@@ -207,15 +217,13 @@ export default {
   },
   methods: {
     swapGraphContent() {
-      document
-        .getElementById('graphModalBody')
-        .appendChild(document.getElementById('ontograph'));
+      document.getElementById("graphModalBody").appendChild(document.getElementById("ontograph"));
 
       const options = {
         edges: {
           smooth: {
-            type: 'cubicBezier',
-            forceDirection: 'none',
+            type: "cubicBezier",
+            forceDirection: "none",
             roundness: 0.15,
           },
         },
@@ -227,7 +235,7 @@ export default {
             springConstant: 0.41,
           },
           minVelocity: 0.75,
-          solver: 'forceAtlas2Based',
+          solver: "forceAtlas2Based",
         },
       };
 
@@ -239,14 +247,12 @@ export default {
       }, 100);
     },
     hideModal() {
-      document
-        .getElementById('smallGraph')
-        .appendChild(document.getElementById('ontograph'));
+      document.getElementById("smallGraph").appendChild(document.getElementById("ontograph"));
       const options = {
         edges: {
           smooth: {
-            type: 'cubicBezier',
-            forceDirection: 'none',
+            type: "cubicBezier",
+            forceDirection: "none",
             roundness: 0.15,
           },
         },
@@ -258,7 +264,7 @@ export default {
             springConstant: 0.415,
           },
           minVelocity: 0.75,
-          solver: 'forceAtlas2Based',
+          solver: "forceAtlas2Based",
         },
       };
       window.network.setOptions(options);
