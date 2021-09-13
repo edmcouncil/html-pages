@@ -19,6 +19,13 @@
         See more...
       </a>
 
+      
+
+      <div
+        v-show="isMoreVisible"
+        v-html="lines.slice(6).join('<br />')"
+      />
+
       <a
         href="#"
         v-show="isMoreVisible"
@@ -27,10 +34,6 @@
         See less...
       </a>
 
-      <div
-        v-show="isMoreVisible"
-        v-html="lines.slice(6).join('<br />')"
-      />
     </div>
   </div>
 </template>
