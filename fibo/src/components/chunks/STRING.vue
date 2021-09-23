@@ -18,10 +18,22 @@
       >
         See more...
       </a>
+
+      
+
       <div
         v-show="isMoreVisible"
         v-html="lines.slice(6).join('<br />')"
       />
+
+      <a
+        href="#"
+        v-show="isMoreVisible"
+        @click.prevent="isMoreVisible = !isMoreVisible"
+      >
+        See less...
+      </a>
+
     </div>
   </div>
 </template>

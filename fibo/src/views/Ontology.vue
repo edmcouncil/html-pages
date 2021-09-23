@@ -306,6 +306,20 @@
                                 v-bind="field"
                               />
                             </li>
+
+                            <li
+                              v-if="property.length > 5"
+                              :class="'seeMoreBtn_' + sectionIndex + '_' + propertyIndex"
+                              v-show="sectionsVisibilitySettings[sectionIndex][propertyIndex]"
+                              >
+                                <a
+                                  href="#"
+                                  @click.prevent="toggleSectionsVisibility(sectionIndex, propertyIndex)"
+                                >
+                                  See less...
+                                </a>
+                            </li>
+
                           </ul>
 
                           <component
