@@ -52,7 +52,7 @@
 		
 		<h4>Derivatives (DER)</h4>
                 	<p class="text">In Q3, the DER content team formalized and released two ontologies: CurrencyContracts and CommoditiesContracts.  In preparation for releasing those ontologies we also cleaned up concepts specific to spot contracts and integrated them as a general notion into the FinancialInstruments ontology in FBC.  Other revisions included clean-up of the remaining SecurityBasedDerivatives with an eye towards releasing EquityForwards next quarter.</p>
-                	<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q3+FIBO+Release%22+label%3ADER+">All 2021 DER Q3 PRs and Issues</a>
+                	<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3ADER+">All 2021 DER Q3 PRs and Issues</a>
 
 		<h4>Financial Business and Commerce (FBC)</h4>
                 	<p class="text">Changes related to FBC this quarter were due to changes initiated in (1) SEC with respect to refining the notion of time to maturity and adding a number of market classifications to the markets ontology, (2) DER, to integrate spot contracts in the main financial instruments ontology, and (3) IND, in support of refining definitions of baskets related to market indices.  We also updated the ISO MIC codes to reflect the latest updates from ISO and to incorporate the additional market classifications, providing further classification of the markets specified in the ISO standard.</p>
