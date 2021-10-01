@@ -8,7 +8,8 @@
                 </h1>
                 <p class="text"><b>2021</b></p>
                 <ul>
-					<li><a href="#2021Q2">2021 Q2</a></li>
+		   <li><a href="#2021Q3">2021 Q3</a></li>
+		   <li><a href="#2021Q2">2021 Q2</a></li>
                     <li><a href="#2021Q1">2021 Q1</a></li>
                 </ul>
                 <p class="text"><b>2020</b></p>
@@ -55,24 +56,24 @@
 
 		<h4>Financial Business and Commerce (FBC)</h4>
                 	<p class="text">Changes related to FBC this quarter were due to changes initiated in (1) SEC with respect to refining the notion of time to maturity and adding a number of market classifications to the markets ontology, (2) DER, to integrate spot contracts in the main financial instruments ontology, and (3) IND, in support of refining definitions of baskets related to market indices.  We also updated the ISO MIC codes to reflect the latest updates from ISO and to incorporate the additional market classifications, providing further classification of the markets specified in the ISO standard.</p>
-                	<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q3+FIBO+Release%22+label%3AFBC+">All 2021 FBC Q3 PRs and Issues</a>
+                	<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3AFBC+">All 2021 FBC Q3 PRs and Issues</a>
 
 		<h4>Foundations (FND)</h4>
                 	<p class="text">This quarter the Foundations domain area remained stable, with a handful of changes to annotations for clarification as needed based on work in other domain areas.</p>
-                	<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q3+FIBO+Release%22+label%3AFND+">All 2021 FND Q3 PRs and Issues</a>
+                	<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3AFND+">All 2021 FND Q3 PRs and Issues</a>
 
 		<h4>Indicators and Indices (IND)</h4>
                 	<p class="text">Much of the work accomplished this quarter in IND involved background research on corporate actions, which we will continue to work on next quarter.  One issue with respect to representation of the S&P 500 as an example market index was resolved, however.</p>
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q3+FIBO+Release%22+label%3AIND+">All 2021 IND Q3 PRs and Issues</a>
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3AIND+">All 2021 IND Q3 PRs and Issues</a>
 				
 		<h4>Loans (LOAN)</h4>
                 	<p class="text">Minor changes to the provisional LoanEvents ontology were made this quarter to clean up concepts and add properties related to legal proceedings with respect to default events.  The intent is to continue clean-up work next quarter with the potential for releasing the primary core loan ontology.</p>
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q3+FIBO+Release%22+label%3ALOAN+">All 2021 LOAN Q3 PRs and Issues</a>  
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3ALOAN+">All 2021 LOAN Q3 PRs and Issues</a>  
 
 
 		<h4>Securities (SEC)</h4>
                 	<p class="text">The majority of the work performed this quarter was related to asset-backed securities.  A number of provisional ontologies were merged, renamed and the architecture revised to conform to the overall strategy used elsewhere in FIBO.  We also eliminated some amount of duplication in properties to better integrate the ABS ontologies with other parts of FIBO and cleaned up a number of definitions and annotations.  There is still significant work to be done before these ontologies can be released, but the effort completed this quarter will be quite useful going forward, such that we can begin to release these ontologies either later this year or early next year.  Other minor changes included clarification of definitions for time to maturity, bill of exchange, and dividend related concepts.</p>
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q3+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q3 PRs and Issues</a>    
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q3 PRs and Issues</a>    
 
 
 		<h3 id="2021Q2"><strong>2021 Q2</strong></h3>
