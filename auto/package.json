@@ -11,7 +11,7 @@
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.5",
     "jquery": "^3.5.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "popper.js": "^1.15.0",
     "sass-loader": "^7.1.0",
     "serialize-javascript": "^3.1.0",
