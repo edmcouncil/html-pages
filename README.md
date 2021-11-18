@@ -2,8 +2,6 @@
 
 # spec.edmcouncil.org vue web pages 
 
-# Updating the spec.edmcouncil.org websites
-
 ## Sources location
 
 - FIBO Vue source code is located under: [html-pages/fibo/](./fibo/)
@@ -38,12 +36,20 @@ It will execute yarn to fetch necessary packages and setup project files for you
 
 ```
 $ docker-compose --profile home up -d
+```
+If run against a clean repo this should produce the following log:
+```
 Creating network "html-pages_default" with the default driver
 Building home
 Sending build context to Docker daemon  18.86MB
 Step 1/9 : FROM node:12-alpine
 ...
 Creating html-pages_home_1 ... done
+```
+Note that when you update some vue components in the existing local repo, you need to build docker image first:
+```
+docker-compose --profile=home build
+
 ```
 
 Listing containers must show one container running and the port mapping as below:
@@ -65,15 +71,15 @@ Removing network html-pages_default
 ```
 
 ### Deploy [FIBO HOME](./fibo) with docker-compose
+As for home profile you need to run:
 
 ```
 $ docker-compose --profile fibo up -d
-Creating network "html-pages_default" with the default driver
-Building fibo
-Sending build context to Docker daemon  14.62MB
-Step 1/9 : FROM node:12-alpine
-...
-Creating html-pages_fibo_1 ... done
+```
+and/or:
+```
+docker-compose --profile=fibo build
+
 ```
 
 Listing containers must show one container running and the port mapping as below:
@@ -95,17 +101,16 @@ Removing network html-pages_default
 ```
 
 ### Deploy [AUTO HOME](./auto) with docker-compose
+As for fibo profile you need to run:
 
 ```
 $ docker-compose --profile auto up -d
-Creating network "html-pages_default" with the default driver
-Building auto
-Sending build context to Docker daemon  14.62MB
-Step 1/9 : FROM node:12-alpine
-...
-Creating html-pages_auto_1 ... done
 ```
+and/or:
+```
+docker-compose --profile=auto build
 
+```
 Listing containers must show one container running and the port mapping as below:
 ```
 $ docker-compose ps
