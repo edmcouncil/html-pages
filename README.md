@@ -37,7 +37,7 @@ It will execute yarn to fetch necessary packages and setup project files for you
 ```
 $ docker-compose --profile home up -d
 ```
-If run against a clean repo this should produce the following log:
+If run the above against a clean repo, it should produce the following log:
 ```
 Creating network "html-pages_default" with the default driver
 Building home
@@ -46,10 +46,9 @@ Step 1/9 : FROM node:12-alpine
 ...
 Creating html-pages_home_1 ... done
 ```
-Note that when you update some vue components in the existing local repo, you need to build docker image first:
+Note that when you updated some vue components in the existing local repo, you need to build docker image first:
 ```
 docker-compose --profile=home build
-
 ```
 
 Listing containers must show one container running and the port mapping as below:
@@ -71,15 +70,13 @@ Removing network html-pages_default
 ```
 
 ### Deploy [FIBO HOME](./fibo) with docker-compose
-As for home profile you need to run:
-
+Similarly to running home profile, you need to run:
 ```
 $ docker-compose --profile fibo up -d
 ```
-and/or:
+And if you updated some vue components in the existing local repo, before starting the Docker container you need to run this:
 ```
 docker-compose --profile=fibo build
-
 ```
 
 Listing containers must show one container running and the port mapping as below:
@@ -101,15 +98,13 @@ Removing network html-pages_default
 ```
 
 ### Deploy [AUTO HOME](./auto) with docker-compose
-As for fibo profile you need to run:
-
+Similarly to running fibo profile, you need to run:
 ```
 $ docker-compose --profile auto up -d
 ```
-and/or:
+Again you may need to run this beforehand:
 ```
 docker-compose --profile=auto build
-
 ```
 Listing containers must show one container running and the port mapping as below:
 ```
@@ -118,7 +113,6 @@ $ docker-compose ps
 -----------------------------------------------------------------------------------------------------
 html-pages_auto_1   docker-entrypoint.sh yarn  ...   Up      0.0.0.0:8080->8080/tcp,:::8080->8080/tcp
 ```
-
 After the application starts, navigate to [http://localhost:8080/auto](http://localhost:8080/auto) in your web browser.
 
 Stop and remove the containers:
