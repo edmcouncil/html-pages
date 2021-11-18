@@ -37,7 +37,7 @@ It will execute yarn to fetch necessary packages and setup project files for you
 ```
 $ docker-compose --profile home up -d
 ```
-If run the above against a clean repo, it should produce the following log:
+If you run the above against a clean repo, it should produce the following log:
 ```
 Creating network "html-pages_default" with the default driver
 Building home
@@ -102,7 +102,7 @@ Similarly to running fibo profile, you need to run:
 ```
 $ docker-compose --profile auto up -d
 ```
-Again you may need to run this beforehand:
+Again, you may need to run this beforehand:
 ```
 docker-compose --profile=auto build
 ```
