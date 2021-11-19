@@ -46,7 +46,7 @@ Step 1/9 : FROM node:12-alpine
 ...
 Creating html-pages_home_1 ... done
 ```
-Note that when you updated some vue components in the existing local repo, you need to build docker image first:
+Note that if you make changes related to project dependencies (e.g. updating some vue components) in the existing local repo, you need to build docker image first:
 ```
 docker-compose --profile=home build
 ```
@@ -74,7 +74,7 @@ Similarly to running home profile, you need to run:
 ```
 $ docker-compose --profile fibo up -d
 ```
-And if you updated some vue components in the existing local repo, before starting the Docker container you need to run this:
+And if you make changes related to project dependencies (e.g. updating some vue components) in the existing local repo, before starting the Docker container you need to run this:
 ```
 docker-compose --profile=fibo build
 ```
