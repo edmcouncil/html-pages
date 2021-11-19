@@ -2,8 +2,6 @@
 
 # spec.edmcouncil.org vue web pages 
 
-# Updating the spec.edmcouncil.org websites
-
 ## Sources location
 
 - FIBO Vue source code is located under: [html-pages/fibo/](./fibo/)
@@ -38,12 +36,19 @@ It will execute yarn to fetch necessary packages and setup project files for you
 
 ```
 $ docker-compose --profile home up -d
+```
+If you run the above against a clean repo, it should produce the following log:
+```
 Creating network "html-pages_default" with the default driver
 Building home
 Sending build context to Docker daemon  18.86MB
 Step 1/9 : FROM node:12-alpine
 ...
 Creating html-pages_home_1 ... done
+```
+Note that if you make changes related to project dependencies (e.g. updating some vue components) in the existing local repo, you need to build docker image first:
+```
+docker-compose --profile=home build
 ```
 
 Listing containers must show one container running and the port mapping as below:
@@ -65,15 +70,13 @@ Removing network html-pages_default
 ```
 
 ### Deploy [FIBO HOME](./fibo) with docker-compose
-
+Similarly to running home profile, you need to run:
 ```
 $ docker-compose --profile fibo up -d
-Creating network "html-pages_default" with the default driver
-Building fibo
-Sending build context to Docker daemon  14.62MB
-Step 1/9 : FROM node:12-alpine
-...
-Creating html-pages_fibo_1 ... done
+```
+And if you make changes related to project dependencies (e.g. updating some vue components) in the existing local repo, before starting the Docker container you need to run this:
+```
+docker-compose --profile=fibo build
 ```
 
 Listing containers must show one container running and the port mapping as below:
@@ -95,17 +98,14 @@ Removing network html-pages_default
 ```
 
 ### Deploy [AUTO HOME](./auto) with docker-compose
-
+Similarly to running fibo profile, you need to run:
 ```
 $ docker-compose --profile auto up -d
-Creating network "html-pages_default" with the default driver
-Building auto
-Sending build context to Docker daemon  14.62MB
-Step 1/9 : FROM node:12-alpine
-...
-Creating html-pages_auto_1 ... done
 ```
-
+Again, you may need to run this beforehand:
+```
+docker-compose --profile=auto build
+```
 Listing containers must show one container running and the port mapping as below:
 ```
 $ docker-compose ps
@@ -113,7 +113,6 @@ $ docker-compose ps
 -----------------------------------------------------------------------------------------------------
 html-pages_auto_1   docker-entrypoint.sh yarn  ...   Up      0.0.0.0:8080->8080/tcp,:::8080->8080/tcp
 ```
-
 After the application starts, navigate to [http://localhost:8080/auto](http://localhost:8080/auto) in your web browser.
 
 Stop and remove the containers:
