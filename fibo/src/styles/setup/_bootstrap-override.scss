@@ -73,19 +73,10 @@ a{
   color: map-get($colors-map, 'orange');
 }
 li {
-  list-style-type: none;
+  
   line-height: 30px;
-  padding-left: 28px;
   letter-spacing: 1px;
-  &:before {
-    content: "";
-    border: 2px #455560 solid !important;
-    border-radius: 50px;
-    margin-top: 13px;
-    margin-left: -20px;
-    position: absolute;
 
-  }
 }
 
 hr{
@@ -139,7 +130,7 @@ article{
   }
 }
 
-
+$spacer:15px;
 // /* set the overriding variables */
 // $grid-breakpoints: (
 //   xxl: 1900px,

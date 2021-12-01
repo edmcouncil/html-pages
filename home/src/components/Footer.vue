@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 <template>
   <footer>
     <div class="container">
@@ -15,10 +16,10 @@
                 </li>
                 <li>
                   <a href="https://spec.edmcouncil.org/auto/" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">AUTO</a>
-                </li>                
+                </li>
                 <li>
                   <router-link :to="{ path: router('okgl') }">OKG Lab</router-link>
-                </li>                                
+                </li>
                 <li>
                   <router-link :to="{ path: router('courses') }">OKG Traning</router-link>
                 </li>
