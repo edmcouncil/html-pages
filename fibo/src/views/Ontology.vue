@@ -60,7 +60,7 @@
       </div>
 
       <div class="col-12 col-xxl-8 col-xxxl-6 px-0">
-        <div class="container">
+        <div class="container px-0">
           <a
             name="ontologyViewerTopOfContainer"
             id="ontologyViewerTopOfContainer"
@@ -135,49 +135,76 @@
             </div>
           </div>
 
+          <!-- search results -->
           <div
-            class="searchResults"
+            class="search-results-section"
             v-if="searchBox.selectedData && searchBox.selectedData.isSearch"
           >
-            <h5 style="padding-top: 0px; margin-bottom: 20px">
-              Search results for "{{ searchBox.selectedData.iri }}":
-            </h5>
+            <div class="search-header">
+              <h5>Search results for “{{ searchBox.selectedData.iri }}”</h5>
+              <p>{{ searchBox.totalResults }} results</p>
+            </div>
+
             <div
               v-if="searchBox.searchResults && searchBox.searchResults.length"
+              class="search-results-items"
             >
               <div
-                v-for="result in searchBox.searchResults"
-                :key="result"
-                class="row"
+                v-for="(result, index) in searchBox.totalData"
+                :key="index + searchBox.selectedData.iri"
+                class="search-item"
               >
-                <div class="col-12">
-                  <div class="row">
-                    <div class="col-12">
-                      <customLink
-                        class="custom-link"
-                        :name="result.label"
-                        :query="result.iri"
-                        :customLinkOnClick="searchResultClicked"
-                      ></customLink>
-                    </div>
+                <div>
+                  <div class="search-title">
+                    <div
+                      class="maturity-icon"
+                      :class="{
+                        'maturity-provisional':
+                          result.maturityLevel !== 'release' &&
+                          result.maturityLevel,
+                        'maturity-release': result.maturityLevel === 'release',
+                      }"
+                    ></div>
+                    <customLink
+                      class="custom-link"
+                      :name="result.label"
+                      :query="result.iri"
+                      :customLinkOnClick="searchResultClicked"
+                    ></customLink>
+                    <!-- {{ result.label }} -->
                   </div>
-                  <div class="row">
-                    <div class="col-12 text-link">
-                      {{ result.iri }}
-                    </div>
+
+                  <div class="result-iri">
+                    {{ result.iri }}
                   </div>
-                  <div class="row">
-                    <div class="col-12 text">
-                      {{ result.description }}
-                    </div>
-                  </div>
-                  <div class="border-bottom"></div>
+
+                  <p>
+                    {{ result.description }}
+                  </p>
                 </div>
               </div>
-              <div class="row" v-if="this.searchBox.maxPage > 1">
-                <div class="col-12">
-                  <div class="text-center">
-                    <paginate
+            </div>
+            <div v-else>
+              <!-- No results -->
+            </div>
+
+            <div class="search-load-more" v-if="this.searchBox.maxPage > 1">
+              <p>
+                1 -
+                {{ searchBox.currentPage * searchBox.perPage }}
+                of {{ searchBox.totalResults }}
+              </p>
+
+              <div
+                class="btn-load-more"
+                @click="loadMoreResults()"
+                v-if="searchBox.currentPage < searchBox.maxPage"
+              >
+                Load next {{ searchBox.perPage }} results
+              </div>
+              <div class="btn-load-more" v-else>No more results to load</div>
+
+              <!-- <paginate
                       :page-count="this.searchBox.maxPage"
                       :page-range="3"
                       :margin-pages="2"
@@ -192,17 +219,11 @@
                       :next-class="'page-item'"
                       :next-link-class="'page-link'"
                     >
-                    </paginate>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div v-else>
-              <!-- No results -->
+                    </paginate> -->
             </div>
           </div>
 
-          <div v-else>
+          <div class="container" v-else>
             <div class="row">
               <!-- TREE -->
               <div class="module-tree col-md-12 col-lg-4 d-xxl-none">
@@ -966,10 +987,13 @@ export default {
       searchBox: {
         selectedData: null,
         data: [],
+        totalData: [],
         isLoading: false,
         searchResults: null,
         maxPage: null, // contains number of pages in searchResults. This prop. is handler for pagination
         lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
+        perPage: 10,
+        currentPage: 1,
       },
       ontologyVersionsDropdownData: {
         selectedData: null,
@@ -1104,7 +1128,11 @@ export default {
         console.error(err);
         this.error = true;
       } finally {
-        if (this.data.taxonomy && this.data.taxonomy.value.length > 0)
+        if (
+          this.data &&
+          this.data.taxonomy &&
+          this.data.taxonomy.value.length > 0
+        )
           this.checkPathsOverflow();
       }
     },
@@ -1139,14 +1167,7 @@ export default {
       }
 
       // clear search results after changing version
-      this.searchBox = {
-        selectedData: null,
-        data: [],
-        isLoading: false,
-        searchResults: null,
-        maxPage: null, // contains number of pages in searchResults. This prop. is handler for pagination
-        lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
-      };
+      this.clearSearchResults();
     },
 
     // vue-multiselect
@@ -1195,7 +1216,9 @@ export default {
       try {
         const result = await getOntology(
           searchBQuery,
-          this.ontologyServer + (pageIndex != null ? `/page/${pageIndex}` : "")
+          this.ontologyServer +
+            `/max/${this.searchBox.perPage}` +
+            (pageIndex != null ? `/page/${pageIndex}` : "")
         );
         const body = await result.json();
         if (body.type !== "list") {
@@ -1205,6 +1228,18 @@ export default {
         this.searchBox.maxPage = body.maxPage;
         this.searchBox.lastSearchBQuery = searchBQuery;
         this.error = false;
+        this.searchBox.totalData.push(...this.searchBox.searchResults);
+
+        // PH placeholder values
+        this.searchBox.totalResults = 1234;
+        for (const res of this.searchBox.searchResults) {
+          res.maturityLevel = "provisional";
+        }
+        // PH placeholder values
+
+        // testing
+        console.log(this.searchBox);
+        console.log(this.searchBox.totalData);
       } catch (err) {
         console.error(err);
         this.error = true;
@@ -1277,9 +1312,9 @@ export default {
         this.checkPathOverflow(i);
       }
     },
-    async checkPathOverflow(tIndex) {
-      // need to wait for the v-for to render and only then check for overflow
-      await this.$nextTick(() => {
+    checkPathOverflow(tIndex) {
+      // wait for the v-for to render and only then check for overflow
+      this.$nextTick(() => {
         if (this.$refs.taxonomyItems) {
           // collapse for overlap test purposes
           const wasCollapsed =
@@ -1303,6 +1338,28 @@ export default {
         }
       });
     },
+    loadMoreResults() {
+      if (this.searchBox.currentPage < this.searchBox.maxPage) {
+        this.searchBox.currentPage++;
+        this.handleSearchBoxQuery(
+          this.searchBox.lastSearchBQuery,
+          this.searchBox.currentPage
+        );
+      }
+    },
+    clearSearchResults() {
+      this.searchBox = {
+        selectedData: null,
+        data: [],
+        totalData: [],
+        isLoading: false,
+        searchResults: null,
+        maxPage: null, // contains number of pages in searchResults. This prop. is handler for pagination
+        lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
+        perPage: 10,
+        currentPage: 1,
+      };
+    },
   },
   computed: {
     ...mapState({
@@ -1321,14 +1378,7 @@ export default {
       this.fetchModules();
 
       // clear search results after changing version
-      this.searchBox = {
-        selectedData: null,
-        data: [],
-        isLoading: false,
-        searchResults: null,
-        maxPage: null, // contains number of pages in searchResults. This prop. is handler for pagination
-        lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
-      };
+      this.clearSearchResults();
     },
   },
   beforeRouteUpdate(to, from, next) {
@@ -1374,6 +1424,7 @@ export default {
       this.$route.query.searchBoxQuery_isExecuted !== true
     ) {
       this.scrollToOntologyViewerTopOfContainer();
+      this.clearSearchResults();
       this.handleSearchBoxQuery(decodeURI(this.$route.query.searchBoxQuery));
       this.$route.query.searchBoxQuery_isExecuted = true;
     }
@@ -1424,23 +1475,7 @@ article ul.maturity-levels li {
 article ul.maturity-levels li:before {
   margin-top: 10px;
 }
-.searchResults {
-  margin: 20px 20px 20px 20px;
-}
-.searchResults a {
-  font-weight: 500;
-  margin-bottom: 5px;
-  display: block;
-}
-.searchResults .text {
-  color: #707070;
-}
-.searchResults .text-link {
-  color: #adb5bd;
-}
-.border-bottom {
-  margin-bottom: 5px;
-}
+
 .multiselect-container {
   margin: 20px 20px 0px 20px;
 }
@@ -1508,6 +1543,7 @@ article ul.maturity-levels li:before {
 
 * {
   box-sizing: border-box;
+  font-family: Inter;
 }
 
 .alert-error {
@@ -1551,9 +1587,13 @@ article ul.maturity-levels li:before {
     border-radius: 0 0 0 0.25em;
   }
 }
+
+//
+// desktop/global
+// ontology-item
 .ontology-item {
   margin-top: 45px;
-  font-family: Inter;
+
   .section-content-wrapper {
     margin-bottom: 60px;
   }
@@ -1588,6 +1628,7 @@ article ul.maturity-levels li:before {
     .taxonomy {
       background: rgba(0, 0, 0, 0.05);
       color: rgba(0, 0, 0, 0.4);
+      border-radius: 2px;
       padding: 10px 20px;
       margin-bottom: 20px;
       font-size: 14px;
@@ -1628,6 +1669,7 @@ article ul.maturity-levels li:before {
     .card-content {
       margin-bottom: 60px;
       background: rgba(0, 0, 0, 0.05);
+      border-radius: 2px;
       padding: 40px 30px 0 30px;
     }
     dt {
@@ -1661,6 +1703,7 @@ article ul.maturity-levels li:before {
 
   .header-card {
     background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
     margin-bottom: 60px;
     padding: 0;
 
@@ -1762,17 +1805,17 @@ article ul.maturity-levels li:before {
       }
       &.maturity-provisional {
         &::before {
-          background-image: url("../assets/icons/maturity-provisional.png");
+          background-image: url("../assets/icons/provisional-maturity.svg");
         }
       }
       &.maturity-mixed {
         &::before {
-          background-image: url("../assets/icons/maturity-mixed.png");
+          background-image: url("../assets/icons/mixed-maturity.svg");
         }
       }
       &.maturity-production {
         &::before {
-          background-image: url("../assets/icons/maturity-production.png");
+          background-image: url("../assets/icons/production-maturity.svg");
         }
       }
     }
@@ -1875,13 +1918,151 @@ article ul.maturity-levels li:before {
   }
 }
 //
-//
-//
-//
-//
-//
+// dekstop/global
+// search-results
+.search-results-section {
+  word-wrap: break-word;
+  .search-header {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    padding: 40px 60px;
+    h5,
+    p {
+      padding: 0;
+      margin: 0;
+    }
+    h5 {
+      color: #000000;
+      font-weight: bold;
+      font-size: 42px;
+      line-height: 50px;
+
+      margin-bottom: 10px;
+    }
+    p {
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 24px;
+      line-height: 40px;
+    }
+  }
+
+  .search-results-items {
+    padding-left: 40px;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
+
+    .search-item {
+      width: 100%;
+      margin-top: 40px;
+      padding: 20px 20px 20px 54px;
+
+      .maturity-icon {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 24px;
+        height: 36px;
+
+        left: -34px;
+
+        &::before {
+          content: "";
+
+          background-repeat: no-repeat;
+          background-size: 24px 24px;
+          width: 24px;
+          height: 24px;
+        }
+        &.maturity-provisional {
+          &::before {
+            background-image: url("../assets/icons/provisional-maturity.svg");
+          }
+        }
+        &.maturity-mixed {
+          &::before {
+            background-image: url("../assets/icons/provisional-maturity.svg");
+          }
+        }
+        &.maturity-production {
+          &::before {
+            background-image: url("../assets/icons/production-maturity.svg");
+          }
+        }
+      }
+
+      .search-title {
+        position: relative;
+        a {
+          color: rgba(0, 0, 0, 0.8);
+          text-decoration: none;
+        }
+        // color: rgba(0, 0, 0, 0.8);
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 36px;
+        margin-bottom: 10px;
+      }
+      .result-iri {
+        color: rgba(0, 0, 0, 0.6);
+
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.01em;
+        margin-bottom: 10px;
+      }
+      p {
+        color: rgba(0, 0, 0, 0.6);
+
+        font-size: 18px;
+        line-height: 30px;
+      }
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .search-load-more {
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    margin-top: 60px;
+
+    p {
+      color: rgba(0, 0, 0, 0.6);
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 30px;
+      margin: 0px;
+      padding: 0px;
+    }
+    .btn-load-more {
+      cursor: pointer;
+      margin-top: 16px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 2px;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+
+      width: fit-content;
+
+      font-size: 18px;
+      line-height: 30px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+}
 //
 // mobile
+// ontology-item
 @media (max-width: 576px) {
   .section-title {
     &::before {
@@ -2114,6 +2295,121 @@ article ul.maturity-levels li:before {
       margin: 8px 12px 12px 6px;
     }
   }
+}
+//
+// mobile
+// search-results
+@media (max-width: 576px) {
+.search-results-section {
+  .search-header {
+    padding: 40px 30px;
+
+    h5 {
+      font-size: 30px;
+      line-height: 36px;
+    }
+    p {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+
+  .search-results-items {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .search-item {
+      padding: 20px 30px 20px 64px;
+
+      .maturity-icon {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 24px;
+        height: 30px;
+
+        left: -34px;
+
+        &::before {
+          content: "";
+
+          background-repeat: no-repeat;
+          background-size: 24px 24px;
+          width: 24px;
+          height: 24px;
+        }
+        &.maturity-provisional {
+          &::before {
+            background-image: url("../assets/icons/provisional-maturity.svg");
+          }
+        }
+        &.maturity-mixed {
+          &::before {
+            background-image: url("../assets/icons/provisional-maturity.svg");
+          }
+        }
+        &.maturity-production {
+          &::before {
+            background-image: url("../assets/icons/production-maturity.svg");
+          }
+        }
+      }
+
+      .search-title {
+        font-size: 20px;
+        line-height: 30px;
+      }
+      .result-iri {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .search-load-more {
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    margin-top: 60px;
+
+    p {
+      color: rgba(0, 0, 0, 0.6);
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 30px;
+      margin: 0px;
+      padding: 0px;
+    }
+    .btn-load-more {
+      cursor: pointer;
+      margin-top: 16px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 2px;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+
+      width: fit-content;
+
+      font-size: 18px;
+      line-height: 30px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+}
 }
 
 .clearfix::after {
