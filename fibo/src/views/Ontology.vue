@@ -127,13 +127,13 @@
             </div>
           </div>
 
-            <div class="row" v-if="error">
-              <div class="col-12">
-                <div class="alert alert-danger alert-error" role="alert">
-                  <strong>Error!</strong> Cannot fetch data, please try later.
-                </div>
+          <div class="row" v-if="error">
+            <div class="col-12">
+              <div class="alert alert-danger alert-error" role="alert">
+                <strong>Error!</strong> Cannot fetch data, please try later.
               </div>
             </div>
+          </div>
 
           <div
             class="searchResults"
@@ -203,9 +203,6 @@
           </div>
 
           <div v-else>
-
-
-
             <div class="row">
               <!-- TREE -->
               <div class="module-tree col-md-12 col-lg-4 d-xxl-none">
@@ -268,8 +265,6 @@
                 </div>
               </div>
 
-
-
               <!-- SHOW ITEM -->
               <div
                 class="col-md-12 col-lg-8 col-xxl-12 px-0 ontology-item"
@@ -278,7 +273,6 @@
                 <div class="row">
                   <!--  MATURITY / TITLE  -->
                   <div class="col-md-12 header-card">
-
                     <!-- TITLE -->
                     <div class="card">
                       <div class="card-body">
@@ -329,7 +323,8 @@
                         <h5
                           :class="{
                             'maturity-provisional':
-                              this.data.maturityLevel.label !== 'release' && this.data.maturityLevel.label != '',
+                              this.data.maturityLevel.label !== 'release' &&
+                              this.data.maturityLevel.label != '',
                             'maturity-production':
                               this.data.maturityLevel.label === 'release',
                             'card-title': true,
@@ -338,13 +333,12 @@
                           {{ data.label }}
                         </h5>
                         <h6
-                            class="card-subtitle mb-2 text-muted data-iri"
-                            v-if="data.iri"
-                          >
-                            {{ data.iri }}
-                          </h6>
+                          class="card-subtitle mb-2 text-muted data-iri"
+                          v-if="data.iri"
+                        >
+                          {{ data.iri }}
+                        </h6>
                         <div class="url-buttons-container">
-                          
                           <button
                             v-clipboard="data.iri"
                             type="button"
@@ -443,7 +437,7 @@
 
                           <div
                             class="collapseButtons"
-                            v-if="pathsSection.pathsCollapsed[tIndex]"
+                            v-if="pathsSection.hasOverflow[tIndex]"
                             @click.prevent="togglePathCollapsed(tIndex)"
                           >
                             <div>
@@ -951,7 +945,7 @@ export default {
     return {
       pathsSection: {
         isPathsMoreVisible: false,
-        pathsCollapsed: [],
+        hasOverflow: [],
       },
       sectionsVisibilitySettings: [],
       mountedTimestamp: null,
@@ -1082,7 +1076,7 @@ export default {
           console.error(err);
           this.error = true;
         }
-        this.pathsSection.pathsCollapsed = [];
+        this.pathsSection.hasOverflow = [];
         this.loader = false;
         this.isPathsMoreVisible = false;
       }
@@ -1259,13 +1253,13 @@ export default {
       // make a copy of the "row"
       const newRow = this.sectionsVisibilitySettings[sectionIndex].slice(0);
       // update the value
-      newRow[propertyIndex] =
+      newRow[propernpmtyIndex] =
         !this.sectionsVisibilitySettings[sectionIndex][propertyIndex];
       // update it in the sectionsVisibilitySettings
       this.$set(this.sectionsVisibilitySettings, sectionIndex, newRow);
     },
     togglePathCollapsed(tIndex) {
-this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");      
+      this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
     },
     checkPathsOverflow() {
       // go through displayed paths and call checkPathOverflow for them
@@ -1287,9 +1281,10 @@ this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
       // need to wait for the v-for to render and only then check for overflow
       await this.$nextTick(() => {
         if (this.$refs.taxonomyItems) {
-          // collapse for test purposes
-          const wasCollapsed = this.$refs.taxonomyItems[tIndex].classList.contains("collapsed");
-          if(!wasCollapsed) {
+          // collapse for overlap test purposes
+          const wasCollapsed =
+            this.$refs.taxonomyItems[tIndex].classList.contains("collapsed");
+          if (!wasCollapsed) {
             this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
           }
           const el = this.$refs.taxonomyItems[tIndex].firstChild;
@@ -1300,11 +1295,11 @@ this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
             el.clientHeight < el.scrollHeight;
           el.style.overflow = curOverf;
 
-          if(!wasCollapsed) {
+          if (!wasCollapsed) {
             this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
           }
           // set array value making use of Vue reactivity
-          this.$set(this.pathsSection.pathsCollapsed, tIndex, isOverflowing);
+          this.$set(this.pathsSection.hasOverflow, tIndex, isOverflowing);
         }
       });
     },
@@ -1518,43 +1513,43 @@ article ul.maturity-levels li:before {
 .alert-error {
   color: rgba(0, 0, 0, 0.8);
 
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
 
-      letter-spacing: 0.01em;
+  letter-spacing: 0.01em;
 
-      border-radius: none;
-      background: #f3140c;
-      border: none;
-      width: fit-content;
-      block-size: fit-content;
-      border-radius: 2px;
+  border-radius: none;
+  background: #f3140c;
+  border: none;
+  width: fit-content;
+  block-size: fit-content;
+  border-radius: 2px;
 
-      margin-top: 20px;
-      margin-bottom: 20px;
-      padding: 5px 15px 5px 15px;
-      // margin-right: 85px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 5px 15px 5px 15px;
+  // margin-right: 85px;
 
-      a {
-        text-decoration: underline;
-      }
+  a {
+    text-decoration: underline;
+  }
 
-      &::before {
-        content: "";
-        display: block;
-        height: 20px;
-        width: 20px;
-        background-color: inherit;
-        border: inherit;
-        position: absolute;
-        bottom: -3px;
-        left: 4px;
-        clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
-        transform: rotate(-45deg);
-        border-radius: 0 0 0 0.25em;
-      }
+  &::before {
+    content: "";
+    display: block;
+    height: 20px;
+    width: 20px;
+    background-color: inherit;
+    border: inherit;
+    position: absolute;
+    bottom: -3px;
+    left: 4px;
+    clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+    transform: rotate(-45deg);
+    border-radius: 0 0 0 0.25em;
+  }
 }
 .ontology-item {
   margin-top: 45px;
@@ -2022,12 +2017,12 @@ article ul.maturity-levels li:before {
       h5 {
         font-size: 30px;
         line-height: 36px;
-        
+
         &.maturity-provisional {
-margin-left: 34px;
+          margin-left: 34px;
         }
-        &.maturity-release {
-margin-left: 34px;
+        &.maturity-production {
+          margin-left: 34px;
         }
         &::before {
           top: 5.83px;
