@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable max-len -->
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
       <div class="col-2 col-xxxl-3 d-none d-xxl-block">
         <div class="module-tree float-right">
@@ -198,10 +198,12 @@
               <div
                 class="btn-load-more"
                 @click="loadMoreResults()"
-                v-if="searchBox.currentPage < searchBox.maxPage"
+                v-if="searchBox.currentPage < searchBox.maxPage && !searchBox.isLoadingMore"
               >
-                Load next {{ searchBox.perPage }} results
+                Load next {{ (searchBox.currentPage===searchBox.maxPage-1 && searchBox.perPage!==0 && searchBox.totalResults!==0) ? searchBox.totalResults % searchBox.perPage : searchBox.perPage }} results
               </div>
+              <div class="btn-load-more" v-else-if="searchBox.isLoadingMore">Loading...</div>
+
               <div class="btn-load-more" v-else>No more results to load</div>
 
               <!-- <paginate
@@ -994,6 +996,7 @@ export default {
         lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
         perPage: 10,
         currentPage: 1,
+        isLoadingMore:false,
       },
       ontologyVersionsDropdownData: {
         selectedData: null,
@@ -1214,6 +1217,7 @@ export default {
     },
     async handleSearchBoxQuery(searchBQuery, pageIndex = null) {
       try {
+        this.searchBox.isLoadingMore=true;
         const result = await getOntology(
           searchBQuery,
           this.ontologyServer +
@@ -1228,6 +1232,7 @@ export default {
         this.searchBox.maxPage = body.maxPage;
         this.searchBox.lastSearchBQuery = searchBQuery;
         this.error = false;
+        this.searchBox.isLoadingMore=false;
         this.searchBox.totalData.push(...this.searchBox.searchResults);
 
         // PH placeholder values
@@ -1238,8 +1243,8 @@ export default {
         // PH placeholder values
 
         // testing
-        console.log(this.searchBox);
-        console.log(this.searchBox.totalData);
+        // console.log(this.searchBox);
+        // console.log(this.searchBox.totalData);
       } catch (err) {
         console.error(err);
         this.error = true;
@@ -1358,6 +1363,7 @@ export default {
         lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
         perPage: 10,
         currentPage: 1,
+        isLoadingMore:false,
       };
     },
   },
@@ -2053,6 +2059,7 @@ article ul.maturity-levels li:before {
       padding: 10px 20px;
 
       width: fit-content;
+      height: 50px;
 
       font-size: 18px;
       line-height: 30px;
@@ -2370,44 +2377,26 @@ article ul.maturity-levels li:before {
       }
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-        border-radius: 2px;
+        background-color: rgba(0, 0, 0, 0);
       }
     }
   }
 
   .search-load-more {
-    padding: 40px;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
-    margin-top: 60px;
+    padding: 20px;
+    margin-top: 40px;
 
     p {
-      color: rgba(0, 0, 0, 0.6);
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 30px;
-      margin: 0px;
-      padding: 0px;
+      font-size: 16px;
+      line-height: 24px;
+      text-align: center;
     }
     .btn-load-more {
-      cursor: pointer;
-      margin-top: 16px;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 2px;
-
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding: 10px 20px;
-
-      width: fit-content;
-
       font-size: 18px;
       line-height: 30px;
-      color: rgba(255, 255, 255, 0.9);
+      width: 100%;
     }
+    
   }
 }
 }
