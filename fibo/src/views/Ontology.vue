@@ -171,7 +171,7 @@
                       :query="result.iri"
                       :customLinkOnClick="searchResultClicked"
                     ></customLink>
-                    <!-- {{ result.label }} -->
+                    
                   </div>
 
                   <div class="result-iri">
@@ -1041,6 +1041,13 @@ export default {
     } else if (this.$route.query && this.$route.query.query) {
       queryParam = this.$route.query.query || "";
     }
+    
+    // check for taxonomy paths overflow in mobile view with debounce
+    let timeoutCheckPathsOverflow=false;
+    window.addEventListener('resize', ()=>{
+      clearTimeout(timeoutCheckPathsOverflow);
+      timeoutCheckPathsOverflow = setTimeout(this.checkPathsOverflow, 300);
+    });
 
     this.updateServers();
 
@@ -1293,7 +1300,7 @@ export default {
       // make a copy of the "row"
       const newRow = this.sectionsVisibilitySettings[sectionIndex].slice(0);
       // update the value
-      newRow[propernpmtyIndex] =
+      newRow[propertyIndex] =
         !this.sectionsVisibilitySettings[sectionIndex][propertyIndex];
       // update it in the sectionsVisibilitySettings
       this.$set(this.sectionsVisibilitySettings, sectionIndex, newRow);
@@ -1303,24 +1310,27 @@ export default {
     },
     checkPathsOverflow() {
       // go through displayed paths and call checkPathOverflow for them
-      for (
-        let i = 0;
-        i <
-        Math.min(
-          2 +
-            this.pathsSection.isPathsMoreVisible *
-              (this.data.taxonomy.value.length - 2),
-          this.data.taxonomy.value.length
-        );
-        i++
-      ) {
-        this.checkPathOverflow(i);
-      }
+      if(this.data.taxonomy)
+        for (
+          let i = 0;
+          i <
+          Math.min(
+            2 +
+              this.pathsSection.isPathsMoreVisible *
+                (this.data.taxonomy.value.length - 2),
+            this.data.taxonomy.value.length
+          );
+          i++
+        ) {
+          this.checkPathOverflow(i);
+        }
     },
     checkPathOverflow(tIndex) {
       // wait for the v-for to render and only then check for overflow
       this.$nextTick(() => {
-        if (this.$refs.taxonomyItems) {
+        if (this.$refs.taxonomyItems && !this.$refs.ontologyPaths
+                          .querySelector('h5')
+                          .classList.contains('section-collapse')) {
           // collapse for overlap test purposes
           const wasCollapsed =
             this.$refs.taxonomyItems[tIndex].classList.contains("collapsed");
@@ -1785,7 +1795,7 @@ article ul.maturity-levels li:before {
     }
 
     h5 {
-      text-transform: capitalize;
+      // text-transform: capitalize;
       font-style: normal;
       font-weight: bold;
       font-size: 42px;
