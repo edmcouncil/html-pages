@@ -1310,7 +1310,7 @@ export default {
     },
     checkPathsOverflow() {
       // go through displayed paths and call checkPathOverflow for them
-      if(this.data.taxonomy)
+      if(this.data && this.data.taxonomy)
         for (
           let i = 0;
           i <
@@ -1502,16 +1502,7 @@ article ul.maturity-levels li:before {
 </style>
 
 <style lang="scss">
-@media (min-width: 1px) {
-  #ontograph {
-    height: 500px;
-  }
-}
-@media (min-width: 1900px) {
-  #ontograph {
-    height: 1000px;
-  }
-}
+
 @media (min-width: 992px) {
   .module-tree .multiselect-container {
     margin-right: 0px;
@@ -1795,7 +1786,6 @@ article ul.maturity-levels li:before {
     }
 
     h5 {
-      // text-transform: capitalize;
       font-style: normal;
       font-weight: bold;
       font-size: 42px;
@@ -1803,7 +1793,9 @@ article ul.maturity-levels li:before {
       margin-right: 30px;
       margin-top: 35px;
       position: relative;
-
+      &::first-letter {
+        text-transform: capitalize;
+      }
       &::before {
         content: "";
 
@@ -1898,17 +1890,20 @@ article ul.maturity-levels li:before {
   color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
   margin-top: 40px;
+
+  display: flex;
+  align-items: center;
   &::before {
     content: "";
-    background-image: url("../assets/icons/down-arrow.svg");
+    background-image: url("../assets/icons/triangle-down.svg");
     background-repeat: no-repeat;
-    background-size: 12.12px 9.5px;
+    background-size: 24px 24px;
 
     display: block;
-    width: 12.12px;
-    height: 9.5px;
-    float: left;
-    margin: 11px 12px 12px 5px;
+    width: 24px;
+    height: 24px;
+
+    margin-right: 6px;
   }
 }
 .seeLessBtn {
@@ -1920,17 +1915,20 @@ article ul.maturity-levels li:before {
   color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
   margin-top: 40px;
+
+  display: flex;
+  align-items: center;
   &::before {
     content: "";
-    background-image: url("../assets/icons/up-arrow.svg");
+    background-image: url("../assets/icons/triangle-up.svg");
     background-repeat: no-repeat;
-    background-size: 12.12px 9.5px;
+    background-size: 24px 24px;
 
     display: block;
-    width: 12.12px;
-    height: 9.5px;
-    float: left;
-    margin: 11px 12px 12px 5px;
+    width: 24px;
+    height: 24px;
+    
+    margin-right: 6px;
   }
 }
 //
@@ -2084,29 +2082,28 @@ article ul.maturity-levels li:before {
   .section-title {
     &::before {
       content: "";
-      background-image: url("../assets/icons/up-arrow.svg");
+      background-image: url("../assets/icons/triangle-up.svg");
       background-repeat: no-repeat;
-      background-size: 12.12px 9.5px;
+      background-size: 24px 24px;
+      background-position: center;
 
       display: block;
-      width: 12.12px;
-      height: 9.5px;
+      width: 30px;
+      height: 30px;
       float: right;
-      margin: 8px 12px 12px 6px;
     }
   }
   .section-collapse {
     &::before {
       content: "";
-      background-image: url("../assets/icons/down-arrow.svg");
+      background-image: url("../assets/icons/triangle-down.svg");
       background-repeat: no-repeat;
-      background-size: 12.12px 9.5px;
+      background-size: 24px 24px;
 
       display: block;
-      width: 12.12px;
-      height: 9.5px;
+      width: 24px;
+      height: 24px;
       float: right;
-      margin: 8px 12px 12px 6px;
     }
   }
   .section-collapse + div {
@@ -2279,15 +2276,14 @@ article ul.maturity-levels li:before {
     margin-top: 20px;
     &::before {
       content: "";
-      background-image: url("../assets/icons/down-arrow.svg");
+      background-image: url("../assets/icons/triangle-down.svg");
       background-repeat: no-repeat;
-      background-size: 12.12px 9.5px;
+      background-size: 24px 24px;
 
       display: block;
-      width: 12.12px;
-      height: 9.5px;
+      width: 24px;
+      height: 24px;
       float: left;
-      margin: 8px 12px 12px 6px;
     }
   }
   .seeLessBtn {
@@ -2301,15 +2297,14 @@ article ul.maturity-levels li:before {
     margin-top: 20px;
     &::before {
       content: "";
-      background-image: url("../assets/icons/up-arrow.svg");
+      background-image: url("../assets/icons/triangle-up.svg");
       background-repeat: no-repeat;
-      background-size: 12.12px 9.5px;
+      background-size: 24px 24px;
 
       display: block;
-      width: 12.12px;
-      height: 9.5px;
+      width: 24px;
+      height: 24px;
       float: left;
-      margin: 8px 12px 12px 6px;
     }
   }
 }

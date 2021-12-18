@@ -1,77 +1,90 @@
 <template>
   <div id="graphWindowWraper">
-    <b class="mr-1 ml-4">Connections:</b>
-    <br />
-    <div class="ml-4">
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="edgesFilter"
-          id="internal"
-          value="internal"
-        />
-        <label class="form-check-label" for="internal">class specific</label>
+    <div id="connectionsMenu" ref="connectionsElement" class="collapsed">
+      <div
+        class="connections-title"
+        @click="toggleConnectionsCollapsed()"
+      >
+        <h6>Connections</h6>
+        <div class="collapse-icon"></div>
       </div>
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="edgesFilter"
-          id="external"
-          value="external"
-        />
-        <label class="form-check-label" for="external">inherited</label>
+
+      <!-- custom -->
+
+      <div class="connections-list">
+        <div class="custom-control custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            name="edgesFilter"
+            id="internal"
+            value="internal"
+          />
+          <label class="custom-control-label" for="internal">Class specific</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            name="edgesFilter"
+            id="external"
+            value="external"
+          />
+          <label class="custom-control-label" for="external">Inherited</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            name="edgesFilter"
+            id="optional"
+            value="optional"
+          />
+          <label class="custom-control-label" for="optional">Optional</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            name="edgesFilter"
+            id="non_optional"
+            value="non_optional"
+          />
+          <label class="custom-control-label" for="non_optional">Required</label>
+        </div>
       </div>
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="edgesFilter"
-          id="optional"
-          value="optional"
-        />
-        <label class="form-check-label" for="optional">optional</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="edgesFilter"
-          id="non_optional"
-          value="non_optional"
-        />
-        <label class="form-check-label" for="non_optional">required</label>
-      </div>
+
     </div>
 
     <div id="smallGraph">
       <div id="ontograph"></div>
     </div>
 
-    <div class="row justify-content-md-center">
-      <button type="button" class="btn btn-sm btn-outline-primary" v-on:click="swapGraphContent()">
-        Expand diagram
+    <div class="row">
+      <button
+        type="button"
+        class="btn normal-button icon-button fullscreen-button"
+        v-on:click="swapGraphContent()"
+      >
+        Full screen
+        <div class="b-icon"></div>
       </button>
     </div>
 
-    <div
-      class="modal down"
+    <!-- <div
+      class="modal"
       id="graphModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="graphModalLabel"
       aria-hidden="true"
-      v-bind:class="{ fade: !modalVisible }"
+      v-show="modalVisible"
     >
-      <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
-        <div class="modal-content-full-width modal-content">
-          <div class="modal-header-full-width modal-header">
-            <h5 class="modal-title w-100" id="graphModalLabel">
-              <b class="mr-1 ml-4"
-                >Data model for "<i>{{ title }}</i
-                >"</b
-              >
+      <div class="modal-dialog-full-width" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="graphModalLabel">
+              <b>Data model for "<i>{{ title }}</i>"</b>
             </h5>
             <button
               type="button"
@@ -87,18 +100,48 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+    <div
+      class="modal"
+      id="graphModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="graphModalLabel"
+      aria-hidden="true"
+      v-show="modalVisible"
+    >
+      <div class="modal-dialog-full-width" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div
+                type="button"
+                class="close-btn"
+                data-dismiss="modal"
+                aria-label="Close"
+                v-on:click="hideModal()"
+              ></div>
+            <h5 class="modal-title" id="graphModalLabel">
+              Data model for {{ title }}
+            </h5>
+          </div>
+          <div id="graphModalBody" class="modal-body"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import vis from 'vis-network';
+import vis from "vis-network";
 
 export default {
-  name: 'vis-network',
-  props: ['data', 'title'],
+  name: "vis-network",
+  props: ["data", "title"],
   data() {
     return {
       modalVisible: false,
+      connectionsCollapsed: true,
     };
   },
   mounted() {
@@ -106,10 +149,12 @@ export default {
       const nodes = new vis.DataSet(this.data.nodes);
       const edges = new vis.DataSet(this.data.edges);
 
-      const container = document.getElementById('ontograph');
-      const edgeFilters = document.getElementsByName('edgesFilter');
+      const container = document.getElementById("ontograph");
+      const edgeFilters = document.getElementsByName("edgesFilter");
 
-      const isSomeGreenSquare = this.data.nodes.some((node) => node.color == "#C2FABC");
+      const isSomeGreenSquare = this.data.nodes.some(
+        (node) => node.color == "#C2FABC"
+      );
 
       // initial checkboxes setting
       const edgesFilterValues = {
@@ -125,7 +170,7 @@ export default {
         edgesFilterValues[edge.optional] && edgesFilterValues[edge.type];
 
       edgeFilters.forEach((filter) =>
-        filter.addEventListener('change', (e) => {
+        filter.addEventListener("change", (e) => {
           const { value, checked } = e.target;
           edgesFilterValues[value] = checked;
           edgesView.refresh();
@@ -217,7 +262,14 @@ export default {
   },
   methods: {
     swapGraphContent() {
-      document.getElementById("graphModalBody").appendChild(document.getElementById("ontograph"));
+      const graphModalElement = document.getElementById("graphModalBody");
+      const connectionsMenuElement = document.getElementById("connectionsMenu");
+      const ontographElement = document.getElementById("ontograph");
+
+      document.body.style.overflowY = "hidden";
+
+      graphModalElement.appendChild(connectionsMenuElement);
+      graphModalElement.appendChild(ontographElement);
 
       const options = {
         edges: {
@@ -231,8 +283,8 @@ export default {
           forceAtlas2Based: {
             gravitationalConstant: -95,
             centralGravity: 0.005,
-            springLength: 400,
-            springConstant: 0.41,
+            springLength: 300,
+            springConstant: 0.412,
           },
           minVelocity: 0.75,
           solver: "forceAtlas2Based",
@@ -242,12 +294,29 @@ export default {
       window.network.setOptions(options);
       this.modalVisible = true;
 
-      setTimeout(() => {
+      this.$nextTick(() => {
+        this.adjustGraphSize();
         window.network.fit();
+      });
+      setTimeout(() => {
+        window.network.fit({
+          animation: {
+            duration: 50,
+          }
+        });
       }, 100);
     },
     hideModal() {
-      document.getElementById("smallGraph").appendChild(document.getElementById("ontograph"));
+      document.body.style.overflowY = "scroll";
+      document
+        .getElementById("graphWindowWraper")
+        .insertBefore(
+          document.getElementById("connectionsMenu"),
+          document.getElementById("graphWindowWraper").childNodes[0]
+        );
+      document
+        .getElementById("smallGraph")
+        .appendChild(document.getElementById("ontograph"));
       const options = {
         edges: {
           smooth: {
@@ -268,23 +337,361 @@ export default {
         },
       };
       window.network.setOptions(options);
-      window.network.fit();
+      
       this.modalVisible = false;
+      this.adjustGraphSize();
+      window.network.fit();
     },
+    toggleConnectionsCollapsed() {
+      this.$refs.connectionsElement.classList.toggle('collapsed');
+      this.adjustGraphSize();
+    },
+    adjustGraphSize(){
+      if(this.modalVisible){
+        const graphModalElement = document.getElementById("graphModalBody");
+        const connectionsMenuElement = document.getElementById("connectionsMenu");
+
+        const adjustedHeight = graphModalElement.clientHeight-connectionsMenuElement.clientHeight;
+        window.network.setSize('100%',`${adjustedHeight}px`);
+      }else{
+        window.network.setSize('100%', '100%');
+      }
+      window.network.redraw();
+    }
   },
 };
 </script>
 
 <style lang="scss">
-.modal {
-  padding: 10px;
-  display: block;
-
-  .modal-dialog {
-    max-width: 100%;
-  }
-  &.fade {
-    display: none;
+#graphWindowWraper {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 40px 0px;
+  .fullscreen-button {
+    margin-left: 40px;
+    .b-icon {
+      background-image: url("../assets/icons/maximize.svg");
+    }
   }
 }
+#smallGraph {
+  height: 500px;
+}
+#ontograph {
+  height: 100%;
+}
+
+
+// global/not in modal
+#connectionsMenu {
+  padding-left: 40px;
+  padding-right: 40px;
+    h6{
+        padding: 0;
+        margin: 0;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 30px;
+        color: #000000;
+    }
+    .connections-title {
+      padding-bottom: 40px;
+    }
+    .connections-list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .custom-control {
+        padding-right: 40px;
+        padding-bottom: 40px;
+
+        .custom-control-label {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 30px;
+          color: rgba(0, 0, 0, 0.8);
+        }
+      }
+    }
+}
+
+//global in modal
+.modal {
+  display: block;
+
+  .modal-header {
+    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+    border: none;
+    padding: 18px 30px;
+    z-index:2;
+
+    justify-content:start;
+
+    .close-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 24px;
+        height: 30px;
+        padding: 0;
+        margin-right: 20px;
+
+        &::before {
+          content: "";
+          background-image: url("../assets/icons/return-arrow.svg");
+          background-repeat: no-repeat;
+          background-size: 24px 24px;
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+    h5 {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 30px;
+      color: #000000;
+
+      padding: 0;
+      margin: 0;
+      position: relative;
+    }
+
+  }
+  .modal-dialog {
+    margin: 0;
+  }
+  .modal-content {
+    border-radius: 0;
+    border: none;
+    height: 100vh;
+    width: 100vw;
+  }
+  .modal-body {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    #connectionsMenu {
+
+      width: 100%;
+      background: rgb(242,242,242);
+      z-index: 1;
+      .connections-title {
+        padding: 20px 0px;
+      }
+    }
+  }
+}
+
+
+//mobile
+@media (max-width: 768px) {
+  .modal .modal-header {
+    h5 {
+      font-size: 16px;
+      line-height: 24px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+    .close-btn {
+      height: 24px;
+    }
+  }
+
+  #graphWindowWraper {
+    .fullscreen-button {
+      margin-left: 20px;
+    }
+  }
+
+  #connectionsMenu {
+    padding-left: 30px;
+    padding-right: 30px;
+
+    .connections-title {
+      padding-bottom: 20px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .collapse-icon {
+        content: "";
+        background-image: url("../assets/icons/triangle-up.svg");
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .connections-list {
+      flex-direction: column;
+
+      .custom-control {
+        padding-right: 0px;
+        padding-bottom: 20px;
+
+        .custom-control-label {
+          padding-top: 3px;
+          padding-bottom: 3px;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 24px;
+          color: rgba(0, 0, 0, 0.8);
+        }
+      }
+    }
+
+    &.collapsed {
+      .connections-title .collapse-icon  {
+          background-image: url("../assets/icons/triangle-down.svg");
+      }
+      .connections-list {
+        height: 0px;
+        overflow: hidden;
+      }
+    }
+  }
+
+}
+
+
+
+// custom checkbox
+$custom-checkbox-indicator-border-radius: 2px;
+$custom-control-indicator-checked-bg: rgba(0, 0, 0, 0.8);
+$custom-checkbox-indicator-icon-checked: url("../assets/icons/checkbox-check.svg");
+$custom-checkbox-indicator-indeterminate-bg: #FFFFFF;
+$custom-checkbox-indicator-indeterminate-box-shadow: 0px 0px 0px 6px rgba(0, 0, 0, 0.4);
+$custom-checkbox-indicator-icon-indeterminate: url("../assets/icons/checkbox-check.svg");;
+$custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
+$custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
+
+.custom-checkbox {
+  padding-left: 40px;
+  padding-bottom: 20px;
+
+  
+
+  .custom-control-label {
+    cursor: pointer;
+    
+  }
+
+  .custom-control-label::before {
+    border-radius:($custom-checkbox-indicator-border-radius);
+    border: 2px solid $custom-control-indicator-checked-bg;
+    width: 30px;
+    height: 30px;
+
+    top: 0px;
+    left:-40px;
+    
+  }
+  .custom-control-label::after {
+    width: 30px;
+    height: 30px;
+
+    top: 0px;
+    left:-40px;
+  }
+
+  .custom-control-input:checked ~ .custom-control-label {
+    &::before {
+      background: $custom-control-indicator-checked-bg;
+      border: none;
+    }
+    &::after {
+      background-image: $custom-checkbox-indicator-icon-checked;
+      background-size: 24px 24px;
+    }
+  }
+
+  .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow:$custom-checkbox-indicator-indeterminate-box-shadow !important;
+    border: 2px solid $custom-control-indicator-checked-bg;
+  }
+  .custom-control-input:active ~ .custom-control-label::before {
+    box-shadow:$custom-checkbox-indicator-indeterminate-box-shadow !important;
+    border: 2px solid $custom-control-indicator-checked-bg;
+  }
+
+  .custom-control-input:indeterminate ~ .custom-control-label {
+    &::before {
+      background-image:($custom-checkbox-indicator-indeterminate-bg);
+      background-size: 30px 30px;
+      box-shadow:($custom-checkbox-indicator-indeterminate-box-shadow);
+    }
+    &::after {
+      background-image: $custom-checkbox-indicator-icon-indeterminate;
+    }
+  }
+
+  .custom-control-input:disabled {
+    &:checked ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+    &:indeterminate ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+}
+
+
+// button
+$normal-button-default-bg: rgba(0, 0, 0, 0.8);
+$normal-button-focus-bg: rgba(0, 0, 0, 0.8);
+$normal-button-active-bg: #000000;
+$normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
+
+.normal-button {
+  background: $normal-button-default-bg;
+  border-radius: 2px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 30px;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  padding: 10px 20px;
+  &:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  &:focus {
+    background: $normal-button-focus-bg;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 0px 4px;
+  }
+  &:active {
+    background: $normal-button-active-bg;
+  }
+  &:disabled, &[disabled=disabled] {
+    background: $normal-button-disabled-bg;
+  }
+}
+
+// icon button
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .b-icon {
+    width: 24px;
+    height: 24px;
+
+    margin-left: 10px;
+
+    color: white;
+  }
+}
+
 </style>
