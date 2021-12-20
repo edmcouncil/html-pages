@@ -35,8 +35,7 @@
                   ><span class="custom__remove" @click="remove(option)"
                     >❌</span
                   ></span
-                ></template
-              >
+                ></template>
               <!-- <template slot="clear" slot-scope="props">
                 <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData" @mousedown.prevent.stop="clearAll(props.search)"></div>
               </template> -->
@@ -1122,7 +1121,7 @@ export default {
             console.error(`body.type: ${body.type}, expected: details`);
           }
           this.data = body.result;
-          console.log(this.data)
+
           this.error = false;
         } catch (err) {
           console.error(err);
@@ -1530,6 +1529,14 @@ article ul.maturity-levels li:before {
 </style>
 
 <style lang="scss">
+.multiselect__select {
+  &::before {
+    border:none;
+  }
+}
+
+
+
 @media (min-width: 992px) {
   .module-tree .multiselect-container {
     margin-right: 0px;

@@ -340,6 +340,7 @@ export default {
   background: rgba(0, 0, 0, 0.05);
   padding: 40px 0px;
   .fullscreen-button {
+    margin-top: 40px;
     margin-left: 40px;
     .b-icon {
       background-image: url("../assets/icons/maximize.svg");
