@@ -1,63 +1,66 @@
 <template>
-  <div id="graphWindowWraper">
-    <div id="connectionsMenu" ref="connectionsElement" class="collapsed">
-      <div
-        class="connections-title"
-        @click="toggleConnectionsCollapsed()"
-      >
-        <h6>Connections</h6>
-        <div class="collapse-icon"></div>
+  <div id="graphWindowWraper" class="graph-parent">
+    
+
+    <div class="smallGraphWraper">
+
+      <div id="connectionsMenu" ref="connectionsElement" class="collapsed">
+        <div
+          class="connections-title"
+          @click="toggleConnectionsCollapsed()"
+        >
+          <h6>Connections</h6>
+          <div class="collapse-icon"></div>
+        </div>
+
+        <div class="connections-list">
+          <div class="custom-control custom-checkbox">
+            <input
+              class="custom-control-input"
+              type="checkbox"
+              name="edgesFilter"
+              id="internal"
+              value="internal"
+            />
+            <label class="custom-control-label" for="internal">Class specific</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              class="custom-control-input"
+              type="checkbox"
+              name="edgesFilter"
+              id="external"
+              value="external"
+            />
+            <label class="custom-control-label" for="external">Inherited</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              class="custom-control-input"
+              type="checkbox"
+              name="edgesFilter"
+              id="optional"
+              value="optional"
+            />
+            <label class="custom-control-label" for="optional">Optional</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              class="custom-control-input"
+              type="checkbox"
+              name="edgesFilter"
+              id="non_optional"
+              value="non_optional"
+            />
+            <label class="custom-control-label" for="non_optional">Required</label>
+          </div>
+        </div>
+
       </div>
 
-      <!-- custom -->
-
-      <div class="connections-list">
-        <div class="custom-control custom-checkbox">
-          <input
-            class="custom-control-input"
-            type="checkbox"
-            name="edgesFilter"
-            id="internal"
-            value="internal"
-          />
-          <label class="custom-control-label" for="internal">Class specific</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input
-            class="custom-control-input"
-            type="checkbox"
-            name="edgesFilter"
-            id="external"
-            value="external"
-          />
-          <label class="custom-control-label" for="external">Inherited</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input
-            class="custom-control-input"
-            type="checkbox"
-            name="edgesFilter"
-            id="optional"
-            value="optional"
-          />
-          <label class="custom-control-label" for="optional">Optional</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input
-            class="custom-control-input"
-            type="checkbox"
-            name="edgesFilter"
-            id="non_optional"
-            value="non_optional"
-          />
-          <label class="custom-control-label" for="non_optional">Required</label>
-        </div>
+      <div id="smallGraph">
+        <div id="ontograph"></div>
       </div>
-
-    </div>
-
-    <div id="smallGraph">
-      <div id="ontograph"></div>
     </div>
 
     <div class="row">
@@ -70,37 +73,6 @@
         <div class="b-icon"></div>
       </button>
     </div>
-
-    <!-- <div
-      class="modal"
-      id="graphModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="graphModalLabel"
-      aria-hidden="true"
-      v-show="modalVisible"
-    >
-      <div class="modal-dialog-full-width" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="graphModalLabel">
-              <b>Data model for "<i>{{ title }}</i>"</b>
-            </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-              v-on:click="hideModal()"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div id="graphModalBody" class="modal-body"></div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 
     <div
       class="modal"
@@ -125,7 +97,7 @@
               Data model for {{ title }}
             </h5>
           </div>
-          <div id="graphModalBody" class="modal-body"></div>
+          <div id="graphModalBody" class="modal-body graph-parent"></div>
         </div>
       </div>
     </div>
@@ -308,11 +280,12 @@ export default {
     },
     hideModal() {
       document.body.style.overflowY = "scroll";
+
       document
-        .getElementById("graphWindowWraper")
+        .getElementById("graphWindowWraper").querySelector('.smallGraphWraper')
         .insertBefore(
           document.getElementById("connectionsMenu"),
-          document.getElementById("graphWindowWraper").childNodes[0]
+          document.getElementById("graphWindowWraper").querySelector('.smallGraphWraper').childNodes[0]
         );
       document
         .getElementById("smallGraph")
@@ -400,7 +373,7 @@ export default {
     .connections-list {
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       .custom-control {
         padding-right: 40px;
         padding-bottom: 40px;
@@ -519,6 +492,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      cursor: pointer;
 
       .collapse-icon {
         content: "";
@@ -560,6 +534,56 @@ export default {
     }
   }
 
+}
+
+@media (max-width: 1300px) {
+.smallGraphWraper{
+  #connectionsMenu {
+    padding-left: 30px;
+    padding-right: 30px;
+
+    .connections-title {
+      padding-bottom: 20px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor:pointer;
+
+      .collapse-icon {
+        content: "";
+        background-image: url("../assets/icons/triangle-up.svg");
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .connections-list {
+      flex-direction: column;
+
+      .custom-control {
+        padding-right: 0px;
+        padding-bottom: 20px;
+
+        .custom-control-label {
+          color: rgba(0, 0, 0, 0.8);
+        }
+      }
+    }
+
+    &.collapsed {
+      .connections-title .collapse-icon  {
+          background-image: url("../assets/icons/triangle-down.svg");
+      }
+      .connections-list {
+        height: 0px;
+        overflow: hidden;
+      }
+    }
+  }
+}
 }
 
 

@@ -2,8 +2,9 @@
   <!-- eslint-disable max-len -->
   <div class="container">
     <div class="row">
-      <div class="col-2 col-xxxl-3 d-none d-xxl-block">
-        <div class="module-tree float-right">
+      <!-- tree big -->
+      <div class="col-2 col-lg-3 d-none d-lg-block">
+        <div class="module-tree">
           <div class="multiselect-xxl-container">
             <multiselect
               v-model="ontologyVersionsDropdownData.selectedData"
@@ -59,14 +60,135 @@
         </div>
       </div>
 
-      <div class="col-12 col-xxl-8 col-xxxl-6 px-0">
+      <!-- main col -->
+      <div class="col-12 col-lg-9 px-0 px-lg-5">
+        <div class="container px-0">
+          <!-- search box lg -->
+          <div class="row">
+            <div class="col-lg-12 d-none d-lg-block">
+                    <div class="multiselect-xxl-container">
+                      <multiselect
+                        v-model="searchBox.selectedData"
+                        id="ajax2"
+                        label="labelForInternalSearch"
+                        track-by="iri"
+                        placeholder="Search..."
+                        tagPlaceholder="Search for..."
+                        selectLabel="Display ontology"
+                        open-direction="bottom"
+                        :options="searchBox.data"
+                        :multiple="false"
+                        :searchable="true"
+                        :loading="searchBox.isLoading"
+                        :internal-search="false"
+                        :clear-on-select="false"
+                        :close-on-select="true"
+                        :options-limit="300"
+                        :limit="3"
+                        :limit-text="searchBox_limitText"
+                        :max-height="600"
+                        :preserve-search="true"
+                        :show-no-results="false"
+                        :hide-selected="true"
+                        :taggable="true"
+                        @select="searchBox_optionSelected"
+                        @tag="searchBox_addTag"
+                        @search-change="searchBox_asyncFind"
+                      >
+                        <template slot="tag" slot-scope="{ option, remove }"
+                          ><span class="custom__tag"
+                            ><span>{{ option.label }}</span
+                            ><span class="custom__remove" @click="remove(option)"
+                              >❌</span
+                            ></span
+                          ></template
+                        >
+                        <template slot="clear" slot-scope="props">
+                          <div
+                            class="multiselect__clear"
+                            v-if="searchBox.selectedData"
+                            @mousedown.prevent.stop="clearAll(props.search)"
+                          ></div> </template
+                        ><span slot="noResult"
+                          >Oops! No elements found. Consider changing the search
+                          query.</span
+                        >
+                      </multiselect>
+                      <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
+                      <!-- <pre class="language-json"><code>{{ searchBox.data }}</code></pre> -->
+                    </div>
+            </div>
+          </div>
+        </div>
+
+
         <div class="container px-0">
           <a
             name="ontologyViewerTopOfContainer"
             id="ontologyViewerTopOfContainer"
           ></a>
+           <!-- tree mobile -->
+          <div class="module-tree col-lg-12 col-lg-4 d-lg-none">
+            <div class="multiselect-container">
+              <multiselect
+                v-model="ontologyVersionsDropdownData.selectedData"
+                id="ontologyVersionsMultiselect2"
+                label="@id"
+                track-by="url"
+                placeholder="Search..."
+                tagPlaceholder="Search for..."
+                selectLabel=""
+                open-direction="bottom"
+                :options="ontologyVersionsDropdownData.data"
+                :multiple="false"
+                :searchable="false"
+                :loading="ontologyVersionsDropdownData.isLoading"
+                :internal-search="false"
+                :clear-on-select="false"
+                :close-on-select="true"
+                :max-height="600"
+                :preserve-search="true"
+                :show-no-results="false"
+                :hide-selected="true"
+                :taggable="true"
+                @select="ontologyVersions_optionSelected"
+              >
+                <template slot="tag" slot-scope="{ option, remove }"
+                  ><span class="custom__tag"
+                    ><span>{{ option.label }}</span
+                    ><span class="custom__remove" @click="remove(option)"
+                      >❌</span
+                    ></span
+                  ></template
+                >
+                <!-- <template slot="clear" slot-scope="props">
+                <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData" @mousedown.prevent.stop="clearAll(props.search)"></div>
+              </template> -->
+                <span slot="noResult"
+                  >Oops! No elements found. Consider changing the search
+                  query.</span
+                >
+              </multiselect>
+              <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
+              <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
+            </div>
 
-          <div class="d-xxl-none multiselect-container">
+            <ul class="modules-list list-unstyled">
+              <module-tree
+                :item="item"
+                v-for="item in modulesList"
+                :location="data"
+                :key="item.label"
+              />
+            </ul>
+            <div class="text-center" v-if="!modulesList && !error">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+          <!-- search box mobile -->
+          <div class="d-lg-none multiselect-container">
             <multiselect
               v-model="searchBox.selectedData"
               id="ajax"
@@ -116,6 +238,7 @@
             </multiselect>
             <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
           </div>
+         
 
           <div class="row" v-if="loader">
             <div class="col-12">
@@ -171,7 +294,6 @@
                       :query="result.iri"
                       :customLinkOnClick="searchResultClicked"
                     ></customLink>
-                    
                   </div>
 
                   <div class="result-iri">
@@ -198,11 +320,24 @@
               <div
                 class="btn-load-more"
                 @click="loadMoreResults()"
-                v-if="searchBox.currentPage < searchBox.maxPage && !searchBox.isLoadingMore"
+                v-if="
+                  searchBox.currentPage < searchBox.maxPage &&
+                  !searchBox.isLoadingMore
+                "
               >
-                Load next {{ (searchBox.currentPage===searchBox.maxPage-1 && searchBox.perPage!==0 && searchBox.totalResults!==0) ? searchBox.totalResults % searchBox.perPage : searchBox.perPage }} results
+                Load next
+                {{
+                  searchBox.currentPage === searchBox.maxPage - 1 &&
+                  searchBox.perPage !== 0 &&
+                  searchBox.totalResults !== 0
+                    ? searchBox.totalResults % searchBox.perPage
+                    : searchBox.perPage
+                }}
+                results
               </div>
-              <div class="btn-load-more" v-else-if="searchBox.isLoadingMore">Loading...</div>
+              <div class="btn-load-more" v-else-if="searchBox.isLoadingMore">
+                Loading...
+              </div>
 
               <div class="btn-load-more" v-else>No more results to load</div>
 
@@ -227,70 +362,11 @@
 
           <div class="container" v-else>
             <div class="row">
-              <!-- TREE -->
-              <div class="module-tree col-md-12 col-lg-4 d-xxl-none">
-                <div class="multiselect-container">
-                  <multiselect
-                    v-model="ontologyVersionsDropdownData.selectedData"
-                    id="ontologyVersionsMultiselect2"
-                    label="@id"
-                    track-by="url"
-                    placeholder="Search..."
-                    tagPlaceholder="Search for..."
-                    selectLabel=""
-                    open-direction="bottom"
-                    :options="ontologyVersionsDropdownData.data"
-                    :multiple="false"
-                    :searchable="false"
-                    :loading="ontologyVersionsDropdownData.isLoading"
-                    :internal-search="false"
-                    :clear-on-select="false"
-                    :close-on-select="true"
-                    :max-height="600"
-                    :preserve-search="true"
-                    :show-no-results="false"
-                    :hide-selected="true"
-                    :taggable="true"
-                    @select="ontologyVersions_optionSelected"
-                  >
-                    <template slot="tag" slot-scope="{ option, remove }"
-                      ><span class="custom__tag"
-                        ><span>{{ option.label }}</span
-                        ><span class="custom__remove" @click="remove(option)"
-                          >❌</span
-                        ></span
-                      ></template
-                    >
-                    <!-- <template slot="clear" slot-scope="props">
-                    <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData" @mousedown.prevent.stop="clearAll(props.search)"></div>
-                  </template> -->
-                    <span slot="noResult"
-                      >Oops! No elements found. Consider changing the search
-                      query.</span
-                    >
-                  </multiselect>
-                  <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
-                  <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
-                </div>
-
-                <ul class="modules-list list-unstyled">
-                  <module-tree
-                    :item="item"
-                    v-for="item in modulesList"
-                    :location="data"
-                    :key="item.label"
-                  />
-                </ul>
-                <div class="text-center" v-if="!modulesList && !error">
-                  <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </div>
-              </div>
+              
 
               <!-- SHOW ITEM -->
               <div
-                class="col-md-12 col-lg-8 col-xxl-12 px-0 ontology-item"
+                class="col-md-12 col-lg-12 px-0 ontology-item"
                 v-if="data"
               >
                 <div class="row">
@@ -616,18 +692,15 @@
                                     propertyIndex
                                   ]
                                 "
+                                href="#"
+                                @click.prevent="
+                                  toggleSectionsVisibility(
+                                    sectionIndex,
+                                    propertyIndex
+                                  )
+                                "
                               >
-                                <div
-                                  href="#"
-                                  @click.prevent="
-                                    toggleSectionsVisibility(
-                                      sectionIndex,
-                                      propertyIndex
-                                    )
-                                  "
-                                >
-                                  Show more
-                                </div>
+                                <div>Show more</div>
                               </div>
                               <div
                                 v-if="property.length > 5"
@@ -643,18 +716,15 @@
                                     propertyIndex
                                   ]
                                 "
+                                href="#"
+                                @click.prevent="
+                                  toggleSectionsVisibility(
+                                    sectionIndex,
+                                    propertyIndex
+                                  )
+                                "
                               >
-                                <div
-                                  href="#"
-                                  @click.prevent="
-                                    toggleSectionsVisibility(
-                                      sectionIndex,
-                                      propertyIndex
-                                    )
-                                  "
-                                >
-                                  Show less
-                                </div>
+                                <div>Show less</div>
                               </div>
                             </dd>
                           </dl>
@@ -689,7 +759,7 @@
               </div>
 
               <!-- NO DATA (HOW TO USE) -->
-              <div class="col-md-12 col-lg-8 col-xxl-12" v-else>
+              <div class="col-md-12 col-xl-8 col-xxl-12" v-else>
                 <main v-if="!loader">
                   <article>
                     <h1>
@@ -871,59 +941,6 @@
           </div>
         </div>
       </div>
-      <div class="col-2 col-xxxl-3 d-none d-xxl-block">
-        <div class="multiselect-xxl-container">
-          <multiselect
-            v-model="searchBox.selectedData"
-            id="ajax2"
-            label="labelForInternalSearch"
-            track-by="iri"
-            placeholder="Search..."
-            tagPlaceholder="Search for..."
-            selectLabel="Display ontology"
-            open-direction="bottom"
-            :options="searchBox.data"
-            :multiple="false"
-            :searchable="true"
-            :loading="searchBox.isLoading"
-            :internal-search="false"
-            :clear-on-select="false"
-            :close-on-select="true"
-            :options-limit="300"
-            :limit="3"
-            :limit-text="searchBox_limitText"
-            :max-height="600"
-            :preserve-search="true"
-            :show-no-results="false"
-            :hide-selected="true"
-            :taggable="true"
-            @select="searchBox_optionSelected"
-            @tag="searchBox_addTag"
-            @search-change="searchBox_asyncFind"
-          >
-            <template slot="tag" slot-scope="{ option, remove }"
-              ><span class="custom__tag"
-                ><span>{{ option.label }}</span
-                ><span class="custom__remove" @click="remove(option)"
-                  >❌</span
-                ></span
-              ></template
-            >
-            <template slot="clear" slot-scope="props">
-              <div
-                class="multiselect__clear"
-                v-if="searchBox.selectedData"
-                @mousedown.prevent.stop="clearAll(props.search)"
-              ></div> </template
-            ><span slot="noResult"
-              >Oops! No elements found. Consider changing the search
-              query.</span
-            >
-          </multiselect>
-          <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
-          <!-- <pre class="language-json"><code>{{ searchBox.data }}</code></pre> -->
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -996,7 +1013,7 @@ export default {
         lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
         perPage: 10,
         currentPage: 1,
-        isLoadingMore:false,
+        isLoadingMore: false,
       },
       ontologyVersionsDropdownData: {
         selectedData: null,
@@ -1041,10 +1058,10 @@ export default {
     } else if (this.$route.query && this.$route.query.query) {
       queryParam = this.$route.query.query || "";
     }
-    
+
     // check for taxonomy paths overflow in mobile view with debounce
-    let timeoutCheckPathsOverflow=false;
-    window.addEventListener('resize', ()=>{
+    let timeoutCheckPathsOverflow = false;
+    window.addEventListener("resize", () => {
       clearTimeout(timeoutCheckPathsOverflow);
       timeoutCheckPathsOverflow = setTimeout(this.checkPathsOverflow, 300);
     });
@@ -1105,6 +1122,7 @@ export default {
             console.error(`body.type: ${body.type}, expected: details`);
           }
           this.data = body.result;
+          console.log(this.data)
           this.error = false;
         } catch (err) {
           console.error(err);
@@ -1224,7 +1242,7 @@ export default {
     },
     async handleSearchBoxQuery(searchBQuery, pageIndex = null) {
       try {
-        this.searchBox.isLoadingMore=true;
+        this.searchBox.isLoadingMore = true;
         const result = await getOntology(
           searchBQuery,
           this.ontologyServer +
@@ -1239,7 +1257,7 @@ export default {
         this.searchBox.maxPage = body.maxPage;
         this.searchBox.lastSearchBQuery = searchBQuery;
         this.error = false;
-        this.searchBox.isLoadingMore=false;
+        this.searchBox.isLoadingMore = false;
         this.searchBox.totalData.push(...this.searchBox.searchResults);
 
         // PH placeholder values
@@ -1310,7 +1328,8 @@ export default {
     },
     checkPathsOverflow() {
       // go through displayed paths and call checkPathOverflow for them
-      if(this.data && this.data.taxonomy)
+      if (this.$refs.taxonomyItems &&
+        this.$refs.ontologyPaths && this.data && this.data.taxonomy)
         for (
           let i = 0;
           i <
@@ -1326,32 +1345,31 @@ export default {
         }
     },
     checkPathOverflow(tIndex) {
-      // wait for the v-for to render and only then check for overflow
-      this.$nextTick(() => {
-        if (this.$refs.taxonomyItems && !this.$refs.ontologyPaths
-                          .querySelector('h5')
-                          .classList.contains('section-collapse')) {
-          // collapse for overlap test purposes
-          const wasCollapsed =
-            this.$refs.taxonomyItems[tIndex].classList.contains("collapsed");
-          if (!wasCollapsed) {
-            this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
-          }
-          const el = this.$refs.taxonomyItems[tIndex].firstChild;
-          const curOverf = el.style.overflow;
-          if (!curOverf || curOverf === "visible") el.style.overflow = "hidden";
-          const isOverflowing =
-            el.clientWidth < el.scrollWidth ||
-            el.clientHeight < el.scrollHeight;
-          el.style.overflow = curOverf;
-
-          if (!wasCollapsed) {
-            this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
-          }
-          // set array value making use of Vue reactivity
-          this.$set(this.pathsSection.hasOverflow, tIndex, isOverflowing);
+      if (
+        !this.$refs.ontologyPaths
+          .querySelector("h5")
+          .classList.contains("section-collapse")
+      ) {
+        // collapse for overlap test purposes
+        const wasCollapsed =
+          this.$refs.taxonomyItems[tIndex].classList.contains("collapsed");
+        if (!wasCollapsed) {
+          this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
         }
-      });
+        const el = this.$refs.taxonomyItems[tIndex].firstChild;
+        const curOverf = el.style.overflow;
+        if (!curOverf || curOverf === "visible") el.style.overflow = "hidden";
+        const isOverflowing =
+          el.clientWidth < el.scrollWidth ||
+          el.clientHeight < el.scrollHeight;
+        el.style.overflow = curOverf;
+
+        if (!wasCollapsed) {
+          this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
+        }
+        // set array value making use of Vue reactivity
+        this.$set(this.pathsSection.hasOverflow, tIndex, isOverflowing);
+      }
     },
     loadMoreResults() {
       if (this.searchBox.currentPage < this.searchBox.maxPage) {
@@ -1373,7 +1391,7 @@ export default {
         lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
         perPage: 10,
         currentPage: 1,
-        isLoadingMore:false,
+        isLoadingMore: false,
       };
     },
   },
@@ -1480,9 +1498,19 @@ h6 {
     margin: 20px 0 0 20px;
   }
 }
-@media (min-width: 1900px) {
-  .modules-list {
-    margin: 30px 0 0 20px;
+// @media (min-width: 992px) {
+//   .container {
+//     max-width: 100%;
+//   }
+// }
+@media (min-width: 1200px) {
+  .container {
+    max-width: 100%;
+  }
+}
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
   }
 }
 article ul.maturity-levels li {
@@ -1502,7 +1530,6 @@ article ul.maturity-levels li:before {
 </style>
 
 <style lang="scss">
-
 @media (min-width: 992px) {
   .module-tree .multiselect-container {
     margin-right: 0px;
@@ -1927,7 +1954,7 @@ article ul.maturity-levels li:before {
     display: block;
     width: 24px;
     height: 24px;
-    
+
     margin-right: 6px;
   }
 }
@@ -2078,7 +2105,7 @@ article ul.maturity-levels li:before {
 //
 // mobile
 // ontology-item
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .section-title {
     &::before {
       content: "";
@@ -2088,7 +2115,7 @@ article ul.maturity-levels li:before {
       background-position: center;
 
       display: block;
-      width: 30px;
+      width: 24px;
       height: 30px;
       float: right;
     }
@@ -2311,99 +2338,98 @@ article ul.maturity-levels li:before {
 //
 // mobile
 // search-results
-@media (max-width: 576px) {
-.search-results-section {
-  .search-header {
-    padding: 40px 30px;
+@media (max-width: 768px) {
+  .search-results-section {
+    .search-header {
+      padding: 40px 30px;
 
-    h5 {
-      font-size: 30px;
-      line-height: 36px;
-    }
-    p {
-      font-size: 20px;
-      line-height: 30px;
-    }
-  }
-
-  .search-results-items {
-    padding-left: 0px;
-    padding-right: 0px;
-
-    .search-item {
-      padding: 20px 30px 20px 64px;
-
-      .maturity-icon {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        width: 24px;
-        height: 30px;
-
-        left: -34px;
-
-        &::before {
-          content: "";
-
-          background-repeat: no-repeat;
-          background-size: 24px 24px;
-          width: 24px;
-          height: 24px;
-        }
-        &.maturity-provisional {
-          &::before {
-            background-image: url("../assets/icons/provisional-maturity.svg");
-          }
-        }
-        &.maturity-mixed {
-          &::before {
-            background-image: url("../assets/icons/provisional-maturity.svg");
-          }
-        }
-        &.maturity-production {
-          &::before {
-            background-image: url("../assets/icons/production-maturity.svg");
-          }
-        }
+      h5 {
+        font-size: 30px;
+        line-height: 36px;
       }
-
-      .search-title {
+      p {
         font-size: 20px;
         line-height: 30px;
       }
-      .result-iri {
-        font-size: 14px;
-        line-height: 20px;
+    }
+
+    .search-results-items {
+      padding-left: 0px;
+      padding-right: 0px;
+
+      .search-item {
+        padding: 20px 30px 20px 64px;
+
+        .maturity-icon {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          width: 24px;
+          height: 30px;
+
+          left: -34px;
+
+          &::before {
+            content: "";
+
+            background-repeat: no-repeat;
+            background-size: 24px 24px;
+            width: 24px;
+            height: 24px;
+          }
+          &.maturity-provisional {
+            &::before {
+              background-image: url("../assets/icons/provisional-maturity.svg");
+            }
+          }
+          &.maturity-mixed {
+            &::before {
+              background-image: url("../assets/icons/provisional-maturity.svg");
+            }
+          }
+          &.maturity-production {
+            &::before {
+              background-image: url("../assets/icons/production-maturity.svg");
+            }
+          }
+        }
+
+        .search-title {
+          font-size: 20px;
+          line-height: 30px;
+        }
+        .result-iri {
+          font-size: 14px;
+          line-height: 20px;
+        }
+        p {
+          font-size: 16px;
+          line-height: 24px;
+        }
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0);
+        }
       }
+    }
+
+    .search-load-more {
+      padding: 20px;
+      margin-top: 40px;
+
       p {
         font-size: 16px;
         line-height: 24px;
+        text-align: center;
       }
-
-      &:hover {
-        background-color: rgba(0, 0, 0, 0);
+      .btn-load-more {
+        font-size: 18px;
+        line-height: 30px;
+        width: 100%;
       }
     }
   }
-
-  .search-load-more {
-    padding: 20px;
-    margin-top: 40px;
-
-    p {
-      font-size: 16px;
-      line-height: 24px;
-      text-align: center;
-    }
-    .btn-load-more {
-      font-size: 18px;
-      line-height: 30px;
-      width: 100%;
-    }
-    
-  }
-}
 }
 
 .clearfix::after {
