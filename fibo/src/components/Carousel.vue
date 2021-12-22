@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid slider">
+  <div class="container slider">
     <div id="carouselExampleIndicators" class="carousel slide">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -8,7 +8,7 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="../assets/img/baner2.png" alt="First slide">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="First slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO Interest Group</h2>
             <p>EDMConnect FIBO Community Space for thoughts sharing</p>
@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/baner2.png" alt="Second slide">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="Second slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO GitHub Space</h2>
             <p>Since January 2020, FIBO has been developed by an open community process</p>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/baner2.png" alt="Third slide">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="Third slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO Training</h2>
             <p>FIBO & Knowledge Graph Fundamentals Training</p>
@@ -76,7 +76,6 @@ export default {
 .slider {
   padding-left: 0;
   padding-right: 0;
-  border-top: 6px solid map-get($colors-map, 'blue');
 
   img {
     max-height: 250px !important;
@@ -84,9 +83,6 @@ export default {
   }
 }
 
-.carousel {
-  border-top: 1px solid #ffffff;
-}
 .carousel-caption {
   top: 20px;
 
@@ -110,7 +106,6 @@ a.btn-sl {
   color: map-get($colors-map, 'white');
   padding: 8px 13px;
   font-size: 13px;
-  background-color: map-get($colors-map, 'orange');
   margin-top: 12px;
   font-weight: 500;
   letter-spacing: 1px;
@@ -125,7 +120,6 @@ a.btn-sl {
   height: 10px;
   border-radius: 100%;
   opacity: 0.9;
-  border: 1px solid map-get($colors-map, 'white');
   margin-left: 6px;
   margin-right: 6px;
   padding-top: 0;

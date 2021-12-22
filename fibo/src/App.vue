@@ -1,20 +1,17 @@
 <template>
   <div id="app">
     <Header></Header>
-    <Carousel v-if="!$route.meta.plainLayout"></Carousel>
     <router-view/>
     <Footer></Footer>
   </div>
 </template>
 <script>
 import Header from '@/components/Header.vue';
-import Carousel from '@/components/Carousel.vue';
 import Footer from '@/components/Footer.vue';
 
 export default {
   components: {
     Header,
-    Carousel,
     Footer,
   },
 };
@@ -69,28 +66,7 @@ hr {
   padding: 20px;
   margin: 0 40px 40px 0;
 }
-.fill-image-site {
-  width: 324px;
-  height: 388px;
-  background: url("./assets/img/fill.png") no-repeat;
-  position: absolute;
-  top: 40%;
-  left: 10%;
-}
-.fill-image-fibo {
-  width: 324px;
-  height: 388px;
-  background: url("./assets/img/fill.png") no-repeat;
-  position: absolute;
-  top: 40%;
-  left: 10%;
-}
 
-@media (max-width: 1559px) {
-  .fill-image-fibo {
-    display: none;
-  }
-}
 @media (max-width: 575px) {
   li {
     padding-left: 0;
