@@ -50,10 +50,7 @@ h4{
   color: map-get($colors-map, 'blue');
   text-transform: uppercase;
 }
-h3,h4,h5,h6{
-  padding-top: 25px;
-  padding-bottom: 5px;
-}
+
 p{
   margin-bottom: 0;
   font-size: 17px;
@@ -69,9 +66,7 @@ p{
 .table li{ /* to revert <p> styling in .table */
   letter-spacing: inherit;
 }
-a{
-  color: map-get($colors-map, 'orange');
-}
+
 li {
   
   line-height: 30px;
@@ -129,8 +124,6 @@ article{
     border-top: none;
   }
 }
-
-$spacer:15px;
 // /* set the overriding variables */
 // $grid-breakpoints: (
 //   xxl: 1900px,

@@ -1,4 +1,4 @@
-<template>
+1<template>
   <div class="container">
     <main>
       <article>
@@ -6,16 +6,18 @@
           <span>FIBO data dictionary</span>
         </h1>
 
-
         <p class="text">
-          FIBO data dictionary (aka glossary) is downloadable in .csv and .xlsx. It contains a summary of each operational class in FIBO, with its properties, presented in the form of tables and fields for viewers familiar with relational data dictionaries.
+          FIBO data dictionary (aka glossary) is downloadable in .csv and .xlsx.
+          It contains a summary of each operational class in FIBO, with its
+          properties, presented in the form of tables and fields for viewers
+          familiar with relational data dictionaries.
         </p>
-        
-<!--         <h3>
+
+        <!--         <h3>
           <a name="CSV">Comma Separated Values format</a>
         </h3> -->
-        
-<!--         <p class="text">
+
+        <!--         <p class="text">
           A comma-separated file with the same information as the web page; label, curated defintion, synonyms and
           model-generated defintion. For use in spreadsheets, including Excel.
         </p>
@@ -38,14 +40,14 @@
         <h3>
           <a name="XLS">Excel format</a>
         </h3>
-        
+
         <p class="text">
           A file that can be read with Microsoft Excel, containing a label, curated definition, synonyms,
           model-generated definition, examples, and explanatory notes (when available). Exclusively for use with Excel,
           this file includes formatting to make the spreadsheet easier to read.
         </p> -->
 
-<!--         <ul>
+        <!--         <ul>
           <li>
             <a
               :href="hrefP('glossary-prod.xlsx','glossary')"
@@ -60,17 +62,29 @@
           </li>
         </ul> -->
 
-<!--         <h3>
+        <!--         <h3>
           <a name="Example-dd">Example</a>
-        </h3>   
+        </h3>
 
         <img border="1" src="../assets/img/glossary2.png" class="img-fluid" alt="glossary example" />
         </p> -->
 
-         <p class="text">FIBO Data Dicionary is available for download in the EDMConnect FIBO Interest Community space.</p>
- 
-        <h3><a href="https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-data-dict" v-on:click="outboundClick('https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-data-dict')">Download FIBO Data Dictionary</a> </h3>
+        <p class="text">
+          FIBO Data Dicionary is available for download in the EDMConnect FIBO
+          Interest Community space.
+        </p>
 
+        <h3>
+          <a
+            href="https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-data-dict"
+            v-on:click="
+              outboundClick(
+                'https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-data-dict'
+              )
+            "
+            >Download FIBO Data Dictionary</a
+          >
+        </h3>
       </article>
     </main>
   </div>

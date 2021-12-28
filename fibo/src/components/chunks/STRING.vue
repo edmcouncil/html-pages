@@ -28,8 +28,8 @@
 
 <script>
 export default {
-  name: "STRING",
-  props: ["value"],
+  name: 'STRING',
+  props: ['value'],
 
   data() {
     return {
@@ -48,15 +48,16 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .seeMoreBtnString {
   display: flex;
   align-items: center;
-
+  font-size: 18px;
+  line-height: 30px;
   cursor: pointer;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.8);
-  margin-top: 40px;
+  margin-top: 25px;
 
   &::before {
     content: "";
@@ -75,8 +76,9 @@ export default {
   cursor: pointer;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.8);
-  margin-top: 40px;
-
+  margin-top: 25px;
+  font-size: 18px;
+  line-height: 30px;
   display: flex;
   align-items: center;
 
@@ -94,7 +96,7 @@ export default {
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .seeMoreBtnString {
     cursor: pointer;
     font-style: normal;

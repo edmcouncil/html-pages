@@ -1,6 +1,6 @@
 <template>
   <div>
-    <li class="module">
+    <li class="module container">
       <div class="row">
 
         <div class="arrow-container" :class="{ hidden: !isFolder }" @click="toggle">
@@ -94,6 +94,10 @@ export default {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  .row {
+    flex-wrap: nowrap;
+  }
 
   ul,
   li {

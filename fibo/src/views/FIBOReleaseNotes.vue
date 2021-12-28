@@ -8,13 +8,13 @@
                 </h1>
                 <p class="text"><b>2021</b></p>
                 <ul>
-		   <li><a href="#2021Q3">2021 Q3</a></li>
-		   <li><a href="#2021Q2">2021 Q2</a></li>
+            <li><a href="#2021Q3">2021 Q3</a></li>
+            <li><a href="#2021Q2">2021 Q2</a></li>
                     <li><a href="#2021Q1">2021 Q1</a></li>
                 </ul>
                 <p class="text"><b>2020</b></p>
                 <ul>
-                	<li><a href="#2020Q4">2020 Q4</a></li>
+                    <li><a href="#2020Q4">2020 Q4</a></li>
                     <li><a href="#2020Q3">2020 Q3</a></li>
                     <li><a href="#2020Q2">2020 Q2</a></li>
                     <li><a href="#2020Q1">2020 Q1</a></li>
@@ -43,13 +43,13 @@
                   <span>@@@</span>
                 </h1>
 
-		<h3 id="2021Q3"><strong>2021 Q3</strong></h3>
-                	<h4>Revisions Summary by Elisa Kendall</h4>
-		<p class="text">The primary focus this quarter was on releasing additional derivatives ontologies, including currency contracts and commodities contracts, and in cleaning up and consolidating the provisional asset-backed securities ontologies in preparation for further work. We also spent some time reviewing provisional corporate actions with the intent to separate business/legal entity oriented actions from security-specific corporate actions and preparation for releasing ontologies reflecting both classes of corporate actions soon, updated the ISO MIC codes, and addressed various other minor clarifying issues.</p>
-				
+        <h3 id="2021Q3"><strong>2021 Q3</strong></h3>
+            <h4>Revisions Summary by Elisa Kendall</h4>
+        <p class="text">The primary focus this quarter was on releasing additional derivatives ontologies, including currency contracts and commodities contracts, and in cleaning up and consolidating the provisional asset-backed securities ontologies in preparation for further work. We also spent some time reviewing provisional corporate actions with the intent to separate business/legal entity oriented actions from security-specific corporate actions and preparation for releasing ontologies reflecting both classes of corporate actions soon, updated the ISO MIC codes, and addressed various other minor clarifying issues.</p>
+
 		<h4>Business Entities (BE)</h4>
 		<p class="text">This quarter the Business Entities domain area remained stable, with no revisions.</p>
-		
+
 		<h4>Derivatives (DER)</h4>
                 	<p class="text">In Q3, the DER content team formalized and released two ontologies: CurrencyContracts and CommoditiesContracts.  In preparation for releasing those ontologies we also cleaned up concepts specific to spot contracts and integrated them as a general notion into the FinancialInstruments ontology in FBC.  Other revisions included clean-up of the remaining SecurityBasedDerivatives with an eye towards releasing EquityForwards next quarter.</p>
                 	<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3ADER+">All 2021 DER Q3 PRs and Issues</a>
@@ -65,21 +65,21 @@
 		<h4>Indicators and Indices (IND)</h4>
                 	<p class="text">Much of the work accomplished this quarter in IND involved background research on corporate actions, which we will continue to work on next quarter.  One issue with respect to representation of the S&P 500 as an example market index was resolved, however.</p>
                 <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3AIND+">All 2021 IND Q3 PRs and Issues</a>
-				
+
 		<h4>Loans (LOAN)</h4>
                 	<p class="text">Minor changes to the provisional LoanEvents ontology were made this quarter to clean up concepts and add properties related to legal proceedings with respect to default events.  The intent is to continue clean-up work next quarter with the potential for releasing the primary core loan ontology.</p>
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3ALOAN+">All 2021 LOAN Q3 PRs and Issues</a>  
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3ALOAN+">All 2021 LOAN Q3 PRs and Issues</a>
 
 
 		<h4>Securities (SEC)</h4>
                 	<p class="text">The majority of the work performed this quarter was related to asset-backed securities.  A number of provisional ontologies were merged, renamed and the architecture revised to conform to the overall strategy used elsewhere in FIBO.  We also eliminated some amount of duplication in properties to better integrate the ABS ontologies with other parts of FIBO and cleaned up a number of definitions and annotations.  There is still significant work to be done before these ontologies can be released, but the effort completed this quarter will be quite useful going forward, such that we can begin to release these ontologies either later this year or early next year.  Other minor changes included clarification of definitions for time to maturity, bill of exchange, and dividend related concepts.</p>
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q3 PRs and Issues</a>    
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q3+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q3 PRs and Issues</a>
 
 
 		<h3 id="2021Q2"><strong>2021 Q2</strong></h3>
                 	<h4>Revisions Summary by Elisa Kendall</h4>
 		<p class="text">The most important change this quarter is the release of the Options ontology by the DER FCT. In addition, the SEC FCT released the depositary receipts ontology, and new international jurisdictions and government entities for Asia are now available in BE (5 ontologies), which are essential to KYC, AML and regulatory reporting use cases. Other updates include better integration of situational patterns for ownership and control, new Canadian tax authorities and identifiers in FBC, new classes supporting naming patterns that can be used to address interoperability, data lineage, and related requirements in FND, and bug fixing as needed.</p>
-				
+
 		<h4>Business Entities (BE)</h4>
 		<p class="text">This quarter’s notable revisions for business entities included restructuring high level ownership and control relations to better reflect patterns implemented in FND over the last several months for situational knowledge. We also updated our reference data for jurisdictions to include Asian jurisdictions at the country level, for all independent countries identified in the U.N. M49 as being part of the continent of Asia. We anticipate adding Oceania and Africa over the coming months, which will give us complete coverage of jurisdictions at the country level as needed for regulatory reporting, KYC, AML, and other use cases.</p>
 		<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ABE+">All 2021 BE Q2 PRs and Issues</a>
@@ -98,31 +98,30 @@
 
 		<h4>Hygiene tests</h4>
                 	<p class="text">The only changes to hygiene tests this quarter involved clean up of some duplication, and clean-up of the test descriptions in the ontology guide.</p>
-		<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3Ahygiene+">All 2021 hygiene Q2 PRs and Issues</a> 
+		<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3Ahygiene+">All 2021 hygiene Q2 PRs and Issues</a>
 
 				<h4>Indicators and Indices (IND)</h4>
                 <p class="text">This quarter most of the changes to IND ontologies involved bug-fixes identified through usability testing. The IND ontologies are relatively stable at this point, and we have met a number of the goals set out in our IND use cases. Next steps for IND will focus on corporate actions, and the impact such actions have on various indicators. We will be developing additional examples as a consequence, as well as further testing our time series representation not only for market rates but for economic indicators.</p>
                 <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3AIND+">All 2021 IND Q2 PRs and Issues</a>
-				
+
 				<h4>Loans (LOAN)</h4>
                 <p class="text">There were no changes to the provisional loan content this quarter. We anticipate ramping that effort back up so that we can release the provisional LoanCore and LoanApplications ontologies soon, however.</p>
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ALOAN+">All 2021 LOAN Q2 PRs and Issues</a>  
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ALOAN+">All 2021 LOAN Q2 PRs and Issues</a>
 
 				<h4>Developer Guide (DG)</h4>
                 <p class="text">This quarter's efforts did include a refresh on the developers guide (see hygiene related detailed issues for more information on the changes).</p>
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ACONTRIBUTING.md+">All 2021 Developer Guide Q2 PRs and Issues</a>   
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ACONTRIBUTING.md+">All 2021 Developer Guide Q2 PRs and Issues</a>
 
 				<h4>Securities (SEC)</h4>
                 <p class="text">The most visible change made to securities this quarter was finalization and release of the depositary receipts ontology in SEC/Equities. Other changes included (1) addressing downstream impacts of the changes related to the situational ownership and control patterns, (2) addressing the downstream impact of eliminating the confusion between independent parties, people, and organizations, (3) clean-up of equivalences related to the legal structure of a fund and common shares, (4) correcting logic issues in the provisional CIV ontology, and (5) addressing a gap related to the number of shares outstanding for any class of shares.</p>
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q2 PRs and Issues</a>                  
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q2+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q2 PRs and Issues</a>
 
-			
 
                 <h3 id="2021Q1"><strong>2021 Q1</strong></h3>
                 <h4>Revisions Summary by Elisa Kendall</h4>
                 <p class="text">This quarter we made significant progress across domain areas, as discussed below. One major accomplishment is that although we’ve added many new hygiene tests, especially in the last several months, we’ve also eliminated all of the errors in the production ontologies using those tests. In other words, there are NO remaining hygiene errors in the production ontologies. This doesn’t mean that there aren’t any issues, of course, just that for the set of tests we have automated to date, the production FIBO ontologies are error-free. We will continue to add to that arsenal of tests which will likely find more issues, but with 21 tests today, we believe that the contributions of any community member are much more likely to be of higher quality that they would be otherwise.</p>
 
-                <p class="text">New production concepts for credit facilities, additional common contract clauses, futures, and forwards are now available. We’ve also updated the ISO 10383 MIC codes and FpML interest rates to the latest released versions. And, we now have an exhaustive set of classes representing the ISO 10962 CFI codes for common and preferred shares.</p>                
+                <p class="text">New production concepts for credit facilities, additional common contract clauses, futures, and forwards are now available. We’ve also updated the ISO 10383 MIC codes and FpML interest rates to the latest released versions. And, we now have an exhaustive set of classes representing the ISO 10962 CFI codes for common and preferred shares.</p>
 
 
                 <h4>Business Entities (BE)</h4>
@@ -158,7 +157,7 @@
 
                 <p class="text">Three hygiene tests: <a href="https://github.com/edmcouncil/fibo/blob/master/etc/testing/hygiene/testHygiene0114.sparql">testHygiene0114.sparql</a>, <a href="https://github.com/edmcouncil/fibo/blob/master/etc/testing/hygiene/testHygiene1289.sparql">testHygiene1289.sparql</a>, and <a href="https://github.com/edmcouncil/fibo/blob/master/etc/testing/hygiene/testHygiene1290.sparql">testHygiene1290.sparql</a> have been promoted to prod errors.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3Ahygiene+">All 2021 hygiene Q1 PRs and Issues</a> 
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3Ahygiene+">All 2021 hygiene Q1 PRs and Issues</a>
 
 
                 <h4>Indicators and Indices (IND)</h4>
@@ -170,19 +169,19 @@
                 <h4>Loans (LOAN)</h4>
                 <p class="text">This quarter we continued the clean-up work we have been doing in LOANs, and integrated the now released credit facility concepts, allowing us to merge/eliminate another provisional loans ontology (LoansBasicTerms).</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ALOAN+">All 2021 LOAN Q1 PRs and Issues</a>  
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ALOAN+">All 2021 LOAN Q1 PRs and Issues</a>
 
 
                 <h4>Developer Guide (DG)</h4>
                 <p class="text">Changes to the CONTRIBUTING.md file mostly concerning new community spaces.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ACONTRIBUTING.md+">All 2021 Developer Guide Q1 PRs and Issues</a>   
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ACONTRIBUTING.md+">All 2021 Developer Guide Q1 PRs and Issues</a>
 
-     
+
                 <h4>Securities (SEC)</h4>
                 <p class="text">In Q1 we continued our focus on the representation of preferred shares, and on building out the exhaustive set of classes needed to fully model the ISO 10962 CFI standard with respect to common and preferred shares. That effort is now complete, using multiple inheritance to expand the flattened hierarchy included in the ISO standard, and we anticipate continuing that process to add the exhaustive set of classes for representing convertible common and preferred shares in Q2, as well as coverage of limited partnership units. Other changes reflect the further revision of concepts related to Bonds, such as a better representation of zero coupon vs. OID bonds, the distinctions related to call vs. put, maturity dates, and so forth, so that the same concepts could be used across bonds and preferred shares. Finally, we eliminated all remaining hygiene issues in the released ontologies.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q1 PRs and Issues</a>                  
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q1+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q1 PRs and Issues</a>
 
                 <h3 id="2020Q4"><strong>2020 Q4</strong></h3>
                 <h4>Revisions Summary</h4>
@@ -191,8 +190,7 @@
                         <ul><li>security-based derivatives and equity swaps, </li>
                                 <li>funds, which have been moved from their own CIV domain to SEC/Funds, and (3) new government entity and jurisdiction ontologies for Central and South America as well as a start on Asian entities (Eastern Asia).</li></ul>
 
-                <p>Additional areas of significant effort stemmed from support of the EDM Council's AML working group (new legal entities, new relationships under ownership and control, streamlining of relationship patterns for better query and reasoning results), and changes identified through our ongoing use-case based example work, including clean-up and extension of provisional derivatives and corporate actions ontologies.</p>                
-
+                <p>Additional areas of significant effort stemmed from support of the EDM Council's AML working group (new legal entities, new relationships under ownership and control, streamlining of relationship patterns for better query and reasoning results), and changes identified through our ongoing use-case based example work, including clean-up and extension of provisional derivatives and corporate actions ontologies.</p>
 
 
                 <h4>Business Entities (BE)</h4>
@@ -232,7 +230,7 @@
 
                 <p>Test for ambiguous definitions (i.e., the definitions that include 'or') has been removed. The test was supposed to find ambiguous definitions, but it turned out to produce a number of false positives.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3Ahygiene+">All 2020 hygiene Q4 PRs and Issues</a> 
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3Ahygiene+">All 2020 hygiene Q4 PRs and Issues</a>
 
 
                 <h4>Indicators and Indices (IND)</h4>
@@ -243,21 +241,20 @@
                 <h4>Ontology Guide (OG)</h4>
                 <p>Test candidate T6. "Partial modeling" has been removed from the ontology guide.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3AONTOLOGY_GUIDE.md+">All 2020 Ontology Guide Q4 PRs and Issues</a>   
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3AONTOLOGY_GUIDE.md+">All 2020 Ontology Guide Q4 PRs and Issues</a>
 
-     
+
                 <h4>Securities (SEC)</h4>
                 <p>This quarter the SEC working group continued work initiated earlier this year on the equities ontology to improve the representation of preferred shares and address issues uncovered in representing static data for listings and shares more generally, including new examples.</p>
 
                 <p>In addition, we moved what was a separate CIV (and special purpose vehicles) domain area under Securities.  The original domain included one CIV ontology, which we've largely retained, but is now SEC/Funds/CIV.rdf.  The new SEC/Funds module actually includes two ontologies: a high-level Funds ontology, released this quarter, as well as the remainder of the original CIV ontology, which we plan to work through over the coming months.  We anticipate that at least some of the content of the CIV ontology will move to the new Funds ontology as we work with example data and further flesh out some of the details.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3ASEC+">All 2020 SEC Q4 PRs and Issues</a>   
-
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q4+FIBO+Release%22+label%3ASEC+">All 2020 SEC Q4 PRs and Issues</a>
 
 
                 <h3 id="2020Q3"><strong>2020 Q3</strong></h3>
                 <h4>Revisions Summary</h4>
-                <p>This quarter we made progress in a number of areas, as outlined below.  A number of new ontologies and extensions of others, including additional jurisdictions, merchant category codes, security-based derivatives (provisional), credit cards (provisional), market indices, and preferred share representation are included in the release.</p>                
+                <p>This quarter we made progress in a number of areas, as outlined below.  A number of new ontologies and extensions of others, including additional jurisdictions, merchant category codes, security-based derivatives (provisional), credit cards (provisional), market indices, and preferred share representation are included in the release.</p>
 
                 <h4>Business Entities (BE)</h4>
                 <p>This quarter’s BE updates include extensions to FIBO’s representation of government entities and jurisdictions, which now cover all countries in North America and Europe, including the devolved government entities in the U.K.  We expect to integrate entities and jurisdictions for all countries represented in ISO 3166 over the coming months.  We also added support for ISO merchant category codes this quarter, which are important for credit card transactions, among other use cases.</p>
@@ -283,7 +280,7 @@
                 <h4>Hygiene tests</h4>
                 <p>This quarter we extended the set of hygiene tests. Some hygiene tests were refactored.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3Ahygiene+">All 2020 hygiene Q3 PRs and Issues</a> 
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3Ahygiene+">All 2020 hygiene Q3 PRs and Issues</a>
 
 
                 <h4>Indicators and Indices (IND)</h4>
@@ -295,19 +292,18 @@
                 <h4>Loans (LOAN)</h4>
                 <p>This quarter we continued streamlining and merging some of the content in LOAN, which will be an ongoing effort over the coming months in preparation for a new working group in this area.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3ALOAN+">All 2020 LOAN Q3 PRs and Issues</a>                                               
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3ALOAN+">All 2020 LOAN Q3 PRs and Issues</a>
 
                 <h4>Ontology Guide (OG)</h4>
                 <p>This quarter the Ontology Guide was updated with information about new hygiene tests. Some clarifications were added regarding the PROV-O ontology.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3AONTOLOGY_GUIDE.md+">All 2020 Ontology Guide Q3 PRs and Issues</a>   
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3AONTOLOGY_GUIDE.md+">All 2020 Ontology Guide Q3 PRs and Issues</a>
 
-     
+
                 <h4>Securities (SEC)</h4>
                 <p>This quarter the SEC working group focused mainly on extending the equities ontology to provide better representation of preferred shares.  Other changes included revision of our representation of a ticker symbol so that the same symbol can be reused over time as well as represent listings on more than one exchange, and a few bug fixes in Bonds.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3ASEC+">All 2020 SEC Q3 PRs and Issues</a>   
-
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q3+FIBO+Release%22+label%3ASEC+">All 2020 SEC Q3 PRs and Issues</a>
 
 
                 <h3 id="2020Q2"><strong>2020 Q2</strong></h3>
@@ -342,15 +338,15 @@
                 <h4>Loans (LOAN)</h4>
                 <p>This quarter we've continued to integrate some of the legacy, provisional loans ontologies, merging a number of them and moving concepts around as appropriate, in preparation for launching a new loans working group later this year.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q2+FIBO+Release%22+label%3ALOAN+">All 2020 LOAN Q2 PRs and Issues</a>                                                
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q2+FIBO+Release%22+label%3ALOAN+">All 2020 LOAN Q2 PRs and Issues</a>
 
                 <h4>Metadata (META)</h4>
                 <p>Changes this quarter are primarily to address bugs identified through testing of our deployment processes.</p>
-     
+
                 <h4>Securities (SEC)</h4>
                 <p>Primary changes in this release involved revising the equities ontologies to enable support for the ISO CFI classification scheme, including examples.  We've completed an initial pass for common shares, and will be working on preferred shares and other equity concepts as well as bonds over the coming months.  We also integrated a new pricing ontology, which leveraged work in provisional ontologies and has been tested with example shares we've added.</p>
 
-                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q2+FIBO+Release%22+label%3ASEC+">All 2020 SEC Q2 PRs and Issues</a>   
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222020+Q2+FIBO+Release%22+label%3ASEC+">All 2020 SEC Q2 PRs and Issues</a>
 
 
                 <h3 id="2020Q1"><strong>2020 Q1</strong></h3>
@@ -1975,58 +1971,55 @@
 </template>
 
 <script>
-    import helpers from '../store/helpers.js';
-    import {
-        outboundClick, outboundLinkClick
-    }
-    from '../helpers/ga';
+import helpers from '../store/helpers.js';
+import { outboundClick, outboundLinkClick } from '../helpers/ga';
 
-    export default {
-        extends: helpers,
-        name: 'FIBOCommunities',
-        components: {},
-        mounted() {
-            var self = this;
-            window.onscroll = function() {
-                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                    self.$refs.topButton.style.display = "block";
-                } else {
-                    self.$refs.topButton.style.display = "none";
-                }
-            };
-        },
-        methods: {
-            outboundClick,
-            outboundLinkClick,
-            topBtnClick(event) {
-                window.scrollTo(0, 0);
-            }
-        },
+export default {
+  extends: helpers,
+  name: 'FIBOCommunities',
+  components: {},
+  mounted() {
+    const self = this;
+    window.onscroll = function () {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        self.$refs.topButton.style.display = 'block';
+      } else {
+        self.$refs.topButton.style.display = 'none';
+      }
     };
+  },
+  methods: {
+    outboundClick,
+    outboundLinkClick,
+    topBtnClick(event) {
+      window.scrollTo(0, 0);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-    .top-button {
-        &:after {
-            content: "\f077";
-            font-family: "Font Awesome 5 Solid";
-        }
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        right: 30px;
-        z-index: 99;
-        border: none;
-        outline: none;
-        background-color: #e78747;
-        color: white;
-        cursor: pointer;
-        padding: 15px;
-        border-radius: 10px;
-        font-size: 18px;
-    }
-    
-    .top-button:hover {
-        background-color: #707070;
-    }
+.top-button {
+  &:after {
+    content: "\f077";
+    font-family: "Font Awesome 5 Solid";
+  }
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: #e78747;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.top-button:hover {
+  background-color: #707070;
+}
 </style>

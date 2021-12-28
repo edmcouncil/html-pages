@@ -1,21 +1,30 @@
 <template>
-  <!-- eslint-disable max-len -->
-  <div class="container">
+  <div class="container ontology-container">
     <div class="row">
-      <!-- tree big -->
-      <div class="col-2 col-lg-3 d-none d-lg-block">
+      <!-- tree large -->
+      <div
+        class="
+          col-lg-4 col-xl-3
+          d-none d-lg-block
+          ontology-secondary-column
+        "
+      >
         <div class="module-tree">
-          <div class="multiselect-xxl-container">
+          <div class="multiselect-xxl-container multiselect-container container">
             <div class="row modules-header">
               <h5 class="fibo-title-modules">FIBO Viewer</h5>
               <div class="button-small">
-                <a class="button-small-text" target="_blank" href="@/fibo/ontology/">
+                <a
+                  class="button-small-text"
+                  target="_blank"
+                  href="@/fibo/ontology/"
+                >
                   How to use
                 </a>
               </div>
             </div>
           </div>
-          <div class="multiselect-xxl-container">
+          <div class="multiselect-xxl-container multiselect-container container">
             <div class="tmmenu">
               <div class="text-elements">
                 <div class="labelMultiSelect">Select Fibo version</div>
@@ -46,14 +55,18 @@
                     <template slot="tag" slot-scope="{ option, remove }"
                       ><span class="custom__tag"
                         ><span>{{ option.label }}</span
-                        ><span class="custom__remove" @click="remove(option)">❌</span></span
+                        ><span class="custom__remove" @click="remove(option)"
+                          >❌</span
+                        ></span
                       ></template
                     >
                     <!-- <template slot="clear" slot-scope="props">
-                <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData" @mousedown.prevent.stop="clearAll(props.search)"></div>
+                <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
+                @mousedown.prevent.stop="clearAll(props.search)"></div>
               </template> -->
                     <span slot="noResult"
-                      >Oops! No elements found. Consider changing the search query.</span
+                      >Oops! No elements found. Consider changing the search
+                      query.</span
                     >
                   </multiselect>
                 </div>
@@ -63,7 +76,7 @@
             <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
             <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
           </div>
-          <div class="multiselect-xxl-container">
+          <div class="multiselect-xxl-container multiselect-container container">
             <div class="tmmenu">
               <div v-on:click="toggleModuleTree()" class="text-elements">
                 <div class="labelMultiSelect">Browse FIBO domains</div>
@@ -86,13 +99,13 @@
       </div>
 
       <!-- main col -->
-      <div class="col-12 col-lg-9 px-0 px-lg-5">
+      <div class="col-12 col-lg-8 col-xl-9 ontology-main-column">
         <div class="container px-0">
-          <!-- search box lg -->
-          <div class="searchBox card">
+          <!-- search box large -->
+          <div class="searchBox card searchBoxDesktop d-none d-lg-block">
             <div class="row">
-              <div class="col-lg-12 d-none d-lg-block">
-                <div class="multiselect-xxl-container">
+              <div class="col-lg-12">
+                <div class="multiselect-xxl-container multiselect-container">
                   <div class="tmmenu">
                     <div class="text-elements">
                       <div class="labelMultiSelect">Search FIBO</div>
@@ -128,7 +141,11 @@
                           <template slot="tag" slot-scope="{ option, remove }"
                             ><span class="custom__tag"
                               ><span>{{ option.label }}</span
-                              ><span class="custom__remove" @click="remove(option)">❌</span></span
+                              ><span
+                                class="custom__remove"
+                                @click="remove(option)"
+                                >❌</span
+                              ></span
                             ></template
                           >
                           <template slot="clear" slot-scope="props">
@@ -138,7 +155,8 @@
                               @mousedown.prevent.stop="clearAll(props.search)"
                             ></div> </template
                           ><span slot="noResult"
-                            >Oops! No elements found. Consider changing the search query.</span
+                            >Oops! No elements found. Consider changing the
+                            search query.</span
                           >
                         </multiselect>
                       </div>
@@ -154,9 +172,12 @@
         </div>
 
         <div class="container px-0">
-          <a name="ontologyViewerTopOfContainer" id="ontologyViewerTopOfContainer"></a>
+          <a
+            name="ontologyViewerTopOfContainer"
+            id="ontologyViewerTopOfContainer"
+          ></a>
           <!-- tree mobile -->
-          <div class="module-tree col-lg-12 col-lg-4 d-lg-none">
+          <div class="module-tree col-lg-12 d-lg-none">
             <div class="multiselect-container">
               <multiselect
                 v-model="ontologyVersionsDropdownData.selectedData"
@@ -184,14 +205,21 @@
                 <template slot="tag" slot-scope="{ option, remove }"
                   ><span class="custom__tag"
                     ><span>{{ option.label }}</span
-                    ><span class="custom__remove" @click="remove(option)">❌</span></span
+                    ><span class="custom__remove" @click="remove(option)"
+                      >❌</span
+                    ></span
                   ></template
                 >
                 <!-- <template slot="clear" slot-scope="props">
-                <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData" @mousedown.prevent.stop="clearAll(props.search)"></div>
+                <div
+                  class="multiselect__clear"
+                  v-if="ontologyVersionsDropdownData.selectedData"
+                  @mousedown.prevent.stop="clearAll(props.search)">
+                </div>
               </template> -->
                 <span slot="noResult"
-                  >Oops! No elements found. Consider changing the search query.</span
+                  >Oops! No elements found. Consider changing the search
+                  query.</span
                 >
               </multiselect>
               <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
@@ -245,7 +273,9 @@
               <template slot="tag" slot-scope="{ option, remove }"
                 ><span class="custom__tag"
                   ><span>{{ option.label }}</span
-                  ><span class="custom__remove" @click="remove(option)">❌</span></span
+                  ><span class="custom__remove" @click="remove(option)"
+                    >❌</span
+                  ></span
                 ></template
               >
               <template slot="clear" slot-scope="props">
@@ -255,7 +285,8 @@
                   @mousedown.prevent.stop="clearAll(props.search)"
                 ></div> </template
               ><span slot="noResult"
-                >Oops! No elements found. Consider changing the search query.</span
+                >Oops! No elements found. Consider changing the search
+                query.</span
               >
             </multiselect>
             <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
@@ -281,17 +312,17 @@
 
           <!-- search results -->
           <div
-            class="search-results-section"
+            class="search-section"
             v-if="searchBox.selectedData && searchBox.selectedData.isSearch"
           >
-            <div class="search-header">
+            <div class="search-section__header">
               <h5>Search results for “{{ searchBox.selectedData.iri }}”</h5>
               <p>{{ searchBox.totalResults }} results</p>
             </div>
 
             <div
               v-if="searchBox.searchResults && searchBox.searchResults.length"
-              class="search-results-items"
+              class="search-section__items"
             >
               <div
                 v-for="(result, index) in searchBox.totalData"
@@ -299,13 +330,15 @@
                 class="search-item"
               >
                 <div>
-                  <div class="search-title">
+                  <div class="search-item__title">
                     <div
-                      class="maturity-icon"
+                      class="search-item__icon"
                       :class="{
                         'maturity-provisional':
-                          result.maturityLevel !== 'release' && result.maturityLevel,
-                        'maturity-release': result.maturityLevel === 'release',
+                          result.maturityLevel.icon === 'develop',
+                        'maturity-release':
+                          result.maturityLevel.icon === 'release',
+                        'maturity-mixed': result.maturityLevel.icon === 'mixed',
                       }"
                     ></div>
                     <customLink
@@ -316,7 +349,7 @@
                     ></customLink>
                   </div>
 
-                  <div class="result-iri">
+                  <div class="search-item__iri">
                     {{ result.iri }}
                   </div>
 
@@ -330,7 +363,7 @@
               <!-- No results -->
             </div>
 
-            <div class="search-load-more" v-if="this.searchBox.maxPage > 1">
+            <div class="search-section__load-more" v-if="this.searchBox.maxPage > 1">
               <p>
                 1 -
                 {{ searchBox.currentPage * searchBox.perPage }}
@@ -338,9 +371,12 @@
               </p>
 
               <div
-                class="btn-load-more"
+                class="search-section__load-more__button"
                 @click="loadMoreResults()"
-                v-if="searchBox.currentPage < searchBox.maxPage && !searchBox.isLoadingMore"
+                v-if="
+                  searchBox.currentPage < searchBox.maxPage &&
+                  !searchBox.isLoadingMore
+                "
               >
                 Load next
                 {{
@@ -352,9 +388,11 @@
                 }}
                 results
               </div>
-              <div class="btn-load-more" v-else-if="searchBox.isLoadingMore">Loading...</div>
+              <div class="search-section__load-more__button" v-else-if="searchBox.isLoadingMore">
+                Loading...
+              </div>
 
-              <div class="btn-load-more" v-else>No more results to load</div>
+              <div class="search-section__load-more__button" v-else>No more results to load</div>
 
               <!-- <paginate
                       :page-count="this.searchBox.maxPage"
@@ -381,7 +419,7 @@
               <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
                 <div class="row">
                   <!--  MATURITY / TITLE  -->
-                  <div class="col-md-12 header-card">
+                  <div class="col-md-12 ontology-item__header">
                     <!-- TITLE -->
                     <div class="card">
                       <div class="card-body">
@@ -395,9 +433,13 @@
                           target="_blank"
                           :href="
                             `https://github.com/edmcouncil/fibo/issues/new` +
-                            `?labels=${encodeURI(githubNewIssueDetails().label)}` +
+                            `?labels=${encodeURI(
+                              githubNewIssueDetails().label
+                            )}` +
                             `&template=issue.md` +
-                            `&title=${encodeURI(githubNewIssueDetails().title)}` +
+                            `&title=${encodeURI(
+                              githubNewIssueDetails().title
+                            )}` +
                             `&body=${encodeURI(githubNewIssueDetails().body)}`
                           "
                           >Report a problem</a
@@ -408,7 +450,8 @@
                           class="alert alert-primary alert-maturity"
                           role="alert"
                           v-if="
-                            data.maturityLevel.label != 'release' && data.maturityLevel.label != ''
+                            data.maturityLevel.label !== 'release' &&
+                            data.maturityLevel.label !== ''
                           "
                         >
                           This resource has maturity level
@@ -425,28 +468,46 @@
 
                         <!-- header item title -->
                         <h5
+                          class="card-title"
                           :class="{
                             'maturity-provisional':
-                              this.data.maturityLevel.label !== 'release' &&
-                              this.data.maturityLevel.label != '',
-                            'maturity-production': this.data.maturityLevel.label === 'release',
-                            'card-title': true,
+                              (this.data.maturityLevel.label !== 'release' && this.data.maturityLevel.label != '' )||
+                              (this.data.maturityLevel.icon &&
+                              this.data.maturityLevel.icon === 'develop'),
+                            'maturity-production':
+                              this.data.maturityLevel.label === 'release' ||
+                              (this.data.maturityLevel.icon &&
+                              this.data.maturityLevel.icon === 'release'),
+                            'maturity-mixed':
+                              this.data.maturityLevel.icon &&
+                              this.data.maturityLevel.icon === 'mixed',
                           }"
                         >
                           {{ data.label }}
                         </h5>
-                        <h6 class="card-subtitle mb-2 text-muted data-iri" v-if="data.iri">
+                        <h6
+                          class="card-subtitle mb-2 text-muted data-iri"
+                          v-if="data.iri"
+                        >
                           {{ data.iri }}
                         </h6>
                         <div class="url-buttons-container">
-                          <button v-clipboard="data.iri" type="button" class="btn-copy-url">
+                          <button
+                            v-clipboard="data.iri"
+                            type="button"
+                            class="btn-copy-url"
+                          >
                             Copy URL
                           </button>
 
                           <button
-                            v-if="this.$route.query && this.$route.query.version"
+                            v-if="
+                              this.$route.query && this.$route.query.version
+                            "
                             v-clipboard="
-                              data.iri + '?version=' + encodeURI(this.$route.query.version)
+                              data.iri +
+                              '?version=' +
+                              encodeURI(this.$route.query.version)
                             "
                             type="button"
                             class="btn-copy-url btn-copy-iri"
@@ -478,14 +539,16 @@
 
                   <!-- paths -->
                   <div
-                    class="col-md-12 ontology-paths"
+                    class="ontology-item__paths col-md-12"
                     v-if="data.taxonomy && data.taxonomy.value"
                     ref="ontologyPaths"
                   >
                     <h5
                       class="section-title"
                       @click="
-                        $refs.ontologyPaths.querySelector('h5').classList.toggle('section-collapse')
+                        $refs.ontologyPaths
+                          .querySelector('h5')
+                          .classList.toggle('section-collapse')
                       "
                     >
                       Path(s)
@@ -495,12 +558,16 @@
                         <!-- when isPathsMoreVisible is false the v-for works on array slice from 0 to 2,
                            when isPathsMoreVisible is true the v-for works on the whole array -->
                         <div
-                          v-for="(taxonomy, tIndex) in data.taxonomy.value.slice(
+                          v-for="(
+                            taxonomy, tIndex
+                          ) in data.taxonomy.value.slice(
                             0,
-                            2 + pathsSection.isPathsMoreVisible * (data.taxonomy.value.length - 2)
+                            2 +
+                              pathsSection.isPathsMoreVisible *
+                                (data.taxonomy.value.length - 2)
                           )"
                           :key="'taxonomyParagraph' + tIndex"
-                          class="taxonomy collapsed"
+                          class="ontology-item__paths__taxonomy collapsed"
                           ref="taxonomyItems"
                         >
                           <div class="taxonomy-wrapper">
@@ -508,7 +575,10 @@
                               v-for="(element, index) in taxonomy"
                               :key="'taxonomyEl' + tIndex + element.iri"
                             >
-                              <customLink :name="element.label" :query="element.iri"></customLink>
+                              <customLink
+                                :name="element.label"
+                                :query="element.iri"
+                              ></customLink>
                               <span
                                 class="card-subtitle mb-2 text-muted"
                                 v-if="index != Object.keys(taxonomy).length - 1"
@@ -535,22 +605,34 @@
                       </span>
 
                       <div
-                        v-show="!pathsSection.isPathsMoreVisible && data.taxonomy.value.length > 2"
+                        v-show="
+                          !pathsSection.isPathsMoreVisible &&
+                          data.taxonomy.value.length > 2
+                        "
                         @click.prevent="
-                          pathsSection.isPathsMoreVisible = !pathsSection.isPathsMoreVisible;
+                          pathsSection.isPathsMoreVisible =
+                            !pathsSection.isPathsMoreVisible;
                           checkPathsOverflow();
                         "
                       >
                         <div class="seeMoreBtn">
                           Show {{ data.taxonomy.value.length - 2 }} more
-                          {{ data.taxonomy.value.length - 2 > 1 ? "paths" : "path" }}
+                          {{
+                            data.taxonomy.value.length - 2 > 1
+                              ? "paths"
+                              : "path"
+                          }}
                         </div>
                       </div>
 
                       <div
-                        v-show="pathsSection.isPathsMoreVisible && data.taxonomy.value.length > 2"
+                        v-show="
+                          pathsSection.isPathsMoreVisible &&
+                          data.taxonomy.value.length > 2
+                        "
                         @click.prevent="
-                          pathsSection.isPathsMoreVisible = !pathsSection.isPathsMoreVisible;
+                          pathsSection.isPathsMoreVisible =
+                            !pathsSection.isPathsMoreVisible;
                           checkPathsOverflow();
                         "
                       >
@@ -562,7 +644,9 @@
                   <!-- sections -->
                   <div
                     class="col-md-12 px-0"
-                    v-for="(section, sectionName, sectionIndex) in data.properties"
+                    v-for="(
+                      section, sectionName, sectionIndex
+                    ) in data.properties"
                     :key="sectionName"
                     ref="sections"
                   >
@@ -581,13 +665,17 @@
                         <div class="card-content">
                           <dl
                             class="row"
-                            v-for="(property, name, propertyIndex) in data.properties[sectionName]"
+                            v-for="(property, name, propertyIndex) in data
+                              .properties[sectionName]"
                             :key="name"
                           >
                             <dt class="col-sm-12">{{ name }}</dt>
                             <dd class="col-sm-12">
                               <ul v-if="property.length > 1">
-                                <li v-for="field in property.slice(0, 5)" :key="field.id">
+                                <li
+                                  v-for="field in property.slice(0, 5)"
+                                  :key="field.id"
+                                >
                                   <component
                                     :is="field.type"
                                     :value="field.value"
@@ -598,12 +686,18 @@
 
                                 {{
                                   (() => {
-                                    if (sectionsVisibilitySettings[sectionIndex] === undefined) {
-                                      sectionsVisibilitySettings[sectionIndex] = [];
+                                    if (
+                                      sectionsVisibilitySettings[
+                                        sectionIndex
+                                      ] === undefined
+                                    ) {
+                                      sectionsVisibilitySettings[sectionIndex] =
+                                        [];
                                     }
                                     if (
-                                      sectionsVisibilitySettings[sectionIndex][propertyIndex] ===
-                                      undefined
+                                      sectionsVisibilitySettings[sectionIndex][
+                                        propertyIndex
+                                      ] === undefined
                                     ) {
                                       sectionsVisibilitySettings[sectionIndex][
                                         propertyIndex
@@ -614,7 +708,11 @@
 
                                 <li
                                   v-for="field in property.slice(5)"
-                                  v-show="sectionsVisibilitySettings[sectionIndex][propertyIndex]"
+                                  v-show="
+                                    sectionsVisibilitySettings[sectionIndex][
+                                      propertyIndex
+                                    ]
+                                  "
                                   :key="field.id"
                                 >
                                   <component
@@ -637,12 +735,23 @@
                               <div
                                 v-if="property.length > 5"
                                 :class="
-                                  'seeMoreBtn ' + 'seeMoreBtn_' + sectionIndex + '_' + propertyIndex
+                                  'seeMoreBtn ' +
+                                  'seeMoreBtn_' +
+                                  sectionIndex +
+                                  '_' +
+                                  propertyIndex
                                 "
-                                v-show="!sectionsVisibilitySettings[sectionIndex][propertyIndex]"
+                                v-show="
+                                  !sectionsVisibilitySettings[sectionIndex][
+                                    propertyIndex
+                                  ]
+                                "
                                 href="#"
                                 @click.prevent="
-                                  toggleSectionsVisibility(sectionIndex, propertyIndex)
+                                  toggleSectionsVisibility(
+                                    sectionIndex,
+                                    propertyIndex
+                                  )
                                 "
                               >
                                 <div>Show more</div>
@@ -650,12 +759,23 @@
                               <div
                                 v-if="property.length > 5"
                                 :class="
-                                  'seeLessBtn ' + 'seeMoreBtn_' + sectionIndex + '_' + propertyIndex
+                                  'seeLessBtn ' +
+                                  'seeMoreBtn_' +
+                                  sectionIndex +
+                                  '_' +
+                                  propertyIndex
                                 "
-                                v-show="sectionsVisibilitySettings[sectionIndex][propertyIndex]"
+                                v-show="
+                                  sectionsVisibilitySettings[sectionIndex][
+                                    propertyIndex
+                                  ]
+                                "
                                 href="#"
                                 @click.prevent="
-                                  toggleSectionsVisibility(sectionIndex, propertyIndex)
+                                  toggleSectionsVisibility(
+                                    sectionIndex,
+                                    propertyIndex
+                                  )
                                 "
                               >
                                 <div>Show less</div>
@@ -676,7 +796,9 @@
                         <h5
                           class="card-title section-title"
                           @click="
-                            $refs.dataGraph.querySelector('h5').classList.toggle('section-collapse')
+                            $refs.dataGraph
+                              .querySelector('h5')
+                              .classList.toggle('section-collapse')
                           "
                         >
                           Data model for {{ data.label }}
@@ -697,40 +819,56 @@
                     <div class="contentBox">
                       <h5>How to use FIBO Viewer</h5>
                       <p class="text">
-                        To start using FIBO Viewer, search for interesting concepts by walking
-                        through the FIBO directory structure on the left-hand side or use the
-                        full-text search function.
+                        To start using FIBO Viewer, search for interesting
+                        concepts by walking through the FIBO directory structure
+                        on the left-hand side or use the full-text search
+                        function.
                       </p>
                     </div>
                   </div>
 
                   <article class="clearContentBox">
-
                     <img src="@/assets/img/clock.svg" />
 
                     <h5>FIBO Versions</h5>
-                    <p class="text"> FIBO Viewer allows for browsing the past versions of FIBO.</p>
-
-                    <p class="post-description">
-                       It also helps developers to see the changes proposed to FIBO in pull requests before their
-                      approval. To see the content of the past FIBO releases or recent pull
-                      requests, choose them from the drop-down list.
+                    <p class="text">
+                      FIBO Viewer allows for browsing the past versions of FIBO.
                     </p>
 
-                    <img class="padding-top40-bottom-10" src="@/assets/img/directory.svg" />
+                    <p class="post-description">
+                      It also helps developers to see the changes proposed to
+                      FIBO in pull requests before their approval. To see the
+                      content of the past FIBO releases or recent pull requests,
+                      choose them from the drop-down list.
+                    </p>
+
+                    <img
+                      class="padding-top40-bottom-10"
+                      src="@/assets/img/directory.svg"
+                    />
 
                     <h5>FIBO structure</h5>
 
-                    <p class="text "> FIBO is a set of ontologies. It is organized in a hierarchical directory structure.</p>
-
-                    <p class="post-description padding-top30">
-                      Top-level directories are called domains; beneath that may be one or two levels of sub-domain and then modules and dozens of ontologies at the bottom level, e.g.:
-                    </p>
-                    <p class="post-description padding-top30">
-                      On the left-hand side, there is a list of eleven FIBO Domains, starting with the Business Entities at the top and ending with Securities at the bottom.
+                    <p class="text">
+                      FIBO is a set of ontologies. It is organized in a
+                      hierarchical directory structure.
                     </p>
 
-                    <img class="padding-top40-bottom-10" src="@/assets/img/maturity.svg" />
+                    <p class="post-description padding-top30">
+                      Top-level directories are called domains; beneath that may
+                      be one or two levels of sub-domain and then modules and
+                      dozens of ontologies at the bottom level, e.g.:
+                    </p>
+                    <p class="post-description padding-top30">
+                      On the left-hand side, there is a list of eleven FIBO
+                      Domains, starting with the Business Entities at the top
+                      and ending with Securities at the bottom.
+                    </p>
+
+                    <img
+                      class="padding-top40-bottom-10"
+                      src="@/assets/img/maturity.svg"
+                    />
 
                     <h5>FIBO maturity levels</h5>
                     <p class="text">
@@ -741,51 +879,73 @@
                       <strong>Release</strong>
                     </p>
                     <p class="post-description">
-                      Release ontologies are ones that are considered to be stable and mature from a development perspective.
+                      Release ontologies are ones that are considered to be
+                      stable and mature from a development perspective.
                     </p>
 
-                     <p class="post-description padding-top30">
+                    <p class="post-description padding-top30">
                       <strong>Provisional</strong>
                     </p>
-                     <p class="post-description">
-                      Provisional ontologies are ones that are considered to be under development.
+                    <p class="post-description">
+                      Provisional ontologies are ones that are considered to be
+                      under development.
                     </p>
 
                     <p class="post-description padding-top30">
                       <strong>Informative</strong>
                     </p>
-                     <p class="post-description">
-                     Provisional ontologies are ones that are considered deprecated but included for informational purposes because they are referenced by some provisional concept.
+                    <p class="post-description">
+                      Provisional ontologies are ones that are considered
+                      deprecated but included for informational purposes because
+                      they are referenced by some provisional concept.
                     </p>
 
                     <h5>Colours</h5>
                     <p class="text">
-                      FIBO Viewer uses colours to indicate the status of an ontology. Each ontology is either green or yellow.
-                    </p>
-                    
-                    <img class="post-description padding-top30" src="@/assets/icons/production-maturity.svg" />
-                    <p class="post-description">
-                     The green square icon indicates that an ontology has a "release" maturity level. Domains or modules are green if they contain only green ontologies.
+                      FIBO Viewer uses colours to indicate the status of an
+                      ontology. Each ontology is either green or yellow.
                     </p>
 
-                    <img class="post-description padding-top30" src="@/assets/icons/provisional-maturity.svg" />
+                    <img
+                      class="post-description padding-top30"
+                      src="@/assets/icons/production-maturity.svg"
+                    />
                     <p class="post-description">
-                     Yellow square icon means that it provisional or informative. Domains or modules are yellow if they contain only yellow ontologies.
+                      The green square icon indicates that an ontology has a
+                      "release" maturity level. Domains or modules are green if
+                      they contain only green ontologies.
                     </p>
 
-                    <img class="post-description padding-top30" src="@/assets/icons/mixed-maturity.svg" />
+                    <img
+                      class="post-description padding-top30"
+                      src="@/assets/icons/provisional-maturity.svg"
+                    />
                     <p class="post-description">
-                     Mixed, green-yellow icon means domains or modules include both green and yellow ontologies.
+                      Yellow square icon means that it provisional or
+                      informative. Domains or modules are yellow if they contain
+                      only yellow ontologies.
                     </p>
-               
 
-                     <p class="post-description padding-top30">
+                    <img
+                      class="post-description padding-top30"
+                      src="@/assets/icons/mixed-maturity.svg"
+                    />
+                    <p class="post-description">
+                      Mixed, green-yellow icon means domains or modules include
+                      both green and yellow ontologies.
+                    </p>
+
+                    <p class="post-description padding-top30">
                       <strong>About FIBO Viewer</strong>
                     </p>
-                     <p class="post-description">
-                     FIBO Viewer is a JAVA application that is specifically designed to access both the FIBO structure and its content in the easiest possible way. It can serve both as a web application and REST API. FIBO Viewer is an open-source project that EDM Council hosts. See https://github.com/edmcouncil/fibo-viewer for details.
+                    <p class="post-description">
+                      FIBO Viewer is a JAVA application that is specifically
+                      designed to access both the FIBO structure and its content
+                      in the easiest possible way. It can serve both as a web
+                      application and REST API. FIBO Viewer is an open-source
+                      project that EDM Council hosts. See
+                      https://github.com/edmcouncil/fibo-viewer for details.
                     </p>
-
                   </article>
                 </main>
               </div>
@@ -798,26 +958,36 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import Multiselect from "vue-multiselect";
-import Paginate from "vuejs-paginate";
-import { getOntology, getModules, getHint, getOntologyVersions } from "../api/ontology";
+import { mapState } from 'vuex';
+import Multiselect from 'vue-multiselect';
+import Paginate from 'vuejs-paginate';
+import {
+  getOntology,
+  getModules,
+  getHint,
+  getOntologyVersions,
+} from '../api/ontology';
 
 export default {
   components: {
-    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ "../components/chunks/AXIOM"),
-    STRING: () => import(/* webpackChunkName: "STRING" */ "../components/chunks/STRING"),
-    DIRECT_SUBCLASSES: () =>
-      import(/* webpackChunkName: "DIRECT_SUBCLASSES" */ "../components/chunks/DIRECT_SUBCLASSES"),
-    MODULES: () => import(/* webpackChunkName: "MODULES" */ "../components/chunks/MODULES"),
-    IRI: () => import(/* webpackChunkName: "IRI" */ "../components/chunks/IRI"),
-    INSTANCES: () => import(/* webpackChunkName: "INSTANCES" */ "../components/chunks/INSTANCES"),
-    ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ "../components/chunks/ANY_URI"),
-    VisNetwork: () => import(/* webpackChunkName: "ANY_URI" */ "../components/VisNetwork"),
+    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ '../components/chunks/AXIOM'),
+    STRING: () => import(/* webpackChunkName: "STRING" */ '../components/chunks/STRING'),
+    DIRECT_SUBCLASSES: () => import(
+      // eslint-disable-next-line comma-dangle
+      /* webpackChunkName: "DIRECT_SUBCLASSES" */ '../components/chunks/DIRECT_SUBCLASSES'
+    ),
+    MODULES: () => import(/* webpackChunkName: "MODULES" */ '../components/chunks/MODULES'),
+    IRI: () => import(/* webpackChunkName: "IRI" */ '../components/chunks/IRI'),
+    INSTANCES: () => import(
+      // eslint-disable-next-line comma-dangle
+      /* webpackChunkName: "INSTANCES" */ '../components/chunks/INSTANCES'
+    ),
+    ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ '../components/chunks/ANY_URI'),
+    VisNetwork: () => import(/* webpackChunkName: "ANY_URI" */ '../components/VisNetwork'),
     Multiselect,
     Paginate,
   },
-  props: ["ontology"],
+  props: ['ontology'],
   data() {
     return {
       display_modules: true,
@@ -829,15 +999,15 @@ export default {
       mountedTimestamp: null,
       loader: false,
       data: null,
-      query: "",
+      query: '',
       ontologyServer: null,
       modulesServer: null,
       hintServer: null,
-      hintDefaultDomain: "/fibo/ontology/{version}api/hint/",
+      hintDefaultDomain: '/fibo/ontology/{version}api/hint/',
       version: null,
       versionDefaultSelectedData: {
-        "@id": "<DEFAULT>",
-        url: "",
+        '@id': '<DEFAULT>',
+        url: '',
       },
       modulesList: null,
       error: false,
@@ -859,7 +1029,7 @@ export default {
         isLoading: false,
       },
       scrollToOntologyViewerTopOfContainer() {
-        const element = document.getElementById("ontologyViewerTopOfContainer");
+        const element = document.getElementById('ontologyViewerTopOfContainer');
 
         const rect = element.getBoundingClientRect();
         const scrollTop = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
@@ -869,10 +1039,10 @@ export default {
       },
       githubNewIssueDetails() {
         const ontologyQuery = this.data.iri.replace(
-          "https://spec.edmcouncil.org/fibo/ontology/",
-          ""
+          'https://spec.edmcouncil.org/fibo/ontology/',
+          '',
         );
-        const label = ontologyQuery.substring(0, ontologyQuery.indexOf("/"));
+        const label = ontologyQuery.substring(0, ontologyQuery.indexOf('/'));
         return {
           label,
           title: `Problem with ${this.data.label.toUpperCase()}`,
@@ -882,20 +1052,23 @@ export default {
     };
   },
   mounted() {
-    let queryParam = "";
+    let queryParam = '';
     this.mountedTimestamp = Math.floor(Date.now() / 1000);
 
     if (this.$route.params && this.$route.params[1]) {
-      const ontologyQuery = window.location.pathname.replace("/fibo/ontology/", "");
+      const ontologyQuery = window.location.pathname.replace(
+        '/fibo/ontology/',
+        '',
+      );
       queryParam = `https://spec.edmcouncil.org/fibo/ontology/${ontologyQuery}`;
       // this.githubNewIssue.title = this.githubNewIssue.titleTemplate.replace('<LABEL>', this.githubNewIssue.label);
     } else if (this.$route.query && this.$route.query.query) {
-      queryParam = this.$route.query.query || "";
+      queryParam = this.$route.query.query || '';
     }
 
     // check for taxonomy paths overflow in mobile view with debounce
     let timeoutCheckPathsOverflow = false;
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
       clearTimeout(timeoutCheckPathsOverflow);
       timeoutCheckPathsOverflow = setTimeout(this.checkPathsOverflow, 300);
     });
@@ -907,7 +1080,7 @@ export default {
     this.fetchModules();
   },
   methods: {
-    toggleModuleTree: function () {
+    toggleModuleTree() {
       this.display_modules = !this.display_modules;
     },
     updateServers(to) {
@@ -929,22 +1102,22 @@ export default {
 
       if (internalRoute.query && internalRoute.query.version) {
         this.ontologyServer = this.ontologyServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
+          '{version}',
+          `${internalRoute.query.version}/`,
         );
         this.modulesServer = this.modulesServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
+          '{version}',
+          `${internalRoute.query.version}/`,
         );
         this.hintServer = this.hintDefaultDomain.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
+          '{version}',
+          `${internalRoute.query.version}/`,
         );
         this.version = internalRoute.query.version;
       } else {
-        this.ontologyServer = this.ontologyServer.replace("{version}", "");
-        this.modulesServer = this.modulesServer.replace("{version}", "");
-        this.hintServer = this.hintDefaultDomain.replace("{version}", "");
+        this.ontologyServer = this.ontologyServer.replace('{version}', '');
+        this.modulesServer = this.modulesServer.replace('{version}', '');
+        this.hintServer = this.hintDefaultDomain.replace('{version}', '');
         this.version = null;
       }
     },
@@ -955,11 +1128,10 @@ export default {
         try {
           const result = await getOntology(query, this.ontologyServer);
           const body = await result.json();
-          if (body.type !== "details") {
+          if (body.type !== 'details') {
             console.error(`body.type: ${body.type}, expected: details`);
           }
           this.data = body.result;
-
           this.error = false;
         } catch (err) {
           console.error(err);
@@ -977,8 +1149,8 @@ export default {
         ontologyVersions.unshift(this.versionDefaultSelectedData); // add default at the beginning
 
         if (this.version !== null) {
-          this.ontologyVersionsDropdownData.selectedData = ontologyVersions.find((val, ind) => {
-            if (val["@id"] === this.version) {
+          this.ontologyVersionsDropdownData.selectedData = ontologyVersions.find((val) => {
+            if (val['@id'] === this.version) {
               return true;
             }
             return false;
@@ -991,8 +1163,13 @@ export default {
         console.error(err);
         this.error = true;
       } finally {
-        if (this.data && this.data.taxonomy && this.data.taxonomy.value.length > 0)
+        if (
+          this.data
+          && this.data.taxonomy
+          && this.data.taxonomy.value.length > 0
+        ) {
           this.checkPathsOverflow();
+        }
       }
     },
     async fetchModules() {
@@ -1007,7 +1184,10 @@ export default {
 
     // vue-multiselect ontologyVersions
     ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
-      if (selectedOntologyVersion["@id"] === this.versionDefaultSelectedData["@id"]) {
+      if (
+        selectedOntologyVersion['@id']
+        === this.versionDefaultSelectedData['@id']
+      ) {
         // default selected
         const { version, ...rest } = this.$route.query; // get rid of version
         this.$router.push({ query: rest });
@@ -1016,7 +1196,7 @@ export default {
           query: {
             ...this.$route.query,
             ...{
-              version: encodeURI(selectedOntologyVersion["@id"]),
+              version: encodeURI(selectedOntologyVersion['@id']),
             },
           },
         });
@@ -1032,9 +1212,9 @@ export default {
     },
     searchBox_optionSelected(selectedOption /* , id */) {
       let destRoute = selectedOption.iri;
-      if (destRoute.startsWith("https://spec.edmcouncil.org/fibo")) {
+      if (destRoute.startsWith('https://spec.edmcouncil.org/fibo')) {
         // internal ontology
-        destRoute = destRoute.replace("https://spec.edmcouncil.org/fibo", "");
+        destRoute = destRoute.replace('https://spec.edmcouncil.org/fibo', '');
         this.$router.push({
           path: destRoute,
           query: {
@@ -1046,7 +1226,7 @@ export default {
       } else {
         // external ontology
         this.$router.push({
-          path: "/ontology",
+          path: '/ontology',
           query: {
             ...{ query: encodeURI(destRoute) },
             ...(this.$route.query && this.$route.query.version
@@ -1059,7 +1239,7 @@ export default {
     },
     async searchBox_addTag(newTag) {
       this.$router.push({
-        path: "/ontology",
+        path: '/ontology',
         query: {
           ...{ searchBoxQuery: encodeURI(newTag) },
           ...(this.$route.query && this.$route.query.version
@@ -1073,12 +1253,12 @@ export default {
         this.searchBox.isLoadingMore = true;
         const result = await getOntology(
           searchBQuery,
-          this.ontologyServer +
-            `/max/${this.searchBox.perPage}` +
-            (pageIndex != null ? `/page/${pageIndex}` : "")
+          `${this.ontologyServer}/max/${this.searchBox.perPage}${
+            pageIndex != null ? `/page/${pageIndex}` : ''
+          }`,
         );
         const body = await result.json();
-        if (body.type !== "list") {
+        if (body.type !== 'list') {
           console.error(`body.type: ${body.type}, expected: list`);
         }
         this.searchBox.searchResults = body.result;
@@ -1090,8 +1270,10 @@ export default {
 
         // PH placeholder values
         this.searchBox.totalResults = 1234;
+        // eslint-disable-next-line no-restricted-syntax
         for (const res of this.searchBox.searchResults) {
-          res.maturityLevel = "provisional";
+          res.maturityLevel = {};
+          res.maturityLevel.icon = 'develop';
         }
         // PH placeholder values
 
@@ -1151,38 +1333,50 @@ export default {
       this.$set(this.sectionsVisibilitySettings, sectionIndex, newRow);
     },
     togglePathCollapsed(tIndex) {
-      this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
+      this.$refs.taxonomyItems[tIndex].classList.toggle('collapsed');
     },
     checkPathsOverflow() {
       // go through displayed paths and call checkPathOverflow for them
-      if (this.$refs.taxonomyItems && this.$refs.ontologyPaths && this.data && this.data.taxonomy)
+      if (
+        this.$refs.taxonomyItems
+        && this.$refs.ontologyPaths
+        && this.data
+        && this.data.taxonomy
+      ) {
         for (
           let i = 0;
-          i <
-          Math.min(
-            2 + this.pathsSection.isPathsMoreVisible * (this.data.taxonomy.value.length - 2),
-            this.data.taxonomy.value.length
+          i
+          < Math.min(
+            2
+              + this.pathsSection.isPathsMoreVisible
+                * (this.data.taxonomy.value.length - 2),
+            this.data.taxonomy.value.length,
           );
-          i++
+          i += 1
         ) {
           this.checkPathOverflow(i);
         }
+      }
     },
     checkPathOverflow(tIndex) {
-      if (!this.$refs.ontologyPaths.querySelector("h5").classList.contains("section-collapse")) {
+      if (
+        !this.$refs.ontologyPaths
+          .querySelector('h5')
+          .classList.contains('section-collapse')
+      ) {
         // collapse for overlap test purposes
-        const wasCollapsed = this.$refs.taxonomyItems[tIndex].classList.contains("collapsed");
+        const wasCollapsed = this.$refs.taxonomyItems[tIndex].classList.contains('collapsed');
         if (!wasCollapsed) {
-          this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
+          this.$refs.taxonomyItems[tIndex].classList.toggle('collapsed');
         }
         const el = this.$refs.taxonomyItems[tIndex].firstChild;
         const curOverf = el.style.overflow;
-        if (!curOverf || curOverf === "visible") el.style.overflow = "hidden";
+        if (!curOverf || curOverf === 'visible') el.style.overflow = 'hidden';
         const isOverflowing = el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
         el.style.overflow = curOverf;
 
         if (!wasCollapsed) {
-          this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
+          this.$refs.taxonomyItems[tIndex].classList.toggle('collapsed');
         }
         // set array value making use of Vue reactivity
         this.$set(this.pathsSection.hasOverflow, tIndex, isOverflowing);
@@ -1190,8 +1384,11 @@ export default {
     },
     loadMoreResults() {
       if (this.searchBox.currentPage < this.searchBox.maxPage) {
-        this.searchBox.currentPage++;
-        this.handleSearchBoxQuery(this.searchBox.lastSearchBQuery, this.searchBox.currentPage);
+        this.searchBox.currentPage += 1;
+        this.handleSearchBoxQuery(
+          this.searchBox.lastSearchBQuery,
+          this.searchBox.currentPage,
+        );
       }
     },
     clearSearchResults() {
@@ -1211,15 +1408,16 @@ export default {
   },
   computed: {
     ...mapState({
-      ontologyDefaultDomain: (state) => state.ontologyDefaultDomain,
-      modulesDefaultDomain: (state) => state.modulesDefaultDomain,
+      ontologyDefaultDomain: state => state.ontologyDefaultDomain,
+      modulesDefaultDomain: state => state.modulesDefaultDomain,
     }),
   },
   watch: {
-    "$route.query.query": function (query) {
+    '$route.query.query': (query) => {
       this.fetchData(query);
     },
-    "$route.query.version": function (version) {
+    // eslint-disable-next-line no-unused-vars
+    '$route.query.version': (version) => {
       this.updateServers();
 
       this.fetchData(this.query);
@@ -1233,16 +1431,16 @@ export default {
     this.updateServers(to);
     this.$root.ontologyRouteIsUpdating = true;
     if (to !== from) {
-      let queryParam = "";
+      let queryParam = '';
 
       if (to.query && to.query.query) {
-        queryParam = to.query.query || "";
+        queryParam = to.query.query || '';
       } else {
         queryParam = `https://spec.edmcouncil.org/fibo${to.path}`;
       }
       this.query = queryParam;
-      if (this.query === "https://spec.edmcouncil.org/fibo/ontology") {
-        this.query = "";
+      if (this.query === 'https://spec.edmcouncil.org/fibo/ontology') {
+        this.query = '';
         this.data = null;
       }
       this.$nextTick(async function () {
@@ -1253,7 +1451,10 @@ export default {
   },
   updated() {
     // scrollTo: ontologyViewerTopOfContainer
-    if (this.$root.ontologyRouteIsUpdating || this.$route.query.scrollToTop === "true") {
+    if (
+      this.$root.ontologyRouteIsUpdating
+      || this.$route.query.scrollToTop === 'true'
+    ) {
       this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
       this.scrollToOntologyViewerTopOfContainer(); // scroll only after internal navigaion
     }
@@ -1264,7 +1465,10 @@ export default {
       this.scrollToOntologyViewerTopOfContainer(); // scroll only on page load
     }
 
-    if (this.$route.query.searchBoxQuery && this.$route.query.searchBoxQuery_isExecuted !== true) {
+    if (
+      this.$route.query.searchBoxQuery
+      && this.$route.query.searchBoxQuery_isExecuted !== true
+    ) {
       this.scrollToOntologyViewerTopOfContainer();
       this.clearSearchResults();
       this.handleSearchBoxQuery(decodeURI(this.$route.query.searchBoxQuery));
@@ -1275,1147 +1479,4 @@ export default {
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-
-<style lang="scss" scoped>
-h5,
-h6 {
-  padding-top: 10px;
-}
-.alert-maturity {
-  margin: 20px;
-}
-//
-
-//
-.search-box {
-  margin: 20px;
-}
-.module-tree ul,
-.module-tree li {
-  padding: 0;
-  line-height: 24px;
-
-  ::before {
-    margin-top: 10px;
-    display: none;
-  }
-}
-@media (min-width: 1px) {
-  .modules-list {
-    margin: 20px 0 0 20px;
-  }
-}
-// @media (min-width: 992px) {
-//   .container {
-//     max-width: 100%;
-//   }
-// }
-@media (min-width: 1200px) {
-  .container {
-    max-width: 100%;
-  }
-}
-@media (min-width: 1440px) {
-  .container {
-    max-width: 1440px;
-  }
-}
-article ul.maturity-levels li {
-  line-height: 1.5;
-}
-article ul.maturity-levels li:before {
-  margin-top: 10px;
-}
-
-.multiselect-container {
-  margin: 20px 20px 0px 20px;
-}
-.multiselect-xxl-container {
-  margin-top: 20px;
-  min-width: 250px;
-}
-</style>
-
-<style lang="scss">
-.multiselect__select {
-  &::before {
-    border: none;
-  }
-}
-
-@media (min-width: 992px) {
-  .module-tree .multiselect-container {
-    margin-right: 0px;
-  }
-}
-.multiselect__option--highlight,
-.multiselect__option--highlight:after {
-  background: #f3f3f3;
-  color: #000;
-}
-.pagination {
-  width: min-content;
-  padding: unset;
-  margin: 20px auto 0px;
-  .page-item {
-    padding-left: 0px;
-    &:before {
-      display: none;
-    }
-  }
-  .page-item.active {
-    .page-link {
-      background-color: #2a83be;
-    }
-  }
-}
-// dd {
-//   margin-left: 20px;
-
-//   > div {
-//     margin-top: 5px;
-//     margin-left: 7px;
-//   }
-// }
-
-//
-//
-//
-//
-//
-//
-//
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
-
-.multiselect__tags {
-  border: 0px solid map-get($colors-map, "white");
-}
-.modules-header {
-  margin-top: 20px;
-}
-.tmmenu {
-  align-items: center;
-  background-color: map-get($colors-map, "white");
-  border-radius: 2px;
-  box-shadow: 0px 5px 20px #07539526;
-  display: flex;
-  height: 80px;
-  margin-top: 20px;
-  padding: 0 30px;
-}
-
-.text-elements {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  min-height: 50px;
-  justify-content: space-between;
-}
-
-.labelMultiSelect {
-  color: map-get($colors-map, "medium-grey");
-  letter-spacing: 0.14px;
-  line-height: 20px;
-  min-height: 20px;
-  white-space: nowrap;
-}
-
-.selectText {
-  display: block;
-  font-weight: 700;
-  line-height: 30px;
-  min-height: 30px;
-  padding-right: 10px;
-  white-space: nowrap;
-
-  .multiselect {
-    width: fit-content;
-  }
-  .multiselect__content-wrapper /*, .multiselect__element */ {
-    width: fit-content;
-  }
-  .multiselect__option {
-    width: 100%;
-    min-width: 175px;
-    padding: 10px;
-  }
-}
-
-.clockIcon {
-  background-image: url("../assets/icons/clock.svg");
-}
-
-.directoryIcon {
-  background-image: url("../assets/icons/directory.svg");
-}
-
-.iconSidebar {
-  height: 24px;
-  width: 24px;
-  left: auto !important;
-  right: 0;
-}
-
-.grayBox {
-  background: rgba(0, 0, 0, 0.05);
-  margin-top: 20px;
-  padding: 0 20px 20px 0px;
-  .contentBox {
-    margin-top: 0px;
-    padding: 0px 60px 60px 60px;
-    h5{
-      font-size: 42px;
-      font-weight: 700;
-      line-height: 50px;
-      min-height: 50px;
-      white-space: nowrap;
-      padding: 60px 0;
-    }
-  }
-}
-.clearContentBox{
-  margin-top: 0px;
-    padding: 0px 60px 60px 60px;
-    h5{
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 50px;
-      min-height: 50px;
-      white-space: nowrap;
-      padding-top: 20px;
-    }
-    .post-description.padding-top30{
-      padding-top: 30px;
-    }
-    .post-description{
-      font-size: 14px;
-      padding-bottom: 20px;
-    }
-}
-.padding-top40-bottom-10{
-  padding-bottom:10px;
-  padding-top: 40px;
-}
-.searchBox {
-  background: rgba(0, 0, 0, 0.05);
-  margin-top: 20px;
-  padding: 0 20px 20px 20px;
-  .tmmenu {
-    margin-top: 0px;
-    padding-top: 5px;
-  }
-}
-
-@media (min-width: 1355px) {
-  .button-small {
-    margin-left: 70px;
-  }
-}
-
-.fibo-title-modules {
-  color: map-get($colors-map, "black");
-  text-decoration: none;
-  font-family: Inter;
-  font-weight: 700;
-  font-size: 24px;
-  margin-left: 10px;
-}
-
-.button-small {
-  align-items: center;
-  background-color: map-get($colors-map, "black");
-  border-radius: 2px;
-  display: flex;
-  height: 30px;
-  margin-left: 100px;
-  min-width: 106px;
-  padding: 0 15px;
-  margin-top: 5px;
-}
-
-.button-small-text:link {
-  color: map-get($colors-map, "white");
-  font-family: Inter;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.14px;
-  line-height: 20px;
-  min-height: 20px;
-  min-width: 76px;
-  white-space: nowrap;
-  text-decoration: none;
-}
-.button-small-text:visited {
-  color: map-get($colors-map, "white");
-}
-.button-small-text:hover {
-  color: map-get($colors-map, "white");
-}
-.button-small-text:active {
-  color: map-get($colors-map, "white");
-}
-
-* {
-  box-sizing: border-box;
-  font-family: Inter;
-}
-
-.alert-error {
-  color: rgba(0, 0, 0, 0.8);
-
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-
-  letter-spacing: 0.01em;
-
-  border-radius: none;
-  background: #f3140c;
-  border: none;
-  width: fit-content;
-  block-size: fit-content;
-  border-radius: 2px;
-
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 5px 15px 5px 15px;
-  // margin-right: 85px;
-
-  a {
-    text-decoration: underline;
-  }
-
-  &::before {
-    content: "";
-    display: block;
-    height: 20px;
-    width: 20px;
-    background-color: inherit;
-    border: inherit;
-    position: absolute;
-    bottom: -3px;
-    left: 4px;
-    clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
-    transform: rotate(-45deg);
-    border-radius: 0 0 0 0.25em;
-  }
-}
-
-//
-// desktop/global
-// ontology-item
-.ontology-item {
-  margin-top: 45px;
-
-  .section-content-wrapper {
-    margin-bottom: 60px;
-  }
-  .row {
-    margin: 0;
-    padding: 0;
-  }
-
-  a {
-    color: rgba(0, 0, 0, 0.8);
-  }
-
-  .ontology-paths {
-    text-decoration: none;
-    padding-right: 60px;
-    padding-left: 60px;
-    .seeMoreBtn {
-      margin-top: 20px;
-    }
-    .seeLessBtn {
-      margin-top: 20px;
-    }
-    h5 {
-      margin-bottom: 40px;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 24px;
-      line-height: 36px;
-      color: black;
-    }
-
-    .taxonomy {
-      background: rgba(0, 0, 0, 0.05);
-      color: rgba(0, 0, 0, 0.4);
-      border-radius: 2px;
-      padding: 10px 20px;
-      margin-bottom: 20px;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0.01em;
-      .collapseButtons {
-        display: none;
-      }
-      span a {
-        color: rgba(0, 0, 0, 0.8);
-        &:hover {
-          text-decoration: none;
-        }
-      }
-    }
-  }
-
-  .card {
-    padding-right: 60px;
-    padding-left: 60px;
-
-    h5 {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 24px;
-      line-height: 36px;
-      padding: 0;
-      margin: 0;
-
-      margin-bottom: 40px;
-    }
-    background: white;
-    border: none;
-    color: black;
-    .card-body {
-      padding: 0;
-    }
-    .card-content {
-      margin-bottom: 60px;
-      background: rgba(0, 0, 0, 0.05);
-      border-radius: 2px;
-      padding: 40px 30px 0 30px;
-    }
-    dt {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 18px;
-      line-height: 30px;
-      text-transform: capitalize;
-
-      margin: 0;
-      padding: 0;
-    }
-    dd {
-      font-family: Inter;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 30px;
-
-      margin: 0;
-      margin-bottom: 40px;
-      padding: 0;
-      ul {
-        margin-bottom: 0;
-      }
-      a {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .header-card {
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
-    margin-bottom: 60px;
-    padding: 0;
-
-    // maturity alert
-    .alert-maturity {
-      float: left;
-      color: rgba(0, 0, 0, 0.8);
-
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-
-      letter-spacing: 0.01em;
-
-      border-radius: none;
-      background: #feb700;
-      border: none;
-      width: fit-content;
-      block-size: fit-content;
-      border-radius: 2px;
-
-      margin-top: 40px;
-      margin-left: -30px;
-      margin-bottom: 5px;
-      padding: 5px 15px 5px 15px;
-      // margin-right: 85px;
-
-      a {
-        text-decoration: underline;
-      }
-
-      &::before {
-        content: "";
-        display: block;
-        height: 20px;
-        width: 20px;
-        background-color: inherit;
-        border: inherit;
-        position: absolute;
-        bottom: -3px;
-        left: 4px;
-        clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
-        transform: rotate(-45deg);
-        border-radius: 0 0 0 0.25em;
-      }
-    }
-
-    .maturity-filler {
-      margin-top: 40px;
-      margin-left: 30px;
-      background: none;
-      border: none;
-      outline: none;
-    }
-
-    // report a problem
-    .btn-report-a-problem {
-      float: right;
-      margin-top: 40px;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 2px;
-      padding: 5px 15px;
-      border: none;
-      color: rgba(255, 255, 255, 0.9);
-      text-decoration: none;
-      font-family: Inter;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0.01em;
-    }
-
-    h5 {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 42px;
-      line-height: 50px;
-      margin-right: 30px;
-      margin-top: 35px;
-      position: relative;
-      &::first-letter {
-        text-transform: capitalize;
-      }
-      &::before {
-        content: "";
-
-        background-repeat: no-repeat;
-        background-size: 24px 24px;
-
-        display: block;
-        width: 24px;
-        height: 24px;
-
-        left: -30.17px;
-        top: 12.83px;
-
-        position: absolute;
-      }
-      &.maturity-provisional {
-        &::before {
-          background-image: url("../assets/icons/provisional-maturity.svg");
-        }
-      }
-      &.maturity-mixed {
-        &::before {
-          background-image: url("../assets/icons/mixed-maturity.svg");
-        }
-      }
-      &.maturity-production {
-        &::before {
-          background-image: url("../assets/icons/production-maturity.svg");
-        }
-      }
-    }
-    h6 {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-
-      letter-spacing: 0.01em;
-      color: rgba(0, 0, 0, 0.6);
-    }
-    // data iri
-    .data-iri {
-      margin: 0px 0px;
-      padding: 0;
-    }
-    // qname
-    .qname {
-      margin: 0px 0px;
-      padding: 0;
-    }
-    // copy url button
-    .btn-copy-url {
-      color: rgba(0, 0, 0, 0.8);
-      margin-top: 40px;
-      margin-bottom: 40px;
-      border: none;
-      background: none;
-      font-size: 18px;
-      line-height: 30px;
-      &::before {
-        content: "";
-        background-image: url("../assets/icons/copy-url-icon.svg");
-        background-repeat: no-repeat;
-        background-size: 24px;
-
-        display: block;
-        width: 24px;
-        height: 24px;
-        float: left;
-        margin: 0 6px 0 0;
-      }
-
-      &:focus {
-        outline: none;
-        border: none;
-      }
-    }
-    .btn-copy-iri {
-      margin-top: 0px;
-    }
-    .card {
-      background: none;
-    }
-  }
-}
-.seeMoreBtn {
-  cursor: pointer;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 30px;
-  color: rgba(0, 0, 0, 0.8);
-  text-decoration: none;
-  margin-top: 40px;
-
-  display: flex;
-  align-items: center;
-  &::before {
-    content: "";
-    background-image: url("../assets/icons/triangle-down.svg");
-    background-repeat: no-repeat;
-    background-size: 24px 24px;
-
-    display: block;
-    width: 24px;
-    height: 24px;
-
-    margin-right: 6px;
-  }
-}
-.seeLessBtn {
-  cursor: pointer;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 30px;
-  color: rgba(0, 0, 0, 0.8);
-  text-decoration: none;
-  margin-top: 40px;
-
-  display: flex;
-  align-items: center;
-  &::before {
-    content: "";
-    background-image: url("../assets/icons/triangle-up.svg");
-    background-repeat: no-repeat;
-    background-size: 24px 24px;
-
-    display: block;
-    width: 24px;
-    height: 24px;
-
-    margin-right: 6px;
-  }
-}
-//
-// dekstop/global
-// search-results
-.search-results-section {
-  word-wrap: break-word;
-  .search-header {
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
-    padding: 40px 60px;
-    h5,
-    p {
-      padding: 0;
-      margin: 0;
-    }
-    h5 {
-      color: #000000;
-      font-weight: bold;
-      font-size: 42px;
-      line-height: 50px;
-
-      margin-bottom: 10px;
-    }
-    p {
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 24px;
-      line-height: 40px;
-    }
-  }
-
-  .search-results-items {
-    padding-left: 40px;
-    padding-right: 40px;
-    display: flex;
-    flex-direction: column;
-
-    .search-item {
-      width: 100%;
-      margin-top: 40px;
-      padding: 20px 20px 20px 54px;
-
-      .maturity-icon {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        width: 24px;
-        height: 36px;
-
-        left: -34px;
-
-        &::before {
-          content: "";
-
-          background-repeat: no-repeat;
-          background-size: 24px 24px;
-          width: 24px;
-          height: 24px;
-        }
-        &.maturity-provisional {
-          &::before {
-            background-image: url("../assets/icons/provisional-maturity.svg");
-          }
-        }
-        &.maturity-mixed {
-          &::before {
-            background-image: url("../assets/icons/provisional-maturity.svg");
-          }
-        }
-        &.maturity-production {
-          &::before {
-            background-image: url("../assets/icons/production-maturity.svg");
-          }
-        }
-      }
-
-      .search-title {
-        position: relative;
-        a {
-          color: rgba(0, 0, 0, 0.8);
-          text-decoration: none;
-        }
-        // color: rgba(0, 0, 0, 0.8);
-        font-weight: bold;
-        font-size: 24px;
-        line-height: 36px;
-        margin-bottom: 10px;
-      }
-      .result-iri {
-        color: rgba(0, 0, 0, 0.6);
-
-        font-size: 14px;
-        line-height: 20px;
-        letter-spacing: 0.01em;
-        margin-bottom: 10px;
-      }
-      p {
-        color: rgba(0, 0, 0, 0.6);
-
-        font-size: 18px;
-        line-height: 30px;
-      }
-
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-        border-radius: 2px;
-      }
-    }
-  }
-
-  .search-load-more {
-    padding: 40px;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
-    margin-top: 60px;
-
-    p {
-      color: rgba(0, 0, 0, 0.6);
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 30px;
-      margin: 0px;
-      padding: 0px;
-    }
-    .btn-load-more {
-      cursor: pointer;
-      margin-top: 16px;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 2px;
-
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding: 10px 20px;
-
-      width: fit-content;
-      height: 50px;
-
-      font-size: 18px;
-      line-height: 30px;
-      color: rgba(255, 255, 255, 0.9);
-    }
-  }
-}
-//
-// mobile
-// ontology-item
-@media (max-width: 768px) {
-  .section-title {
-    &::before {
-      content: "";
-      background-image: url("../assets/icons/triangle-up.svg");
-      background-repeat: no-repeat;
-      background-size: 24px 24px;
-      background-position: center;
-
-      display: block;
-      width: 24px;
-      height: 30px;
-      float: right;
-    }
-  }
-  .section-collapse {
-    &::before {
-      content: "";
-      background-image: url("../assets/icons/triangle-down.svg");
-      background-repeat: no-repeat;
-      background-size: 24px 24px;
-
-      display: block;
-      width: 24px;
-      height: 24px;
-      float: right;
-    }
-  }
-  .section-collapse + div {
-    display: none;
-  }
-
-  .ontology-item {
-    margin-top: 45px;
-    font-family: Inter;
-
-    .row {
-      margin: 0;
-      padding: 0;
-    }
-
-    a {
-      color: rgba(0, 0, 0, 0.8);
-    }
-
-    .ontology-paths {
-      padding-right: 30px;
-      padding-left: 30px;
-
-      h5 {
-        font-style: normal;
-        font-weight: bold;
-        font-size: 20px;
-        line-height: 30px;
-        color: black;
-      }
-
-      .taxonomy {
-        background: rgba(0, 0, 0, 0.05);
-        color: rgba(0, 0, 0, 0.4);
-        padding: 10px 20px;
-        margin-bottom: 20px;
-
-        .taxonomy-wrapper {
-          width: 100%;
-          overflow: hidden;
-        }
-        span {
-          color: rgba(0, 0, 0, 0.8);
-        }
-        .collapseButtons {
-          display: block;
-          .seeLessBtn {
-            display: block;
-          }
-          .seeMoreBtn {
-            display: none;
-          }
-        }
-        &.collapsed {
-          .taxonomy-wrapper {
-            white-space: nowrap;
-            text-overflow: ellipsis;
-          }
-
-          .collapseButtons {
-            .seeLessBtn {
-              display: none;
-            }
-            .seeMoreBtn {
-              display: block;
-            }
-          }
-          .span {
-            height: 1em;
-          }
-        }
-      }
-    }
-
-    .card {
-      padding-right: 30px;
-      padding-left: 30px;
-      h5 {
-        font-size: 20px;
-        line-height: 30px;
-      }
-      .card-content {
-        background: rgba(0, 0, 0, 0.05);
-        padding: 40px 30px 0 30px;
-      }
-      dt {
-        font-size: 16px;
-        line-height: 24px;
-      }
-      dd {
-        font-size: 16px;
-        line-height: 24px;
-        a {
-          text-decoration: underline;
-        }
-      }
-    }
-
-    .header-card {
-      // maturity alert
-      .alert-maturity {
-        margin-top: 40px;
-        margin-left: 0px;
-      }
-
-      h5 {
-        font-size: 30px;
-        line-height: 36px;
-
-        &.maturity-provisional {
-          margin-left: 34px;
-        }
-        &.maturity-production {
-          margin-left: 34px;
-        }
-        &::before {
-          top: 5.83px;
-        }
-      }
-
-      // data iri
-      .data-iri {
-        margin: 0px 0px;
-        padding: 0;
-      }
-      // qname
-      .qname {
-        margin: 0px 0px;
-        padding: 0;
-      }
-      .url-buttons-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        justify-content: right;
-      }
-      // copy url button
-      .btn-copy-url {
-        font-size: 16px;
-        line-height: 24px;
-        &::before {
-          content: "";
-          background-image: url("../assets/icons/copy-url-icon.svg");
-          background-repeat: no-repeat;
-          background-size: 24px;
-
-          display: block;
-          width: 24px;
-          height: 24px;
-          float: right;
-          margin-left: 6px;
-        }
-      }
-      .btn-copy-iri {
-        // margin-top: 40px;
-      }
-      .card {
-        background: none;
-      }
-    }
-  }
-  .seeMoreBtn {
-    cursor: pointer;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: rgba(0, 0, 0, 0.8);
-    text-decoration: none;
-    margin-top: 20px;
-    &::before {
-      content: "";
-      background-image: url("../assets/icons/triangle-down.svg");
-      background-repeat: no-repeat;
-      background-size: 24px 24px;
-
-      display: block;
-      width: 24px;
-      height: 24px;
-      float: left;
-    }
-  }
-  .seeLessBtn {
-    cursor: pointer;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: rgba(0, 0, 0, 0.8);
-    text-decoration: none;
-    margin-top: 20px;
-    &::before {
-      content: "";
-      background-image: url("../assets/icons/triangle-up.svg");
-      background-repeat: no-repeat;
-      background-size: 24px 24px;
-
-      display: block;
-      width: 24px;
-      height: 24px;
-      float: left;
-    }
-  }
-}
-//
-// mobile
-// search-results
-@media (max-width: 768px) {
-  .search-results-section {
-    .search-header {
-      padding: 40px 30px;
-
-      h5 {
-        font-size: 30px;
-        line-height: 36px;
-      }
-      p {
-        font-size: 20px;
-        line-height: 30px;
-      }
-    }
-
-    .search-results-items {
-      padding-left: 0px;
-      padding-right: 0px;
-
-      .search-item {
-        padding: 20px 30px 20px 64px;
-
-        .maturity-icon {
-          position: absolute;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-around;
-          width: 24px;
-          height: 30px;
-
-          left: -34px;
-
-          &::before {
-            content: "";
-
-            background-repeat: no-repeat;
-            background-size: 24px 24px;
-            width: 24px;
-            height: 24px;
-          }
-          &.maturity-provisional {
-            &::before {
-              background-image: url("../assets/icons/provisional-maturity.svg");
-            }
-          }
-          &.maturity-mixed {
-            &::before {
-              background-image: url("../assets/icons/provisional-maturity.svg");
-            }
-          }
-          &.maturity-production {
-            &::before {
-              background-image: url("../assets/icons/production-maturity.svg");
-            }
-          }
-        }
-
-        .search-title {
-          font-size: 20px;
-          line-height: 30px;
-        }
-        .result-iri {
-          font-size: 14px;
-          line-height: 20px;
-        }
-        p {
-          font-size: 16px;
-          line-height: 24px;
-        }
-
-        &:hover {
-          background-color: rgba(0, 0, 0, 0);
-        }
-      }
-    }
-
-    .search-load-more {
-      padding: 20px;
-      margin-top: 40px;
-
-      p {
-        font-size: 16px;
-        line-height: 24px;
-        text-align: center;
-      }
-      .btn-load-more {
-        font-size: 18px;
-        line-height: 30px;
-        width: 100%;
-      }
-    }
-  }
-}
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-</style>
+<style src="@/styles/views/Ontology.scss" lang="scss"></style>
