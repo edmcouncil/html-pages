@@ -13,7 +13,6 @@
 }
 
 .multiselect-container {
-  margin: 20px 20px 0px 20px;
 
   .multiselect__select {
     &::before {
@@ -51,6 +50,7 @@
 
 .module-tree {
   min-width: 285px;
+  margin-bottom: 40px;
 
   .modules-list {
     margin: 20px 0 0 20px;
@@ -76,8 +76,12 @@
   display: flex;
   justify-content: space-between;
   height: 80px;
-  margin-top: 60px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   padding: 0 30px;
+}
+.tmmenu:first{
+  margin-top: 60px !important;
 }
 
 .text-elements {
@@ -86,6 +90,7 @@
   flex-direction: column;
   min-height: 50px;
   justify-content: space-between;
+  width: 100%;
 }
 
 .labelMultiSelect {
@@ -103,17 +108,32 @@
   min-height: 30px;
   padding-right: 10px;
   white-space: nowrap;
+  width: 100%;
 
   .multiselect {
     width: fit-content;
+    width: 100%;
+    .multiselect__tags{
+      width: 100%;
+    }
   }
   .multiselect__content-wrapper /*, .multiselect__element */ {
     width: fit-content;
   }
   .multiselect__option {
     width: 100%;
-    min-width: 175px;
+    min-width: 275px;
     padding: 10px;
+  }
+}
+
+.selectText.search-input {
+  .multiselect__tags{
+    .multiselect__placeholder {
+      color: map-get($colors-map, "black") !important;
+      font-weight: 700;
+      font-size: 18px;
+    }
   }
 }
 
@@ -125,16 +145,29 @@
   background-image: url("../../assets/icons/directory.svg");
 }
 
-.iconSidebar {
+.searchIcon {
+  background-image: url("../../assets/icons/search.svg");
+}
+
+.icon-input {
   height: 24px;
   width: 24px;
   left: auto !important;
-  right: 0;
+  padding-right: 24px;
+}
+
+.padding-left-0 {
+  padding-left: 0px !important;
+}
+
+.padding-right-0 {
+  padding-right: 0px !important;
 }
 
 .grayBox {
   background: rgba(0, 0, 0, 0.05);
   margin-top: 20px;
+  margin-bottom: 20px;
   padding: 0 20px 20px 0px;
   .contentBox {
     margin-top: 0px;
@@ -177,7 +210,7 @@
 .searchBox {
   background: rgba(0, 0, 0, 0.05);
   margin-top: 20px;
-  padding: 0 20px 20px 20px;
+  padding: 0 20px 0px 20px;
   border-radius: 2px;
   border: none;
   .tmmenu {

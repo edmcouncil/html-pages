@@ -54,7 +54,7 @@
               </a>
             <div class="dropdown-menu desktop" aria-labelledby="navbarDropdown">
               <router-link class="nav-link" :to="{ path: router('ontology') }">
-                FIBO VIEWER</router-link>
+                FIBO Viewer</router-link>
               <router-link class="nav-link" :to="{ path: router('FIBO-Groups') }"
                 >FIBO Community</router-link>
                <router-link class="nav-link" :to="{ path: router('FIB-DM') }">FIB-DM</router-link>
@@ -96,18 +96,6 @@
    <Carousel v-if="!$route.meta.plainLayout"></Carousel>
   </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="container header  mobile-view">
     <nav class="navbar navbar-expand-lg navbar-light mobile-view">
       <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
@@ -145,7 +133,7 @@
 
                
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('ontology') }">FIBO VIEWER</router-link>
+            <router-link class="nav-link" :to="{ path: router('ontology') }">FIBO Viewer</router-link>
           </li>
 
           <li class="nav-item">
@@ -170,18 +158,9 @@
               <router-link class="dropdown-item" :to="{ path: router('OWL') }">FIBO Ontology</router-link>
               <router-link class="dropdown-item" :to="{ path: router('vocabulary') }">FIBO Vocabulary</router-link>
               <router-link class="dropdown-item" :to="{ path: router('data-dictionary') }">FIBO Data Dictionary</router-link>
-              <!-- <router-link class="dropdown-item" :to="{ path: router('data-dictionary') }">FIBO Data Model</router-link> -->
             </div>
           </li>          
 
-
-<!--           <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('FIBO-Groups') }">FIBO Training</router-link>
-          </li>   -->
-
-<!--           <li class="nav-item">
-            <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG</a>
-          </li>  --> 
 
           <li class="nav-item dropdown">
             <a
@@ -194,10 +173,6 @@
               aria-expanded="false"
             >Docs</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <!-- <router-link class="dropdown-item" :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link> -->
-              <!-- <router-link class="dropdown-item" :to="{ path: router('development-process') }">Development process</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('') }">Ontology guide</router-link> -->
-              <!-- <router-link class="dropdown-item" :to="{ path: router('how-to-contribute') }">How to contribute</router-link> -->
               <router-link class="dropdown-item" :to="{ path: router('FIBO-Release-Notes') }">FIBO Release Notes</router-link>
               <router-link class="dropdown-item" :to="{ path: router('ontology-tools') }">FIBO Ontology Tools</router-link>              
             </div>

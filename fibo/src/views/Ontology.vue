@@ -71,23 +71,23 @@
                   </multiselect>
                 </div>
               </div>
-              <span class="iconSidebar clockIcon"></span>
+              <span class="icon-input clockIcon"></span>
             </div>
             <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
             <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
           </div>
           <div class="multiselect-xxl-container multiselect-container container">
             <div class="tmmenu">
-              <div v-on:click="toggleModuleTree()" class="text-elements">
+              <div class="text-elements">
                 <div class="labelMultiSelect">Browse FIBO domains</div>
                 <div class="selectText">FIBO Domains</div>
               </div>
-              <i class="iconSidebar directoryIcon"></i>
+              <i class="icon-input directoryIcon"></i>
             </div>
           </div>
 
           <!-- module tree --->
-          <ul v-if="display_modules" class="modules-list list-unstyled">
+          <ul class="modules-list list-unstyled">
             <module-tree
               :item="item"
               v-for="item in modulesList"
@@ -109,13 +109,13 @@
                   <div class="tmmenu">
                     <div class="text-elements">
                       <div class="labelMultiSelect">Search FIBO</div>
-                      <div class="selectText">
+                      <div class="selectText search-input">
                         <multiselect
                           v-model="searchBox.selectedData"
                           id="ajax2"
                           label="labelForInternalSearch"
                           track-by="iri"
-                          placeholder="Search..."
+                          placeholder="Find domains, ontologies, concepts..."
                           tagPlaceholder="Search for..."
                           selectLabel="Display ontology"
                           open-direction="bottom"
@@ -161,7 +161,7 @@
                         </multiselect>
                       </div>
                     </div>
-                    <i class="clockIcon"></i>
+                    <i class="icon-input searchIcon"></i>
                   </div>
                   <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
                   <!-- <pre class="language-json"><code>{{ searchBox.data }}</code></pre> -->
@@ -176,9 +176,88 @@
             name="ontologyViewerTopOfContainer"
             id="ontologyViewerTopOfContainer"
           ></a>
+
+
+
+
+
+          <!-- search box mobile -->
+          <div class="d-lg-none multiselect-container">
+            <div class="tmmenu">
+              <div class="text-elements">
+                <div class="labelMultiSelect">Search FIBO</div>
+                <div class="selectText search-input">
+                  <multiselect
+                    v-model="searchBox.selectedData"
+                    id="ajax"
+                    label="labelForInternalSearch"
+                    track-by="iri"
+                    placeholder="Find domains, ontologies, concepts..."
+                    tagPlaceholder="Search for..."
+                    selectLabel="Display ontology"
+                    open-direction="bottom"
+                    :options="searchBox.data"
+                    :multiple="false"
+                    :searchable="true"
+                    :loading="searchBox.isLoading"
+                    :internal-search="false"
+                    :clear-on-select="false"
+                    :close-on-select="true"
+                    :options-limit="300"
+                    :limit="3"
+                    :limit-text="searchBox_limitText"
+                    :max-height="600"
+                    :preserve-search="true"
+                    :show-no-results="false"
+                    :hide-selected="true"
+                    :taggable="true"
+                    @select="searchBox_optionSelected"
+                    @tag="searchBox_addTag"
+                    @search-change="searchBox_asyncFind"
+                  >
+                    <template slot="tag" slot-scope="{ option, remove }"
+                      ><span class="custom__tag"
+                        ><span>{{ option.label }}</span
+                        ><span class="custom__remove" @click="remove(option)"
+                          >❌</span
+                        ></span
+                      ></template
+                    >
+                    <template slot="clear" slot-scope="props">
+                      <div
+                        class="multiselect__clear"
+                        v-if="searchBox.selectedData"
+                        @mousedown.prevent.stop="clearAll(props.search)"
+                      ></div> </template
+                    ><span slot="noResult"
+                      >Oops! No elements found. Consider changing the search
+                      query.</span
+                    >
+                  </multiselect>
+            <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
+            </div>
+                    </div>
+                    <i class="icon-input searchIcon"></i>
+                  </div>
+          </div>
+
+
+
+
+
+
+
           <!-- tree mobile -->
-          <div class="module-tree col-lg-12 d-lg-none">
+          
+
+          <div class="col-lg-12 d-lg-none padding-left-0 padding-right-0 ">
+            
+
             <div class="multiselect-container">
+              <div class="tmmenu">
+              <div class="text-elements">
+                <div class="labelMultiSelect">Select Fibo version</div>
+                <div class="selectText">
               <multiselect
                 v-model="ontologyVersionsDropdownData.selectedData"
                 id="ontologyVersionsMultiselect2"
@@ -224,9 +303,23 @@
               </multiselect>
               <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
               <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
+              </div>
+              </div>
+              <span class="icon-input clockIcon"></span>
+            </div>
             </div>
 
-            <ul class="modules-list list-unstyled">
+
+
+          <div class="tmmenu">
+            <div v-on:click="toggleModuleTree()" class="text-elements">
+              <div class="labelMultiSelect">Browse FIBO domains</div>
+              <div class="selectText">FIBO Domains</div>
+            </div>
+            <i class="icon-input directoryIcon"></i>
+          </div>
+
+            <ul v-if="display_modules" class="modules-list list-unstyled">
               <module-tree
                 :item="item"
                 v-for="item in modulesList"
@@ -240,57 +333,7 @@
               </div>
             </div>
           </div>
-          <!-- search box mobile -->
-          <div class="d-lg-none multiselect-container">
-            <multiselect
-              v-model="searchBox.selectedData"
-              id="ajax"
-              label="labelForInternalSearch"
-              track-by="iri"
-              placeholder="Search..."
-              tagPlaceholder="Search for..."
-              selectLabel="Display ontology"
-              open-direction="bottom"
-              :options="searchBox.data"
-              :multiple="false"
-              :searchable="true"
-              :loading="searchBox.isLoading"
-              :internal-search="false"
-              :clear-on-select="false"
-              :close-on-select="true"
-              :options-limit="300"
-              :limit="3"
-              :limit-text="searchBox_limitText"
-              :max-height="600"
-              :preserve-search="true"
-              :show-no-results="false"
-              :hide-selected="true"
-              :taggable="true"
-              @select="searchBox_optionSelected"
-              @tag="searchBox_addTag"
-              @search-change="searchBox_asyncFind"
-            >
-              <template slot="tag" slot-scope="{ option, remove }"
-                ><span class="custom__tag"
-                  ><span>{{ option.label }}</span
-                  ><span class="custom__remove" @click="remove(option)"
-                    >❌</span
-                  ></span
-                ></template
-              >
-              <template slot="clear" slot-scope="props">
-                <div
-                  class="multiselect__clear"
-                  v-if="searchBox.selectedData"
-                  @mousedown.prevent.stop="clearAll(props.search)"
-                ></div> </template
-              ><span slot="noResult"
-                >Oops! No elements found. Consider changing the search
-                query.</span
-              >
-            </multiselect>
-            <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
-          </div>
+
 
           <div class="row" v-if="loader">
             <div class="col-12">
@@ -813,7 +856,7 @@
               </div>
 
               <!-- NO DATA (HOW TO USE) -->
-              <div class="col-md-12 col-xxl-12" v-else>
+              <div class="col-md-12 col-xxl-12 padding-left-0" v-else>
                 <main v-if="!loader">
                   <div class="col-md-12 grayBox">
                     <div class="contentBox">
@@ -990,7 +1033,7 @@ export default {
   props: ['ontology'],
   data() {
     return {
-      display_modules: true,
+      display_modules: false,
       pathsSection: {
         isPathsMoreVisible: false,
         hasOverflow: [],

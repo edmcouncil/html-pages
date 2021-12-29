@@ -4,8 +4,7 @@
       <div class="row">
 
         <div class="arrow-container" :class="{ hidden: !isFolder }" @click="toggle">
-          <img v:if="!isOpen" class="icon-arrow" :class="{  down: isOpen }" src="../assets/icons/arrow.svg" />
-          <i :class="{ down: isOpen }" />
+          <img v:if="!isOpen" class="icon-arrow" :class="{ down: isOpen }" src="../assets/icons/arrow.svg" />
         </div>
         <div>
           <i
@@ -116,7 +115,10 @@ export default {
   ul {
     margin-left: 15px;
   }
-
+.icon-arrow.down{
+  -ms-transform: rotate(90deg); /* IE 9 */
+  transform: rotate(90deg);
+}
   .arrow-container {
     display: inline-block;
     width: 10px;
