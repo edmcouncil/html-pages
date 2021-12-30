@@ -248,10 +248,10 @@
 
 
           <!-- tree mobile -->
-          
+
 
           <div class="col-lg-12 d-lg-none padding-left-0 padding-right-0 ">
-            
+
 
             <div class="multiselect-container">
               <div class="tmmenu">
@@ -1402,28 +1402,30 @@ export default {
       }
     },
     checkPathOverflow(tIndex) {
-      if (
-        !this.$refs.ontologyPaths
-          .querySelector('h5')
-          .classList.contains('section-collapse')
-      ) {
-        // collapse for overlap test purposes
-        const wasCollapsed = this.$refs.taxonomyItems[tIndex].classList.contains('collapsed');
-        if (!wasCollapsed) {
-          this.$refs.taxonomyItems[tIndex].classList.toggle('collapsed');
-        }
-        const el = this.$refs.taxonomyItems[tIndex].firstChild;
-        const curOverf = el.style.overflow;
-        if (!curOverf || curOverf === 'visible') el.style.overflow = 'hidden';
-        const isOverflowing = el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
-        el.style.overflow = curOverf;
+      this.$nextTick(() => {
+        if (
+          !this.$refs.ontologyPaths
+            .querySelector('h5')
+            .classList.contains('section-collapse')
+        ) {
+          // collapse for overlap test purposes
+          const wasCollapsed = this.$refs.taxonomyItems[tIndex].classList.contains('collapsed');
+          if (!wasCollapsed) {
+            this.$refs.taxonomyItems[tIndex].classList.toggle('collapsed');
+          }
+          const el = this.$refs.taxonomyItems[tIndex].firstChild;
+          const curOverf = el.style.overflow;
+          if (!curOverf || curOverf === 'visible') el.style.overflow = 'hidden';
+          const isOverflowing = el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
+          el.style.overflow = curOverf;
 
-        if (!wasCollapsed) {
-          this.$refs.taxonomyItems[tIndex].classList.toggle('collapsed');
+          if (!wasCollapsed) {
+            this.$refs.taxonomyItems[tIndex].classList.toggle('collapsed');
+          }
+          // set array value making use of Vue reactivity
+          this.$set(this.pathsSection.hasOverflow, tIndex, isOverflowing);
         }
-        // set array value making use of Vue reactivity
-        this.$set(this.pathsSection.hasOverflow, tIndex, isOverflowing);
-      }
+      });
     },
     loadMoreResults() {
       if (this.searchBox.currentPage < this.searchBox.maxPage) {
