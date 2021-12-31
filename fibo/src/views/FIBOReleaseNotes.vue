@@ -8,6 +8,7 @@
                 </h1>
                 <p class="text"><b>2021</b></p>
                 <ul>
+		   <li><a href="#2021Q4">2021 Q4</a></li>
 		   <li><a href="#2021Q3">2021 Q3</a></li>
 		   <li><a href="#2021Q2">2021 Q2</a></li>
                     <li><a href="#2021Q1">2021 Q1</a></li>
@@ -42,6 +43,61 @@
                 <h1>
                   <span>@@@</span>
                 </h1>
+
+
+
+		<h3 id="2021Q4"><strong>2021 Q4</strong></h3>
+                	<h4>Revisions Summary by Elisa Kendall</h4>
+		<p class="text">This quarter we made significant progress across domain areas, as summarized below.  New production concepts include those related to rights and warrants as well the concept of a master agreement in contracts.  Concepts related to organizational 			structure were promoted to the main organizations ontology, and our representation of legal entity-related concepts is more aligned with updates made by the Global LEI Foundation (GLEIF).  We also made significant progress in areas including corporate actions and asset-backed securities, though we have not yet promoted the relevant ontologies to release status (planned for 2022).  We also updated the ISO 10383 MIC codes and FpML interest rates to the latest released versions.</p>
+				
+		<h4>Business Entities (BE)</h4>
+		<p class="text">This quarter’s revisions in business entities were limited to migration of high-level concepts related to organizational structure from BE to FND and correction of a few typos in definitions and notes.  FIBO users should be aware that although we have deprecated the concepts in BE in favor of their replacements in FND, we will likely eliminate the deprecated elements over the course of 2022.</p>
+		<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q4+FIBO+Release%22+label%3ABE+">All 2021 BE Q4 PRs and Issues</a>
+
+		<h4>Business Process Domain (BP)</h4>
+                	<p class="text">This quarter the domain of business processes remained stable.</p>
+
+		<h4>Corporate Actions and Events (CAE)</h4>
+		<p class="text">This quarter we initiated work to clean up and extend the securities-specific corporate actions ontology, to move corporate actions that are more general in scope and reflect changes at the legal entity level to a new corporate actions ontology in the CAE domain.  We anticipate augmenting this ontology over the coming months to cover the range of entity level actions that the Global Legal Entity Foundation (GLEIF) and ISO 20022/15022 identify such that the codes used by either standard can be mapped to common definitions.  We will also be extending the existing securities oriented corporate actions ontology to cover more of ISO 20022/15022, and moving the codes themselves into separate reference data ontologies to conform to the approach we have taken for reference data elsewhere in FIBO.</p>
+		<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q4+FIBO+Release%22+label%3ACAE+">All 2021 CAE Q4 PRs and Issues</a>
+		
+		<h4>Derivatives (DER)</h4>
+                	<p class="text">Our primary achievement this quarter was to revise and promote RightsAndWarrants to release status. We also addressed a number of “leftover” issues related to Options and other derivatives ontologies, including improved representation of exercise terms, and fixing a few inconsistencies and typos that we noticed during testing.  Finally, we cleaned-up definitions in the swaps individuals ontology as a part of the process of normalizing our overall identifier hierarchy (see FBC for more details).</p>
+                	<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q4+FIBO+Release%22+label%3ADER+">All 2021 DER Q4 PRs and Issues</a>
+
+		<h4>Financial Business and Commerce (FBC)</h4>
+                	<p class="text">The primary accomplishment in FBC in Q4 involved restructuring and eliminating inconsistencies in the identifier hierarchy, eliminating odd inheritance structures, clarifying the nature of a registry identifier, and cleaning up issues related to LEI data so that our reference individuals and examples are better aligned with what is published by the GLEIF.  We will continue to review and align with the latest GLEIF ontologies and plan to publish a mapping ontology over the coming months to provide FIBO users with a precise way of integrating the GLEIF data published at data.world with FIBO in their local knowledge graphs. We also revised the ISO 10383 Market Identifier Codes (MIC) to incorporate the latest changes published by ISO, i.e., as of 14 December 2021.  Other changes this quarter include correcting a couple of bugs, fixing typos, and addressing side-effects of moving some of the organizational structure concepts from BE to FND.</p>
+                	<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q4+FIBO+Release%22+label%3AFBC+">All 2021 FBC Q4 PRs and Issues</a>
+
+		<h4>Foundations (FND)</h4>
+                	<p class="text">The most important changes made in FND in Q4 include incorporating concepts related to organizational structure in the main organizations ontology (originally in BE) and adding the concept of a master agreement to the contracts ontology. We also addressed a number of smaller outstanding issues that had accumulated over time.  These included improving definitions related to rights under legal construct, clarifying the definition of a legal document, reconciling properties related to ownership with the situational pattern, improving the identifier hierarchy as noted in FBC, and fixing typos. We anticipate further work to augment the definition of a master agreement over the coming months with additional concepts such as a master services agreement and brokerage agreement, which will be further elaborated with respect to the concept of a master ISDA agreement in DER.</p>
+                	<a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q4+FIBO+Release%22+label%3AFND+">All 2021 FND Q4 PRs and Issues</a>
+
+		<h4>Indicators and Indices (IND)</h4>
+                	<p class="text">Most of the revisions made in Q4 were related to corporate actions (see CAE).  With basic concepts related to market indices covered, we are now working towards answering competency questions around the impact of corporate actions on those indices.  We also revised the common interest rates individuals to reflect the latest changes to FpML reference rates.  This was a major change that incorporated the 2021 updates to FpML.  Note that some rates are now deprecated, corresponding to their deprecation in the original FpML rates.  We will continue to include them in FIBO until they are eliminated from FpML.  Other changes in IND include side-effects of the identifier hierarchy revisions, bug fixing and addressing typos.</p>
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q4+FIBO+Release%22+label%3AIND+">All 2021 IND Q4 PRs and Issues</a>
+				
+		<h4>Loans (LOAN)</h4>
+                	<p class="text">This quarter the domain of loans remained stable.</p>
+
+
+		<h4>Market Data Domain (MD)</h4>
+                	<p class="text">This quarter the domain of marked data remained stable.</p>
+                
+
+		<h4>Securities (SEC)</h4>
+                	<p class="text">This quarter we spent significant time reviewing concepts related to asset-backed securities.  This is an area that has been relatively untouched to date, though last quarter we merged some ontologies and eliminated circular dependencies.  Focus to date has been on refining the top-level pool-backed securities ontology, which we plan to release in Q1 2022.  We also addressed some issues in the bonds hierarchy, notably adding support for certain index-linked bonds, addressed side-effects of other issues and fixed typos.</p>
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021Q4+FIBO+Release%22+label%3ASEC+">All 2021 SEC Q4 PRs and Issues</a>   
+
+
+		<h4>Hygiene tests</h4>
+            	<p class="text">This quarter we extended the set of hygiene tests with the check for OWL 2 illegal punning. In fact, it is a composite check, which we split into 6 separate SPARQL queries - see all checks with 1624 infix in their names.
+In addition we refactored all other checks so that they ignore all deprecated resources (in the sense of the owl:deprecated property.)</p>
+
+                <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222021+Q4+FIBO+Release%22+label%3Ahygiene+">All 2021 hygiene Q4 PRs and Issues</a> 
+
+
+
 
 		<h3 id="2021Q3"><strong>2021 Q3</strong></h3>
                 	<h4>Revisions Summary by Elisa Kendall</h4>
