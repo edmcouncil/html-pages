@@ -118,6 +118,30 @@ export default {
   },
   mounted() {
     if (this.data) {
+      console.log(this.data.nodes);
+      console.log(this.data.edges);
+
+      this.data.nodes.forEach(function(part, index) {
+
+        this[index].shape = "box";
+        this[index].shapeProperties = { borderRadius : 50 };
+
+        if(this[index].id === 1){
+          this[index].color = "#ffffff";
+          this[index].font.size = this[index].font.size + 10;
+          this[index].heightConstraint = 45;
+          this[index].widthConstraint = 100;
+        }
+        if(this[index].color === null){
+          this[index].color = "#616161"
+          this[index].font.color = "#ffffff"
+        }
+        if(this[index].color === "#C2FABC"){
+          this[index].color = "#ffffff"
+        }
+      }, this.data.nodes);
+
+
       const nodes = new vis.DataSet(this.data.nodes);
       const edges = new vis.DataSet(this.data.edges);
 
