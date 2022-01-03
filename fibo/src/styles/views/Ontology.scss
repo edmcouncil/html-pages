@@ -716,7 +716,7 @@
             background-image: url("../../assets/icons/mixed-maturity.svg");
           }
         }
-        &.maturity-production {
+        &.maturity-release {
           &::before {
             background-image: url("../../assets/icons/production-maturity.svg");
           }
@@ -1088,7 +1088,7 @@
               background-image: url("../../assets/icons/mixed-maturity.svg");
             }
           }
-          &.maturity-production {
+          &.maturity-release {
             &::before {
               background-image: url("../../assets/icons/production-maturity.svg");
             }

@@ -507,7 +507,7 @@
                           ></customLink>
                         </div>
 
-                        <div                           v-if="
+                        <div v-if="
                             data.maturityLevel.label !== 'release' &&
                             data.maturityLevel.label !== ''
                           " class="clearfix"></div>
@@ -1319,10 +1319,10 @@ export default {
         this.searchBox.isLoadingMore = false;
 
         // PH placeholder values
-        if (this.searchBox.totalResut === undefined) {
+        if (body.totalResut === undefined) {
           this.searchBox.totalResults = 0;
         } else {
-          this.searchBox.totalResults = this.searchBox.totalResut;
+          this.searchBox.totalResults = body.totalResut;
         }
         // eslint-disable-next-line no-restricted-syntax
         for (const res of this.searchBox.searchResults) {
@@ -1335,7 +1335,6 @@ export default {
 
         this.searchBox.totalData.push(...this.searchBox.searchResults);
 
-        console.log(this.searchBox);
         // testing
         // console.log(this.searchBox);
         // console.log(this.searchBox.totalData);
