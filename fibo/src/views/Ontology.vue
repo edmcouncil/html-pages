@@ -466,6 +466,7 @@
                     <!-- TITLE -->
                     <div class="card">
                       <div class="card-body">
+
                         <!-- report a problem -->
                         <a
                           v-if="
@@ -487,7 +488,6 @@
                           "
                           >Report a problem</a
                         >
-
                         <!-- maturity alert -->
                         <div
                           class="alert alert-primary alert-maturity"
@@ -507,7 +507,10 @@
                           ></customLink>
                         </div>
 
-                        <div class="clearfix"></div>
+                        <div                           v-if="
+                            data.maturityLevel.label !== 'release' &&
+                            data.maturityLevel.label !== ''
+                          " class="clearfix"></div>
 
                         <!-- header item title -->
                         <h5
@@ -528,6 +531,10 @@
                         >
                           {{ data.label }}
                         </h5>
+
+                        <div class="clearfix"></div>
+
+
                         <h6
                           class="card-subtitle mb-2 text-muted data-iri"
                           v-if="data.iri"
@@ -1310,21 +1317,25 @@ export default {
         this.searchBox.lastSearchBQuery = searchBQuery;
         this.error = false;
         this.searchBox.isLoadingMore = false;
-        this.searchBox.totalData.push(...this.searchBox.searchResults);
 
         // PH placeholder values
-        if (!this.searchBox.totalResult) {
-          this.searchBox.totalResults = 1234;
+        if (this.searchBox.totalResut === undefined) {
+          this.searchBox.totalResults = 0;
         } else {
-          this.searchBox.totalResults = this.searchBox.totalResult;
+          this.searchBox.totalResults = this.searchBox.totalResut;
         }
         // eslint-disable-next-line no-restricted-syntax
         for (const res of this.searchBox.searchResults) {
-          res.maturityLevel = {};
-          res.maturityLevel.icon = 'develop';
+          if (res.maturityLevel === undefined || res.maturityLevel.icon === undefined) {
+            res.maturityLevel = {};
+            res.maturityLevel.icon = '';
+          }
         }
         // PH placeholder values
 
+        this.searchBox.totalData.push(...this.searchBox.searchResults);
+
+        console.log(this.searchBox);
         // testing
         // console.log(this.searchBox);
         // console.log(this.searchBox.totalData);

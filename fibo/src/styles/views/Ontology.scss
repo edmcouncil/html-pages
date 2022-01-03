@@ -502,7 +502,6 @@
 
       letter-spacing: 0.01em;
 
-      border-radius: none;
       background: #feb700;
       border: none;
       width: fit-content;
@@ -555,6 +554,7 @@
     }
 
     h5 {
+      float: left;
       font-style: normal;
       font-weight: bold;
       font-size: 42px;
@@ -562,6 +562,7 @@
       margin-right: 30px;
       margin-top: 35px;
       position: relative;
+      max-width: 100%;
       &::before {
         content: "";
 
@@ -929,6 +930,7 @@
       }
 
       h5 {
+        padding-right: 30px;
         font-size: 30px;
         line-height: 36px;
 
