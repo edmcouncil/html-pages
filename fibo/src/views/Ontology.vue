@@ -27,7 +27,7 @@
           <div class="multiselect-xxl-container multiselect-container container">
             <div class="tmmenu">
               <div class="text-elements">
-                <div class="labelMultiSelect">Select Fibo version</div>
+                <div class="labelMultiSelect">Select FIBO version</div>
                 <div class="selectText">
                   <multiselect
                     v-model="ontologyVersionsDropdownData.selectedData"
@@ -256,7 +256,7 @@
             <div class="multiselect-container">
               <div class="tmmenu">
               <div class="text-elements">
-                <div class="labelMultiSelect">Select Fibo version</div>
+                <div class="labelMultiSelect">Select FIBO version</div>
                 <div class="selectText">
               <multiselect
                 v-model="ontologyVersionsDropdownData.selectedData"
