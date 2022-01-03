@@ -1213,6 +1213,7 @@ export default {
         ) {
           this.checkPathsOverflow();
         }
+        this.sectionsVisibilitySettings = [];
       }
     },
     async fetchModules() {
@@ -1312,7 +1313,11 @@ export default {
         this.searchBox.totalData.push(...this.searchBox.searchResults);
 
         // PH placeholder values
-        this.searchBox.totalResults = 1234;
+        if (!this.searchBox.totalResult) {
+          this.searchBox.totalResults = 1234;
+        } else {
+          this.searchBox.totalResults = this.searchBox.totalResult;
+        }
         // eslint-disable-next-line no-restricted-syntax
         for (const res of this.searchBox.searchResults) {
           res.maturityLevel = {};
