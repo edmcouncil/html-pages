@@ -1,6 +1,6 @@
 <template>
   <div id="graphWindowWraper" class="graph-parent">
-    
+
 
     <div class="smallGraphWraper">
 
@@ -334,7 +334,7 @@ export default {
         },
       };
       window.network.setOptions(options);
-      
+
       this.modalVisible = false;
       this.adjustGraphSize();
       window.network.fit();
@@ -627,11 +627,11 @@ $custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
   padding-left: 40px;
   padding-bottom: 20px;
 
-  
+
 
   .custom-control-label {
     cursor: pointer;
-    
+
   }
 
   .custom-control-label::before {
@@ -642,7 +642,7 @@ $custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
 
     top: 0px;
     left:-40px;
-    
+
   }
   .custom-control-label::after {
     width: 30px;
@@ -664,10 +664,11 @@ $custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
   }
 
   .custom-control-input:focus ~ .custom-control-label::before {
-    box-shadow:$custom-checkbox-indicator-indeterminate-box-shadow !important;
+    box-shadow: $custom-checkbox-indicator-indeterminate-box-shadow !important;
     border: 2px solid $custom-control-indicator-checked-bg;
   }
   .custom-control-input:active ~ .custom-control-label::before {
+    background-color: $custom-checkbox-indicator-indeterminate-bg;
     box-shadow:$custom-checkbox-indicator-indeterminate-box-shadow !important;
     border: 2px solid $custom-control-indicator-checked-bg;
   }
