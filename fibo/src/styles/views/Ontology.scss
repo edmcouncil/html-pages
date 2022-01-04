@@ -26,13 +26,18 @@
     color: #000;
   }
 
+  .multiselect__option--highlight:after{
+    background-image: url("../../assets/icons/search-select-arrow.svg");
+    background-repeat: no-repeat;
+  }
+
   .multiselect__tags {
     border: 0px solid map-get($colors-map, "white");
   }
 
   &.multiselect-xxl-container {
     margin: 20px 0px 0px 0px;
-    min-width: 250px;
+    max-width: 100%;
     .row {
       margin: 0px;
     }
@@ -111,14 +116,16 @@
   width: 100%;
 
   .multiselect {
-    width: fit-content;
     width: 100%;
+    padding-left: -30px;
     .multiselect__tags{
       width: 100%;
     }
   }
   .multiselect__content-wrapper /*, .multiselect__element */ {
-    width: fit-content;
+    margin-left: -30px;
+    margin-top: 10px;
+    margin-right: -240px;
   }
   .multiselect__option {
     width: 100%;

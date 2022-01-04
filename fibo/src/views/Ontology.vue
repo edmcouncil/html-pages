@@ -116,8 +116,8 @@
                           label="labelForInternalSearch"
                           track-by="iri"
                           placeholder="Find domains, ontologies, concepts..."
-                          tagPlaceholder="Search for..."
-                          selectLabel="Display ontology"
+                          tagPlaceholder=" "
+                          selectLabel='&nbsp;'
                           open-direction="bottom"
                           :options="searchBox.data"
                           :multiple="false"
