@@ -2,7 +2,6 @@
   <div>
     <li class="module container">
       <div class="row">
-
         <div class="arrow-container" :class="{ hidden: !isFolder }" @click="toggle">
           <img v:if="!isOpen" class="icon-arrow" :class="{ down: isOpen }" src="../assets/icons/arrow.svg" />
         </div>

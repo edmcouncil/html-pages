@@ -124,13 +124,12 @@ export default {
       this.data.nodes.forEach(function(part, index) {
 
         this[index].shape = "box";
-        this[index].shapeProperties = { borderRadius : 50 };
+        this[index].shapeProperties = { borderRadius : 40 };
 
         if(this[index].id === 1){
           this[index].color = "#ffffff";
-          this[index].font.size = this[index].font.size + 10;
-          this[index].heightConstraint = 45;
-          this[index].widthConstraint = 100;
+          this[index].font.size = this[index].font.size + 5;
+          this[index].heightConstraint = 25;
         }
         if(this[index].color === null){
           this[index].color = "#616161"
