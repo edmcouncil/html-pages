@@ -3,14 +3,12 @@
     <div class="row">
       <!-- tree large -->
       <div
-        class="
-          col-lg-4 col-xl-3
-          d-none d-lg-block
-          ontology-secondary-column
-        "
+        class="col-lg-4 col-xl-3 d-none d-lg-block ontology-secondary-column"
       >
         <div class="module-tree">
-          <div class="multiselect-xxl-container multiselect-container container">
+          <div
+            class="multiselect-xxl-container multiselect-container container"
+          >
             <div class="row modules-header">
               <h5 class="fibo-title-modules">FIBO Viewer</h5>
               <div class="button-small">
@@ -24,11 +22,12 @@
               </div>
             </div>
           </div>
-          <div class="multiselect-xxl-container multiselect-container container">
-            <div class="tmmenu">
-              <div class="text-elements">
-                <div class="labelMultiSelect">Select FIBO version</div>
-                <div class="selectText">
+          <div
+            class="secondary-column-versions multiselect-xxl-container multiselect-container container"
+          >
+            <div class="menu-box">
+             <div class="menu-box__label">Select FIBO version</div>
+                <div class="menu-box__content-text">
                   <multiselect
                     v-model="ontologyVersionsDropdownData.selectedData"
                     id="ontologyVersionsMultiselect"
@@ -70,19 +69,23 @@
                     >
                   </multiselect>
                 </div>
+
+              <div class="menu-box__icons">
+                <div class="menu-box__icons__icon icon-clock"></div>
               </div>
-              <span class="icon-input clockIcon"></span>
             </div>
             <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
             <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
           </div>
-          <div class="multiselect-xxl-container multiselect-container container">
-            <div class="tmmenu">
-              <div class="text-elements">
-                <div class="labelMultiSelect">Browse FIBO domains</div>
-                <div class="selectText">FIBO Domains</div>
+          <div
+            class="secondary-column-tree multiselect-xxl-container multiselect-container container"
+          >
+            <div class="menu-box">
+              <div class="menu-box__label">Browse FIBO domains</div>
+              <div class="menu-box__content-text">FIBO Domains</div>
+              <div class="menu-box__icons">
+                <div class="menu-box__icons__icon icon-directory"></div>
               </div>
-              <i class="icon-input directoryIcon"></i>
             </div>
           </div>
 
@@ -102,23 +105,24 @@
       <div class="col-12 col-lg-8 col-xl-9 ontology-main-column">
         <div class="container px-0">
           <!-- search box large -->
-          <div class="searchBox card searchBoxDesktop d-none d-lg-block">
+          <div class="searchBox searchBoxDesktop card d-none d-lg-block">
             <div class="row">
               <div class="col-lg-12">
                 <div class="multiselect-xxl-container multiselect-container">
-                  <div class="tmmenu">
-                    <div class="text-elements">
-                      <div class="labelMultiSelect">Search FIBO</div>
-                      <div class="selectText search-input">
+                  <div class="menu-box" >
+                      <div class="menu-box__label">Search FIBO</div>
+                      <div class="menu-box__content-text">
                         <multiselect
                           v-model="searchBox.selectedData"
                           id="ajax2"
                           label="labelForInternalSearch"
                           track-by="iri"
                           placeholder="Find domains, ontologies, concepts..."
-                          tagPlaceholder=" "
-                          selectLabel='&nbsp;'
+                          tagPlaceholder="Search..."
+                          selectLabel="x"
                           open-direction="bottom"
+                          ref="searchBoxInput"
+                          spellcheck="false"
                           :options="searchBox.data"
                           :multiple="false"
                           :searchable="true"
@@ -138,30 +142,22 @@
                           @tag="searchBox_addTag"
                           @search-change="searchBox_asyncFind"
                         >
-                          <template slot="tag" slot-scope="{ option, remove }"
-                            ><span class="custom__tag"
-                              ><span>{{ option.label }}</span
-                              ><span
-                                class="custom__remove"
-                                @click="remove(option)"
-                                >❌</span
-                              ></span
-                            ></template
-                          >
                           <template slot="clear" slot-scope="props">
                             <div
                               class="multiselect__clear"
                               v-if="searchBox.selectedData"
                               @mousedown.prevent.stop="clearAll(props.search)"
-                            ></div> </template
-                          ><span slot="noResult"
-                            >Oops! No elements found. Consider changing the
-                            search query.</span
-                          >
+                            ></div>
+                            </template>
+                            <span slot="noResult">
+                              Oops! No elements found. Consider changing the
+                            search query.
+                            </span>
                         </multiselect>
                       </div>
-                    </div>
-                    <i class="icon-input searchIcon"></i>
+                      <div class="menu-box__icons">
+                        <div class="menu-box__icons__icon icon-search-triangle-down"></div>
+                      </div>
                   </div>
                   <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
                   <!-- <pre class="language-json"><code>{{ searchBox.data }}</code></pre> -->
@@ -177,43 +173,89 @@
             id="ontologyViewerTopOfContainer"
           ></a>
 
-
-
-
-
           <!-- search box mobile -->
-          <div class="d-lg-none multiselect-container">
-            <div class="tmmenu">
-              <div class="text-elements">
-                <div class="labelMultiSelect">Search FIBO</div>
-                <div class="selectText search-input">
+          <div class="searchBox searchBoxMobile d-lg-none multiselect-container">
+                  <div class="menu-box" >
+                      <div class="menu-box__label">Search FIBO</div>
+                      <div class="menu-box__content-text">
+                        <multiselect
+                          v-model="searchBox.selectedData"
+                          id="ajax"
+                          label="labelForInternalSearch"
+                          track-by="iri"
+                          placeholder="Find..."
+                          tagPlaceholder="Search..."
+                          selectLabel="x"
+                          open-direction="bottom"
+                          ref="searchBoxInput"
+                          spellcheck="false"
+                          :options="searchBox.data"
+                          :multiple="false"
+                          :searchable="true"
+                          :loading="searchBox.isLoading"
+                          :internal-search="false"
+                          :clear-on-select="false"
+                          :close-on-select="true"
+                          :options-limit="300"
+                          :limit="3"
+                          :limit-text="searchBox_limitText"
+                          :max-height="600"
+                          :preserve-search="true"
+                          :show-no-results="false"
+                          :hide-selected="true"
+                          :taggable="true"
+                          @select="searchBox_optionSelected"
+                          @tag="searchBox_addTag"
+                          @search-change="searchBox_asyncFind"
+                        >
+                          <template slot="clear" slot-scope="props">
+                            <div
+                              class="multiselect__clear"
+                              v-if="searchBox.selectedData"
+                              @mousedown.prevent.stop="clearAll(props.search)"
+                            ></div>
+                            </template>
+                            <span slot="noResult">
+                              Oops! No elements found. Consider changing the
+                            search query.
+                            </span>
+                        </multiselect>
+                      </div>
+                      <div class="menu-box__icons">
+                        <div class="menu-box__icons__icon icon-search-triangle-down"></div>
+                      </div>
+                  </div>
+          </div>
+
+          <!-- tree mobile -->
+           <div
+            class="secondary-column-versions secondary-column-versions--mobile multiselect-container container d-lg-none "
+          >
+            <div class="menu-box">
+             <div class="menu-box__label">Select FIBO version</div>
+                <div class="menu-box__content-text">
                   <multiselect
-                    v-model="searchBox.selectedData"
-                    id="ajax"
-                    label="labelForInternalSearch"
-                    track-by="iri"
-                    placeholder="Find domains, ontologies, concepts..."
+                    v-model="ontologyVersionsDropdownData.selectedData"
+                    id="ontologyVersionsMultiselect2"
+                    label="@id"
+                    track-by="url"
+                    placeholder="Search..."
                     tagPlaceholder="Search for..."
-                    selectLabel="Display ontology"
+                    selectLabel=""
                     open-direction="bottom"
-                    :options="searchBox.data"
+                    :options="ontologyVersionsDropdownData.data"
                     :multiple="false"
-                    :searchable="true"
-                    :loading="searchBox.isLoading"
+                    :searchable="false"
+                    :loading="ontologyVersionsDropdownData.isLoading"
                     :internal-search="false"
                     :clear-on-select="false"
                     :close-on-select="true"
-                    :options-limit="300"
-                    :limit="3"
-                    :limit-text="searchBox_limitText"
                     :max-height="600"
                     :preserve-search="true"
                     :show-no-results="false"
                     :hide-selected="true"
                     :taggable="true"
-                    @select="searchBox_optionSelected"
-                    @tag="searchBox_addTag"
-                    @search-change="searchBox_asyncFind"
+                    @select="ontologyVersions_optionSelected"
                   >
                     <template slot="tag" slot-scope="{ option, remove }"
                       ><span class="custom__tag"
@@ -223,100 +265,35 @@
                         ></span
                       ></template
                     >
-                    <template slot="clear" slot-scope="props">
-                      <div
-                        class="multiselect__clear"
-                        v-if="searchBox.selectedData"
-                        @mousedown.prevent.stop="clearAll(props.search)"
-                      ></div> </template
-                    ><span slot="noResult"
+                    <!-- <template slot="clear" slot-scope="props">
+                <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
+                @mousedown.prevent.stop="clearAll(props.search)"></div>
+              </template> -->
+                    <span slot="noResult"
                       >Oops! No elements found. Consider changing the search
                       query.</span
                     >
                   </multiselect>
-            <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
+                </div>
+
+              <div class="menu-box__icons">
+                <div class="menu-box__icons__icon icon-clock"></div>
+              </div>
             </div>
-                    </div>
-                    <i class="icon-input searchIcon"></i>
-                  </div>
+            <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
+            <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
           </div>
 
-
-
-
-
-
-
-          <!-- tree mobile -->
-
-
-          <div class="col-lg-12 d-lg-none padding-left-0 padding-right-0 ">
-
-
-            <div class="multiselect-container">
-              <div class="tmmenu">
-              <div class="text-elements">
-                <div class="labelMultiSelect">Select FIBO version</div>
-                <div class="selectText">
-              <multiselect
-                v-model="ontologyVersionsDropdownData.selectedData"
-                id="ontologyVersionsMultiselect2"
-                label="@id"
-                track-by="url"
-                placeholder="Search..."
-                tagPlaceholder="Search for..."
-                selectLabel=""
-                open-direction="bottom"
-                :options="ontologyVersionsDropdownData.data"
-                :multiple="false"
-                :searchable="false"
-                :loading="ontologyVersionsDropdownData.isLoading"
-                :internal-search="false"
-                :clear-on-select="false"
-                :close-on-select="true"
-                :max-height="600"
-                :preserve-search="true"
-                :show-no-results="false"
-                :hide-selected="true"
-                :taggable="true"
-                @select="ontologyVersions_optionSelected"
-              >
-                <template slot="tag" slot-scope="{ option, remove }"
-                  ><span class="custom__tag"
-                    ><span>{{ option.label }}</span
-                    ><span class="custom__remove" @click="remove(option)"
-                      >❌</span
-                    ></span
-                  ></template
-                >
-                <!-- <template slot="clear" slot-scope="props">
-                <div
-                  class="multiselect__clear"
-                  v-if="ontologyVersionsDropdownData.selectedData"
-                  @mousedown.prevent.stop="clearAll(props.search)">
-                </div>
-              </template> -->
-                <span slot="noResult"
-                  >Oops! No elements found. Consider changing the search
-                  query.</span
-                >
-              </multiselect>
-              <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
-              <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
+          <div
+            class="secondary-column-tree secondary-column-tree--mobile multiselect-container container d-lg-none"
+          >
+            <div class="menu-box" v-on:click="toggleModuleTree()">
+              <div class="menu-box__label">Browse FIBO domains</div>
+              <div class="menu-box__content-text">FIBO Domains</div>
+              <div class="menu-box__icons">
+                <div class="menu-box__icons__icon icon-directory"></div>
               </div>
-              </div>
-              <span class="icon-input clockIcon"></span>
             </div>
-            </div>
-
-
-
-          <div class="tmmenu">
-            <div v-on:click="toggleModuleTree()" class="text-elements">
-              <div class="labelMultiSelect">Browse FIBO domains</div>
-              <div class="selectText">FIBO Domains</div>
-            </div>
-            <i class="icon-input directoryIcon"></i>
           </div>
 
             <ul v-if="display_modules" class="modules-list list-unstyled">
@@ -332,8 +309,7 @@
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
-          </div>
-
+            </div>
 
           <div class="row" v-if="loader">
             <div class="col-12">
@@ -406,7 +382,10 @@
               <!-- No results -->
             </div>
 
-            <div class="search-section__load-more" v-if="this.searchBox.maxPage > 1">
+            <div
+              class="search-section__load-more"
+              v-if="this.searchBox.maxPage > 1"
+            >
               <p>
                 1 -
                 {{ searchBox.currentPage * searchBox.perPage }}
@@ -431,11 +410,16 @@
                 }}
                 results
               </div>
-              <div class="search-section__load-more__button" v-else-if="searchBox.isLoadingMore">
+              <div
+                class="search-section__load-more__button"
+                v-else-if="searchBox.isLoadingMore"
+              >
                 Loading...
               </div>
 
-              <div class="search-section__load-more__button" v-else>No more results to load</div>
+              <div class="search-section__load-more__button" v-else>
+                No more results to load
+              </div>
 
               <!-- <paginate
                       :page-count="this.searchBox.maxPage"
@@ -466,7 +450,6 @@
                     <!-- TITLE -->
                     <div class="card">
                       <div class="card-body">
-
                         <!-- report a problem -->
                         <a
                           v-if="
@@ -507,23 +490,27 @@
                           ></customLink>
                         </div>
 
-                        <div v-if="
+                        <div
+                          v-if="
                             data.maturityLevel.label !== 'release' &&
                             data.maturityLevel.label !== ''
-                          " class="clearfix"></div>
+                          "
+                          class="clearfix"
+                        ></div>
 
                         <!-- header item title -->
                         <h5
                           class="card-title"
                           :class="{
                             'maturity-provisional':
-                              (this.data.maturityLevel.label !== 'release' && this.data.maturityLevel.label != '' )||
+                              (this.data.maturityLevel.label !== 'release' &&
+                                this.data.maturityLevel.label != '') ||
                               (this.data.maturityLevel.icon &&
-                              this.data.maturityLevel.icon === 'develop'),
+                                this.data.maturityLevel.icon === 'develop'),
                             'maturity-production':
                               this.data.maturityLevel.label === 'release' ||
                               (this.data.maturityLevel.icon &&
-                              this.data.maturityLevel.icon === 'release'),
+                                this.data.maturityLevel.icon === 'release'),
                             'maturity-mixed':
                               this.data.maturityLevel.icon &&
                               this.data.maturityLevel.icon === 'mixed',
@@ -533,7 +520,6 @@
                         </h5>
 
                         <div class="clearfix"></div>
-
 
                         <h6
                           class="card-subtitle mb-2 text-muted data-iri"
@@ -863,7 +849,7 @@
               </div>
 
               <!-- NO DATA (HOW TO USE) -->
-              <div class="col-md-12 col-xxl-12 padding-left-0" v-else>
+              <div class="col-md-12 col-xxl-12" v-else>
                 <main v-if="!loader">
                   <div class="col-md-12 grayBox">
                     <div class="contentBox">
@@ -1012,24 +998,19 @@ import { mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
 import Paginate from 'vuejs-paginate';
 import {
-  getOntology,
-  getModules,
-  getHint,
-  getOntologyVersions,
+  getOntology, getModules, getHint, getOntologyVersions,
 } from '../api/ontology';
 
 export default {
   components: {
     AXIOM: () => import(/* webpackChunkName: "AXIOM" */ '../components/chunks/AXIOM'),
     STRING: () => import(/* webpackChunkName: "STRING" */ '../components/chunks/STRING'),
-    DIRECT_SUBCLASSES: () => import(
-      // eslint-disable-next-line comma-dangle
+    DIRECT_SUBCLASSES: () => import(// eslint-disable-next-line comma-dangle
       /* webpackChunkName: "DIRECT_SUBCLASSES" */ '../components/chunks/DIRECT_SUBCLASSES'
     ),
     MODULES: () => import(/* webpackChunkName: "MODULES" */ '../components/chunks/MODULES'),
     IRI: () => import(/* webpackChunkName: "IRI" */ '../components/chunks/IRI'),
-    INSTANCES: () => import(
-      // eslint-disable-next-line comma-dangle
+    INSTANCES: () => import(// eslint-disable-next-line comma-dangle
       /* webpackChunkName: "INSTANCES" */ '../components/chunks/INSTANCES'
     ),
     ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ '../components/chunks/ANY_URI'),
@@ -1088,10 +1069,7 @@ export default {
         this.$root.ontologyRouteIsUpdating = false;
       },
       githubNewIssueDetails() {
-        const ontologyQuery = this.data.iri.replace(
-          'https://spec.edmcouncil.org/fibo/ontology/',
-          '',
-        );
+        const ontologyQuery = this.data.iri.replace('https://spec.edmcouncil.org/fibo/ontology/', '');
         const label = ontologyQuery.substring(0, ontologyQuery.indexOf('/'));
         return {
           label,
@@ -1106,10 +1084,7 @@ export default {
     this.mountedTimestamp = Math.floor(Date.now() / 1000);
 
     if (this.$route.params && this.$route.params[1]) {
-      const ontologyQuery = window.location.pathname.replace(
-        '/fibo/ontology/',
-        '',
-      );
+      const ontologyQuery = window.location.pathname.replace('/fibo/ontology/', '');
       queryParam = `https://spec.edmcouncil.org/fibo/ontology/${ontologyQuery}`;
       // this.githubNewIssue.title = this.githubNewIssue.titleTemplate.replace('<LABEL>', this.githubNewIssue.label);
     } else if (this.$route.query && this.$route.query.query) {
@@ -1151,18 +1126,9 @@ export default {
       }
 
       if (internalRoute.query && internalRoute.query.version) {
-        this.ontologyServer = this.ontologyServer.replace(
-          '{version}',
-          `${internalRoute.query.version}/`,
-        );
-        this.modulesServer = this.modulesServer.replace(
-          '{version}',
-          `${internalRoute.query.version}/`,
-        );
-        this.hintServer = this.hintDefaultDomain.replace(
-          '{version}',
-          `${internalRoute.query.version}/`,
-        );
+        this.ontologyServer = this.ontologyServer.replace('{version}', `${internalRoute.query.version}/`);
+        this.modulesServer = this.modulesServer.replace('{version}', `${internalRoute.query.version}/`);
+        this.hintServer = this.hintDefaultDomain.replace('{version}', `${internalRoute.query.version}/`);
         this.version = internalRoute.query.version;
       } else {
         this.ontologyServer = this.ontologyServer.replace('{version}', '');
@@ -1213,11 +1179,7 @@ export default {
         console.error(err);
         this.error = true;
       } finally {
-        if (
-          this.data
-          && this.data.taxonomy
-          && this.data.taxonomy.value.length > 0
-        ) {
+        if (this.data && this.data.taxonomy && this.data.taxonomy.value.length > 0) {
           this.checkPathsOverflow();
         }
         this.sectionsVisibilitySettings = [];
@@ -1235,10 +1197,7 @@ export default {
 
     // vue-multiselect ontologyVersions
     ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
-      if (
-        selectedOntologyVersion['@id']
-        === this.versionDefaultSelectedData['@id']
-      ) {
+      if (selectedOntologyVersion['@id'] === this.versionDefaultSelectedData['@id']) {
         // default selected
         const { version, ...rest } = this.$route.query; // get rid of version
         this.$router.push({ query: rest });
@@ -1269,9 +1228,7 @@ export default {
         this.$router.push({
           path: destRoute,
           query: {
-            ...(this.$route.query && this.$route.query.version
-              ? { version: encodeURI(this.$route.query.version) }
-              : null),
+            ...(this.$route.query && this.$route.query.version ? { version: encodeURI(this.$route.query.version) } : null),
           },
         });
       } else {
@@ -1280,9 +1237,7 @@ export default {
           path: '/ontology',
           query: {
             ...{ query: encodeURI(destRoute) },
-            ...(this.$route.query && this.$route.query.version
-              ? { version: encodeURI(this.$route.query.version) }
-              : null),
+            ...(this.$route.query && this.$route.query.version ? { version: encodeURI(this.$route.query.version) } : null),
           },
         });
       }
@@ -1293,9 +1248,7 @@ export default {
         path: '/ontology',
         query: {
           ...{ searchBoxQuery: encodeURI(newTag) },
-          ...(this.$route.query && this.$route.query.version
-            ? { version: encodeURI(this.$route.query.version) }
-            : null),
+          ...(this.$route.query && this.$route.query.version ? { version: encodeURI(this.$route.query.version) } : null),
         },
       });
     },
@@ -1304,9 +1257,7 @@ export default {
         this.searchBox.isLoadingMore = true;
         const result = await getOntology(
           searchBQuery,
-          `${this.ontologyServer}/max/${this.searchBox.perPage}${
-            pageIndex != null ? `/page/${pageIndex}` : ''
-          }`,
+          `${this.ontologyServer}/max/${this.searchBox.perPage}${pageIndex != null ? `/page/${pageIndex}` : ''}`,
         );
         const body = await result.json();
         if (body.type !== 'list') {
@@ -1318,10 +1269,11 @@ export default {
         this.error = false;
         this.searchBox.isLoadingMore = false;
 
-        // PH placeholder values
-        if (body.totalResut === undefined) {
+        if (body.totalResut === undefined && body.totalResult === undefined) {
           this.searchBox.totalResults = 0;
-        } else {
+        } else if (body.totalResult) {
+          this.searchBox.totalResults = body.totalResult;
+        } else if (body.totalResut) {
           this.searchBox.totalResults = body.totalResut;
         }
         // eslint-disable-next-line no-restricted-syntax
@@ -1331,13 +1283,8 @@ export default {
             res.maturityLevel.icon = '';
           }
         }
-        // PH placeholder values
 
         this.searchBox.totalData.push(...this.searchBox.searchResults);
-
-        // testing
-        // console.log(this.searchBox);
-        // console.log(this.searchBox.totalData);
       } catch (err) {
         console.error(err);
         this.error = true;
@@ -1395,19 +1342,12 @@ export default {
     },
     checkPathsOverflow() {
       // go through displayed paths and call checkPathOverflow for them
-      if (
-        this.$refs.taxonomyItems
-        && this.$refs.ontologyPaths
-        && this.data
-        && this.data.taxonomy
-      ) {
+      if (this.$refs.taxonomyItems && this.$refs.ontologyPaths && this.data && this.data.taxonomy) {
         for (
           let i = 0;
           i
           < Math.min(
-            2
-              + this.pathsSection.isPathsMoreVisible
-                * (this.data.taxonomy.value.length - 2),
+            2 + this.pathsSection.isPathsMoreVisible * (this.data.taxonomy.value.length - 2),
             this.data.taxonomy.value.length,
           );
           i += 1
@@ -1418,11 +1358,7 @@ export default {
     },
     checkPathOverflow(tIndex) {
       this.$nextTick(() => {
-        if (
-          !this.$refs.ontologyPaths
-            .querySelector('h5')
-            .classList.contains('section-collapse')
-        ) {
+        if (!this.$refs.ontologyPaths.querySelector('h5').classList.contains('section-collapse')) {
           // collapse for overlap test purposes
           const wasCollapsed = this.$refs.taxonomyItems[tIndex].classList.contains('collapsed');
           if (!wasCollapsed) {
@@ -1445,10 +1381,7 @@ export default {
     loadMoreResults() {
       if (this.searchBox.currentPage < this.searchBox.maxPage) {
         this.searchBox.currentPage += 1;
-        this.handleSearchBoxQuery(
-          this.searchBox.lastSearchBQuery,
-          this.searchBox.currentPage,
-        );
+        this.handleSearchBoxQuery(this.searchBox.lastSearchBQuery, this.searchBox.currentPage);
       }
     },
     clearSearchResults() {
@@ -1511,29 +1444,26 @@ export default {
   },
   updated() {
     // scrollTo: ontologyViewerTopOfContainer
-    if (
-      this.$root.ontologyRouteIsUpdating
-      || this.$route.query.scrollToTop === 'true'
-    ) {
+    if (this.$root.ontologyRouteIsUpdating || this.$route.query.scrollToTop === 'true') {
       this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
       this.scrollToOntologyViewerTopOfContainer(); // scroll only after internal navigaion
     }
 
-    const currentTimestamp = Math.floor(Date.now() / 1000);
-    if (this.mountedTimestamp + 4 >= currentTimestamp) {
-      // this IF makes trick to execute only on page load
-      this.scrollToOntologyViewerTopOfContainer(); // scroll only on page load
-    }
+    // const currentTimestamp = Math.floor(Date.now() / 1000);
+    // if (this.mountedTimestamp + 4 >= currentTimestamp) {
+    //  this IF makes trick to execute only on page load
+    //  this.scrollToOntologyViewerTopOfContainer();
+    // }
 
-    if (
-      this.$route.query.searchBoxQuery
-      && this.$route.query.searchBoxQuery_isExecuted !== true
-    ) {
+    if (this.$route.query.searchBoxQuery && this.$route.query.searchBoxQuery_isExecuted !== true) {
       this.scrollToOntologyViewerTopOfContainer();
       this.clearSearchResults();
       this.handleSearchBoxQuery(decodeURI(this.$route.query.searchBoxQuery));
       this.$route.query.searchBoxQuery_isExecuted = true;
     }
+
+    // disable input autocomplete in multiselect
+    document.getElementById('ajax2').autocomplete = 'off';
   },
 };
 </script>
