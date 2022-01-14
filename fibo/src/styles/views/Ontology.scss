@@ -973,13 +973,17 @@
         line-height: 36px;
         margin-bottom: 10px;
       }
-      .search-item__iri {
+      .search-item__iri a {
         color: rgba(0, 0, 0, 0.6);
 
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.01em;
-        margin-bottom: 10px;
+        margin-bottom: 10px; 
+
+        &:hover {
+          text-decoration: none;
+        }
       }
       p {
         color: rgba(0, 0, 0, 0.6);
