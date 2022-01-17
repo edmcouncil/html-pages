@@ -103,7 +103,7 @@ export default {
     padding: 0;
     line-height: 24px;
     font-size: 12px;
-    
+
 
     ::before {
       margin-top: 10px;
