@@ -369,7 +369,13 @@
                   </div>
 
                   <div class="search-item__iri">
-                    {{ result.iri }}
+                    <!-- {{ result.iri }} -->
+                    <customLink
+                      class="custom-link"
+                      :name="result.iri"
+                      :query="result.iri"
+                      :customLinkOnClick="searchResultClicked"
+                    ></customLink>
                   </div>
 
                   <p>
@@ -990,7 +996,7 @@
         </div>
       </div>
     </div>
-  
+
 </template>
 
 <script>
