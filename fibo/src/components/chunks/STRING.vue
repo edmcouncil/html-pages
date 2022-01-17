@@ -61,7 +61,7 @@ export default {
 
   &::before {
     content: "";
-    background-image: url("../../assets/icons/triangle-down.svg");
+    background-image: url("../../assets/icons/search.svg");
     background-repeat: no-repeat;
     background-size: 24px 24px;
 
@@ -84,7 +84,7 @@ export default {
 
   &::before {
     content: "";
-    background-image: url("../../assets/icons/triangle-up.svg");
+    background-image: url("../../assets/icons/search.svg");
     background-repeat: no-repeat;
     background-size: 24px 24px;
 
@@ -108,7 +108,7 @@ export default {
     margin-top: 20px;
     &::before {
       content: "";
-      background-image: url("../../assets/icons/triangle-down.svg");
+      background-image: url("../../assets/icons/search.svg");
       background-repeat: no-repeat;
       background-size: 24px 24px;
 
@@ -128,7 +128,7 @@ export default {
     margin-top: 20px;
     &::before {
       content: "";
-      background-image: url("../../assets/icons/triangle-up.svg");
+      background-image: url("../../assets/icons/search.svg");
       background-repeat: no-repeat;
       background-size: 24px 24px;
 

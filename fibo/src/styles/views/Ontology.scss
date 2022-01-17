@@ -565,7 +565,7 @@ $link-active-color: rgba(0, 0, 0, 0.938);
   align-items: center;
   &::before {
     content: "";
-    background-image: url("../../assets/icons/triangle-down.svg");
+    background-image: url("../../assets/icons/search.svg");
     background-repeat: no-repeat;
     background-size: 24px 24px;
 
@@ -590,7 +590,7 @@ $link-active-color: rgba(0, 0, 0, 0.938);
   align-items: center;
   &::before {
     content: "";
-    background-image: url("../../assets/icons/triangle-up.svg");
+    background-image: url("../../assets/icons/search.svg");
     background-repeat: no-repeat;
     background-size: 24px 24px;
 
@@ -1286,7 +1286,7 @@ $link-active-color: rgba(0, 0, 0, 0.938);
     margin-top: 20px;
     &::before {
       content: "";
-      background-image: url("../../assets/icons/triangle-down.svg");
+      background-image: url("../../assets/icons/search.svg");
       background-repeat: no-repeat;
       background-size: 24px 24px;
 
@@ -1307,7 +1307,7 @@ $link-active-color: rgba(0, 0, 0, 0.938);
     margin-top: 20px;
     &::before {
       content: "";
-      background-image: url("../../assets/icons/triangle-up.svg");
+      background-image: url("../../assets/icons/search.svg");
       background-repeat: no-repeat;
       background-size: 24px 24px;
 
