@@ -5,7 +5,7 @@
         <div class="arrow-container" :class="{ hidden: !isFolder }" @click="toggle">
           <img v:if="!isOpen" class="icon-arrow" :class="{ down: isOpen }" src="../assets/icons/arrow.svg" />
         </div>
-        <div>
+        <div class="indicator-container">
           <i
             :class="[
               'indicator',
@@ -131,6 +131,9 @@ export default {
         -webkit-transform: rotate(45deg);
         margin-bottom: 4px;
     }
+  }
+  .indicator-container {
+    pointer-events: none;
   }
   .indicator {
     margin-left: 10px;
