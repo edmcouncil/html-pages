@@ -1018,6 +1018,8 @@ $link-active-color: rgba(0, 0, 0, 0.938);
       }
       .search-item__iri a {
         color: rgba(0, 0, 0, 0.6);
+        transition: color 0.2s;
+        text-decoration: underline;
 
         font-size: 14px;
         line-height: 20px;
@@ -1025,7 +1027,8 @@ $link-active-color: rgba(0, 0, 0, 0.938);
         margin-bottom: 10px; 
 
         &:hover {
-          text-decoration: none;
+          // text-decoration: none;
+          color: $link-hover-color;
         }
       }
       p {
