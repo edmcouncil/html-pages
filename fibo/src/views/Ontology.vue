@@ -3,7 +3,7 @@
     <div class="row">
       <!-- tree large -->
       <div
-        class="col-lg-4 col-xl-3 d-none d-lg-block ontology-secondary-column"
+        class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column"
       >
         <div class="module-tree">
           <div
@@ -23,7 +23,7 @@
             </div>
           </div>
           <div
-            class="secondary-column-versions multiselect-xxl-container multiselect-container container"
+            class="secondary-column__versions multiselect-xxl-container multiselect-container container"
           >
             <div class="menu-box">
              <div class="menu-box__label">Select FIBO version</div>
@@ -78,7 +78,7 @@
             <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
           </div>
           <div
-            class="secondary-column-tree multiselect-xxl-container multiselect-container container"
+            class="secondary-column__tree multiselect-xxl-container multiselect-container container"
           >
             <div class="menu-box">
               <div class="menu-box__label">Browse FIBO domains</div>
@@ -102,10 +102,10 @@
       </div>
 
       <!-- main col -->
-      <div class="col-12 col-lg-8 col-xl-9 ontology-main-column">
+      <div class="col-12 col-lg-8 col-xl-9 main-column">
         <div class="container px-0">
           <!-- search box large -->
-          <div class="searchBox searchBoxDesktop card d-none d-lg-block">
+          <div class="search-box search-box--desktop card d-none d-lg-block">
             <div class="row">
               <div class="col-lg-12">
                 <div class="multiselect-xxl-container multiselect-container">
@@ -174,7 +174,7 @@
           ></a>
 
           <!-- search box mobile -->
-          <div class="searchBox searchBoxMobile d-lg-none multiselect-container">
+          <div class="search-box search-box--mobile d-lg-none multiselect-container">
                   <div class="menu-box" >
                       <div class="menu-box__label">Search FIBO</div>
                       <div class="menu-box__content-text">
@@ -229,7 +229,7 @@
 
           <!-- tree mobile -->
            <div
-            class="secondary-column-versions secondary-column-versions--mobile multiselect-container container d-lg-none "
+            class="secondary-column__versions secondary-column__versions--mobile multiselect-container container d-lg-none "
           >
             <div class="menu-box">
              <div class="menu-box__label">Select FIBO version</div>
@@ -285,7 +285,7 @@
           </div>
 
           <div
-            class="secondary-column-tree secondary-column-tree--mobile multiselect-container container d-lg-none"
+            class="secondary-column__tree secondary-column__tree--mobile multiselect-container container d-lg-none"
           >
             <div class="menu-box" v-on:click="toggleModuleTree()">
               <div class="menu-box__label">Browse FIBO domains</div>
@@ -636,7 +636,7 @@
                             @click.prevent="togglePathCollapsed(tIndex)"
                           >
                             <div>
-                              <div class="seeMoreBtn">Show full path</div>
+                              <div class="see-more-btn">Show full path</div>
                             </div>
 
                             <div>
@@ -657,7 +657,7 @@
                           checkPathsOverflow();
                         "
                       >
-                        <div class="seeMoreBtn">
+                        <div class="see-more-btn">
                           Show {{ data.taxonomy.value.length - 2 }} more
                           {{
                             data.taxonomy.value.length - 2 > 1
@@ -777,8 +777,8 @@
                               <div
                                 v-if="property.length > 5"
                                 :class="
-                                  'seeMoreBtn ' +
-                                  'seeMoreBtn_' +
+                                  'see-more-btn ' +
+                                  'see-more-btn_' +
                                   sectionIndex +
                                   '_' +
                                   propertyIndex
@@ -802,7 +802,7 @@
                                 v-if="property.length > 5"
                                 :class="
                                   'seeLessBtn ' +
-                                  'seeMoreBtn_' +
+                                  'see-more-btn_' +
                                   sectionIndex +
                                   '_' +
                                   propertyIndex
@@ -855,10 +855,9 @@
               </div>
 
               <!-- NO DATA (HOW TO USE) -->
-              <div class="col-md-12 col-xxl-12" v-else>
-                <main v-if="!loader">
-                  <div class="col-md-12 grayBox">
-                    <div class="contentBox">
+              <div class="col-md-12 col-xxl-12 how-to-article" v-else>
+                <main class="" v-if="!loader">
+                  <div class="col-md-12 how-to-article__header">
                       <h5>How to use FIBO Viewer</h5>
                       <p class="text">
                         To start using FIBO Viewer, search for interesting
@@ -866,10 +865,9 @@
                         on the left-hand side or use the full-text search
                         function.
                       </p>
-                    </div>
                   </div>
 
-                  <article class="clearContentBox">
+                  <article class="how-to-article__content">
                     <img src="@/assets/img/clock.svg" />
 
                     <h5>FIBO Versions</h5>

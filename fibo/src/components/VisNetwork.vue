@@ -118,8 +118,8 @@ export default {
   },
   mounted() {
     if (this.data) {
-      console.log(this.data.nodes);
-      console.log(this.data.edges);
+      // console.log(this.data.nodes);
+      // console.log(this.data.edges);
 
       this.data.nodes.forEach(function(part, index) {
 

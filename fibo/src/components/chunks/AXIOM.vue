@@ -8,7 +8,7 @@
     <div href="#"
       v-show="!isMoreVisible"
       @click.prevent="isMoreVisible = !isMoreVisible">
-        <div class="seeMoreBtnAxiom">Show more</div>
+        <div class="see-more-btn-axiom">Show more</div>
         <br />
     </div>
 
@@ -16,7 +16,7 @@
         <component v-bind:is="moreProcessedHtml"></component>
         <div href="#"
           @click.prevent="isMoreVisible = !isMoreVisible">
-            <div class="seeLessBtnAxiom">Show less</div>
+            <div class="see-less-btn-axiom">Show less</div>
             <br />
         </div>
     </div>
@@ -94,7 +94,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.seeMoreBtnAxiom {
+.see-more-btn-axiom {
   font-size: 18px;
   line-height: 30px;
   display: flex;
@@ -118,7 +118,7 @@ export default {
     margin-right: 6px;
   }
 }
-.seeLessBtnAxiom {
+.see-less-btn-axiom {
   cursor: pointer;
   font-size: 18px;
   line-height: 30px;
@@ -144,7 +144,7 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .seeMoreBtnAxiom {
+  .see-more-btn-axiom {
     cursor: pointer;
     font-style: normal;
     font-weight: normal;
@@ -164,7 +164,7 @@ export default {
       height: 24px;
     }
   }
-  .seeLessBtnAxiom {
+  .see-less-btn-axiom {
     cursor: pointer;
     font-style: normal;
     font-weight: normal;

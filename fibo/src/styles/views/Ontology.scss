@@ -22,114 +22,8 @@ $link-active-color: rgba(0, 0, 0, 0.938);
   }
 }
 
-// How to use fibo article
-.grayBox {
-  background: rgba(0, 0, 0, 0.05);
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 0 20px 20px 0px;
-  .contentBox {
-    margin-top: 0px;
-    padding: 0px 60px 60px 60px;
-    h5 {
-      font-size: 42px;
-      font-weight: 700;
-      line-height: 50px;
-      min-height: 50px;
-      padding: 60px 0;
-    }
-  }
-}
-.clearContentBox {
-  margin-top: 0px;
-  padding: 0px 60px 60px 60px;
-  h5 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 50px;
-    min-height: 50px;
-    white-space: nowrap;
-    padding-top: 20px;
-  }
-  .post-description.padding-top30 {
-    padding-top: 30px;
-  }
-  .post-description {
-    font-size: 14px;
-    padding-bottom: 20px;
-  }
-  .padding-top40-bottom-10 {
-    padding-bottom: 10px;
-    padding-top: 40px;
-  }
-}
-
-//  Ontology secondary column
-.ontology-secondary-column {
-  margin-top: 40px;
-  padding: 0px;
-
-  .module-tree {
-    min-width: 285px;
-    margin-bottom: 40px;
-  
-    .modules-list {
-      margin: 20px 0 0 20px;
-    }
-    .modules-header {
-      margin-top: 20px;
-      justify-content: space-between;
-      .fibo-title-modules {
-        color: map-get($colors-map, "black");
-        text-decoration: none;
-        font-family: Inter;
-        font-weight: 700;
-        font-size: 24px;
-        margin-left: 10px;
-      }
-      
-      .button-small {
-        align-items: center;
-        background-color: map-get($colors-map, "black");
-        border-radius: 2px;
-        display: flex;
-        height: 30px;
-        min-width: 106px;
-        padding: 0 15px;
-        margin: 0;
-      
-        .button-small-text:link {
-          color: map-get($colors-map, "white");
-          font-family: Inter;
-          font-size: 14px;
-          font-weight: 400;
-          letter-spacing: 0.14px;
-          line-height: 20px;
-          min-height: 20px;
-          min-width: 76px;
-          white-space: nowrap;
-          text-decoration: none;
-        }
-        .button-small-text:visited {
-          color: map-get($colors-map, "white");
-        }
-        .button-small-text:hover {
-          color: map-get($colors-map, "white");
-        }
-        .button-small-text:active {
-          color: map-get($colors-map, "white");
-        }
-      
-      }
-      h5 {
-        padding: 0;
-        margin: 0;
-      }
-    }
-  }
-}
 // --------------------------
-//    Multiselect Common
+// Multiselect Common
 // --------------------------
 .multiselect-container {
   &.multiselect-xxl-container {
@@ -259,10 +153,11 @@ $link-active-color: rgba(0, 0, 0, 0.938);
     }
   }
 }
+
 // --------------------------
-//       Tree modules
+// Tree modules
 // --------------------------
-.multiselect-container.secondary-column-tree {
+.multiselect-container.secondary-column__tree {
   margin-top: 60px;
   padding: 0 20px 0px 20px;
   border-radius: 2px;
@@ -281,17 +176,18 @@ $link-active-color: rgba(0, 0, 0, 0.938);
     color: #000000;
   }
 }
-.multiselect-container.secondary-column-tree.secondary-column-tree--mobile{
+.multiselect-container.secondary-column__tree.secondary-column__tree--mobile{
   background-color: transparent;
   margin-top: 30px;
   .menu-box {
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
   }
 }
+
 // --------------------------
-//    Fibo version select
+// Fibo version select
 // --------------------------
-.multiselect-container.secondary-column-versions {
+.multiselect-container.secondary-column__versions {
   margin-top: 60px;
   padding: 0 20px 0px 20px;
   border-radius: 2px;
@@ -358,17 +254,18 @@ $link-active-color: rgba(0, 0, 0, 0.938);
     }
   }
 }
-.multiselect-container.secondary-column-versions.secondary-column-versions--mobile{
+.multiselect-container.secondary-column__versions.secondary-column__versions--mobile{
   background-color: transparent;
   margin-top: 30px;
   .menu-box {
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
   }
 }
-// -----------------
-//    Search box
-// -----------------
-.searchBox {
+
+// --------------------------
+// Search box
+// --------------------------
+.search-box {
   background: rgba(0, 0, 0, 0.05);
   margin-top: 20px;
   padding: 0 20px 0px 20px;
@@ -480,86 +377,20 @@ $link-active-color: rgba(0, 0, 0, 0.938);
     }
   }
 }
-.searchBoxDesktop {
+.search-box--desktop {
   margin-top: 60px;
 }
-.searchBoxMobile{
+.search-box--mobile {
   background-color: transparent;
   .menu-box {
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
   }
 }
 
-// 
-// loading error,
-// expand/collapse buttons
-
-.alert-error {
-  color: rgba(0, 0, 0, 0.8);
-
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-
-  letter-spacing: 0.01em;
-
-  background: #f3140c;
-  border: none;
-  width: fit-content;
-  block-size: fit-content;
-  border-radius: 2px;
-
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 5px 15px 5px 15px;
-  // margin-right: 85px;
-
-  a {
-    text-decoration: underline;
-  }
-
-  &::before {
-    content: "";
-    display: block;
-    height: 20px;
-    width: 20px;
-    background-color: inherit;
-    border: inherit;
-    position: absolute;
-    bottom: -3px;
-    left: 4px;
-    clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
-    transform: rotate(-45deg);
-    border-radius: 0 0 0 0.25em;
-  }
-}
-.seeMoreBtn {
-  cursor: pointer;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 30px;
-  color: rgba(0, 0, 0, 0.8);
-  text-decoration: none;
-  margin-top: 25px;
-
-  display: flex;
-  align-items: center;
-  &::before {
-    content: "";
-    background-image: url("../../assets/icons/search.svg");
-    background-repeat: no-repeat;
-    background-size: 24px 24px;
-
-    display: block;
-    width: 24px;
-    height: 24px;
-
-    margin-right: 6px;
-  }
-}
-.seeLessBtn {
+// --------------------------
+// Common elements
+// --------------------------
+.see-more-btn {
   cursor: pointer;
   font-style: normal;
   font-weight: normal;
@@ -585,12 +416,188 @@ $link-active-color: rgba(0, 0, 0, 0.938);
   }
 }
 
-//
-// desktop/global
-// ontology-item
-.ontology-main-column {
+.see-less-btn {
+  cursor: pointer;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 30px;
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+  margin-top: 25px;
+
+  display: flex;
+  align-items: center;
+  &::before {
+    content: "";
+    background-image: url("../../assets/icons/search.svg");
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+
+    display: block;
+    width: 24px;
+    height: 24px;
+
+    margin-right: 6px;
+  }
+}
+
+// --------------------------
+// Desktop/global elements
+// --------------------------
+.main-column {
   padding-left: 60px;
   padding-right: 60px;
+
+  .alert-error {
+    color: rgba(0, 0, 0, 0.8);
+  
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+  
+    letter-spacing: 0.01em;
+  
+    background: #f3140c;
+    border: none;
+    width: fit-content;
+    block-size: fit-content;
+    border-radius: 2px;
+  
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px 15px 5px 15px;
+    // margin-right: 85px;
+  
+    a {
+      text-decoration: underline;
+    }
+  
+    &::before {
+      content: "";
+      display: block;
+      height: 20px;
+      width: 20px;
+      background-color: inherit;
+      border: inherit;
+      position: absolute;
+      bottom: -3px;
+      left: 4px;
+      clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+      transform: rotate(-45deg);
+      border-radius: 0 0 0 0.25em;
+    }
+  }
+
+  .how-to-article {
+    padding-left: 0px;
+    padding-right: 0px;
+  
+    .how-to-article__header{
+      background: rgba(0, 0, 0, 0.05);
+      margin-top: 45px;
+      margin-bottom: 60px;
+      padding: 60px;
+  
+      h5 {
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 50px;
+        min-height: 50px;
+        padding: 0;
+        margin-bottom: 40px;
+      }
+    }
+  
+    .how-to-article__content {
+      margin-top: 0px;
+      padding: 0px 60px 60px 60px;
+      h5 {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 50px;
+        min-height: 50px;
+        white-space: nowrap;
+        padding-top: 20px;
+      }
+      .post-description.padding-top30 {
+        padding-top: 30px;
+      }
+      .post-description {
+        font-size: 14px;
+        padding-bottom: 20px;
+      }
+      .padding-top40-bottom-10 {
+        padding-bottom: 10px;
+        padding-top: 40px;
+      }
+    }
+  }
+}
+
+.secondary-column {
+  margin-top: 40px;
+  padding: 0px;
+
+  .module-tree {
+    min-width: 285px;
+    margin-bottom: 40px;
+  
+    .modules-list {
+      margin: 20px 0 0 20px;
+    }
+    .modules-header {
+      margin-top: 20px;
+      justify-content: space-between;
+      .fibo-title-modules {
+        color: map-get($colors-map, "black");
+        text-decoration: none;
+        font-family: Inter;
+        font-weight: 700;
+        font-size: 24px;
+        margin-left: 10px;
+      }
+      
+      .button-small {
+        align-items: center;
+        background-color: map-get($colors-map, "black");
+        border-radius: 2px;
+        display: flex;
+        height: 30px;
+        min-width: 106px;
+        padding: 0 15px;
+        margin: 0;
+      
+        .button-small-text:link {
+          color: map-get($colors-map, "white");
+          font-family: Inter;
+          font-size: 14px;
+          font-weight: 400;
+          letter-spacing: 0.14px;
+          line-height: 20px;
+          min-height: 20px;
+          min-width: 76px;
+          white-space: nowrap;
+          text-decoration: none;
+        }
+        .button-small-text:visited {
+          color: map-get($colors-map, "white");
+        }
+        .button-small-text:hover {
+          color: map-get($colors-map, "white");
+        }
+        .button-small-text:active {
+          color: map-get($colors-map, "white");
+        }
+      
+      }
+      h5 {
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
 }
 
 .ontology-item {
@@ -677,10 +684,10 @@ $link-active-color: rgba(0, 0, 0, 0.938);
     text-decoration: none;
     padding-right: 60px;
     padding-left: 60px;
-    .seeMoreBtn {
+    .see-more-btn {
       margin-top: 20px;
     }
-    .seeLessBtn {
+    .see-less-btn {
       margin-top: 20px;
     }
     h5 {
@@ -865,6 +872,7 @@ $link-active-color: rgba(0, 0, 0, 0.938);
       background: none;
       font-size: 18px;
       line-height: 30px;
+      transition: color 0.2s;
 
       &:hover {
         color: $link-hover-color;
@@ -902,9 +910,6 @@ $link-active-color: rgba(0, 0, 0, 0.938);
   }
 }
 
-//
-// dekstop/global
-// search-results
 .search-section {
   word-wrap: break-word;
   .search-section__header {
@@ -1060,10 +1065,10 @@ $link-active-color: rgba(0, 0, 0, 0.938);
     }
   }
 }
-//
-// mobile
-// sections collapse
-// ontology-item
+
+// --------------------------
+// Mobile
+// --------------------------
 @media (max-width: 768px) {
   .section-title {
     &::before {
@@ -1096,10 +1101,12 @@ $link-active-color: rgba(0, 0, 0, 0.938);
       display: none;
     }
   }
-  .ontology-main-column {
+
+  .main-column {
     padding-left: 0px;
     padding-right: 0px;
   }
+
   .ontology-item {
     .row {
       margin: 0;
@@ -1139,10 +1146,10 @@ $link-active-color: rgba(0, 0, 0, 0.938);
         }
         .collapseButtons {
           display: block;
-          .seeLessBtn {
+          .see-less-btn {
             display: block;
           }
-          .seeMoreBtn {
+          .see-more-btn {
             display: none;
           }
         }
@@ -1153,10 +1160,10 @@ $link-active-color: rgba(0, 0, 0, 0.938);
           }
 
           .collapseButtons {
-            .seeLessBtn {
+            .see-less-btn {
               display: none;
             }
-            .seeMoreBtn {
+            .see-more-btn {
               display: block;
             }
           }
@@ -1259,53 +1266,7 @@ $link-active-color: rgba(0, 0, 0, 0.938);
       }
     }
   }
-  .seeMoreBtn {
-    cursor: pointer;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: rgba(0, 0, 0, 0.8);
-    text-decoration: none;
-    margin-top: 20px;
-    &::before {
-      content: "";
-      background-image: url("../../assets/icons/search.svg");
-      background-repeat: no-repeat;
-      background-size: 24px 24px;
 
-      display: block;
-      width: 24px;
-      height: 24px;
-      float: left;
-    }
-  }
-  .seeLessBtn {
-    cursor: pointer;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: rgba(0, 0, 0, 0.8);
-    text-decoration: none;
-    margin-top: 20px;
-    &::before {
-      content: "";
-      background-image: url("../../assets/icons/search.svg");
-      background-repeat: no-repeat;
-      background-size: 24px 24px;
-
-      display: block;
-      width: 24px;
-      height: 24px;
-      float: left;
-    }
-  }
-}
-//
-// mobile
-// search-results
-@media (max-width: 768px) {
   .search-section {
     .search-section__header {
       padding: 40px 30px;
@@ -1392,6 +1353,50 @@ $link-active-color: rgba(0, 0, 0, 0.938);
         line-height: 30px;
         width: 100%;
       }
+    }
+  }
+
+  .see-more-btn {
+    cursor: pointer;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+    margin-top: 20px;
+    &::before {
+      content: "";
+      background-image: url("../../assets/icons/search.svg");
+      background-repeat: no-repeat;
+      background-size: 24px 24px;
+
+      display: block;
+      width: 24px;
+      height: 24px;
+      float: left;
+    }
+  }
+
+  .see-less-btn {
+    cursor: pointer;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+    margin-top: 20px;
+    &::before {
+      content: "";
+      background-image: url("../../assets/icons/search.svg");
+      background-repeat: no-repeat;
+      background-size: 24px 24px;
+
+      display: block;
+      width: 24px;
+      height: 24px;
+      float: left;
     }
   }
 }

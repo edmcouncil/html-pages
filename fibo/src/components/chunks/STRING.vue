@@ -9,7 +9,7 @@
         v-show="!isMoreVisible"
         @click.prevent="isMoreVisible = !isMoreVisible"
       >
-        <div class="seeMoreBtnString">Show more</div>
+        <div class="see-more-btn-string">Show more</div>
         <br />
       </div>
 
@@ -19,7 +19,7 @@
         v-show="isMoreVisible"
         @click.prevent="isMoreVisible = !isMoreVisible"
       >
-        <div class="seeLessBtnString">Show less</div>
+        <div class="see-less-btn-string">Show less</div>
         <br />
       </div>
     </div>
@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.seeMoreBtnString {
+.see-more-btn-string {
   display: flex;
   align-items: center;
   font-size: 18px;
@@ -72,7 +72,7 @@ export default {
     margin-right: 6px;
   }
 }
-.seeLessBtnString {
+.see-less-btn-string {
   cursor: pointer;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.8);
@@ -97,7 +97,7 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .seeMoreBtnString {
+  .see-more-btn-string {
     cursor: pointer;
     font-style: normal;
     font-weight: normal;
@@ -117,7 +117,7 @@ export default {
       height: 24px;
     }
   }
-  .seeLessBtnString {
+  .see-less-btn-string {
     cursor: pointer;
     font-style: normal;
     font-weight: normal;
