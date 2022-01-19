@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="container header desktop-view">
-   
+
     <nav class="navbar navbar-expand-lg navbar-light">
       <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
         <img id="logo-fibo" src="@/assets/img/logoWhite.png" />
@@ -131,18 +131,18 @@
             >
           </li>
 
-               
+
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('ontology') }">FIBO Viewer</router-link>
           </li>
 
           <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('FIBO-Groups') }">FIBO Community</router-link>
-          </li> 
+          </li>
 
 		  <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('FIB-DM') }">FIB-DM</router-link>
-          </li> 
+          </li>
 
           <li class="nav-item dropdown">
             <a
@@ -159,7 +159,7 @@
               <router-link class="dropdown-item" :to="{ path: router('vocabulary') }">FIBO Vocabulary</router-link>
               <router-link class="dropdown-item" :to="{ path: router('data-dictionary') }">FIBO Data Dictionary</router-link>
             </div>
-          </li>          
+          </li>
 
 
           <li class="nav-item dropdown">
@@ -174,13 +174,13 @@
             >Docs</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <router-link class="dropdown-item" :to="{ path: router('FIBO-Release-Notes') }">FIBO Release Notes</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('ontology-tools') }">FIBO Ontology Tools</router-link>              
+              <router-link class="dropdown-item" :to="{ path: router('ontology-tools') }">FIBO Ontology Tools</router-link>
             </div>
           </li>
 
           <li class="nav-item">
              <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG Home</a>
-          </li>  
+          </li>
         </ul>
       </div>
     </nav>
@@ -247,7 +247,7 @@ export default {
       height: 23px;
       width: 24px;
     }
-  } 
+  }
 }
 .burger-button img{
   max-width: 90%;
@@ -353,7 +353,7 @@ export default {
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
   //background-image: url("../assets/icons/union-burger-m.png");
-} 
+}
 
 .navbar-links {
   position: absolute;
@@ -437,6 +437,10 @@ export default {
   border-radius: 0;
 }
 
+//multiselect burger hide down arrow
+.dropdown-toggle::after  {
+  display: none;
+}
 .dropdown-menu.desktop {
   left:-95%;
 }
