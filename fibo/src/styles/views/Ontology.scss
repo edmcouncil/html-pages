@@ -666,6 +666,8 @@ $link-active-color: rgba(0, 0, 0, 0.938);
       font-size: 18px;
       line-height: 30px;
 
+      text-align: justify;
+
       margin: 0;
       margin-bottom: 40px;
       padding: 0;
@@ -1019,7 +1021,7 @@ $link-active-color: rgba(0, 0, 0, 0.938);
       .search-item__iri a {
         color: rgba(0, 0, 0, 0.6);
         transition: color 0.2s;
-        text-decoration: underline;
+        text-decoration: none;
 
         font-size: 14px;
         line-height: 20px;
@@ -1027,7 +1029,7 @@ $link-active-color: rgba(0, 0, 0, 0.938);
         margin-bottom: 10px; 
 
         &:hover {
-          // text-decoration: none;
+          text-decoration: underline;
           color: $link-hover-color;
         }
       }
