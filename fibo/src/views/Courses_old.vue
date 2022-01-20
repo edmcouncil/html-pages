@@ -17,7 +17,7 @@
                     <li><a href="#KG-M3">Module 3: Knowledge Graph Modeling</a></li>
                     <li><a href="#KG-M4">Module 4: Knowledge Graph Applied</a></li>
                 </ol>
-                
+
 
                 <h5><span>Course Objectives</span></h5>
                 <p>After finishing this course, you will know:</p>
@@ -31,14 +31,11 @@
                 </ol>
 
 
-
-
-
         <h3 id="KG-M1">
-          <span>Module 1: Knowledge Graph Fundamentals</span>
+        <span>Module 1: Knowledge Graph Fundamentals</span>
         </h3>
 
-<p class="text">The technologies that support knowledge graphs go by many names: Semantic Web, Linked Data, Graph data, etc. Over the course of the past 20 years, the World Wide Web consortium has extended the specifications of the basic technology of the World Wide Web to include standards for managing knowledge graphs on a global scale.  These technologies are well-suited for the management of knowledge graphs in the setting of large, global companies whose data needs are distributed and diverse. </p>
+        <p class="text">The technologies that support knowledge graphs go by many names: Semantic Web, Linked Data, Graph data, etc. Over the course of the past 20 years, the World Wide Web consortium has extended the specifications of the basic technology of the World Wide Web to include standards for managing knowledge graphs on a global scale.  These technologies are well-suited for the management of knowledge graphs in the setting of large, global companies whose data needs are distributed and diverse. </p>
 
 <h5><span>You will learn</span></h5>
 
@@ -65,8 +62,6 @@
 <ol>
   <li>Basics of enterprise data management</li>
 </ol>
-
-
 
 
 <h5><span>The curriculum covers the basics of the methodology and technology behind FIBO and will include </span></h5>
@@ -225,7 +220,7 @@
 
         <h3 id="KG-M4">
           <span>Module 4: Knowledge Graph Applied</span>
-        </h3>        
+        </h3>
 
 <p class="text">Knowledge Graphs are based on mature technology.&nbsp; In this hands-on unit, students will create their own knowledge graph by merging three data sets:</p>
 <ol>

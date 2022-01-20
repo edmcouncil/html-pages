@@ -2,7 +2,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Vue from 'vue';
 import VueAnalytics from 'vue-analytics';
-import VueGtag  from 'vue-gtag';
+import VueGtag from 'vue-gtag';
 import Clipboard from 'v-clipboard';
 import App from './App.vue';
 import router from './router';
@@ -21,7 +21,7 @@ Vue.use(VueAnalytics, {
 });
 
 Vue.use(VueGtag, {
-  config: { id: "G-CBM9M64EMC" }
+  config: { id: 'G-CBM9M64EMC' },
 });
 
 new Vue({

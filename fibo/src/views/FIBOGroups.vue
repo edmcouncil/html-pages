@@ -9,7 +9,7 @@
 
                <p class="text">FIBO Community is and has always been the most important pillar of FIBO. We should never forget that ontology - as defined by Nicola Guarino - is a formal specification of a <b>shared conceptualization</b>. Creating functional/good financial ontology always means finding consensus between parties that agree to share the way they see and talk about the financial domain. </p>
 
-<p class="text">FIBO evolved out of concerns that arose during the 2008 financial crisis among individuals who had been working together in data governance and management. The most pressing issue at the time was that they needed to have a shared, common vocabulary that they could use within their institutions. </p> 
+<p class="text">FIBO evolved out of concerns that arose during the 2008 financial crisis among individuals who had been working together in data governance and management. The most pressing issue at the time was that they needed to have a shared, common vocabulary that they could use within their institutions. </p>
 
 <p class="text">After 11 years of FIBO development, the FIBO community has grown significantly. Currently, it has
 
@@ -20,17 +20,9 @@
 </p>
 
                 <p class="text">
-                  FIBO community is part of a larger EDMC Open Knowledge Graph (OKG) community. The OKG community is organized as follows. 
+                  FIBO community is part of a larger EDMC Open Knowledge Graph (OKG) community. The OKG community is organized as follows.
                   <!-- FIBO development process is organized by two groups: the <strong>FIBO Steering Group</strong> and the <strong>FIBO Community Group</strong>. -->
                 </p>
-
-
-
-
-
-
-
-
 
 
 <h3>OKG Steering Committee</h3>
@@ -38,11 +30,11 @@
 <p class="text">
 On the top of the OKG community, we've got <b>OKG Steering Committee</b> that is responsible for the strategic orientation of FIBO (and any other EDMC ontology) evolution. It is also responsible for reviewing and approving new releases.</p>
 
-<!-- <br>                
+<!-- <br>
                 <p>
                   The FIBO Steering Group (FSG) is responsible for
                 </p>
-                
+
                 <ul>
                   <li>
                     the strategic orientation of the FIBO evolution
@@ -62,7 +54,7 @@ On the top of the OKG community, we've got <b>OKG Steering Committee</b> that is
 
 <p class="text">
   The OKG Steering Committee is chaired by <b>John Bottega</b>, who acts in this capacity on behalf of the EDMC.
-</p>                
+</p>
 
 <h3>OKG Interest Groups</h3>
 
@@ -74,8 +66,6 @@ Inside the FIBO and AUTO Interest Groups, we have smaller <b>OKG Working Groups<
 
 <!-- <p class="text">
 Later in this webinar, Elisa Kendall will introduce us to the FCTs. We will learn how FCTs are organized and how they operate. And, what's the most important, how to join existing FCTs, or even how to organize your own working group. </p> -->
-
-
 
 
 <p class="text">
@@ -90,7 +80,7 @@ Later in this webinar, Elisa Kendall will introduce us to the FCTs. We will lear
 <p class="text">
   Every proposed FIBO extension should strictly follow the rigorous and well-defined
   <a href="https://github.com/edmcouncil/fibo/blob/master/CONTRIBUTING.md">rules and principles</a>,
-  including the 
+  including the
   <a href="https://github.com/edmcouncil/fibo/blob/INFRA-489/ONTOLOGY_GUIDE.md">principles of best practices for FIBO</a>.
   FIBO project also adheres to the Contributor Covenant
   <a href="https://github.com/edmcouncil/fibo/blob/master/CODE_OF_CONDUCT.md">code of conduct</a>.
@@ -99,7 +89,6 @@ Later in this webinar, Elisa Kendall will introduce us to the FCTs. We will lear
 <!-- <p class="text">
   The FCG chair will be announced soon.
 </p> -->
-
 
 
 <h3>FIBO Community spaces</h3>
@@ -116,7 +105,7 @@ Later in this webinar, Elisa Kendall will introduce us to the FCTs. We will lear
 <!--         <h1>
           <span>How To Contribute</span>
         </h1>
-        
+
 
         <p class="text">
           Since January 2020, FIBO has been developed by an open community process. Official documentation of the FIBO project is located in its Github repository. The following files are important for any FIBO contributors:
@@ -141,7 +130,7 @@ Later in this webinar, Elisa Kendall will introduce us to the FCTs. We will lear
           <li>
                 <a href="https://github.com/edmcouncil/fibo/blob/master/CONTRIBUTING.md"
                     v-on:click="outboundClick('https://github.com/edmcouncil/fibo/blob/master/CONTRIBUTING.md')">CONTRIBUTING.md</a> and <a href="https://github.com/edmcouncil/fibo/blob/master/ONTOLOGY_GUIDE.md"
-                    v-on:click="outboundClick('https://github.com/edmcouncil/fibo/blob/master/ONTOLOGY_GUIDE.md')">ONTOLOGY_GUIDE.md</a>: These contributing documents explain what types of contributions are needed and how the process works. 
+                    v-on:click="outboundClick('https://github.com/edmcouncil/fibo/blob/master/ONTOLOGY_GUIDE.md')">ONTOLOGY_GUIDE.md</a>: These contributing documents explain what types of contributions are needed and how the process works.
 
           </li>
           <li>
@@ -149,15 +138,11 @@ Later in this webinar, Elisa Kendall will introduce us to the FCTs. We will lear
                 <a href="https://github.com/edmcouncil/fibo/blob/master/CODE_OF_CONDUCT.md"
                     v-on:click="outboundClick('https://github.com/edmcouncil/fibo/blob/master/CODE_OF_CONDUCT.md')">CODE_OF_CONDUCT.md</a>: The code of conduct sets ground rules for participants’ behavior associated and helps to facilitate a friendly, welcoming environment. The FIBO project adheres to the Contributor Covenant code of conduct. By participating, you are expected to uphold this code.
           </li>
-        </ul> -->                
+        </ul> -->
               </article>
             </main>
           </div>
-        </div>
-      </div>
 
-    </div>
-  </div>
 </template>
 
 <script>

@@ -1,36 +1,49 @@
 <template>
-  <li class="module">
-    <div class="arrow-container" :class="{hidden: !isFolder}" @click="toggle">
-      <i :class="{down: isOpen}" />
-    </div>
-    <i :class="[
-                'indicator',
-                this.item.maturityLevel.label == 'dev' ? 'devIndicator' : '',
-                this.item.maturityLevel.label == 'prod' ? 'prodIndicator' : '',
-                this.item.maturityLevel.label == 'prodDev' ? 'prodDevIndicator' : '',
-                ]"></i>
-    <div class="label" :class="{ selected: isSelected}">
-      <customLink class="custom-link" :name="item.label" :query="item.iri" :customLinkOnClick="this.ontologyClicked"></customLink>
-    </div>
-    <ul v-show="isOpen" v-if="isFolder" class="list-unstyled">
-      <module-tree
-        :item="subItem"
-        :location="location"
-        v-for="subItem in item.subModule"
-        :key="subItem.label"
-      />
-    </ul>
-  </li>
+  <div>
+    <li class="module container">
+      <div class="row">
+        <div class="arrow-container" :class="{ hidden: !isFolder }" @click="toggle">
+          <img v:if="!isOpen" class="icon-arrow" :class="{ down: isOpen }" src="../assets/icons/arrow.svg" />
+        </div>
+        <div class="indicator-container">
+          <i
+            :class="[
+              'indicator',
+              this.item.maturityLevel.label == 'dev' ? 'devIndicator' : '',
+              this.item.maturityLevel.label == 'prod' ? 'prodIndicator' : '',
+              this.item.maturityLevel.label == 'prodDev' ? 'prodDevIndicator' : '',
+            ]"
+          ></i>
+        </div>
+        <div class="label" :class="{ selected: isSelected }">
+          <customLink
+            class="custom-link"
+            :name="item.label"
+            :query="item.iri"
+            :customLinkOnClick="this.ontologyClicked"
+          ></customLink>
+        </div>
+      </div>
+      <ul v-show="isOpen" v-if="isFolder" class="list-unstyled">
+        <module-tree
+          :item="subItem"
+          :location="location"
+          v-for="subItem in item.subModule"
+          :key="subItem.label"
+        />
+      </ul>
+    </li>
+  </div>
 </template>
 
 <script>
-import Vue from 'vue';
-import customLink from './chunks/link';
+import Vue from "vue";
+import customLink from "./chunks/link";
 
-Vue.component('customLink', customLink);
+Vue.component("customLink", customLink);
 
 export default {
-  name: 'module-tree',
+  name: "module-tree",
   props: {
     item: Object,
     location: Object,
@@ -45,16 +58,13 @@ export default {
     toggle() {
       this.isOpen = !this.isOpen;
     },
-    ontologyClicked(event) {
-    },
+    ontologyClicked(event) {},
     expandOpened(loc) {
       if (loc && loc.locationInModules) {
-        this.isSelected = loc.locationInModules.some(
-          location => location == this.item.iri,
-        );
-        this.isOpen = /* this.isOpen || */ this.isSelected; //isOpen is commented out to enable collapsing tree after opening different branch 
+        this.isSelected = loc.locationInModules.some((location) => location == this.item.iri);
+        this.isOpen = /* this.isOpen || */ this.isSelected; //isOpen is commented out to enable collapsing tree after opening different branch
       }
-    }
+    },
   },
   mounted() {
     this.expandOpened(this.location);
@@ -83,13 +93,17 @@ export default {
   -ms-user-select: none;
   user-select: none;
 
+  .row {
+    flex-wrap: nowrap;
+  }
+
   ul,
   li {
     margin: 0;
     padding: 0;
     line-height: 24px;
     font-size: 12px;
-    font-weight: bold;
+
 
     ::before {
       margin-top: 10px;
@@ -100,44 +114,46 @@ export default {
   ul {
     margin-left: 15px;
   }
-
+.icon-arrow.down{
+  -ms-transform: rotate(90deg); /* IE 9 */
+  transform: rotate(90deg);
+}
   .arrow-container {
     display: inline-block;
     width: 10px;
+    height: 1em;
+    width: 1em;
     &.hidden {
       visibility: hidden;
     }
-    i {
-      border: solid black;
-      border-width: 0 2px 2px 0;
-      margin-bottom: 2px;
-      display: inline-block;
-      padding: 3px;
-      transform: rotate(-45deg);
-      -webkit-transform: rotate(-45deg);
-
-      &.down {
+    &.down {
         transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         margin-bottom: 4px;
-      }
     }
   }
-  .indicator{
+  .indicator-container {
+    pointer-events: none;
+  }
+  .indicator {
     margin-left: 10px;
-    font-size: 0.75rem;
-    height: 0.9em;
-    width: 0.9em;
-    border-radius: 50%;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    height: 1.6em;
+    width: 1.6em;
     display: inline-block;
+    background-size: 1.6em;
     &.devIndicator {
-      background: linear-gradient(90deg, #51D355 0%, #F1DF3F 0%);
+      background-image: url("../assets/icons/provisional-maturity.svg");
+      background-position: center;
     }
     &.prodIndicator {
-      background: linear-gradient(90deg, #51D355 100%, #F1DF3F 50%);
+      background-image: url("../assets/icons/production-maturity.svg");
+      background-position: center;
     }
     &.prodDevIndicator {
-      background: linear-gradient(90deg, #51D355 50%, #F1DF3F 50%);
+      background-image: url("../assets/icons/mixed-maturity.svg");
+      background-position: center;
     }
   }
   .label {
@@ -147,6 +163,8 @@ export default {
     }
 
     .custom-link {
+      font-size: 14px;
+      color: map-get($colors-map, "black");
       margin-left: 6px;
     }
   }

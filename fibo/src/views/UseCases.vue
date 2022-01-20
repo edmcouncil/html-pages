@@ -92,7 +92,7 @@
                             <td>
                                 This is high priority in order to (1) provide a much-needed reference model for securities master data management and (2) demonstrate how to use an ontology successfully and in a cost-effective way as the basis for other work inside an institution.
                             </td>
-                        </tr>                        
+                        </tr>
 
                         <tr>
                             <td>Stakeholders</td>
@@ -105,7 +105,7 @@
                             <td>Description</td>
                             <td>
 
-                                <p class="text">There are a number of organizations that publish certain master data elements that we can use as the basis for coming up with a composite view, including OpenFIGI, the DTCC Security Master Data File (including intra-day), various exchanges including the NYSE and Nasdaq, and possibly CME.  The purpose of the use case is to show how one might leverage data coming from multiple sources to manage security master data using FIBO.</p>                                
+                                <p class="text">There are a number of organizations that publish certain master data elements that we can use as the basis for coming up with a composite view, including OpenFIGI, the DTCC Security Master Data File (including intra-day), various exchanges including the NYSE and Nasdaq, and possibly CME.  The purpose of the use case is to show how one might leverage data coming from multiple sources to manage security master data using FIBO.</p>
                             </td>
                         </tr>
 
@@ -493,23 +493,19 @@
 </template>
 
 <script>
-    import helpers from '../store/helpers.js';
-    import {
-        outboundClick, outboundLinkClick
-    }
-    from '../helpers/ga';
+import helpers from '../store/helpers.js';
+import { outboundClick, outboundLinkClick } from '../helpers/ga';
 
-    export default {
-        extends: helpers,
-        name: 'useCases',
-        components: {},
-        methods: {
-            outboundClick,
-            outboundLinkClick,
-        },
-    };
+export default {
+  extends: helpers,
+  name: 'useCases',
+  components: {},
+  methods: {
+    outboundClick,
+    outboundLinkClick,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
 </style>

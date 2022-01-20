@@ -7,22 +7,27 @@
         </h1>
 
         <h2>
-          One of the wonderful features of Ontologies, as developed by EDMC for FIBO, is that an ontology will be both machine readable (OWL) and people readable (UML). For this to be truly practical, it is necessary to be able to round trip between the two representations of the same reality. The Semantic Modelling for Information
-          Federation (
+          One of the wonderful features of Ontologies, as developed by EDMC for
+          FIBO, is that an ontology will be both machine readable (OWL) and
+          people readable (UML). For this to be truly practical, it is necessary
+          to be able to round trip between the two representations of the same
+          reality. The Semantic Modelling for Information Federation (
           <a
             href="https://github.com/ModelDriven/SIMF/blob/master/NextSubmission/SMIFSubmissionMasterDocument.pdf"
-          >SMIF</a>)
-          specification being developed by the OMG provides the design to do this. It is currently being implemented by
-          No Magic in their product Cameo Concept Modeler (CCM). As this is a work in progress, this section of
-          spec.edmcouncil.org/fibo has a sample from FIBO Production. Defining diagrams for FIBO Foundations (FND) and
-          FIBO Business Entities has been chosen as a preview of this capability.
+            >SMIF</a
+          >) specification being developed by the OMG provides the design to do
+          this. It is currently being implemented by No Magic in their product
+          Cameo Concept Modeler (CCM). As this is a work in progress, this
+          section of spec.edmcouncil.org/fibo has a sample from FIBO Production.
+          Defining diagrams for FIBO Foundations (FND) and FIBO Business
+          Entities has been chosen as a preview of this capability.
         </h2>
         <p>
           Ontologies are shown in
-          <b>bold</b>, while classes are shown in
-          <i>italic</i>. Only classes for which we have
-          developed CCM diagrams are shown here. Single ontologies can be downloaded in any of three formats, rdf, turle
-          and json-ld.
+          <b>bold</b>, while classes are shown in <i>italic</i>. Only classes
+          for which we have developed CCM diagrams are shown here. Single
+          ontologies can be downloaded in any of three formats, rdf, turle and
+          json-ld.
         </p>
         <ul>
           <li>
@@ -35,14 +40,26 @@
                     <div class="ontology">
                       Corporations
                       <a
-                        v-bind:href="hrefP('BE/Corporations/Corporations.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('BE/Corporations/Corporations.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/Corporations/Corporations.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('BE/Corporations/Corporations.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/Corporations/Corporations.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/Corporations/Corporations.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -51,8 +68,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__5729a569-bd9e-4f82-a803-85b26ebead0d_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          religious
-                          corporation definition
+                          religious corporation definition
                         </a>
                       </li>
                     </ul>
@@ -66,28 +82,64 @@
                     <div class="ontology">
                       FunctionalEntities
                       <a
-                        v-bind:href="hrefP('BE/FunctionalEntities/FunctionalEntities.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/FunctionalEntities/FunctionalEntities.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/FunctionalEntities/FunctionalEntities.rdf','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/FunctionalEntities/FunctionalEntities.rdf',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/FunctionalEntities/FunctionalEntities.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/FunctionalEntities/FunctionalEntities.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
                   <li>
                     <div class="ontology">
                       Publishers
                       <a
-                        v-bind:href="hrefP('BE/FunctionalEntities/Publishers.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/FunctionalEntities/Publishers.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/FunctionalEntities/Publishers.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/FunctionalEntities/Publishers.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/FunctionalEntities/Publishers.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/FunctionalEntities/Publishers.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -96,8 +148,8 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__e034ecf2-1edc-4984-b25e-1554a8a35ef1_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          definition
-                          of publisher, publication, and publishing house
+                          definition of publisher, publication, and publishing
+                          house
                         </a>
                       </li>
                     </ul>
@@ -112,14 +164,32 @@
                     <div class="ontology">
                       CorporateBodies
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/CorporateBodies.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/LegalEntities/CorporateBodies.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/CorporateBodies.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/LegalEntities/CorporateBodies.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/CorporateBodies.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/LegalEntities/CorporateBodies.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -128,8 +198,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__3133918c-bd89-4b78-800f-97d109d5ecd0_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          corporate
-                          bodies taxonomy
+                          corporate bodies taxonomy
                         </a>
                       </li>
                       <li>
@@ -138,8 +207,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__44d87c3d-1219-43ae-8469-46d9a0ce844b_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          corporation
-                          definition
+                          corporation definition
                         </a>
                       </li>
                       <li>
@@ -148,8 +216,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__ee657053-fe79-46c9-8375-f00e5af17c98_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          corporations
-                          class hierarchy
+                          corporations class hierarchy
                         </a>
                       </li>
                       <li>
@@ -158,8 +225,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__1672b118-9854-41c1-9fdb-320db7a96931_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          extended
-                          corporation definition
+                          extended corporation definition
                         </a>
                       </li>
                       <li>
@@ -168,8 +234,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__1853e1ed-3a59-4a19-80b3-0c25e22fc2e5_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          stock
-                          corporation
+                          stock corporation
                         </a>
                       </li>
                     </ul>
@@ -178,14 +243,32 @@
                     <div class="ontology">
                       FormalBusinessOrganizations
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/FormalBusinessOrganizations.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/LegalEntities/FormalBusinessOrganizations.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/FormalBusinessOrganizations.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/LegalEntities/FormalBusinessOrganizations.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/FormalBusinessOrganizations.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/LegalEntities/FormalBusinessOrganizations.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -194,8 +277,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__4dd740f7-3edf-49cd-bb86-53c86d074de1_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          formally
-                          constituted organization
+                          formally constituted organization
                         </a>
                       </li>
                     </ul>
@@ -204,14 +286,26 @@
                     <div class="ontology">
                       LegalPersons
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/LegalPersons.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('BE/LegalEntities/LegalPersons.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/LegalPersons.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('BE/LegalEntities/LegalPersons.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/LegalPersons.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/LegalEntities/LegalPersons.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -219,7 +313,8 @@
                           class="diagram"
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__214e3df7-3731-413d-ad78-ffc934286bdd_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
-                        >signatory</a>
+                          >signatory</a
+                        >
                       </li>
                     </ul>
                   </li>
@@ -227,14 +322,26 @@
                     <div class="ontology">
                       LEIEntities
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/LEIEntities.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('BE/LegalEntities/LEIEntities.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/LEIEntities.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('BE/LegalEntities/LEIEntities.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/LegalEntities/LEIEntities.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/LegalEntities/LEIEntities.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
                 </ul>
@@ -246,14 +353,32 @@
                     <div class="ontology">
                       ControlParties
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/ControlParties.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/ControlParties.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/ControlParties.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/ControlParties.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/ControlParties.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/ControlParties.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -262,8 +387,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__5759c148-2851-4435-b59e-6a4ab610208c_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          controlling
-                          interest parties
+                          controlling interest parties
                         </a>
                       </li>
                       <li>
@@ -272,8 +396,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__cd02b6a8-8774-4c02-9447-1f586c44aef0_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          de
-                          facto controlling interest
+                          de facto controlling interest
                         </a>
                       </li>
                       <li>
@@ -282,8 +405,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__5a1fd298-913c-43f5-b168-b8810e9f43de_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          de
-                          jure controlling interest parties
+                          de jure controlling interest parties
                         </a>
                       </li>
                       <li>
@@ -292,8 +414,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__daa4db10-8af7-477d-bdd2-14695d6acec3_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          degrees
-                          of control
+                          degrees of control
                         </a>
                       </li>
                       <li>
@@ -302,8 +423,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__45682bdd-895b-4af0-a80d-a83a7b470c9c_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          entity
-                          controlling party
+                          entity controlling party
                         </a>
                       </li>
                     </ul>
@@ -312,14 +432,32 @@
                     <div class="ontology">
                       CorporateControl
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/CorporateControl.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/CorporateControl.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/CorporateControl.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/CorporateControl.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/CorporateControl.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/CorporateControl.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -327,7 +465,8 @@
                           class="diagram"
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__fe33b3ee-d28c-44e4-9c2d-44e07645da99_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
-                        >affiliates</a>
+                          >affiliates</a
+                        >
                       </li>
                       <li>
                         <a
@@ -335,8 +474,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__8d139914-ff45-4923-bb9c-d45a9b4bb2af_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          controlled
-                          companies
+                          controlled companies
                         </a>
                       </li>
                       <li>
@@ -345,8 +483,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__0942112e-e4ca-447b-a406-aa26ba7207b4_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          corporate
-                          control class hierarchy
+                          corporate control class hierarchy
                         </a>
                       </li>
                       <li>
@@ -355,8 +492,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__07537326-e0a3-4c80-a6d5-a8d8d2142283_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          extended
-                          voting shareholder definition
+                          extended voting shareholder definition
                         </a>
                       </li>
                       <li>
@@ -365,8 +501,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__63fee74a-0f02-4c31-9262-d279247824b5_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          parent
-                          companies
+                          parent companies
                         </a>
                       </li>
                       <li>
@@ -374,7 +509,8 @@
                           class="diagram"
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__7f681ee6-0a0f-45d1-b2c9-93d060ce9259_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
-                        >subsidiaries</a>
+                          >subsidiaries</a
+                        >
                       </li>
                       <li>
                         <a
@@ -382,8 +518,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__507b3303-3439-4379-b6cf-99e2cd46f390_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          voting
-                          shareholders
+                          voting shareholders
                         </a>
                       </li>
                     </ul>
@@ -392,14 +527,32 @@
                     <div class="ontology">
                       CorporateOwnership
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/CorporateOwnership.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/CorporateOwnership.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/CorporateOwnership.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/CorporateOwnership.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/CorporateOwnership.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/CorporateOwnership.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -408,8 +561,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__08adbd34-b0c2-48ff-8999-1cfd01cae7f8_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          corporate
-                          ownership class hierarchy
+                          corporate ownership class hierarchy
                         </a>
                       </li>
                     </ul>
@@ -418,14 +570,32 @@
                     <div class="ontology">
                       Executives
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/Executives.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/Executives.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/Executives.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/Executives.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/Executives.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/Executives.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -434,8 +604,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__905ab22f-1f55-4ff5-9d25-4e6e91d2ee71_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Board
-                          Membership and Authority
+                          Board Membership and Authority
                         </a>
                       </li>
                       <li>
@@ -444,8 +613,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__c85e4088-a4c9-4060-a341-fa4a30ec89ea_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          board
-                          of directors and board capacity definition
+                          board of directors and board capacity definition
                         </a>
                       </li>
                       <li>
@@ -454,8 +622,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__236dffa6-7c03-470b-9dc0-cefe41720340_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          corporate
-                          officers
+                          corporate officers
                         </a>
                       </li>
                       <li>
@@ -464,8 +631,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__4f51b308-ab10-4457-a6df-bbafd51cec81_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          delegation
-                          of authority
+                          delegation of authority
                         </a>
                       </li>
                       <li>
@@ -474,8 +640,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__b0808f04-fd32-461a-ae50-70ba4f06260e_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          executive
-                          class hierarchy
+                          executive class hierarchy
                         </a>
                       </li>
                       <li>
@@ -484,8 +649,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__c822e3be-9fb8-4153-b313-a597285cde63_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          responsible
-                          parties
+                          responsible parties
                         </a>
                       </li>
                     </ul>
@@ -494,14 +658,32 @@
                     <div class="ontology">
                       OwnershipParties
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/OwnershipParties.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/OwnershipParties.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/OwnershipParties.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/OwnershipParties.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/OwnershipAndControl/OwnershipParties.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/OwnershipAndControl/OwnershipParties.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -510,8 +692,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__7bd69c8c-dcb4-4806-b75f-790f9c693499_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          constitutional
-                          ownership
+                          constitutional ownership
                         </a>
                       </li>
                       <li>
@@ -520,8 +701,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__07ba9c88-8976-48ae-b4bc-9b9381526316_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          ownership
-                          parties class hierarchy
+                          ownership parties class hierarchy
                         </a>
                       </li>
                     </ul>
@@ -535,14 +715,26 @@
                     <div class="ontology">
                       Partnerships
                       <a
-                        v-bind:href="hrefP('BE/Partnerships/Partnerships.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('BE/Partnerships/Partnerships.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/Partnerships/Partnerships.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('BE/Partnerships/Partnerships.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/Partnerships/Partnerships.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/Partnerships/Partnerships.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -551,8 +743,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__eeaeab16-7171-4eee-8cdb-6a3eabb6255a_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          partner
-                          definition
+                          partner definition
                         </a>
                       </li>
                       <li>
@@ -561,8 +752,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__2faa9f68-2106-4437-ae58-cd54cc38ad60_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          partnership
-                          definition
+                          partnership definition
                         </a>
                       </li>
                       <li>
@@ -571,8 +761,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__08e075c8-db9e-4409-bd86-864f3dbd458a_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          partnerships
-                          class hierarchy
+                          partnerships class hierarchy
                         </a>
                       </li>
                     </ul>
@@ -586,14 +775,32 @@
                     <div class="ontology">
                       PrivateLimitedCompanies
                       <a
-                        v-bind:href="hrefP('BE/PrivateLimitedCompanies/PrivateLimitedCompanies.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/PrivateLimitedCompanies/PrivateLimitedCompanies.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/PrivateLimitedCompanies/PrivateLimitedCompanies.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/PrivateLimitedCompanies/PrivateLimitedCompanies.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/PrivateLimitedCompanies/PrivateLimitedCompanies.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/PrivateLimitedCompanies/PrivateLimitedCompanies.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -602,8 +809,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__3360ea46-06d1-438a-b8e1-22fe91e3f79f_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          private
-                          limited companies concepts
+                          private limited companies concepts
                         </a>
                       </li>
                     </ul>
@@ -617,14 +823,32 @@
                     <div class="ontology">
                       Sole Proprietorships
                       <a
-                        v-bind:href="hrefP('BE/SoleProprietorships//SoleProprietorships.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/SoleProprietorships//SoleProprietorships.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/SoleProprietorships//SoleProprietorships.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'BE/SoleProprietorships//SoleProprietorships.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/SoleProprietorships//SoleProprietorships.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'BE/SoleProprietorships//SoleProprietorships.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
                 </ul>
@@ -635,15 +859,18 @@
                   <li>
                     <div class="ontology">
                       Trusts
+                      <a v-bind:href="hrefP('BE/Trusts/Trusts.rdf', 'ontology')"
+                        >rdf</a
+                      >,
+                      <a v-bind:href="hrefP('BE/Trusts/Trusts.ttl', 'ontology')"
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('BE/Trusts/Trusts.rdf','ontology')"
-                      >rdf</a>,
-                      <a
-                        v-bind:href="hrefP('BE/Trusts/Trusts.ttl','ontology')"
-                      >turtle</a>,
-                      <a
-                        v-bind:href="hrefP('BE/Trusts/Trusts.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('BE/Trusts/Trusts.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -652,8 +879,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__28a3ddb7-8238-4a95-98ab-5dc392682e04_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          trust
-                          beneficiaries
+                          trust beneficiaries
                         </a>
                       </li>
                       <li>
@@ -661,7 +887,8 @@
                           class="diagram"
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__197c2d66-3a64-4c41-a78f-f2fc2ed4d81c_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
-                        >trusts</a>
+                          >trusts</a
+                        >
                       </li>
                       <li>
                         <a
@@ -669,8 +896,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__a6b3f451-460f-4e92-8dbb-c167026baa5b_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          trusts
-                          class hierarchy
+                          trusts class hierarchy
                         </a>
                       </li>
                     </ul>
@@ -689,14 +915,32 @@
                     <div class="ontology">
                       AccountingEquity
                       <a
-                        v-bind:href="hrefP('FND/Accounting/AccountingEquity.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Accounting/AccountingEquity.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Accounting/AccountingEquity.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Accounting/AccountingEquity.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Accounting/AccountingEquity.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/Accounting/AccountingEquity.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -705,8 +949,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__104e94c3-26a5-4657-a645-c15fd3b397c4_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Capital and Asset
+                          FND - Capital and Asset
                         </a>
                       </li>
                       <li>
@@ -715,8 +958,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__1b435d54-20d2-4b32-a675-fd9469fe3d7a_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Equity Concepts
+                          FND - Equity Concepts
                         </a>
                       </li>
                     </ul>
@@ -725,14 +967,26 @@
                     <div class="ontology">
                       CurrencyAmount
                       <a
-                        v-bind:href="hrefP('FND/Accounting/CurrencyAmount.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Accounting/CurrencyAmount.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Accounting/CurrencyAmount.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Accounting/CurrencyAmount.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Accounting/CurrencyAmount.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/Accounting/CurrencyAmount.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -741,8 +995,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__76031403-1b69-46cf-b51a-20f18b756e53_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Definition for Currency and Currency Identifiers
+                          FND - Definition for Currency and Currency Identifiers
                         </a>
                       </li>
                       <li>
@@ -751,8 +1004,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__1f01204f-ae16-420a-a8fb-1a2d9b68a5fb_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Definition of Exchange and Interest Rate
+                          FND - Definition of Exchange and Interest Rate
                         </a>
                       </li>
                       <li>
@@ -761,8 +1013,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__b01fca58-2f9e-473d-8fdc-b71e273f659c_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Definition of Price
+                          FND - Definition of Price
                         </a>
                       </li>
                     </ul>
@@ -776,14 +1027,23 @@
                     <div class="ontology">
                       Agents
                       <a
-                        v-bind:href="hrefP('FND/AgentsAndPeople/Agents.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/AgentsAndPeople/Agents.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/AgentsAndPeople/Agents.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/AgentsAndPeople/Agents.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/AgentsAndPeople/Agents.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/AgentsAndPeople/Agents.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -792,8 +1052,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__49553faf-d63d-42ca-9513-9b7905cff077_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Agents Concepts
+                          FND - Agents Concepts
                         </a>
                       </li>
                     </ul>
@@ -802,14 +1061,23 @@
                     <div class="ontology">
                       People
                       <a
-                        v-bind:href="hrefP('FND/AgentsAndPeople/People.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/AgentsAndPeople/People.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/AgentsAndPeople/People.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/AgentsAndPeople/People.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/AgentsAndPeople/People.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/AgentsAndPeople/People.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -818,8 +1086,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__17ec2fa7-1760-4218-bc6a-2d56759e5265_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Identification Documents
+                          FND - Identification Documents
                         </a>
                       </li>
                       <li>
@@ -828,8 +1095,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__09ecf5f2-7bc4-4f63-9544-a9e467a31bf4_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - People Identification Basics
+                          FND - People Identification Basics
                         </a>
                       </li>
                       <li>
@@ -838,8 +1104,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__79449248-f0b6-48c0-834b-e190bc75056d_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - People Names
+                          FND - People Names
                         </a>
                       </li>
                       <li>
@@ -848,8 +1113,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__8610736c-8c3d-400b-9cfb-3377c42e2a99_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Person Fundamentals
+                          FND - Person Fundamentals
                         </a>
                       </li>
                       <li>
@@ -858,8 +1122,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__a3c05a7e-85c6-4f7a-9cba-e985878e935a_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Person Types
+                          FND - Person Types
                         </a>
                       </li>
                     </ul>
@@ -873,14 +1136,23 @@
                     <div class="ontology">
                       Agreements
                       <a
-                        v-bind:href="hrefP('FND/Agreements/Agreements.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Agreements/Agreements.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Agreements/Agreements.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Agreements/Agreements.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Agreements/Agreements.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Agreements/Agreements.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -889,8 +1161,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__118ed9bd-e84d-4321-8fe1-cb9a0eadca79_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Agreements Concepts
+                          FND - Agreements Concepts
                         </a>
                       </li>
                     </ul>
@@ -899,14 +1170,23 @@
                     <div class="ontology">
                       Contracts
                       <a
-                        v-bind:href="hrefP('FND/Agreements/Contracts.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Agreements/Contracts.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Agreements/Contracts.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Agreements/Contracts.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Agreements/Contracts.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Agreements/Contracts.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -915,8 +1195,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__094e457a-04cd-4e51-8e98-5e8211bf7411_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Contract Parties
+                          FND - Contract Parties
                         </a>
                       </li>
                       <li>
@@ -925,8 +1204,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__e0c8235a-37c6-4892-85db-c390c7f9ada6_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Contract Terms and Elements
+                          FND - Contract Terms and Elements
                         </a>
                       </li>
                       <li>
@@ -935,8 +1213,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__d82b2f76-3ea5-457f-92dc-b4cfad1937d8_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Contract Types
+                          FND - Contract Types
                         </a>
                       </li>
                       <li>
@@ -945,8 +1222,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__f3d4fd8f-fa03-44df-be2a-75d3f091b6a1_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Contracts Basic Concepts
+                          FND - Contracts Basic Concepts
                         </a>
                       </li>
                       <li>
@@ -955,8 +1231,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__56fb2e9e-e5e7-4168-b5b1-57e0d713159d_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - Transferable Contract Parties
+                          FND - Transferable Contract Parties
                         </a>
                       </li>
                     </ul>
@@ -970,14 +1245,26 @@
                     <div class="ontology">
                       Arrangements
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/Arrangements.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Arrangements/Arrangements.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/Arrangements.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Arrangements/Arrangements.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/Arrangements.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/Arrangements/Arrangements.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -986,8 +1273,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__aa4c7c52-4add-4b56-80fd-857e187ce04e_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          FND
-                          - arrangements concepts
+                          FND - arrangements concepts
                         </a>
                       </li>
                     </ul>
@@ -996,14 +1282,32 @@
                     <div class="ontology">
                       ClassificationSchemes
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/ClassificationSchemes.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Arrangements/ClassificationSchemes.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/ClassificationSchemes.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Arrangements/ClassificationSchemes.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/ClassificationSchemes.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/Arrangements/ClassificationSchemes.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1011,7 +1315,8 @@
                           class="diagram"
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__b52b938f-1002-43e5-9565-619b45c2a135_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
-                        >industry sector classifier</a>
+                          >industry sector classifier</a
+                        >
                       </li>
                       <li>
                         <a
@@ -1019,8 +1324,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__c5a537a5-2091-4877-860b-e73024718b23_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Classification
-                          Schemes Concepts
+                          Classification Schemes Concepts
                         </a>
                       </li>
                     </ul>
@@ -1029,14 +1333,23 @@
                     <div class="ontology">
                       Codes
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/Codes.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Arrangements/Codes.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/Codes.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Arrangements/Codes.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/Codes.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Arrangements/Codes.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1045,8 +1358,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__6934f5ab-ea44-4d3d-948d-b6f270379ca8_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Codes
-                          Ontology Metadata
+                          Codes Ontology Metadata
                         </a>
                       </li>
                     </ul>
@@ -1055,14 +1367,23 @@
                     <div class="ontology">
                       Documents
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/Documents.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Arrangements/Documents.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/Documents.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Arrangements/Documents.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/Documents.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Arrangements/Documents.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1071,8 +1392,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__1da23726-c3ac-40cc-8134-f8d15c3d49c6_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Documents
-                          Concepts
+                          Documents Concepts
                         </a>
                       </li>
                     </ul>
@@ -1081,14 +1401,32 @@
                     <div class="ontology">
                       IdentifiersAndIndices
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/IdentifiersAndIndices.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Arrangements/IdentifiersAndIndices.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/IdentifiersAndIndices.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Arrangements/IdentifiersAndIndices.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Arrangements/IdentifiersAndIndices.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/Arrangements/IdentifiersAndIndices.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1097,8 +1435,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__46b576f8-bb06-42f1-ab27-fb704e099b34_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Identifiers
-                          and Identifying Schemes
+                          Identifiers and Identifying Schemes
                         </a>
                       </li>
                       <li>
@@ -1107,8 +1444,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__7b204b67-3897-4e8c-ab9a-f07519065b0b_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Indices
-                          and Indexing Schemes
+                          Indices and Indexing Schemes
                         </a>
                       </li>
                     </ul>
@@ -1122,42 +1458,90 @@
                     <div class="ontology">
                       BusinessDates
                       <a
-                        v-bind:href="hrefP('FND/DatesAndTimes/BusinessDates.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/DatesAndTimes/BusinessDates.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/DatesAndTimes/BusinessDates.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/DatesAndTimes/BusinessDates.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/DatesAndTimes/BusinessDates.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/DatesAndTimes/BusinessDates.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
                   <li>
                     <div class="ontology">
                       FinancialDates
                       <a
-                        v-bind:href="hrefP('FND/DatesAndTimes/FinancialDates.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/DatesAndTimes/FinancialDates.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/DatesAndTimes/FinancialDates.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/DatesAndTimes/FinancialDates.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/DatesAndTimes/FinancialDates.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/DatesAndTimes/FinancialDates.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
                   <li>
                     <div class="ontology">
                       Occurrences
                       <a
-                        v-bind:href="hrefP('FND/DatesAndTimes/Occurrences.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/DatesAndTimes/Occurrences.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/DatesAndTimes/Occurrences.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/DatesAndTimes/Occurrences.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/DatesAndTimes/Occurrences.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/DatesAndTimes/Occurrences.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
                 </ul>
@@ -1170,14 +1554,23 @@
                     <div class="ontology">
                       Jurisdiction
                       <a
-                        v-bind:href="hrefP('FND/Law/Jurisdiction.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Law/Jurisdiction.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Law/Jurisdiction.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Law/Jurisdiction.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Law/Jurisdiction.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Law/Jurisdiction.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1186,8 +1579,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__aa430e64-609d-46f0-9c0f-44243dbe01be_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Civil
-                          Law Jurisdiction
+                          Civil Law Jurisdiction
                         </a>
                       </li>
                       <li>
@@ -1196,8 +1588,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__410d02d6-e8ce-4ed4-a033-43572d8afa37_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Common
-                          Law Jurisdiction
+                          Common Law Jurisdiction
                         </a>
                       </li>
                       <li>
@@ -1206,8 +1597,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__4538ddca-3940-4357-a04e-3d66d25ae24f_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Jurisdiction
-                          Basic Concepts
+                          Jurisdiction Basic Concepts
                         </a>
                       </li>
                       <li>
@@ -1216,8 +1606,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__2d785fef-1449-41e4-b119-b6c1b198d720_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Statue
-                          Law
+                          Statue Law
                         </a>
                       </li>
                     </ul>
@@ -1226,14 +1615,23 @@
                     <div class="ontology">
                       LegalCapacity
                       <a
-                        v-bind:href="hrefP('FND/Law/LegalCapacity.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Law/LegalCapacity.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Law/LegalCapacity.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Law/LegalCapacity.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Law/LegalCapacity.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Law/LegalCapacity.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1242,8 +1640,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__8c6ad5e4-194a-4dad-a86e-16e247bff0ba_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Definition
-                          of Legal Capacity
+                          Definition of Legal Capacity
                         </a>
                       </li>
                       <li>
@@ -1252,8 +1649,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__0b72ece9-7ea7-4405-976f-2264ef603f80_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Definition
-                          of Licensing
+                          Definition of Licensing
                         </a>
                       </li>
                       <li>
@@ -1262,8 +1658,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__5511c84d-bc87-4e80-87a3-9f08664b78b5_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Definition
-                          of Statutory Responsibility
+                          Definition of Statutory Responsibility
                         </a>
                       </li>
                       <li>
@@ -1272,8 +1667,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__2dbc494d-f346-4ecf-aa89-ff577bf2daf7_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Legal
-                          Capacity Hierarchy
+                          Legal Capacity Hierarchy
                         </a>
                       </li>
                     </ul>
@@ -1282,14 +1676,19 @@
                     <div class="ontology">
                       LegalCore
                       <a
-                        v-bind:href="hrefP('FND/Law/LegalCore.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="hrefP('FND/Law/LegalCore.rdf', 'ontology')"
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Law/LegalCore.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="hrefP('FND/Law/LegalCore.ttl', 'ontology')"
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Law/LegalCore.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Law/LegalCore.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1298,8 +1697,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__df36d452-78ac-4f5b-86d0-6e8aef7711bb_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Legal
-                          Core Concepts
+                          Legal Core Concepts
                         </a>
                       </li>
                     </ul>
@@ -1313,42 +1711,96 @@
                     <div class="ontology">
                       FormalOrganizations
                       <a
-                        v-bind:href="hrefP('FND/Organizations/FormalOrganizations.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Organizations/FormalOrganizations.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Organizations/FormalOrganizations.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Organizations/FormalOrganizations.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Organizations/FormalOrganizations.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/Organizations/FormalOrganizations.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
                   <li>
                     <div class="ontology">
                       LegitimateOrganizations
                       <a
-                        v-bind:href="hrefP('FND/Organizations/FormalOrganizations.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Organizations/FormalOrganizations.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Organizations/FormalOrganizations.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Organizations/FormalOrganizations.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Organizations/FormalOrganizations.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/Organizations/FormalOrganizations.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
                   <li>
                     <div class="ontology">
                       Organizations
                       <a
-                        v-bind:href="hrefP('FND/Organizations/LegitimateOrganizations.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Organizations/LegitimateOrganizations.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Organizations/LegitimateOrganizations.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Organizations/LegitimateOrganizations.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Organizations/LegitimateOrganizations.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/Organizations/LegitimateOrganizations.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1357,8 +1809,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__0d1aad23-3b81-4c32-adb6-9031a88b9a29_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Organizations
-                          Concepts
+                          Organizations Concepts
                         </a>
                       </li>
                     </ul>
@@ -1372,14 +1823,32 @@
                     <div class="ontology">
                       Control
                       <a
-                        v-bind:href="hrefP('FND/OwnershipAndControl/Control.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/OwnershipAndControl/Control.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/OwnershipAndControl/Control.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/OwnershipAndControl/Control.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/OwnershipAndControl/Control.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/OwnershipAndControl/Control.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1388,8 +1857,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__c164316d-1842-4b13-99c0-55b9c75d8bcf_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Control
-                          Properties Definition
+                          Control Properties Definition
                         </a>
                       </li>
                       <li>
@@ -1398,8 +1866,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__73c5ff96-1944-4381-8903-2e9fd899edde_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Controlling
-                          Capacities Definition
+                          Controlling Capacities Definition
                         </a>
                       </li>
                     </ul>
@@ -1408,14 +1875,32 @@
                     <div class="ontology">
                       Ownership
                       <a
-                        v-bind:href="hrefP('FND/OwnershipAndControl/Ownership.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/OwnershipAndControl/Ownership.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/OwnershipAndControl/Ownership.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/OwnershipAndControl/Ownership.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/OwnershipAndControl/Ownership.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/OwnershipAndControl/Ownership.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1424,8 +1909,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__cc5e4b69-aa13-4f33-8b62-076414e7111e_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Owner
-                          Definition
+                          Owner Definition
                         </a>
                       </li>
                       <li>
@@ -1434,8 +1918,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__c2fd12f3-dd02-4c57-bcb1-c7feccff8888_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Ownership
-                          Definition
+                          Ownership Definition
                         </a>
                       </li>
                     </ul>
@@ -1444,14 +1927,32 @@
                     <div class="ontology">
                       OwnershipAndControl
                       <a
-                        v-bind:href="hrefP('FND/OwnershipAndControl/OwnershipAndControl.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/OwnershipAndControl/OwnershipAndControl.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/OwnershipAndControl/OwnershipAndControl.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/OwnershipAndControl/OwnershipAndControl.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/OwnershipAndControl/OwnershipAndControl.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/OwnershipAndControl/OwnershipAndControl.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1460,8 +1961,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__b7509955-fdb8-4220-a44d-5b8489536017_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Ownership
-                          and Control
+                          Ownership and Control
                         </a>
                       </li>
                     </ul>
@@ -1475,14 +1975,23 @@
                     <div class="ontology">
                       Parties
                       <a
-                        v-bind:href="hrefP('FND/Parties/Parties.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Parties/Parties.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Parties/Parties.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Parties/Parties.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Parties/Parties.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Parties/Parties.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1491,8 +2000,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__5d14ad71-af92-4625-8c16-a6ee4343d778_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          definition
-                          of party in role
+                          definition of party in role
                         </a>
                       </li>
                       <li>
@@ -1501,8 +2009,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__97d231e1-247a-4c1d-8f72-2d3f3de925d3_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          independent
-                          parties
+                          independent parties
                         </a>
                       </li>
                       <li>
@@ -1511,8 +2018,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__c228fcbc-340c-4ae0-a086-2131add804fe_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          organization
-                          member
+                          organization member
                         </a>
                       </li>
                     </ul>
@@ -1521,14 +2027,19 @@
                     <div class="ontology">
                       Roles
                       <a
-                        v-bind:href="hrefP('FND/Parties/Roles.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="hrefP('FND/Parties/Roles.rdf', 'ontology')"
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Parties/Roles.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="hrefP('FND/Parties/Roles.ttl', 'ontology')"
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Parties/Roles.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Parties/Roles.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1537,8 +2048,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__52558ef7-ffce-44d4-b0ee-99865d14be74_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          role
-                          definition
+                          role definition
                         </a>
                       </li>
                       <li>
@@ -1546,7 +2056,8 @@
                           class="diagram"
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__19cea678-b68c-429b-8e42-b91a38aac189_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
-                        >Roles</a>
+                          >Roles</a
+                        >
                       </li>
                     </ul>
                   </li>
@@ -1559,14 +2070,23 @@
                     <div class="ontology">
                       Addresses
                       <a
-                        v-bind:href="hrefP('FND/Places/Addresses.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Places/Addresses.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Places/Addresses.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Places/Addresses.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Places/Addresses.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Places/Addresses.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1575,8 +2095,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__3a23bc48-0944-4af2-9a4e-9bf3944e126a_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Addresses
-                          Concepts
+                          Addresses Concepts
                         </a>
                       </li>
                     </ul>
@@ -1585,14 +2104,23 @@
                     <div class="ontology">
                       Countries
                       <a
-                        v-bind:href="hrefP('FND/Places/Countries.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Places/Countries.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Places/Countries.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Places/Countries.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Places/Countries.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Places/Countries.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
 
@@ -1600,14 +2128,23 @@
                     <div class="ontology">
                       Facilities
                       <a
-                        v-bind:href="hrefP('FND/Places/Facilities.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Places/Facilities.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Places/Facilities.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Places/Facilities.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Places/Facilities.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Places/Facilities.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1616,8 +2153,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__09a42d66-1b1a-4f4f-a978-4c968855155c_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Facilities
-                          Concepts
+                          Facilities Concepts
                         </a>
                       </li>
 
@@ -1627,8 +2163,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__3403b989-9f6e-442c-a1d5-171d769f5a05_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Site
-                          Definition
+                          Site Definition
                         </a>
                       </li>
 
@@ -1638,8 +2173,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__ba356528-c4c1-4a67-941a-8bb50c3efac4_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Site
-                          Types
+                          Site Types
                         </a>
                       </li>
                     </ul>
@@ -1649,14 +2183,23 @@
                     <div class="ontology">
                       Locations
                       <a
-                        v-bind:href="hrefP('FND/Places/Locations.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Places/Locations.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Places/Locations.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Places/Locations.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Places/Locations.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Places/Locations.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1665,8 +2208,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__08f11937-06aa-4dc2-ab36-20e50041e65f_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          Locations
-                          Concepts
+                          Locations Concepts
                         </a>
                       </li>
                     </ul>
@@ -1675,14 +2217,23 @@
                     <div class="ontology">
                       VirtualPlaces
                       <a
-                        v-bind:href="hrefP('FND/Places/VirtualPlaces.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Places/VirtualPlaces.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Places/VirtualPlaces.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Places/VirtualPlaces.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Places/VirtualPlaces.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Places/VirtualPlaces.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
                 </ul>
@@ -1697,14 +2248,23 @@
                     <div class="ontology">
                       Analytics
                       <a
-                        v-bind:href="hrefP('FND/Utilities/Analytics.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP('FND/Utilities/Analytics.rdf', 'ontology')
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Utilities/Analytics.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP('FND/Utilities/Analytics.ttl', 'ontology')
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Utilities/Analytics.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP('FND/Utilities/Analytics.jsonld', 'ontology')
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1713,8 +2273,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__542bdbc5-4c76-4cd6-8235-96090d31ae88_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          definition
-                          of measure and statistical measure
+                          definition of measure and statistical measure
                         </a>
                       </li>
                     </ul>
@@ -1723,28 +2282,64 @@
                     <div class="ontology">
                       AnnotationVocabulary
                       <a
-                        v-bind:href="hrefP('FND/Utilities/AnnotationVocabulary.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Utilities/AnnotationVocabulary.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Utilities/AnnotationVocabulary.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Utilities/AnnotationVocabulary.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Utilities/AnnotationVocabulary.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/Utilities/AnnotationVocabulary.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                   </li>
                   <li>
                     <div class="ontology">
                       BusinessFacingTypes
                       <a
-                        v-bind:href="hrefP('FND/Utilities/BusinessFacingTypes.rdf','ontology')"
-                      >rdf</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Utilities/BusinessFacingTypes.rdf',
+                            'ontology'
+                          )
+                        "
+                        >rdf</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Utilities/BusinessFacingTypes.ttl','ontology')"
-                      >turtle</a>,
+                        v-bind:href="
+                          hrefP(
+                            'FND/Utilities/BusinessFacingTypes.ttl',
+                            'ontology'
+                          )
+                        "
+                        >turtle</a
+                      >,
                       <a
-                        v-bind:href="hrefP('FND/Utilities/BusinessFacingTypes.jsonld','ontology')"
-                      >json-ld</a>
+                        v-bind:href="
+                          hrefP(
+                            'FND/Utilities/BusinessFacingTypes.jsonld',
+                            'ontology'
+                          )
+                        "
+                        >json-ld</a
+                      >
                     </div>
                     <ul>
                       <li>
@@ -1753,8 +2348,7 @@
                           target="cameo"
                           href="http://52.2.99.123:8080/share/s/1GqFnUakTKK82NvubpmDqw#TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718cNodeView__68068114-cd54-43fe-a218-01b4d0c65993_cc_TREE_VIEW_ID_bca3089d-6c68-4579-9a1f-00135cee718c"
                         >
-                          percentage
-                          definitions
+                          percentage definitions
                         </a>
                       </li>
                     </ul>
