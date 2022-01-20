@@ -640,7 +640,7 @@
                             </div>
 
                             <div>
-                              <div class="seeLessBtn">Hide full path</div>
+                              <div class="see-less-btn">Hide full path</div>
                             </div>
                           </div>
                         </div>
@@ -678,7 +678,7 @@
                           checkPathsOverflow();
                         "
                       >
-                        <div class="seeLessBtn">Show less paths</div>
+                        <div class="see-less-btn">Show less paths</div>
                       </div>
                     </div>
                   </div>
@@ -801,7 +801,7 @@
                               <div
                                 v-if="property.length > 5"
                                 :class="
-                                  'seeLessBtn ' +
+                                  'see-less-btn ' +
                                   'see-more-btn_' +
                                   sectionIndex +
                                   '_' +
