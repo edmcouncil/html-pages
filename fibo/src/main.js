@@ -8,9 +8,15 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import ModuleTree from './components/ModuleTree.vue';
+//import CountryFlag from 'vue-country-flag';
+import LangFlag from 'vue-lang-code-flags';
+
+LangFlag.props.squared = {type: Boolean, default: false};
 
 Vue.config.productionTip = false;
 Vue.component('module-tree', ModuleTree);
+//Vue.component('country-flag', CountryFlag);
+Vue.component('lang-flag', LangFlag);
 Vue.use(Clipboard);
 
 Vue.config.productionTip = false;
