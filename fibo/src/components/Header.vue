@@ -220,7 +220,7 @@ export default {
     max-width: 1440px;
   }
 .header {
-  background-image: url("../assets/img/header.png");
+  background-image: url("../assets/img/headerTransparent.png");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
