@@ -1273,13 +1273,11 @@ export default {
         this.error = false;
         this.searchBox.isLoadingMore = false;
 
-        if (body.totalResut === undefined && body.totalResult === undefined) {
+        if (body.totalResult === undefined) {
           this.searchBox.totalResults = 0;
         } else if (body.totalResult) {
           this.searchBox.totalResults = body.totalResult;
-        } else if (body.totalResut) {
-          this.searchBox.totalResults = body.totalResut;
-        }
+        } 
         // eslint-disable-next-line no-restricted-syntax
         for (const res of this.searchBox.searchResults) {
           if (res.maturityLevel === undefined || res.maturityLevel.icon === undefined) {
