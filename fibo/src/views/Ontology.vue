@@ -1041,7 +1041,7 @@ export default {
       hintDefaultDomain: '/fibo/ontology/{version}api/hint/',
       version: null,
       versionDefaultSelectedData: {
-        '@id': '<DEFAULT>',
+        '@id': 'stable',
         url: '',
       },
       modulesList: null,
@@ -1277,7 +1277,7 @@ export default {
           this.searchBox.totalResults = 0;
         } else if (body.totalResult) {
           this.searchBox.totalResults = body.totalResult;
-        } 
+        }
         // eslint-disable-next-line no-restricted-syntax
         for (const res of this.searchBox.searchResults) {
           if (res.maturityLevel === undefined || res.maturityLevel.icon === undefined) {
