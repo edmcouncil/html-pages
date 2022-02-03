@@ -53,8 +53,9 @@ export default {
           var replacementLang = match.replace("[", "").replace("]", "").replace("@", "");
           var rep ;
           if(replacementLang==='sv'){ 
-            //add Swedish lang support
-            rep =  part.replace(match, "<span class='flag-icon flag-icon-se'></span>");  //se
+            rep =  part.replace(match, "<span class='flag-icon flag-icon-se'></span>");
+          } else if(replacementLang==='no'){ 
+              rep =  part.replace(match, "<span class='flag-icon flag-icon-no'></span>"); 
           } else {
             rep =  part.replace(match, `<lang-flag iso="${replacementLang}" />`);
           }
