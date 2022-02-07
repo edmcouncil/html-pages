@@ -17,23 +17,27 @@
           <a
             href="https://www.nomagic.com/product-addons/magicdraw-addons/cameo-concept-modeler-plugin"
           >
-            CCM (Cameo Concept Modeler) </a
-          >. 
+            CCM (Cameo Concept Modeler)</a
+          >.<br>
           For each of these tools, the <i>Production</i> and
           <i>Development</i> versions of FIBO are available. See below for
           detailed instructions for loading FIBO in each of these tools.
+          <p>
+          <b>Note:</b> FIBO makes reference to
+          <a href="http://www.omg.org/spec/LCC/">
+            LCC (Languages, Countries and Codes)
+          </a>
+          from the OMG, which includes information about these things from other
+          standards bodies. When you load FIBO, all these tools will find these
+          files via follow-your-nose. If you cannot reach these files on the
+          omg.org web servers for any reason, you will see load errors for the
+          files it couldn't find. These can be safely ignored, but you will not
+          have details of the Languages, Countries and Codes available in your
+          model.
+        </p>
         </h2>
         
-        <h3>Using FIBO offline</h3>
-        Many semantic tools can read OWL files that have been downloaded to
-        local storage. Here are the instructions for doing that with the most
-        common tools.
-        <p />
-        <b>NOTE:</b> FIBO imports resources from outside of FIBO, including
-        SKOS, LCC and others. These are not included in the FIBO download, and
-        must be loaded dynamically from the web. Therefore, even when loading
-        FIBO in "offline" mode, you must have an active internet connection.
-        <p />
+        
         <h3>Prot&eacute;g&eacute;</h3>
         <div>
           Please use Prot&eacute;g&eacute; version 5.2 or higher.
@@ -45,8 +49,8 @@
           RDF/XML and load it into Prot&eacute;g&eacute;.
           <ol>
             <li>
-              Download a zipped file of FIBO in RDF/XML format from the FIBO products site:
-              <a href="https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-owl" </a>
+              Download a zipped file of FIBO in RDF/XML format from the
+              <a href="https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-owl">FIBO products site.</a>
             </li>
             <li>
               Unzip this to your hard drive. This creates a single directory
@@ -76,8 +80,8 @@
         </p>
         <ol>
           <li>
-            Download a zipped file of FIBO in Turtle from the FIBO products site:
-              <a href="https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-owl" </a>
+            Download a zipped file of FIBO in RDF/XML format from the
+              <a href="https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-owl">FIBO products site.</a>
           </li>
           <li>
             Unzip this on your hard drive. This creates a single directory
@@ -113,8 +117,8 @@
         </p>
         <ol>
           <li>
-            Download a zipped file of FIBO in Turtle from the FIBO products site:
-              <a href="https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-owl" </a>
+            Download a zipped file of FIBO in RDF/XML format from the
+              <a href="https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-owl">FIBO products site.</a>
           <li>
             Unzip this to your hard drive. This creates a single directory
             called fibo, with all of the FIBO ontologies in subdirectories.
@@ -144,24 +148,10 @@
             Import the FIBO Master: File/Import From/OWL Ontology File, and
             navigate to the folder where you unzipped FIBO. Navigate to
             LoadFIBODev.rdf, or LoadFIBOProd.ttl, depending on your preference,
-            and import it.
-          </li>
-          MagicDraw will import all of FIBO ontologies contained in the LoadFIBO
+            and import it. MagicDraw will import all of FIBO ontologies contained in the LoadFIBO
           file.
+          </li>
         </ol>
-        <p>
-          <b>Note:</b> FIBO makes reference to
-          <a href="http://www.omg.org/spec/LCC/">
-            LCC (Languages, Countries and Codes)
-          </a>
-          from the OMG, which includes information about these things from other
-          standards bodies. When you load FIBO, all these tools will find these
-          files via follow-your-nose. If you cannot reach these files on the
-          omg.org web servers for any reason, you will see load errors for the
-          files it couldn't find. These can be safely ignored, but you will not
-          have details of the Languages, Countries and Codes available in your
-          model.
-        </p>
         <h3>Other available tools</h3>
         <p>
           The EDM Council is working in collaboration with many companies to
