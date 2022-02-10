@@ -75,7 +75,6 @@
             <div class="sub-nav-link">
               <router-link class="nav-link nav-sub-link" :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link>
               <router-link class="nav-link nav-sub-link" :to="{ path: router('development-process') }">Development process</router-link>
-              <router-link class="nav-link nav-sub-link" :to="{ path: router('') }">Ontology guide</router-link>
               <router-link class="nav-link nav-sub-link" :to="{ path: router('how-to-contribute') }">How to contribute</router-link>
               <router-link class="nav-link nav-sub-link" :to="{ path: router('FIBO-Release-Notes') }"
                 >FIBO Release Notes</router-link>
@@ -176,7 +175,6 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <router-link class="dropdown-item" :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link>
               <router-link class="dropdown-item" :to="{ path: router('development-process') }">Development process</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('') }">Ontology guide</router-link>
               <router-link class="dropdown-item" :to="{ path: router('how-to-contribute') }">How to contribute</router-link>
               <router-link class="dropdown-item" :to="{ path: router('FIBO-Release-Notes') }">FIBO Release Notes</router-link>
               <router-link class="dropdown-item" :to="{ path: router('ontology-tools') }">FIBO Ontology Tools</router-link>
