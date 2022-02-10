@@ -20,7 +20,7 @@
           Thus all changes in the FIBO OWL will be reflected in all other
           products. There are also external uses of FIBO, such as FIBO.schema.org, which use FIBO as a reference for search indexing of specific information on the Internet.<br>
         </p>
-        
+
         <div class="table-responsive">
           <table class="table table-style-grey">
             <tr>
@@ -31,7 +31,7 @@
               </td>
               <td>Official version of FIBO</td>
               <td>
-                Includes various serialisations of FIBO OWL 
+                Includes various serialisations of FIBO OWL
               </td>
             </tr>
             <tr>
