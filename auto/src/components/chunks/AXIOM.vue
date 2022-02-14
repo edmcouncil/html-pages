@@ -33,36 +33,17 @@ export default {
         customLink
     },
     props: ["value", "entityMaping"],
-       data() {
-        const regexLang = /\[[a-z]{2}\]|@[a-z]{2}/
-        let html = this.value;
-        let lines = html.split(/(?:\r\n|\r|\n)/g);
-        if (lines.length == 1) {
-            lines = html.split("<br />");
-        }
-        lines.forEach(function(part, index){
-          var regexMatch = part.match(regexLang);
-          if(regexMatch!=null) {
-            regexMatch.forEach(function(match, indexMatch){
-              var replacementLang = match.replace("[","").replace("]","").replace("@", "");
-               var rep ;
-              if(replacementLang==='sv'){ 
-                rep =  part.replace(match, "<span class='flag-icon flag-icon-se'></span>");
-              } else if(replacementLang==='no'){ 
-                rep =  part.replace(match, "<span class='flag-icon flag-icon-no'></span>"); 
-              } else {
-                rep =  part.replace(match, `<lang-flag iso="${replacementLang}" />`);
-              }
-              lines[index] = rep;
-              }, regexMatch);
-            
-          }
-        }, lines);
-        return {
-            lines: lines,
-            isShowMore: false,
-            isMoreVisible: false
-        };
+        data() {
+            let html = this.value;
+            let lines = html.split(/(?:\r\n|\r|\n)/g);
+            if (lines.length == 1) {
+                lines = html.split("<br />");
+            }
+            return {
+                lines: lines,
+                isShowMore: false,
+                isMoreVisible: false
+            };
     },
     computed: {
         fullProcessedHtml() {

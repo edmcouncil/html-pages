@@ -1,19 +1,22 @@
 <template>
-<div v-if="!isShowMore">
-    <component v-bind:is="fullProcessedHtml"></component>
-</div>
-<div v-else>
-    <component v-bind:is="sliceProcessedHtml">
-    </component>
-    <a href="#" 
-      v-show="!isMoreVisible" 
-      @click.prevent="isMoreVisible = !isMoreVisible">
-        See more...
-    </a>
+<div>
+    <div 
+      v-if="!isShowMore" 
+      v-html="lines.join('<br />')" />
 
-    <div v-show="isMoreVisible">
-        <component v-bind:is="moreProcessedHtml"></component>
+    <div v-else>
+        <div v-html="lines.slice(0, 5).join('<br />')" />
         <a href="#" 
+          v-show="!isMoreVisible" 
+          @click.prevent="isMoreVisible = !isMoreVisible">
+            See more...
+        </a>
+
+        <div v-show="isMoreVisible" 
+          v-html="lines.slice(5).join('<br />')" />
+
+        <a href="#" 
+          v-show="isMoreVisible" 
           @click.prevent="isMoreVisible = !isMoreVisible">
             See less...
         </a>
@@ -23,53 +26,12 @@
 
 <script>
 export default {
-    name: 'STRING',
-    props: ['value'],
-    computed: {
-        fullProcessedHtml() {
-            let html = this.lines.join("<br />");
-            return {
-                template: `<div>${html}</div>`
-            };
-        },
-        sliceProcessedHtml() {
-            let html = this.lines.slice(0, 6).join("<br />");
-            return {
-                template: `<div>${html}</div>`
-            };
-        },
-        moreProcessedHtml() {
-            let html = this.lines.slice(6).join("<br />");
-            return {
-                template: `<div>${html}</div>`
-            };
-        }
-    },
-    data() {
-      const regexLang = /\[[a-z]{2}\]|@[a-z]{2}/
-      var lines = this.value.split(/(?:\r\n|\r|\n)/g);
-        lines.forEach(function(part, index){
-          var regexMatch = part.match(regexLang);
-          if(regexMatch!=null) {
-            regexMatch.forEach(function(match, indexMatch){
-              var replacementLang = match.replace("[","").replace("]","");
-              var rep ;
-              if(replacementLang==='sv'){ 
-                rep =  part.replace(match, "<span class='flag-icon flag-icon-se'></span>");
-              } else if(replacementLang==='no'){ 
-                rep =  part.replace(match, "<span class='flag-icon flag-icon-no'></span>"); 
-              } else {
-                rep =  part.replace(match, `<lang-flag iso="${replacementLang}" />`);
-              }
-              lines[index] = rep;
-              }, regexMatch);
-          }
-        }, lines);
-      return {
-          lines: lines,
-          isShowMore: false,
-          isMoreVisible: false,
-      };
+  data() {
+     return {
+            lines: this.value.split(/(?:\r\n|\r|\n)/g),
+            isShowMore: false,
+            isMoreVisible: false,
+        };
     },
 
     mounted() {
