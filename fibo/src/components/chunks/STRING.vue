@@ -1,29 +1,31 @@
 <template>
-  <div>
-    <div v-if="!isShowMore" v-html="lines.join('<br />')" />
+  <div v-if="!isShowMore">
+    <component v-bind:is="fullProcessedHtml"></component>
+  </div>
+  <div v-else>
+    <component v-bind:is="sliceProcessedHtml"> </component>
+    <div href="#" 
+      v-show="!isMoreVisible" 
+      @click.prevent="isMoreVisible = !isMoreVisible">
+        <div class="see-more-btn-string">
+          Show more
+          </div>
+      <br />
+    </div>
 
-    <div v-else>
-      <div v-html="lines.slice(0, 6).join('<br />')" />
-
-      <div
-        v-show="!isMoreVisible"
-        @click.prevent="isMoreVisible = !isMoreVisible"
-      >
-        <div class="see-more-btn-string">Show more</div>
-        <br />
-      </div>
-
-      <div v-show="isMoreVisible" v-html="lines.slice(6).join('<br />')" />
-
-      <div
-        v-show="isMoreVisible"
-        @click.prevent="isMoreVisible = !isMoreVisible"
-      >
-        <div class="see-less-btn-string">Show less</div>
+    <div v-show="isMoreVisible">
+      <component v-bind:is="moreProcessedHtml"></component>
+      <div href="#" 
+          @click.prevent="isMoreVisible = !isMoreVisible">
+            <div class="see-less-btn-string">
+              Show less
+            </div>
         <br />
       </div>
     </div>
   </div>
+
+
 </template>
 
 <script>
@@ -32,11 +34,55 @@ export default {
   props: ['value'],
 
   data() {
+
+    const regexLang = /\[[a-z]{2}\]|@[a-z]{2}/
+      var lines = this.value.split(/(?:\r\n|\r|\n)/g);
+        lines.forEach(function(part, index){
+            console.log(part);
+            //console.log(part.match(regexLang));
+          var regexMatch = part.match(regexLang);
+          if(regexMatch!=null) {
+            regexMatch.forEach(function(match, indexMatch){
+              var replacementLang = match.replace("[","").replace("]","").replace("@", "");
+              var rep ;
+              if(replacementLang==='sv'){ 
+                rep =  part.replace(match, "<span class='flag-icon flag-icon-se'></span>");
+              } else if(replacementLang==='no'){ 
+                rep =  part.replace(match, "<span class='flag-icon flag-icon-no'></span>"); 
+              } else {
+                rep =  part.replace(match, `<lang-flag iso="${replacementLang}" />`);
+              }
+              lines[index] = rep;
+              }, regexMatch);
+            
+          }
+        }, lines);
     return {
-      lines: this.value.split(/(?:\r\n|\r|\n)/g),
+      lines: lines,
       isShowMore: false,
       isMoreVisible: false,
     };
+  },
+    //need this and use as components to display flags
+    computed: {
+    fullProcessedHtml() {
+      let html = this.lines.join("<br />");
+      return {
+        template: `<div>${html}</div>`,
+      };
+    },
+    sliceProcessedHtml() {
+      let html = this.lines.slice(0, 6).join("<br />");
+      return {
+        template: `<div>${html}</div>`,
+      };
+    },
+    moreProcessedHtml() {
+      let html = this.lines.slice(6).join("<br />");
+      return {
+        template: `<div>${html}</div>`,
+      };
+    },
   },
 
   mounted() {
