@@ -8,7 +8,7 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="First slide">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="First slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO Interest Group</h2>
             <p>EDMConnect FIBO Community Space for thoughts sharing</p>
@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="Second slide">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="Second slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO GitHub Space</h2>
             <p>Since January 2020, FIBO has been developed by an open community process</p>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="Third slide">
+          <img class="d-block w-100" src="../assets/img/baner1.png" alt="Third slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO Training</h2>
             <p>FIBO & Knowledge Graph Fundamentals Training</p>

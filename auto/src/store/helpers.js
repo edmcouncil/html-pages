@@ -1,8 +1,8 @@
 export default {
   data: () => ({
-    timestamp:  process.env.VUE_APP_TIMESTAMP,
-    branch:     process.env.VUE_APP_BRANCH,
-    tag:        process.env.VUE_APP_TAG,
+    timestamp: process.env.VUE_APP_TIMESTAMP,
+    branch: process.env.VUE_APP_BRANCH,
+    tag: process.env.VUE_APP_TAG,
   }),
   mutations: {
 
@@ -25,7 +25,7 @@ export default {
         (typeof path	=== 'string' ? path : ''));
     },
     hrefP(path, product, addBaseUrl = true) {
-      return require('path').join((addBaseUrl ? process.env.BASE_URL : ""),
+      return require('path').join((addBaseUrl ? process.env.BASE_URL : ''),
         (typeof product	=== 'string' ? product : this.$options.name),
         this.branch,
         this.timestamp,

@@ -1,3 +1,4 @@
+<!-- eslint-disable -->
 <template>
   <li class="module">
     <div class="arrow-container" :class="{hidden: !isFolder}" @click="toggle">
@@ -25,7 +26,7 @@
 
 <script>
 import Vue from 'vue';
-import customLink from './chunks/link';
+import customLink from './chunks/link.vue';
 
 Vue.component('customLink', customLink);
 
@@ -46,7 +47,7 @@ export default {
       this.isOpen = !this.isOpen;
     },
     ontologyClicked(event) {
-    }
+    },
   },
   mounted() {
   },

@@ -7,10 +7,10 @@
 <script>
 export default {
   name: 'customLink',
-  props: {name: String, query: String, customLinkOnClick: Function},
+  props: { name: String, query: String, customLinkOnClick: Function },
   methods: {
     linkClickNative(event) {
-      if(this.customLinkOnClick !== undefined){
+      if (this.customLinkOnClick !== undefined) {
         this.customLinkOnClick(event);
       }
     },

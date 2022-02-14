@@ -10,37 +10,56 @@
           regulator's data dictionary. In its most complex form,
           <router-link :to="{ path: router('OWL') }"
             >FIBO in its native Web Ontology Language (OWL)</router-link
-          >, could be used as a bank's operational ontology.
+          >, could be used as a bank's operational ontology. There are also
+          external uses of FIBO, such as FIBO.schema.org, which use FIBO as a
+          reference for search indexing of specific information on the Internet.
         </h2>
 
+        <h3>FIBO OWL</h3>
+        <p>
+          Although FIBO can be seen as a "product family", it is primarily an
+          OWL ontology. FIBO OWL, both in its Production and Development
+          versions, is available <router-link :to="{ path: router('OWL') }"
+            >here</router-link
+          >. The FIBO OWL is best viewed using
+          <router-link :to="{ path: router('ontology-tools') }"
+            >dedicated ontology tools</router-link
+          >.
+        </p>
+
+        <h3>FIBO derived products</h3>
         <p>
           FIBO is also available as derived products. All FIBO products are
           generated or derived with an automated process from the
           <router-link :to="{ path: router('OWL') }">FIBO OWL</router-link>.
           Thus all changes in the FIBO OWL will be reflected in all other
-          products. There are also external uses of FIBO, such as FIBO.schema.org, which use FIBO as a reference for search indexing of specific information on the Internet.<br>
+          products. We are making all of FIBO available now because we have
+          already seen amazing work done with FIBO and we welcome, almost
+          demand, your feedback:
+          <a href="mailto:rtrypuz@edmcouncil.org">rtrypuz@edmcouncil.org</a>
         </p>
-        
         <div class="table-responsive">
           <table class="table table-style-grey">
             <tr>
               <td>
-                <router-link :to="{ path: router('OWL') }"
-                  >FIBO OWL</router-link
+                <router-link :to="{ path: router('data-dictionary') }"
+                  >FIBO data dictionary</router-link
                 >
               </td>
-              <td>Official version of FIBO</td>
+              <td>Web searchable, downloadable in .csv and .xlsx</td>
               <td>
-                Includes various serialisations of FIBO OWL 
+                Includes web-searchable people and machine generated
+                definitions, and as a spreadsheet that may be downloaded and
+                worked with offline
               </td>
             </tr>
             <tr>
               <td>
-                <router-link :to="{ path: router('datadictionary') }"
-                  >FIBO Data Dictionary</router-link
+                <router-link :to="{ path: hrefP('/', 'datadictionary', false) }"
+                  >FIBO data dictionary</router-link
                 >
               </td>
-              <td>FIBO as a data dictionary downloadable in .csv and .xlsx formats</td>
+              <td>data dictionary downloadable in .csv and .xlsx</td>
               <td>
                 A summary of each operational class in FIBO, with its
                 properties, presented in the form of tables and fields for
@@ -51,10 +70,10 @@
             <tr>
               <td>
                 <router-link :to="{ path: router('vocabulary') }"
-                  >FIBO Vocabulary (SKOS)</router-link
+                  >FIBO vocabulary (SKOS)</router-link
                 >
               </td>
-              <td>SKOS version of FIBO</td>
+              <td>The FIBO Vocabulary in SKOS</td>
               <td>
                 FIBO rendered using the W3C
                 <a
