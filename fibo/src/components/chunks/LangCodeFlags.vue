@@ -1,6 +1,6 @@
 <template>
     <span v-if="isFlag" class="flag-icon" :class="flagIconClass" :title="langName + ' - ISO: ' + iso"></span>
-    <span v-else> {{ langCode }} </span>
+    <span v-else v-once>@{{ iso }} </span>
 </template>
 <script>
 import "flag-icon-css/css/flag-icon.css";
