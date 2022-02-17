@@ -23,6 +23,9 @@ module.exports = {
       '^/fibo/ontology/.*api/search': {
         target: 'https://spec.edmcouncil.org',
       },
+      '^/fibo/ontology/.*api/find': {
+        target: 'https://spec.edmcouncil.org',
+      },
       '^/fibo/ontology/.*api/module$': {
         target: 'https://spec.edmcouncil.org',
       },

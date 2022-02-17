@@ -12,6 +12,7 @@ const getOntology = function (query, domain) {
     body: query,
   }).then(parseServerError);
 };
+
 const getModules = function (domain) {
   return fetch(domain, {
     method: 'GET',
@@ -34,5 +35,12 @@ const getOntologyVersions = function () {
   }).then(parseServerError);
 };
 
+const getFindSearch = function (domain) {
+  return fetch(domain, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  }).then(parseServerError);
+};
 
-export { getOntology, getModules, getHint, getOntologyVersions };
+
+export { getOntology, getModules, getHint, getOntologyVersions, getFindSearch };
