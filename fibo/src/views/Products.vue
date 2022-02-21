@@ -48,9 +48,7 @@
               </td>
               <td>Web searchable, downloadable in .csv and .xlsx</td>
               <td>
-                Includes web-searchable people and machine generated
-                definitions, and as a spreadsheet that may be downloaded and
-                worked with offline
+                Includes various serialisations of FIBO OWL
               </td>
             </tr>
             <tr>
