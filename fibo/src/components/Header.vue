@@ -58,7 +58,7 @@
               <router-link class="nav-link" :to="{ path: router('FIBO-Groups') }"
                 >FIBO Community</router-link>
                <router-link class="nav-link" :to="{ path: router('FIB-DM') }">FIB-DM</router-link>
-            <span class="nav-link">FIBO Products</span>
+            <router-link class="nav-link" :to="{ path: router('products') }">FIBO Products</router-link>
             <div class="sub-nav-link">
               <router-link class="nav-link nav-sub-link" :to="{ path: router('OWL') }"
                 >FIBO Ontology</router-link
@@ -73,10 +73,9 @@
 
             <span class="nav-link">Docs</span>
             <div class="sub-nav-link">
-              <!-- <router-link class="nav-link" :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link> -->
-              <!-- <router-link class="nav-link" :to="{ path: router('development-process') }">Development process</router-link>
-              <router-link class="nav-link" :to="{ path: router('') }">Ontology guide</router-link> -->
-              <!-- <router-link class="nav-link" :to="{ path: router('how-to-contribute') }">How to contribute</router-link> -->
+              <router-link class="nav-link nav-sub-link" :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link>
+              <router-link class="nav-link nav-sub-link" :to="{ path: router('development-process') }">Development process</router-link>
+              <router-link class="nav-link nav-sub-link" :to="{ path: router('how-to-contribute') }">How to contribute</router-link>
               <router-link class="nav-link nav-sub-link" :to="{ path: router('FIBO-Release-Notes') }"
                 >FIBO Release Notes</router-link>
               <router-link class="nav-link nav-sub-link" :to="{ path: router('ontology-tools') }"
@@ -140,11 +139,12 @@
             <router-link class="nav-link" :to="{ path: router('FIBO-Groups') }">FIBO Community</router-link>
           </li>
 
-		  <li class="nav-item">
+          <li class="nav-item">
             <router-link class="nav-link" :to="{ path: router('FIB-DM') }">FIB-DM</router-link>
           </li>
 
           <li class="nav-item dropdown">
+            <!-- <router-link class="nav-link" :to="{ path: router('products') }">FIBO Products</router-link> -->
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -155,12 +155,12 @@
               aria-expanded="false"
             >FIBO Products</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <router-link class="dropdown-item" :to="{ path: router('products') }">About FIBO Products</router-link>
               <router-link class="dropdown-item" :to="{ path: router('OWL') }">FIBO Ontology</router-link>
               <router-link class="dropdown-item" :to="{ path: router('vocabulary') }">FIBO Vocabulary</router-link>
               <router-link class="dropdown-item" :to="{ path: router('data-dictionary') }">FIBO Data Dictionary</router-link>
             </div>
           </li>
-
 
           <li class="nav-item dropdown">
             <a
@@ -173,6 +173,9 @@
               aria-expanded="false"
             >Docs</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <router-link class="dropdown-item" :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('development-process') }">Development process</router-link>
+              <router-link class="dropdown-item" :to="{ path: router('how-to-contribute') }">How to contribute</router-link>
               <router-link class="dropdown-item" :to="{ path: router('FIBO-Release-Notes') }">FIBO Release Notes</router-link>
               <router-link class="dropdown-item" :to="{ path: router('ontology-tools') }">FIBO Ontology Tools</router-link>
             </div>

@@ -87,7 +87,7 @@ export default new Router({
       path: '/FIBO-Release-Notes',
       name: 'FIBOReleaseNotes',
       component: () => import(/* webpackChunkName: "FIBOReleaseNotes" */ './views/FIBOReleaseNotes.vue'),
-    },     
+    },
     {
       path: '/courses',
       name: 'Courses',
