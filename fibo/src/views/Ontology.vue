@@ -447,12 +447,11 @@
                 </div>
 
                 <div class="search-item__description-wrapper"
-                v-if="result.highlights.length > 0">
+                     v-if="result.highlights.length > 0">
                   <div
                     class="search-item__description"
-
                     v-for="(highlight, index) in result.highlights"
-                    :key="index + highlight.identifier">
+                    :key="index + highlight.fieldIdentifier">
                     <span class="search-item__description__label">
                       {{ getPropertyLabel(highlight.fieldIdentifier) }}
                     </span>
