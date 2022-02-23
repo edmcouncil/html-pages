@@ -1552,6 +1552,7 @@ export default {
 
     // disable input autocomplete in multiselect
     document.getElementById("ajax2").autocomplete = "off";
+    document.getElementById("ajax").autocomplete = "off";
   }
 };
 </script>
