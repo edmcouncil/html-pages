@@ -1,4 +1,3 @@
-<!-- eslint-disable -->
 <template>
   <div>
     <b class="mr-1 ml-4">Connections:</b>
@@ -87,18 +86,18 @@ export default {
         nodeView.refresh();
       }));
       const edgesView = new vis.DataView(edges, { filter: edgesFilter });
-
+      
       var nodeView = new vis.DataView(nodes, {
-        filter(node) {
-          const connEdges = edgesView.get({
-            filter(edge) {
+        filter: function (node) {
+          let connEdges = edgesView.get({
+            filter: function (edge) {
               return edge.to === node.id || edge.from === node.id;
             },
           });
           return connEdges.length > 0 || node.id === 1;
         },
       });
-
+      
       const data = {
         nodes: nodeView,
         edges: edgesView,
@@ -135,10 +134,10 @@ export default {
           const sNode = selectedNodes[0];
           nodes.forEach((entry) => {
             if (entry.id === sNode) {
-              if (entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/auto/)) {
-                window.location.href = `/auto${entry.iri.replace('https://spec.edmcouncil.org/auto', '')}`; // &scrollToTop=true
-              } else {
-                window.location.href = `/auto/ontology?query=${entry.iri}`; // &scrollToTop=true
+              if(entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/auto/)){
+                window.location.href = `/auto${entry.iri.replace('https://spec.edmcouncil.org/auto', '')}`; //&scrollToTop=true
+              }else{
+                window.location.href = `/auto/ontology?query=${entry.iri}`; //&scrollToTop=true
               }
             }
           });
@@ -146,10 +145,10 @@ export default {
           const sEgde = selectedEdges[0];
           edgesView.forEach((entry) => {
             if (entry.id === sEgde) {
-              if (entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/auto/)) {
-                window.location.href = `/auto${entry.iri.replace('https://spec.edmcouncil.org/auto', '')}`; // &scrollToTop=true
-              } else {
-                window.location.href = `/auto/ontology?query=${entry.iri}`; // &scrollToTop=true
+              if(entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/auto/)){
+                window.location.href = `/auto${entry.iri.replace('https://spec.edmcouncil.org/auto', '')}`; //&scrollToTop=true
+              }else{
+                window.location.href = `/auto/ontology?query=${entry.iri}`; //&scrollToTop=true
               }
             }
           });

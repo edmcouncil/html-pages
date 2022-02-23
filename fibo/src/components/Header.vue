@@ -4,7 +4,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light">
       <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
-        <img id="logo-fibo" src="@/assets/img/logoWhite.png" />
+        <img id="logo-fibo" src="@/assets/img/logo.png" />
       </a>
       <button
         class="navbar-toggler"
@@ -223,7 +223,7 @@ export default {
     max-width: 1440px;
   }
 .header {
-  background-image: url("../assets/img/header.jpg");
+  background-image: url("../assets/img/headerTransparent.png");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -329,7 +329,7 @@ export default {
   font-size: 18px;
   font-weight: 100;
   padding-top: 5px;
-  color: map-get($colors-map, "white");
+  color: map-get($colors-map, "black");
   text-shadow: 0 0 1px #ccc;
 }
 .nav-link {

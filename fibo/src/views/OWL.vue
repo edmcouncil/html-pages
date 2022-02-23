@@ -44,108 +44,11 @@
           >
         </h3>
 
-        <!--         <div v-if="serializations" class="table-responsive">
-          <table class="table table-style-striped">
-            <tr>
-              <th>FIBO OWL</th>
-              <th>RDF-XML</th>
-              <th>Turtle</th>
-              <th>JSON-LD</th>
-              <th>N-Quads/N-Triples</th>
-            </tr>
 
-            <tr v-for="element in serializations" :key="element.name">
-              <td>
-                {{element.name}}
-                <span v-if="element.link && element.link.name">
-                  (
-                  <a
-                    :href="timestamped(element.link, timestamp)"
-                    v-on:click="outboundLinkClick(element.link.name)"
-                  >{{element.link.name}}</a>)
-                </span>
-              </td>
-              <td>
-                <a
-                  v-for="xmlLink in element.xml"
-                  :key="xmlLink.name"
-                  :href="timestamped(xmlLink, timestamp)"
-                  v-on:click="outboundLinkClick(xmlLink.name)"
-                  class="inline"
-                >{{xmlLink.name}}</a>
-                <span v-if="!element.xml || element.xml.length === 0">N/A</span>
-              </td>
-              <td>
-                <a
-                  v-for="xmlLink in element.ttl"
-                  :key="xmlLink.name"
-                  :href="timestamped(xmlLink, timestamp)"
-                  v-on:click="outboundLinkClick(xmlLink.name)"
-                  class="inline"
-                >{{xmlLink.name}}</a>
-                <span v-if="!element.ttl || element.ttl.length === 0">N/A</span>
-              </td>
-              <td>
-                <a
-                  v-for="xmlLink in element.json"
-                  :key="xmlLink.name"
-                  :href="timestamped(xmlLink, timestamp)"
-                  v-on:click="outboundLinkClick(xmlLink.name)"
-                  class="inline"
-                >{{xmlLink.name}}</a>
-                <span v-if="!element.json || element.json.length === 0">N/A</span>
-              </td>
-              <td>
-                <a
-                  v-for="xmlLink in element.nq"
-                  :key="xmlLink.name"
-                  :href="timestamped(xmlLink, timestamp)"
-                  v-on:click="outboundLinkClick(xmlLink.name)"
-                  class="inline"
-                >{{xmlLink.name}}</a>
-                <span v-if="!element.nq || element.nq.length === 0">N/A</span>
-              </td>
-            </tr>
-          </table>
-        </div> -->
       </article>
     </main>
   </div>
 </template>
-
-
-<script>
-import { mapState } from 'vuex';
-import helpers from '../store/helpers.js';
-import { outboundClick, outboundLinkClick } from '../helpers/ga';
-
-
-export default {
-  extends: helpers,
-  name: 'OWL',
-  components: {},
-  computed: {
-    ...mapState('OWL', {
-      serializations: state => state.serializations,
-    }),
-    ...mapState('helpers', {
-      timestamp: state => state.timestamp,
-    }),
-  },
-  methods: {
-    timestamped(link, timestamp) {
-      return typeof link.PRODUCT === 'string'
-        ? this.hrefP(link.name, link.PRODUCT)
-        : typeof link.product === 'string'
-          ? this.hrefD(link.name, link.product)
-          : eval(`\`${link.url}\``);
-    },
-    outboundClick,
-    outboundLinkClick,
-  },
-};
-</script>
-
 
 <style lang="scss" scoped>
 .inline {

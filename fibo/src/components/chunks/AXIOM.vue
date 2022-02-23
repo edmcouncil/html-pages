@@ -4,22 +4,15 @@
   </div>
   <div v-else>
     <component v-bind:is="sliceProcessedHtml"> </component>
-    <div href="#" 
-      v-show="!isMoreVisible" 
-      @click.prevent="isMoreVisible = !isMoreVisible">
-        <div class="see-more-btn-axiom">
-          Show more
-          </div>
+    <div href="#" v-show="!isMoreVisible" @click.prevent="isMoreVisible = !isMoreVisible">
+      <div class="see-more-btn-axiom">Show more</div>
       <br />
     </div>
 
     <div v-show="isMoreVisible">
       <component v-bind:is="moreProcessedHtml"></component>
-      <div href="#" 
-          @click.prevent="isMoreVisible = !isMoreVisible">
-            <div class="see-less-btn-axiom">
-              Show less
-            </div>
+      <div href="#" @click.prevent="isMoreVisible = !isMoreVisible">
+        <div class="see-less-btn-axiom">Show less</div>
         <br />
       </div>
     </div>
@@ -29,7 +22,7 @@
 <script>
 import Vue from "vue";
 import customLink from "./link.vue";
-import langCodeFlags from "./LangCodeFlags.vue"
+import langCodeFlags from "./LangCodeFlags.vue";
 
 Vue.component("customLink", customLink);
 Vue.component("langCodeFlags", langCodeFlags);
@@ -38,7 +31,7 @@ export default {
   name: "AXIOM",
   components: {
     customLink,
-    langCodeFlags
+    langCodeFlags,
   },
   props: ["value", "entityMaping"],
   data() {
@@ -50,10 +43,13 @@ export default {
     }
     lines.forEach(function (part, index) {
       var regexMatch = part.match(regexLang);
-      //console.log(regexMatch);
+      console.log(part.match(regexLang));
       if (regexMatch != null) {
         regexMatch.forEach(function (match, indexMatch) {
-          var replacementLang = match.replace("[", "").replace("]", "").replace("@", "");
+          var replacementLang = match
+          .replace("[", "")
+          .replace("]", "")
+          .replace("@", "");
           var rep = part.replace(match, `<langCodeFlags iso="${replacementLang}" />`);
           lines[index] = rep;
         }, regexMatch);

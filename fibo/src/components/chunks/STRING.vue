@@ -45,7 +45,7 @@ export default {
       var lines = this.value.split(/(?:\r\n|\r|\n)/g);
         lines.forEach(function(part, index){
             console.log(part);
-            //console.log(part.match(regexLang));
+            console.log(part.match(regexLang));
           var regexMatch = part.match(regexLang);
           if(regexMatch!=null) {
             regexMatch.forEach(function(match, indexMatch){

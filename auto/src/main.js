@@ -1,15 +1,15 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Vue from 'vue';
-import VueGtag from 'vue-gtag';
+import VueGtag  from 'vue-gtag';
 import Clipboard from 'v-clipboard';
-import LangFlag from 'vue-lang-code-flags';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import ModuleTree from './components/ModuleTree.vue';
+import LangFlag from 'vue-lang-code-flags';
 
-LangFlag.props.squared = { type: Boolean, default: false };
+LangFlag.props.squared = {type: Boolean, default: false};
 
 Vue.config.productionTip = false;
 Vue.component('module-tree', ModuleTree);
@@ -19,7 +19,7 @@ Vue.use(Clipboard);
 Vue.config.productionTip = false;
 
 Vue.use(VueGtag, {
-  config: { id: 'G-V3S2FY7ZQ2' },
+  config: { id: "G-V3S2FY7ZQ2" }
 });
 
 new Vue({
