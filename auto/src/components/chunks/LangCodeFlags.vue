@@ -4,7 +4,7 @@
 </template>
 <script>
 import "flag-icons/css/flag-icons.css";
-import relation from "./langToFlagRelations";
+import relation from "./langFlagData.js";
 export default {
     name: "LangCodeFlags",
     props: {

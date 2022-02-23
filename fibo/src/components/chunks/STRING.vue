@@ -41,15 +41,16 @@ export default {
   },
   props: ['value'],
   data() {
-    const regexLang = /\[[a-z]{3}\]|@[a-z]{3}|[[a-z]{2}\]|@[a-z]{2}/g;
+     const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
       var lines = this.value.split(/(?:\r\n|\r|\n)/g);
         lines.forEach(function(part, index){
-            console.log(part);
-            console.log(part.match(regexLang));
-          var regexMatch = part.match(regexLang);
+          var regexMatch = part.match(regex);
           if(regexMatch!=null) {
             regexMatch.forEach(function(match, indexMatch){
-              var replacementLang = match.replace("[","").replace("]","").replace("@", "");
+              var replacementLang = match
+              .replace("[","")
+              .replace("]","")
+              .replace("@", "");
               var rep = part.replace(match, `<langCodeFlags iso="${replacementLang}" />`);
               lines[index] = rep;
               }, regexMatch);

@@ -32,17 +32,16 @@ export default {
   },
   props: ["value", "entityMaping"],
   data() {
-    const regexLang = /\[[a-z]{3}\]|@[a-z]{3}|[[a-z]{2}\]|@[a-z]{2}/g;
+    const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
     let html = this.value;
     let lines = html.split(/(?:\r\n|\r|\n)/g);
     if (lines.length == 1) {
       lines = html.split("<br />");
     }
     lines.forEach(function(part, index) {
-      var regexMatch = part.match(regexLang);
-      console.log(part.match(regexLang));
+      var regexMatch = part.match(regex);
       if (regexMatch != null) {
-        regexMatch.forEach(function(match, indexMatch) {
+        regexMatch.forEach(function(match) {
           var replacementLang = match
             .replace("[", "")
             .replace("]", "")

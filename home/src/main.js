@@ -15,7 +15,7 @@ Vue.config.productionTip = false;
 Vue.use(VueGtag, {
   config: { id: "G-WM9XRFEHTR" }
 });
- 
+
 new Vue({
   router,
   store,
