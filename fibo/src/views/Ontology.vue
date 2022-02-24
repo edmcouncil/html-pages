@@ -175,11 +175,11 @@
               "
             >
               <div v-if="!searchBox.isAdvancedExpanded">
-                <div class="see-more-btn">advanced search</div>
+                <div class="see-more-btn">search configuration</div>
               </div>
 
               <div v-else>
-                <div class="see-less-btn">advanced search</div>
+                <div class="see-less-btn">search configuration</div>
               </div>
             </div>
           </div>
@@ -204,6 +204,7 @@
                         open-direction="bottom"
                         label="label"
                         track-by="identifier"
+                        :searchable="false"
                         :options="searchBox.findPropertiesAll"
                         :close-on-select="false"
                         :multiple="true"
@@ -219,13 +220,13 @@
                       v-model="searchBox.useHighlighting"
                       class="custom-control-input"
                       type="checkbox"
-                      name="edgesFilter"
+                      name="useHighlight"
                       id="useHighlight"
                       value="useHighlight"
                     />
-                    <label class="custom-control-label" for="useHighlight"
-                      >Use highlighting</label
-                    >
+                    <label class="custom-control-label" for="useHighlight">
+                      Use highlighting
+                    </label>
                   </div>
                 </div>
               </div>
@@ -383,25 +384,19 @@
               :key="item.label"
             />
           </ul>
-          <div
+        </div>
+
+        <div
             class="text-center mt-5"
             v-if="
-              (!modulesList && !error) || loader || searchBox.isLoadingResults
+              !error && (loader || searchBox.isLoadingResults || !modulesList)
             "
           >
             <div class="spinner-border" role="status">
               <span class="sr-only">Loading...</span>
             </div>
+            <div style="margin-bottom: 100vh"></div>
           </div>
-        </div>
-
-        <div class="row" v-if="error">
-          <div class="col-12">
-            <div class="alert alert-danger alert-error" role="alert">
-              <strong>Error!</strong> Cannot fetch data, please try later.
-            </div>
-          </div>
-        </div>
 
         <!-- search results -->
         <div
@@ -451,7 +446,22 @@
                   ></customLink>
                 </div>
 
-                <p v-if="result.highlights[0]" v-html="result.highlights[0].highlightedText"></p>
+                <div class="search-item__description-wrapper"
+                     v-if="result.highlights.length > 0">
+                  <div
+                    class="search-item__description"
+                    v-for="(highlight, index) in result.highlights"
+                    :key="index + highlight.fieldIdentifier">
+                    <span class="search-item__description__label">
+                      {{ getPropertyLabel(highlight.fieldIdentifier) }}
+                    </span>
+                    <span
+                      class="search-item__description__highlight"
+                      v-html="highlight.highlightedText">
+                    </span>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -499,7 +509,16 @@
           </div>
         </div>
 
-        <div class="container" v-else>
+        <!-- error -->
+        <div class="row" v-if="error || searchBox.searchError">
+          <div class="col-12">
+            <div class="alert alert-danger alert-error" role="alert">
+              <strong>Error!</strong> Cannot fetch data, please try later.
+            </div>
+          </div>
+        </div>
+
+        <div class="container" v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch">
           <div class="row">
             <!-- SHOW ITEM -->
             <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
@@ -1037,6 +1056,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -1046,7 +1066,7 @@
 import { mapState } from "vuex";
 import Multiselect from "vue-multiselect";
 import Paginate from "vuejs-paginate";
-import { getOntology, getModules, getHint, getOntologyVersions, getFindSearch } from "../api/ontology";
+import { getOntology, getModules, getHint, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
 
 export default {
   components: {
@@ -1097,29 +1117,14 @@ export default {
         displayedResultsCount: 0,
         totalResults: [], // results: all fetched results
         displayedResults: [], // results: currently displayed
-        isLoading: false, // multiselect loading spinner
+        isLoading: false,
+        searchError: false,
         isAdvancedExpanded: false,
         lastSearchBQuery: null, // contains last searchBQuery used
         perPage: 10,
-        findPropertiesAll: [
-          {
-            label: "RDFS Label",
-            identifier: "rdfs_label",
-            iri: "http://www.w3.org/2000/01/rdf-schema#label"
-          },
-          {
-            label: "SKOS Definition",
-            identifier: "skos_definition",
-            iri: "http://www.w3.org/2004/02/skos/core#definition"
-          },
-          {
-            label: "FIBO Explanatory Note",
-            identifier: "fibo_explanatoryNote",
-            iri: "https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/AnnotationVocabulary/explanatoryNote"
-          }
-        ],
+        findPropertiesAll: [],
         findProperties: [],
-        useHighlighting: true
+        useHighlighting: true,
       },
       ontologyVersionsDropdownData: {
         selectedData: null,
@@ -1170,6 +1175,7 @@ export default {
     this.query = queryParam;
     this.fetchData(this.query);
     this.fetchModules();
+    this.fetchSearchProperties();
   },
   methods: {
     toggleModuleTree() {
@@ -1224,6 +1230,7 @@ export default {
           }
           this.data = body.result;
           this.error = false;
+          this.searchBox.searchError = false;
         } catch (err) {
           console.error(err);
           this.error = true;
@@ -1264,6 +1271,24 @@ export default {
       try {
         const result = await getModules(this.modulesServer);
         this.modulesList = await result.json();
+      } catch (err) {
+        console.error(err);
+        this.error = true;
+      }
+    },
+    async fetchSearchProperties() {
+      try {
+        const result = await getFindProperties(this.searchServer+'/properties');
+        this.searchBox.findPropertiesAll = await result.json();
+
+        if (this.searchBox.findPropertiesAll.length > 0) {
+          this.searchBox.findProperties.push(
+            this.searchBox.findPropertiesAll.find(
+              property => property.identifier === 'rdfs_label'
+            )
+          );
+        }
+
       } catch (err) {
         console.error(err);
         this.error = true;
@@ -1316,7 +1341,10 @@ export default {
           }
         });
       }
-      this.scrollToOntologyViewerTopOfContainer();
+      this.$nextTick(()=>{
+        this.scrollToOntologyViewerTopOfContainer();
+      });
+
     },
     async searchBox_addTag(newTag) {
       this.$router.push({
@@ -1327,53 +1355,55 @@ export default {
         }
       });
     },
-    async handleSearchBoxQuery(searchBQuery, pageIndex = null) {
+    async handleSearchBoxQuery(searchBQuery) {
       try {
         this.searchBox.isLoadingResults = true;
         const isHighlighting = this.searchBox.useHighlighting;
-        const isProperties = this.searchBox.findProperties.length > 0;
-        const isAdvancedActive = this.searchBox.isAdvancedExpanded && (!isHighlighting || isProperties);
 
-        let encodedProperties = '';
-        if(isProperties) {
+        if(this.searchBox.findProperties.length > 0) {
+          let encodedProperties = '';
           for(const [index, property] of this.searchBox.findProperties.entries()) {
             encodedProperties += property.identifier;
             if(index < this.searchBox.findProperties.length-1) {
               encodedProperties += '.';
             }
           }
-        }
 
-        let query;
-        if(isAdvancedActive) {
-          query = `${this.searchServer}?term=${searchBQuery}&mode=advanced&useHighlighting=${isHighlighting}${isProperties ? '&findProperties='+encodedProperties : ''}`;
-        } else {
-          query = `${this.searchServer}?term=${searchBQuery}`;
-        }
-        const result = await getFindSearch(query);
-        const body = await result.json();
+          // eslint-disable-next-line max-len
+          let query = `${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${encodedProperties}`;
 
-        // eslint-disable-next-line no-restricted-syntax
-        for (const res of body) {
-          if (res.maturityLevel === undefined || res.maturityLevel.icon === undefined) {
-            res.maturityLevel = {};
-            res.maturityLevel.icon = "";
+          const result = await getFindSearch(query);
+          const body = await result.json();
+
+          // eslint-disable-next-line no-restricted-syntax
+          for (const res of body) {
+            if (res.maturityLevel === undefined || res.maturityLevel.icon === undefined) {
+              res.maturityLevel = {};
+              res.maturityLevel.icon = "";
+            }
           }
-        }
 
-        this.searchBox.totalResults = body;
-        this.searchBox.displayedResults = body.slice(0, this.searchBox.perPage);
+          this.searchBox.totalResults = body;
+          this.searchBox.displayedResults = body.slice(0, this.searchBox.perPage);
+        }
+        else {
+          this.searchBox.totalResults = [];
+          this.searchBox.displayedResults = [];
+        }
 
         this.searchBox.lastSearchBQuery = searchBQuery;
 
         this.searchBox.displayedResultsCount = this.searchBox.displayedResults.length;
-        this.searchBox.totalResultsCount = body.length;
+        this.searchBox.totalResultsCount = this.searchBox.totalResults.length;
 
         this.error = false;
         this.searchBox.isLoadingResults = false;
+        this.searchBox.searchError = false;
       } catch (err) {
         console.error(err);
         this.error = true;
+        this.searchBox.searchError = true;
+        this.searchBox.isLoadingResults = false;
       }
 
       const tag = {
@@ -1477,6 +1507,7 @@ export default {
         totalResults: [],
         displayedResults: [],
         isLoading: false,
+        isSearchError: false,
         isAdvancedExpanded: this.searchBox.isAdvancedExpanded,
         lastSearchBQuery: null,
         perPage: this.searchBox.perPage,
@@ -1484,6 +1515,11 @@ export default {
         findProperties: this.searchBox.findProperties,
         useHighlighting: this.searchBox.useHighlighting
       };
+    },
+    getPropertyLabel(identifier) {
+      return this.searchBox.findPropertiesAll.find(
+        property => property.identifier === identifier
+      ).label;
     }
   },
   computed: {
@@ -1534,24 +1570,29 @@ export default {
     // scrollTo: ontologyViewerTopOfContainer
     if (this.$root.ontologyRouteIsUpdating || this.$route.query.scrollToTop === "true") {
       this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
-      this.scrollToOntologyViewerTopOfContainer(); // scroll only after internal navigaion
+      this.$nextTick(()=>{
+        this.scrollToOntologyViewerTopOfContainer();
+      });
     }
 
     // const currentTimestamp = Math.floor(Date.now() / 1000);
-    // if (this.mountedTimestamp + 4 >= currentTimestamp) {
-    //  this IF makes trick to execute only on page load
+    // if (this.mountedTimestamp + 2 >= currentTimestamp) {
+    // //  this IF makes trick to execute only on page load
     //  this.scrollToOntologyViewerTopOfContainer();
     // }
 
     if (this.$route.query.searchBoxQuery && this.$route.query.searchBoxQuery_isExecuted !== true) {
       this.clearSearchResults();
       this.handleSearchBoxQuery(decodeURI(this.$route.query.searchBoxQuery));
-      this.scrollToOntologyViewerTopOfContainer();
+      this.$nextTick(()=>{
+        this.scrollToOntologyViewerTopOfContainer();
+      });
       this.$route.query.searchBoxQuery_isExecuted = true;
     }
 
     // disable input autocomplete in multiselect
     document.getElementById("ajax2").autocomplete = "off";
+    document.getElementById("ajax").autocomplete = "off";
   }
 };
 </script>

@@ -42,5 +42,12 @@ const getFindSearch = function (domain) {
   }).then(parseServerError);
 };
 
+const getFindProperties = function (domain) {
+  return fetch(domain, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  }).then(parseServerError);
+};
 
-export { getOntology, getModules, getHint, getOntologyVersions, getFindSearch };
+
+export { getOntology, getModules, getHint, getOntologyVersions, getFindSearch, getFindProperties };
