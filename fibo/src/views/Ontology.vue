@@ -123,7 +123,7 @@
                         id="ajax2"
                         label="labelForInternalSearch"
                         track-by="iri"
-                        placeholder="Find domains, ontologies, concepts..."
+                        :placeholder="searchBox.inputValue || 'Find domains, ontologies, concepts...'"
                         tagPlaceholder="Search..."
                         selectLabel="x"
                         open-direction="bottom"
@@ -147,6 +147,8 @@
                         @select="searchBox_optionSelected"
                         @tag="searchBox_addTag"
                         @search-change="searchBox_asyncFind"
+                        @open="searchBox.dropdownActive = true"
+                        @close="searchBox.dropdownActive = false"
                       >
                         <template slot="clear" slot-scope="props">
                           <div
@@ -159,12 +161,22 @@
                           Oops! No elements found. Consider changing the search
                           query.
                         </span>
+                        <span slot="singleLabel">
+                          {{ searchBox.inputValue || 'Find domains, ontologies, concepts...' }}
+                        </span>
                       </multiselect>
                     </div>
-                    <div class="menu-box__icons"></div>
+                    <div class="menu-box__icons"
+                         :class="{'menu-box__icons--inactive':!searchBox.dropdownActive && !searchBox.inputValue,
+                                  'menu-box__icons--loading':searchBox.isLoading}">
+                      <div
+                        class="menu-box__icons__icon icon-search"
+                        @click="searchBox_addTag(searchBox.inputValue)">
+                      </div>
+                    </div>
                   </div>
-                  <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
-                  <!-- <pre class="language-json"><code>{{ searchBox.data }}</code></pre> -->
+                  <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre>
+                  <pre class="language-json"><code>{{ searchBox.data }}</code></pre> -->
                 </div>
               </div>
             </div>
@@ -476,7 +488,7 @@
             <p>
               1 -
               {{ searchBox.displayedResults.length }}
-              of {{ searchBox.totalResultsCount }}
+              of {{ searchBox.totalResultsCount }} results
             </p>
 
             <button
@@ -1111,6 +1123,7 @@ export default {
       modulesList: null,
       error: false,
       searchBox: {
+        inputValue: '',
         selectedData: null,
         data: [], // search box hints
         totalResultsCount: 0,
@@ -1125,6 +1138,7 @@ export default {
         findPropertiesAll: [],
         findProperties: [],
         useHighlighting: true,
+        dropdownActive: false,
       },
       ontologyVersionsDropdownData: {
         selectedData: null,
@@ -1294,7 +1308,6 @@ export default {
         this.error = true;
       }
     },
-
     // vue-multiselect ontologyVersions
     ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
       if (selectedOntologyVersion["@id"] === this.versionDefaultSelectedData["@id"]) {
@@ -1315,7 +1328,6 @@ export default {
       // clear search results after changing version
       this.clearSearchResults();
     },
-
     // vue-multiselect
     searchBox_limitText(count) {
       return `and ${count} other results`;
@@ -1347,18 +1359,25 @@ export default {
 
     },
     async searchBox_addTag(newTag) {
-      this.$router.push({
-        path: "/ontology",
-        query: {
-          ...{ searchBoxQuery: encodeURI(newTag) },
-          ...(this.$route.query && this.$route.query.version ? { version: encodeURI(this.$route.query.version) } : null)
-        }
-      });
+      if(newTag != '') {
+        this.$router.push({
+          path: "/ontology",
+          query: {
+            ...{ searchBoxQuery: encodeURI(newTag) },
+            ...(this.$route.query && this.$route.query.version ? { version: encodeURI(this.$route.query.version) } : null)
+          }
+        });
+      }
     },
     async handleSearchBoxQuery(searchBQuery) {
       try {
         this.searchBox.isLoadingResults = true;
         const isHighlighting = this.searchBox.useHighlighting;
+
+        // wait for properties to be loaded if they arent
+        while(this.searchBox.findPropertiesAll.length === 0) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
 
         if(this.searchBox.findProperties.length > 0) {
           let encodedProperties = '';
@@ -1370,7 +1389,8 @@ export default {
           }
 
           // eslint-disable-next-line max-len
-          let query = `${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${encodedProperties}`;
+          let query = encodeURI(`${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${encodedProperties}`);
+
 
           const result = await getFindSearch(query);
           const body = await result.json();
@@ -1415,6 +1435,8 @@ export default {
       this.searchBox.selectedData = tag;
     },
     async searchBox_asyncFind(query) {
+      this.searchBox.inputValue = query;
+
       if (query.trim().length === 0) {
         this.searchBox.data = [];
         return;
@@ -1438,6 +1460,9 @@ export default {
     },
     clearAll() {
       this.searchBox.selectedData = null;
+      this.searchBox.inputValue = '';
+      this.$refs.searchBoxInput2.search = '';
+
     },
     searchResultClicked() {
       this.$root.ontologyRouteIsUpdating = true;
@@ -1500,6 +1525,7 @@ export default {
     },
     clearSearchResults() {
       this.searchBox = {
+        inputValue: this.searchBox.inputValue,
         selectedData: null,
         data: [],
         totalResultsCount: 0,
@@ -1564,6 +1590,11 @@ export default {
         this.fetchData(this.query);
       });
     }
+    if (!to.query.searchBoxQuery) {
+      this.clearSearchResults();
+      this.clearAll();
+      this.searchBox.isAdvancedExpanded = false;
+    }
     next();
   },
   updated() {
@@ -1583,7 +1614,10 @@ export default {
 
     if (this.$route.query.searchBoxQuery && this.$route.query.searchBoxQuery_isExecuted !== true) {
       this.clearSearchResults();
-      this.handleSearchBoxQuery(decodeURI(this.$route.query.searchBoxQuery));
+      const searchQuery = decodeURI(this.$route.query.searchBoxQuery);
+      this.searchBox.inputValue=searchQuery;
+      this.$refs.searchBoxInput2.search=searchQuery;
+      this.handleSearchBoxQuery(searchQuery);
       this.$nextTick(()=>{
         this.scrollToOntologyViewerTopOfContainer();
       });
