@@ -20,14 +20,6 @@ const getModules = function (domain) {
   }).then(parseServerError);
 };
 
-const getHint = function (query, domain) {
-  return fetch(domain, {
-    method: 'POST',
-    headers: { 'Accept': 'application/json', 'Content-Type': 'text/plain' },
-    body: query,
-  }).then(parseServerError);
-};
-
 const getOntologyVersions = function () {
   return fetch('/fibo/ontology/api/', {
     method: 'GET',
@@ -49,5 +41,4 @@ const getFindProperties = function (domain) {
   }).then(parseServerError);
 };
 
-
-export { getOntology, getModules, getHint, getOntologyVersions, getFindSearch, getFindProperties };
+export { getOntology, getModules, getOntologyVersions, getFindSearch, getFindProperties };
