@@ -4,22 +4,15 @@
   </div>
   <div v-else>
     <component v-bind:is="sliceProcessedHtml"> </component>
-    <div href="#" 
-      v-show="!isMoreVisible" 
-      @click.prevent="isMoreVisible = !isMoreVisible">
-        <div class="see-more-btn-axiom">
-          Show more
-          </div>
+    <div href="#" v-show="!isMoreVisible" @click.prevent="isMoreVisible = !isMoreVisible">
+      <div class="see-more-btn-axiom">Show more</div>
       <br />
     </div>
 
     <div v-show="isMoreVisible">
       <component v-bind:is="moreProcessedHtml"></component>
-      <div href="#" 
-          @click.prevent="isMoreVisible = !isMoreVisible">
-            <div class="see-less-btn-axiom">
-              Show less
-            </div>
+      <div href="#" @click.prevent="isMoreVisible = !isMoreVisible">
+        <div class="see-less-btn-axiom">Show less</div>
         <br />
       </div>
     </div>
@@ -29,23 +22,38 @@
 <script>
 import Vue from "vue";
 import customLink from "./link.vue";
+import langCodeFlags from "./LangCodeFlags.vue";
 
 Vue.component("customLink", customLink);
+Vue.component("langCodeFlags", langCodeFlags);
 
 export default {
   name: "AXIOM",
   components: {
     customLink,
+    langCodeFlags,
   },
   props: ["value", "entityMaping"],
   data() {
-    const html = this.value;
+    const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
+    let html = this.value;
     let lines = html.split(/(?:\r\n|\r|\n)/g);
-    if (lines.length === 1) {
-      lines = html.split('<br />');
+    if (lines.length == 1) {
+      lines = html.split("<br />");
     }
+    lines.forEach(function (part, index) {
+      var regexMatch = part.match(regex);
+      if (regexMatch != null) {
+        
+        regexMatch.forEach(function (match, indexMatch) {
+          var replacementLang = match.replace("[", "").replace("]", "").replace("@", "");
+          var rep = part.replace(match, `<langCodeFlags iso="${replacementLang}" />`);
+          lines[index] = rep;
+        }, regexMatch);
+      }
+    }, lines);
     return {
-      lines,
+      lines: lines,
       isShowMore: false,
       isMoreVisible: false,
     };

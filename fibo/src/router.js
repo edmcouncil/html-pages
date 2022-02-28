@@ -14,24 +14,9 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/development',
-      name: 'development',
-      component: () => import(/* webpackChunkName: "development" */ './views/Development.vue'),
-    },
-    {
-      path: '/working-group',
-      name: 'workingGroups',
-      component: () => import(/* webpackChunkName: "workingGroups" */ './views/WorkingGroups.vue'),
-    },
-    {
       path: '/ontology-tools',
       name: 'ontologyTools',
       component: () => import(/* webpackChunkName: "ontologyTools" */ './views/OntologyTools.vue'),
-    },
-    {
-      path: '/SMIF-UML',
-      name: 'SMIF-UML',
-      component: () => import(/* webpackChunkName: "SMIF-UML" */ './views/SMIF-UML.vue'),
     },
     {
       path: '/contact',
@@ -92,11 +77,6 @@ export default new Router({
       path: '/courses',
       name: 'Courses',
       component: () => import(/* webpackChunkName: "Courses" */ './views/Courses.vue'),
-    },
-    {
-      path: '/use-cases',
-      name: 'UseCases',
-      component: () => import(/* webpackChunkName: "UseCases" */ './views/UseCases.vue'),
     },
     {
       path: '/ontology/:1?/:2?/:3?/:4?/:5?',
