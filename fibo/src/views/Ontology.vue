@@ -220,6 +220,7 @@
                         :options="searchBox.findPropertiesAll"
                         :close-on-select="false"
                         :multiple="true"
+                        @input="encodeProperties"
                       >
                       </multiselect>
                     </div>
@@ -1078,7 +1079,7 @@
 import { mapState } from "vuex";
 import Multiselect from "vue-multiselect";
 import Paginate from "vuejs-paginate";
-import { getOntology, getModules, getHint, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
+import { getOntology, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
 
 export default {
   components: {
@@ -1114,7 +1115,7 @@ export default {
       modulesServer: null,
       hintServer: null,
       searchServer: null,
-      hintDefaultDomain: "/fibo/ontology/{version}api/hint/",
+      hintDefaultDomain: "/fibo/ontology/{version}api/find/",
       version: null,
       versionDefaultSelectedData: {
         "@id": "stable",
@@ -1137,6 +1138,7 @@ export default {
         perPage: 10,
         findPropertiesAll: [],
         findProperties: [],
+        encodedProperties: '',
         useHighlighting: true,
         dropdownActive: false,
       },
@@ -1303,6 +1305,8 @@ export default {
           );
         }
 
+        this.encodeProperties();
+
       } catch (err) {
         console.error(err);
         this.error = true;
@@ -1380,19 +1384,10 @@ export default {
         }
 
         if(this.searchBox.findProperties.length > 0) {
-          let encodedProperties = '';
-          for(const [index, property] of this.searchBox.findProperties.entries()) {
-            encodedProperties += property.identifier;
-            if(index < this.searchBox.findProperties.length-1) {
-              encodedProperties += '.';
-            }
-          }
-
           // eslint-disable-next-line max-len
-          let query = encodeURI(`${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${encodedProperties}`);
+          let domain = encodeURI(`${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${this.searchBox.encodedProperties}`);
 
-
-          const result = await getFindSearch(query);
+          const result = await getFindSearch(domain);
           const body = await result.json();
 
           // eslint-disable-next-line no-restricted-syntax
@@ -1444,7 +1439,10 @@ export default {
 
       this.searchBox.isLoading = true;
       try {
-        const result = await getHint(query, this.hintServer);
+        // eslint-disable-next-line max-len
+        let domain = encodeURI(`${this.searchServer}?term=${query}&mode=advance&useHighlighting=false&findProperties=${this.searchBox.encodedProperties}`);
+
+        const result = await getFindSearch(domain);
         const hints = await result.json();
         hints.forEach(el => {
           // eslint-disable-next-line no-param-reassign
@@ -1462,7 +1460,6 @@ export default {
       this.searchBox.selectedData = null;
       this.searchBox.inputValue = '';
       this.$refs.searchBoxInput2.search = '';
-
     },
     searchResultClicked() {
       this.$root.ontologyRouteIsUpdating = true;
@@ -1532,6 +1529,7 @@ export default {
         displayedResultsCount: 0,
         totalResults: [],
         displayedResults: [],
+        encodedProperties: this.searchBox.encodedProperties,
         isLoading: false,
         isSearchError: false,
         isAdvancedExpanded: this.searchBox.isAdvancedExpanded,
@@ -1546,6 +1544,15 @@ export default {
       return this.searchBox.findPropertiesAll.find(
         property => property.identifier === identifier
       ).label;
+    },
+    encodeProperties() {
+      this.searchBox.encodedProperties = '';
+      for(const [index, property] of this.searchBox.findProperties.entries()) {
+        this.searchBox.encodedProperties += property.identifier;
+        if(index < this.searchBox.findProperties.length-1) {
+          this.searchBox.encodedProperties += '.';
+        }
+      }
     }
   },
   computed: {
