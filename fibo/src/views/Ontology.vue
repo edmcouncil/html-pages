@@ -129,6 +129,7 @@
                         open-direction="bottom"
                         ref="searchBoxInput2"
                         spellcheck="false"
+                        :class="{'multiselect--input-empty':!searchBox.inputValue}"
                         :options="searchBox.data"
                         :multiple="false"
                         :searchable="true"

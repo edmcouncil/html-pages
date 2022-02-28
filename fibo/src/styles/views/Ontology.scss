@@ -365,6 +365,12 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     }
   }
 
+  .multiselect--input-empty {
+    .multiselect__content-wrapper {
+      display: none;
+    }
+  }
+
   .multiselect--active{
     .multiselect__select {
       transform: none;
