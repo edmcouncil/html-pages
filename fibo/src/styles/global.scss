@@ -1,6 +1,11 @@
 @import "setup/variables.scss";
 @import "setup/bootstrap-override.scss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
 
+* {
+    box-sizing: border-box;
+    font-family: Inter;
+  }
 
 h1{
     margin-bottom: 30px;
@@ -8,7 +13,6 @@ h1{
 h1 + h3{
     padding-top: 10px;
 }
-
 
 article {
     padding-top: 30px;
@@ -52,7 +56,6 @@ article ul.space-at-top li::before {
     z-index: 1;
     position: relative;
 }
-
 
 @media (min-width: 1900px){
     .d-xxl-none {

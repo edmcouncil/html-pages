@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    searchDefaultDomain: '/fibo/ontology/{version}api/find',
     ontologyDefaultDomain: '/fibo/ontology/{version}api/search',
     modulesDefaultDomain: '/fibo/ontology/{version}api/module',
   },

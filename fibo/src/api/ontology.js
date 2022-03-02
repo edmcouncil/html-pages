@@ -12,18 +12,11 @@ const getOntology = function (query, domain) {
     body: query,
   }).then(parseServerError);
 };
+
 const getModules = function (domain) {
   return fetch(domain, {
     method: 'GET',
     headers: { 'Accept': 'application/json' },
-  }).then(parseServerError);
-};
-
-const getHint = function (query, domain) {
-  return fetch(domain, {
-    method: 'POST',
-    headers: { 'Accept': 'application/json', 'Content-Type': 'text/plain' },
-    body: query,
   }).then(parseServerError);
 };
 
@@ -34,5 +27,18 @@ const getOntologyVersions = function () {
   }).then(parseServerError);
 };
 
+const getFindSearch = function (domain) {
+  return fetch(domain, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  }).then(parseServerError);
+};
 
-export { getOntology, getModules, getHint, getOntologyVersions };
+const getFindProperties = function (domain) {
+  return fetch(domain, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  }).then(parseServerError);
+};
+
+export { getOntology, getModules, getOntologyVersions, getFindSearch, getFindProperties };
