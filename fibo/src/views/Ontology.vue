@@ -1269,8 +1269,6 @@ export default {
             body.result.deprecated = false;
           }
 
-          console.log(body.result);
-
           this.data = body.result;
           this.error = false;
           this.searchBox.searchError = false;
