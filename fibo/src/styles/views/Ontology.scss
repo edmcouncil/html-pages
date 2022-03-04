@@ -1077,9 +1077,14 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     margin-top: 45px;
     padding: 0;
 
+    .ontology-item__header__status {
+      float: left;
+      margin-left: -30px;
+      margin-top: 40px;
+    }
+
     // maturity alert
     .alert-maturity {
-      float: left;
       color: rgba(0, 0, 0, 0.8);
 
       font-style: normal;
@@ -1095,8 +1100,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
       block-size: fit-content;
       border-radius: 2px;
 
-      margin-top: 40px;
-      margin-left: -30px;
+      margin-top: 0px;
       margin-bottom: 5px;
       padding: 5px 15px 5px 15px;
       // margin-right: 85px;
@@ -1118,6 +1122,36 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
         clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
         transform: rotate(-45deg);
         border-radius: 0 0 0 0.25em;
+      }
+    }
+
+    // deprecated alert
+    .alert-deprecated {
+      color: rgba(0, 0, 0, 0.8);
+
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+
+      letter-spacing: 0.01em;
+
+      border: none;
+      width: fit-content;
+      block-size: fit-content;
+      border-radius: 2px;
+
+      margin-top: 0px;
+      margin-bottom: 5px;
+      padding: 5px 15px 5px 15px;
+
+      a {
+        text-decoration: underline;
+      }
+
+      &::before {
+        content: "";
+        display: none;
       }
     }
 
@@ -1567,7 +1601,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     .ontology-item__header {
       margin-top: 0px;
       // maturity alert
-      .alert-maturity {
+      .ontology-item__header__status {
         margin-top: 40px;
         margin-left: 0px;
       }

@@ -562,28 +562,38 @@
                         >Report a problem</a
                       >
                       <!-- maturity alert -->
-                      <div
-                        class="alert alert-primary alert-maturity"
-                        role="alert"
-                        v-if="
-                          data.maturityLevel.label !== 'release' &&
-                          data.maturityLevel.label !== ''
-                        "
-                      >
-                        This resource has maturity level
-                        {{ this.data.maturityLevel.label }}.
+                      <div class="ontology-item__header__status">
+                        <div
+                          class="alert alert-error alert-deprecated"
+                          role="alert"
+                          v-if="data.deprecated"
+                        >
+                          This resource is deprecated and may be removed shortly.
+                        </div>
+                        <div
+                          class="alert alert-primary alert-maturity"
+                          role="alert"
+                          v-if="
+                            data.maturityLevel.label !== 'release' &&
+                            data.maturityLevel.label !== ''
+                          "
+                        >
+                          This resource has maturity level
+                          {{ this.data.maturityLevel.label }}.
 
-                        <customLink
-                          class="custom-link"
-                          :name="'Read more'"
-                          :query="data.maturityLevel.iri"
-                        ></customLink>
+                          <customLink
+                            class="custom-link"
+                            :name="'Read more'"
+                            :query="data.maturityLevel.iri"
+                          ></customLink>
+                        </div>
                       </div>
 
                       <div
                         v-if="
-                          data.maturityLevel.label !== 'release' &&
-                          data.maturityLevel.label !== ''
+                          (data.maturityLevel.label !== 'release' &&
+                          data.maturityLevel.label !== '') ||
+                          data.deprecated
                         "
                         class="clearfix"
                       ></div>
@@ -1245,6 +1255,22 @@ export default {
           if (body.type !== "details") {
             console.error(`body.type: ${body.type}, expected: details`);
           }
+          // check if resource is deprecated
+          if (body.result.properties.other &&
+          body.result.properties.other.deprecated &&
+          body.result.properties.other.deprecated[0].value === 'true') {
+            body.result.deprecated = true;
+            delete body.result.properties.other.deprecated;
+            // if other is now empty, remove it
+            if (Object.keys(body.result.properties.other).length === 0) {
+              delete body.result.properties.other;
+            }
+          } else {
+            body.result.deprecated = false;
+          }
+
+          console.log(body.result);
+
           this.data = body.result;
           this.error = false;
           this.searchBox.searchError = false;
