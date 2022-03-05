@@ -123,13 +123,18 @@
                         id="ajax2"
                         label="labelForInternalSearch"
                         track-by="iri"
-                        :placeholder="searchBox.inputValue || 'Find domains, ontologies, concepts...'"
+                        :placeholder="
+                          searchBox.inputValue ||
+                          'Find domains, ontologies, concepts...'
+                        "
                         tagPlaceholder="Search..."
                         selectLabel="x"
                         open-direction="bottom"
                         ref="searchBoxInput2"
                         spellcheck="false"
-                        :class="{'multiselect--input-empty':!searchBox.inputValue}"
+                        :class="{
+                          'multiselect--input-empty': !searchBox.inputValue,
+                        }"
                         :options="searchBox.data"
                         :multiple="false"
                         :searchable="true"
@@ -163,17 +168,25 @@
                           query.
                         </span>
                         <span slot="singleLabel">
-                          {{ searchBox.inputValue || 'Find domains, ontologies, concepts...' }}
+                          {{
+                            searchBox.inputValue ||
+                            "Find domains, ontologies, concepts..."
+                          }}
                         </span>
                       </multiselect>
                     </div>
-                    <div class="menu-box__icons"
-                         :class="{'menu-box__icons--inactive':!searchBox.dropdownActive && !searchBox.inputValue,
-                                  'menu-box__icons--loading':searchBox.isLoading}">
+                    <div
+                      class="menu-box__icons"
+                      :class="{
+                        'menu-box__icons--inactive':
+                          !searchBox.dropdownActive && !searchBox.inputValue,
+                        'menu-box__icons--loading': searchBox.isLoading,
+                      }"
+                    >
                       <div
                         class="menu-box__icons__icon icon-search"
-                        @click="searchBox_addTag(searchBox.inputValue)">
-                      </div>
+                        @click="searchBox_addTag(searchBox.inputValue)"
+                      ></div>
                     </div>
                   </div>
                   <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre>
@@ -253,71 +266,15 @@
             name="ontologyViewerTopOfContainer"
             id="ontologyViewerTopOfContainer"
           ></a>
+        </div>
 
-          <!-- search box mobile -->
-          <div
-            class="
-              search-box search-box--mobile
-              d-lg-none
-              multiselect-container
-            "
-          >
-            <div class="menu-box">
-              <div class="menu-box__label">Search FIBO</div>
-              <div class="menu-box__content-text">
-                <multiselect
-                  v-model="searchBox.selectedData"
-                  id="ajax"
-                  label="labelForInternalSearch"
-                  track-by="iri"
-                  placeholder="Find..."
-                  tagPlaceholder="Search..."
-                  selectLabel="x"
-                  open-direction="bottom"
-                  ref="searchBoxInput"
-                  spellcheck="false"
-                  :options="searchBox.data"
-                  :multiple="false"
-                  :searchable="true"
-                  :loading="searchBox.isLoading"
-                  :internal-search="false"
-                  :clear-on-select="false"
-                  :close-on-select="true"
-                  :options-limit="300"
-                  :limit="3"
-                  :limit-text="searchBox_limitText"
-                  :max-height="600"
-                  :preserve-search="true"
-                  :show-no-results="false"
-                  :hide-selected="true"
-                  :taggable="true"
-                  @select="searchBox_optionSelected"
-                  @tag="searchBox_addTag"
-                  @search-change="searchBox_asyncFind"
-                >
-                  <template slot="clear" slot-scope="props">
-                    <div
-                      class="multiselect__clear"
-                      v-if="searchBox.selectedData"
-                      @mousedown.prevent.stop="clearAll(props.search)"
-                    ></div>
-                  </template>
-                  <span slot="noResult">
-                    Oops! No elements found. Consider changing the search query.
-                  </span>
-                </multiselect>
-              </div>
-              <div class="menu-box__icons"></div>
-            </div>
-          </div>
-
-          <!-- tree mobile -->
+        <!-- mobile multiselects -->
+        <div class="container px-0 mb-2 d-lg-none">
           <div
             class="
               secondary-column__versions secondary-column__versions--mobile
               multiselect-container
               container
-              d-lg-none
             "
           >
             <div class="menu-box">
@@ -378,7 +335,6 @@
               secondary-column__tree secondary-column__tree--mobile
               multiselect-container
               container
-              d-lg-none
             "
           >
             <div class="menu-box" v-on:click="toggleModuleTree()">
@@ -398,19 +354,149 @@
               :key="item.label"
             />
           </ul>
+
+          <div class="search-box search-box--mobile multiselect-container">
+            <div class="menu-box">
+              <div class="menu-box__label">Search FIBO</div>
+              <div class="menu-box__content-text">
+                <multiselect
+                  v-model="searchBox.selectedData"
+                  id="ajax"
+                  label="labelForInternalSearch"
+                  track-by="iri"
+                  :placeholder="searchBox.inputValue || 'Find...'"
+                  tagPlaceholder="Search..."
+                  selectLabel="x"
+                  open-direction="bottom"
+                  ref="searchBoxInput"
+                  spellcheck="false"
+                  :class="{ 'multiselect--input-empty': !searchBox.inputValue }"
+                  :options="searchBox.data"
+                  :multiple="false"
+                  :searchable="true"
+                  :loading="searchBox.isLoading"
+                  :internal-search="false"
+                  :clear-on-select="false"
+                  :close-on-select="true"
+                  :options-limit="300"
+                  :limit="3"
+                  :limit-text="searchBox_limitText"
+                  :max-height="600"
+                  :preserve-search="true"
+                  :show-no-results="false"
+                  :hide-selected="true"
+                  :taggable="true"
+                  @select="searchBox_optionSelected"
+                  @tag="searchBox_addTag"
+                  @search-change="searchBox_asyncFind"
+                  @open="searchBox.dropdownActive = true"
+                  @close="searchBox.dropdownActive = false"
+                >
+                  <template slot="clear" slot-scope="props">
+                    <div
+                      class="multiselect__clear"
+                      v-if="searchBox.selectedData"
+                      @mousedown.prevent.stop="clearAll(props.search)"
+                    ></div>
+                  </template>
+                  <span slot="noResult">
+                    Oops! No elements found. Consider changing the search query.
+                  </span>
+                  <span slot="singleLabel">
+                    {{ searchBox.inputValue || "Find..." }}
+                  </span>
+                </multiselect>
+              </div>
+              <div
+                class="menu-box__icons"
+                :class="{
+                  'menu-box__icons--inactive':
+                    !searchBox.dropdownActive && !searchBox.inputValue,
+                  'menu-box__icons--loading': searchBox.isLoading,
+                }"
+              >
+                <div
+                  class="menu-box__icons__icon icon-search"
+                  @click="searchBox_addTag(searchBox.inputValue)"
+                ></div>
+              </div>
+            </div>
+            <div
+              class="expand-advanced-btn"
+              @click="
+                searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
+              "
+            >
+              <div v-if="!searchBox.isAdvancedExpanded">
+                <div class="see-more-btn">search configuration</div>
+              </div>
+
+              <div v-else>
+                <div class="see-less-btn">search configuration</div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="advanced-search-box advanced-search-box--mobile card"
+            v-if="searchBox.isAdvancedExpanded"
+          >
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="multiselect-xxl-container multiselect-container">
+                  <div class="menu-box">
+                    <div class="menu-box__label">Search by properties</div>
+                    <div class="menu-box__content-text">
+                      <multiselect
+                        v-model="searchBox.findProperties"
+                        placeholder="Select properties..."
+                        open-direction="bottom"
+                        label="label"
+                        selectLabel=""
+                        deselectLabel=""
+                        selectedLabel=""
+                        track-by="identifier"
+                        :searchable="false"
+                        :options="searchBox.findPropertiesAll"
+                        :close-on-select="false"
+                        :multiple="true"
+                        @input="encodeProperties"
+                      >
+                      </multiselect>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      v-model="searchBox.useHighlighting"
+                      class="custom-control-input"
+                      type="checkbox"
+                      name="useHighlight"
+                      id="useHighlight"
+                      value="useHighlight"
+                    />
+                    <label class="custom-control-label" for="useHighlight">
+                      Use highlighting
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div
-            class="text-center mt-5"
-            v-if="
-              !error && (loader || searchBox.isLoadingResults || !modulesList)
-            "
-          >
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-            <div style="margin-bottom: 100vh"></div>
+          class="text-center mt-5"
+          v-if="
+            !error && (loader || searchBox.isLoadingResults || !modulesList)
+          "
+        >
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
           </div>
+          <div style="margin-bottom: 100vh"></div>
+        </div>
 
         <!-- search results -->
         <div
@@ -460,22 +546,25 @@
                   ></customLink>
                 </div>
 
-                <div class="search-item__description-wrapper"
-                     v-if="result.highlights.length > 0">
+                <div
+                  class="search-item__description-wrapper"
+                  v-if="result.highlights.length > 0"
+                >
                   <div
                     class="search-item__description"
                     v-for="(highlight, index) in result.highlights"
-                    :key="index + highlight.fieldIdentifier">
+                    :key="index + highlight.fieldIdentifier"
+                  >
                     <span class="search-item__description__label">
                       {{ getPropertyLabel(highlight.fieldIdentifier) }}
                     </span>
                     <span
                       class="search-item__description__highlight"
-                      v-html="highlight.highlightedText">
+                      v-html="highlight.highlightedText"
+                    >
                     </span>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -532,7 +621,10 @@
           </div>
         </div>
 
-        <div class="container" v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch">
+        <div
+          class="container"
+          v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
+        >
           <div class="row">
             <!-- SHOW ITEM -->
             <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
@@ -1070,7 +1162,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -1461,6 +1552,7 @@ export default {
       this.searchBox.selectedData = null;
       this.searchBox.inputValue = '';
       this.$refs.searchBoxInput2.search = '';
+      this.$refs.searchBoxInput.search = '';
     },
     searchResultClicked() {
       this.$root.ontologyRouteIsUpdating = true;
@@ -1625,6 +1717,7 @@ export default {
       const searchQuery = decodeURI(this.$route.query.searchBoxQuery);
       this.searchBox.inputValue=searchQuery;
       this.$refs.searchBoxInput2.search=searchQuery;
+      this.$refs.searchBoxInput.search=searchQuery;
       this.handleSearchBoxQuery(searchQuery);
       this.$nextTick(()=>{
         this.scrollToOntologyViewerTopOfContainer();
