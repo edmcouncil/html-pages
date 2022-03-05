@@ -1256,15 +1256,10 @@ export default {
             console.error(`body.type: ${body.type}, expected: details`);
           }
           // check if resource is deprecated
-          if (body.result.properties.other &&
-          body.result.properties.other.deprecated &&
-          body.result.properties.other.deprecated[0].value === 'true') {
+          if (body.result.properties['Ontological characteristic'] &&
+          body.result.properties['Ontological characteristic'].deprecated &&
+          body.result.properties['Ontological characteristic'].deprecated[0].value === 'true') {
             body.result.deprecated = true;
-            delete body.result.properties.other.deprecated;
-            // if other is now empty, remove it
-            if (Object.keys(body.result.properties.other).length === 0) {
-              delete body.result.properties.other;
-            }
           } else {
             body.result.deprecated = false;
           }
