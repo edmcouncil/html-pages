@@ -1260,6 +1260,10 @@ export default {
           body.result.properties['Ontological characteristic'].deprecated &&
           body.result.properties['Ontological characteristic'].deprecated[0].value === 'true') {
             body.result.deprecated = true;
+            delete body.result.properties['Ontological characteristic'].deprecated;
+            if(Object.keys(body.result.properties['Ontological characteristic']).length === 0) {
+              delete body.result.properties['Ontological characteristic'];
+            }
           } else {
             body.result.deprecated = false;
           }
