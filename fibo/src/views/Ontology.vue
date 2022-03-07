@@ -1521,7 +1521,11 @@ export default {
     },
     checkPathsOverflow() {
       // go through displayed paths and call checkPathOverflow for them
-      if (this.$refs.taxonomyItems && this.$refs.ontologyPaths && this.data && this.data.taxonomy && !this.pathsSection.isTreeView) {
+      if (this.$refs.taxonomyItems
+        && this.$refs.ontologyPaths
+        && this.data
+        && this.data.taxonomy
+        && !this.pathsSection.isTreeView) {
         for (
           let i = 0;
           i <
