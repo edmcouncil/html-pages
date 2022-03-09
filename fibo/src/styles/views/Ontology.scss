@@ -261,7 +261,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
 }
 .multiselect-container.secondary-column__versions.secondary-column__versions--mobile{
   background-color: transparent;
-  margin-top: 0px;
+  margin-top: 30px;
   .menu-box {
     margin-top: 0px;
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
@@ -450,6 +450,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
 }
 .search-box--mobile {
   background-color: transparent;
+  padding: 0 20px 0px 20px;
   .menu-box {
     margin-bottom: 10px;
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
@@ -457,21 +458,6 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
   .multiselect__content-wrapper {
     box-shadow: inset 0px 20px 20px -20px rgba(8, 84, 150, 0.15),
                 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
-  }
-  .multiselect .multiselect__select {
-    display: block;
-    transition: right 0.2s, background-color 0.2s;
-    background-color: white;
-    padding: 0px;
-    margin-right: 30px;
-    margin-top: -10px;
-    width: 40px;
-    height: 40px;
-    top: -5px;
-    background-image: url("../../assets/icons/search.svg");
-    background-repeat: no-repeat;
-    background-size: 24px 24px;
-    background-position: center;
   }
 }
 
@@ -615,6 +601,17 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
         }
       }
     }
+  }
+}
+.advanced-search-box--mobile {
+  background: none;
+  margin-top: 10px;
+  .multiselect__content-wrapper {
+    box-shadow: inset 0px 20px 20px -20px rgba(8, 84, 150, 0.15),
+                0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+  }
+  .custom-checkbox {
+    padding-bottom: 0px;
   }
 }
 
@@ -1469,7 +1466,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
 // --------------------------
 // Mobile
 // --------------------------
-@media (max-width: 768px) {
+@media (max-width: 991px) {
   .section-title {
     &::before {
       content: "";
@@ -1599,7 +1596,6 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     }
 
     .ontology-item__header {
-      margin-top: 0px;
       // maturity alert
       .ontology-item__header__status {
         margin-top: 40px;
@@ -1668,6 +1664,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
   }
 
   .search-section {
+    margin-top: 45px;
     .search-section__header {
       padding: 40px 30px;
 
@@ -1797,6 +1794,12 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
       width: 24px;
       height: 24px;
       float: left;
+    }
+  }
+
+  .custom-checkbox {
+    .custom-control-label {
+      font-size: 16px;
     }
   }
 }
