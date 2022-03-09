@@ -26,7 +26,6 @@
 <script>
 import Vue from "vue";
 import customLink from "./chunks/link";
-import { computed } from '@vue/runtime-core';
 
 Vue.component("customLink", customLink);
 
