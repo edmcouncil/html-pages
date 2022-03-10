@@ -779,9 +779,12 @@
                       <div key="tree-view" class="ontology-item__paths__tree-view" v-else>
                         <ul class="ontology-item__paths__tree-view__root">
                           <paths-tree
-                            v-for="child in this.pathsSection.treeView"
+                            v-for="(child, index) in pathsSection.treeView"
                             :key="child.label"
                             :item="child"
+                            :isLast="index == pathsSection.treeView.length-1"
+                            :isOnly="pathsSection.treeView.length === 1"
+                            :isRoot="true"
                           />
                         </ul>
                       </div>

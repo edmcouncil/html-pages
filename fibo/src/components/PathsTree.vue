@@ -1,5 +1,9 @@
 <template>
-  <li>
+  <li :class="{ selected: !isFolder }">
+    <div class="guiding-lines">
+      <div class="parent-link" :class="{ only: isOnly }" v-if="!isRoot"></div>
+      <div class="line" v-if="!isLast && !isRoot"></div>
+    </div>
     <div
       class="icon"
       :class="{ 'item-open': isOpen }"
@@ -7,6 +11,7 @@
       v-if="isFolder"
     ></div>
     <span>
+      <div class="wrapping-line-fill" v-if="isFolder && isOpen"></div>
       <customLink
         class="custom-link"
         :name="item.value.label"
@@ -15,9 +20,12 @@
     </span>
     <ul v-show="isOpen">
       <paths-tree
-        v-for="child in this.item.children"
+        v-for="(child, index) in item.children"
         :key="child.label"
         :item="child"
+        :isLast="index == item.children.length - 1"
+        :isOnly="item.children.length === 1"
+        :isRoot="false"
       />
     </ul>
   </li>
@@ -33,6 +41,9 @@ export default {
   name: "paths-tree",
   props: {
     item: Object,
+    isLast: Boolean,
+    isOnly: Boolean,
+    isRoot: Boolean
   },
   data() {
     return {
@@ -53,21 +64,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul {
-  margin: 0;
-  padding-left: 0px;
-  list-style: none;
-}
-
 li {
   padding-left: 20px;
   position: relative;
 
-  .custom-link {
-    font-size: 18px;
-    line-height: 30px;
-    letter-spacing: 0.01em;
+  .parent-link {
+    height: 15px;
+    width: 10px;
+    position: absolute;
+    border-bottom: 1px solid rgb(153, 153, 153);
+    left: -15px;
+
+    &.only {
+      border-left: 1px solid rgb(153, 153, 153);
+    }
   }
+
+  .line {
+    height: calc(100% + 15px);
+    width: 1px;
+    position: absolute;
+    border-left: 1px solid rgb(153, 153, 153);
+    left: -15px;
+  }
+
+  span {
+    position: relative;
+
+    .wrapping-line-fill {
+      height: calc(100% - 15px);
+      width: 1px;
+      position: absolute;
+      border-left: 1px solid rgb(153, 153, 153);
+      left: -15px;
+      top: 30px;
+    }
+
+    .custom-link {
+      font-size: 18px;
+      line-height: 30px;
+      letter-spacing: 0.01em;
+    }
+  }
+
   .icon {
     background-image: url("../assets/icons/arrow.svg");
     background-repeat: no-repeat;
@@ -75,7 +114,7 @@ li {
     background-position: center;
 
     position: absolute;
-    left: -10px;
+    left: -9px;
 
     display: block;
     width: 30px;
@@ -86,6 +125,29 @@ li {
     }
     &.item-open {
       transform: rotate(90deg);
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 0px;
+    list-style: none;
+  }
+}
+
+li.selected {
+  font-weight: bold;
+
+  .parent-link {
+    width: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  li {
+    span .custom-link {
+      font-size: 16px;
+      line-height: 24px;
     }
   }
 }
