@@ -159,6 +159,71 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
   }
 }
 
+
+// --------------------------
+// How to use
+// --------------------------
+.secondary-column__how-to-use {
+  .modules-header {
+    margin-top: 40px;
+    justify-content: space-between;
+    .fibo-title-modules {
+      color: map-get($colors-map, "black");
+      text-decoration: none;
+      font-family: Inter;
+      font-weight: 700;
+      font-size: 24px;
+      margin-left: 10px;
+    }
+    
+    .button-small {
+      align-items: center;
+      background-color: map-get($colors-map, "black");
+      border-radius: 2px;
+      display: flex;
+      height: 30px;
+      min-width: 106px;
+      padding: 0 15px;
+      margin: 0;
+    
+      .button-small-text:link {
+        color: map-get($colors-map, "white");
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.14px;
+        line-height: 20px;
+        min-height: 20px;
+        min-width: 76px;
+        white-space: nowrap;
+        text-decoration: none;
+      }
+      .button-small-text:visited {
+        color: map-get($colors-map, "white");
+      }
+      .button-small-text:hover {
+        color: map-get($colors-map, "white");
+      }
+      .button-small-text:active {
+        color: map-get($colors-map, "white");
+      }
+    
+    }
+    h5 {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+.secondary-column__how-to-use--mobile {
+  padding: 0px 35px;
+  .fibo-title-modules {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
+
 // --------------------------
 // Tree modules
 // --------------------------
@@ -888,56 +953,6 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
   
     .modules-list {
       margin: 20px 0 0 20px;
-    }
-    .modules-header {
-      margin-top: 20px;
-      justify-content: space-between;
-      .fibo-title-modules {
-        color: map-get($colors-map, "black");
-        text-decoration: none;
-        font-family: Inter;
-        font-weight: 700;
-        font-size: 24px;
-        margin-left: 10px;
-      }
-      
-      .button-small {
-        align-items: center;
-        background-color: map-get($colors-map, "black");
-        border-radius: 2px;
-        display: flex;
-        height: 30px;
-        min-width: 106px;
-        padding: 0 15px;
-        margin: 0;
-      
-        .button-small-text:link {
-          color: map-get($colors-map, "white");
-          font-family: Inter;
-          font-size: 14px;
-          font-weight: 400;
-          letter-spacing: 0.14px;
-          line-height: 20px;
-          min-height: 20px;
-          min-width: 76px;
-          white-space: nowrap;
-          text-decoration: none;
-        }
-        .button-small-text:visited {
-          color: map-get($colors-map, "white");
-        }
-        .button-small-text:hover {
-          color: map-get($colors-map, "white");
-        }
-        .button-small-text:active {
-          color: map-get($colors-map, "white");
-        }
-      
-      }
-      h5 {
-        padding: 0;
-        margin: 0;
-      }
     }
   }
 }
