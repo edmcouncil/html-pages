@@ -787,8 +787,11 @@
                         id="paths-switch"
                         v-model="pathsSection.isTreeView"
                       />
+                      <label class="custom-control-label-prev" for="paths-switch">
+                        Paths
+                      </label>
                       <label class="custom-control-label" for="paths-switch">
-                        Tree view
+                        Tree
                       </label>
                     </div>
 
@@ -1324,6 +1327,10 @@ export default {
       timeoutCheckPathsOverflow = setTimeout(this.checkPathsOverflow, 300);
     });
 
+    if (localStorage.isTreeView && localStorage.isTreeView === 'true') {
+        this.pathsSection.isTreeView = true;
+    }
+
     this.updateServers();
 
     this.query = queryParam;
@@ -1759,6 +1766,9 @@ export default {
 
       // clear search results after changing version
       this.clearSearchResults();
+    },
+    "pathsSection.isTreeView": newValue => {
+      localStorage.isTreeView = newValue;
     }
   },
   beforeRouteUpdate(to, from, next) {
