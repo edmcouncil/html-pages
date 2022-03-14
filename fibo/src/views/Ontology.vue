@@ -280,7 +280,7 @@
             <div class="row modules-header">
               <h5 class="fibo-title-modules">FIBO Viewer</h5>
               <div class="button-small">
-                <router-link class="button-small-text" to="/ontology" @click="clearAll">
+                <router-link class="button-small-text" to="/ontology" @click="data=null">
                   How to use
                 </router-link>
               </div>
