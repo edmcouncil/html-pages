@@ -269,7 +269,7 @@
         </div>
 
         <!-- mobile multiselects -->
-        <div class="container px-0 mb-2 d-lg-none">
+        <div class="secondary-column--mobile container px-0 mb-2 d-lg-none">
           <div
             class="
               secondary-column__versions secondary-column__versions--mobile
@@ -346,7 +346,7 @@
             </div>
           </div>
 
-          <ul v-if="display_modules" class="modules-list list-unstyled">
+          <ul v-if="display_modules" class="modules-list modules-list--mobile list-unstyled">
             <module-tree
               :item="item"
               v-for="item in modulesList"

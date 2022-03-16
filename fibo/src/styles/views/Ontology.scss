@@ -1028,6 +1028,11 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     }
   }
 }
+.secondary-column--mobile {
+  .modules-list--mobile {
+    padding: 0px 15px;
+  }
+}
 
 .ontology-item {
   .row {
