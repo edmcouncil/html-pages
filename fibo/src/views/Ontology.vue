@@ -5,18 +5,18 @@
       <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
         <div class="module-tree">
           <div
-            class="multiselect-xxl-container multiselect-container container"
+            class="
+              secondary-column__how-to-use
+              multiselect-xxl-container multiselect-container
+              container
+            "
           >
             <div class="row modules-header">
               <h5 class="fibo-title-modules">FIBO Viewer</h5>
               <div class="button-small">
-                <a
-                  class="button-small-text"
-                  target="_blank"
-                  href="@/fibo/ontology/"
-                >
+                <router-link class="button-small-text" to="/ontology" @click="data=null">
                   How to use
-                </a>
+                </router-link>
               </div>
             </div>
           </div>
@@ -270,6 +270,23 @@
 
         <!-- mobile multiselects -->
         <div class="container px-0 mb-2 d-lg-none">
+          <div
+            class="
+              secondary-column__how-to-use secondary-column__how-to-use--mobile
+              multiselect-container
+              container
+            "
+          >
+            <div class="row modules-header">
+              <h5 class="fibo-title-modules">FIBO Viewer</h5>
+              <div class="button-small">
+                <router-link class="button-small-text" to="/ontology" @click="data=null">
+                  How to use
+                </router-link>
+              </div>
+            </div>
+          </div>
+
           <div
             class="
               secondary-column__versions secondary-column__versions--mobile
@@ -1382,7 +1399,6 @@ export default {
     async fetchData(query) {
       if (query) {
         this.loader = true;
-        this.data = null;
         try {
           const result = await getOntology(query, this.ontologyServer);
           const body = await result.json();
@@ -1416,6 +1432,7 @@ export default {
           this.searchBox.searchError = false;
         } catch (err) {
           console.error(err);
+          this.data = null;
           this.error = true;
         }
         this.pathsSection.hasOverflow = [];
