@@ -700,21 +700,22 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     font-size: 18px;
     line-height: 30px;
     color: rgba(0, 0, 0, 0.8);
+    margin-left: 15px;
   }
 
   .custom-control-label::before {
     border: 2px solid $custom-control-indicator-checked-bg;
     top: 0.5rem;
-    left:-40px;
-
+    left:-55px;
+    width: 2.5rem;
   }
   .custom-control-label::after {
     border: 2px solid rgb(51,51,51);
 
     top: calc(0.5rem + 1px);
-    left:-39px;
-    width: calc(1rem - 2px);
-    height: calc(1rem - 2px);
+    left:-54px;
+    width: calc(1rem - 3px);
+    height: calc(1rem - 3px);
     background-color: rgb(51,51,51);
   }
 
@@ -726,6 +727,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     &::after {
       border: 2px solid $custom-control-indicator-indeterminate-bg;
       background-color: $custom-control-indicator-indeterminate-bg;
+      left:-42px;
     }
   }
 
