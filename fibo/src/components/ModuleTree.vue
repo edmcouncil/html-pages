@@ -63,6 +63,9 @@ export default {
       if (loc && loc.locationInModules) {
         this.isSelected = loc.locationInModules.some((location) => location == this.item.iri);
         this.isOpen = /* this.isOpen || */ this.isSelected; //isOpen is commented out to enable collapsing tree after opening different branch
+      } else {
+        this.isSelected = false;
+        this.isOpen = false;
       }
     },
   },
