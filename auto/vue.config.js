@@ -18,21 +18,21 @@ module.exports = {
   devServer: {
     proxy: {
       '^/auto/ontology/api/search$': {
-        target: 'https://auto-viewer.spec.edmcouncil.org',
+        target: 'https://spec.edmcouncil.org',
         // changeOrigin: true,
         // secure:false,
         // pathRewrite: {'^/auto': '/'},
         //logLevel: 'debug'
       },
       '^/auto/ontology/api/module$': {
-        target: 'https://auto-viewer.spec.edmcouncil.org',
+        target: 'https://spec.edmcouncil.org',
         // changeOrigin: true,
         // secure:false,
         // pathRewrite: {'^/auto': '/'},
         //logLevel: 'debug'
       },
       '^/auto/ontology/api/hint': {
-        target: 'https://auto-viewer.spec.edmcouncil.org',
+        target: 'https://spec.edmcouncil.org',
         // changeOrigin: true,
         // secure:false,
         // pathRewrite: {'^/auto': '/'},

@@ -609,8 +609,8 @@
             >
               Load next
               {{
-                searchBox.totalResultsCount - searchBox.displayedResultsCount <
-                searchBox.perPage
+                searchBox.totalResultsCount - searchBox.displayedResultsCount < searchBox.perPage
+                
                   ? searchBox.totalResultsCount -
                     searchBox.displayedResultsCount
                   : searchBox.perPage
