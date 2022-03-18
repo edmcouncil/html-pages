@@ -30,3 +30,13 @@ services:
     volumes:
       - ./auto:/project
       - /project/node_modules
+  idmp:
+    profiles: ["idmp"]
+    build:
+      context: ./idmp
+      dockerfile: ../Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./idmp:/project
+      - /project/node_modules
