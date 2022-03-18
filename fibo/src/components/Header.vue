@@ -98,7 +98,7 @@
 <div class="container header  mobile-view">
     <nav class="navbar navbar-expand-lg navbar-light mobile-view">
       <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
-        <img id="logo-fibo" src="@/assets/img/logoWhite.png" />
+        <img id="logo-fibo" src="@/assets/img/logo.png" />
       </a>
       <button
         class="navbar-toggler"
