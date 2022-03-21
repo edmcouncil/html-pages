@@ -35,11 +35,11 @@
 
 <h5>OKG Innovation Lab</h5>
 
-<p class="text">EDMC recognizes the urgent need to bring this new architecture and approach to its members and beyond. In consultations with various members, analysts, and software vendors, we have launched the Open Knowledge Graph Lab. You can be in touch with its activities by joining <a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community">OKG Interest Community Page</a></p>
+<p class="text">EDMC recognizes the urgent need to bring this new architecture and approach to its members and beyond. In consultations with various members, analysts, and software vendors, we have launched the Open Knowledge Graph Lab. You can be in touch with its activities by joining <a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community">OKG Interest Community</a>.</p>
 
 
 <h5>OKG Training</h5>
-<p class="text">EDMC currently offers the introductory course in Knowledge Graph technology - it is available as a <a href="https://edmcouncil.org/page/okg_virtual_training" virtual class</a>.</p>
+<p class="text">EDMC currently offers the introductory course in Knowledge Graph technology - it is available as a <a href="https://edmcouncil.org/page/okg_virtual_training"> virtual class</a>.</p>
                 
                 <div style="clear:both;"></div>
             </article>
