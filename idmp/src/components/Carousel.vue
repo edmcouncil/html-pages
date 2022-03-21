@@ -2,36 +2,57 @@
   <div class="container slider">
     <div id="carouselExampleIndicators" class="carousel slide">
       <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li
+          data-target="#carouselExampleIndicators"
+          data-slide-to="0"
+          class="active"
+        ></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="First slide">
+          <img
+            class="d-block w-100"
+            src="../assets/img/banerBlack.jpg"
+            alt="First slide"
+          />
           <div class="carousel-caption d-none d-md-block">
-            <h2>FIBO Interest Group</h2>
-            <p>EDMConnect FIBO Community Space for thoughts sharing</p>
-            <!-- <router-link :to="{ path: router('OWL') }" class="btn-sl">DOWNLOAD FIBO OWL</router-link> -->
-            <a href="https://edmconnect.edmcouncil.org/fibointerestgroup/home" v-on:click="outboundLinkClick('https://edmconnect.edmcouncil.org/fibointerestgroup/home')" class="btn-sl">Visit FIBO Interest Group</a>
+            <h2>Executive Summary</h2>
+            <p>IDMP Common Core Ontology</p>
+            <a
+              href="https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/PA_IDMP-Ontology_Executive-Project-Summary.pdf"
+              v-on:click="
+                outboundLinkClick(
+                  'https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/PA_IDMP-Ontology_Executive-Project-Summary.pdf'
+                )
+              "
+              class="btn-sl"
+            >
+              Learn more
+            </a>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="Second slide">
+          <img
+            class="d-block w-100"
+            src="../assets/img/banerBlack.jpg"
+            alt="Second slide"
+          />
           <div class="carousel-caption d-none d-md-block">
-            <h2>FIBO GitHub Space</h2>
-            <p>Since January 2020, FIBO has been developed by an open community process</p>
-            <!-- <router-link :to="{ path: router('vocabulary') }" class="btn-sl">DOWNLOAD FIBO SKOS Vocabulary</router-link> -->
-            <a href="https://github.com/edmcouncil/fibo/blob/master/README.md" v-on:click="outboundLinkClick('https://github.com/edmcouncil/fibo/blob/master/README.md')" class="btn-sl">Visit FIBO GitHub Space</a>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="Third slide">
-          <div class="carousel-caption d-none d-md-block">
-            <h2>FIBO Training</h2>
-            <p>FIBO & Knowledge Graph Fundamentals Training</p>
-            <!-- <router-link :to="{ path: router('data-dictionary') }" class="btn-sl">DOWNLOAD FIBO Data Dictionary</router-link> -->
-            <a href="https://edmcouncil.org/page/OKGVirtualTraining" v-on:click="outboundLinkClick('https://edmcouncil.org/page/OKGVirtualTraining')" class="btn-sl">Learn more</a>            
+            <h2>Project Info Pack</h2>
+            <p>
+              Info Package for the Cross-Industry Initiative
+            </p>
+            <a
+              href="https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/IDMP_Ontology_Project-Info.pdf"
+              v-on:click="
+                outboundLinkClick(
+                  'https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/IDMP_Ontology_Project-Info.pdf'
+                )
+              "
+              class="btn-sl"
+              >Find out more</a
+            >
           </div>
         </div>
       </div>
@@ -68,11 +89,11 @@ export default {
 </script>
 
 <style lang="scss">
-  .fa,
-  .fas {
-    font-family: $font-family-awsome-solid;
-    font-weight: 900;
-  }
+.fa,
+.fas {
+  font-family: $font-family-awsome-solid;
+  font-weight: 900;
+}
 .slider {
   padding-left: 0;
   padding-right: 0;
@@ -89,7 +110,7 @@ export default {
   p {
     font-size: 19px !important;
     font-weight: 600 !important;
-    color: map-get($colors-map, 'white');
+    color: map-get($colors-map, "white");
     max-width: 1300px;
     margin-left: auto;
     margin-right: auto;
@@ -99,11 +120,10 @@ export default {
   h5 {
     font-size: 32px;
   }
-
 }
 a.btn-sl {
   display: inline-block;
-  color: map-get($colors-map, 'white');
+  color: map-get($colors-map, "white");
   padding: 8px 13px;
   font-size: 13px;
   margin-top: 12px;
@@ -126,22 +146,23 @@ a.btn-sl {
   padding-left: 0;
 
   &.active {
-    background-color: map-get($colors-map, 'black');
+    background-color: map-get($colors-map, "black");
   }
 }
-  .carousel-control-prev, .carousel-control-next{
-    opacity: 1;
-  }
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 1;
+}
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   width: 50px;
   height: 50px;
-  background-color: map-get($colors-map, 'white');
+  background-color: map-get($colors-map, "white");
   border-radius: 32px;
 
-  &:before{
+  &:before {
     font-family: $font-family-awsome-solid;
-    color: map-get($colors-map, 'dark-grey');
+    color: map-get($colors-map, "dark-grey");
     font-size: 20px;
     line-height: 50px;
   }
@@ -149,7 +170,7 @@ a.btn-sl {
 
 .carousel-control-prev-icon {
   &:before {
-     content: "\f053";
+    content: "\f053";
   }
 }
 
@@ -222,7 +243,5 @@ a.btn-sl {
     margin-top: 0px;
     padding: 5px 10px;
   }
-
 }
-
 </style>

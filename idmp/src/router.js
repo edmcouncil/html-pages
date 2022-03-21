@@ -14,11 +14,6 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/ontology-tools',
-      name: 'ontologyTools',
-      component: () => import(/* webpackChunkName: "ontologyTools" */ './views/OntologyTools.vue'),
-    },
-    {
       path: '/contact',
       name: 'Contact',
       component: () => import(/* webpackChunkName: "Contact" */ './views/Contact.vue'),
@@ -47,36 +42,6 @@ export default new Router({
       path: '/schema',
       name: 'Schema',
       component: () => import(/* webpackChunkName: "Schema" */ './views/Schema.vue'),
-    },
-    {
-      path: '/FIBO-Groups',
-      name: 'FIBOGroups',
-      component: () => import(/* webpackChunkName: "FIBOCommunities" */ './views/FIBOGroups.vue'),
-    },
-    {
-      path: '/development-process',
-      name: 'DevelopmentProcess',
-      component: () => import(/* webpackChunkName: "DevelopmentProcess" */ './views/DevelopmentProcess.vue'),
-    },
-    {
-      path: '/FIB-DM',
-      name: 'FIB-DM',
-      component: () => import(/* webpackChunkName: "FIB-DM" */ './views/FIB-DM.vue'),
-    },
-    {
-      path: '/how-to-contribute',
-      name: 'HowToContribute',
-      component: () => import(/* webpackChunkName: "FIB-DM" */ './views/HowToContribute.vue'),
-    },
-    {
-      path: '/FIBO-Release-Notes',
-      name: 'FIBOReleaseNotes',
-      component: () => import(/* webpackChunkName: "FIBOReleaseNotes" */ './views/FIBOReleaseNotes.vue'),
-    },
-    {
-      path: '/courses',
-      name: 'Courses',
-      component: () => import(/* webpackChunkName: "Courses" */ './views/Courses.vue'),
     },
     {
       path: '/ontology/:1?/:2?/:3?/:4?/:5?',

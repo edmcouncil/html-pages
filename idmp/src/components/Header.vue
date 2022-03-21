@@ -1,194 +1,212 @@
 <template>
-<div>
-  <div class="container header desktop-view">
+  <div class="container header">
+    <div class="desktop-view">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
+          <img id="logo-fibo" src="@/assets/img/logo.png" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
-        <img id="logo-fibo" src="@/assets/img/logo.png" />
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item padding-top15">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/events/event_list.asp"
+                target="_blank"
+                >Calendar</a
+              >
+            </li>
+            <li class="nav-item padding-top15">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/Login.aspx"
+                target="_blank"
+                >EDMConnect</a
+              >
+            </li>
+            <li class="nav-item padding-top15">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/login.aspx"
+                target="_blank"
+                >Sign in / Register</a
+              >
+            </li>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item padding-top15">
-            <a class="nav-link" href="https://edmcouncil.org/events/event_list.asp" target="_blank"
-              >Calendar</a
-            >
-          </li>
-          <li class="nav-item padding-top15">
-            <a class="nav-link" href="https://edmcouncil.org/Login.aspx" target="_blank"
-              >EDMConnect</a
-            >
-          </li>
-          <li class="nav-item padding-top15">
-            <a class="nav-link" href="https://edmcouncil.org/login.aspx" target="_blank"
-              >Sign in / Register</a
-            >
-          </li>
-
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <div class="burger-button">
-                <div class="icon-burger">
-                  <img src="@/assets/icons/union-burger.svg">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <div class="burger-button">
+                  <div class="icon-burger">
+                    <img src="@/assets/icons/union-burger.svg" />
+                  </div>
                 </div>
-              </div>
               </a>
-            <div class="dropdown-menu desktop" aria-labelledby="navbarDropdown">
-              <router-link class="nav-link" :to="{ path: router('ontology') }">
-                FIBO Viewer</router-link>
-              <router-link class="nav-link" :to="{ path: router('FIBO-Groups') }"
-                >FIBO Community</router-link>
-               <router-link class="nav-link" :to="{ path: router('FIB-DM') }">FIB-DM</router-link>
-            <router-link class="nav-link" :to="{ path: router('products') }">FIBO Products</router-link>
-            <div class="sub-nav-link">
-              <router-link class="nav-link nav-sub-link" :to="{ path: router('OWL') }"
-                >FIBO Ontology</router-link
+              <div
+                class="dropdown-menu desktop"
+                aria-labelledby="navbarDropdown"
               >
-              <router-link class="nav-link nav-sub-link" :to="{ path: router('vocabulary') }"
-                >FIBO Vocabulary</router-link
+                <router-link
+                  class="nav-link"
+                  :to="{ path: router('ontology') }"
+                >
+                  IDMP Viewer</router-link
+                >
+                <router-link class="nav-link" :to="{ path: router('products') }"
+                  >IDMP Products</router-link
+                >
+                <div class="sub-nav-link">
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('OWL') }"
+                    >IDMP Ontology</router-link
+                  >
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('vocabulary') }"
+                    >IDMP Vocabulary</router-link
+                  >
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('data-dictionary') }"
+                    >IDMP Data Dictionary</router-link
+                  >
+                </div>
+
+                <a
+                  href="https://spec.edmcouncil.org"
+                  class="nav-link"
+                  v-on:click="outboundLinkClick('https://spec.edmcouncil.org')"
+                  >OKG Home</a
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="mobile-view">
+      <nav class="navbar navbar-expand-lg navbar-light mobile-view">
+        <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
+          <img id="logo-fibo" src="@/assets/img/logo.png" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/events/event_list.asp"
+                target="_blank"
+                >Calendar</a
               >
-              <router-link class="nav-link nav-sub-link" :to="{ path: router('data-dictionary') }"
-                >FIBO Data Dictionary</router-link
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/Login.aspx"
+                target="_blank"
+                >EDMConnect</a
               >
-            </div>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/login.aspx"
+                target="_blank"
+                >Sign in / Register</a
+              >
+            </li>
 
-            <span class="nav-link">Docs</span>
-            <div class="sub-nav-link">
-              <router-link class="nav-link nav-sub-link" :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link>
-              <router-link class="nav-link nav-sub-link" :to="{ path: router('development-process') }">Development process</router-link>
-              <router-link class="nav-link nav-sub-link" :to="{ path: router('how-to-contribute') }">How to contribute</router-link>
-              <router-link class="nav-link nav-sub-link" :to="{ path: router('FIBO-Release-Notes') }"
-                >FIBO Release Notes</router-link>
-              <router-link class="nav-link nav-sub-link" :to="{ path: router('ontology-tools') }"
-                >FIBO Ontology Tools</router-link>
-            </div>
-            <a
-              href="https://spec.edmcouncil.org"
-              class="nav-link"
-              v-on:click="outboundLinkClick('https://spec.edmcouncil.org')"
-              >OKG Home</a
-            >
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-   <Carousel v-if="!$route.meta.plainLayout"></Carousel>
-  </div>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ path: router('ontology') }"
+                >IDMP Viewer</router-link
+              >
+            </li>
 
-<div class="container header  mobile-view">
-    <nav class="navbar navbar-expand-lg navbar-light mobile-view">
-      <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
-        <img id="logo-fibo" src="@/assets/img/logo.png" />
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+            <li class="nav-item dropdown">
+              <!-- <router-link class="nav-link" :to="{ path: router('products') }">FIBO Products</router-link> -->
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >IDMP Products</a
+              >
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('products') }"
+                >
+                  About IDMP Products
+                </router-link>
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('OWL') }"
+                >
+                  IDMP Ontology
+                </router-link>
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('vocabulary') }"
+                >
+                  IDMP Vocabulary
+                </router-link>
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('data-dictionary') }"
+                >
+                  IDMP Data Dictionary
+                </router-link>
+              </div>
+            </li>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="https://edmcouncil.org/events/event_list.asp" target="_blank"
-              >Calendar</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://edmcouncil.org/Login.aspx" target="_blank"
-              >EDMConnect</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://edmcouncil.org/login.aspx" target="_blank"
-              >Sign in / Register</a
-            >
-          </li>
-
-
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('ontology') }">FIBO Viewer</router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('FIBO-Groups') }">FIBO Community</router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('FIB-DM') }">FIB-DM</router-link>
-          </li>
-
-          <li class="nav-item dropdown">
-            <!-- <router-link class="nav-link" :to="{ path: router('products') }">FIBO Products</router-link> -->
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >FIBO Products</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" :to="{ path: router('products') }">About FIBO Products</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('OWL') }">FIBO Ontology</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('vocabulary') }">FIBO Vocabulary</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('data-dictionary') }">FIBO Data Dictionary</router-link>
-            </div>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >Docs</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" :to="{ path: router('FIBO-Groups') }">FIBO Groups</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('development-process') }">Development process</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('how-to-contribute') }">How to contribute</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('FIBO-Release-Notes') }">FIBO Release Notes</router-link>
-              <router-link class="dropdown-item" :to="{ path: router('ontology-tools') }">FIBO Ontology Tools</router-link>
-            </div>
-          </li>
-
-          <li class="nav-item">
-             <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG Home</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+            <li class="nav-item">
+              <a
+                href="https://spec.edmcouncil.org"
+                class="nav-link"
+                v-on:click="outboundLinkClick('https://spec.edmcouncil.org')"
+                >OKG Home</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
     <Carousel v-if="!$route.meta.plainLayout"></Carousel>
-  </div>
   </div>
 </template>
 
@@ -220,8 +238,8 @@ export default {
   content: "\f167";
 }
 .container {
-    max-width: 1440px;
-  }
+  max-width: 1440px;
+}
 .header {
   background-image: url("../assets/img/headerTransparent.png");
   -webkit-background-size: cover;
@@ -231,7 +249,7 @@ export default {
   width: 100%;
 }
 
- .burger-button {
+.burger-button {
   align-items: center;
   background-color: map-get($colors-map, "black");
   border-radius: 2px;
@@ -241,32 +259,32 @@ export default {
   margin-left: 40px;
   min-width: 104px;
   padding: 0px 40px;
-  .icon-burger{
+  .icon-burger {
     align-items: flex-end;
     display: flex;
     height: 24px;
     min-width: 24px;
-    img{
+    img {
       height: 23px;
       width: 24px;
     }
   }
 }
-.burger-button img{
+.burger-button img {
   max-width: 90%;
   height: auto;
 }
 
-.sub-nav-link{
+.sub-nav-link {
   padding-left: 10px;
   color: black;
 }
-.nav-sub-link{
+.nav-sub-link {
   color: map-get($colors-map, "grey") !important;
   text-shadow: 0 0 1px #ccc;
 }
 
-@media (min-width: 992px){
+@media (min-width: 992px) {
   .desktop-view {
     display: block !important;
   }
@@ -274,11 +292,11 @@ export default {
     display: none !important;
   }
 }
-@media (max-width: 991px){
+@media (max-width: 991px) {
   .mobile-view {
     display: block !important;
   }
-   .desktop-view {
+  .desktop-view {
     display: none !important;
   }
 }
@@ -298,8 +316,8 @@ export default {
   font-weight: 50;
 }
 
-.nav-item.padding-top15{
-    padding-top: 15px !important;
+.nav-item.padding-top15 {
+  padding-top: 15px !important;
 }
 .navbar-nav {
   align-self: flex-end;
@@ -441,11 +459,11 @@ export default {
 }
 
 //multiselect burger hide down arrow
-.dropdown-toggle::after  {
+.dropdown-toggle::after {
   display: none;
 }
 .dropdown-menu.desktop {
-  left:-95%;
+  left: -95%;
 }
 
 .dropdown-item {
