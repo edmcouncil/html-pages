@@ -30,6 +30,7 @@
 <ul>
     <li><a href="https://spec.edmcouncil.org/fibo/">FIBO Home</a></li>   
     <li><a href="https://spec.edmcouncil.org/auto/">AUTO Home</a></li>
+    <li> ... more to come soon</li>
 </ul>
 
 
