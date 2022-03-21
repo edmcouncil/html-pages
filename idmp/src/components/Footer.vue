@@ -44,11 +44,10 @@
       <div class="row">
         <div class="col-md-12">
           <p class="copyright">
-            © {{ new Date().getFullYear() }} EDM Council. All rights reserved. DCAM and FIBO are registered trademarks of EDM
-            Council. All other marks are the property of their respective owners. Membership
-            Management Software Powered by YourMembership
+            © {{ new Date().getFullYear() }} All rights reserved. 
           </p>
           <hr />
+          <!--
           <div class="footer-links">
             <ul>
               <li>
@@ -77,6 +76,8 @@
               </li>
             </ul>
           </div>
+
+          -->
         </div>
       </div>
     </div>
