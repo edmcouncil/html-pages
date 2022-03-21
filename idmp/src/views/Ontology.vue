@@ -12,7 +12,7 @@
             "
           >
             <div class="row modules-header">
-              <h5 class="fibo-title-modules">FIBO Viewer</h5>
+              <h5 class="fibo-title-modules">IDMP Viewer</h5>
               <div class="button-small">
                 <router-link class="button-small-text" to="/ontology" @click="data=null">
                   How to use
@@ -28,7 +28,7 @@
             "
           >
             <div class="menu-box">
-              <div class="menu-box__label">Select FIBO version</div>
+              <div class="menu-box__label">Select IDMP version</div>
               <div class="menu-box__content-text">
                 <multiselect
                   v-model="ontologyVersionsDropdownData.selectedData"
@@ -87,8 +87,8 @@
             "
           >
             <div class="menu-box">
-              <div class="menu-box__label">Browse FIBO domains</div>
-              <div class="menu-box__content-text">FIBO Domains</div>
+              <div class="menu-box__label">Browse IDMP domains</div>
+              <div class="menu-box__content-text">IDMP Domains</div>
               <div class="menu-box__icons">
                 <div class="menu-box__icons__icon icon-directory"></div>
               </div>
@@ -116,7 +116,7 @@
               <div class="col-lg-12">
                 <div class="multiselect-xxl-container multiselect-container">
                   <div class="menu-box">
-                    <div class="menu-box__label">Search FIBO</div>
+                    <div class="menu-box__label">Search IDMP</div>
                     <div class="menu-box__content-text">
                       <multiselect
                         v-model="searchBox.selectedData"
@@ -278,7 +278,7 @@
             "
           >
             <div class="row modules-header">
-              <h5 class="fibo-title-modules">FIBO Viewer</h5>
+              <h5 class="fibo-title-modules">IDMP Viewer</h5>
               <div class="button-small">
                 <router-link class="button-small-text" to="/ontology" @click="data=null">
                   How to use
@@ -295,7 +295,7 @@
             "
           >
             <div class="menu-box">
-              <div class="menu-box__label">Select FIBO version</div>
+              <div class="menu-box__label">Select IDMP version</div>
               <div class="menu-box__content-text">
                 <multiselect
                   v-model="ontologyVersionsDropdownData.selectedData"
@@ -355,8 +355,8 @@
             "
           >
             <div class="menu-box" v-on:click="toggleModuleTree()">
-              <div class="menu-box__label">Browse FIBO domains</div>
-              <div class="menu-box__content-text">FIBO Domains</div>
+              <div class="menu-box__label">Browse IDMP domains</div>
+              <div class="menu-box__content-text">IDMP Domains</div>
               <div class="menu-box__icons">
                 <div class="menu-box__icons__icon icon-directory"></div>
               </div>
@@ -374,7 +374,7 @@
 
           <div class="search-box search-box--mobile multiselect-container">
             <div class="menu-box">
-              <div class="menu-box__label">Search FIBO</div>
+              <div class="menu-box__label">Search IDMP</div>
               <div class="menu-box__content-text">
                 <multiselect
                   v-model="searchBox.selectedData"
@@ -1093,10 +1093,10 @@
             >
               <main class="">
                 <div class="col-md-12 how-to-article__header">
-                  <h5>How to use FIBO Viewer</h5>
+                  <h5>How to use IDMP Viewer</h5>
                   <p class="text">
-                    To start using FIBO Viewer, search for interesting concepts
-                    by walking through the FIBO directory structure on the
+                    To start using IDMP Viewer, search for interesting concepts
+                    by walking through the IDMP directory structure on the
                     left-hand side or use the full-text search function.
                   </p>
                 </div>
@@ -1104,15 +1104,15 @@
                 <article class="how-to-article__content">
                   <img src="@/assets/img/clock.svg" />
 
-                  <h5>FIBO Versions</h5>
+                  <h5>IDMP Versions</h5>
                   <p class="text">
-                    FIBO Viewer allows for browsing the past versions of FIBO.
+                    IDMP Viewer allows for browsing the past versions of IDMP.
                   </p>
 
                   <p class="post-description">
-                    It also helps developers to see the changes proposed to FIBO
+                    It also helps developers to see the changes proposed to IDMP
                     in pull requests before their approval. To see the content
-                    of the past FIBO releases or recent pull requests, choose
+                    of the past IDMP releases or recent pull requests, choose
                     them from the drop-down list.
                   </p>
 
@@ -1121,10 +1121,10 @@
                     src="@/assets/img/directory.svg"
                   />
 
-                  <h5>FIBO structure</h5>
+                  <h5>IDMP structure</h5>
 
                   <p class="text">
-                    FIBO is a set of ontologies. It is organized in a
+                    IDMP is a set of ontologies. It is organized in a
                     hierarchical directory structure.
                   </p>
 
@@ -1134,7 +1134,7 @@
                     dozens of ontologies at the bottom level, e.g.:
                   </p>
                   <p class="post-description padding-top30">
-                    On the left-hand side, there is a list of eleven FIBO
+                    On the left-hand side, there is a list of eleven IDMP
                     Domains, starting with the Business Entities at the top and
                     ending with Securities at the bottom.
                   </p>
@@ -1144,9 +1144,9 @@
                     src="@/assets/img/maturity.svg"
                   />
 
-                  <h5>FIBO maturity levels</h5>
+                  <h5>IDMP maturity levels</h5>
                   <p class="text">
-                    Each FIBO ontology has one of three levels of maturity.
+                    Each IDMP ontology has one of three levels of maturity.
                   </p>
 
                   <p class="post-description padding-top30">
@@ -1176,7 +1176,7 @@
 
                   <h5>Colours</h5>
                   <p class="text">
-                    FIBO Viewer uses colours to indicate the status of an
+                    IDMP Viewer uses colours to indicate the status of an
                     ontology. Each ontology is either green or yellow.
                   </p>
 
@@ -1210,13 +1210,13 @@
                   </p>
 
                   <p class="post-description padding-top30">
-                    <strong>About FIBO Viewer</strong>
+                    <strong>About IDMP Viewer</strong>
                   </p>
                   <p class="post-description">
-                    FIBO Viewer is a JAVA application that is specifically
-                    designed to access both the FIBO structure and its content
+                    IDMP Viewer is a JAVA application that is specifically
+                    designed to access both the IDMP structure and its content
                     in the easiest possible way. It can serve both as a web
-                    application and REST API. FIBO Viewer is an open-source
+                    application and REST API. IDMP Viewer is an open-source
                     project that EDM Council hosts. See
                     https://github.com/edmcouncil/fibo-viewer for details.
                   </p>
