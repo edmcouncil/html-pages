@@ -556,7 +556,7 @@ export default {
           this.error = true;
         }
         this.searchBox.isLoading = false;
-      }, 400);
+      }, 500);
     },
     clearAll () {
       this.searchBox.selectedData = null;
