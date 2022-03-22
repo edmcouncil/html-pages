@@ -1613,32 +1613,40 @@ export default {
       };
       this.searchBox.selectedData = tag;
     },
-    async searchBox_asyncFind(query) {
+    searchBox_asyncFind(query) {
       this.searchBox.inputValue = query;
+      this.searchBox.data = [];
 
       if (query.trim().length === 0) {
-        this.searchBox.data = [];
         return;
       }
 
       this.searchBox.isLoading = true;
-      try {
-        // eslint-disable-next-line max-len
-        let domain = encodeURI(`${this.searchServer}?term=${query}&mode=advance&useHighlighting=false&findProperties=${this.searchBox.encodedProperties}`);
 
-        const result = await getFindSearch(domain);
-        const hints = await result.json();
-        hints.forEach(el => {
-          // eslint-disable-next-line no-param-reassign
-          el.labelForInternalSearch = `${el.label} `; // this is hacky to make it possible to search text (add tag) the same as the label in hint results
-        });
-        this.searchBox.data = hints;
-        this.error = false;
-      } catch (err) {
-        console.error(err);
-        this.error = true;
+      if(this.searchBox.debounce) {
+        clearTimeout(this.searchBox.debounce);
       }
-      this.searchBox.isLoading = false;
+
+      this.searchBox.debounce = setTimeout(async () => {
+        try {
+          // eslint-disable-next-line max-len
+          let domain = encodeURI(`${this.searchServer}?term=${query}&mode=advance&useHighlighting=false&findProperties=${this.searchBox.encodedProperties}`);
+          const result = await getFindSearch(domain);
+          const hints = await result.json();
+
+          hints.forEach(el => {
+            // eslint-disable-next-line no-param-reassign
+            el.labelForInternalSearch = `${el.label} `; // this is hacky to make it possible to search text (add tag) the same as the label in hint results
+          });
+          this.searchBox.data = hints;
+          this.error = false;
+        } catch (err) {
+          console.error(err);
+          this.error = true;
+        }
+        this.searchBox.isLoading = false;
+      }, 500);
+
     },
     clearAll() {
       this.searchBox.selectedData = null;
