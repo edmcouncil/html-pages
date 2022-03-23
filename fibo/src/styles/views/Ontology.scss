@@ -987,17 +987,18 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
   .how-to-article {
     padding-left: 0px;
     padding-right: 0px;
+    text-align: justify;
   
     .how-to-article__header{
       background: rgba(0, 0, 0, 0.05);
       margin-top: 45px;
       margin-bottom: 20px;
-      padding: 40px 60px;
+      padding: 30px 20px;
     }
   
     .how-to-article__content {
       margin-top: 0px;
-      padding: 0px 60px 60px 60px;
+      padding: 0px 20px 60px 20px;
 
       section {
         padding: 40px 0px;
