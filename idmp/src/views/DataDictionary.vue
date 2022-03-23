@@ -1,34 +1,15 @@
-1<template>
+<template>
   <div class="container">
     <main>
       <article>
         <h1>
-          <span>FIBO data dictionary</span>
+          <span>IDMP data dictionary</span>
         </h1>
 
-        <p class="text">
-          FIBO data dictionary (aka glossary) is downloadable in .csv and .xlsx.
-          It contains a summary of each operational class in FIBO, with its
-          properties, presented in the form of tables and fields for viewers
-          familiar with relational data dictionaries.
-        </p>
-
-        <p class="text">
-          FIBO Data Dicionary is available for download in the EDMConnect FIBO
-          Interest Community space.
-        </p>
-
-        <h3>
-          <a
-            href="https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-data-dict"
-            v-on:click="
-              outboundClick(
-                'https://edmconnect.edmcouncil.org/fibointerestgroup/fibo-products/fibo-data-dict'
-              )
-            "
-            >Download FIBO Data Dictionary</a
-          >
-        </h3>
+        <h2>
+          <strong class="under-construction">SITE IS UNDER CONSTRUCTION</strong>
+        </h2>
+       
       </article>
     </main>
   </div>
@@ -50,4 +31,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.under-construction {
+  font-size: 25px;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  font-weight: 700;
+}
 </style>
