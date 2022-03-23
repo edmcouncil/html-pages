@@ -993,19 +993,23 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
       background: rgba(0, 0, 0, 0.05);
       margin-top: 45px;
       margin-bottom: 20px;
-      padding: 30px 20px;
+      padding: 40px 60px;
+
+      .title {
+        margin-bottom: 20px;
+      }
     }
   
     .how-to-article__content {
       margin-top: 0px;
-      padding: 0px 20px 60px 20px;
+      padding: 0px 60px 60px 60px;
 
       section {
-        padding: 40px 0px;
+        padding: 20px 0px;
         margin-top: 20px;
 
-        .padding-top-40 {
-          padding-top: 40px;
+        .padding-top-30 {
+          padding-top: 30px;
         }
       }
 
@@ -1016,20 +1020,31 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
         margin-right: -60px;
         padding-left: 60px;
         padding-right: 60px;
-        margin-top: 60px;
+        margin-top: 20px;
 
         .title {
-          margin-bottom: 40px;
+          margin-bottom: 20px;
         }
       }
     }
 
+    .color-container {
+      overflow: auto;
+      display: flex;
+      align-items: center;
+
+      margin-bottom: 20px;
+    }
+
     .article-icon {
-      padding-bottom: 40px;
+      margin-bottom: 20px;
+      width: 42px;
+      height: 42px;
     }
 
     .article-icon--small {
-      padding-bottom: 20px;
+      padding: 0;
+      margin-right: 20px;
     }
 
     .subheading {
