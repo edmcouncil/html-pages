@@ -63,7 +63,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="searchResults" v-if="searchBox.selectedData && searchBox.selectedData.isSearch">
           <h5 style="padding-top: 0px; margin-bottom: 20px;">Search results for "{{searchBox.selectedData.iri}}":</h5>
           <div v-if="searchBox.searchResults && searchBox.searchResults.length">
@@ -96,12 +96,12 @@
         <div v-else>
           <div class="row" v-if="data">
             <div class="col-12">
-              
+
               <div class="alert alert-primary alert-maturity" role="alert" v-if="data.maturityLevel.label != 'release' && data.maturityLevel.label != ''">
                 This resource has maturity level <strong>{{this.data.maturityLevel.label}}</strong>. Read more about
                 <customLink class="custom-link" :name="this.data.maturityLevel.label" :query="data.maturityLevel.iri" :customLinkOnClick="this.ontologyClicked"></customLink>.
               </div>
-              
+
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">{{data.label.toUpperCase()}}</h5>
@@ -216,7 +216,7 @@
                                 </a>
                             </li>
                           </ul>
-                          
+
                           <component
                             v-else
                             v-for="field in property"
@@ -266,7 +266,7 @@
                     Top-level directories are called <i>domains</i>; beneath that may be one or two levels of <i>sub-domain</i>
                     and then <i>modules</i> and dozens of <i>ontologies</i> at the bottom level:
                   </p>
-                  
+
                   <ul>
                     <li>
                       AUTO domain
@@ -292,11 +292,11 @@
                     On the left-hand side, there is currently only one AUTO Domains: E-Commerce vehicle information.
                   </p>
                   <br>
-                  
+
                   <p class="text">
                     2) Each AUTO ontology has one of <strong>two levels of maturity</strong>.
                   </p>
-                  
+
                   <p class="">
                     <strong>Release</strong>
                   </p>
@@ -305,7 +305,7 @@
                       Release ontologies are ones that are considered to be stable and mature from a development perspective.
                     </li>
                   </ul>
-                  
+
                   <p class="">
                     <strong>Provisional</strong>
                   </p>
@@ -314,7 +314,7 @@
                       Provisional ontologies are ones that are considered to be under development.
                     </li>
                   </ul>
-                  
+
 <!--                  <p class="">
                     <strong>Informative</strong>
                   </p>
@@ -322,9 +322,9 @@
                     <li>
                       Informative ontologies are ones that are considered deprecated but included for informational purposes because it is referenced by some provisional concept.
                     </li>
-                  
+
                   </ul>-->
-                  
+
                   <p class="text">
                     One can see the maturity level for each AUTO ontology, see e.g.
                     <a href="https://spec.edmcouncil.org/auto/ontology/EC/SchemaAutomotive/AutoSchemaOrg/">https://spec.edmcouncil.org/auto/ontology/EC/SchemaAutomotive/AutoSchemaOrg/</a>
@@ -338,7 +338,7 @@
 
       </div>
       <div class="col-2 col-xxxl-3 d-none d-xxl-block">
-        
+
         <div class="multiselect-xxl-container">
           <multiselect v-model="searchBox.selectedData"
                       id="ajax2"
@@ -488,7 +488,7 @@ export default {
         this.error = true;
       }
     },
-    
+
     //vue-multiselect
     searchBox_limitText (count) {
       return `and ${count} other results`
@@ -530,26 +530,33 @@ export default {
       };
       this.searchBox.selectedData = tag;
     },
-    async searchBox_asyncFind (query) {
+    searchBox_asyncFind (query) {
+      this.searchBox.data = [];
+
       if(query.trim().length == 0){
-        this.searchBox.data = [];
         return;
       }
 
-      this.searchBox.isLoading = true
-      try {
-        const result = await getHint(query, '/auto/ontology/api/hint');
-        const hints = await result.json();
-        hints.forEach(el => {
-          el.labelForInternalSearch = el.label + " "; //this is hacky to make it possible to search text (add tag) the same as the label in hint results
-        })
-        this.searchBox.data = hints;
-        this.error = false;
-      } catch (err) {
-        console.error(err);
-        this.error = true;
+      this.searchBox.isLoading = true;
+
+      if (this.searchBox.debounce) {
+        clearTimeout(this.searchBox.debounce);
       }
-      this.searchBox.isLoading = false;
+      this.searchBox.debounce = setTimeout(async () => {
+        try {
+          const result = await getHint(query, '/auto/ontology/api/hint');
+          const hints = await result.json();
+          hints.forEach((el) => {
+            el.labelForInternalSearch = `${el.label} `; // this is hacky to make it possible to search text (add tag) the same as the label in hint results
+          });
+          this.searchBox.data = hints;
+          this.error = false;
+        } catch (err) {
+          console.error(err);
+          this.error = true;
+        }
+        this.searchBox.isLoading = false;
+      }, 500);
     },
     clearAll () {
       this.searchBox.selectedData = null;
