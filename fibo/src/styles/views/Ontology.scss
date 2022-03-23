@@ -993,7 +993,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
       background: rgba(0, 0, 0, 0.05);
       margin-top: 45px;
       margin-bottom: 20px;
-      padding: 40px 60px;
+      padding: 30px 60px;
 
       .title {
         margin-bottom: 20px;
@@ -1018,8 +1018,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
         border-radius: 2px;
         margin-left: -60px;
         margin-right: -60px;
-        padding-left: 60px;
-        padding-right: 60px;
+        padding: 30px 60px 30px 60px;
         margin-top: 20px;
 
         .title {
@@ -1033,7 +1032,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
       display: flex;
       align-items: center;
 
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .article-icon {
