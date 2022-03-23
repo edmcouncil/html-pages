@@ -1054,6 +1054,14 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
       line-height: 30px;
       color: rgba(0, 0, 0, 0.8);
     }
+
+    .paragraph--small {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: rgba(0, 0, 0, 0.8);
+    }
     
     .title {
       color: #000000;
