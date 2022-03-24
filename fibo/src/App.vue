@@ -59,13 +59,6 @@ hr {
   margin-bottom: 20px;
 }
 
-.fibo-logo {
-  border: 1px solid map-get($colors-map, "medium-grey");
-  float: left;
-  padding: 20px;
-  margin: 0 40px 40px 0;
-}
-
 @media (max-width: 575px) {
   li {
     padding-left: 0;
