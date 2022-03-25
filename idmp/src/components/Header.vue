@@ -19,31 +19,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item padding-top15">
-              <a
-                class="nav-link"
-                href="https://edmcouncil.org/events/event_list.asp"
-                target="_blank"
-                >Calendar</a
-              >
-            </li>
-            <li class="nav-item padding-top15">
-              <a
-                class="nav-link"
-                href="https://edmcouncil.org/Login.aspx"
-                target="_blank"
-                >EDMConnect</a
-              >
-            </li>
-            <li class="nav-item padding-top15">
-              <a
-                class="nav-link"
-                href="https://edmcouncil.org/login.aspx"
-                target="_blank"
-                >Sign in / Register</a
-              >
-            </li>
-
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -123,31 +98,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://edmcouncil.org/events/event_list.asp"
-                target="_blank"
-                >Calendar</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://edmcouncil.org/Login.aspx"
-                target="_blank"
-                >EDMConnect</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://edmcouncil.org/login.aspx"
-                target="_blank"
-                >Sign in / Register</a
-              >
-            </li>
-
             <li class="nav-item">
               <router-link class="nav-link" :to="{ path: router('ontology') }"
                 >IDMP Viewer</router-link
