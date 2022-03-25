@@ -841,11 +841,11 @@
                   </article>
                 </main>
               </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
 </template>
 
@@ -1014,7 +1014,7 @@ export default {
         this.isPathsMoreVisible = false;
       }
 
-     
+
     },
     async fetchModules() {
       try {
@@ -1026,9 +1026,9 @@ export default {
       }
     },
 
-    // vue-multiselect
-    searchBox_limitText(count) {
-      return `and ${count} other results`;
+    //vue-multiselect
+    searchBox_limitText (count) {
+      return `and ${count} other results`
     },
     searchBox_optionSelected(selectedOption /* , id */) {
       let destRoute = selectedOption.iri;
@@ -1106,27 +1106,33 @@ export default {
       };
       this.searchBox.selectedData = tag;
     },
-    async searchBox_asyncFind(query) {
-      if (query.trim().length === 0) {
-        this.searchBox.data = [];
+    searchBox_asyncFind (query) {
+      this.searchBox.data = [];
+
+      if(query.trim().length == 0){
         return;
       }
 
       this.searchBox.isLoading = true;
-      try {
-        const result = await getHint(query, this.hintServer);
-        const hints = await result.json();
-        hints.forEach((el) => {
-          // eslint-disable-next-line no-param-reassign
-          el.labelForInternalSearch = `${el.label} `; // this is hacky to make it possible to search text (add tag) the same as the label in hint results
-        });
-        this.searchBox.data = hints;
-        this.error = false;
-      } catch (err) {
-        console.error(err);
-        this.error = true;
+
+      if (this.searchBox.debounce) {
+        clearTimeout(this.searchBox.debounce);
       }
-      this.searchBox.isLoading = false;
+      this.searchBox.debounce = setTimeout(async () => {
+        try {
+          const result = await getHint(query, '/auto/ontology/api/hint');
+          const hints = await result.json();
+          hints.forEach((el) => {
+            el.labelForInternalSearch = `${el.label} `; // this is hacky to make it possible to search text (add tag) the same as the label in hint results
+          });
+          this.searchBox.data = hints;
+          this.error = false;
+        } catch (err) {
+          console.error(err);
+          this.error = true;
+        }
+        this.searchBox.isLoading = false;
+      }, 500);
     },
     clearAll() {
       this.searchBox.selectedData = null;
