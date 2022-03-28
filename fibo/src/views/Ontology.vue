@@ -1234,7 +1234,7 @@
 import { mapState } from "vuex";
 import Multiselect from "vue-multiselect";
 import Paginate from "vuejs-paginate";
-import { getOntology, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
+import { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
 
 export default {
   components: {
@@ -1396,11 +1396,12 @@ export default {
         this.version = null;
       }
     },
-    async fetchData(query) {
-      if (query) {
+    async fetchData(iri) {
+      if (iri) {
         this.loader = true;
         try {
-          const result = await getOntology(query, this.ontologyServer);
+          const query = `${this.ontologyServer}?iri=${iri}`;
+          const result = await getEntity(query);
           const body = await result.json();
           if (body.type !== "details") {
             console.error(`body.type: ${body.type}, expected: details`);
