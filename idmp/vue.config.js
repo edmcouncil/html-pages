@@ -20,7 +20,7 @@ module.exports = {
   runtimeCompiler: true,
   devServer: {
     proxy: {
-      '^/fibo/ontology/.*api/search': {
+      '^/fibo/ontology/.*api/entity': {
         target: 'https://spec.edmcouncil.org',
       },
       '^/fibo/ontology/.*api/find': {
