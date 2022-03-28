@@ -7,7 +7,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    ontologyDefaultDomain: '/auto/ontology/api/search',
+    ontologyDefaultDomain: '/auto/ontology/api/entity',
+    searchDefaultDomain: '/auto/ontology/api/find',
     modulesDefaultDomain: '/auto/ontology/api/module',
   },
   mutations: {

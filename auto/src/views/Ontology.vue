@@ -223,15 +223,15 @@
           >
             <div class="search-section__header">
               <h5>Search results for “{{ searchBox.selectedData.iri }}”</h5>
-              <p>{{ searchBox.totalResults }} results</p>
+              <p>{{ searchBox.totalResults.length }} results</p>
             </div>
 
             <div
-              v-if="searchBox.searchResults && searchBox.searchResults.length"
+              v-if="searchBox.displayedResults && searchBox.displayedResults.length"
               class="search-section__items"
             >
               <div
-                v-for="(result, index) in searchBox.totalData"
+                v-for="(result, index) in searchBox.displayedResults"
                 :key="index + searchBox.selectedData.iri"
                 class="search-item"
               >
@@ -277,59 +277,41 @@
 
             <div
               class="search-section__load-more"
-              v-if="this.searchBox.maxPage > 1"
+              v-if="searchBox.totalResults.length > 0"
             >
               <p>
                 1 -
-                {{ searchBox.currentPage * searchBox.perPage }}
-                of {{ searchBox.totalResults }}
+                {{ searchBox.displayedResults.length }}
+                of {{ searchBox.totalResults.length }}
               </p>
 
-              <div
-                class="search-section__load-more__button"
+              <button
+                type="button"
+                class="btn normal-button search-section__load-more__button"
                 @click="loadMoreResults()"
                 v-if="
-                  searchBox.currentPage < searchBox.maxPage &&
-                  !searchBox.isLoadingMore
+                  searchBox.totalResults.length >
+                  searchBox.displayedResults.length
                 "
               >
                 Load next
                 {{
-                  searchBox.currentPage === searchBox.maxPage - 1 &&
-                  searchBox.perPage !== 0 &&
-                  searchBox.totalResults !== 0
-                    ? searchBox.totalResults % searchBox.perPage
+                  (searchBox.perPage >
+                  searchBox.totalResults.length - searchBox.displayedResults.length)
+                    ? searchBox.totalResults.length -
+                      searchBox.displayedResults.length
                     : searchBox.perPage
                 }}
                 results
-              </div>
-              <div
-                class="search-section__load-more__button"
-                v-else-if="searchBox.isLoadingMore"
+              </button>
+              <button
+                disabled
+                type="button"
+                class="btn normal-button search-section__load-more__button"
+                v-else
               >
-                Loading...
-              </div>
-
-              <div class="search-section__load-more__button" v-else>
                 No more results to load
-              </div>
-
-              <!-- <paginate
-                      :page-count="this.searchBox.maxPage"
-                      :page-range="3"
-                      :margin-pages="2"
-                      :click-handler="paginateClickCallback"
-                      :prev-text="'«'"
-                      :next-text="'»'"
-                      :container-class="'pagination'"
-                      :page-class="'page-item'"
-                      :page-link-class="'page-link'"
-                      :prev-class="'page-item'"
-                      :prev-link-class="'page-link'"
-                      :next-class="'page-item'"
-                      :next-link-class="'page-link'"
-                    >
-                    </paginate> -->
+              </button>
             </div>
           </div>
 
@@ -854,7 +836,7 @@ import { mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
 import Paginate from 'vuejs-paginate';
 import {
-  getOntology, getModules, getHint
+  getEntity, getFindSearch, getModules, getHint,
 } from '../api/ontology';
 
 export default {
@@ -888,6 +870,7 @@ export default {
       data: null,
       query: '',
       ontologyServer: null,
+      searchServer: null,
       modulesServer: null,
       hintServer: null,
       hintDefaultDomain: '/auto/ontology/{version}api/hint/',
@@ -903,11 +886,10 @@ export default {
         data: [],
         totalData: [],
         isLoading: false,
-        searchResults: null,
-        maxPage: null, // contains number of pages in searchResults. This prop. is handler for pagination
+        totalResults: [],
+        displayedResults: [],
         lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
         perPage: 10,
-        currentPage: 1,
         isLoadingMore: false,
       },
       ontologyVersionsDropdownData: {
@@ -969,6 +951,9 @@ export default {
       if (to !== undefined) {
         internalRoute = to;
       }
+
+      this.searchServer = this.searchDefaultDomain;
+
       if (internalRoute.query && internalRoute.query.domain) {
         this.ontologyServer = internalRoute.query.domain;
       } else {
@@ -993,12 +978,13 @@ export default {
         this.version = null;
       }
     },
-    async fetchData(query) {
-      if (query) {
+    async fetchData(iri) {
+      if (iri) {
         this.loader = true;
         this.data = null;
         try {
-          const result = await getOntology(query, this.ontologyServer);
+          const query = `${this.ontologyServer}?iri=${iri}`;
+          const result = await getEntity(query);
           const body = await result.json();
           if (body.type !== 'details') {
             console.error(`body.type: ${body.type}, expected: details`);
@@ -1013,8 +999,6 @@ export default {
         this.loader = false;
         this.isPathsMoreVisible = false;
       }
-
-     
     },
     async fetchModules() {
       try {
@@ -1062,37 +1046,30 @@ export default {
         },
       });
     },
-    async handleSearchBoxQuery(searchBQuery, pageIndex = null) {
+    async handleSearchBoxQuery(searchBQuery) {
       try {
         this.searchBox.isLoadingMore = true;
-        const result = await getOntology(
-          searchBQuery,
-          `${this.ontologyServer}/max/${this.searchBox.perPage}${pageIndex != null ? `/page/${pageIndex}` : ''}`,
-        );
+
+        const domain = `${this.searchServer}?term=${searchBQuery}`;
+
+        const result = await getFindSearch(domain);
         const body = await result.json();
-        if (body.type !== 'list') {
-          console.error(`body.type: ${body.type}, expected: list`);
-        }
-        this.searchBox.searchResults = body.result;
+
         this.searchBox.maxPage = body.maxPage;
         this.searchBox.lastSearchBQuery = searchBQuery;
         this.error = false;
         this.searchBox.isLoadingMore = false;
 
-        if (body.totalResult === undefined) {
-          this.searchBox.totalResults = 0;
-        } else if (body.totalResult) {
-          this.searchBox.totalResults = body.totalResult;
-        }
         // eslint-disable-next-line no-restricted-syntax
-        for (const res of this.searchBox.searchResults) {
+        for (const res of body) {
           if (res.maturityLevel === undefined || res.maturityLevel.icon === undefined) {
             res.maturityLevel = {};
             res.maturityLevel.icon = '';
           }
         }
 
-        this.searchBox.totalData.push(...this.searchBox.searchResults);
+        this.searchBox.totalResults = body;
+        this.searchBox.displayedResults = body.slice(0, this.searchBox.perPage);
       } catch (err) {
         console.error(err);
         this.error = true;
@@ -1187,10 +1164,8 @@ export default {
       });
     },
     loadMoreResults() {
-      if (this.searchBox.currentPage < this.searchBox.maxPage) {
-        this.searchBox.currentPage += 1;
-        this.handleSearchBoxQuery(this.searchBox.lastSearchBQuery, this.searchBox.currentPage);
-      }
+      const newLength = this.searchBox.displayedResults.length + this.searchBox.perPage;
+      this.searchBox.displayedResults = this.searchBox.totalResults.slice(0, newLength);
     },
     clearSearchResults() {
       this.searchBox = {
@@ -1198,17 +1173,17 @@ export default {
         data: [],
         totalData: [],
         isLoading: false,
-        searchResults: null,
-        maxPage: null, // contains number of pages in searchResults. This prop. is handler for pagination
-        lastSearchBQuery: null, // contains last searchBQuery used. This prop. is handler for pagination
+        totalResults: [],
+        displayedResults: [],
+        lastSearchBQuery: null,
         perPage: 10,
-        currentPage: 1,
         isLoadingMore: false,
       };
     },
   },
   computed: {
     ...mapState({
+      searchDefaultDomain: state => state.searchDefaultDomain,
       ontologyDefaultDomain: state => state.ontologyDefaultDomain,
       modulesDefaultDomain: state => state.modulesDefaultDomain,
     }),

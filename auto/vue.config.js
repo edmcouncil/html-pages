@@ -17,7 +17,10 @@ module.exports = {
   runtimeCompiler: true,
   devServer: {
     proxy: {
-      '^/auto/ontology/api/search$': {
+      '^/auto/ontology/api/entity$': {
+        target: 'https://spec.edmcouncil.org',
+      },
+      '^/auto/ontology/api/find$': {
         target: 'https://spec.edmcouncil.org',
         // changeOrigin: true,
         // secure:false,
