@@ -843,6 +843,7 @@ export default {
   components: {
     AXIOM: () => import(/* webpackChunkName: "AXIOM" */ '../components/chunks/AXIOM'),
     STRING: () => import(/* webpackChunkName: "STRING" */ '../components/chunks/STRING'),
+    OTHER: () => import(/* webpackChunkName: "STRING" */ '../components/chunks/STRING'),
     DIRECT_SUBCLASSES: () => import(// eslint-disable-next-line comma-dangle
       /* webpackChunkName: "DIRECT_SUBCLASSES" */ '../components/chunks/DIRECT_SUBCLASSES'
     ),
