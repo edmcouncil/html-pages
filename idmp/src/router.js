@@ -39,11 +39,6 @@ export default new Router({
       component: () => import(/* webpackChunkName: "Vocabulary" */ './views/Vocabulary.vue'),
     },
     {
-      path: '/schema',
-      name: 'Schema',
-      component: () => import(/* webpackChunkName: "Schema" */ './views/Schema.vue'),
-    },
-    {
       path: '/ontology/:1?/:2?/:3?/:4?/:5?',
       name: 'ontology',
       component: () => import(/* webpackChunkName: "Schema" */ './views/Ontology.vue'),

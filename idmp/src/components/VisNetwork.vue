@@ -227,13 +227,13 @@ export default {
           const sNode = selectedNodes[0];
           nodes.forEach((entry) => {
             if (entry.id === sNode) {
-              if (entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/fibo/)) {
-                window.location.href = `/fibo${entry.iri.replace(
-                  "https://spec.edmcouncil.org/fibo",
+              if (entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/idmp/)) {
+                window.location.href = `/idmp${entry.iri.replace(
+                  "https://spec.edmcouncil.org/idmp",
                   ""
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
-                window.location.href = `/fibo/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
+                window.location.href = `/idmp/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
               }
             }
           });
@@ -241,13 +241,13 @@ export default {
           const sEgde = selectedEdges[0];
           edgesView.forEach((entry) => {
             if (entry.id === sEgde) {
-              if (entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/fibo/)) {
-                window.location.href = `/fibo${entry.iri.replace(
-                  "https://spec.edmcouncil.org/fibo",
+              if (entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/idmp/)) {
+                window.location.href = `/idmp${entry.iri.replace(
+                  "https://spec.edmcouncil.org/idmp",
                   ""
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
-                window.location.href = `/fibo/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
+                window.location.href = `/idmp/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
               }
             }
           });

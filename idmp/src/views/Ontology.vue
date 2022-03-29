@@ -650,25 +650,6 @@
                   <!-- TITLE -->
                   <div class="card">
                     <div class="card-body">
-                      <!-- report a problem -->
-                      <a
-                        v-if="
-                          !data.iri.startsWith('http://') &&
-                          !(this.$route.query && this.$route.query.version)
-                        "
-                        class="btn-report-a-problem"
-                        target="_blank"
-                        :href="
-                          `https://github.com/edmcouncil/fibo/issues/new` +
-                          `?labels=${encodeURI(
-                            githubNewIssueDetails().label
-                          )}` +
-                          `&template=issue.md` +
-                          `&title=${encodeURI(githubNewIssueDetails().title)}` +
-                          `&body=${encodeURI(githubNewIssueDetails().body)}`
-                        "
-                        >Report a problem</a
-                      >
                       <!-- maturity alert -->
                       <div class="ontology-item__header__status">
                         <div
@@ -1217,7 +1198,7 @@
                     in the easiest possible way. It can serve both as a web
                     application and REST API. IDMP Viewer is an open-source
                     project that EDM Council hosts. See
-                    https://github.com/edmcouncil/fibo-viewer for details.
+                    https://github.com/edmcouncil/onto-viewer for details.
                   </p>
                 </article>
               </main>
@@ -1272,7 +1253,7 @@ export default {
       modulesServer: null,
       hintServer: null,
       searchServer: null,
-      hintDefaultDomain: "/fibo/ontology/{version}api/find/",
+      hintDefaultDomain: "/idmp/ontology/{version}api/find/",
       version: null,
       versionDefaultSelectedData: {
         "@id": "stable",
@@ -1312,15 +1293,6 @@ export default {
 
         window.scrollTo(0, scrollTop);
         this.$root.ontologyRouteIsUpdating = false;
-      },
-      githubNewIssueDetails() {
-        const ontologyQuery = this.data.iri.replace("https://spec.edmcouncil.org/fibo/ontology/", "");
-        const label = ontologyQuery.substring(0, ontologyQuery.indexOf("/"));
-        return {
-          label,
-          title: `Problem with ${this.data.label.toUpperCase()}`,
-          body: `Resource URL:\n${this.data.iri}`
-        };
       }
     };
   },
@@ -1329,8 +1301,8 @@ export default {
     this.mountedTimestamp = Math.floor(Date.now() / 1000);
 
     if (this.$route.params && this.$route.params[1]) {
-      const ontologyQuery = window.location.pathname.replace("/fibo/ontology/", "");
-      queryParam = `https://spec.edmcouncil.org/fibo/ontology/${ontologyQuery}`;
+      const ontologyQuery = window.location.pathname.replace("/idmp/ontology/", "");
+      queryParam = `https://spec.edmcouncil.org/idmp/ontology/${ontologyQuery}`;
       // this.githubNewIssue.title = this.githubNewIssue.titleTemplate.replace('<LABEL>', this.githubNewIssue.label);
     } else if (this.$route.query && this.$route.query.query) {
       queryParam = this.$route.query.query || "";
@@ -1522,9 +1494,9 @@ export default {
     },
     searchBox_optionSelected(selectedOption /* , id */) {
       let destRoute = selectedOption.iri;
-      if (destRoute.startsWith("https://spec.edmcouncil.org/fibo")) {
+      if (destRoute.startsWith("https://spec.edmcouncil.org/idmp")) {
         // internal ontology
-        destRoute = destRoute.replace("https://spec.edmcouncil.org/fibo", "");
+        destRoute = destRoute.replace("https://spec.edmcouncil.org/idmp", "");
         this.$router.push({
           path: destRoute,
           query: {
@@ -1804,10 +1776,10 @@ export default {
       if (to.query && to.query.query) {
         queryParam = to.query.query || "";
       } else {
-        queryParam = `https://spec.edmcouncil.org/fibo${to.path}`;
+        queryParam = `https://spec.edmcouncil.org/idmp${to.path}`;
       }
       this.query = queryParam;
-      if (this.query === "https://spec.edmcouncil.org/fibo/ontology") {
+      if (this.query === "https://spec.edmcouncil.org/idmp/ontology") {
         this.query = "";
         this.data = null;
       }

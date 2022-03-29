@@ -5,9 +5,9 @@ process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || '2021Q4'
 
 module.exports = {
   configureWebpack: {
-    devtool: 'source-map'
+    devtool: "source-map",
   },
-  publicPath: `/${process.env.ONTPUB_FAMILY || 'idmp'}/`,
+  publicPath: `/${process.env.ONTPUB_FAMILY || "idmp"}/`,
   assetsDir: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
   indexPath: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/index.html`,
   css: {
@@ -20,20 +20,20 @@ module.exports = {
   runtimeCompiler: true,
   devServer: {
     proxy: {
-      '^/fibo/ontology/.*api/entity': {
-        target: 'https://spec.edmcouncil.org',
+      "^/idmp/ontology/.*api/entity": {
+        target: "https://spec.edmcouncil.org",
       },
-      '^/fibo/ontology/.*api/find': {
-        target: 'https://spec.edmcouncil.org',
+      "^/idmp/ontology/.*api/find": {
+        target: "https://spec.edmcouncil.org",
       },
-      '^/fibo/ontology/.*api/module$': {
-        target: 'https://spec.edmcouncil.org',
+      "^/idmp/ontology/.*api/module$": {
+        target: "https://spec.edmcouncil.org",
       },
-      '^/fibo/ontology/.*api/hint': {
-        target: 'https://spec.edmcouncil.org',
+      "^/idmp/ontology/.*api/hint": {
+        target: "https://spec.edmcouncil.org",
       },
-      '^/fibo/ontology/api': {
-        target: 'https://spec.edmcouncil.org',
+      "^/idmp/ontology/api": {
+        target: "https://spec.edmcouncil.org",
       },
     },
   },

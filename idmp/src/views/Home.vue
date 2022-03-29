@@ -1,60 +1,73 @@
 <template>
-    <div class="container">
-        <main>
-            <article>
-                <h1>
-                    <span>About IDMP</span>
-                </h1>
-                <h3>IDMP Common Core Ontology</h3>
-                <!--<img src="../assets/img/FIBO with tagline.png" width="25%" class="fibo-logo img-fluid" />-->
-                <p>
-                    A well-defined common core ontology that bridges between regional and functional perspectives on common substance-related data objects and global and scientifically objective representations is required.
-                </p>
-                <br>
-                <p>
-                    The goal of our project is to build an IDMP Common Core Ontology that enables deep, semantic interoperability based on FAIR principles to enhance and augment the existing ISO IDMP standards.
-                </p>
+  <div class="container">
+    <main>
+      <article>
+        <h1>
+          <span>About IDMP</span>
+        </h1>
+        <h3>IDMP Common Core Ontology</h3>
+        <p>
+          A well-defined common core ontology that bridges between regional and
+          functional perspectives on common substance-related data objects and
+          global and scientifically objective representations is required.
+        </p>
+        <br />
+        <p>
+          The goal of our project is to build an IDMP Common Core Ontology that
+          enables deep, semantic interoperability based on FAIR principles to
+          enhance and augment the existing ISO IDMP standards.
+        </p>
 
-                <h3>Why is this important?</h3>
-                <!-- <img src="../assets/img/EDM-council-RGB_200w.png" class="fibo-logo img-fluid" /> --> 
-                <p>
-                    The European Medicines Agency (EMA) will be the first health agency to mandate compliance with ISO IDMP (Q1, 2023), with the FDA not far behind. Governance of essential IDMP standards and implementations is not assigned to a specific, overarching governing body. 
-                </p>
-                <br>
-                <p>
-                    Diverging implementations of IDMP across geographical regions and jurisdictional domains are already causing inconsistencies in the interpretation across implementing organizations. Given that there is no semantic alignment between regulatory bodies, there exists a risk that regulatory compliance needs will lead to large integration and interoperability costs and that the benefits from IDMP in drug safety, innovation, and other areas will not be fully realized.
-                </p>
-                <br>
-                <p>
-                    Rather than concentrating on the discovery of new medicines, organizations will be struggling with data issues, e.g., the need to map product data across the organization, throughout the product lifecycle.
-                </p>
-                <br>
-                <p>
-                    Source of description <a href="https://www.pistoiaalliance.org/projects/current-projects/idmp-common-core-ontology/">IDMP Common Core Ontology</a> 
-                </p>
-            </article>
-        </main>
-    </div>
+        <h3>Why is this important?</h3>
+        <p>
+          The European Medicines Agency (EMA) will be the first health agency to
+          mandate compliance with ISO IDMP (Q1, 2023), with the FDA not far
+          behind. Governance of essential IDMP standards and implementations is
+          not assigned to a specific, overarching governing body.
+        </p>
+        <br />
+        <p>
+          Diverging implementations of IDMP across geographical regions and
+          jurisdictional domains are already causing inconsistencies in the
+          interpretation across implementing organizations. Given that there is
+          no semantic alignment between regulatory bodies, there exists a risk
+          that regulatory compliance needs will lead to large integration and
+          interoperability costs and that the benefits from IDMP in drug safety,
+          innovation, and other areas will not be fully realized.
+        </p>
+        <br />
+        <p>
+          Rather than concentrating on the discovery of new medicines,
+          organizations will be struggling with data issues, e.g., the need to
+          map product data across the organization, throughout the product
+          lifecycle.
+        </p>
+        <br />
+        <p>
+          Source of description
+          <a
+            href="https://www.pistoiaalliance.org/projects/current-projects/idmp-common-core-ontology/"
+            >IDMP Common Core Ontology</a
+          >
+        </p>
+      </article>
+    </main>
+  </div>
 </template>
 
 <script>
-    import helpers from '../store/helpers.js';
-    import {
-        outboundClick, outboundLinkClick
-    }
-    from '../helpers/ga';
+import helpers from "../store/helpers.js";
+import { outboundClick, outboundLinkClick } from "../helpers/ga";
 
-    export default {
-        extends: helpers,
-        name: 'home',
-        components: {},
-        methods: {
-            outboundClick,
-            outboundLinkClick,
-        },
-    };
+export default {
+  extends: helpers,
+  name: "home",
+  components: {},
+  methods: {
+    outboundClick,
+    outboundLinkClick,
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

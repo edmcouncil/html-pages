@@ -1,7 +1,7 @@
 <template>
-  <router-link v-if="query.match(/^https:\/\/spec\.edmcouncil\.org\/fibo/)"
+  <router-link v-if="query.match(/^https:\/\/spec\.edmcouncil\.org\/idmp/)"
     :to="{
-      path: query.replace(/https:\/\/spec\.edmcouncil\.org\/fibo/,''),
+      path: query.replace(/https:\/\/spec\.edmcouncil\.org\/idmp/,''),
       query: {
         ...(this.$route.query && this.$route.query.version
           ? { version: encodeURI(this.$route.query.version) }
@@ -21,7 +21,7 @@
       }
     }"
     >{{name}}</router-link>
-  
+
 </template>
 <script>
 export default {

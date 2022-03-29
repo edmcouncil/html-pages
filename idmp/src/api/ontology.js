@@ -20,7 +20,7 @@ const getModules = function (domain) {
 };
 
 const getOntologyVersions = function () {
-  return fetch('/fibo/ontology/api/', {
+  return fetch('/idmp/ontology/api/', {
     method: 'GET',
     headers: { 'Accept': 'application/json' },
   }).then(parseServerError);
