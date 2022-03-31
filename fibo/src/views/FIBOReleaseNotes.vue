@@ -6,6 +6,10 @@
                 <h1>
                   <span>FIBO Release Notes</span>
                 </h1>
+                <p class="text"><b>2022</b></p>
+                <ul>
+                   <li><a href="#2022Q1">2022 Q1</a></li>
+                </ul>
                 <p class="text"><b>2021</b></p>
                 <ul>
                    <li><a href="#2021Q4">2021 Q4</a></li>
@@ -45,6 +49,56 @@
                 </h1>
 
 
+                <h3 id="2022Q1"><strong>2022 Q1</strong></h3>
+                              <h4>Revisions Summary by Elisa Kendall</h4>
+                              <p class="text"></p>
+
+                <h4>Business Entities (BE)</h4>
+                              <p class="text"></p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q4+FIBO+Release%22+label%3ABE+">All 2022 BE Q1 PRs and Issues</a>
+
+                <h4>Business Process Domain (BP)</h4>
+                              <p class="text"></p>
+
+                <h4>Corporate Actions and Events (CAE)</h4>
+                              <p class="text"></p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ACAE+">All 2022 CAE Q1 PRs and Issues</a>
+
+                <h4>Derivatives (DER)</h4>
+                              <p class="text"></p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ADER+">All 2022 DER Q1 PRs and Issues</a>
+
+                <h4>Financial Business and Commerce (FBC)</h4>
+                              <p class="text"></p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AFBC+">All 2022 FBC Q1 PRs and Issues</a>
+
+                <h4>Foundations (FND)</h4>
+                              <p class="text"></p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AFND+">All 2022 FND Q1 PRs and Issues</a>
+
+                <h4>Indicators and Indices (IND)</h4>
+                              <p class="text"></p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AIND+">All 2022 IND Q1 PRs and Issues</a>
+
+                <h4>Loans (LOAN)</h4>
+                              <p class="text"></p>
+
+
+                <h4>Market Data Domain (MD)</h4>
+                              <p class="text"></p>
+
+
+                <h4>Securities (SEC)</h4>
+                              <p class="text"></p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ASEC+">All 2022 SEC Q1 PRs and Issues</a>   
+
+
+                <h4>Hygiene tests</h4>
+                              <p class="text"></p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022+Q1+FIBO+Release%22+label%3Ahygiene+">All 2022 hygiene Q1 PRs and Issues</a> 
+
+
+                
 
 
                 <h3 id="2021Q4"><strong>2021 Q4</strong></h3>
