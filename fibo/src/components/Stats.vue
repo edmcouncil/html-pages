@@ -186,7 +186,7 @@ export default {
   .stats-box--imports {
     .stats-box__content {
       .stats-box__entry {
-        background: #c21212;
+        background: #f2b4b4;
         color: rgba(0, 0, 0, 0.8);
         border-radius: 2px;
         margin-top: 10px;
@@ -197,11 +197,6 @@ export default {
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.01em;
-
-        .stats-box__entry__value {
-          margin-top: 10px;
-          color: rgba(0, 0, 0, 0.4);
-        }
       }
 
       .stats-box__content__no-missing-import {
