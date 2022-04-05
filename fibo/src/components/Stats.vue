@@ -58,7 +58,6 @@
               :key="item.iri"
             >
               <div class="stats-box__entry__label">{{ item.iri }}</div>
-              <div class="stats-box__entry__value">{{ item.cause }}</div>
             </div>
           </div>
           <div class="stats-box__content__no-missing-import" v-else>
@@ -187,7 +186,7 @@ export default {
   .stats-box--imports {
     .stats-box__content {
       .stats-box__entry {
-        background: #f3140c;
+        background: #c21212;
         color: rgba(0, 0, 0, 0.8);
         border-radius: 2px;
         margin-top: 10px;
