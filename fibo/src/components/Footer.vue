@@ -44,7 +44,7 @@
       <div class="row">
         <div class="col-md-12">
           <p class="copyright">
-            © 2022 EDM Council. All rights reserved. DCAM and FIBO are registered trademarks of EDM
+            © {{ new Date().getFullYear() }} EDM Council. All rights reserved. DCAM and FIBO are registered trademarks of EDM
             Council. All other marks are the property of their respective owners. Membership
             Management Software Powered by YourMembership
           </p>
