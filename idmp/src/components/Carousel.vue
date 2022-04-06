@@ -18,7 +18,7 @@
           />
           <div class="carousel-caption d-none d-md-block">
             <h2>Executive Summary</h2>
-            <p>IDMP Common Core Ontology</p>
+            <p>IDMP COMMON CORE ONTOLOGY IDEA</p>
             <a
               href="https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/PA_IDMP-Ontology_Executive-Project-Summary.pdf"
               v-on:click="
