@@ -11,7 +11,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'properties': 0,
-    'ignoreDestructuring': true,
+    'ignoreDestructuring': 0,
     'ignoreImports': false
   },
   parserOptions: {
