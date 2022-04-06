@@ -5,11 +5,10 @@ const parseServerError = function (response) {
   return response;
 };
 
-const getOntology = function (query, domain) {
+const getEntity = function (domain) {
   return fetch(domain, {
-    method: 'POST',
-    headers: { 'Accept': 'application/json', 'Content-Type': 'text/plain' },
-    body: query,
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
   }).then(parseServerError);
 };
 
@@ -55,5 +54,4 @@ const getMissingImports = function (domain) {
   }).then(parseServerError);
 };
 
-
-export { getOntology, getModules, getOntologyVersions, getFindSearch, getFindProperties, getStats, getMissingImports };
+export { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties, getStats, getMissingImports };

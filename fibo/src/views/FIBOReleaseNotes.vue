@@ -6,6 +6,10 @@
                 <h1>
                   <span>FIBO Release Notes</span>
                 </h1>
+                <p class="text"><b>2022</b></p>
+                <ul>
+                   <li><a href="#2022Q1">2022 Q1</a></li>
+                </ul>
                 <p class="text"><b>2021</b></p>
                 <ul>
                    <li><a href="#2021Q4">2021 Q4</a></li>
@@ -44,6 +48,54 @@
                   <span>@@@</span>
                 </h1>
 
+
+                <h3 id="2022Q1"><strong>2022 Q1</strong></h3>
+                              <h4>Revisions Summary by Elisa Kendall</h4>
+                              <p class="text">This quarter we expanded our efforts in several areas, including Asset-Backed Securities (in SEC/Debt), Corporate Actions and Events (CAE), and Loans (LOAN), as summarized below.  New production concepts include those related to entity-level corporate actions and pool-backed securities. We also updated the ISO 10383 MIC codes to include the latest ISO updates.</p>
+
+                <h4>Business Entities (BE)</h4>
+                              <p class="text">There were minor changes in BE this quarter, primarily related to ongoing work on LOANs. FIBO users should be aware that deprecated the concepts in BE that have been deprecated for over a year will be eliminated in Q2 2022.</p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q4+FIBO+Release%22+label%3ABE+">All 2022 BE Q1 PRs and Issues</a>
+
+                <h4>Business Process Domain (BP)</h4>
+                              <p class="text">This quarter the domain of business processes remained stable.</p>
+
+                <h4>Corporate Actions and Events (CAE)</h4>
+                              <p class="text">We made significant progress on corporate actions this quarter, including releasing the top level CorporateActions ontology, and adding a “make file” for integration and test in GitHub. The corporate actions ontology covers entity level actions that both the Global Legal Entity Foundation (GLEIF) and ISO 20022/15022 messages include, excluding those that are more security / income oriented. The starting point for coverage of security-specific actions is in a separate, still provisional ontology, as are the codes corresponding to the Global Legal Entity Foundation (GLEIF) and ISO 20022/15022 messages in the CAE domain. We will be extending the provisional securities oriented corporate actions ontology to cover more of ISO 20022/15022 along with the mapping to each code set over the next couple of releases.</p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ACAE+">All 2022 CAE Q1 PRs and Issues</a>
+
+                <h4>Derivatives (DER)</h4>
+                              <p class="text">This quarter the focus in derivatives was on clean-up and expansion of some of the existing ontologies.  We made incremental improvements in depository receipts and options, addressed gaps in swaps with respect to the ISO CFI standard, and fixed a few bugs uncovered in our testing process. We plan to continue improving CFI coverage, initiate work on master agreements, and fill gaps with respect to the CPMI/IOSCO common data elements over the coming months. We will also be working on finalizing the content in the provisional Equity Forwards ontology (likely integrating it with other released ontologies) and begin tackling Exotic Options next quarter. FIBO users should be aware that deprecated the concepts in equity and interest rate swaps will be eliminated in Q2 2022.</p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ADER+">All 2022 DER Q1 PRs and Issues</a>
+
+                <h4>Financial Business and Commerce (FBC)</h4>
+                              <p class="text">Our FBC work in Q1 was mainly with respect to debt, including revisions to improve coverage of reporting requirements outlined in the Interagency Loan Data Reporting (ILDR) standard in the United States and corresponding fields in ACTUS.  We expect that work will continue over the coming months as we work towards releasing our first LOAN ontology. As mentioned last quarter, we are also working towards better alignment with the latest GLEIF ontologies and plan to publish a mapping ontology to further demonstrate how to integrate FIBO with the GLEIF data published at data.world. We also revised the ISO 10383 Market Identifier Codes (MIC) to incorporate the latest changes published by ISO, i.e., as of 11 March 2022.</p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AFBC+">All 2022 FBC Q1 PRs and Issues</a>
+
+                <h4>Foundations (FND)</h4>
+                              <p class="text">There were minor changes in FND this quarter related to ILDR support in LOANs and general bug fixes. FIBO users should be aware that deprecated the concepts in FND will be eliminated in Q2 2022, including but not limited to hasTag in the Relations ontology. We anticipate further work will be needed in FND with respect to building out the definitions related to master ISDA agreements in DER, which FIBO users will see over the next couple of quarters.</p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AFND+">All 2022 FND Q1 PRs and Issues</a>
+
+                <h4>Indicators and Indices (IND)</h4>
+                              <p class="text">Most of the revisions made in Q4 were related to corporate actions (see CAE, above).  Next steps include answering competency questions related to the impact of corporate actions on various indices, once we have released the security-specific corporate actions and related codes ontologies. FIBO users should be aware that deprecated the concepts in basket indices will be eliminated in Q2 2022, though the deprecated terms in FpML interest rates will be retained until such time as they are eliminated in FpML itself.</p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AIND+">All 2022 IND Q1 PRs and Issues</a>
+
+                <h4>Loans (LOAN)</h4>
+                              <p class="text">We initiated work in Q1 to support a new use case for loan data reporting covering required elements specified in the US Interagency Loan Data Reporting standard and corresponding elements required for ACTUS cash flow analyses.  LOAN is an area that we had not spent a lot of time on to date, mainly because of the need to provide more complete coverage for securities master data in general, which is FIBO’s primary use case.  However, as we started investigating requirements for supporting asset-backed securities it became apparent that we could no longer put off work on the core LOAN ontologies.  FIBO users should anticipate seeing increasing coverage of both required and optional ILDR fields and ACTUS cash flow related properties of loans in general over the coming months, sufficient to support ABS and MBS this year.</p>
+                            <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ALOAN+">All 2022 LOAN Q1 PRs and Issues</a>
+
+                <h4>Market Data Domain (MD)</h4>
+                              <p class="text">This quarter the domain of marked data remained relatively stable - the only (minor) change was a merge between DebtAnalytics and DebtPricingYields ontologies to eliminate circular dependencies between them.</p>
+                            <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AMD+">All 2022 MD Q1 PRs and Issues</a>
+
+                <h4>Securities (SEC)</h4>
+                              <p class="text">The focus this quarter was mainly on asset-backed securities, including merging and migration of ABS ontologies to the main Debt module in SEC and release of the first ABS ontology, namely the PoolBackedSecurities ontology. We also merged concepts from several provisional ontologies into other SEC released ontologies, such as moving participation notes into depositary receipts, expanded coverage of the CFI codes where there were gaps, and fixed a handful of bugs that were identified through testing. We anticipate much more work on ABS/MBS ontologies over the coming months – see LOAN, above for additional details.</p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ASEC+">All 2022 SEC Q1 PRs and Issues</a>   
+
+
+                <h4>Hygiene tests</h4>
+                              <p class="text">This quarter the main effort was to parameterized hygiene tests so that they can be reused for other ontologies.</p>
+                              <a href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022+Q1+FIBO+Release%22+label%3Ahygiene+">All 2022 hygiene Q1 PRs and Issues</a> 
 
 
 
