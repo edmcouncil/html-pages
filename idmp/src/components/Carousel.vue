@@ -17,8 +17,8 @@
             alt="First slide"
           />
           <div class="carousel-caption d-none d-md-block">
-            <h2>Executive Summary</h2>
-            <p>IDMP COMMON CORE ONTOLOGY IDEA</p>
+            <h2>IDMP COMMON CORE ONTOLOGY</h2>
+            <p>IDEA</p>
             <a
               href="https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/PA_IDMP-Ontology_Executive-Project-Summary.pdf"
               v-on:click="
