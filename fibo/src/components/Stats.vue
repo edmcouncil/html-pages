@@ -186,10 +186,10 @@ export default {
   .stats-box--imports {
     .stats-box__content {
       .stats-box__entry {
-        background: #f2b4b4;
+        background: rgba(0, 0, 0, 0.05);
         color: rgba(0, 0, 0, 0.8);
         border-radius: 2px;
-        margin-top: 10px;
+        margin-top: 15px;
         padding: 15px;
         word-wrap: break-word;
         word-break: break-all;
