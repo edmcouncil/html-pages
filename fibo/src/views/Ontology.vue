@@ -5,27 +5,19 @@
       <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
         <div class="module-tree">
           <div
-            class="
-              secondary-column__how-to-use
-              multiselect-xxl-container multiselect-container
-              container
-            "
+            class="secondary-column__how-to-use multiselect-xxl-container multiselect-container container"
           >
             <div class="row modules-header">
               <h5 class="fibo-title-modules">FIBO Viewer</h5>
               <div class="button-small">
-                <router-link class="button-small-text" to="/ontology" @click="data=null">
+                <router-link class="button-small-text" to="/ontology" @click="data = null">
                   How to use
                 </router-link>
               </div>
             </div>
           </div>
           <div
-            class="
-              secondary-column__versions
-              multiselect-xxl-container multiselect-container
-              container
-            "
+            class="secondary-column__versions multiselect-xxl-container multiselect-container container"
           >
             <div class="menu-box">
               <div class="menu-box__label">Select FIBO version</div>
@@ -56,9 +48,7 @@
                   <template slot="tag" slot-scope="{ option, remove }"
                     ><span class="custom__tag"
                       ><span>{{ option.label }}</span
-                      ><span class="custom__remove" @click="remove(option)"
-                        >❌</span
-                      ></span
+                      ><span class="custom__remove" @click="remove(option)">❌</span></span
                     ></template
                   >
                   <!-- <template slot="clear" slot-scope="props">
@@ -66,8 +56,7 @@
                 @mousedown.prevent.stop="clearAll(props.search)"></div>
               </template> -->
                   <span slot="noResult"
-                    >Oops! No elements found. Consider changing the search
-                    query.</span
+                    >Oops! No elements found. Consider changing the search query.</span
                   >
                 </multiselect>
               </div>
@@ -80,11 +69,7 @@
             <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
           </div>
           <div
-            class="
-              secondary-column__tree
-              multiselect-xxl-container multiselect-container
-              container
-            "
+            class="secondary-column__tree multiselect-xxl-container multiselect-container container"
           >
             <div class="menu-box">
               <div class="menu-box__label">Browse FIBO domains</div>
@@ -129,8 +114,7 @@
                         label="labelForInternalSearch"
                         track-by="iri"
                         :placeholder="
-                          searchBox.inputValue ||
-                          'Find domains, ontologies, concepts...'
+                          searchBox.inputValue || 'Find domains, ontologies, concepts...'
                         "
                         tagPlaceholder="Search..."
                         selectLabel="x"
@@ -169,14 +153,10 @@
                           ></div>
                         </template>
                         <span slot="noResult">
-                          Oops! No elements found. Consider changing the search
-                          query.
+                          Oops! No elements found. Consider changing the search query.
                         </span>
                         <span slot="singleLabel">
-                          {{
-                            searchBox.inputValue ||
-                            "Find domains, ontologies, concepts..."
-                          }}
+                          {{ searchBox.inputValue || "Find domains, ontologies, concepts..." }}
                         </span>
                       </multiselect>
                     </div>
@@ -201,9 +181,7 @@
             </div>
             <div
               class="expand-advanced-btn"
-              @click="
-                searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
-              "
+              @click="searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded"
             >
               <div v-if="!searchBox.isAdvancedExpanded">
                 <div class="see-more-btn">search configuration</div>
@@ -216,11 +194,7 @@
           </div>
 
           <div
-            class="
-              advanced-search-box advanced-search-box--desktop
-              card
-              d-none d-lg-block
-            "
+            class="advanced-search-box advanced-search-box--desktop card d-none d-lg-block"
             v-if="searchBox.isAdvancedExpanded"
           >
             <div class="row">
@@ -267,25 +241,18 @@
         </div>
 
         <div class="container px-0">
-          <a
-            name="ontologyViewerTopOfContainer"
-            id="ontologyViewerTopOfContainer"
-          ></a>
+          <a name="ontologyViewerTopOfContainer" id="ontologyViewerTopOfContainer"></a>
         </div>
 
         <!-- mobile multiselects -->
         <div class="secondary-column--mobile container px-0 mb-2 d-lg-none">
           <div
-            class="
-              secondary-column__how-to-use secondary-column__how-to-use--mobile
-              multiselect-container
-              container
-            "
+            class="secondary-column__how-to-use secondary-column__how-to-use--mobile multiselect-container container"
           >
             <div class="row modules-header">
               <h5 class="fibo-title-modules">FIBO Viewer</h5>
               <div class="button-small">
-                <router-link class="button-small-text" to="/ontology" @click="data=null">
+                <router-link class="button-small-text" to="/ontology" @click="data = null">
                   How to use
                 </router-link>
               </div>
@@ -293,11 +260,7 @@
           </div>
 
           <div
-            class="
-              secondary-column__versions secondary-column__versions--mobile
-              multiselect-container
-              container
-            "
+            class="secondary-column__versions secondary-column__versions--mobile multiselect-container container"
           >
             <div class="menu-box">
               <div class="menu-box__label">Select FIBO version</div>
@@ -328,9 +291,7 @@
                   <template slot="tag" slot-scope="{ option, remove }"
                     ><span class="custom__tag"
                       ><span>{{ option.label }}</span
-                      ><span class="custom__remove" @click="remove(option)"
-                        >❌</span
-                      ></span
+                      ><span class="custom__remove" @click="remove(option)">❌</span></span
                     ></template
                   >
                   <!-- <template slot="clear" slot-scope="props">
@@ -338,8 +299,7 @@
                 @mousedown.prevent.stop="clearAll(props.search)"></div>
               </template> -->
                   <span slot="noResult"
-                    >Oops! No elements found. Consider changing the search
-                    query.</span
+                    >Oops! No elements found. Consider changing the search query.</span
                   >
                 </multiselect>
               </div>
@@ -353,11 +313,7 @@
           </div>
 
           <div
-            class="
-              secondary-column__tree secondary-column__tree--mobile
-              multiselect-container
-              container
-            "
+            class="secondary-column__tree secondary-column__tree--mobile multiselect-container container"
           >
             <div class="menu-box" v-on:click="toggleModuleTree()">
               <div class="menu-box__label">Browse FIBO domains</div>
@@ -432,8 +388,7 @@
               <div
                 class="menu-box__icons"
                 :class="{
-                  'menu-box__icons--inactive':
-                    !searchBox.dropdownActive && !searchBox.inputValue,
+                  'menu-box__icons--inactive': !searchBox.dropdownActive && !searchBox.inputValue,
                   'menu-box__icons--loading': searchBox.isLoading,
                 }"
               >
@@ -445,9 +400,7 @@
             </div>
             <div
               class="expand-advanced-btn"
-              @click="
-                searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
-              "
+              @click="searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded"
             >
               <div v-if="!searchBox.isAdvancedExpanded">
                 <div class="see-more-btn">search configuration</div>
@@ -510,9 +463,7 @@
 
         <div
           class="text-center mt-5"
-          v-if="
-            !error && (loader || searchBox.isLoadingResults || !modulesList)
-          "
+          v-if="!error && (loader || searchBox.isLoadingResults || !modulesList)"
         >
           <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
@@ -544,10 +495,8 @@
                   <div
                     class="search-item__icon"
                     :class="{
-                      'maturity-provisional':
-                        result.maturityLevel.icon === 'develop',
-                      'maturity-release':
-                        result.maturityLevel.icon === 'release',
+                      'maturity-provisional': result.maturityLevel.icon === 'develop',
+                      'maturity-release': result.maturityLevel.icon === 'release',
                       'maturity-mixed': result.maturityLevel.icon === 'mixed',
                     }"
                   ></div>
@@ -568,10 +517,7 @@
                   ></customLink>
                 </div>
 
-                <div
-                  class="search-item__description-wrapper"
-                  v-if="result.highlights.length > 0"
-                >
+                <div class="search-item__description-wrapper" v-if="result.highlights.length > 0">
                   <div
                     class="search-item__description"
                     v-for="(highlight, index) in result.highlights"
@@ -594,10 +540,7 @@
             <!-- No results -->
           </div>
 
-          <div
-            class="search-section__load-more"
-            v-if="searchBox.totalResultsCount > 0"
-          >
+          <div class="search-section__load-more" v-if="searchBox.totalResultsCount > 0">
             <p>
               1 -
               {{ searchBox.displayedResults.length }}
@@ -608,16 +551,12 @@
               type="button"
               class="btn normal-button search-section__load-more__button"
               @click="loadMoreResults()"
-              v-if="
-                searchBox.totalResultsCount > searchBox.displayedResults.length
-              "
+              v-if="searchBox.totalResultsCount > searchBox.displayedResults.length"
             >
               Load next
               {{
-                searchBox.totalResultsCount - searchBox.displayedResultsCount <
-                searchBox.perPage
-                  ? searchBox.totalResultsCount -
-                    searchBox.displayedResultsCount
+                searchBox.totalResultsCount - searchBox.displayedResultsCount < searchBox.perPage
+                  ? searchBox.totalResultsCount - searchBox.displayedResultsCount
                   : searchBox.perPage
               }}
               results
@@ -643,10 +582,7 @@
           </div>
         </div>
 
-        <div
-          class="container"
-          v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
-        >
+        <div class="container" v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch">
           <div class="row">
             <!-- SHOW ITEM -->
             <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
@@ -666,9 +602,7 @@
                         target="_blank"
                         :href="
                           `https://github.com/edmcouncil/fibo/issues/new` +
-                          `?labels=${encodeURI(
-                            githubNewIssueDetails().label
-                          )}` +
+                          `?labels=${encodeURI(githubNewIssueDetails().label)}` +
                           `&template=issue.md` +
                           `&title=${encodeURI(githubNewIssueDetails().title)}` +
                           `&body=${encodeURI(githubNewIssueDetails().body)}`
@@ -706,7 +640,7 @@
                       <div
                         v-if="
                           (data.maturityLevel.label !== 'release' &&
-                          data.maturityLevel.label !== '') ||
+                            data.maturityLevel.label !== '') ||
                           data.deprecated
                         "
                         class="clearfix"
@@ -735,27 +669,18 @@
 
                       <div class="clearfix"></div>
 
-                      <h6
-                        class="card-subtitle mb-2 text-muted data-iri"
-                        v-if="data.iri"
-                      >
+                      <h6 class="card-subtitle mb-2 text-muted data-iri" v-if="data.iri">
                         {{ data.iri }}
                       </h6>
                       <div class="url-buttons-container">
-                        <button
-                          v-clipboard="data.iri"
-                          type="button"
-                          class="btn-copy-url"
-                        >
+                        <button v-clipboard="data.iri" type="button" class="btn-copy-url">
                           Copy URL
                         </button>
 
                         <button
                           v-if="this.$route.query && this.$route.query.version"
                           v-clipboard="
-                            data.iri +
-                            '?version=' +
-                            encodeURI(this.$route.query.version)
+                            data.iri + '?version=' + encodeURI(this.$route.query.version)
                           "
                           type="button"
                           class="btn-copy-url btn-copy-iri"
@@ -794,9 +719,7 @@
                   <h5
                     class="section-title"
                     @click="
-                      $refs.ontologyPaths
-                        .querySelector('h5')
-                        .classList.toggle('section-collapse')
+                      $refs.ontologyPaths.querySelector('h5').classList.toggle('section-collapse')
                     "
                   >
                     Path(s)
@@ -809,27 +732,23 @@
                         id="paths-switch"
                         v-model="pathsSection.isTreeView"
                       />
-                      <label class="custom-control-label-prev" for="paths-switch">
-                        Paths
-                      </label>
-                      <label class="custom-control-label" for="paths-switch">
-                        Tree
-                      </label>
+                      <label class="custom-control-label-prev" for="paths-switch"> Paths </label>
+                      <label class="custom-control-label" for="paths-switch"> Tree </label>
                     </div>
 
                     <transition @enter="checkPathsOverflow" name="fade" mode="out-in">
-                      <div key="path-view" class="ontology-item__paths__path-view" v-if="!pathsSection.isTreeView">
+                      <div
+                        key="path-view"
+                        class="ontology-item__paths__path-view"
+                        v-if="!pathsSection.isTreeView"
+                      >
                         <span>
                           <!-- when isPathsMoreVisible is false the v-for works on array slice from 0 to 2,
                             when isPathsMoreVisible is true the v-for works on the whole array -->
                           <div
-                            v-for="(
-                              taxonomy, tIndex
-                            ) in data.taxonomy.value.slice(
+                            v-for="(taxonomy, tIndex) in data.taxonomy.value.slice(
                               0,
-                              2 +
-                                pathsSection.isPathsMoreVisible *
-                                  (data.taxonomy.value.length - 2)
+                              2 + pathsSection.isPathsMoreVisible * (data.taxonomy.value.length - 2)
                             )"
                             :key="'taxonomyParagraph' + tIndex"
                             class="ontology-item__paths__taxonomy collapsed"
@@ -840,10 +759,7 @@
                                 v-for="(element, index) in taxonomy"
                                 :key="'taxonomyEl' + tIndex + element.iri"
                               >
-                                <customLink
-                                  :name="element.label"
-                                  :query="element.iri"
-                                ></customLink>
+                                <customLink :name="element.label" :query="element.iri"></customLink>
                                 <span
                                   class="card-subtitle mb-2 text-muted"
                                   v-if="index != Object.keys(taxonomy).length - 1"
@@ -871,33 +787,23 @@
 
                         <div
                           v-show="
-                            !pathsSection.isPathsMoreVisible &&
-                            data.taxonomy.value.length > 2
+                            !pathsSection.isPathsMoreVisible && data.taxonomy.value.length > 2
                           "
                           @click.prevent="
-                            pathsSection.isPathsMoreVisible =
-                              !pathsSection.isPathsMoreVisible;
+                            pathsSection.isPathsMoreVisible = !pathsSection.isPathsMoreVisible;
                             checkPathsOverflow();
                           "
                         >
                           <div class="see-more-btn">
                             Show {{ data.taxonomy.value.length - 2 }} more
-                            {{
-                              data.taxonomy.value.length - 2 > 1
-                                ? "paths"
-                                : "path"
-                            }}
+                            {{ data.taxonomy.value.length - 2 > 1 ? "paths" : "path" }}
                           </div>
                         </div>
 
                         <div
-                          v-show="
-                            pathsSection.isPathsMoreVisible &&
-                            data.taxonomy.value.length > 2
-                          "
+                          v-show="pathsSection.isPathsMoreVisible && data.taxonomy.value.length > 2"
                           @click.prevent="
-                            pathsSection.isPathsMoreVisible =
-                              !pathsSection.isPathsMoreVisible;
+                            pathsSection.isPathsMoreVisible = !pathsSection.isPathsMoreVisible;
                             checkPathsOverflow();
                           "
                         >
@@ -910,23 +816,20 @@
                             v-for="(child, index) in pathsSection.treeView"
                             :key="child.label"
                             :item="child"
-                            :isLast="index == pathsSection.treeView.length-1"
+                            :isLast="index == pathsSection.treeView.length - 1"
                             :isOnly="pathsSection.treeView.length === 1"
                             :isRoot="true"
                           />
                         </ul>
                       </div>
                     </transition>
-
                   </div>
                 </div>
 
                 <!-- sections -->
                 <div
                   class="col-md-12 px-0"
-                  v-for="(
-                    section, sectionName, sectionIndex
-                  ) in data.properties"
+                  v-for="(section, sectionName, sectionIndex) in data.properties"
                   :key="sectionName"
                   ref="sections"
                 >
@@ -945,17 +848,13 @@
                       <div class="card-content">
                         <dl
                           class="row"
-                          v-for="(property, name, propertyIndex) in data
-                            .properties[sectionName]"
+                          v-for="(property, name, propertyIndex) in data.properties[sectionName]"
                           :key="name"
                         >
                           <dt class="col-sm-12">{{ name }}</dt>
                           <dd class="col-sm-12">
                             <ul v-if="property.length > 1">
-                              <li
-                                v-for="field in property.slice(0, 5)"
-                                :key="field.id"
-                              >
+                              <li v-for="field in property.slice(0, 5)" :key="field.id">
                                 <component
                                   :is="field.type"
                                   :value="field.value"
@@ -966,32 +865,21 @@
 
                               {{
                                 (() => {
-                                  if (
-                                    sectionsVisibilitySettings[sectionIndex] ===
-                                    undefined
-                                  ) {
-                                    sectionsVisibilitySettings[sectionIndex] =
-                                      [];
+                                  if (sectionsVisibilitySettings[sectionIndex] === undefined) {
+                                    sectionsVisibilitySettings[sectionIndex] = [];
                                   }
                                   if (
-                                    sectionsVisibilitySettings[sectionIndex][
-                                      propertyIndex
-                                    ] === undefined
+                                    sectionsVisibilitySettings[sectionIndex][propertyIndex] ===
+                                    undefined
                                   ) {
-                                    sectionsVisibilitySettings[sectionIndex][
-                                      propertyIndex
-                                    ] = false;
+                                    sectionsVisibilitySettings[sectionIndex][propertyIndex] = false;
                                   }
                                 })()
                               }}
 
                               <li
                                 v-for="field in property.slice(5)"
-                                v-show="
-                                  sectionsVisibilitySettings[sectionIndex][
-                                    propertyIndex
-                                  ]
-                                "
+                                v-show="sectionsVisibilitySettings[sectionIndex][propertyIndex]"
                                 :key="field.id"
                               >
                                 <component
@@ -1020,18 +908,9 @@
                                 '_' +
                                 propertyIndex
                               "
-                              v-show="
-                                !sectionsVisibilitySettings[sectionIndex][
-                                  propertyIndex
-                                ]
-                              "
+                              v-show="!sectionsVisibilitySettings[sectionIndex][propertyIndex]"
                               href="#"
-                              @click.prevent="
-                                toggleSectionsVisibility(
-                                  sectionIndex,
-                                  propertyIndex
-                                )
-                              "
+                              @click.prevent="toggleSectionsVisibility(sectionIndex, propertyIndex)"
                             >
                               <div>Show more</div>
                             </div>
@@ -1044,18 +923,9 @@
                                 '_' +
                                 propertyIndex
                               "
-                              v-show="
-                                sectionsVisibilitySettings[sectionIndex][
-                                  propertyIndex
-                                ]
-                              "
+                              v-show="sectionsVisibilitySettings[sectionIndex][propertyIndex]"
                               href="#"
-                              @click.prevent="
-                                toggleSectionsVisibility(
-                                  sectionIndex,
-                                  propertyIndex
-                                )
-                              "
+                              @click.prevent="toggleSectionsVisibility(sectionIndex, propertyIndex)"
                             >
                               <div>Show less</div>
                             </div>
@@ -1075,9 +945,7 @@
                       <h5
                         class="card-title section-title"
                         @click="
-                          $refs.dataGraph
-                            .querySelector('h5')
-                            .classList.toggle('section-collapse')
+                          $refs.dataGraph.querySelector('h5').classList.toggle('section-collapse')
                         "
                       >
                         Data model for {{ data.label }}
@@ -1223,7 +1091,7 @@
                       in the easiest possible way. It can serve both as a web
                       application and REST API. FIBO Viewer is an open-source
                       project that EDM Council hosts. See
-                      https://github.com/edmcouncil/fibo-viewer for details.
+                      https://github.com/edmcouncil/onto-viewer for details.
                     </p>
                   </section>
                 </article>
@@ -1247,19 +1115,23 @@ export default {
     AXIOM: () => import(/* webpackChunkName: "AXIOM" */ "../components/chunks/AXIOM"),
     STRING: () => import(/* webpackChunkName: "STRING" */ "../components/chunks/STRING"),
     DIRECT_SUBCLASSES: () =>
-      import(// eslint-disable-next-line comma-dangle
-      /* webpackChunkName: "DIRECT_SUBCLASSES" */ "../components/chunks/DIRECT_SUBCLASSES"),
+      import(
+        // eslint-disable-next-line comma-dangle
+        /* webpackChunkName: "DIRECT_SUBCLASSES" */ "../components/chunks/DIRECT_SUBCLASSES"
+      ),
     MODULES: () => import(/* webpackChunkName: "MODULES" */ "../components/chunks/MODULES"),
     IRI: () => import(/* webpackChunkName: "IRI" */ "../components/chunks/IRI"),
     INSTANCES: () =>
-      import(// eslint-disable-next-line comma-dangle
-      /* webpackChunkName: "INSTANCES" */ "../components/chunks/INSTANCES"),
+      import(
+        // eslint-disable-next-line comma-dangle
+        /* webpackChunkName: "INSTANCES" */ "../components/chunks/INSTANCES"
+      ),
     ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ "../components/chunks/ANY_URI"),
     VisNetwork: () => import(/* webpackChunkName: "ANY_URI" */ "../components/VisNetwork"),
     PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
     Stats: () => import(/* webpackChunkName: "Stats" */ "../components/Stats"),
     Multiselect,
-    Paginate
+    Paginate,
   },
   props: ["ontology"],
   data() {
@@ -1269,7 +1141,7 @@ export default {
         treeView: [],
         isTreeView: false,
         isPathsMoreVisible: false,
-        hasOverflow: []
+        hasOverflow: [],
       },
       sectionsVisibilitySettings: [],
       mountedTimestamp: null,
@@ -1286,12 +1158,12 @@ export default {
       version: null,
       versionDefaultSelectedData: {
         "@id": "stable",
-        url: ""
+        url: "",
       },
       modulesList: null,
       error: false,
       searchBox: {
-        inputValue: '',
+        inputValue: "",
         selectedData: null,
         data: [], // search box hints
         totalResultsCount: 0,
@@ -1305,14 +1177,14 @@ export default {
         perPage: 10,
         findPropertiesAll: [],
         findProperties: [],
-        encodedProperties: '',
+        encodedProperties: "",
         useHighlighting: true,
         dropdownActive: false,
       },
       ontologyVersionsDropdownData: {
         selectedData: null,
         data: [],
-        isLoading: false
+        isLoading: false,
       },
       scrollToOntologyViewerTopOfContainer() {
         const element = document.getElementById("ontologyViewerTopOfContainer");
@@ -1324,14 +1196,17 @@ export default {
         this.$root.ontologyRouteIsUpdating = false;
       },
       githubNewIssueDetails() {
-        const ontologyQuery = this.data.iri.replace("https://spec.edmcouncil.org/fibo/ontology/", "");
+        const ontologyQuery = this.data.iri.replace(
+          "https://spec.edmcouncil.org/fibo/ontology/",
+          ""
+        );
         const label = ontologyQuery.substring(0, ontologyQuery.indexOf("/"));
         return {
           label,
           title: `Problem with ${this.data.label.toUpperCase()}`,
-          body: `Resource URL:\n${this.data.iri}`
+          body: `Resource URL:\n${this.data.iri}`,
         };
-      }
+      },
     };
   },
   mounted() {
@@ -1350,11 +1225,11 @@ export default {
     let timeoutCheckPathsOverflow = false;
     window.addEventListener("resize", () => {
       clearTimeout(timeoutCheckPathsOverflow);
-      timeoutCheckPathsOverflow = setTimeout(this.checkPathsOverflow, 300);
+      timeoutCheckPathsOverflow = setTimeout(this.checkPathsOverflow, 500);
     });
 
-    if (localStorage.isTreeView && localStorage.isTreeView === 'true') {
-        this.pathsSection.isTreeView = true;
+    if (localStorage.isTreeView && localStorage.isTreeView === "true") {
+      this.pathsSection.isTreeView = true;
     }
 
     this.updateServers();
@@ -1393,10 +1268,22 @@ export default {
       }
 
       if (internalRoute.query && internalRoute.query.version) {
-        this.ontologyServer = this.ontologyServer.replace("{version}", `${internalRoute.query.version}/`);
-        this.searchServer = this.searchServer.replace("{version}", `${internalRoute.query.version}/`);
-        this.modulesServer = this.modulesServer.replace("{version}", `${internalRoute.query.version}/`);
-        this.hintServer = this.hintDefaultDomain.replace("{version}", `${internalRoute.query.version}/`);
+        this.ontologyServer = this.ontologyServer.replace(
+          "{version}",
+          `${internalRoute.query.version}/`
+        );
+        this.searchServer = this.searchServer.replace(
+          "{version}",
+          `${internalRoute.query.version}/`
+        );
+        this.modulesServer = this.modulesServer.replace(
+          "{version}",
+          `${internalRoute.query.version}/`
+        );
+        this.hintServer = this.hintDefaultDomain.replace(
+          "{version}",
+          `${internalRoute.query.version}/`
+        );
         this.version = internalRoute.query.version;
       } else {
         this.ontologyServer = this.ontologyServer.replace("{version}", "");
@@ -1417,13 +1304,15 @@ export default {
             console.error(`body.type: ${body.type}, expected: details`);
           }
           // check if resource is deprecated
-          if (body.result.properties['Ontological characteristic'] &&
-          body.result.properties['Ontological characteristic'].deprecated &&
-          body.result.properties['Ontological characteristic'].deprecated[0].value === 'true') {
+          if (
+            body.result.properties["Ontological characteristic"] &&
+            body.result.properties["Ontological characteristic"].deprecated &&
+            body.result.properties["Ontological characteristic"].deprecated[0].value === "true"
+          ) {
             body.result.deprecated = true;
-            delete body.result.properties['Ontological characteristic'].deprecated;
-            if(Object.keys(body.result.properties['Ontological characteristic']).length === 0) {
-              delete body.result.properties['Ontological characteristic'];
+            delete body.result.properties["Ontological characteristic"].deprecated;
+            if (Object.keys(body.result.properties["Ontological characteristic"]).length === 0) {
+              delete body.result.properties["Ontological characteristic"];
             }
           } else {
             body.result.deprecated = false;
@@ -1431,10 +1320,10 @@ export default {
 
           this.data = body.result;
 
-          if(this.data.taxonomy && this.data.taxonomy.value) {
+          if (this.data.taxonomy && this.data.taxonomy.value) {
             this.pathsSection.treeView = [];
             let tempTaxonomy = JSON.parse(JSON.stringify(this.data.taxonomy.value));
-            tempTaxonomy.forEach((element)=>{
+            tempTaxonomy.forEach((element) => {
               this.getTreeFromList(element, this.pathsSection.treeView);
             });
           }
@@ -1458,7 +1347,7 @@ export default {
         ontologyVersions.unshift(this.versionDefaultSelectedData); // add default at the beginning
 
         if (this.version !== null) {
-          this.ontologyVersionsDropdownData.selectedData = ontologyVersions.find(val => {
+          this.ontologyVersionsDropdownData.selectedData = ontologyVersions.find((val) => {
             if (val["@id"] === this.version) {
               return true;
             }
@@ -1473,7 +1362,7 @@ export default {
         this.error = true;
       } finally {
         if (this.data && this.data.taxonomy && this.data.taxonomy.value.length > 0) {
-            this.checkPathsOverflow();
+          this.checkPathsOverflow();
         }
         this.sectionsVisibilitySettings = [];
       }
@@ -1489,19 +1378,18 @@ export default {
     },
     async fetchSearchProperties() {
       try {
-        const result = await getFindProperties(this.searchServer+'/properties');
+        const result = await getFindProperties(this.searchServer + "/properties");
         this.searchBox.findPropertiesAll = await result.json();
 
         if (this.searchBox.findPropertiesAll.length > 0) {
           this.searchBox.findProperties.push(
             this.searchBox.findPropertiesAll.find(
-              property => property.identifier === 'rdfs_label'
+              (property) => property.identifier === "rdfs_label"
             )
           );
         }
 
         this.encodeProperties();
-
       } catch (err) {
         console.error(err);
         this.error = true;
@@ -1518,9 +1406,9 @@ export default {
           query: {
             ...this.$route.query,
             ...{
-              version: encodeURI(selectedOntologyVersion["@id"])
-            }
-          }
+              version: encodeURI(selectedOntologyVersion["@id"]),
+            },
+          },
         });
       }
 
@@ -1539,8 +1427,10 @@ export default {
         this.$router.push({
           path: destRoute,
           query: {
-            ...(this.$route.query && this.$route.query.version ? { version: encodeURI(this.$route.query.version) } : null)
-          }
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null),
+          },
         });
       } else {
         // external ontology
@@ -1548,23 +1438,26 @@ export default {
           path: "/ontology",
           query: {
             ...{ query: encodeURI(destRoute) },
-            ...(this.$route.query && this.$route.query.version ? { version: encodeURI(this.$route.query.version) } : null)
-          }
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null),
+          },
         });
       }
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.scrollToOntologyViewerTopOfContainer();
       });
-
     },
     async searchBox_addTag(newTag) {
-      if(newTag != '') {
+      if (newTag != "") {
         this.$router.push({
           path: "/ontology",
           query: {
             ...{ searchBoxQuery: encodeURI(newTag) },
-            ...(this.$route.query && this.$route.query.version ? { version: encodeURI(this.$route.query.version) } : null)
-          }
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null),
+          },
         });
       }
     },
@@ -1574,13 +1467,15 @@ export default {
         const isHighlighting = this.searchBox.useHighlighting;
 
         // wait for properties to be loaded if they arent
-        while(this.searchBox.findPropertiesAll.length === 0) {
-          await new Promise(resolve => setTimeout(resolve, 100));
+        while (this.searchBox.findPropertiesAll.length === 0) {
+          await new Promise((resolve) => setTimeout(resolve, 100));
         }
 
-        if(this.searchBox.findProperties.length > 0) {
+        if (this.searchBox.findProperties.length > 0) {
           // eslint-disable-next-line max-len
-          let domain = encodeURI(`${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${this.searchBox.encodedProperties}`);
+          let domain = encodeURI(
+            `${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${this.searchBox.encodedProperties}`
+          );
 
           const result = await getFindSearch(domain);
           const body = await result.json();
@@ -1595,8 +1490,7 @@ export default {
 
           this.searchBox.totalResults = body;
           this.searchBox.displayedResults = body.slice(0, this.searchBox.perPage);
-        }
-        else {
+        } else {
           this.searchBox.totalResults = [];
           this.searchBox.displayedResults = [];
         }
@@ -1620,7 +1514,7 @@ export default {
         isSearch: true,
         iri: searchBQuery,
         label: searchBQuery,
-        labelForInternalSearch: searchBQuery
+        labelForInternalSearch: searchBQuery,
       };
       this.searchBox.selectedData = tag;
     },
@@ -1661,9 +1555,9 @@ export default {
     },
     clearAll() {
       this.searchBox.selectedData = null;
-      this.searchBox.inputValue = '';
-      this.$refs.searchBoxInput2.search = '';
-      this.$refs.searchBoxInput.search = '';
+      this.searchBox.inputValue = "";
+      this.$refs.searchBoxInput2.search = "";
+      this.$refs.searchBoxInput.search = "";
     },
     searchResultClicked() {
       this.$root.ontologyRouteIsUpdating = true;
@@ -1684,11 +1578,13 @@ export default {
     },
     checkPathsOverflow() {
       // go through displayed paths and call checkPathOverflow for them
-      if (this.$refs.taxonomyItems
-        && this.$refs.ontologyPaths
-        && this.data
-        && this.data.taxonomy
-        && !this.pathsSection.isTreeView) {
+      if (
+        this.$refs.taxonomyItems &&
+        this.$refs.ontologyPaths &&
+        this.data &&
+        this.data.taxonomy &&
+        !this.pathsSection.isTreeView
+      ) {
         for (
           let i = 0;
           i <
@@ -1713,7 +1609,8 @@ export default {
           const el = this.$refs.taxonomyItems[tIndex].firstChild;
           const curOverf = el.style.overflow;
           if (!curOverf || curOverf === "visible") el.style.overflow = "hidden";
-          const isOverflowing = el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
+          const isOverflowing =
+            el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
           el.style.overflow = curOverf;
 
           if (!wasCollapsed) {
@@ -1726,7 +1623,10 @@ export default {
     },
     loadMoreResults() {
       this.searchBox.displayedResultsCount += this.searchBox.perPage;
-      this.searchBox.displayedResults = this.searchBox.totalResults.slice(0, this.searchBox.displayedResultsCount);
+      this.searchBox.displayedResults = this.searchBox.totalResults.slice(
+        0,
+        this.searchBox.displayedResultsCount
+      );
     },
     clearSearchResults() {
       this.searchBox = {
@@ -1745,42 +1645,38 @@ export default {
         perPage: this.searchBox.perPage,
         findPropertiesAll: this.searchBox.findPropertiesAll,
         findProperties: this.searchBox.findProperties,
-        useHighlighting: this.searchBox.useHighlighting
+        useHighlighting: this.searchBox.useHighlighting,
       };
     },
     getPropertyLabel(identifier) {
-      return this.searchBox.findPropertiesAll.find(
-        property => property.identifier === identifier
-      ).label;
+      return this.searchBox.findPropertiesAll.find((property) => property.identifier === identifier)
+        .label;
     },
     encodeProperties() {
-      this.searchBox.encodedProperties = '';
-      for(const [index, property] of this.searchBox.findProperties.entries()) {
+      this.searchBox.encodedProperties = "";
+      for (const [index, property] of this.searchBox.findProperties.entries()) {
         this.searchBox.encodedProperties += property.identifier;
-        if(index < this.searchBox.findProperties.length-1) {
-          this.searchBox.encodedProperties += '.';
+        if (index < this.searchBox.findProperties.length - 1) {
+          this.searchBox.encodedProperties += ".";
         }
       }
     },
-    getTreeFromList(parts,treeNode) {
-      if(parts.length === 0)
-      {
+    getTreeFromList(parts, treeNode) {
+      if (parts.length === 0) {
         return;
       }
 
-      for(let i = 0 ; i < treeNode.length; i++)
-      {
-        if(parts[0].label === treeNode[i].value.label)
-        {
-          this.getTreeFromList(parts.splice(1,parts.length), treeNode[i].children);
+      for (let i = 0; i < treeNode.length; i++) {
+        if (parts[0].label === treeNode[i].value.label) {
+          this.getTreeFromList(parts.splice(1, parts.length), treeNode[i].children);
           return;
         }
       }
 
-      let newNode = {'value': parts[0] ,'children':[]};
+      let newNode = { value: parts[0], children: [] };
       treeNode.push(newNode);
-      this.getTreeFromList(parts.splice(1,parts.length), newNode.children);
-    }
+      this.getTreeFromList(parts.splice(1, parts.length), newNode.children);
+    },
   },
   computed: {
     ...mapState({
@@ -1792,11 +1688,11 @@ export default {
     })
   },
   watch: {
-    "$route.query.query": query => {
+    "$route.query.query": (query) => {
       this.fetchData(query);
     },
     // eslint-disable-next-line no-unused-vars
-    "$route.query.version": version => {
+    "$route.query.version": (version) => {
       this.updateServers();
 
       this.fetchData(this.query);
@@ -1805,9 +1701,9 @@ export default {
       // clear search results after changing version
       this.clearSearchResults();
     },
-    "pathsSection.isTreeView": newValue => {
+    "pathsSection.isTreeView": (newValue) => {
       localStorage.isTreeView = newValue;
-    }
+    },
   },
   beforeRouteUpdate(to, from, next) {
     this.updateServers(to);
@@ -1825,7 +1721,7 @@ export default {
         this.query = "";
         this.data = null;
       }
-      this.$nextTick(async function() {
+      this.$nextTick(async function () {
         this.fetchData(this.query);
       });
     }
@@ -1840,7 +1736,7 @@ export default {
     // scrollTo: ontologyViewerTopOfContainer
     if (this.$root.ontologyRouteIsUpdating || this.$route.query.scrollToTop === "true") {
       this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.scrollToOntologyViewerTopOfContainer();
       });
     }
@@ -1854,11 +1750,11 @@ export default {
     if (this.$route.query.searchBoxQuery && this.$route.query.searchBoxQuery_isExecuted !== true) {
       this.clearSearchResults();
       const searchQuery = decodeURI(this.$route.query.searchBoxQuery);
-      this.searchBox.inputValue=searchQuery;
-      this.$refs.searchBoxInput2.search=searchQuery;
-      this.$refs.searchBoxInput.search=searchQuery;
+      this.searchBox.inputValue = searchQuery;
+      this.$refs.searchBoxInput2.search = searchQuery;
+      this.$refs.searchBoxInput.search = searchQuery;
       this.handleSearchBoxQuery(searchQuery);
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.scrollToOntologyViewerTopOfContainer();
       });
       this.$route.query.searchBoxQuery_isExecuted = true;
@@ -1867,7 +1763,7 @@ export default {
     // disable input autocomplete in multiselect
     document.getElementById("ajax2").autocomplete = "off";
     document.getElementById("ajax").autocomplete = "off";
-  }
+  },
 };
 </script>
 

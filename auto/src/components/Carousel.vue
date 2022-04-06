@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid slider">
+  <div class="container slider">
     <div id="carouselExampleIndicators" class="carousel slide">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -8,15 +8,15 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="../assets/img/baner2.png" alt="First slide">
+          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="First slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE ONTOLOGY</h2>
             <p>The entirely new branch of the EDMC OKG initiative focused on Automotive Industry applications of Knowledge Graphs</p>
-            <router-link :to="{ path: router('') }" class="btn-sl">ABOUT</router-link>
+            <router-link :to="{ path: router('') }" class="btn-sl">About Automotive Ontology</router-link>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/baner2.png" alt="Second slide">
+          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="Second slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE ONTOLOGY</h2>
             <p>A wide range of vital applications from the unique aspects of traditional and autonomous vehicles safety to the cross-industry edge computing applications</p>
@@ -24,9 +24,9 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/baner2.png" alt="Third slide">
+          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="Third slide">
           <div class="carousel-caption d-none d-md-block">
-            <h2>AUTOMOTIVE ONTOLOGY</h2>
+            <h2>AUTOMOTIVE COMMUNITY</h2>
             <p>The new activity will engage members of existing  W3C’s Automotive Ontology Community Group</p>
             <router-link :to="{ path: router('Community') }" class="btn-sl">COMMUNITY</router-link>
           </div>
@@ -50,7 +50,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-      <div class="fill-image-auto"></div>
+      <div class="fill-image-fibo"></div>
     </div>
   </div>
 </template>
@@ -73,7 +73,6 @@ export default {
 .slider {
   padding-left: 0;
   padding-right: 0;
-  border-top: 6px solid map-get($colors-map, 'blue');
 
   img {
     max-height: 250px !important;
@@ -81,9 +80,6 @@ export default {
   }
 }
 
-.carousel {
-  border-top: 1px solid #ffffff;
-}
 .carousel-caption {
   top: 20px;
 
@@ -107,7 +103,6 @@ a.btn-sl {
   color: map-get($colors-map, 'white');
   padding: 8px 13px;
   font-size: 13px;
-  background-color: map-get($colors-map, 'orange');
   margin-top: 12px;
   font-weight: 500;
   letter-spacing: 1px;
@@ -122,7 +117,6 @@ a.btn-sl {
   height: 10px;
   border-radius: 100%;
   opacity: 0.9;
-  border: 1px solid map-get($colors-map, 'white');
   margin-left: 6px;
   margin-right: 6px;
   padding-top: 0;
