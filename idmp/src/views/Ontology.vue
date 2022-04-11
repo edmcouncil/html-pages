@@ -104,6 +104,11 @@
               :key="item.label"
             />
           </ul>
+
+          <Stats
+            :statsServer="statsServer"
+            :missingImportsServer="missingImportsServer"
+          />
         </div>
       </div>
 
@@ -1231,6 +1236,7 @@ export default {
     ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ "../components/chunks/ANY_URI"),
     VisNetwork: () => import(/* webpackChunkName: "ANY_URI" */ "../components/VisNetwork"),
     PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
+    Stats: () => import(/* webpackChunkName: "Stats" */ "../components/Stats"),
     Multiselect,
     Paginate
   },
@@ -1253,6 +1259,8 @@ export default {
       modulesServer: null,
       hintServer: null,
       searchServer: null,
+      statsServer: null,
+      missingImportsServer: null,
       hintDefaultDomain: "/idmp/ontology/{version}api/find/",
       version: null,
       versionDefaultSelectedData: {
@@ -1335,16 +1343,17 @@ export default {
       if (to !== undefined) {
         internalRoute = to;
       }
-      if (internalRoute.query && internalRoute.query.domain) {
-        this.ontologyServer = internalRoute.query.domain;
-      } else {
-        this.ontologyServer = this.ontologyDefaultDomain;
-      }
 
       if (internalRoute.query && internalRoute.query.domain) {
         this.searchServer = internalRoute.query.domain;
+        this.ontologyServer = internalRoute.query.domain;
+        this.statsServer = internalRoute.query.domain;
+        this.missingImportsServer = internalRoute.query.domain;
       } else {
         this.searchServer = this.searchDefaultDomain;
+        this.ontologyServer = this.ontologyDefaultDomain;
+        this.statsServer = this.statsDefaultDomain;
+        this.missingImportsServer = this.missingImportsDefaultDomain;
       }
 
       if (internalRoute.query && internalRoute.query.modules) {
@@ -1746,7 +1755,9 @@ export default {
     ...mapState({
       searchDefaultDomain: state => state.searchDefaultDomain,
       ontologyDefaultDomain: state => state.ontologyDefaultDomain,
-      modulesDefaultDomain: state => state.modulesDefaultDomain
+      modulesDefaultDomain: state => state.modulesDefaultDomain,
+      statsDefaultDomain: state => state.statsDefaultDomain,
+      missingImportsDefaultDomain: state => state.missingImportsDefaultDomain,
     })
   },
   watch: {

@@ -40,4 +40,19 @@ const getFindProperties = function (domain) {
   }).then(parseServerError);
 };
 
-export { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties };
+const getStats = function (domain) {
+  return fetch(domain, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  }).then(parseServerError);
+};
+
+const getMissingImports = function (domain) {
+  return fetch(domain, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  }).then(parseServerError);
+};
+
+
+export { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties, getStats, getMissingImports  };
