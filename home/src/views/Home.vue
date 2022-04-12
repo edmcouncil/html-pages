@@ -26,43 +26,21 @@
 
 <h4>Quick access</h4> 
 
-<h5>FIBO and AUTO specifications</h5>
+<h5>EDMC actively supports the development of the following ontologies:</h5>
 <ul>
     <li><a href="https://spec.edmcouncil.org/fibo/">FIBO Home</a></li>   
     <li><a href="https://spec.edmcouncil.org/auto/">AUTO Home</a></li>
+    <li> ... more to come soon</li>
 </ul>
 
 
-<h5>OKG Shared Lab</h5>
+<h5>OKG Innovation Lab</h5>
 
-<p class="text">EDMC recognizes the urgent need to bring this new architecture and approach to its members and beyond. In consultations with various members, analysts, and software vendors, we have launched the Open Knowledge Graph Shared Lab (OKGSL):</p>
-
-<ul>
-    <li><a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community">OKG Interest Community Page</a></li>   
-    <li><a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-shared-lab">OKG Shared Lab Page</a></li>
-</ul>
+<p class="text">EDMC recognizes the urgent need to bring this new architecture and approach to its members and beyond. In consultations with various members, analysts, and software vendors, we have launched the Open Knowledge Graph Lab. You can be in touch with its activities by joining <a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community">OKG Interest Community</a>.</p>
 
 
 <h5>OKG Training</h5>
-<p class="text">EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms:</p>
-
-<ul>
-    <li><a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-training/okg-course-description">OKG Training Palette</a></li>
-    <li><a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-training/okg-training-events">OKG Training Events</a></li>
-    <li><a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-training/regional-advocates">Contact regional advocates</a></li>        
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-                
+<p class="text">EDMC currently offers the introductory course in Knowledge Graph technology - it is available as a <a href="https://edmcouncil.org/page/okg_virtual_training"> virtual class</a>.</p>
                 
                 <div style="clear:both;"></div>
             </article>
