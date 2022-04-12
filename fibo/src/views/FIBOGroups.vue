@@ -9,15 +9,15 @@
 
                <p class="text">FIBO Community is and has always been the most important pillar of FIBO. We should never forget that ontology - as defined by Nicola Guarino - is a formal specification of a <b>shared conceptualization</b>. Creating functional/good financial ontology always means finding consensus between parties that agree to share the way they see and talk about the financial domain. </p>
 
-<p class="text">FIBO evolved out of concerns that arose during the 2008 financial crisis among individuals who had been working together in data governance and management. The most pressing issue at the time was that they needed to have a shared, common vocabulary that they could use within their institutions. </p>
+                <p class="text">FIBO evolved out of concerns that arose during the 2008 financial crisis among individuals who had been working together in data governance and management. The most pressing issue at the time was that they needed to have a shared, common vocabulary that they could use within their institutions. </p>
 
-<p class="text">After 11 years of FIBO development, the FIBO community has grown significantly. Currently, it has
+                <p class="text">After 11 years of FIBO development, the FIBO community has grown significantly. Currently, it has
 
-<ul>
-  <li>over 420 members on <a href="https://github.com/edmcouncil/fibo/" v-on:click="outboundClick('https://github.com/edmcouncil/fibo/')">GitHub</a> and</li>
-  <li>over 4800 members on <a href="https://edmconnect.edmcouncil.org/fibointerestgroup/home" v-on:click="outboundClick('https://edmconnect.edmcouncil.org/fibointerestgroup/home')">EDMConnect platform</a></li>
-</ul>
-</p>
+                <ul>
+                  <li>over 420 members on <a href="https://github.com/edmcouncil/fibo/" v-on:click="outboundClick('https://github.com/edmcouncil/fibo/')">GitHub</a> and</li>
+                  <li>over 4800 members on <a href="https://edmconnect.edmcouncil.org/fibointerestgroup/home" v-on:click="outboundClick('https://edmconnect.edmcouncil.org/fibointerestgroup/home')">EDMConnect platform</a></li>
+                </ul>
+                </p>
 
                 <p class="text">
                   FIBO community is part of a larger EDMC Open Knowledge Graph (OKG) community. The OKG community is organized as follows.
