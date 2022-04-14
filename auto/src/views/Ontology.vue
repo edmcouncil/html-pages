@@ -444,90 +444,121 @@
                       Path(s)
                     </h5>
                     <div class="section-content-wrapper">
-                      <span>
-                        <!-- when isPathsMoreVisible is false the v-for works on array slice from 0 to 2,
-                           when isPathsMoreVisible is true the v-for works on the whole array -->
-                        <div
-                          v-for="(
-                            taxonomy, tIndex
-                          ) in data.taxonomy.value.slice(
-                            0,
-                            2 +
-                              pathsSection.isPathsMoreVisible *
-                                (data.taxonomy.value.length - 2)
-                          )"
-                          :key="'taxonomyParagraph' + tIndex"
-                          class="ontology-item__paths__taxonomy collapsed"
-                          ref="taxonomyItems"
-                        >
-                          <div class="taxonomy-wrapper">
-                            <span
-                              v-for="(element, index) in taxonomy"
-                              :key="'taxonomyEl' + tIndex + element.iri"
-                            >
-                              <customLink
-                                :name="element.label"
-                                :query="element.iri"
-                              ></customLink>
-                              <span
-                                class="card-subtitle mb-2 text-muted"
-                                v-if="index != Object.keys(taxonomy).length - 1"
-                              >
-                                /
-                              </span>
-                            </span>
-                          </div>
+                      <div class="custom-control custom-switch">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="paths-switch"
+                        v-model="pathsSection.isTreeView"
+                      />
+                      <label class="custom-control-label-prev" for="paths-switch">
+                        Paths
+                      </label>
+                      <label class="custom-control-label" for="paths-switch">
+                        Tree
+                      </label>
+                    </div>
 
+                    <transition @enter="checkPathsOverflow" name="fade" mode="out-in">
+                      <div key="path-view" class="ontology-item__paths__path-view" v-if="!pathsSection.isTreeView">
+                        <span>
+                          <!-- when isPathsMoreVisible is false the v-for works on array slice from 0 to 2,
+                            when isPathsMoreVisible is true the v-for works on the whole array -->
                           <div
-                            class="collapseButtons"
-                            v-if="pathsSection.hasOverflow[tIndex]"
-                            @click.prevent="togglePathCollapsed(tIndex)"
+                            v-for="(
+                              taxonomy, tIndex
+                            ) in data.taxonomy.value.slice(
+                              0,
+                              2 +
+                                pathsSection.isPathsMoreVisible *
+                                  (data.taxonomy.value.length - 2)
+                            )"
+                            :key="'taxonomyParagraph' + tIndex"
+                            class="ontology-item__paths__taxonomy collapsed"
+                            ref="taxonomyItems"
                           >
-                            <div>
-                              <div class="see-more-btn">Show full path</div>
+                            <div class="taxonomy-wrapper">
+                              <span
+                                v-for="(element, index) in taxonomy"
+                                :key="'taxonomyEl' + tIndex + element.iri"
+                              >
+                                <customLink
+                                  :name="element.label"
+                                  :query="element.iri"
+                                ></customLink>
+                                <span
+                                  class="card-subtitle mb-2 text-muted"
+                                  v-if="index != Object.keys(taxonomy).length - 1"
+                                >
+                                  /
+                                </span>
+                              </span>
                             </div>
 
-                            <div>
-                              <div class="see-less-btn">Hide full path</div>
+                            <div
+                              class="collapseButtons"
+                              v-if="pathsSection.hasOverflow[tIndex]"
+                              @click.prevent="togglePathCollapsed(tIndex)"
+                            >
+                              <div>
+                                <div class="see-more-btn">Show full path</div>
+                              </div>
+
+                              <div>
+                                <div class="see-less-btn">Hide full path</div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </span>
+                        </span>
 
-                      <div
-                        v-show="
-                          !pathsSection.isPathsMoreVisible &&
-                          data.taxonomy.value.length > 2
-                        "
-                        @click.prevent="
-                          pathsSection.isPathsMoreVisible =
-                            !pathsSection.isPathsMoreVisible;
-                          checkPathsOverflow();
-                        "
-                      >
-                        <div class="see-more-btn">
-                          Show {{ data.taxonomy.value.length - 2 }} more
-                          {{
-                            data.taxonomy.value.length - 2 > 1
-                              ? "paths"
-                              : "path"
-                          }}
+                        <div
+                          v-show="
+                            !pathsSection.isPathsMoreVisible &&
+                            data.taxonomy.value.length > 2
+                          "
+                          @click.prevent="
+                            pathsSection.isPathsMoreVisible =
+                              !pathsSection.isPathsMoreVisible;
+                            checkPathsOverflow();
+                          "
+                        >
+                          <div class="see-more-btn">
+                            Show {{ data.taxonomy.value.length - 2 }} more
+                            {{
+                              data.taxonomy.value.length - 2 > 1
+                                ? "paths"
+                                : "path"
+                            }}
+                          </div>
+                        </div>
+
+                        <div
+                          v-show="
+                            pathsSection.isPathsMoreVisible &&
+                            data.taxonomy.value.length > 2
+                          "
+                          @click.prevent="
+                            pathsSection.isPathsMoreVisible =
+                              !pathsSection.isPathsMoreVisible;
+                            checkPathsOverflow();
+                          "
+                        >
+                          <div class="see-less-btn">Show less paths</div>
                         </div>
                       </div>
-
-                      <div
-                        v-show="
-                          pathsSection.isPathsMoreVisible &&
-                          data.taxonomy.value.length > 2
-                        "
-                        @click.prevent="
-                          pathsSection.isPathsMoreVisible =
-                            !pathsSection.isPathsMoreVisible;
-                          checkPathsOverflow();
-                        "
-                      >
-                        <div class="see-less-btn">Show less paths</div>
+                      <div key="tree-view" class="ontology-item__paths__tree-view" v-else>
+                        <ul class="ontology-item__paths__tree-view__root">
+                          <paths-tree
+                            v-for="(child, index) in pathsSection.treeView"
+                            :key="child.label"
+                            :item="child"
+                            :isLast="index == pathsSection.treeView.length-1"
+                            :isOnly="pathsSection.treeView.length === 1"
+                            :isRoot="true"
+                          />
+                        </ul>
                       </div>
+                    </transition>
                     </div>
                   </div>
 
@@ -854,6 +885,7 @@ export default {
     ),
     ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ '../components/chunks/ANY_URI'),
     VisNetwork: () => import(/* webpackChunkName: "ANY_URI" */ '../components/VisNetwork'),
+    PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
     Multiselect,
     Paginate,
   },
@@ -862,6 +894,8 @@ export default {
     return {
       display_modules: false,
       pathsSection: {
+        treeView: [],
+        isTreeView: false,
         isPathsMoreVisible: false,
         hasOverflow: [],
       },
@@ -937,6 +971,10 @@ export default {
       timeoutCheckPathsOverflow = setTimeout(this.checkPathsOverflow, 300);
     });
 
+    if (localStorage.isTreeView && localStorage.isTreeView === "true") {
+      this.pathsSection.isTreeView = true;
+    }
+
     this.updateServers();
 
     this.query = queryParam;
@@ -990,7 +1028,32 @@ export default {
           if (body.type !== 'details') {
             console.error(`body.type: ${body.type}, expected: details`);
           }
+
+           // check if resource is deprecated
+          if (
+            body.result.properties["Ontological characteristic"] &&
+            body.result.properties["Ontological characteristic"].deprecated &&
+            body.result.properties["Ontological characteristic"].deprecated[0].value === "true"
+          ) {
+            body.result.deprecated = true;
+            delete body.result.properties["Ontological characteristic"].deprecated;
+            if (Object.keys(body.result.properties["Ontological characteristic"]).length === 0) {
+              delete body.result.properties["Ontological characteristic"];
+            }
+          } else {
+            body.result.deprecated = false;
+          }
+
           this.data = body.result;
+
+          if (this.data.taxonomy && this.data.taxonomy.value) {
+            this.pathsSection.treeView = [];
+            let tempTaxonomy = JSON.parse(JSON.stringify(this.data.taxonomy.value));
+            tempTaxonomy.forEach((element) => {
+              this.getTreeFromList(element, this.pathsSection.treeView);
+            });
+          }
+
           this.error = false;
         } catch (err) {
           console.error(err);
@@ -1128,7 +1191,12 @@ export default {
     },
     checkPathsOverflow() {
       // go through displayed paths and call checkPathOverflow for them
-      if (this.$refs.taxonomyItems && this.$refs.ontologyPaths && this.data && this.data.taxonomy) {
+      if (
+        this.$refs.taxonomyItems &&
+        this.$refs.ontologyPaths &&
+        this.data &&
+        this.data.taxonomy &&
+        !this.pathsSection.isTreeView) {
         for (
           let i = 0;
           i
@@ -1181,6 +1249,23 @@ export default {
         isLoadingMore: false,
       };
     },
+     getTreeFromList(parts,treeNode) {
+      if(parts.length === 0)
+      {
+        return;
+      }
+      for(let i = 0 ; i < treeNode.length; i++)
+      {
+        if(parts[0].label === treeNode[i].value.label)
+        {
+          this.getTreeFromList(parts.splice(1,parts.length), treeNode[i].children);
+          return;
+        }
+      }
+      let newNode = {'value': parts[0] ,'children':[]};
+      treeNode.push(newNode);
+      this.getTreeFromList(parts.splice(1,parts.length), newNode.children);
+    }
   },
   computed: {
     ...mapState({
@@ -1203,6 +1288,9 @@ export default {
       // clear search results after changing version
       this.clearSearchResults();
     },
+    "pathsSection.isTreeView": newValue => {
+      localStorage.isTreeView = newValue;
+    }
   },
   beforeRouteUpdate(to, from, next) {
     this.updateServers(to);

@@ -9,13 +9,13 @@ $normal-button-focus-bg: rgba(0, 0, 0, 0.8);
 $normal-button-active-bg: #000000;
 $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
 
-// custom checkbox
-$custom-checkbox-indicator-border-radius: 2px;
+// custom controls
+$custom-control-indicator-border-radius: 2px;
 $custom-control-indicator-checked-bg: rgba(0, 0, 0, 0.8);
-$custom-checkbox-indicator-icon-checked: url("../../assets/icons/checkbox-check.svg");
-$custom-checkbox-indicator-indeterminate-bg: #FFFFFF;
-$custom-checkbox-indicator-indeterminate-box-shadow: 0px 0px 0px 6px rgba(0, 0, 0, 0.4);
-$custom-checkbox-indicator-icon-indeterminate: url("../../assets/icons/checkbox-check.svg");;
+$custom-control-indicator-icon-checked: url("../../assets/icons/checkbox-check.svg");
+$custom-control-indicator-indeterminate-bg: #FFFFFF;
+$custom-control-indicator-indeterminate-box-shadow: 0px 0px 0px 6px rgba(0, 0, 0, 0.4);
+$custom-control-indicator-icon-indeterminate: url("../../assets/icons/checkbox-check.svg");
 $custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
 $custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
 
@@ -279,6 +279,97 @@ $custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
 }
 
 // --------------------------
+// Switch paths/tree view
+// --------------------------
+
+.custom-switch {
+  padding-left: 40px;
+  padding-bottom: 20px;
+
+  .custom-control-label-prev {
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: top;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 18px;
+    line-height: 30px;
+    color: rgba(0, 0, 0, 0.8);
+    left: -40px;
+    margin-right: 15px;
+  }
+
+  .custom-control-label {
+    cursor: pointer;
+    font-style: normal;
+    font-weight: normal;
+    user-select: none;
+    font-size: 18px;
+    line-height: 30px;
+    color: rgba(0, 0, 0, 0.8);
+    margin-left: 15px;
+  }
+
+  .custom-control-label::before {
+    border: 2px solid $custom-control-indicator-checked-bg;
+    top: 0.5rem;
+    left:-55px;
+    width: 2.5rem;
+  }
+  .custom-control-label::after {
+    border: 2px solid rgb(51,51,51);
+
+    top: calc(0.5rem + 1px);
+    left:-54px;
+    width: calc(1rem - 3px);
+    height: calc(1rem - 3px);
+    background-color: rgb(51,51,51);
+  }
+
+  .custom-control-input:checked ~ .custom-control-label {
+    &::before {
+      background: $custom-control-indicator-checked-bg;
+      border: none;
+    }
+    &::after {
+      border: 2px solid $custom-control-indicator-indeterminate-bg;
+      background-color: $custom-control-indicator-indeterminate-bg;
+      left:-42px;
+    }
+  }
+
+  .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: $custom-control-indicator-indeterminate-box-shadow !important;
+    border: 2px solid $custom-control-indicator-checked-bg;
+  }
+  .custom-control-input:active ~ .custom-control-label::before {
+    background-color: $custom-control-indicator-indeterminate-bg;
+    box-shadow:$custom-control-indicator-indeterminate-box-shadow !important;
+    border: 2px solid $custom-control-indicator-checked-bg;
+  }
+
+  .custom-control-input:indeterminate ~ .custom-control-label {
+    &::before {
+      box-shadow:($custom-control-indicator-indeterminate-box-shadow);
+    }
+  }
+
+  .custom-control-input:disabled {
+    &:checked ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+    &:indeterminate ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+}
+
+// --------------------------
 // Search box
 // --------------------------
 .search-box {
@@ -415,7 +506,7 @@ $custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
   }
 
   .custom-control-label::before {
-    border-radius:($custom-checkbox-indicator-border-radius);
+    border-radius:($custom-control-indicator-border-radius);
     border: 2px solid $custom-control-indicator-checked-bg;
     width: 30px;
     height: 30px;
@@ -438,29 +529,29 @@ $custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
       border: none;
     }
     &::after {
-      background-image: $custom-checkbox-indicator-icon-checked;
+      background-image: $custom-control-indicator-icon-checked;
       background-size: 24px 24px;
     }
   }
 
   .custom-control-input:focus ~ .custom-control-label::before {
-    box-shadow: $custom-checkbox-indicator-indeterminate-box-shadow !important;
+    box-shadow: $custom-control-indicator-indeterminate-box-shadow !important;
     border: 2px solid $custom-control-indicator-checked-bg;
   }
   .custom-control-input:active ~ .custom-control-label::before {
-    background-color: $custom-checkbox-indicator-indeterminate-bg;
-    box-shadow:$custom-checkbox-indicator-indeterminate-box-shadow !important;
+    background-color: $custom-control-indicator-indeterminate-bg;
+    box-shadow:$custom-control-indicator-indeterminate-box-shadow !important;
     border: 2px solid $custom-control-indicator-checked-bg;
   }
 
   .custom-control-input:indeterminate ~ .custom-control-label {
     &::before {
-      background-image:($custom-checkbox-indicator-indeterminate-bg);
+      background-image:($custom-control-indicator-indeterminate-bg);
       background-size: 30px 30px;
-      box-shadow:($custom-checkbox-indicator-indeterminate-box-shadow);
+      box-shadow:($custom-control-indicator-indeterminate-box-shadow);
     }
     &::after {
-      background-image: $custom-checkbox-indicator-icon-indeterminate;
+      background-image: $custom-control-indicator-icon-indeterminate;
     }
   }
 
@@ -848,6 +939,15 @@ $custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
           text-decoration: none;
           color: $link-hover-color;
         }
+      }
+    } 
+    .ontology-item__paths__tree-view {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 10px 20px;
+      .ontology-item__paths__tree-view__root {
+        padding-left: 0px;
+        margin: 0;
+        list-style: none;
       }
     }
   }
@@ -1525,4 +1625,16 @@ $custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
       float: left;
     }
   }
+}
+
+
+// --------------------------
+// Transitions
+// --------------------------
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
