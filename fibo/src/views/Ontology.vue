@@ -1111,6 +1111,7 @@ import Paginate from "vuejs-paginate";
 import { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
 
 export default {
+  name: "ontology-view",
   components: {
     AXIOM: () => import(/* webpackChunkName: "AXIOM" */ "../components/chunks/AXIOM"),
     STRING: () => import(/* webpackChunkName: "STRING" */ "../components/chunks/STRING"),

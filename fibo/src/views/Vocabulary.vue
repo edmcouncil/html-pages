@@ -67,7 +67,7 @@ import { outboundClick } from '../helpers/ga';
 
 export default {
   extends: helpers,
-  name: 'vocabulary',
+  name: 'vocabulary-view',
   components: {},
   methods: {
     outboundClick,

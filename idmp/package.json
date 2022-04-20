@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "core-js": "^2.6.5",
+    "core-js": "^3.21.1",
     "flag-icons": "^6.1.1",
     "jquery": "^3.5.1",
     "popper.js": "^1.15.0",
@@ -27,14 +27,14 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.3.0",
-    "@vue/cli-plugin-eslint": "^3.1.1",
-    "@vue/cli-service": "^3.12.1",
-    "@vue/compiler-sfc": "^3.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.2.0",
-    "eslint-plugin-vue": "^7.0.0",
-    "sass": "^1.49.0",
+    "@vue/cli-plugin-babel": "^5.0.4",
+    "@vue/cli-plugin-eslint": "^5.0.4",
+    "@vue/cli-service": "^3.3.0",
+    "@vue/eslint-config-airbnb": "^5.0.4",
+    "@babel/eslint-parser": "^7.5.4",
+    "eslint": "^8.13.0",
+    "eslint-plugin-vue": "^8.6.0",
+    "sass": "^1.50.0",
     "vue-template-compiler": "^2.6.11"
   }
 }
