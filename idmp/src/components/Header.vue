@@ -156,6 +156,7 @@
         </div>
       </nav>
     </div>
+
     <Carousel v-if="!$route.meta.plainLayout"></Carousel>
   </div>
 </template>
