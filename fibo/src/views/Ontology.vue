@@ -1297,6 +1297,7 @@ export default {
     async fetchData(iri) {
       if (iri) {
         this.loader = true;
+        this.data = null;
         try {
           const query = `${this.ontologyServer}?iri=${iri}`;
           const result = await getEntity(query);
