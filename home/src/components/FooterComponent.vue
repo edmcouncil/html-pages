@@ -11,13 +11,27 @@
                   <router-link :to="{ path: router() }">About OKG</router-link>
                 </li>
                 <li>
-                  <a href="https://spec.edmcouncil.org/fibo/" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')">FIBO</a>
+                  <a
+                    href="https://spec.edmcouncil.org/fibo/"
+                    v-on:click="
+                      outboundLinkClick('https://spec.edmcouncil.org/fibo/')
+                    "
+                    >FIBO</a
+                  >
                 </li>
                 <li>
-                  <a href="https://spec.edmcouncil.org/auto/" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">AUTO</a>
-                </li>                
+                  <a
+                    href="https://spec.edmcouncil.org/auto/"
+                    v-on:click="
+                      outboundLinkClick('https://spec.edmcouncil.org/auto/')
+                    "
+                    >AUTO</a
+                  >
+                </li>
                 <li>
-                  <router-link :to="{ path: router('contact') }">Contact Person</router-link>
+                  <router-link :to="{ path: router('contact') }"
+                    >Contact Person</router-link
+                  >
                 </li>
               </ul>
             </div>
@@ -42,7 +56,7 @@
             </li>
             <li class="phone">
               USA +1
-              <span style="color: #ffffff;">(646) 722-4381</span>
+              <span style="color: #ffffff">(646) 722-4381</span>
             </li>
             <li class="phone">UK +44 (0) 1794 390044</li>
           </ul>
@@ -53,33 +67,37 @@
       <div class="row">
         <div class="col-md-8">
           <p>
-            © 2022 EDM Council. All rights reserved. DCAM and AUTO are registered trademarks of EDM Council.
-            All other marks are the property of their respective owners. Membership Management Software Powered by
-            YourMembership
+            © 2022 EDM Council. All rights reserved. DCAM and AUTO are
+            registered trademarks of EDM Council. All other marks are the
+            property of their respective owners. Membership Management Software
+            Powered by YourMembership
           </p>
 
           <div class="footer-links">
             <ul>
               <li>
                 <a
-                  href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC__Terms_of_Use_032318.pdf"
+  href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC__Terms_of_Use_032318.pdf"
                   target="_blank"
                   v-on:click="outboundClick('EDMC__Terms_of_Use_032318.pdf')"
-                >Terms of Use</a>
+                  >Terms of Use</a
+                >
               </li>
               <li>
                 <a
-                  href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC_Privacy_Policy_032318.pdf"
+  href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC_Privacy_Policy_032318.pdf"
                   target="_blank"
                   v-on:click="outboundClick('EDMC_Privacy_Policy_032318.pdf')"
-                >Privacy Policy</a>
+                  >Privacy Policy</a
+                >
               </li>
               <li>
                 <a
-                  href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC_Copyright_Policy_032318.pdf"
+  href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC_Copyright_Policy_032318.pdf"
                   target="_blank"
                   v-on:click="outboundClick('EDMC_Copyright_Policy_032318.pdf')"
-                >Copyright</a>
+                  >Copyright</a
+                >
               </li>
             </ul>
           </div>
@@ -92,6 +110,7 @@
                   href="https://twitter.com/edmcouncil"
                   target="_blank"
                   v-on:click="outboundClick('twitter')"
+                  aria-label="Twitter"
                 ></a>
               </li>
               <li class="linkedin">
@@ -99,6 +118,7 @@
                   href="https://www.linkedin.com/company/edm-council/"
                   target="_blank"
                   v-on:click="outboundClick('linkedin')"
+                  aria-label="LinkedIn"
                 ></a>
               </li>
             </ul>
@@ -110,12 +130,12 @@
 </template>
 
 <script>
-import helpers from '../store/helpers.js';
+import helpers from '../store/helpers';
 import { outboundClick } from '../helpers/ga';
 
 export default {
   extends: helpers,
-  name: 'Footer',
+  name: 'FooterComponent',
   methods: {
     outboundClick,
   },
