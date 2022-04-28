@@ -230,7 +230,7 @@
 import { outboundLinkClick } from '../helpers/ga';
 
 export default {
-  name: 'schema',
+  name: 'FibDMView',
   components: {},
   methods: {
     outboundLinkClick,

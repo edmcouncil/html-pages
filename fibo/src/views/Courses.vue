@@ -306,7 +306,7 @@ import { outboundClick, outboundLinkClick } from '../helpers/ga';
 
 export default {
   extends: helpers,
-  name: 'courses',
+  name: 'CoursesView',
   components: {},
   methods: {
     outboundClick,
