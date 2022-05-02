@@ -20,7 +20,7 @@ import { outboundClick, outboundLinkClick } from '../helpers/ga';
 
 export default {
   extends: helpers,
-  name: 'products',
+  name: 'ProductsView',
   components: {},
   methods: {
     outboundClick,

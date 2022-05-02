@@ -20,10 +20,10 @@
             <h2>IDMP COMMON CORE ONTOLOGY</h2>
             <p>IDEA</p>
             <a
-              href="https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/PA_IDMP-Ontology_Executive-Project-Summary.pdf"
+  href="https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/PA_IDMP-Ontology_Executive-Project-Summary.pdf"
               v-on:click="
                 outboundLinkClick(
-                  'https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/PA_IDMP-Ontology_Executive-Project-Summary.pdf'
+  'https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/PA_IDMP-Ontology_Executive-Project-Summary.pdf'
                 )
               "
               class="btn-sl"
@@ -84,7 +84,7 @@ import helpers from '../store/helpers.js';
 
 export default {
   extends: helpers,
-  name: 'Carousel',
+  name: 'SlideCarousel',
 };
 </script>
 
