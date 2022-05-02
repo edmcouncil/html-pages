@@ -60,7 +60,7 @@ import helpers from '../store/helpers.js';
 
 export default {
   extends: helpers,
-  name: 'Carousel',
+  name: 'SlideCarousel',
 };
 </script>
 

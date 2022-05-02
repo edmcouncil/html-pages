@@ -206,20 +206,20 @@
       </nav>
     </div>
 
-    <Carousel v-if="!$route.meta.plainLayout"></Carousel>
+    <SlideCarousel v-if="!$route.meta.plainLayout"></SlideCarousel>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
 import helpers from '../store/helpers';
-import Carousel from '@/components/Carousel.vue';
+import SlideCarousel from '@/components/SlideCarousel.vue';
 
-Vue.component('Carousel', Carousel);
+Vue.component('SlideCarousel', SlideCarousel);
 
 export default {
   extends: helpers,
-  name: 'header',
+  name: 'HeaderComponent',
 };
 </script>
 

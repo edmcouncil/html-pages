@@ -858,6 +858,7 @@ import {
 } from '../api/ontology';
 
 export default {
+  name: 'OntologyView',
   components: {
     AXIOM: () => import(/* webpackChunkName: "AXIOM" */ '../components/chunks/AXIOM'),
     STRING: () => import(/* webpackChunkName: "STRING" */ '../components/chunks/STRING'),
@@ -1220,11 +1221,12 @@ export default {
     }),
   },
   watch: {
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
     '$route.query.query': (query) => {
       this.fetchData(query);
     },
-    // eslint-disable-next-line no-unused-vars
-    '$route.query.version': (version) => {
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
+    '$route.query.version': () => {
       this.updateServers();
 
       this.fetchData(this.query);
