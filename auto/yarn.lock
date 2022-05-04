@@ -6156,7 +6156,7 @@
   "resolved" "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   "version" "1.1.2"
 
-"vis-data@^7.0.0":
+"vis-data@^7.0.0", "vis-data@^7.1.4":
   "integrity" "sha512-usy+ePX1XnArNvJ5BavQod7YRuGQE1pjFl+pu7IS6rCom2EBoG0o1ZzCqf3l5US6MW51kYkLR+efxRbnjxNl7w=="
   "resolved" "https://registry.npmjs.org/vis-data/-/vis-data-7.1.4.tgz"
   "version" "7.1.4"

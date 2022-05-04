@@ -105,8 +105,8 @@
 </template>
 
 <script>
-import { Network } from "vis-network/peer/esm/vis-network";
-import { DataSet, DataView } from "vis-data/peer/esm/vis-data";
+import { Network } from "vis-network";
+import { DataSet, DataView } from "vis-data";
 
 export default {
   name: "vis-network",
