@@ -3,29 +3,26 @@
     <component v-bind:is="fullProcessedHtml"></component>
   </div>
   <div v-else>
-    <component v-bind:is="sliceProcessedHtml"> </component>
-    <div href="#" 
-      v-show="!isMoreVisible" 
-      @click.prevent="isMoreVisible = !isMoreVisible">
-        <div class="see-more-btn-string">
-          Show more
-          </div>
+    <component v-bind:is="sliceProcessedHtml"></component>
+    <transition name="list">
+      <div class="animated-list" v-show="isMoreVisible" ref="scrollTarget">
+        <component v-bind:is="moreProcessedHtml"></component>
+      </div>
+    </transition>
+
+    <div
+      v-if="!isMoreVisible"
+      href="#"
+      @click.prevent="toggleIsMoreVisible()"
+    >
+      <div class="see-more-btn">Show {{ lines.length - 6 }} more</div>
       <br />
     </div>
-
-    <div v-show="isMoreVisible">
-      <component v-bind:is="moreProcessedHtml"></component>
-      <div href="#" 
-          @click.prevent="isMoreVisible = !isMoreVisible">
-            <div class="see-less-btn-string">
-              Show less
-            </div>
-        <br />
-      </div>
+    <div v-else href="#" @click.prevent="toggleIsMoreVisible(); scrollBackUp()">
+      <div class="see-less-btn">Show less</div>
+      <br />
     </div>
   </div>
-
-
 </template>
 
 <script>
@@ -54,7 +51,6 @@ export default {
               var rep = part.replace(match, `<langCodeFlags iso="${replacementLang}" />`);
               lines[index] = rep;
               }, regexMatch);
-            
           }
         }, lines);
     return {
@@ -63,8 +59,24 @@ export default {
       isMoreVisible: false,
     };
   },
-    //need this and use as components to display flags
-    computed: {
+  methods: {
+    toggleIsMoreVisible() {
+      this.isMoreVisible = !this.isMoreVisible;
+    },
+    scrollBackUp() {
+      // only scroll back when element is higher
+      const element = this.$refs.scrollTarget;
+      console.log('scrolling to '+element)
+      const topOffset = element.getBoundingClientRect().top;
+      if(topOffset < 0) {
+        element.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+    },
+  },
+  //need this and use as components to display flags
+  computed: {
     fullProcessedHtml() {
       let html = this.lines.join("<br />");
       return {
@@ -95,93 +107,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.see-more-btn-string {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  line-height: 30px;
-  cursor: pointer;
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.8);
-  margin-top: 25px;
-
-  &::before {
-    content: "";
-    background-image: url("../../assets/icons/search.svg");
-    background-repeat: no-repeat;
-    background-size: 24px 24px;
-
-    display: block;
-    width: 24px;
-    height: 24px;
-
-    margin-right: 6px;
-  }
+.animated-list {
+  overflow: hidden;
+  max-height: 60000px;
 }
-.see-less-btn-string {
-  cursor: pointer;
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.8);
-  margin-top: 25px;
-  font-size: 18px;
-  line-height: 30px;
-  display: flex;
-  align-items: center;
-
-  &::before {
-    content: "";
-    background-image: url("../../assets/icons/search.svg");
-    background-repeat: no-repeat;
-    background-size: 24px 24px;
-
-    display: block;
-    width: 24px;
-    height: 24px;
-
-    margin-right: 6px;
-  }
+.list-leave-active {
+  transition: max-height 1s cubic-bezier(0.075, 0.820, 0.000, 1.000), opacity 0.5s;
 }
-
-@media (max-width: 768px) {
-  .see-more-btn-string {
-    cursor: pointer;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: rgba(0, 0, 0, 0.8);
-    text-decoration: none;
-    margin-top: 20px;
-    &::before {
-      content: "";
-      background-image: url("../../assets/icons/search.svg");
-      background-repeat: no-repeat;
-      background-size: 24px 24px;
-
-      display: block;
-      width: 24px;
-      height: 24px;
-    }
-  }
-  .see-less-btn-string {
-    cursor: pointer;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: rgba(0, 0, 0, 0.8);
-    text-decoration: none;
-    margin-top: 20px;
-    &::before {
-      content: "";
-      background-image: url("../../assets/icons/search.svg");
-      background-repeat: no-repeat;
-      background-size: 24px 24px;
-
-      display: block;
-      width: 24px;
-      height: 24px;
-    }
-  }
+.list-enter-active {
+  transition: max-height 1s cubic-bezier(0.920, 0.005, 0.980, 0.335), opacity 0.5s;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  max-height: 0px;
 }
 </style>
