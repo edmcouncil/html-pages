@@ -843,109 +843,12 @@
                   class="col-md-12 px-0"
                   v-for="(section, sectionName, sectionIndex) in data.properties"
                   :key="sectionName"
-                  ref="sections"
                 >
-                  <div class="card">
-                    <div class="card-body">
-                      <h5
-                        class="card-title section-title"
-                        @click="
-                          $refs.sections[sectionIndex]
-                            .querySelector('h5')
-                            .classList.toggle('section-collapse')
-                        "
-                      >
-                        {{ sectionName }}
-                      </h5>
-                      <div class="card-content">
-                        <dl
-                          class="row"
-                          v-for="(property, name, propertyIndex) in data.properties[sectionName]"
-                          :key="name"
-                        >
-                          <dt class="col-sm-12">{{ name }}</dt>
-                          <dd class="col-sm-12">
-                            <ul v-if="property.length > 1">
-                              <li v-for="field in property.slice(0, 5)" :key="field.id">
-                                <component
-                                  :is="field.type"
-                                  :value="field.value"
-                                  :entityMaping="field.entityMaping"
-                                  v-bind="field"
-                                />
-                              </li>
-
-                              {{
-                                (() => {
-                                  if (sectionsVisibilitySettings[sectionIndex] === undefined) {
-                                    sectionsVisibilitySettings[sectionIndex] = [];
-                                  }
-                                  if (
-                                    sectionsVisibilitySettings[sectionIndex][propertyIndex] ===
-                                    undefined
-                                  ) {
-                                    sectionsVisibilitySettings[sectionIndex][propertyIndex] = false;
-                                  }
-                                })()
-                              }}
-
-                              <li
-                                v-for="field in property.slice(5)"
-                                v-show="sectionsVisibilitySettings[sectionIndex][propertyIndex]"
-                                :key="field.id"
-                              >
-                                <component
-                                  :is="field.type"
-                                  :value="field.value"
-                                  :entityMaping="field.entityMaping"
-                                  v-bind="field"
-                                />
-                              </li>
-                            </ul>
-                            <component
-                              v-else
-                              v-for="field in property"
-                              :key="field.id"
-                              :is="field.type"
-                              :value="field.value"
-                              :entityMaping="field.entityMaping"
-                              v-bind="field"
-                            ></component>
-                            <div
-                              v-if="property.length > 5"
-                              :class="
-                                'see-more-btn ' +
-                                'see-more-btn_' +
-                                sectionIndex +
-                                '_' +
-                                propertyIndex
-                              "
-                              v-show="!sectionsVisibilitySettings[sectionIndex][propertyIndex]"
-                              href="#"
-                              @click.prevent="toggleSectionsVisibility(sectionIndex, propertyIndex)"
-                            >
-                              <div>Show more</div>
-                            </div>
-                            <div
-                              v-if="property.length > 5"
-                              :class="
-                                'see-less-btn ' +
-                                'see-more-btn_' +
-                                sectionIndex +
-                                '_' +
-                                propertyIndex
-                              "
-                              v-show="sectionsVisibilitySettings[sectionIndex][propertyIndex]"
-                              href="#"
-                              @click.prevent="toggleSectionsVisibility(sectionIndex, propertyIndex)"
-                            >
-                              <div>Show less</div>
-                            </div>
-                          </dd>
-                        </dl>
-                      </div>
-                    </div>
-                  </div>
+                  <ResourceSection
+                    :section="section"
+                    :sectionName="sectionName"
+                    :sectionIndex="sectionIndex"
+                  />
                 </div>
               </div>
 
@@ -1119,32 +1022,16 @@
 <script>
 import { mapState } from "vuex";
 import Multiselect from "vue-multiselect";
-import Paginate from "vuejs-paginate";
 import { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
 
 export default {
   name: "ontology-view",
   components: {
-    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ "../components/chunks/AXIOM"),
-    STRING: () => import(/* webpackChunkName: "STRING" */ "../components/chunks/STRING"),
-    DIRECT_SUBCLASSES: () =>
-      import(
-        // eslint-disable-next-line comma-dangle
-        /* webpackChunkName: "DIRECT_SUBCLASSES" */ "../components/chunks/DIRECT_SUBCLASSES"
-      ),
-    MODULES: () => import(/* webpackChunkName: "MODULES" */ "../components/chunks/MODULES"),
-    IRI: () => import(/* webpackChunkName: "IRI" */ "../components/chunks/IRI"),
-    INSTANCES: () =>
-      import(
-        // eslint-disable-next-line comma-dangle
-        /* webpackChunkName: "INSTANCES" */ "../components/chunks/INSTANCES"
-      ),
-    ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ "../components/chunks/ANY_URI"),
     VisNetwork: () => import(/* webpackChunkName: "ANY_URI" */ "../components/VisNetwork"),
     PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
     StatsComponent: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
+    ResourceSection: () => import(/* webpackChunkName: "ResourceSection" */ "../components/Ontology/ResourceSection"),
     Multiselect,
-    Paginate,
   },
   props: ["ontology"],
   data() {
@@ -1156,7 +1043,6 @@ export default {
         isPathsMoreVisible: false,
         hasOverflow: [],
       },
-      sectionsVisibilitySettings: [],
       mountedTimestamp: null,
       loader: false,
       data: null,
@@ -1309,6 +1195,7 @@ export default {
     async fetchData(iri) {
       if (iri) {
         this.loader = true;
+        this.data = null;
         try {
           const query = `${this.ontologyServer}?iri=${iri}`;
           const result = await getEntity(query);
@@ -1377,7 +1264,6 @@ export default {
         if (this.data && this.data.taxonomy && this.data.taxonomy.value.length > 0) {
           this.checkPathsOverflow();
         }
-        this.sectionsVisibilitySettings = [];
       }
     },
     async fetchModules() {
@@ -1579,14 +1465,6 @@ export default {
     },
     paginateClickCallback(pageIndex) {
       this.handleSearchBoxQuery(this.searchBox.lastSearchBQuery, pageIndex);
-    },
-    toggleSectionsVisibility(sectionIndex, propertyIndex) {
-      // make a copy of the "row"
-      const newRow = this.sectionsVisibilitySettings[sectionIndex].slice(0);
-      // update the value
-      newRow[propertyIndex] = !this.sectionsVisibilitySettings[sectionIndex][propertyIndex];
-      // update it in the sectionsVisibilitySettings
-      this.$set(this.sectionsVisibilitySettings, sectionIndex, newRow);
     },
     togglePathCollapsed(tIndex) {
       this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
