@@ -1,154 +1,225 @@
 <template>
-<div>
-  <div class="container header desktop-view">
+  <div class="container header">
+    <div class="desktop-view">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
+          <img id="logo-fibo" src="@/assets/img/logo.png" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
-        <img id="logo-fibo" src="@/assets/img/logo.png" />
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item padding-top15">
-            <a class="nav-link" href="https://edmcouncil.org/events/event_list.asp" target="_blank"
-              >Calendar</a
-            >
-          </li>
-          <li class="nav-item padding-top15">
-            <a class="nav-link" href="https://edmcouncil.org/Login.aspx" target="_blank"
-              >EDMConnect</a
-            >
-          </li>
-          <li class="nav-item padding-top15">
-            <a class="nav-link" href="https://edmcouncil.org/login.aspx" target="_blank"
-              >Sign in / Register</a
-            >
-          </li>
-
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <div class="burger-button">
-                <div class="icon-burger">
-                  <img src="@/assets/icons/union-burger.svg">
-                </div>
-              </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item padding-top15">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/events/event_list.asp"
+                target="_blank"
+              >
+                Calendar
               </a>
-            <div class="dropdown-menu desktop" aria-labelledby="navbarDropdown">
+            </li>
+            <li class="nav-item padding-top15">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/Login.aspx"
+                target="_blank"
+              >
+                EDMConnect
+              </a>
+            </li>
+            <li class="nav-item padding-top15">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/login.aspx"
+                target="_blank"
+              >
+                Sign in / Register
+              </a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <div class="burger-button">
+                  <div class="icon-burger">
+                    <img src="@/assets/icons/union-burger.svg" />
+                  </div>
+                </div>
+              </a>
+              <div
+                class="dropdown-menu desktop"
+                aria-labelledby="navbarDropdown"
+              >
+                <router-link
+                  class="nav-link"
+                  :to="{ path: router('ontology') }"
+                >
+                  AUTO Viewer
+                </router-link>
+                <router-link
+                  class="nav-link"
+                  :to="{ path: router('community') }"
+                >
+                  AUTO Community
+                </router-link>
+                <router-link
+                  class="nav-link"
+                  :to="{ path: router('products') }"
+                >
+                  AUTO Products
+                </router-link>
+                <span class="nav-link">Docs</span>
+                <router-link
+                  class="nav-link"
+                  :to="{ path: router('documentation') }"
+                >
+                  Docs
+                </router-link>
+                <router-link
+                  class="nav-link"
+                  :to="{ path: router('applications') }"
+                >
+                  Applications
+                </router-link>
+                <a
+                  href="https://spec.edmcouncil.org"
+                  class="nav-link"
+                  v-on:click="outboundLinkClick('https://spec.edmcouncil.org')"
+                >
+                  OKG Home
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="mobile-view">
+      <nav class="navbar navbar-expand-lg navbar-light mobile-view">
+        <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
+          <img id="logo-fibo" src="@/assets/img/logo.png" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/events/event_list.asp"
+                target="_blank"
+              >
+                Calendar
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/Login.aspx"
+                target="_blank"
+              >
+                EDMConnect
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/login.aspx"
+                target="_blank"
+              >
+                Sign in / Register
+              </a>
+            </li>
+
+            <li class="nav-item">
               <router-link class="nav-link" :to="{ path: router('ontology') }">
-                AUTO Viewer</router-link>
-              <router-link class="nav-link" :to="{ path: router('community') }"
-                >AUTO Community</router-link>
-            <router-link class="nav-link" :to="{ path: router('products') }">AUTO Products</router-link>
-            <span class="nav-link">Docs</span>
-            <router-link class="nav-link" :to="{ path: router('documentation') }">Docs</router-link>
-            <router-link class="nav-link" :to="{ path: router('applications') }">Applications</router-link>
-            <a
-              href="https://spec.edmcouncil.org"
-              class="nav-link"
-              v-on:click="outboundLinkClick('https://spec.edmcouncil.org')"
-              >OKG Home</a
-            >
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-   <Carousel v-if="!$route.meta.plainLayout"></Carousel>
-  </div>
+                AUTO Viewer
+              </router-link>
+            </li>
 
-<div class="container header  mobile-view">
-    <nav class="navbar navbar-expand-lg navbar-light mobile-view">
-      <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
-        <img id="logo-fibo" src="@/assets/img/logo.png" />
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ path: router('community') }">
+                AUTO Community
+              </router-link>
+            </li>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="https://edmcouncil.org/events/event_list.asp" target="_blank"
-              >Calendar</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://edmcouncil.org/Login.aspx" target="_blank"
-              >EDMConnect</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://edmcouncil.org/login.aspx" target="_blank"
-              >Sign in / Register</a
-            >
-          </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ path: router('products') }">
+                Products
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+                class="nav-link"
+                :to="{ path: router('documentation') }"
+              >
+                Docs
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+                class="nav-link"
+                :to="{ path: router('applications') }"
+              >
+                Applications
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <a
+                href="https://spec.edmcouncil.org"
+                class="nav-link"
+                v-on:click="outboundLinkClick('https://spec.edmcouncil.org')"
+              >
+                OKG Home
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
 
-
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('ontology') }">AUTO Viewer</router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('community') }">AUTO Community</router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('products') }">Products</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('documentation') }">Docs</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router('applications') }">Applications</router-link>
-          </li>
-          <li class="nav-item">
-             <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG Home</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
     <Carousel v-if="!$route.meta.plainLayout"></Carousel>
-  </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import helpers from "../store/helpers.js";
-import Carousel from "@/components/Carousel.vue";
+import Vue from 'vue';
+import helpers from '../store/helpers';
+import Carousel from '@/components/Carousel.vue';
 
-Vue.component("Carousel", Carousel);
+Vue.component('Carousel', Carousel);
 
 export default {
   extends: helpers,
-  name: "header",
+  name: 'header',
 };
 </script>
 
@@ -167,8 +238,8 @@ export default {
   content: "\f167";
 }
 .container {
-    max-width: 1440px;
-  }
+  max-width: 1440px;
+}
 .header {
   background-image: url("../assets/img/headerTransparent.png");
   -webkit-background-size: cover;
@@ -178,7 +249,7 @@ export default {
   width: 100%;
 }
 
- .burger-button {
+.burger-button {
   align-items: center;
   background-color: map-get($colors-map, "black");
   border-radius: 2px;
@@ -188,32 +259,32 @@ export default {
   margin-left: 40px;
   min-width: 104px;
   padding: 0px 40px;
-  .icon-burger{
+  .icon-burger {
     align-items: flex-end;
     display: flex;
     height: 24px;
     min-width: 24px;
-    img{
+    img {
       height: 23px;
       width: 24px;
     }
   }
 }
-.burger-button img{
+.burger-button img {
   max-width: 90%;
   height: auto;
 }
 
-.sub-nav-link{
+.sub-nav-link {
   padding-left: 10px;
   color: black;
 }
-.nav-sub-link{
+.nav-sub-link {
   color: map-get($colors-map, "grey") !important;
   text-shadow: 0 0 1px #ccc;
 }
 
-@media (min-width: 992px){
+@media (min-width: 992px) {
   .desktop-view {
     display: block !important;
   }
@@ -221,11 +292,11 @@ export default {
     display: none !important;
   }
 }
-@media (max-width: 991px){
+@media (max-width: 991px) {
   .mobile-view {
     display: block !important;
   }
-   .desktop-view {
+  .desktop-view {
     display: none !important;
   }
 }
@@ -245,8 +316,8 @@ export default {
   font-weight: 50;
 }
 
-.nav-item.padding-top15{
-    padding-top: 15px !important;
+.nav-item.padding-top15 {
+  padding-top: 15px !important;
 }
 .navbar-nav {
   align-self: flex-end;
@@ -388,11 +459,11 @@ export default {
 }
 
 //multiselect burger hide down arrow
-.dropdown-toggle::after  {
+.dropdown-toggle::after {
   display: none;
 }
 .dropdown-menu.desktop {
-  left:-95%;
+  left: -95%;
 }
 
 .dropdown-item {
