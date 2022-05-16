@@ -241,10 +241,10 @@
                       class="search-item__icon"
                       :class="{
                         'maturity-provisional':
-                          result.maturityLevel.icon === 'develop',
+                          result.maturityLevel.icon === 'dev',
                         'maturity-release':
-                          result.maturityLevel.icon === 'release',
-                        'maturity-mixed': result.maturityLevel.icon === 'mixed',
+                          result.maturityLevel.icon === 'prod',
+                        'maturity-mixed': result.maturityLevel.icon === 'prod_and_dev_mixed',
                       }"
                     ></div>
                     <customLink
@@ -378,14 +378,14 @@
                               (this.data.maturityLevel.label !== 'release' &&
                                 this.data.maturityLevel.label != '') ||
                               (this.data.maturityLevel.icon &&
-                                this.data.maturityLevel.icon === 'develop'),
+                                this.data.maturityLevel.icon === 'dev'),
                             'maturity-production':
                               this.data.maturityLevel.label === 'release' ||
                               (this.data.maturityLevel.icon &&
-                                this.data.maturityLevel.icon === 'release'),
+                                this.data.maturityLevel.icon === 'prod'),
                             'maturity-mixed':
                               this.data.maturityLevel.icon &&
-                              this.data.maturityLevel.icon === 'mixed',
+                              this.data.maturityLevel.icon === 'prod_and_dev_mixed',
                           }"
                         >
                           {{ data.label }}
