@@ -11,7 +11,7 @@
               'indicator',
               this.item.maturityLevel.label == 'dev' ? 'devIndicator' : '',
               this.item.maturityLevel.label == 'prod' ? 'prodIndicator' : '',
-              this.item.maturityLevel.label == 'prodDev' ? 'prodDevIndicator' : '',
+              this.item.maturityLevel.label == 'prod_and_dev_mixed' ? 'prodDevIndicator' : '',
             ]"
           ></i>
         </div>
