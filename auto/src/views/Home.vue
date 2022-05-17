@@ -3,7 +3,7 @@
         <main>
             <article>
 
-<!--                
+<!--
                 <h1>
                     <span> Webinar: Knowledge Graph in Action</span>
                 </h1>
@@ -21,7 +21,7 @@
 
 
 <p>The <a href="https://schema.org/docs/automotive.html" v-on:click="outboundLinkClick('https://schema.org/docs/automotive.html')"> auto schema.org extension </a>authors were motivated by the principles of simplicity and practicality. ‘Simplicity’ led to an extremely small set of terms, resulting in a lean ontology, whilst ‘practicality’ limited the scope of terms to reflect the most important objects, as seen from the automotive market perspective. The principle of ‘Occam’s Razor’ dictated the focus on terms, reflecting general consumer preferences observed from the perspective of their searches and typical digital activities related to automobiles.
-Thanks to such an approach, the ontology has immediate application for the vehicle description in the carmakers and the dealers’ websites, informational and e-commerce alike.</p>  
+Thanks to such an approach, the ontology has immediate application for the vehicle description in the carmakers and the dealers’ websites, informational and e-commerce alike.</p>
 
 <br>
 <p>However, this is just a beginning. It is our intention to develop it into truly foundational ontology for the automotive industry, that can help in creation of Knowledge Graphs, can add power to the Machine Learning algorithms and much more.
@@ -30,8 +30,8 @@ Thanks to such an approach, the ontology has immediate application for the vehic
 
 
 
-                
-                
+
+
                 <div style="clear:both;"></div>
             </article>
         </main>
@@ -47,7 +47,7 @@ Thanks to such an approach, the ontology has immediate application for the vehic
 
     export default {
         extends: helpers,
-        name: 'home',
+        name: 'HomeView',
         components: {},
         methods: {
             outboundClick,

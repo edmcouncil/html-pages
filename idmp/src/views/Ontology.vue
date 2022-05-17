@@ -53,22 +53,24 @@
                   :taggable="true"
                   @select="ontologyVersions_optionSelected"
                 >
-                  <template slot="tag" slot-scope="{ option, remove }"
-                    ><span class="custom__tag"
-                      ><span>{{ option.label }}</span
-                      ><span class="custom__remove" @click="remove(option)"
-                        >❌</span
-                      ></span
-                    ></template
+                  <template v-slot:tag="{ option, remove }">
+                    <span class="custom__tag">
+                      <span>{{ option.label }}</span>
+                      <span class="custom__remove" @click="remove(option)">
+                        ❌
+                      </span>
+                    </span>
+                  </template
                   >
                   <!-- <template slot="clear" slot-scope="props">
-                <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
-                @mousedown.prevent.stop="clearAll(props.search)"></div>
-              </template> -->
-                  <span slot="noResult"
-                    >Oops! No elements found. Consider changing the search
-                    query.</span
-                  >
+                  <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
+                  @mousedown.prevent.stop="clearAll(props.search)"></div>
+                  </template> -->
+                  <template v-slot:noResult>
+                    <span>
+                      Oops! No elements found. Consider changing the search query.
+                    </span>
+                  </template>
                 </multiselect>
               </div>
 
@@ -105,7 +107,7 @@
             />
           </ul>
 
-          <Stats
+          <StatsComponent
             :statsServer="statsServer"
             :missingImportsServer="missingImportsServer"
           />
@@ -161,23 +163,26 @@
                         @open="searchBox.dropdownActive = true"
                         @close="searchBox.dropdownActive = false"
                       >
-                        <template slot="clear" slot-scope="props">
+                        <template v-slot:clear="props">
                           <div
                             class="multiselect__clear"
                             v-if="searchBox.selectedData"
                             @mousedown.prevent.stop="clearAll(props.search)"
                           ></div>
                         </template>
-                        <span slot="noResult">
-                          Oops! No elements found. Consider changing the search
-                          query.
-                        </span>
-                        <span slot="singleLabel">
-                          {{
+                        <template v-slot:noResult>
+                          <span>
+                            Oops! No elements found. Consider changing the search query.
+                          </span>
+                        </template>
+                        <template v-slot:singleLabel>
+                          <span>
+                            {{
                             searchBox.inputValue ||
                             "Find domains, ontologies, concepts..."
                           }}
-                        </span>
+                          </span>
+                        </template>
                       </multiselect>
                     </div>
                     <div
@@ -325,22 +330,21 @@
                   :taggable="true"
                   @select="ontologyVersions_optionSelected"
                 >
-                  <template slot="tag" slot-scope="{ option, remove }"
-                    ><span class="custom__tag"
-                      ><span>{{ option.label }}</span
-                      ><span class="custom__remove" @click="remove(option)"
-                        >❌</span
-                      ></span
-                    ></template
-                  >
+                  <template v-slot:tag="{ option, remove }">
+                    <span class="custom__tag">
+                      <span>{{ option.label }}</span>
+                      <span class="custom__remove" @click="remove(option)">❌</span>
+                    </span>
+                  </template>
                   <!-- <template slot="clear" slot-scope="props">
-                <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
-                @mousedown.prevent.stop="clearAll(props.search)"></div>
-              </template> -->
-                  <span slot="noResult"
-                    >Oops! No elements found. Consider changing the search
-                    query.</span
-                  >
+                  <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
+                  @mousedown.prevent.stop="clearAll(props.search)"></div>
+                  </template> -->
+                  <template v-slot:noResult>
+                    <span>
+                      Oops! No elements found. Consider changing the search query.
+                    </span>
+                  </template>
                 </multiselect>
               </div>
 
@@ -414,19 +418,23 @@
                   @open="searchBox.dropdownActive = true"
                   @close="searchBox.dropdownActive = false"
                 >
-                  <template slot="clear" slot-scope="props">
+                  <template v-slot:clear="props">
                     <div
                       class="multiselect__clear"
                       v-if="searchBox.selectedData"
                       @mousedown.prevent.stop="clearAll(props.search)"
                     ></div>
                   </template>
-                  <span slot="noResult">
-                    Oops! No elements found. Consider changing the search query.
-                  </span>
-                  <span slot="singleLabel">
-                    {{ searchBox.inputValue || "Find..." }}
-                  </span>
+                  <template v-slot:noResult>
+                    <span>
+                      Oops! No elements found. Consider changing the search query.
+                    </span>
+                  </template>
+                  <template v-slot:singleLabel>
+                    <span>
+                      {{ searchBox.inputValue || "Find..." }}
+                    </span>
+                  </template>
                 </multiselect>
               </div>
               <div
@@ -1091,10 +1099,11 @@ import Multiselect from "vue-multiselect";
 import { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
 
 export default {
+  name: 'OntologyView',
   components: {
     VisNetwork: () => import(/* webpackChunkName: "ANY_URI" */ "../components/VisNetwork"),
     PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
-    Stats: () => import(/* webpackChunkName: "Stats" */ "../components/Stats"),
+    StatsComponent: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
     ResourceSection: () => import(/* webpackChunkName: "ResourceSection" */ "../components/Ontology/ResourceSection"),
     Multiselect,
   },
@@ -1610,11 +1619,12 @@ export default {
     })
   },
   watch: {
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
     "$route.query.query": query => {
       this.fetchData(query);
     },
-    // eslint-disable-next-line no-unused-vars
-    "$route.query.version": version => {
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
+    "$route.query.version": () => {
       this.updateServers();
 
       this.fetchData(this.query);
@@ -1623,6 +1633,7 @@ export default {
       // clear search results after changing version
       this.clearSearchResults();
     },
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
     "pathsSection.isTreeView": newValue => {
       localStorage.isTreeView = newValue;
     }

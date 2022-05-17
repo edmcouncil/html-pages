@@ -22,7 +22,7 @@ export default new Router({
       path: '/okgl',
       name: 'OKGL',
       component: () => import(/* webpackChunkName: "Products" */ './views/OKGL.vue'),
-    },    
+    },
     {
       path: '/courses',
       name: 'Courses',
@@ -32,7 +32,7 @@ export default new Router({
       path: '/contact',
       name: 'Contact',
       component: () => import(/* webpackChunkName: "Products" */ './views/Contact.vue'),
-    },    
+    },
     {
       path: '*',
       redirect: '/',

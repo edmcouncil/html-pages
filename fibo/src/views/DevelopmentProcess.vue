@@ -363,10 +363,10 @@
           <li>
             Copy the file
             <a
-              href="https://jenkins.edmcouncil.org/job/rdf-toolkit-build/lastSuccessfulBuild/artifact/target/scala-2.12/rdf-toolkit.jar"
+href="https://jenkins.edmcouncil.org/job/rdf-toolkit-build/lastSuccessfulBuild/artifact/target/scala-2.12/rdf-toolkit.jar"
               v-on:click="
                 outboundClick(
-                  'https://jenkins.edmcouncil.org/job/rdf-toolkit-build/lastSuccessfulBuild/artifact/target/scala-2.12/rdf-toolkit.jar'
+'https://jenkins.edmcouncil.org/job/rdf-toolkit-build/lastSuccessfulBuild/artifact/target/scala-2.12/rdf-toolkit.jar'
                 )
               "
               >rdf-toolkit.jar</a
@@ -466,7 +466,7 @@
           <li>
             Download the FIBO tools from
             <a
-              href="https://jenkins.edmcouncil.org/job/fibo-infra-publish/lastSuccessfulBuild/artifact/jenkins/bin/dev_toolkit.zip"
+  href="https://jenkins.edmcouncil.org/job/fibo-infra-publish/lastSuccessfulBuild/artifact/jenkins/bin/dev_toolkit.zip"
               v-on:click="
                 outboundClick(
                   'https://jenkins.edmcouncil.org/job/fibo-infra-publish/lastSuccessfulBuild/artifact/jenkins/bin/dev_toolkit.zip'
@@ -526,7 +526,7 @@ import { outboundClick, outboundLinkClick } from '../helpers/ga';
 
 export default {
   extends: helpers,
-  name: 'FIBOCommunities',
+  name: 'DevelopmentProcessView',
   components: {},
   methods: {
     outboundClick,

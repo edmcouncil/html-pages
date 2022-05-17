@@ -73,7 +73,7 @@
 import { getStats, getMissingImports } from "../api/ontology";
 
 export default {
-  name: "Stats",
+  name: "StatsComponent",
   props: ["statsServer", "missingImportsServer"],
   data() {
     return {

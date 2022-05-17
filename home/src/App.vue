@@ -1,25 +1,24 @@
 <template>
   <div id="app">
-    <Header></Header>
-    <Carousel v-if="!$route.meta.plainLayout"></Carousel>
+    <HeaderComponent></HeaderComponent>
+    <SlideCarousel v-if="!$route.meta.plainLayout"></SlideCarousel>
     <router-view/>
-    <Footer></Footer>
+    <FooterComponent></FooterComponent>
   </div>
 </template>
 <script>
-import Header from '@/components/Header.vue';
-import Carousel from '@/components/Carousel.vue';
-import Footer from '@/components/Footer.vue';
+import HeaderComponent from '@/components/HeaderComponent.vue';
+import SlideCarousel from '@/components/SlideCarousel.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 
 export default {
   components: {
-    Header,
-    Carousel,
-    Footer,
+    HeaderComponent,
+    SlideCarousel,
+    FooterComponent,
   },
 };
 </script>
-
 
 <style lang="scss">
 

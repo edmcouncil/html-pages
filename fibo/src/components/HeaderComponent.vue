@@ -24,27 +24,24 @@
                 class="nav-link"
                 href="https://edmcouncil.org/events/event_list.asp"
                 target="_blank"
+                >Calendar</a
               >
-                Calendar
-              </a>
             </li>
             <li class="nav-item padding-top15">
               <a
                 class="nav-link"
                 href="https://edmcouncil.org/Login.aspx"
                 target="_blank"
+                >EDMConnect</a
               >
-                EDMConnect
-              </a>
             </li>
             <li class="nav-item padding-top15">
               <a
                 class="nav-link"
                 href="https://edmcouncil.org/login.aspx"
                 target="_blank"
+                >Sign in / Register</a
               >
-                Sign in / Register
-              </a>
             </li>
 
             <li class="nav-item dropdown">
@@ -71,40 +68,71 @@
                   class="nav-link"
                   :to="{ path: router('ontology') }"
                 >
-                  AUTO Viewer
-                </router-link>
+                  FIBO Viewer</router-link
+                >
                 <router-link
                   class="nav-link"
-                  :to="{ path: router('community') }"
+                  :to="{ path: router('FIBO-Groups') }"
+                  >FIBO Community</router-link
                 >
-                  AUTO Community
-                </router-link>
-                <router-link
-                  class="nav-link"
-                  :to="{ path: router('products') }"
+                <router-link class="nav-link" :to="{ path: router('FIB-DM') }"
+                  >FIB-DM</router-link
                 >
-                  AUTO Products
-                </router-link>
+                <router-link class="nav-link" :to="{ path: router('products') }"
+                  >FIBO Products</router-link
+                >
+                <div class="sub-nav-link">
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('OWL') }"
+                    >FIBO Ontology</router-link
+                  >
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('vocabulary') }"
+                    >FIBO Vocabulary</router-link
+                  >
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('data-dictionary') }"
+                    >FIBO Data Dictionary</router-link
+                  >
+                </div>
+
                 <span class="nav-link">Docs</span>
-                <router-link
-                  class="nav-link"
-                  :to="{ path: router('documentation') }"
-                >
-                  Docs
-                </router-link>
-                <router-link
-                  class="nav-link"
-                  :to="{ path: router('applications') }"
-                >
-                  Applications
-                </router-link>
+                <div class="sub-nav-link">
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('FIBO-Groups') }"
+                    >FIBO Groups</router-link
+                  >
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('development-process') }"
+                    >Development process</router-link
+                  >
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('how-to-contribute') }"
+                    >How to contribute</router-link
+                  >
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('FIBO-Release-Notes') }"
+                    >FIBO Release Notes</router-link
+                  >
+                  <router-link
+                    class="nav-link nav-sub-link"
+                    :to="{ path: router('ontology-tools') }"
+                    >FIBO Ontology Tools</router-link
+                  >
+                </div>
                 <a
                   href="https://spec.edmcouncil.org"
                   class="nav-link"
                   v-on:click="outboundLinkClick('https://spec.edmcouncil.org')"
+                  >OKG Home</a
                 >
-                  OKG Home
-                </a>
               </div>
             </li>
           </ul>
@@ -136,90 +164,147 @@
                 class="nav-link"
                 href="https://edmcouncil.org/events/event_list.asp"
                 target="_blank"
+                >Calendar</a
               >
-                Calendar
-              </a>
             </li>
             <li class="nav-item">
               <a
                 class="nav-link"
                 href="https://edmcouncil.org/Login.aspx"
                 target="_blank"
+                >EDMConnect</a
               >
-                EDMConnect
-              </a>
             </li>
             <li class="nav-item">
               <a
                 class="nav-link"
                 href="https://edmcouncil.org/login.aspx"
                 target="_blank"
+                >Sign in / Register</a
               >
-                Sign in / Register
-              </a>
             </li>
 
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ path: router('ontology') }">
-                AUTO Viewer
-              </router-link>
+              <router-link class="nav-link" :to="{ path: router('ontology') }"
+                >FIBO Viewer</router-link
+              >
             </li>
 
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ path: router('community') }">
-                AUTO Community
-              </router-link>
-            </li>
-
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ path: router('products') }">
-                Products
-              </router-link>
-            </li>
             <li class="nav-item">
               <router-link
                 class="nav-link"
-                :to="{ path: router('documentation') }"
+                :to="{ path: router('FIBO-Groups') }"
+                >FIBO Community</router-link
               >
-                Docs
-              </router-link>
             </li>
+
             <li class="nav-item">
-              <router-link
-                class="nav-link"
-                :to="{ path: router('applications') }"
+              <router-link class="nav-link" :to="{ path: router('FIB-DM') }"
+                >FIB-DM</router-link
               >
-                Applications
-              </router-link>
             </li>
+
+            <li class="nav-item dropdown">
+              <!-- <router-link class="nav-link" :to="{ path: router('products') }">FIBO Products</router-link> -->
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >FIBO Products</a
+              >
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('products') }"
+                  >About FIBO Products</router-link
+                >
+                <router-link class="dropdown-item" :to="{ path: router('OWL') }"
+                  >FIBO Ontology</router-link
+                >
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('vocabulary') }"
+                  >FIBO Vocabulary</router-link
+                >
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('data-dictionary') }"
+                  >FIBO Data Dictionary</router-link
+                >
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Docs</a
+              >
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('FIBO-Groups') }"
+                  >FIBO Groups</router-link
+                >
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('development-process') }"
+                  >Development process</router-link
+                >
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('how-to-contribute') }"
+                  >How to contribute</router-link
+                >
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('FIBO-Release-Notes') }"
+                  >FIBO Release Notes</router-link
+                >
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: router('ontology-tools') }"
+                  >FIBO Ontology Tools</router-link
+                >
+              </div>
+            </li>
+
             <li class="nav-item">
               <a
                 href="https://spec.edmcouncil.org"
                 class="nav-link"
                 v-on:click="outboundLinkClick('https://spec.edmcouncil.org')"
+                >OKG Home</a
               >
-                OKG Home
-              </a>
             </li>
           </ul>
         </div>
       </nav>
     </div>
 
-    <Carousel v-if="!$route.meta.plainLayout"></Carousel>
+    <SlideCarousel v-if="!$route.meta.plainLayout"></SlideCarousel>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
-import helpers from '../store/helpers';
-import Carousel from '@/components/Carousel.vue';
+import helpers from '../store/helpers.js';
+import SlideCarousel from '@/components/SlideCarousel.vue';
 
-Vue.component('Carousel', Carousel);
+Vue.component('SlideCarousel', SlideCarousel);
 
 export default {
   extends: helpers,
-  name: 'header',
+  name: 'HeaderComponent',
 };
 </script>
 
@@ -372,8 +457,7 @@ export default {
   margin-right: 5px;
 }
 .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
-  //background-image: url("../assets/icons/union-burger-m.png");
+  background-image: url("../assets/icons/union-burger.svg") !important;
 }
 
 .navbar-links {

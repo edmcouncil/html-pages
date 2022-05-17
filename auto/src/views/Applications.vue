@@ -6,7 +6,7 @@
                     <span>Applications</span>
                 </h1>
 
-                
+
 <p>The Automotive Ontology can be used in the following applications:</p>
 <ol>
     <li>Creation of Knowledge Graphs describing a carmaker offer</li>
@@ -16,9 +16,9 @@
     <li>Build innovative conceptual search on the automotive websites</li>
 </ol>
 
-  
 
-				
+
+
             </article>
         </main>
     </div>
@@ -33,7 +33,7 @@
 
     export default {
         extends: helpers,
-        name: 'forum',
+        name: 'ApplicationsView',
         components: {},
         methods: {
             outboundClick,

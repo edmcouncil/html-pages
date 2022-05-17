@@ -30,7 +30,7 @@
           <!--<li>
                 <a href="https://github.com/edmcouncil/auto/blob/master/CONTRIBUTING.md"
                     v-on:click="outboundClick('https://github.com/edmcouncil/auto/blob/master/CONTRIBUTING.md')">CONTRIBUTING.md</a> and <a href="https://github.com/edmcouncil/auto/blob/master/ONTOLOGY_GUIDE.md"
-                    v-on:click="outboundClick('https://github.com/edmcouncil/auto/blob/master/ONTOLOGY_GUIDE.md')">ONTOLOGY_GUIDE.md</a>: These contributing documents explain what types of contributions are needed and how the process works. 
+                    v-on:click="outboundClick('https://github.com/edmcouncil/auto/blob/master/ONTOLOGY_GUIDE.md')">ONTOLOGY_GUIDE.md</a>: These contributing documents explain what types of contributions are needed and how the process works.
 
           </li> -->
           <li>
@@ -45,7 +45,7 @@
 
 
 
-            
+
 <h4><span>From auto.schema.org to the automotive ontology</span></h4>
 
 <ul>
@@ -76,7 +76,7 @@
 
     export default {
         extends: helpers,
-        name: 'documentation',
+        name: 'DocumentationView',
         components: {},
         methods: {
             outboundClick,
