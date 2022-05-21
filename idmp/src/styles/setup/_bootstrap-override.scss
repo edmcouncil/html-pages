@@ -6,33 +6,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1{
-  display: table;
-  white-space: nowrap;
-  margin: 0px;
-  font-size: 19px;
-  font-weight: 200;
-  color: map-get($colors-map, 'black');
-  text-align: center;
-  text-transform: uppercase;
-  span{
-    font-size: 19px;
-    font-weight: 600;
-    color: map-get($colors-map, 'black');
-    text-transform: uppercase;
-    position: relative;
-    display: block;
-    padding: 0px 20px;
-  }
-  &:before,
-  &:after {
-    background: linear-gradient(to bottom, #000, #000) no-repeat center / 100% 1px;
-    content: '';
-    display: table-cell;
-    width: 46%;
-  }
-}
-
 h2{
   font-size: 48px;
   color: #fff;
