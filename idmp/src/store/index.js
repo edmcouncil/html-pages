@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import OWL from './OWL';
+import Vocabulary from './Vocabulary';
+import DataDictionary from './DataDictionary';
 import helpers from './helpers';
 
 Vue.use(Vuex);
@@ -17,6 +19,8 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     OWL,
+    Vocabulary,
+    DataDictionary,
     helpers,
   },
 });
