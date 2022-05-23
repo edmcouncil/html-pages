@@ -100,7 +100,7 @@
 import { outboundLinkClick } from '../helpers/ga';
 
 export default {
-  name: 'schema',
+  name: 'HowToContributeView',
   components: {},
   methods: {
     outboundLinkClick,

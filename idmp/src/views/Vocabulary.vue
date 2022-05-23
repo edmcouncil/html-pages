@@ -6,10 +6,9 @@
           <span>IDMP Vocabulary</span>
         </h1>
 
-         <h2>
+        <h2>
           <strong class="under-construction">SITE IS UNDER CONSTRUCTION</strong>
         </h2>
-
       </article>
     </main>
   </div>
@@ -22,7 +21,7 @@ import { outboundClick } from '../helpers/ga';
 
 export default {
   extends: helpers,
-  name: 'vocabulary',
+  name: 'VocabularyView',
   components: {},
   methods: {
     outboundClick,

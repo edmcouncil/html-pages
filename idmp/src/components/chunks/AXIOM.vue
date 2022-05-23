@@ -97,7 +97,6 @@ export default {
     scrollBackUp() {
       // only scroll back when element is higher
       const element = this.$refs.scrollTarget;
-      console.log('scrolling to '+element)
       const topOffset = element.getBoundingClientRect().top;
       if(topOffset < 0) {
         element.scrollIntoView({

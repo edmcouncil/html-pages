@@ -41,7 +41,7 @@ import { outboundClick } from '../helpers/ga';
 
 export default {
   extends: helpers,
-  name: 'glossary',
+  name: 'DataDictionaryView',
   components: {},
   methods: {
     outboundClick,
