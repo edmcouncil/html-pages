@@ -10,15 +10,18 @@
       </div>
     </transition>
 
-    <div
-      v-if="!isMoreVisible"
-      href="#"
-      @click.prevent="toggleIsMoreVisible()"
-    >
+    <div v-if="!isMoreVisible" href="#" @click.prevent="toggleIsMoreVisible()">
       <div class="see-more-btn">Show {{ lines.length - 6 }} more</div>
       <br />
     </div>
-    <div v-else href="#" @click.prevent="toggleIsMoreVisible(); scrollBackUp()">
+    <div
+      v-else
+      href="#"
+      @click.prevent="
+        toggleIsMoreVisible();
+        scrollBackUp();
+      "
+    >
       <div class="see-less-btn">Show less</div>
       <br />
     </div>
@@ -27,7 +30,8 @@
 
 <script>
 import Vue from "vue";
-import langCodeFlags from "./LangCodeFlags.vue"
+import langCodeFlags from "./LangCodeFlags.vue";
+import linkifyHtml from 'linkify-html';
 
 Vue.component("langCodeFlags", langCodeFlags);
 
@@ -38,21 +42,28 @@ export default {
   },
   props: ['value'],
   data() {
-     const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
-      var lines = this.value.split(/(?:\r\n|\r|\n)/g);
-        lines.forEach(function(part, index){
-          var regexMatch = part.match(regex);
-          if(regexMatch!=null) {
-            regexMatch.forEach(function(match, indexMatch){
-              var replacementLang = match
-              .replace("[","")
-              .replace("]","")
-              .replace("@", "");
-              var rep = part.replace(match, `<langCodeFlags iso="${replacementLang}" />`);
-              lines[index] = rep;
-              }, regexMatch);
-          }
-        }, lines);
+    const linkifyOptions = {
+      validate: {
+        url: (value) => /^https?:\/\//.test(value)
+      }
+    };
+    const linkifiedValue = linkifyHtml(this.value, linkifyOptions);
+
+    const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
+    var lines = linkifiedValue.split(/(?:\r\n|\r|\n)/g);
+      lines.forEach(function(part, index){
+        var regexMatch = part.match(regex);
+        if(regexMatch!=null) {
+          regexMatch.forEach(function(match, indexMatch){
+            var replacementLang = match
+            .replace("[","")
+            .replace("]","")
+            .replace("@", "");
+            var rep = part.replace(match, `<langCodeFlags iso="${replacementLang}" />`);
+            lines[index] = rep;
+            }, regexMatch);
+        }
+      }, lines);
     return {
       lines: lines,
       isShowMore: false,
@@ -111,10 +122,10 @@ export default {
   max-height: 60000px;
 }
 .list-leave-active {
-  transition: max-height 1s cubic-bezier(0.075, 0.820, 0.000, 1.000), opacity 0.5s;
+  transition: max-height 1s cubic-bezier(0.075, 0.82, 0, 1), opacity 0.5s;
 }
 .list-enter-active {
-  transition: max-height 1s cubic-bezier(0.920, 0.005, 0.980, 0.335), opacity 0.5s;
+  transition: max-height 1s cubic-bezier(0.92, 0.005, 0.98, 0.335), opacity 0.5s;
 }
 .list-enter,
 .list-leave-to {
