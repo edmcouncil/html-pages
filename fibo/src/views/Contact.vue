@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'contact',
+  name: 'ContactView',
   components: {},
 };
 </script>

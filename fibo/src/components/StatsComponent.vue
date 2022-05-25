@@ -71,9 +71,10 @@
 
 <script>
 import { getStats, getMissingImports } from "../api/ontology";
+
 export default {
-  name: "Stats",
-  props: ["statsServer", "missingImportsServer"],
+  name: 'StatsComponent',
+  props: ['statsServer', 'missingImportsServer'],
   data() {
     return {
       numbersExpanded: false,
@@ -91,6 +92,7 @@ export default {
       try {
         const result = await getStats(this.statsServer);
         const body = await result.json();
+
         for (const key in body.stats) {
           this.stats[key] = {
             label: body.labels[key],
@@ -116,13 +118,16 @@ export default {
 <style scoped lang="scss">
 .stats {
   margin: 30px;
+
   .stats-box {
     margin-bottom: 5px;
     border-radius: 2px;
+
     .stats-box__content {
       margin-top: 20px;
       margin-bottom: 20px;
     }
+
     .stats-box__title {
       position: relative;
       cursor: pointer;
@@ -130,44 +135,54 @@ export default {
       align-items: center;
       justify-content: space-between;
       user-select: none;
+
       .stats-box__title__text {
         font-weight: 400;
         font-size: 14px;
         line-height: 30px;
         color: #000000;
       }
+
       .stats-box__title__icon {
         width: 30px;
         height: 30px;
+
         position: absolute;
         left: -30px;
+
         background-image: url("../assets/icons/arrow.svg");
         background-position: center;
+
         &.expanded {
           transform: rotate(90deg);
         }
       }
     }
   }
+
   .stats-box--numbers {
     .stats-box__entry {
       margin-top: 5px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
       letter-spacing: 0.01em;
+
       .stats-box__entry__label {
         padding-right: 20px;
         color: rgba(0, 0, 0, 0.4);
+
         &:first-letter {
           text-transform: uppercase;
         }
       }
     }
   }
+
   .stats-box--imports {
     .stats-box__content {
       .stats-box__entry {
@@ -183,6 +198,7 @@ export default {
         line-height: 20px;
         letter-spacing: 0.01em;
       }
+
       .stats-box__content__no-missing-import {
         font-weight: 400;
         font-size: 14px;

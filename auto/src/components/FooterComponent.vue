@@ -88,7 +88,7 @@ import { outboundClick } from "../helpers/ga";
 
 export default {
   extends: helpers,
-  name: "Footer",
+  name: 'FooterComponent',
   methods: {
     outboundClick,
   },

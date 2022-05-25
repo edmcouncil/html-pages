@@ -45,19 +45,21 @@
                   :taggable="true"
                   @select="ontologyVersions_optionSelected"
                 >
-                  <template slot="tag" slot-scope="{ option, remove }"
-                    ><span class="custom__tag"
-                      ><span>{{ option.label }}</span
-                      ><span class="custom__remove" @click="remove(option)">❌</span></span
-                    ></template
-                  >
+                  <template v-slot:tag="{ option, remove }">
+                    <span class="custom__tag">
+                      <span>{{ option.label }}</span>
+                      <span class="custom__remove" @click="remove(option)">❌</span>
+                    </span>
+                  </template>
                   <!-- <template slot="clear" slot-scope="props">
-                <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
-                @mousedown.prevent.stop="clearAll(props.search)"></div>
-              </template> -->
-                  <span slot="noResult"
-                    >Oops! No elements found. Consider changing the search query.</span
-                  >
+                    <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
+                    @mousedown.prevent.stop="clearAll(props.search)"></div>
+                  </template> -->
+                  <template v-slot:noResult>
+                    <span>
+                      Oops! No elements found. Consider changing the search query.
+                    </span>
+                  </template>
                 </multiselect>
               </div>
 
@@ -90,7 +92,7 @@
             />
           </ul>
 
-          <Stats
+          <StatsComponent
             :statsServer="statsServer"
             :missingImportsServer="missingImportsServer"
           />
@@ -145,19 +147,23 @@
                         @open="searchBox.dropdownActive = true"
                         @close="searchBox.dropdownActive = false"
                       >
-                        <template slot="clear" slot-scope="props">
+                        <template v-slot:clear="props">
                           <div
                             class="multiselect__clear"
                             v-if="searchBox.selectedData"
                             @mousedown.prevent.stop="clearAll(props.search)"
                           ></div>
                         </template>
-                        <span slot="noResult">
-                          Oops! No elements found. Consider changing the search query.
-                        </span>
-                        <span slot="singleLabel">
-                          {{ searchBox.inputValue || "Find domains, ontologies, concepts..." }}
-                        </span>
+                        <template v-slot:noResult>
+                          <span>
+                            Oops! No elements found. Consider changing the search query.
+                          </span>
+                        </template>
+                        <template v-slot:singleLabel>
+                          <span>
+                            {{ searchBox.inputValue || "Find domains, ontologies, concepts..." }}
+                          </span>
+                        </template>
                       </multiselect>
                     </div>
                     <div
@@ -288,19 +294,21 @@
                   :taggable="true"
                   @select="ontologyVersions_optionSelected"
                 >
-                  <template slot="tag" slot-scope="{ option, remove }"
+                  <template v-slot:tag="{ option, remove }"
                     ><span class="custom__tag"
                       ><span>{{ option.label }}</span
                       ><span class="custom__remove" @click="remove(option)">❌</span></span
                     ></template
                   >
                   <!-- <template slot="clear" slot-scope="props">
-                <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
-                @mousedown.prevent.stop="clearAll(props.search)"></div>
-              </template> -->
-                  <span slot="noResult"
-                    >Oops! No elements found. Consider changing the search query.</span
-                  >
+                    <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
+                    @mousedown.prevent.stop="clearAll(props.search)"></div>
+                  </template> -->
+                  <template v-slot:noResult>
+                    <span>
+                      Oops! No elements found. Consider changing the search query.
+                    </span>
+                  </template>
                 </multiselect>
               </div>
 
@@ -370,19 +378,23 @@
                   @open="searchBox.dropdownActive = true"
                   @close="searchBox.dropdownActive = false"
                 >
-                  <template slot="clear" slot-scope="props">
+                  <template v-slot:clear="props">
                     <div
                       class="multiselect__clear"
                       v-if="searchBox.selectedData"
                       @mousedown.prevent.stop="clearAll(props.search)"
                     ></div>
                   </template>
-                  <span slot="noResult">
-                    Oops! No elements found. Consider changing the search query.
-                  </span>
-                  <span slot="singleLabel">
-                    {{ searchBox.inputValue || "Find..." }}
-                  </span>
+                  <template v-slot:noResult>
+                    <span>
+                      Oops! No elements found. Consider changing the search query.
+                    </span>
+                  </template>
+                  <template v-slot:singleLabel>
+                    <span>
+                      {{ searchBox.inputValue || "Find..." }}
+                    </span>
+                  </template>
                 </multiselect>
               </div>
               <div
@@ -495,9 +507,9 @@
                   <div
                     class="search-item__icon"
                     :class="{
-                      'maturity-provisional': result.maturityLevel.icon === 'develop',
-                      'maturity-release': result.maturityLevel.icon === 'release',
-                      'maturity-mixed': result.maturityLevel.icon === 'mixed',
+                      'maturity-provisional': result.maturityLevel.icon === 'dev',
+                      'maturity-release': result.maturityLevel.icon === 'prod',
+                      'maturity-mixed': result.maturityLevel.icon === 'prod_and_dev_mixed',
                     }"
                   ></div>
                   <customLink
@@ -654,14 +666,14 @@
                             (this.data.maturityLevel.label !== 'release' &&
                               this.data.maturityLevel.label != '') ||
                             (this.data.maturityLevel.icon &&
-                              this.data.maturityLevel.icon === 'develop'),
+                              this.data.maturityLevel.icon === 'dev'),
                           'maturity-production':
                             this.data.maturityLevel.label === 'release' ||
                             (this.data.maturityLevel.icon &&
-                              this.data.maturityLevel.icon === 'release'),
+                              this.data.maturityLevel.icon === 'prod'),
                           'maturity-mixed':
                             this.data.maturityLevel.icon &&
-                            this.data.maturityLevel.icon === 'mixed',
+                            this.data.maturityLevel.icon === 'prod_and_dev_mixed',
                         }"
                       >
                         {{ data.label }}
@@ -831,109 +843,12 @@
                   class="col-md-12 px-0"
                   v-for="(section, sectionName, sectionIndex) in data.properties"
                   :key="sectionName"
-                  ref="sections"
                 >
-                  <div class="card">
-                    <div class="card-body">
-                      <h5
-                        class="card-title section-title"
-                        @click="
-                          $refs.sections[sectionIndex]
-                            .querySelector('h5')
-                            .classList.toggle('section-collapse')
-                        "
-                      >
-                        {{ sectionName }}
-                      </h5>
-                      <div class="card-content">
-                        <dl
-                          class="row"
-                          v-for="(property, name, propertyIndex) in data.properties[sectionName]"
-                          :key="name"
-                        >
-                          <dt class="col-sm-12">{{ name }}</dt>
-                          <dd class="col-sm-12">
-                            <ul v-if="property.length > 1">
-                              <li v-for="field in property.slice(0, 5)" :key="field.id">
-                                <component
-                                  :is="field.type"
-                                  :value="field.value"
-                                  :entityMaping="field.entityMaping"
-                                  v-bind="field"
-                                />
-                              </li>
-
-                              {{
-                                (() => {
-                                  if (sectionsVisibilitySettings[sectionIndex] === undefined) {
-                                    sectionsVisibilitySettings[sectionIndex] = [];
-                                  }
-                                  if (
-                                    sectionsVisibilitySettings[sectionIndex][propertyIndex] ===
-                                    undefined
-                                  ) {
-                                    sectionsVisibilitySettings[sectionIndex][propertyIndex] = false;
-                                  }
-                                })()
-                              }}
-
-                              <li
-                                v-for="field in property.slice(5)"
-                                v-show="sectionsVisibilitySettings[sectionIndex][propertyIndex]"
-                                :key="field.id"
-                              >
-                                <component
-                                  :is="field.type"
-                                  :value="field.value"
-                                  :entityMaping="field.entityMaping"
-                                  v-bind="field"
-                                />
-                              </li>
-                            </ul>
-                            <component
-                              v-else
-                              v-for="field in property"
-                              :key="field.id"
-                              :is="field.type"
-                              :value="field.value"
-                              :entityMaping="field.entityMaping"
-                              v-bind="field"
-                            ></component>
-                            <div
-                              v-if="property.length > 5"
-                              :class="
-                                'see-more-btn ' +
-                                'see-more-btn_' +
-                                sectionIndex +
-                                '_' +
-                                propertyIndex
-                              "
-                              v-show="!sectionsVisibilitySettings[sectionIndex][propertyIndex]"
-                              href="#"
-                              @click.prevent="toggleSectionsVisibility(sectionIndex, propertyIndex)"
-                            >
-                              <div>Show more</div>
-                            </div>
-                            <div
-                              v-if="property.length > 5"
-                              :class="
-                                'see-less-btn ' +
-                                'see-more-btn_' +
-                                sectionIndex +
-                                '_' +
-                                propertyIndex
-                              "
-                              v-show="sectionsVisibilitySettings[sectionIndex][propertyIndex]"
-                              href="#"
-                              @click.prevent="toggleSectionsVisibility(sectionIndex, propertyIndex)"
-                            >
-                              <div>Show less</div>
-                            </div>
-                          </dd>
-                        </dl>
-                      </div>
-                    </div>
-                  </div>
+                  <ResourceSection
+                    :section="section"
+                    :sectionName="sectionName"
+                    :sectionIndex="sectionIndex"
+                  />
                 </div>
               </div>
 
@@ -1107,32 +1022,16 @@
 <script>
 import { mapState } from "vuex";
 import Multiselect from "vue-multiselect";
-import Paginate from "vuejs-paginate";
 import { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
 
 export default {
+  name: "ontology-view",
   components: {
-    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ "../components/chunks/AXIOM"),
-    STRING: () => import(/* webpackChunkName: "STRING" */ "../components/chunks/STRING"),
-    OTHER: () => import(/* webpackChunkName: "STRING" */ '../components/chunks/STRING'),
-    DIRECT_SUBCLASSES: () =>
-      import(
-        // eslint-disable-next-line comma-dangle
-        /* webpackChunkName: "DIRECT_SUBCLASSES" */ "../components/chunks/DIRECT_SUBCLASSES"
-      ),
-    MODULES: () => import(/* webpackChunkName: "MODULES" */ "../components/chunks/MODULES"),
-    IRI: () => import(/* webpackChunkName: "IRI" */ "../components/chunks/IRI"),
-    INSTANCES: () =>
-      import(
-        // eslint-disable-next-line comma-dangle
-        /* webpackChunkName: "INSTANCES" */ "../components/chunks/INSTANCES"
-      ),
-    ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ "../components/chunks/ANY_URI"),
     VisNetwork: () => import(/* webpackChunkName: "ANY_URI" */ "../components/VisNetwork"),
     PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
-    Stats: () => import(/* webpackChunkName: "Stats" */ "../components/Stats"),
+    StatsComponent: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
+    ResourceSection: () => import(/* webpackChunkName: "ResourceSection" */ "../components/Ontology/ResourceSection"),
     Multiselect,
-    Paginate,
   },
   props: ["ontology"],
   data() {
@@ -1144,7 +1043,6 @@ export default {
         isPathsMoreVisible: false,
         hasOverflow: [],
       },
-      sectionsVisibilitySettings: [],
       mountedTimestamp: null,
       loader: false,
       data: null,
@@ -1297,6 +1195,7 @@ export default {
     async fetchData(iri) {
       if (iri) {
         this.loader = true;
+        this.data = null;
         try {
           const query = `${this.ontologyServer}?iri=${iri}`;
           const result = await getEntity(query);
@@ -1365,7 +1264,6 @@ export default {
         if (this.data && this.data.taxonomy && this.data.taxonomy.value.length > 0) {
           this.checkPathsOverflow();
         }
-        this.sectionsVisibilitySettings = [];
       }
     },
     async fetchModules() {
@@ -1475,7 +1373,9 @@ export default {
         if (this.searchBox.findProperties.length > 0) {
           // eslint-disable-next-line max-len
           let domain = encodeURI(
-            `${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${this.searchBox.encodedProperties}`
+            `${this.searchServer}?term=${
+              searchBQuery
+              }&mode=advance&useHighlighting=${isHighlighting}&findProperties=${this.searchBox.encodedProperties}`
           );
 
           const result = await getFindSearch(domain);
@@ -1565,14 +1465,6 @@ export default {
     },
     paginateClickCallback(pageIndex) {
       this.handleSearchBoxQuery(this.searchBox.lastSearchBQuery, pageIndex);
-    },
-    toggleSectionsVisibility(sectionIndex, propertyIndex) {
-      // make a copy of the "row"
-      const newRow = this.sectionsVisibilitySettings[sectionIndex].slice(0);
-      // update the value
-      newRow[propertyIndex] = !this.sectionsVisibilitySettings[sectionIndex][propertyIndex];
-      // update it in the sectionsVisibilitySettings
-      this.$set(this.sectionsVisibilitySettings, sectionIndex, newRow);
     },
     togglePathCollapsed(tIndex) {
       this.$refs.taxonomyItems[tIndex].classList.toggle("collapsed");
@@ -1689,11 +1581,12 @@ export default {
     })
   },
   watch: {
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
     "$route.query.query": (query) => {
       this.fetchData(query);
     },
-    // eslint-disable-next-line no-unused-vars
-    "$route.query.version": (version) => {
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
+    "$route.query.version": () => {
       this.updateServers();
 
       this.fetchData(this.query);
@@ -1702,6 +1595,7 @@ export default {
       // clear search results after changing version
       this.clearSearchResults();
     },
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
     "pathsSection.isTreeView": (newValue) => {
       localStorage.isTreeView = newValue;
     },

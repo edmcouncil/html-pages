@@ -35,7 +35,7 @@ It will execute yarn to fetch necessary packages and setup project files for you
 ### Deploy [OKG HOME](./home) with docker-compose
 
 ```
-$ docker-compose --profile home up -d
+docker-compose --profile home up -d
 ```
 If you run the above against a clean repo, it should produce the following log:
 ```
@@ -53,7 +53,7 @@ docker-compose --profile=home build
 
 Listing containers must show one container running and the port mapping as below:
 ```
-$ docker-compose ps
+docker-compose ps
       Name                     Command               State                    Ports                  
 -----------------------------------------------------------------------------------------------------
 html-pages_home_1   docker-entrypoint.sh yarn  ...   Up      0.0.0.0:8080->8080/tcp,:::8080->8080/tcp
@@ -63,7 +63,7 @@ After the application starts, navigate to [http://localhost:8080](http://localho
 
 Stop and remove the containers:
 ```
-$ docker-compose down
+docker-compose down
 Stopping html-pages_home_1 ... done
 Removing html-pages_home_1 ... done
 Removing network html-pages_default
@@ -72,7 +72,7 @@ Removing network html-pages_default
 ### Deploy [FIBO HOME](./fibo) with docker-compose
 Similarly to running home profile, you need to run:
 ```
-$ docker-compose --profile fibo up -d
+docker-compose --profile fibo up -d
 ```
 And if you make changes related to project dependencies (e.g. updating some vue components) in the existing local repo, before starting the Docker container you need to run this:
 ```
@@ -81,7 +81,7 @@ docker-compose --profile=fibo build
 
 Listing containers must show one container running and the port mapping as below:
 ```
-$ docker-compose ps
+docker-compose ps
       Name                     Command               State                    Ports                  
 -----------------------------------------------------------------------------------------------------
 html-pages_fibo_1   docker-entrypoint.sh yarn  ...   Up      0.0.0.0:8080->8080/tcp,:::8080->8080/tcp
@@ -91,7 +91,7 @@ After the application starts, navigate to [http://localhost:8080/fibo](http://lo
 
 Stop and remove the containers:
 ```
-$ docker-compose down
+docker-compose down
 Stopping html-pages_fibo_1 ... done
 Removing html-pages_fibo_1 ... done
 Removing network html-pages_default
@@ -100,7 +100,7 @@ Removing network html-pages_default
 ### Deploy [AUTO HOME](./auto) with docker-compose
 Similarly to running fibo profile, you need to run:
 ```
-$ docker-compose --profile auto up -d
+docker-compose --profile auto up -d
 ```
 Again, you may need to run this beforehand:
 ```
@@ -108,7 +108,7 @@ docker-compose --profile=auto build
 ```
 Listing containers must show one container running and the port mapping as below:
 ```
-$ docker-compose ps
+docker-compose ps
       Name                     Command               State                    Ports                  
 -----------------------------------------------------------------------------------------------------
 html-pages_auto_1   docker-entrypoint.sh yarn  ...   Up      0.0.0.0:8080->8080/tcp,:::8080->8080/tcp
@@ -117,7 +117,7 @@ After the application starts, navigate to [http://localhost:8080/auto](http://lo
 
 Stop and remove the containers:
 ```
-$ docker-compose down
+docker-compose down
 Stopping html-pages_auto_1 ... done
 Removing html-pages_auto_1 ... done
 Removing network html-pages_default

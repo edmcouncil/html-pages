@@ -156,20 +156,21 @@
         </div>
       </nav>
     </div>
-    <Carousel v-if="!$route.meta.plainLayout"></Carousel>
+
+    <SlideCarousel v-if="!$route.meta.plainLayout"></SlideCarousel>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import helpers from "../store/helpers.js";
-import Carousel from "@/components/Carousel.vue";
+import SlideCarousel from "@/components/SlideCarousel.vue";
 
-Vue.component("Carousel", Carousel);
+Vue.component("SlideCarousel", SlideCarousel);
 
 export default {
   extends: helpers,
-  name: "header",
+  name: "HeaderComponent",
 };
 </script>
 
@@ -322,8 +323,7 @@ export default {
   margin-right: 5px;
 }
 .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
-  //background-image: url("../assets/icons/union-burger-m.png");
+  background-image: url("../assets/icons/union-burger.svg") !important;
 }
 
 .navbar-links {

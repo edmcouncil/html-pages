@@ -2076,7 +2076,7 @@
 import { outboundLinkClick } from '../helpers/ga';
 
 export default {
-  name: 'schema',
+  name: 'schema-view',
   components: {},
   methods: {
     outboundLinkClick,

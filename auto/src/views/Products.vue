@@ -7,7 +7,7 @@
                 </h1>
 
                 <h3 v-if="serializations">Serializations of AUTO OWL</h3>
-                
+
                 <div v-if="serializations" class="table-responsive">
                   <table class="table table-style-striped">
                     <tr>
@@ -133,7 +133,7 @@
 
     export default {
         extends: helpers,
-        name: 'deliverables ',
+        name: 'ProductsView',
         components: {},
         computed: {
           ...mapState('OWL', {

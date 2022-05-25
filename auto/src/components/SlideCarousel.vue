@@ -2,57 +2,33 @@
   <div class="container slider">
     <div id="carouselExampleIndicators" class="carousel slide">
       <ol class="carousel-indicators">
-        <li
-          data-target="#carouselExampleIndicators"
-          data-slide-to="0"
-          class="active"
-        ></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img
-            class="d-block w-100"
-            src="../assets/img/banerBlack.jpg"
-            alt="First slide"
-          />
+          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="First slide">
           <div class="carousel-caption d-none d-md-block">
-            <h2>IDMP COMMON CORE ONTOLOGY</h2>
-            <p>IDEA</p>
-            <a
-              href="https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/PA_IDMP-Ontology_Executive-Project-Summary.pdf"
-              v-on:click="
-                outboundLinkClick(
-                  'https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/PA_IDMP-Ontology_Executive-Project-Summary.pdf'
-                )
-              "
-              class="btn-sl"
-            >
-              Learn more
-            </a>
+            <h2>AUTOMOTIVE ONTOLOGY</h2>
+            <p>The entirely new branch of the EDMC OKG initiative focused on Automotive Industry applications of Knowledge Graphs</p>
+            <router-link :to="{ path: router('') }" class="btn-sl">About Automotive Ontology</router-link>
           </div>
         </div>
         <div class="carousel-item">
-          <img
-            class="d-block w-100"
-            src="../assets/img/banerBlack.jpg"
-            alt="Second slide"
-          />
+          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="Second slide">
           <div class="carousel-caption d-none d-md-block">
-            <h2>Project Info Pack</h2>
-            <p>
-              Info Package for the Cross-Industry Initiative
-            </p>
-            <a
-              href="https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/IDMP_Ontology_Project-Info.pdf"
-              v-on:click="
-                outboundLinkClick(
-                  'https://marketing.pistoiaalliance.org/hubfs/Projects-Innovation/Ontology/IDMP_Ontology_Project-Info.pdf'
-                )
-              "
-              class="btn-sl"
-              >Find out more</a
-            >
+            <h2>AUTOMOTIVE ONTOLOGY</h2>
+            <p>A wide range of vital applications from the unique aspects of traditional and autonomous vehicles safety to the cross-industry edge computing applications</p>
+            <router-link :to="{ path: router('Applications') }" class="btn-sl">APPLICATIONS</router-link>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="Third slide">
+          <div class="carousel-caption d-none d-md-block">
+            <h2>AUTOMOTIVE COMMUNITY</h2>
+            <p>The new activity will engage members of existing  W3C’s Automotive Ontology Community Group</p>
+            <router-link :to="{ path: router('Community') }" class="btn-sl">COMMUNITY</router-link>
           </div>
         </div>
       </div>
@@ -84,16 +60,16 @@ import helpers from '../store/helpers.js';
 
 export default {
   extends: helpers,
-  name: 'Carousel',
+  name: 'SlideCarousel',
 };
 </script>
 
 <style lang="scss">
-.fa,
-.fas {
-  font-family: $font-family-awsome-solid;
-  font-weight: 900;
-}
+  .fa,
+  .fas {
+    font-family: $font-family-awsome-solid;
+    font-weight: 900;
+  }
 .slider {
   padding-left: 0;
   padding-right: 0;
@@ -110,7 +86,7 @@ export default {
   p {
     font-size: 19px !important;
     font-weight: 600 !important;
-    color: map-get($colors-map, "white");
+    color: map-get($colors-map, 'white');
     max-width: 1300px;
     margin-left: auto;
     margin-right: auto;
@@ -120,10 +96,11 @@ export default {
   h5 {
     font-size: 32px;
   }
+
 }
 a.btn-sl {
   display: inline-block;
-  color: map-get($colors-map, "white");
+  color: map-get($colors-map, 'white');
   padding: 8px 13px;
   font-size: 13px;
   margin-top: 12px;
@@ -146,23 +123,22 @@ a.btn-sl {
   padding-left: 0;
 
   &.active {
-    background-color: map-get($colors-map, "black");
+    background-color: map-get($colors-map, 'black');
   }
 }
-.carousel-control-prev,
-.carousel-control-next {
-  opacity: 1;
-}
+  .carousel-control-prev, .carousel-control-next{
+    opacity: 1;
+  }
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   width: 50px;
   height: 50px;
-  background-color: map-get($colors-map, "white");
+  background-color: map-get($colors-map, 'white');
   border-radius: 32px;
 
-  &:before {
+  &:before{
     font-family: $font-family-awsome-solid;
-    color: map-get($colors-map, "dark-grey");
+    color: map-get($colors-map, 'dark-grey');
     font-size: 20px;
     line-height: 50px;
   }
@@ -170,7 +146,7 @@ a.btn-sl {
 
 .carousel-control-prev-icon {
   &:before {
-    content: "\f053";
+     content: "\f053";
   }
 }
 
@@ -243,5 +219,7 @@ a.btn-sl {
     margin-top: 0px;
     padding: 5px 10px;
   }
+
 }
+
 </style>

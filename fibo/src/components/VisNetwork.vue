@@ -105,7 +105,8 @@
 </template>
 
 <script>
-import vis from "vis-network";
+import { Network } from "vis-network";
+import { DataSet, DataView } from "vis-data";
 
 export default {
   name: "vis-network",
@@ -141,8 +142,8 @@ export default {
       }, this.data.nodes);
 
 
-      const nodes = new vis.DataSet(this.data.nodes);
-      const edges = new vis.DataSet(this.data.edges);
+      const nodes = new DataSet(this.data.nodes);
+      const edges = new DataSet(this.data.edges);
 
       const container = document.getElementById("ontograph");
       const edgeFilters = document.getElementsByName("edgesFilter");
@@ -172,9 +173,9 @@ export default {
           nodeView.refresh();
         })
       );
-      const edgesView = new vis.DataView(edges, { filter: edgesFilter });
+      const edgesView = new DataView(edges, { filter: edgesFilter });
 
-      var nodeView = new vis.DataView(nodes, {
+      var nodeView = new DataView(nodes, {
         filter: function (node) {
           let connEdges = edgesView.get({
             filter: function (edge) {
@@ -208,7 +209,7 @@ export default {
           solver: "forceAtlas2Based",
         },
       };
-      const network = new vis.Network(container, data, options);
+      const network = new Network(container, data, options);
 
       window.network = network;
 

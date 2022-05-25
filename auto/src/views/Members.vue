@@ -16,7 +16,7 @@
                     </li>
                     <li>
                         <strong><a href="http://sopek.net/">Mirek Sopek</a></strong>, Makolab SA
-                    </li>                  
+                    </li>
                 </ul>
 
 
@@ -44,7 +44,7 @@
 
     export default {
         extends: helpers,
-        name: 'members',
+        name: 'MembersView',
         components: {},
         methods: {
             outboundClick,

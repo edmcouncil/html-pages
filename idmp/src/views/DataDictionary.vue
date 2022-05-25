@@ -9,7 +9,6 @@
         <h2>
           <strong class="under-construction">SITE IS UNDER CONSTRUCTION</strong>
         </h2>
-       
       </article>
     </main>
   </div>
@@ -22,7 +21,7 @@ import { outboundClick } from '../helpers/ga';
 
 export default {
   extends: helpers,
-  name: 'glossary',
+  name: 'DataDictionaryView',
   components: {},
   methods: {
     outboundClick,

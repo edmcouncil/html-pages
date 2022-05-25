@@ -247,10 +247,10 @@
                       class="search-item__icon"
                       :class="{
                         'maturity-provisional':
-                          result.maturityLevel.icon === 'develop',
+                          result.maturityLevel.icon === 'dev',
                         'maturity-release':
-                          result.maturityLevel.icon === 'release',
-                        'maturity-mixed': result.maturityLevel.icon === 'mixed',
+                          result.maturityLevel.icon === 'prod',
+                        'maturity-mixed': result.maturityLevel.icon === 'prod_and_dev_mixed',
                       }"
                     ></div>
                     <customLink
@@ -366,14 +366,14 @@
                               (this.data.maturityLevel.label !== 'release' &&
                                 this.data.maturityLevel.label != '') ||
                               (this.data.maturityLevel.icon &&
-                                this.data.maturityLevel.icon === 'develop'),
+                                this.data.maturityLevel.icon === 'dev'),
                             'maturity-production':
                               this.data.maturityLevel.label === 'release' ||
                               (this.data.maturityLevel.icon &&
-                                this.data.maturityLevel.icon === 'release'),
+                                this.data.maturityLevel.icon === 'prod'),
                             'maturity-mixed':
                               this.data.maturityLevel.icon &&
-                              this.data.maturityLevel.icon === 'mixed',
+                              this.data.maturityLevel.icon === 'prod_and_dev_mixed',
                           }"
                         >
                           {{ data.label }}
@@ -877,6 +877,7 @@ import {
 } from '../api/ontology';
 
 export default {
+  name: 'OntologyView',
   components: {
     AXIOM: () => import(/* webpackChunkName: "AXIOM" */ '../components/chunks/AXIOM'),
     STRING: () => import(/* webpackChunkName: "STRING" */ '../components/chunks/STRING'),
@@ -892,7 +893,7 @@ export default {
     ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ '../components/chunks/ANY_URI'),
     VisNetwork: () => import(/* webpackChunkName: "ANY_URI" */ '../components/VisNetwork'),
     PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
-    Stats: () => import(/* webpackChunkName: "Stats" */ "../components/Stats"),
+    Stats: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
     Multiselect,
     Paginate,
   },
@@ -1290,11 +1291,12 @@ export default {
     }),
   },
   watch: {
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
     '$route.query.query': (query) => {
       this.fetchData(query);
     },
-    // eslint-disable-next-line no-unused-vars
-    '$route.query.version': (version) => {
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
+    '$route.query.version': () => {
       this.updateServers();
 
       this.fetchData(this.query);
@@ -1303,6 +1305,7 @@ export default {
       // clear search results after changing version
       this.clearSearchResults();
     },
+    // eslint-disable-next-line vue/no-arrow-functions-in-watch
     "pathsSection.isTreeView": newValue => {
       localStorage.isTreeView = newValue;
     }
