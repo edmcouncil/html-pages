@@ -2,26 +2,34 @@
   <div class="container ontology-container">
     <div class="row">
       <!-- tree large -->
-      <div
-        class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column"
-      >
+      <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
         <div class="module-tree">
           <div
-            class="secondary-column__how-to-use
+            class="
+              secondary-column__how-to-use
               multiselect-xxl-container multiselect-container
-              container"
+              container
+            "
           >
             <div class="row modules-header">
               <h5 class="fibo-title-modules">AUTO Viewer</h5>
               <div class="button-small">
-                <router-link class="button-small-text" to="/ontology" @click="data=null">
+                <router-link
+                  class="button-small-text"
+                  to="/ontology"
+                  @click="data = null"
+                >
                   How to use
                 </router-link>
               </div>
             </div>
           </div>
           <div
-            class="secondary-column__tree multiselect-xxl-container multiselect-container container"
+            class="
+              secondary-column__tree
+              multiselect-xxl-container multiselect-container
+              container
+            "
           >
             <div class="menu-box">
               <div class="menu-box__label">Browse AUTO domains</div>
@@ -46,7 +54,6 @@
             :statsServer="statsServer"
             :missingImportsServer="missingImportsServer"
           />
-
         </div>
       </div>
 
@@ -58,55 +65,57 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="multiselect-xxl-container multiselect-container">
-                  <div class="menu-box" >
-                      <div class="menu-box__label">Search AUTO</div>
-                      <div class="menu-box__content-text">
-                        <multiselect
-                          v-model="searchBox.selectedData"
-                          id="ajax2"
-                          label="labelForInternalSearch"
-                          track-by="iri"
-                          placeholder="Find domains, ontologies, concepts..."
-                          tagPlaceholder="Search..."
-                          selectLabel="x"
-                          open-direction="bottom"
-                          ref="searchBoxInput"
-                          spellcheck="false"
-                          :options="searchBox.data"
-                          :multiple="false"
-                          :searchable="true"
-                          :loading="searchBox.isLoading"
-                          :internal-search="false"
-                          :clear-on-select="false"
-                          :close-on-select="true"
-                          :options-limit="300"
-                          :limit="3"
-                          :limit-text="searchBox_limitText"
-                          :max-height="600"
-                          :preserve-search="true"
-                          :show-no-results="false"
-                          :hide-selected="true"
-                          :taggable="true"
-                          @select="searchBox_optionSelected"
-                          @tag="searchBox_addTag"
-                          @search-change="searchBox_asyncFind"
-                        >
-                          <template slot="clear" slot-scope="props">
-                            <div
-                              class="multiselect__clear"
-                              v-if="searchBox.selectedData"
-                              @mousedown.prevent.stop="clearAll(props.search)"
-                            ></div>
-                            </template>
-                            <span slot="noResult">
-                              Oops! No elements found. Consider changing the
-                            search query.
-                            </span>
-                        </multiselect>
-                      </div>
-                      <div class="menu-box__icons">
-                        <div class="menu-box__icons__icon icon-search-triangle-down"></div>
-                      </div>
+                  <div class="menu-box">
+                    <div class="menu-box__label">Search AUTO</div>
+                    <div class="menu-box__content-text">
+                      <multiselect
+                        v-model="searchBox.selectedData"
+                        id="ajax2"
+                        label="labelForInternalSearch"
+                        track-by="iri"
+                        placeholder="Find domains, ontologies, concepts..."
+                        tagPlaceholder="Search..."
+                        selectLabel="x"
+                        open-direction="bottom"
+                        ref="searchBoxInput"
+                        spellcheck="false"
+                        :options="searchBox.data"
+                        :multiple="false"
+                        :searchable="true"
+                        :loading="searchBox.isLoading"
+                        :internal-search="false"
+                        :clear-on-select="false"
+                        :close-on-select="true"
+                        :options-limit="300"
+                        :limit="3"
+                        :limit-text="searchBox_limitText"
+                        :max-height="600"
+                        :preserve-search="true"
+                        :show-no-results="false"
+                        :hide-selected="true"
+                        :taggable="true"
+                        @select="searchBox_optionSelected"
+                        @tag="searchBox_addTag"
+                        @search-change="searchBox_asyncFind"
+                      >
+                        <template slot="clear" slot-scope="props">
+                          <div
+                            class="multiselect__clear"
+                            v-if="searchBox.selectedData"
+                            @mousedown.prevent.stop="clearAll(props.search)"
+                          ></div>
+                        </template>
+                        <span slot="noResult">
+                          Oops! No elements found. Consider changing the search
+                          query.
+                        </span>
+                      </multiselect>
+                    </div>
+                    <div class="menu-box__icons">
+                      <div
+                        class="menu-box__icons__icon icon-search-triangle-down"
+                      ></div>
+                    </div>
                   </div>
                   <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre> -->
                   <!-- <pre class="language-json"><code>{{ searchBox.data }}</code></pre> -->
@@ -123,62 +132,74 @@
           ></a>
 
           <!-- search box mobile -->
-          <div class="search-box search-box--mobile d-lg-none multiselect-container">
-                  <div class="menu-box" >
-                      <div class="menu-box__label">Search Auto</div>
-                      <div class="menu-box__content-text">
-                        <multiselect
-                          v-model="searchBox.selectedData"
-                          id="ajax"
-                          label="labelForInternalSearch"
-                          track-by="iri"
-                          placeholder="Find..."
-                          tagPlaceholder="Search..."
-                          selectLabel="x"
-                          open-direction="bottom"
-                          ref="searchBoxInput"
-                          spellcheck="false"
-                          :options="searchBox.data"
-                          :multiple="false"
-                          :searchable="true"
-                          :loading="searchBox.isLoading"
-                          :internal-search="false"
-                          :clear-on-select="false"
-                          :close-on-select="true"
-                          :options-limit="300"
-                          :limit="3"
-                          :limit-text="searchBox_limitText"
-                          :max-height="600"
-                          :preserve-search="true"
-                          :show-no-results="false"
-                          :hide-selected="true"
-                          :taggable="true"
-                          @select="searchBox_optionSelected"
-                          @tag="searchBox_addTag"
-                          @search-change="searchBox_asyncFind"
-                        >
-                          <template slot="clear" slot-scope="props">
-                            <div
-                              class="multiselect__clear"
-                              v-if="searchBox.selectedData"
-                              @mousedown.prevent.stop="clearAll(props.search)"
-                            ></div>
-                            </template>
-                            <span slot="noResult">
-                              Oops! No elements found. Consider changing the
-                            search query.
-                            </span>
-                        </multiselect>
-                      </div>
-                      <div class="menu-box__icons">
-                        <div class="menu-box__icons__icon icon-search-triangle-down"></div>
-                      </div>
-                  </div>
+          <div
+            class="
+              search-box search-box--mobile
+              d-lg-none
+              multiselect-container
+            "
+          >
+            <div class="menu-box">
+              <div class="menu-box__label">Search Auto</div>
+              <div class="menu-box__content-text">
+                <multiselect
+                  v-model="searchBox.selectedData"
+                  id="ajax"
+                  label="labelForInternalSearch"
+                  track-by="iri"
+                  placeholder="Find..."
+                  tagPlaceholder="Search..."
+                  selectLabel="x"
+                  open-direction="bottom"
+                  ref="searchBoxInput"
+                  spellcheck="false"
+                  :options="searchBox.data"
+                  :multiple="false"
+                  :searchable="true"
+                  :loading="searchBox.isLoading"
+                  :internal-search="false"
+                  :clear-on-select="false"
+                  :close-on-select="true"
+                  :options-limit="300"
+                  :limit="3"
+                  :limit-text="searchBox_limitText"
+                  :max-height="600"
+                  :preserve-search="true"
+                  :show-no-results="false"
+                  :hide-selected="true"
+                  :taggable="true"
+                  @select="searchBox_optionSelected"
+                  @tag="searchBox_addTag"
+                  @search-change="searchBox_asyncFind"
+                >
+                  <template slot="clear" slot-scope="props">
+                    <div
+                      class="multiselect__clear"
+                      v-if="searchBox.selectedData"
+                      @mousedown.prevent.stop="clearAll(props.search)"
+                    ></div>
+                  </template>
+                  <span slot="noResult">
+                    Oops! No elements found. Consider changing the search query.
+                  </span>
+                </multiselect>
+              </div>
+              <div class="menu-box__icons">
+                <div
+                  class="menu-box__icons__icon icon-search-triangle-down"
+                ></div>
+              </div>
+            </div>
           </div>
 
           <!-- tree mobile -->
           <div
-            class="secondary-column__tree secondary-column__tree--mobile multiselect-container container d-lg-none"
+            class="
+              secondary-column__tree secondary-column__tree--mobile
+              multiselect-container
+              container
+              d-lg-none
+            "
           >
             <div class="menu-box" v-on:click="toggleModuleTree()">
               <div class="menu-box__label">Browse AUTO domains</div>
@@ -189,275 +210,280 @@
             </div>
           </div>
 
-            <ul v-if="display_modules" class="modules-list list-unstyled">
-              <module-tree
-                :item="item"
-                v-for="item in modulesList"
-                :location="data"
-                :key="item.label"
-              />
-            </ul>
-            <div class="text-center" v-if="!modulesList && !error">
+          <ul v-if="display_modules" class="modules-list list-unstyled">
+            <module-tree
+              :item="item"
+              v-for="item in modulesList"
+              :location="data"
+              :key="item.label"
+            />
+          </ul>
+          <div class="text-center" v-if="!modulesList && !error">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" v-if="loader">
+          <div class="col-12">
+            <div class="text-center">
               <div class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
-            </div>
+          </div>
+        </div>
 
-          <div class="row" v-if="loader">
-            <div class="col-12">
-              <div class="text-center">
-                <div class="spinner-border" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-              </div>
+        <div class="row" v-if="error">
+          <div class="col-12">
+            <div class="alert alert-danger alert-error" role="alert">
+              <strong>Error!</strong> Cannot fetch data, please try later.
             </div>
           </div>
+        </div>
 
-          <div class="row" v-if="error">
-            <div class="col-12">
-              <div class="alert alert-danger alert-error" role="alert">
-                <strong>Error!</strong> Cannot fetch data, please try later.
-              </div>
-            </div>
+        <!-- search results -->
+        <div
+          class="search-section"
+          v-if="searchBox.selectedData && searchBox.selectedData.isSearch"
+        >
+          <div class="search-section__header">
+            <h5>Search results for “{{ searchBox.selectedData.iri }}”</h5>
+            <p>{{ searchBox.totalResults.length }} results</p>
           </div>
 
-          <!-- search results -->
           <div
-            class="search-section"
-            v-if="searchBox.selectedData && searchBox.selectedData.isSearch"
+            v-if="
+              searchBox.displayedResults && searchBox.displayedResults.length
+            "
+            class="search-section__items"
           >
-            <div class="search-section__header">
-              <h5>Search results for “{{ searchBox.selectedData.iri }}”</h5>
-              <p>{{ searchBox.totalResults.length }} results</p>
-            </div>
-
             <div
-              v-if="searchBox.displayedResults && searchBox.displayedResults.length"
-              class="search-section__items"
+              v-for="(result, index) in searchBox.displayedResults"
+              :key="index + searchBox.selectedData.iri"
+              class="search-item"
             >
-              <div
-                v-for="(result, index) in searchBox.displayedResults"
-                :key="index + searchBox.selectedData.iri"
-                class="search-item"
-              >
-                <div>
-                  <div class="search-item__title">
-                    <div
-                      class="search-item__icon"
-                      :class="{
-                        'maturity-provisional':
-                          result.maturityLevel.icon === 'dev',
-                        'maturity-release':
-                          result.maturityLevel.icon === 'prod',
-                        'maturity-mixed': result.maturityLevel.icon === 'prod_and_dev_mixed',
-                      }"
-                    ></div>
-                    <customLink
-                      class="custom-link"
-                      :name="result.label"
-                      :query="result.iri"
-                      :customLinkOnClick="searchResultClicked"
-                    ></customLink>
-                  </div>
-
-                  <div class="search-item__iri">
-                    <!-- {{ result.iri }} -->
-                    <customLink
-                      class="custom-link"
-                      :name="result.iri"
-                      :query="result.iri"
-                      :customLinkOnClick="searchResultClicked"
-                    ></customLink>
-                  </div>
-
-                  <p>
-                    {{ result.description }}
-                  </p>
+              <div>
+                <div class="search-item__title">
+                  <div
+                    class="search-item__icon"
+                    :class="{
+                      'maturity-provisional':
+                        result.maturityLevel.icon === 'dev',
+                      'maturity-release': result.maturityLevel.icon === 'prod',
+                      'maturity-mixed':
+                        result.maturityLevel.icon === 'prod_and_dev_mixed',
+                    }"
+                  ></div>
+                  <customLink
+                    class="custom-link"
+                    :name="result.label"
+                    :query="result.iri"
+                    :customLinkOnClick="searchResultClicked"
+                  ></customLink>
                 </div>
+
+                <div class="search-item__iri">
+                  <!-- {{ result.iri }} -->
+                  <customLink
+                    class="custom-link"
+                    :name="result.iri"
+                    :query="result.iri"
+                    :customLinkOnClick="searchResultClicked"
+                  ></customLink>
+                </div>
+
+                <p>
+                  {{ result.description }}
+                </p>
               </div>
             </div>
-            <div v-else>
-              <!-- No results -->
-            </div>
-
-            <div
-              class="search-section__load-more"
-              v-if="searchBox.totalResults.length > 0"
-            >
-              <p>
-                1 -
-                {{ searchBox.displayedResults.length }}
-                of {{ searchBox.totalResults.length }}
-              </p>
-
-              <button
-                type="button"
-                class="btn normal-button search-section__load-more__button"
-                @click="loadMoreResults()"
-                v-if="
-                  searchBox.totalResults.length >
-                  searchBox.displayedResults.length
-                "
-              >
-                Load next
-                {{
-                  (searchBox.perPage >
-                  searchBox.totalResults.length - searchBox.displayedResults.length)
-                    ? searchBox.totalResults.length -
-                      searchBox.displayedResults.length
-                    : searchBox.perPage
-                }}
-                results
-              </button>
-              <button
-                disabled
-                type="button"
-                class="btn normal-button search-section__load-more__button"
-                v-else
-              >
-                No more results to load
-              </button>
-            </div>
+          </div>
+          <div v-else>
+            <!-- No results -->
           </div>
 
-          <div class="container" v-else>
-            <div class="row">
-              <!-- SHOW ITEM -->
-              <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
-                <div class="row">
-                  <!--  MATURITY / TITLE  -->
-                  <div class="col-md-12 ontology-item__header">
-                    <!-- TITLE -->
-                    <div class="card">
-                      <div class="card-body">
-                        <!-- maturity alert -->
-                        <div
-                          class="alert alert-primary alert-maturity"
-                          role="alert"
-                          v-if="
-                            data.maturityLevel.label !== 'release' &&
-                            data.maturityLevel.label !== ''
+          <div
+            class="search-section__load-more"
+            v-if="searchBox.totalResults.length > 0"
+          >
+            <p>
+              1 -
+              {{ searchBox.displayedResults.length }}
+              of {{ searchBox.totalResults.length }}
+            </p>
+
+            <button
+              type="button"
+              class="btn normal-button search-section__load-more__button"
+              @click="loadMoreResults()"
+              v-if="
+                searchBox.totalResults.length >
+                searchBox.displayedResults.length
+              "
+            >
+              Load next
+              {{
+                searchBox.perPage >
+                searchBox.totalResults.length -
+                  searchBox.displayedResults.length
+                  ? searchBox.totalResults.length -
+                    searchBox.displayedResults.length
+                  : searchBox.perPage
+              }}
+              results
+            </button>
+            <button
+              disabled
+              type="button"
+              class="btn normal-button search-section__load-more__button"
+              v-else
+            >
+              No more results to load
+            </button>
+          </div>
+        </div>
+
+        <div class="container" v-else>
+          <div class="row">
+            <!-- SHOW ITEM -->
+            <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
+              <div class="row">
+                <!--  MATURITY / TITLE  -->
+                <div class="col-md-12 ontology-item__header">
+                  <!-- TITLE -->
+                  <div class="card">
+                    <div class="card-body">
+                      <!-- maturity alert -->
+                      <div
+                        class="alert alert-primary alert-maturity"
+                        role="alert"
+                        v-if="
+                          data.maturityLevel.label !== 'release' &&
+                          data.maturityLevel.label !== ''
+                        "
+                      >
+                        This resource has maturity level
+                        {{ this.data.maturityLevel.label }}.
+
+                        <customLink
+                          class="custom-link"
+                          :name="'Read more'"
+                          :query="data.maturityLevel.iri"
+                        ></customLink>
+                      </div>
+
+                      <div
+                        v-if="
+                          data.maturityLevel.label !== 'release' &&
+                          data.maturityLevel.label !== ''
+                        "
+                        class="clearfix"
+                      ></div>
+
+                      <!-- header item title -->
+                      <h5
+                        class="card-title"
+                        :class="{
+                          'maturity-provisional':
+                            (this.data.maturityLevel.label !== 'release' &&
+                              this.data.maturityLevel.label != '') ||
+                            (this.data.maturityLevel.icon &&
+                              this.data.maturityLevel.icon === 'dev'),
+                          'maturity-production':
+                            this.data.maturityLevel.label === 'release' ||
+                            (this.data.maturityLevel.icon &&
+                              this.data.maturityLevel.icon === 'prod'),
+                          'maturity-mixed':
+                            this.data.maturityLevel.icon &&
+                            this.data.maturityLevel.icon ===
+                              'prod_and_dev_mixed',
+                        }"
+                      >
+                        {{ data.label }}
+                      </h5>
+
+                      <div class="clearfix"></div>
+
+                      <h6
+                        class="card-subtitle mb-2 text-muted data-iri"
+                        v-if="data.iri"
+                      >
+                        {{ data.iri }}
+                      </h6>
+                      <div class="url-buttons-container">
+                        <button
+                          v-clipboard="data.iri"
+                          type="button"
+                          class="btn-copy-url"
+                        >
+                          Copy URL
+                        </button>
+
+                        <button
+                          v-if="this.$route.query && this.$route.query.version"
+                          v-clipboard="
+                            data.iri +
+                            '?version=' +
+                            encodeURI(this.$route.query.version)
                           "
+                          type="button"
+                          class="btn-copy-url btn-copy-iri"
                         >
-                          This resource has maturity level
-                          {{ this.data.maturityLevel.label }}.
+                          Copy versioned IRI
+                        </button>
+                      </div>
 
-                          <customLink
-                            class="custom-link"
-                            :name="'Read more'"
-                            :query="data.maturityLevel.iri"
-                          ></customLink>
-                        </div>
+                      <h6
+                        class="card-subtitle mb-2 text-muted qname"
+                        v-if="data.qName && data.qName !== ''"
+                      >
+                        {{ data.qName }}
+                      </h6>
 
-                        <div
-                          v-if="
-                            data.maturityLevel.label !== 'release' &&
-                            data.maturityLevel.label !== ''
-                          "
-                          class="clearfix"
-                        ></div>
-
-                        <!-- header item title -->
-                        <h5
-                          class="card-title"
-                          :class="{
-                            'maturity-provisional':
-                              (this.data.maturityLevel.label !== 'release' &&
-                                this.data.maturityLevel.label != '') ||
-                              (this.data.maturityLevel.icon &&
-                                this.data.maturityLevel.icon === 'dev'),
-                            'maturity-production':
-                              this.data.maturityLevel.label === 'release' ||
-                              (this.data.maturityLevel.icon &&
-                                this.data.maturityLevel.icon === 'prod'),
-                            'maturity-mixed':
-                              this.data.maturityLevel.icon &&
-                              this.data.maturityLevel.icon === 'prod_and_dev_mixed',
-                          }"
-                        >
-                          {{ data.label }}
-                        </h5>
-
-                        <div class="clearfix"></div>
-
-                        <h6
-                          class="card-subtitle mb-2 text-muted data-iri"
-                          v-if="data.iri"
-                        >
-                          {{ data.iri }}
-                        </h6>
-                        <div class="url-buttons-container">
-                          <button
-                            v-clipboard="data.iri"
-                            type="button"
-                            class="btn-copy-url"
-                          >
-                            Copy URL
-                          </button>
-
-                          <button
-                            v-if="
-                              this.$route.query && this.$route.query.version
-                            "
-                            v-clipboard="
-                              data.iri +
-                              '?version=' +
-                              encodeURI(this.$route.query.version)
-                            "
-                            type="button"
-                            class="btn-copy-url btn-copy-iri"
-                          >
-                            Copy versioned IRI
-                          </button>
-                        </div>
-
-                        <h6
-                          class="card-subtitle mb-2 text-muted qname"
+                      <div class="url-buttons-container">
+                        <button
+                          v-clipboard="data.qName.replace('QName: ', '')"
+                          type="button"
+                          class="btn-copy-url"
                           v-if="data.qName && data.qName !== ''"
                         >
-                          {{ data.qName }}
-                        </h6>
-
-                        <div class="url-buttons-container">
-                          <button
-                            v-clipboard="data.qName.replace('QName: ', '')"
-                            type="button"
-                            class="btn-copy-url"
-                            v-if="data.qName && data.qName !== ''"
-                          >
-                            Copy QName
-                          </button>
-                        </div>
+                          Copy QName
+                        </button>
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  <!-- paths -->
-                  <div
-                    class="ontology-item__paths col-md-12"
-                    v-if="data.taxonomy && data.taxonomy.value"
-                    ref="ontologyPaths"
+                <!-- paths -->
+                <div
+                  class="ontology-item__paths col-md-12"
+                  v-if="data.taxonomy && data.taxonomy.value"
+                  ref="ontologyPaths"
+                >
+                  <h5
+                    class="section-title"
+                    @click="
+                      $refs.ontologyPaths
+                        .querySelector('h5')
+                        .classList.toggle('section-collapse')
+                    "
                   >
-                    <h5
-                      class="section-title"
-                      @click="
-                        $refs.ontologyPaths
-                          .querySelector('h5')
-                          .classList.toggle('section-collapse')
-                      "
-                    >
-                      Path(s)
-                    </h5>
-                    <div class="section-content-wrapper">
-                      <div class="custom-control custom-switch">
+                    Path(s)
+                  </h5>
+                  <div class="section-content-wrapper">
+                    <div class="custom-control custom-switch">
                       <input
                         type="checkbox"
                         class="custom-control-input"
                         id="paths-switch"
                         v-model="pathsSection.isTreeView"
                       />
-                      <label class="custom-control-label-prev" for="paths-switch">
+                      <label
+                        class="custom-control-label-prev"
+                        for="paths-switch"
+                      >
                         Paths
                       </label>
                       <label class="custom-control-label" for="paths-switch">
@@ -465,8 +491,16 @@
                       </label>
                     </div>
 
-                    <transition @enter="checkPathsOverflow" name="fade" mode="out-in">
-                      <div key="path-view" class="ontology-item__paths__path-view" v-if="!pathsSection.isTreeView">
+                    <transition
+                      @enter="checkPathsOverflow"
+                      name="fade"
+                      mode="out-in"
+                    >
+                      <div
+                        key="path-view"
+                        class="ontology-item__paths__path-view"
+                        v-if="!pathsSection.isTreeView"
+                      >
                         <span>
                           <!-- when isPathsMoreVisible is false the v-for works on array slice from 0 to 2,
                             when isPathsMoreVisible is true the v-for works on the whole array -->
@@ -494,7 +528,9 @@
                                 ></customLink>
                                 <span
                                   class="card-subtitle mb-2 text-muted"
-                                  v-if="index != Object.keys(taxonomy).length - 1"
+                                  v-if="
+                                    index != Object.keys(taxonomy).length - 1
+                                  "
                                 >
                                   /
                                 </span>
@@ -552,326 +588,196 @@
                           <div class="see-less-btn">Show less paths</div>
                         </div>
                       </div>
-                      <div key="tree-view" class="ontology-item__paths__tree-view" v-else>
+                      <div
+                        key="tree-view"
+                        class="ontology-item__paths__tree-view"
+                        v-else
+                      >
                         <ul class="ontology-item__paths__tree-view__root">
                           <paths-tree
                             v-for="(child, index) in pathsSection.treeView"
                             :key="child.label"
                             :item="child"
-                            :isLast="index == pathsSection.treeView.length-1"
+                            :isLast="index == pathsSection.treeView.length - 1"
                             :isOnly="pathsSection.treeView.length === 1"
                             :isRoot="true"
                           />
                         </ul>
                       </div>
                     </transition>
-                    </div>
-                  </div>
-
-                  <!-- sections -->
-                  <div
-                    class="col-md-12 px-0"
-                    v-for="(
-                      section, sectionName, sectionIndex
-                    ) in data.properties"
-                    :key="sectionName"
-                    ref="sections"
-                  >
-                    <div class="card">
-                      <div class="card-body">
-                        <h5
-                          class="card-title section-title"
-                          @click="
-                            $refs.sections[sectionIndex]
-                              .querySelector('h5')
-                              .classList.toggle('section-collapse')
-                          "
-                        >
-                          {{ sectionName }}
-                        </h5>
-                        <div class="card-content">
-                          <dl
-                            class="row"
-                            v-for="(property, name, propertyIndex) in data
-                              .properties[sectionName]"
-                            :key="name"
-                          >
-                            <dt class="col-sm-12">{{ name }}</dt>
-                            <dd class="col-sm-12">
-                              <ul v-if="property.length > 1">
-                                <li
-                                  v-for="field in property.slice(0, 5)"
-                                  :key="field.id"
-                                >
-                                  <component
-                                    :is="field.type"
-                                    :value="field.value"
-                                    :entityMaping="field.entityMaping"
-                                    v-bind="field"
-                                  />
-                                </li>
-
-                                {{
-                                  (() => {
-                                    if (
-                                      sectionsVisibilitySettings[
-                                        sectionIndex
-                                      ] === undefined
-                                    ) {
-                                      sectionsVisibilitySettings[sectionIndex] =
-                                        [];
-                                    }
-                                    if (
-                                      sectionsVisibilitySettings[sectionIndex][
-                                        propertyIndex
-                                      ] === undefined
-                                    ) {
-                                      sectionsVisibilitySettings[sectionIndex][
-                                        propertyIndex
-                                      ] = false;
-                                    }
-                                  })()
-                                }}
-
-                                <li
-                                  v-for="field in property.slice(5)"
-                                  v-show="
-                                    sectionsVisibilitySettings[sectionIndex][
-                                      propertyIndex
-                                    ]
-                                  "
-                                  :key="field.id"
-                                >
-                                  <component
-                                    :is="field.type"
-                                    :value="field.value"
-                                    :entityMaping="field.entityMaping"
-                                    v-bind="field"
-                                  />
-                                </li>
-                              </ul>
-                              <component
-                                v-else
-                                v-for="field in property"
-                                :key="field.id"
-                                :is="field.type"
-                                :value="field.value"
-                                :entityMaping="field.entityMaping"
-                                v-bind="field"
-                              ></component>
-                              <div
-                                v-if="property.length > 5"
-                                :class="
-                                  'see-more-btn ' +
-                                  'see-more-btn_' +
-                                  sectionIndex +
-                                  '_' +
-                                  propertyIndex
-                                "
-                                v-show="
-                                  !sectionsVisibilitySettings[sectionIndex][
-                                    propertyIndex
-                                  ]
-                                "
-                                href="#"
-                                @click.prevent="
-                                  toggleSectionsVisibility(
-                                    sectionIndex,
-                                    propertyIndex
-                                  )
-                                "
-                              >
-                                <div>Show more</div>
-                              </div>
-                              <div
-                                v-if="property.length > 5"
-                                :class="
-                                  'see-less-btn ' +
-                                  'see-more-btn_' +
-                                  sectionIndex +
-                                  '_' +
-                                  propertyIndex
-                                "
-                                v-show="
-                                  sectionsVisibilitySettings[sectionIndex][
-                                    propertyIndex
-                                  ]
-                                "
-                                href="#"
-                                @click.prevent="
-                                  toggleSectionsVisibility(
-                                    sectionIndex,
-                                    propertyIndex
-                                  )
-                                "
-                              >
-                                <div>Show less</div>
-                              </div>
-                            </dd>
-                          </dl>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
-                <!-- DATA GRAPH -->
-                <div class="row" v-if="data && data.graph">
-                  <div class="col-12 px-0">
-                    <div class="card">
-                      <div class="card-body" ref="dataGraph">
-                        <h5
-                          class="card-title section-title"
-                          @click="
-                            $refs.dataGraph
-                              .querySelector('h5')
-                              .classList.toggle('section-collapse')
-                          "
-                        >
-                          Data model for {{ data.label }}
-                        </h5>
-                        <div class="section-content-wrapper">
-                          <vis-network :data="data.graph" :title="data.label" />
-                        </div>
+                <!-- sections -->
+                <div
+                  class="col-md-12 px-0"
+                  v-for="(
+                    section, sectionName, sectionIndex
+                  ) in data.properties"
+                  :key="sectionName"
+                >
+                  <ResourceSection
+                    :section="section"
+                    :sectionName="sectionName"
+                    :sectionIndex="sectionIndex"
+                  />
+                </div>
+              </div>
+
+              <!-- DATA GRAPH -->
+              <div class="row" v-if="data && data.graph">
+                <div class="col-12 px-0">
+                  <div class="card">
+                    <div class="card-body" ref="dataGraph">
+                      <h5
+                        class="card-title section-title"
+                        @click="
+                          $refs.dataGraph
+                            .querySelector('h5')
+                            .classList.toggle('section-collapse')
+                        "
+                      >
+                        Data model for {{ data.label }}
+                      </h5>
+                      <div class="section-content-wrapper">
+                        <vis-network :data="data.graph" :title="data.label" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <!-- NO DATA (HOW TO USE) -->
-              <div class="col-md-12 col-xxl-12 how-to-article" v-else>
-                <main class="" v-if="!loader">
-                  <div class="col-md-12 how-to-article__header">
-                      <h5>How to use AUTO Viewer</h5>
-                      <p class="text">
-                        To start using AUTO Viewer, search for interesting
-                        concepts by walking through the AUTO directory structure
-                        on the left-hand side or use the full-text search
-                        function.
-                      </p>
-                  </div>
+            <!-- NO DATA (HOW TO USE) -->
+            <div class="col-md-12 col-xxl-12 how-to-article" v-else>
+              <main class="" v-if="!loader">
+                <div class="col-md-12 how-to-article__header">
+                  <h5>How to use AUTO Viewer</h5>
+                  <p class="text">
+                    To start using AUTO Viewer, search for interesting concepts
+                    by walking through the AUTO directory structure on the
+                    left-hand side or use the full-text search function.
+                  </p>
+                </div>
 
-                  <article class="how-to-article__content">
-                    <img
-                      class="padding-top40-bottom-10"
-                      src="@/assets/img/directory.svg"
-                    />
+                <article class="how-to-article__content">
+                  <img
+                    class="padding-top40-bottom-10"
+                    src="@/assets/img/directory.svg"
+                  />
 
-                    <h5>AUTO structure</h5>
+                  <h5>AUTO structure</h5>
 
-                    <p class="text">
-                      AUTO is a set of ontologies. It is organized in a
-                      hierarchical directory structure.
-                    </p>
+                  <p class="text">
+                    AUTO is a set of ontologies. It is organized in a
+                    hierarchical directory structure.
+                  </p>
 
-                    <p class="post-description padding-top30">
-                      Top-level directories are called domains; beneath that may
-                      be one or two levels of sub-domain and then modules and
-                      dozens of ontologies at the bottom level, e.g.:
-                    </p>
-                    <p class="post-description padding-top30">
-                      On the left-hand side, there is a list of eleven AUTO
-                      Domains, starting with the Business Entities at the top
-                      and ending with Securities at the bottom.
-                    </p>
+                  <p class="post-description padding-top30">
+                    Top-level directories are called domains; beneath that may
+                    be one or two levels of sub-domain and then modules and
+                    dozens of ontologies at the bottom level, e.g.:
+                  </p>
+                  <p class="post-description padding-top30">
+                    On the left-hand side, there is a list of eleven AUTO
+                    Domains, starting with the Business Entities at the top and
+                    ending with Securities at the bottom.
+                  </p>
 
-                    <img
-                      class="padding-top40-bottom-10"
-                      src="@/assets/img/maturity.svg"
-                    />
+                  <img
+                    class="padding-top40-bottom-10"
+                    src="@/assets/img/maturity.svg"
+                  />
 
-                    <h5>AUTO maturity levels</h5>
-                    <p class="text">
-                      Each AUTO ontology has one of three levels of maturity.
-                    </p>
+                  <h5>AUTO maturity levels</h5>
+                  <p class="text">
+                    Each AUTO ontology has one of three levels of maturity.
+                  </p>
 
-                    <p class="post-description padding-top30">
-                      <strong>Release</strong>
-                    </p>
-                    <p class="post-description">
-                      Release ontologies are ones that are considered to be
-                      stable and mature from a development perspective.
-                    </p>
+                  <p class="post-description padding-top30">
+                    <strong>Release</strong>
+                  </p>
+                  <p class="post-description">
+                    Release ontologies are ones that are considered to be stable
+                    and mature from a development perspective.
+                  </p>
 
-                    <p class="post-description padding-top30">
-                      <strong>Provisional</strong>
-                    </p>
-                    <p class="post-description">
-                      Provisional ontologies are ones that are considered to be
-                      under development.
-                    </p>
+                  <p class="post-description padding-top30">
+                    <strong>Provisional</strong>
+                  </p>
+                  <p class="post-description">
+                    Provisional ontologies are ones that are considered to be
+                    under development.
+                  </p>
 
-                    <p class="post-description padding-top30">
-                      <strong>Informative</strong>
-                    </p>
-                    <p class="post-description">
-                      Provisional ontologies are ones that are considered
-                      deprecated but included for informational purposes because
-                      they are referenced by some provisional concept.
-                    </p>
+                  <p class="post-description padding-top30">
+                    <strong>Informative</strong>
+                  </p>
+                  <p class="post-description">
+                    Provisional ontologies are ones that are considered
+                    deprecated but included for informational purposes because
+                    they are referenced by some provisional concept.
+                  </p>
 
-                    <h5>Colours</h5>
-                    <p class="text">
-                      AUTO Viewer uses colours to indicate the status of an
-                      ontology. Each ontology is either green or yellow.
-                    </p>
+                  <h5>Colours</h5>
+                  <p class="text">
+                    AUTO Viewer uses colours to indicate the status of an
+                    ontology. Each ontology is either green or yellow.
+                  </p>
 
-                    <img
-                      class="post-description padding-top30"
-                      src="@/assets/icons/production-maturity.svg"
-                    />
-                    <p class="post-description">
-                      The green square icon indicates that an ontology has a
-                      "release" maturity level. Domains or modules are green if
-                      they contain only green ontologies.
-                    </p>
+                  <img
+                    class="post-description padding-top30"
+                    src="@/assets/icons/production-maturity.svg"
+                  />
+                  <p class="post-description">
+                    The green square icon indicates that an ontology has a
+                    "release" maturity level. Domains or modules are green if
+                    they contain only green ontologies.
+                  </p>
 
-                    <img
-                      class="post-description padding-top30"
-                      src="@/assets/icons/provisional-maturity.svg"
-                    />
-                    <p class="post-description">
-                      Yellow square icon means that it provisional or
-                      informative. Domains or modules are yellow if they contain
-                      only yellow ontologies.
-                    </p>
+                  <img
+                    class="post-description padding-top30"
+                    src="@/assets/icons/provisional-maturity.svg"
+                  />
+                  <p class="post-description">
+                    Yellow square icon means that it provisional or informative.
+                    Domains or modules are yellow if they contain only yellow
+                    ontologies.
+                  </p>
 
-                    <img
-                      class="post-description padding-top30"
-                      src="@/assets/icons/mixed-maturity.svg"
-                    />
-                    <p class="post-description">
-                      Mixed, green-yellow icon means domains or modules include
-                      both green and yellow ontologies.
-                    </p>
+                  <img
+                    class="post-description padding-top30"
+                    src="@/assets/icons/mixed-maturity.svg"
+                  />
+                  <p class="post-description">
+                    Mixed, green-yellow icon means domains or modules include
+                    both green and yellow ontologies.
+                  </p>
 
-                    <p class="post-description padding-top30">
-                      <strong>About AUTO Viewer</strong>
-                    </p>
-                    <p class="post-description">
-                      AUTO Viewer is a JAVA application that is specifically
-                      designed to access both the AUTO structure and its content
-                      in the easiest possible way. It can serve both as a web
-                      application and REST API. AUTO Viewer is an open-source
-                      project that EDM Council hosts. See
-                      https://github.com/edmcouncil/onto-viewer for details.
-                    </p>
-                  </article>
-                </main>
-              </div>
+                  <p class="post-description padding-top30">
+                    <strong>About AUTO Viewer</strong>
+                  </p>
+                  <p class="post-description">
+                    AUTO Viewer is a JAVA application that is specifically
+                    designed to access both the AUTO structure and its content
+                    in the easiest possible way. It can serve both as a web
+                    application and REST API. AUTO Viewer is an open-source
+                    project that EDM Council hosts. See
+                    https://github.com/edmcouncil/onto-viewer for details.
+                  </p>
+                </article>
+              </main>
             </div>
           </div>
         </div>
       </div>
     </div>
-
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
-import Paginate from 'vuejs-paginate';
 import {
   getEntity, getFindSearch, getModules, getHint,
 } from '../api/ontology';
@@ -879,23 +785,11 @@ import {
 export default {
   name: 'OntologyView',
   components: {
-    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ '../components/chunks/AXIOM'),
-    STRING: () => import(/* webpackChunkName: "STRING" */ '../components/chunks/STRING'),
-    OTHER: () => import(/* webpackChunkName: "STRING" */ '../components/chunks/STRING'),
-    DIRECT_SUBCLASSES: () => import(// eslint-disable-next-line comma-dangle
-      /* webpackChunkName: "DIRECT_SUBCLASSES" */ '../components/chunks/DIRECT_SUBCLASSES'
-    ),
-    MODULES: () => import(/* webpackChunkName: "MODULES" */ '../components/chunks/MODULES'),
-    IRI: () => import(/* webpackChunkName: "IRI" */ '../components/chunks/IRI'),
-    INSTANCES: () => import(// eslint-disable-next-line comma-dangle
-      /* webpackChunkName: "INSTANCES" */ '../components/chunks/INSTANCES'
-    ),
-    ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ '../components/chunks/ANY_URI'),
     VisNetwork: () => import(/* webpackChunkName: "ANY_URI" */ '../components/VisNetwork'),
     PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
     Stats: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
+    ResourceSection: () => import(/* webpackChunkName: "ResourceSection" */ "../components/Ontology/ResourceSection"),
     Multiselect,
-    Paginate,
   },
   props: ['ontology'],
   data() {
@@ -907,7 +801,6 @@ export default {
         isPathsMoreVisible: false,
         hasOverflow: [],
       },
-      sectionsVisibilitySettings: [],
       mountedTimestamp: null,
       loader: false,
       data: null,
@@ -1191,14 +1084,6 @@ export default {
     },
     paginateClickCallback(pageIndex) {
       this.handleSearchBoxQuery(this.searchBox.lastSearchBQuery, pageIndex);
-    },
-    toggleSectionsVisibility(sectionIndex, propertyIndex) {
-      // make a copy of the "row"
-      const newRow = this.sectionsVisibilitySettings[sectionIndex].slice(0);
-      // update the value
-      newRow[propertyIndex] = !this.sectionsVisibilitySettings[sectionIndex][propertyIndex];
-      // update it in the sectionsVisibilitySettings
-      this.$set(this.sectionsVisibilitySettings, sectionIndex, newRow);
     },
     togglePathCollapsed(tIndex) {
       this.$refs.taxonomyItems[tIndex].classList.toggle('collapsed');
