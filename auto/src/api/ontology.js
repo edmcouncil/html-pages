@@ -34,6 +34,20 @@ const getHint = function (query, domain) {
   }).then(parseServerError);
 };
 
+const getStats = function(domain) {
+  return fetch(domain, {
+    method: "GET",
+    headers: { Accept: "application/json" }
+  }).then(parseServerError);
+};
+
+const getMissingImports = function(domain) {
+  return fetch(domain, {
+    method: "GET",
+    headers: { Accept: "application/json" }
+  }).then(parseServerError);
+};
+
 export {
-  getEntity, getFindSearch, getModules, getHint,
+  getEntity, getFindSearch, getModules, getHint, getStats, getMissingImports,
 };
