@@ -616,10 +616,7 @@
               type="button"
               class="btn normal-button search-section__load-more__button"
               @click="loadMoreResults()"
-              v-if="
-                searchBox.totalResultsCount > searchBox.displayedResults.length
-              "
-            >
+              v-if="searchBox.totalResultsCount > searchBox.displayedResults.length">
               Load next
               {{
                 searchBox.totalResultsCount - searchBox.displayedResultsCount < searchBox.perPage
@@ -956,8 +953,8 @@
             >
               <main class="">
                 <div class="col-md-12 how-to-article__header">
-                  <h5>How to use IDMP Viewer</h5>
-                  <p class="text">
+                  <p class="title">How to use IDMP Viewer</p>
+                  <p class="paragraph--small">
                     To start using IDMP Viewer, search for interesting concepts
                     by walking through the IDMP directory structure on the
                     left-hand side or use the full-text search function.

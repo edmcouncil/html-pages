@@ -24,7 +24,10 @@ module.exports = {
   runtimeCompiler: true,
   devServer: {
     proxy: {
-      '^/auto/ontology/api/search$': {
+      '^/auto/ontology/api/entity$': {
+        target: 'https://spec.edmcouncil.org',
+      },
+      '^/auto/ontology/api/find$': {
         target: 'https://spec.edmcouncil.org',
         // changeOrigin: true,
         // secure:false,
@@ -44,6 +47,9 @@ module.exports = {
         // secure:false,
         // pathRewrite: {'^/auto': '/'},
         //logLevel: 'debug'
+      },
+      '^/auto/ontology/api': {
+        target: 'https://spec.edmcouncil.org',
       },
     },
   },
