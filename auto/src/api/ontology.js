@@ -5,13 +5,20 @@ const parseServerError = function (response) {
   return response;
 };
 
-const getOntology = function (query, domain) {
+const getFindSearch = function (domain) {
   return fetch(domain, {
-    method: 'POST',
-    headers: { 'Accept': 'application/json', 'Content-Type': 'text/plain' },
-    body: query,
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
   }).then(parseServerError);
 };
+
+const getEntity = function (domain) {
+  return fetch(domain, {
+    method: 'GET',
+    headers: { Accept: 'application/json' },
+  }).then(parseServerError);
+};
+
 const getModules = function (domain) {
   return fetch(domain, {
     method: 'GET',
@@ -27,5 +34,20 @@ const getHint = function (query, domain) {
   }).then(parseServerError);
 };
 
+const getStats = function(domain) {
+  return fetch(domain, {
+    method: "GET",
+    headers: { Accept: "application/json" }
+  }).then(parseServerError);
+};
 
-export { getOntology, getModules, getHint };
+const getMissingImports = function(domain) {
+  return fetch(domain, {
+    method: "GET",
+    headers: { Accept: "application/json" }
+  }).then(parseServerError);
+};
+
+export {
+  getEntity, getFindSearch, getModules, getHint, getStats, getMissingImports,
+};
