@@ -616,10 +616,7 @@
               type="button"
               class="btn normal-button search-section__load-more__button"
               @click="loadMoreResults()"
-              v-if="
-                searchBox.totalResultsCount > searchBox.displayedResults.length
-              "
-            >
+              v-if="searchBox.totalResultsCount > searchBox.displayedResults.length">
               Load next
               {{
                 searchBox.totalResultsCount - searchBox.displayedResultsCount < searchBox.perPage
