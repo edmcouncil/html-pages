@@ -951,131 +951,129 @@
 
             <!-- NO DATA (HOW TO USE) -->
             <div
-              class="col-md-12 col-xxl-12 how-to-article"
               v-else-if="!loader && !searchBox.isLoadingResults"
             >
-              <main class="">
-                <div class="col-md-12 how-to-article__header">
-                  <h5>How to use IDMP Viewer</h5>
-                  <p class="text">
+              <article class="how-to-article">
+                <section>
+                  <h2>How to use IDMP Viewer</h2>
+                  <p class="muted">
                     To start using IDMP Viewer, search for interesting concepts
                     by walking through the IDMP directory structure on the
                     left-hand side or use the full-text search function.
                   </p>
-                </div>
+                </section>
 
-                <article class="how-to-article__content">
-                  <img src="@/assets/img/clock.svg" />
-
-                  <h5>IDMP Versions</h5>
-                  <p class="text">
+                <section class="blank">
+                  <img class="article-icon" src="@/assets/img/clock.svg" />
+                  <h3>IDMP Versions</h3>
+                  <p>
                     IDMP Viewer allows for browsing the past versions of IDMP.
                   </p>
-
-                  <p class="post-description">
+                  <p class="small muted">
                     It also helps developers to see the changes proposed to IDMP
                     in pull requests before their approval. To see the content
                     of the past IDMP releases or recent pull requests, choose
                     them from the drop-down list.
                   </p>
+                </section>
 
-                  <img
-                    class="padding-top40-bottom-10"
-                    src="@/assets/img/directory.svg"
-                  />
-
-                  <h5>IDMP structure</h5>
-
-                  <p class="text">
+                <section class="blank">
+                  <img class="article-icon" src="@/assets/img/directory.svg"/>
+                  <h3>IDMP structure</h3>
+                  <p>
                     IDMP is a set of ontologies. It is organized in a
                     hierarchical directory structure.
                   </p>
-
-                  <p class="post-description padding-top30">
+                  <p class="small muted">
                     Top-level directories are called domains; beneath that may
                     be one or two levels of sub-domain and then modules and
                     dozens of ontologies at the bottom level, e.g.:
                   </p>
-                  <p class="post-description padding-top30">
+                  <p class="small muted">
                     On the left-hand side, there is a list of eleven IDMP
                     Domains, starting with the Business Entities at the top and
                     ending with Securities at the bottom.
                   </p>
+                </section>
 
-                  <img
-                    class="padding-top40-bottom-10"
-                    src="@/assets/img/maturity.svg"
+                <section class="blank">
+                  <img class="article-icon" src="@/assets/img/maturity.svg"
                   />
-
-                  <h5>IDMP maturity levels</h5>
-                  <p class="text">
+                  <h3>IDMP maturity levels</h3>
+                  <p>
                     Each IDMP ontology has one of three levels of maturity.
                   </p>
-
-                  <p class="post-description padding-top30">
-                    <strong>Release</strong>
+                  <p class="small title">
+                    Release
                   </p>
-                  <p class="post-description">
+                  <p class="small muted">
                     Release ontologies are ones that are considered to be stable
                     and mature from a development perspective.
                   </p>
-
-                  <p class="post-description padding-top30">
-                    <strong>Provisional</strong>
+                  <p class="small title">
+                    Provisional
                   </p>
-                  <p class="post-description">
+                  <p class="small muted">
                     Provisional ontologies are ones that are considered to be
                     under development.
                   </p>
-
-                  <p class="post-description padding-top30">
-                    <strong>Informative</strong>
+                  <p class="small title">
+                    Informative
                   </p>
-                  <p class="post-description">
+                  <p class="small muted">
                     Provisional ontologies are ones that are considered
                     deprecated but included for informational purposes because
                     they are referenced by some provisional concept.
                   </p>
+                </section>
 
-                  <h5>Colours</h5>
-                  <p class="text">
+                <section class="blank">
+                  <h3>Colours</h3>
+                  <p class="paragraph--regular">
                     IDMP Viewer uses colours to indicate the status of an
                     ontology. Each ontology is either green or yellow.
                   </p>
-
-                  <img
-                    class="post-description padding-top30"
+                  <div class="color-container">
+                    <img
+                    class="article-icon--small"
                     src="@/assets/icons/production-maturity.svg"
-                  />
-                  <p class="post-description">
-                    The green square icon indicates that an ontology has a
-                    "release" maturity level. Domains or modules are green if
-                    they contain only green ontologies.
-                  </p>
+                    />
+                    <p class="small muted">
+                      The green square icon indicates that an ontology has a
+                      "release" maturity level. Domains or modules are green if
+                      they contain only green ontologies.
+                    </p>
+                  </div>
 
-                  <img
-                    class="post-description padding-top30"
+                  <div class="color-container">
+                    <img
+                    class="article-icon--small"
                     src="@/assets/icons/provisional-maturity.svg"
-                  />
-                  <p class="post-description">
-                    Yellow square icon means that it provisional or informative.
-                    Domains or modules are yellow if they contain only yellow
-                    ontologies.
-                  </p>
+                    />
+                    <p class="small muted">
+                      Yellow square icon means that it provisional or informative.
+                      Domains or modules are yellow if they contain only yellow
+                      ontologies.
+                    </p>
+                  </div>
 
-                  <img
-                    class="post-description padding-top30"
+                  <div class="color-container">
+                    <img
+                    class="article-icon--small"
                     src="@/assets/icons/mixed-maturity.svg"
-                  />
-                  <p class="post-description">
-                    Mixed, green-yellow icon means domains or modules include
-                    both green and yellow ontologies.
-                  </p>
+                    />
+                    <p class="small muted">
+                      Mixed, green-yellow icon means domains or modules include
+                      both green and yellow ontologies.
+                    </p>
+                  </div>
+                </section>
 
-                  <p class="post-description padding-top30">
-                    <strong>About IDMP Viewer</strong>
-                  </p>
-                  <p class="post-description">
+                <section>
+                  <h2>
+                    About IDMP Viewer
+                  </h2>
+                  <p class="small muted">
                     IDMP Viewer is a JAVA application that is specifically
                     designed to access both the IDMP structure and its content
                     in the easiest possible way. It can serve both as a web
@@ -1083,8 +1081,8 @@
                     project that EDM Council hosts. See
                     https://github.com/edmcouncil/onto-viewer for details.
                   </p>
-                </article>
-              </main>
+                </section>
+              </article>
             </div>
           </div>
         </div>
