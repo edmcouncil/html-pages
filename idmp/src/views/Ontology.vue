@@ -1000,21 +1000,21 @@
                   <p>
                     Each IDMP ontology has one of three levels of maturity.
                   </p>
-                  <p class="small title">
+                  <p class="small muted title">
                     Release
                   </p>
                   <p class="small muted">
                     Release ontologies are ones that are considered to be stable
                     and mature from a development perspective.
                   </p>
-                  <p class="small title">
+                  <p class="small muted title">
                     Provisional
                   </p>
                   <p class="small muted">
                     Provisional ontologies are ones that are considered to be
                     under development.
                   </p>
-                  <p class="small title">
+                  <p class="small muted title">
                     Informative
                   </p>
                   <p class="small muted">

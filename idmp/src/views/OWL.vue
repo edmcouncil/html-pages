@@ -48,7 +48,7 @@
               :key="element.name"
             >
               <div class="table-box__column title">
-                <h3 @click="routerGoTo('/OWL')">{{ element.name }}</h3>
+                <h3>{{ element.name }}</h3>
               </div>
               <div class="downloads-container">
                 <div class="table-box__column download">

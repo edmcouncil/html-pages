@@ -63,6 +63,7 @@
             Partners LLC, Wells Fargo, and Working Ontologist.
           </p>
 
+          <div>
           <h2>Mission</h2>
           <img
             src="../assets/img/target-3535310_640.jpg"
@@ -80,6 +81,9 @@
             capabilities for financial services.
           </p>
 
+          </div>
+          <div>
+
           <h2>How to contribute</h2>
           <img
             src="../assets/img/connect-316638_640.jpg"
@@ -87,7 +91,7 @@
             width="200px"
           />
 
-          <p class="">
+          <p>
             The FIBO development process follows rigorous and well-defined
             <router-link :to="{ path: router('how-to-contribute') }">
               rules and principles </router-link
@@ -124,6 +128,7 @@
             </a>
             for details.
           </p>
+          </div>
         </section>
       </article>
     </main>
@@ -131,33 +136,36 @@
 </template>
 
 <script>
-    import helpers from '../store/helpers.js';
-    import {
-        outboundClick, outboundLinkClick
-    }
-    from '../helpers/ga';
+import helpers from '../store/helpers.js';
+import {
+    outboundClick, outboundLinkClick
+}
+from '../helpers/ga';
 
-    export default {
-        extends: helpers,
-        name: 'HomeView',
-        components: {},
-        methods: {
-            outboundClick,
-            outboundLinkClick,
-        },
-    };
+export default {
+    extends: helpers,
+    name: 'HomeView',
+    components: {},
+    methods: {
+        outboundClick,
+        outboundLinkClick,
+    },
+};
 </script>
 
 <style lang="scss" scoped>
 section {
   overflow: auto;
   margin-bottom: 10px;
+
+  h2 {
+    clear: both;
+  }
 }
 
 .fibo-logo {
-  border: 1px solid map-get($colors-map, "medium-grey");
   float: left;
-  padding: 20px;
-  margin: 0 40px 20px 0;
+  padding: 15px;
+  margin: 15px;
 }
 </style>

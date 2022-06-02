@@ -60,7 +60,7 @@ hr {
 }
 
 .fibo-logo {
-  border: 1px solid map-get($colors-map, "medium-grey");
+  border: 1px solid black;
   float: left;
   padding: 20px;
   margin: 0 40px 40px 0;
