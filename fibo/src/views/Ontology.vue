@@ -876,141 +876,138 @@
 
             <!-- NO DATA (HOW TO USE) -->
             <div
-              class="col-md-12 col-xxl-12 how-to-article"
               v-else-if="!loader && !searchBox.isLoadingResults"
             >
-              <main>
-                <div class="col-md-12 how-to-article__header">
-                  <p class="title">How to use FIBO Viewer</p>
-                  <p class="paragraph--small">
+              <article class="how-to-article">
+                <section>
+                  <h2>How to use FIBO Viewer</h2>
+                  <p class="muted">
                     To start using FIBO Viewer, search for interesting concepts
                     by walking through the FIBO directory structure on the
                     left-hand side or use the full-text search function.
                   </p>
-                </div>
+                </section>
 
-                <article class="how-to-article__content">
-                  <section class="versions">
-                    <img class="article-icon" src="@/assets/img/clock.svg" />
-                    <p class="title">FIBO Versions</p>
-                    <p class="paragraph--regular">
-                      FIBO Viewer allows for browsing the past versions of FIBO.
-                    </p>
-                    <p class="paragraph--small padding-top-30">
-                      It also helps developers to see the changes proposed to FIBO
-                      in pull requests before their approval. To see the content
-                      of the past FIBO releases or recent pull requests, choose
-                      them from the drop-down list.
-                    </p>
-                  </section>
+                <section class="blank">
+                  <img class="article-icon" src="@/assets/img/clock.svg" />
+                  <h3>FIBO Versions</h3>
+                  <p>
+                    FIBO Viewer allows for browsing the past versions of FIBO.
+                  </p>
+                  <p class="small muted">
+                    It also helps developers to see the changes proposed to FIBO
+                    in pull requests before their approval. To see the content
+                    of the past FIBO releases or recent pull requests, choose
+                    them from the drop-down list.
+                  </p>
+                </section>
 
-                  <section class="structure">
-                    <img class="article-icon" src="@/assets/img/directory.svg"/>
-                    <p class="title">FIBO structure</p>
-                    <p class="paragraph--regular">
-                      FIBO is a set of ontologies. It is organized in a
-                      hierarchical directory structure.
-                    </p>
-                    <p class="paragraph--small padding-top-30">
-                      Top-level directories are called domains; beneath that may
-                      be one or two levels of sub-domain and then modules and
-                      dozens of ontologies at the bottom level, e.g.:
-                    </p>
-                    <p class="paragraph--small padding-top-30">
-                      On the left-hand side, there is a list of eleven FIBO
-                      Domains, starting with the Business Entities at the top and
-                      ending with Securities at the bottom.
-                    </p>
-                  </section>
+                <section class="blank">
+                  <img class="article-icon" src="@/assets/img/directory.svg"/>
+                  <h3>FIBO structure</h3>
+                  <p>
+                    FIBO is a set of ontologies. It is organized in a
+                    hierarchical directory structure.
+                  </p>
+                  <p class="small muted">
+                    Top-level directories are called domains; beneath that may
+                    be one or two levels of sub-domain and then modules and
+                    dozens of ontologies at the bottom level, e.g.:
+                  </p>
+                  <p class="small muted">
+                    On the left-hand side, there is a list of eleven FIBO
+                    Domains, starting with the Business Entities at the top and
+                    ending with Securities at the bottom.
+                  </p>
+                </section>
 
-                  <section class="maturity">
-                    <img class="article-icon" src="@/assets/img/maturity.svg"
+                <section class="blank">
+                  <img class="article-icon" src="@/assets/img/maturity.svg"
+                  />
+                  <h3>FIBO maturity levels</h3>
+                  <p>
+                    Each FIBO ontology has one of three levels of maturity.
+                  </p>
+                  <p class="small muted title">
+                    Release
+                  </p>
+                  <p class="small muted">
+                    Release ontologies are ones that are considered to be stable
+                    and mature from a development perspective.
+                  </p>
+                  <p class="small muted title">
+                    Provisional
+                  </p>
+                  <p class="small muted">
+                    Provisional ontologies are ones that are considered to be
+                    under development.
+                  </p>
+                  <p class="small muted title">
+                    Informative
+                  </p>
+                  <p class="small muted">
+                    Provisional ontologies are ones that are considered
+                    deprecated but included for informational purposes because
+                    they are referenced by some provisional concept.
+                  </p>
+                </section>
+
+                <section class="blank">
+                  <h3>Colours</h3>
+                  <p class="paragraph--regular">
+                    FIBO Viewer uses colours to indicate the status of an
+                    ontology. Each ontology is either green or yellow.
+                  </p>
+                  <div class="color-container">
+                    <img
+                    class="article-icon--small"
+                    src="@/assets/icons/production-maturity.svg"
                     />
-                    <p class="title">FIBO maturity levels</p>
-                    <p class="paragraph--regular">
-                      Each FIBO ontology has one of three levels of maturity.
+                    <p class="small muted">
+                      The green square icon indicates that an ontology has a
+                      "release" maturity level. Domains or modules are green if
+                      they contain only green ontologies.
                     </p>
-                    <p class="paragraph--small padding-top-30">
-                      <strong>Release</strong>
-                    </p>
-                    <p class="paragraph--small">
-                      Release ontologies are ones that are considered to be stable
-                      and mature from a development perspective.
-                    </p>
-                    <p class="paragraph--small padding-top-30">
-                      <strong>Provisional</strong>
-                    </p>
-                    <p class="paragraph--small">
-                      Provisional ontologies are ones that are considered to be
-                      under development.
-                    </p>
-                    <p class="paragraph--small padding-top-30">
-                      <strong>Informative</strong>
-                    </p>
-                    <p class="paragraph--small">
-                      Provisional ontologies are ones that are considered
-                      deprecated but included for informational purposes because
-                      they are referenced by some provisional concept.
-                    </p>
-                  </section>
+                  </div>
 
-                  <section class="colours">
-                    <p class="title">Colours</p>
-                    <p class="paragraph--regular">
-                      FIBO Viewer uses colours to indicate the status of an
-                      ontology. Each ontology is either green or yellow.
+                  <div class="color-container">
+                    <img
+                    class="article-icon--small"
+                    src="@/assets/icons/provisional-maturity.svg"
+                    />
+                    <p class="small muted">
+                      Yellow square icon means that it provisional or informative.
+                      Domains or modules are yellow if they contain only yellow
+                      ontologies.
                     </p>
-                    <div class="color-container padding-top-30">
-                      <img
-                      class="article-icon--small"
-                      src="@/assets/icons/production-maturity.svg"
-                      />
-                      <p class="paragraph--small">
-                        The green square icon indicates that an ontology has a
-                        "release" maturity level. Domains or modules are green if
-                        they contain only green ontologies.
-                      </p>
-                    </div>
+                  </div>
 
-                    <div class="color-container">
-                      <img
-                      class="article-icon--small"
-                      src="@/assets/icons/provisional-maturity.svg"
-                      />
-                      <p class="paragraph--small">
-                        Yellow square icon means that it provisional or informative.
-                        Domains or modules are yellow if they contain only yellow
-                        ontologies.
-                      </p>
-                    </div>
-
-                    <div class="color-container">
-                      <img
-                      class="article-icon--small"
-                      src="@/assets/icons/mixed-maturity.svg"
-                      />
-                      <p class="paragraph--small">
-                        Mixed, green-yellow icon means domains or modules include
-                        both green and yellow ontologies.
-                      </p>
-                    </div>
-                  </section>
-
-                  <section class="about">
-                    <p class="title">
-                      About FIBO Viewer
+                  <div class="color-container">
+                    <img
+                    class="article-icon--small"
+                    src="@/assets/icons/mixed-maturity.svg"
+                    />
+                    <p class="small muted">
+                      Mixed, green-yellow icon means domains or modules include
+                      both green and yellow ontologies.
                     </p>
-                    <p class="paragraph--small">
-                      FIBO Viewer is a JAVA application that is specifically
-                      designed to access both the FIBO structure and its content
-                      in the easiest possible way. It can serve both as a web
-                      application and REST API. FIBO Viewer is an open-source
-                      project that EDM Council hosts. See
-                      https://github.com/edmcouncil/onto-viewer for details.
-                    </p>
-                  </section>
-                </article>
-              </main>
+                  </div>
+                </section>
+
+                <section>
+                  <h2>
+                    About FIBO Viewer
+                  </h2>
+                  <p class="small muted">
+                    FIBO Viewer is a JAVA application that is specifically
+                    designed to access both the FIBO structure and its content
+                    in the easiest possible way. It can serve both as a web
+                    application and REST API. FIBO Viewer is an open-source
+                    project that EDM Council hosts. See
+                    https://github.com/edmcouncil/onto-viewer for details.
+                  </p>
+                </section>
+              </article>
             </div>
           </div>
         </div>

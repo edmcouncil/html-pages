@@ -1,8 +1,8 @@
 export default {
   state: {
-    serializations: [
+    OWLSerializations: [
       {
-        name: 'FIBO (Production) (zip)',
+        name: 'IDMP Production (zip)',
         xml: [{
           name: 'prod.rdf.zip',
           PRODUCT: 'ontology',
@@ -15,19 +15,10 @@ export default {
           name: 'prod.jsonld.zip',
           PRODUCT: 'ontology',
         }],
-        nq: [
-          {
-            name: 'prod.fibo.nq',
-            PRODUCT: 'ontology',
-          },
-          {
-            name: 'prod.fibo.nq.zip',
-            PRODUCT: 'ontology',
-          },
-        ],
+        nq: [],
       },
       {
-        name: 'FIBO (Development) (zip)',
+        name: 'IDMP Development (zip)',
         xml: [{
           name: 'dev.rdf.zip',
           product: 'ontology',
@@ -40,89 +31,81 @@ export default {
           name: 'dev.jsonld.zip',
           product: 'ontology',
         }],
-        nq: [
-          {
-            name: 'dev.fibo.nq',
-            product: 'ontology',
-          },
-          {
-            name: 'dev.fibo.nq.zip',
-            product: 'ontology',
-          },
-        ],
+        nq: [],
       },
       {
-        name: 'FIBO (Production)',
-        link: {
-          name: 'follow your nose starting point',
-          url: 'http://patterns.dataincubator.org/book/follow-your-nose.html',
-        },
+        name: 'IDMP Production',
         xml: [{
-          name: 'LoadFIBOProd.rdf',
+          name: 'LoadIDMPProd.rdf',
           PRODUCT: 'ontology',
         }],
         ttl: [{
-          name: 'LoadFIBOProd.ttl',
+          name: 'LoadIDMPProd.ttl',
           PRODUCT: 'ontology',
         }],
         json: [{
-          name: 'LoadFIBOProd.jsonld',
+          name: 'LoadIDMPProd.jsonld',
           PRODUCT: 'ontology',
         }],
         nq: [
         ],
       },
       {
-        name: 'FIBO (Development)',
-        link: {
-          name: 'follow your nose starting point',
-          url: 'http://patterns.dataincubator.org/book/follow-your-nose.html',
-        },
+        name: 'IDMP Development',
         xml: [{
-          name: 'LoadFIBODev.rdf',
+          name: 'LoadIDMPDev.rdf',
           product: 'ontology',
         }],
         ttl: [{
-          name: 'LoadFIBODev.ttl',
+          name: 'LoadIDMPDev.ttl',
           product: 'ontology',
         }],
         json: [{
-          name: 'LoadFIBODev.jsonld',
+          name: 'LoadIDMPDev.jsonld',
           product: 'ontology',
         }],
         nq: [
         ],
       },
       {
-        name: 'FIBO (Production) (Quickstart)',
+        name: 'IDMP Production Quickstart',
         ttl: [{
-          name: 'prod.fibo-quickstart.ttl',
+          name: 'prod.idmp-quickstart.ttl.zip',
           PRODUCT: 'ontology',
-        }],
+        },
+        {
+          name: 'prod.idmp-quickstart.ttl',
+          PRODUCT: 'ontology',
+        },
+      ],
         nq: [
           {
-            name: 'prod.fibo-quickstart.nt',
+            name: 'prod.idmp-quickstart.nt.zip',
             PRODUCT: 'ontology',
           },
           {
-            name: 'prod.fibo-quickstart.nt.zip',
+            name: 'prod.idmp-quickstart.nt',
             PRODUCT: 'ontology',
           },
         ],
       },
       {
-        name: 'FIBO (Development) (Quickstart)',
+        name: 'IDMP Development Quickstart',
         ttl: [{
-          name: 'dev.fibo-quickstart.ttl',
+          name: 'dev.idmp-quickstart.ttl.zip',
+          product: 'ontology',
+        },
+        {
+          name: 'dev.idmp-quickstart.ttl',
           product: 'ontology',
         }],
         nq: [
           {
-            name: 'dev.fibo-quickstart.nt',
+            name: 'dev.idmp-quickstart.nt.zip',
             product: 'ontology',
           },
           {
-            name: 'dev.fibo-quickstart.nt.zip',
+            name: 'dev.idmp-quickstart.nt',
             product: 'ontology',
           },
         ],
