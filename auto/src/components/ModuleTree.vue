@@ -2,17 +2,28 @@
   <div>
     <li class="module container">
       <div class="row">
-        <div class="arrow-container" :class="{ hidden: !isFolder }" @click="toggle">
-          <img v:if="!isOpen" class="icon-arrow" :class="{ down: isOpen }" src="../assets/icons/arrow.svg" />
+        <div
+          class="arrow-container"
+          :class="{ hidden: !isFolder }"
+          @click="toggle"
+        >
+          <img
+            v:if="!isOpen"
+            class="icon-arrow"
+            :class="{ down: isOpen }"
+            src="../assets/icons/arrow.svg"
+          />
         </div>
         <div class="indicator-container">
           <i
-            :class="[
-              'indicator',
-              this.item.maturityLevel.label == 'dev' ? 'devIndicator' : '',
-              this.item.maturityLevel.label == 'prod' ? 'prodIndicator' : '',
-              this.item.maturityLevel.label == 'prod_and_dev_mixed' ? 'prodDevIndicator' : '',
-            ]"
+            :class="{
+              devIndicator:
+                this.item.maturityLevel.label === 'PROVISIONAL' ||
+                this.item.maturityLevel.label === 'INFORMATIVE',
+              prodIndicator: this.item.maturityLevel.label === 'RELEASE',
+              prodDevIndicator: this.item.maturityLevel.label === 'MIXED',
+              indicator: true,
+            }"
           ></i>
         </div>
         <div class="label" :class="{ selected: isSelected }">
@@ -107,7 +118,6 @@ export default {
     line-height: 24px;
     font-size: 12px;
 
-
     ::before {
       margin-top: 10px;
       display: none;
@@ -117,10 +127,10 @@ export default {
   ul {
     margin-left: 15px;
   }
-.icon-arrow.down{
-  -ms-transform: rotate(90deg); /* IE 9 */
-  transform: rotate(90deg);
-}
+  .icon-arrow.down {
+    -ms-transform: rotate(90deg); /* IE 9 */
+    transform: rotate(90deg);
+  }
   .arrow-container {
     display: inline-block;
     width: 10px;
@@ -130,9 +140,12 @@ export default {
       visibility: hidden;
     }
     &.down {
-        transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-        margin-bottom: 4px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      margin-bottom: 4px;
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
   .indicator-container {
