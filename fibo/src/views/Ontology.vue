@@ -599,9 +599,7 @@
             <!-- SHOW ITEM -->
             <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
               <div class="row">
-                <!--  MATURITY / TITLE  -->
                 <div class="col-md-12 ontology-item__header">
-                  <!-- TITLE -->
                   <div class="card">
                     <div class="card-body">
                       <!-- report a problem -->
@@ -619,8 +617,9 @@
                           `&title=${encodeURI(githubNewIssueDetails().title)}` +
                           `&body=${encodeURI(githubNewIssueDetails().body)}`
                         "
-                        >Report a problem</a
                       >
+                        Report a problem
+                      </a>
                       <!-- maturity alert -->
                       <div class="ontology-item__header__status">
                         <div
@@ -634,12 +633,12 @@
                           class="alert alert-primary alert-maturity"
                           role="alert"
                           v-if="
-                            data.maturityLevel.label !== 'release' &&
-                            data.maturityLevel.label !== ''
+                            data.maturityLevel.label === 'INFORMATIVE' ||
+                            data.maturityLevel.label === 'PROVISIONAL'
                           "
                         >
                           This resource has maturity level
-                          {{ this.data.maturityLevel.label }}.
+                          {{ this.data.maturityLevel.label.toLowerCase() }}.
 
                           <customLink
                             class="custom-link"
@@ -651,8 +650,8 @@
 
                       <div
                         v-if="
-                          (data.maturityLevel.label !== 'release' &&
-                            data.maturityLevel.label !== '') ||
+                          data.maturityLevel.label === 'INFORMATIVE' ||
+                          data.maturityLevel.label === 'PROVISIONAL' ||
                           data.deprecated
                         "
                         class="clearfix"
@@ -663,17 +662,10 @@
                         class="card-title"
                         :class="{
                           'maturity-provisional':
-                            (this.data.maturityLevel.label !== 'release' &&
-                              this.data.maturityLevel.label != '') ||
-                            (this.data.maturityLevel.icon &&
-                              this.data.maturityLevel.icon === 'dev'),
-                          'maturity-production':
-                            this.data.maturityLevel.label === 'release' ||
-                            (this.data.maturityLevel.icon &&
-                              this.data.maturityLevel.icon === 'prod'),
-                          'maturity-mixed':
-                            this.data.maturityLevel.icon &&
-                            this.data.maturityLevel.icon === 'prod_and_dev_mixed',
+                            this.data.maturityLevel.label === 'PROVISIONAL' ||
+                            this.data.maturityLevel.label === 'INFORMATIVE',
+                          'maturity-production': this.data.maturityLevel.label === 'RELEASE',
+                          'maturity-mixed': this.data.maturityLevel.label === 'MIXED',
                         }"
                       >
                         {{ data.label }}
