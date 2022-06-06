@@ -27,7 +27,7 @@ export default {
       //   ],
       // },
       {
-        name: 'AUTO (Development) (zip)',
+        name: 'AUTO Development (zip)',
         xml: [{
           name: 'dev.rdf.zip',
           product: 'ontology',
@@ -73,7 +73,7 @@ export default {
       //   ],
       // },
       {
-        name: 'AUTO (Development)',
+        name: 'AUTO Development',
         link: {
           name: 'follow your nose starting point',
           url: 'http://patterns.dataincubator.org/book/follow-your-nose.html',
@@ -111,7 +111,7 @@ export default {
       //   ],
       // },
       {
-        name: 'AUTO (Development) (Quickstart)',
+        name: 'AUTO Development Quickstart',
         ttl: [{
           name: 'dev.auto-quickstart.ttl',
           product: 'ontology',

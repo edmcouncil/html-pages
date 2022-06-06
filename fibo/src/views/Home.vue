@@ -1,23 +1,13 @@
 <template>
   <div class="container">
     <main>
-      <article>
-        <!--
-                <h1>
-                    <span> Webinar: Knowledge Graph in Action</span>
-                </h1>
-                <a href="https://register.gotowebinar.com/register/3618900380478224">
-                <img style='width: 70%; object-fit: contain;  display: block;margin-left: auto;margin-right: auto;'
-                src="../assets/img/OKGWebinar.png" alt="REGISTER" /></a><br>
-
--->
-
-        <h1>
-          <span>About FIBO</span>
-        </h1>
-
+      <article class="full-page">
         <section>
-          <h3>The Financial Industry Business Ontology</h3>
+          <h1>
+            About FIBO
+          </h1>
+
+          <h2>The Financial Industry Business Ontology</h2>
 
           <img
             src="../assets/img/FIBO with tagline.png"
@@ -32,14 +22,12 @@
             FIBO can give meaning to any data (e.g., spreadsheets, relational
             databases, XML documents) that describe the business of finance.
           </p>
-          <br />
           <p>
             FIBO is hosted and sponsored by the Enterprise Data Management
             Council (EDMC) and is published in a number of formats for operating
             use and business definitions. FIBO is a trademark of EDM Council,
             Inc. It is also standardized by the Object Management Group (OMG).
           </p>
-          <br />
           <p>
             FIBO is developed as an ontology in the Web Ontology Language (OWL).
             The language is codified by the World Wide Web Consortium (W3C), and
@@ -47,14 +35,9 @@
             FIBO concept is framed in a way that is unambiguous and that is
             readable both by humans and machines.
           </p>
-        </section>
 
-        <section>
-          <h3>EDM Council</h3>
-          <img
-            src="../assets/img/EDM-council-RGB_200w.png"
-            class="fibo-logo"
-          />
+          <h2>EDM Council</h2>
+          <img src="../assets/img/EDM-council-RGB_200w.png" class="fibo-logo" />
 
           <p>
             FIBO concepts have been reviewed by
@@ -65,7 +48,6 @@
             understood in the industry and as reflected in industry data models
             and message standards.
           </p>
-          <br />
           <p>
             A number of companies and people have made substantial contributions
             to FIBO over the years. These include 88 Solutions, Adaptive, Inc.,
@@ -80,10 +62,9 @@
             Street Bank and Trust, Statistics Canada, Tahoe Blue Ltd, Thematix
             Partners LLC, Wells Fargo, and Working Ontologist.
           </p>
-        </section>
 
-        <section>
-          <h3>Mission</h3>
+          <div>
+          <h2>Mission</h2>
           <img
             src="../assets/img/target-3535310_640.jpg"
             class="fibo-logo"
@@ -99,24 +80,24 @@
             reporting and to fast-track the adoption of advanced analytical
             capabilities for financial services.
           </p>
-          <br />
-        </section>
 
-        <section>
-          <h3>How to contribute</h3>
+          </div>
+          <div>
+
+          <h2>How to contribute</h2>
           <img
             src="../assets/img/connect-316638_640.jpg"
             class="fibo-logo"
             width="200px"
           />
 
-          <p class="">
+          <p>
             The FIBO development process follows rigorous and well-defined
             <router-link :to="{ path: router('how-to-contribute') }">
               rules and principles </router-link
             >.
           </p>
-          <p class="">
+          <p>
             FIBO activities and development process are organized via two
             groups:
             <router-link :to="{ path: router('FIBO-Groups') }"
@@ -147,6 +128,7 @@
             </a>
             for details.
           </p>
+          </div>
         </section>
       </article>
     </main>
@@ -154,33 +136,36 @@
 </template>
 
 <script>
-    import helpers from '../store/helpers.js';
-    import {
-        outboundClick, outboundLinkClick
-    }
-    from '../helpers/ga';
+import helpers from '../store/helpers.js';
+import {
+    outboundClick, outboundLinkClick
+}
+from '../helpers/ga';
 
-    export default {
-        extends: helpers,
-        name: 'HomeView',
-        components: {},
-        methods: {
-            outboundClick,
-            outboundLinkClick,
-        },
-    };
+export default {
+    extends: helpers,
+    name: 'HomeView',
+    components: {},
+    methods: {
+        outboundClick,
+        outboundLinkClick,
+    },
+};
 </script>
 
 <style lang="scss" scoped>
 section {
   overflow: auto;
   margin-bottom: 10px;
+
+  h2 {
+    clear: both;
+  }
 }
 
 .fibo-logo {
-  border: 1px solid map-get($colors-map, "medium-grey");
   float: left;
-  padding: 20px;
-  margin: 0 40px 20px 0;
+  padding: 15px;
+  margin: 15px;
 }
 </style>

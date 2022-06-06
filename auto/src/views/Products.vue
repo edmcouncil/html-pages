@@ -1,162 +1,278 @@
 <template>
-    <div class="container">
-        <main>
-            <article>
-                <h1>
-                    <span>Products</span>
-                </h1>
+  <div class="container">
+    <main>
+      <ScrollTopHandler ref="scrollTopHandler" />
+      <article class="full-page">
+        <section class="blank">
+          <h1>Products</h1>
 
-                <h3 v-if="serializations">Serializations of AUTO OWL</h3>
+          <h2 v-if="serializations">Serializations of AUTO OWL</h2>
 
-                <div v-if="serializations" class="table-responsive">
-                  <table class="table table-style-striped">
-                    <tr>
-                      <th>FIBO OWL</th>
-                      <th>RDF-XML</th>
-                      <th>Turtle</th>
-                      <th>JSON-LD</th>
-                      <th>N-Quads/N-Triples</th>
-                    </tr>
-
-                    <tr v-for="element in serializations" :key="element.name">
-                      <td>
-                        {{element.name}}
-                        <span v-if="element.link && element.link.name">
-                          (
-                          <a
-                            :href="timestamped(element.link, timestamp)"
-                            v-on:click="outboundLinkClick(element.link.name)"
-                          >{{element.link.name}}</a>)
-                        </span>
-                      </td>
-                      <td>
-                        <a
-                          v-for="xmlLink in element.xml"
-                          :key="xmlLink.name"
-                          :href="timestamped(xmlLink, timestamp)"
-                          v-on:click="outboundLinkClick(xmlLink.name)"
-                          class="inline"
-                        >{{xmlLink.name}}</a>
-                        <span v-if="!element.xml || element.xml.length === 0">N/A</span>
-                      </td>
-                      <td>
-                        <a
-                          v-for="xmlLink in element.ttl"
-                          :key="xmlLink.name"
-                          :href="timestamped(xmlLink, timestamp)"
-                          v-on:click="outboundLinkClick(xmlLink.name)"
-                          class="inline"
-                        >{{xmlLink.name}}</a>
-                        <span v-if="!element.ttl || element.ttl.length === 0">N/A</span>
-                      </td>
-                      <td>
-                        <a
-                          v-for="xmlLink in element.json"
-                          :key="xmlLink.name"
-                          :href="timestamped(xmlLink, timestamp)"
-                          v-on:click="outboundLinkClick(xmlLink.name)"
-                          class="inline"
-                        >{{xmlLink.name}}</a>
-                        <span v-if="!element.json || element.json.length === 0">N/A</span>
-                      </td>
-                      <td>
-                        <a
-                          v-for="xmlLink in element.nq"
-                          :key="xmlLink.name"
-                          :href="timestamped(xmlLink, timestamp)"
-                          v-on:click="outboundLinkClick(xmlLink.name)"
-                          class="inline"
-                        >{{xmlLink.name}}</a>
-                        <span v-if="!element.nq || element.nq.length === 0">N/A</span>
-                      </td>
-                    </tr>
-                  </table>
+          <div v-if="serializations" class="table-container serializations">
+            <div
+              class="table-box"
+              v-for="element in serializations"
+              :key="element.name"
+            >
+              <div class="table-box__column title">
+                <h3>{{ element.name }}</h3>
+              </div>
+              <div class="downloads-container">
+                <div class="table-box__column download">
+                  <p>RDF-XML</p>
+                  <button
+                    v-for="Link in element.xml"
+                    :key="Link.name"
+                    type="button"
+                    class="btn normal-button"
+                    @click="download(Link.name)"
+                  >
+                    {{ Link.name }}
+                  </button>
+                  <button
+                    v-if="!element.xml || element.xml.length === 0"
+                    disabled
+                    type="button"
+                    class="btn normal-button"
+                  >
+                    N/A
+                  </button>
                 </div>
-
-
-                <h3>Deliverables </h3>
-
-
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th>Number</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Link (if available)</th>
-                        </tr>
-                        <tr>
-                            <td><strong>D01</strong></td>
-                            <td>Auto schema.org ontology: A schema.org-compliant fundamental ontology for vehicle information in e-commerce</td>
-                            <td>Released</td>
-                            <!--<td><a href="../ontology?query=https%3A%2F%2Fspec.edmcouncil.org%2Fauto%2Fontology%2FEC%2FSchemaAutomotive%2FAutoSchemaOrg%2F">Auto Viewer</a></td>-->
-                            <td><router-link :to="{ path: router('ontology'), query: { query: encodeURI('https://spec.edmcouncil.org/auto/ontology/EC/AutoSchemaOrg/')}}">Auto Viewer</router-link></td>
-
-                        </tr>
-                        <tr>
-                            <td><strong>D02</strong></td>
-                            <td>AUTO Compatibility: A schema.org-compliant ontology for vehicle configuration information.</td>
-                            <td>Planned</td>
-                            <td>N/A</td>
-                        </tr>
-                        <tr>
-                            <td><strong>D03</strong></td>
-                            <td>AUTO Vehicle Lifetime Information: A schema.org-compliant ontology for vehicle life-time information.</td>
-                            <td>Planned</td>
-                            <td>N/A</td>
-                        </tr>
-                        <tr>
-                            <td><strong>D04</strong></td>
-                            <td>AUTO Vehicle Data Backbone: An ontology for information interchange within a vehicle, between vehicles, and between vehicles and their external entities.</td>
-                            <td>Planned</td>
-                            <td>N/A</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-
-
-
-            </article>
-        </main>
-    </div>
+                <div class="table-box__column download">
+                  <p>TTL</p>
+                  <button
+                    v-for="Link in element.ttl"
+                    :key="Link.name"
+                    type="button"
+                    class="btn normal-button"
+                    @click="download(Link.name)"
+                  >
+                    {{ Link.name }}
+                  </button>
+                  <button
+                    v-if="!element.ttl || element.ttl.length === 0"
+                    disabled
+                    type="button"
+                    class="btn normal-button"
+                  >
+                    N/A
+                  </button>
+                </div>
+                <div class="table-box__column download">
+                  <p>JSON-LD</p>
+                  <button
+                    v-for="Link in element.json"
+                    :key="Link.name"
+                    type="button"
+                    class="btn normal-button"
+                    @click="download(Link.name)"
+                  >
+                    {{ Link.name }}
+                  </button>
+                  <button
+                    v-if="!element.json || element.json.length === 0"
+                    disabled
+                    type="button"
+                    class="btn normal-button"
+                  >
+                    N/A
+                  </button>
+                </div>
+                <div class="table-box__column download">
+                  <p>NQ/NT</p>
+                  <button
+                    v-for="Link in element.nq"
+                    :key="Link.name"
+                    type="button"
+                    class="btn normal-button"
+                    @click="download(Link.name)"
+                  >
+                    {{ Link.name }}
+                  </button>
+                  <button
+                    v-if="!element.nq || element.nq.length === 0"
+                    disabled
+                    type="button"
+                    class="btn normal-button"
+                  >
+                    N/A
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
+  </div>
 </template>
 
 <script>
-    import { mapState } from 'vuex';
-    import helpers from '../store/helpers.js';
-    import {
-        outboundClick, outboundLinkClick
-    }
-    from '../helpers/ga';
+import { mapState } from 'vuex';
+import helpers from '../store/helpers.js';
+import {
+  outboundClick, outboundLinkClick
+}
+from '../helpers/ga';
+import ScrollTopHandler from '@/components/Articles/ScrollTopHandler.vue';
 
-    export default {
-        extends: helpers,
-        name: 'ProductsView',
-        components: {},
-        computed: {
-          ...mapState('OWL', {
-            serializations: state => state.serializations,
-          }),
-          ...mapState('helpers', {
-            timestamp: state => state.timestamp,
-          }),
-        },
-        methods: {
-          timestamped(link, timestamp) {
-            return typeof link.PRODUCT === 'string'
-              ? this.hrefP(link.name, link.PRODUCT)
-              : typeof link.product === 'string'
-                ? this.hrefD(link.name, link.product)
-                : eval(`\`${link.url}\``);
-          },
-          outboundClick,
-          outboundLinkClick,
-        },
-    };
+export default {
+  extends: helpers,
+  name: 'ProductsView',
+  data() {
+    return {
+      baseUrl: 'https://spec.edmcouncil.org/auto/ontology',
+      branch: 'master/latest',
+    }
+  },
+  components: { ScrollTopHandler },
+  computed: {
+    ...mapState('OWL', {
+      serializations: state => state.serializations,
+    }),
+  },
+  methods: {
+    outboundClick,
+    outboundLinkClick,
+    download(name) {
+      const link = `${this.baseUrl}/${this.branch}/${name}`
+      const aElement = document.createElement('a');
+      aElement.setAttribute('download', name);
+      aElement.setAttribute('href', link);
+      aElement.setAttribute('target', '_blank');
+      aElement.style.display = 'none';
+      document.body.appendChild(aElement);
+      aElement.click();
+      aElement.remove();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
+.serializations {
+  .table-box {
+    padding: 15px 30px !important;
+  }
+  .downloads-container {
+    width: 70%;
+    display: flex;
+    justify-content: space-evenly;
+  }
 
+  .table-box .table-box__column {
+    margin: 15px 0px;
+
+    &.title {
+      width: 30%;
+    }
+
+    &.download {
+      flex: 25%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      p {
+        text-align: center;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      button {
+        padding: 5px 10px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        margin: 5px !important;
+      }
+    }
+  }
+}
+
+.deliverables .table-box .table-box__column {
+  &.mobile-visit-btn {
+    display: none;
+  }
+
+  &.title {
+    flex: 30%;
+
+    h2 {
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+    .short-description {
+      p {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 30px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+
+  &.long-description {
+    flex: 60%;
+  }
+}
+
+@media (max-width: 991px) {
+  .deliverables {
+    .table-box .table-box__column {
+      &.mobile-visit-btn {
+        display: block;
+      }
+
+      &.title {
+        h2 {
+          text-align: center;
+        }
+        .short-description {
+          text-align: center;
+          p {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+          }
+        }
+      }
+
+      &.long-description {
+        text-align: justify;
+      }
+    }
+  }
+
+  .serializations {
+    .downloads-container {
+      width: 100%;
+    }
+  }
+
+  article.full-page .serializations .table-box .table-box__column {
+    &.title {
+      text-align: center;
+      width: 100%;
+    }
+
+    &.download {
+      margin: 2px;
+      p {
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+@media (max-width: 646px) {
+  .serializations .downloads-container {
+    flex-direction: column;
+  }
+}
 </style>

@@ -160,13 +160,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.table-box {
-  min-height: 150px;
-}
-
 .table-container .table-box .table-box__column {
-
-
   &.mobile-visit-btn {
     display: none;
   }

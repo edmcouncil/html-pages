@@ -85,7 +85,7 @@ export default {
 
 <style lang="scss" scoped>
 .automotive-logo {
-  border: 1px solid map-get($colors-map, "medium-grey");
+  border: 1px solid black;
   float: left;
   width: 400px;
   padding: 20px;

@@ -769,105 +769,16 @@
   }
 
   .how-to-article {
-    padding-left: 0px;
-    padding-right: 0px;
-    text-align: justify;
-  
-    .how-to-article__header{
-      background: rgba(0, 0, 0, 0.05);
-      margin-top: 45px;
-      margin-bottom: 20px;
-      padding: 30px 60px;
-
-      .title {
-        margin-bottom: 20px;
-      }
-    }
-  
-    .how-to-article__content {
-      margin-top: 0px;
-      padding: 0px 60px 60px 60px;
-
-      section {
-        padding: 20px 0px;
-        margin-top: 20px;
-
-        .padding-top-30 {
-          padding-top: 30px;
-        }
-      }
-
-      section.about {
-        background: rgba(0, 0, 0, 0.05);
-        border-radius: 2px;
-        margin-left: -60px;
-        margin-right: -60px;
-        padding: 30px 60px 30px 60px;
-        margin-top: 20px;
-
-        .title {
-          margin-bottom: 20px;
-        }
-      }
-    }
-
     .color-container {
-      overflow: auto;
       display: flex;
+      padding: 15px 0px;
       align-items: center;
-
-      margin-bottom: 30px;
-    }
-
-    .article-icon {
-      margin-bottom: 20px;
-      width: 42px;
-      height: 42px;
-    }
-
-    .article-icon--small {
-      padding: 0;
-      margin-right: 20px;
-    }
-
-    .subheading {
-      color: #000000;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 24px;
-      line-height: 36px;
-    }
-
-    .paragraph--big {
-      color: rgba(0, 0, 0, 0.6);
-      font-style: normal;
-      font-weight: 400;
-      font-size: 24px;
-      line-height: 40px;
-    }
-
-    .paragraph--regular {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 30px;
-      color: rgba(0, 0, 0, 0.8);
-    }
-
-    .paragraph--small {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 20px;
-      color: rgba(0, 0, 0, 0.8);
-    }
-    
-    .title {
-      color: #000000;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 18px;
-      line-height: 30px;
+      img {
+        margin-right: 15px;
+      }
+      p {
+        margin: 0;
+      }
     }
   }
 }
