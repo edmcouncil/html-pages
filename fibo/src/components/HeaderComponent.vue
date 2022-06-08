@@ -369,7 +369,7 @@ export default {
 
 @media (min-width: 992px) {
   .desktop-view {
-    padding: 0 15px;
+    padding: 0 45px;
     display: block !important;
   }
   .mobile-view {
