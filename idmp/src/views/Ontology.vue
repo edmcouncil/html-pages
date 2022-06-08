@@ -1165,7 +1165,7 @@ export default {
       queryParam = `https://spec.edmcouncil.org/idmp/ontology/${ontologyQuery}`;
       // this.githubNewIssue.title = this.githubNewIssue.titleTemplate.replace('<LABEL>', this.githubNewIssue.label);
     } else if (this.$route.query && this.$route.query.query) {
-      queryParam = this.$route.query.query || "";
+      queryParam = encodeURIComponent(this.$route.query.query)+encodeURIComponent(this.$route.hash) || "";
     }
 
     // check for taxonomy paths overflow in mobile view with debounce
@@ -1606,10 +1606,6 @@ export default {
   },
   watch: {
     // eslint-disable-next-line vue/no-arrow-functions-in-watch
-    "$route.query.query": query => {
-      this.fetchData(query);
-    },
-    // eslint-disable-next-line vue/no-arrow-functions-in-watch
     "$route.query.version": () => {
       this.updateServers();
 
@@ -1631,15 +1627,19 @@ export default {
       let queryParam = "";
 
       if (to.query && to.query.query) {
-        queryParam = to.query.query || "";
+        queryParam = to.query.query+to.hash || "";
       } else {
         queryParam = `https://spec.edmcouncil.org/idmp${to.path}`;
       }
       this.query = queryParam;
+
       if (this.query === "https://spec.edmcouncil.org/idmp/ontology") {
         this.query = "";
         this.data = null;
+      } else {
+        this.query = encodeURIComponent(this.query);
       }
+
       this.$nextTick(async function() {
         this.fetchData(this.query);
       });
