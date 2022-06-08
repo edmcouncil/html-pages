@@ -399,6 +399,7 @@ article {
   }
 
   &.full-page {
+    margin: 0 30px;
     padding-top: 60px;
 
     section {
@@ -423,6 +424,7 @@ article {
 
 @media (max-width: 991px) {
   article.full-page {
+    margin: 0;
     padding-top: 30px;
 
     section {
@@ -433,6 +435,7 @@ article {
 
       &.blank {
         background: transparent;
+        padding: 30px 30px;
       }
     }
 
