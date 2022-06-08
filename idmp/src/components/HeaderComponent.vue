@@ -188,9 +188,6 @@ export default {
 .fa-youtube:before {
   content: "\f167";
 }
-.container {
-  max-width: 1440px;
-}
 .header {
   background-image: url("../assets/img/headerTransparent.png");
   -webkit-background-size: cover;
@@ -198,6 +195,7 @@ export default {
   -o-background-size: cover;
   background-size: cover;
   width: 100%;
+  padding: 0;
 }
 
 .burger-button {
@@ -237,6 +235,7 @@ export default {
 
 @media (min-width: 992px) {
   .desktop-view {
+    padding: 0 15px;
     display: block !important;
   }
   .mobile-view {
