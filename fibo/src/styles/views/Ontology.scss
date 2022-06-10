@@ -1,6 +1,6 @@
 @media (min-width: 992px) {
   .ontology-container {
-    padding-left: 60px;
+    padding: 0 45px;
   }
   .module-tree .multiselect-container {
     margin-right: 0px;
@@ -724,8 +724,8 @@
 // Desktop/global elements
 // --------------------------
 .main-column {
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 30px;
+  padding-right: 15px;
 
   .alert-error {
     color: rgba(0, 0, 0, 0.8);
