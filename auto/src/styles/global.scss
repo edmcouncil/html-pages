@@ -12,8 +12,8 @@ $custom-control-indicator-icon-checked: url('@/assets/icons/checkbox-check.svg')
 $custom-control-indicator-indeterminate-bg: #ffffff;
 $custom-control-indicator-indeterminate-box-shadow: 0px 0px 0px 6px rgba(0, 0, 0, 0.4);
 $custom-control-indicator-icon-indeterminate: url('@/assets/icons/checkbox-check.svg');
-$custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
-$custom-control-indicator-checked-disabled-bg: rgba(0, 0, 0, 0.4);
+$custom-control-disabled-bg: rgba(0, 0, 0, 0.05);
+$custom-control-disabled-fill: rgb(153, 153, 153);
 
 // button
 $normal-button-default-bg: rgba(0, 0, 0, 0.8);
@@ -63,17 +63,16 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
 
   .custom-control-label::before {
     border: 2px solid $custom-control-indicator-checked-bg;
-    top: 0.5rem;
+    top: 8px;
     left: -55px;
-    width: 2.5rem;
+    width: 40px;
+    height: 16px;
   }
   .custom-control-label::after {
-    border: 2px solid rgb(51, 51, 51);
-
-    top: calc(0.5rem + 1px);
-    left: -54px;
-    width: calc(1rem - 3px);
-    height: calc(1rem - 3px);
+    top: 9.5px;
+    left: -54.5px;
+    width: 13px;
+    height: 13px;
     background-color: rgb(51, 51, 51);
   }
 
@@ -107,10 +106,21 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
 
   .custom-control-input:disabled {
     &:checked ~ .custom-control-label::before {
-      background-color: $custom-control-indicator-checked-disabled-bg;
+      background-color: $custom-control-disabled-bg;
+    }
+    & ~ .custom-control-label {
+      color: $custom-control-disabled-fill;
+    }
+    & ~ .custom-control-label::before {
+      border: 2px solid $custom-control-disabled-fill;
+    }
+    & ~ .custom-control-label::after {
+      background-color: $custom-control-disabled-fill;
+      width: 14px;
+      height: 14px;
     }
     &:indeterminate ~ .custom-control-label::before {
-      background-color: $custom-control-indicator-checked-disabled-bg;
+      background-color: $custom-control-disabled-bg;
     }
   }
 }
@@ -179,10 +189,10 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
 
   .custom-control-input:disabled {
     &:checked ~ .custom-control-label::before {
-      background-color: $custom-control-indicator-checked-disabled-bg;
+      background-color: $custom-control-disabled-bg;
     }
     &:indeterminate ~ .custom-control-label::before {
-      background-color: $custom-control-indicator-checked-disabled-bg;
+      background-color: $custom-control-disabled-bg;
     }
   }
 }
@@ -322,7 +332,8 @@ article {
     margin: 0px;
   }
 
-  ul, ol {
+  ul,
+  ol {
     margin: 15px 0;
   }
 
