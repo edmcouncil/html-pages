@@ -5,19 +5,31 @@
       <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
         <div class="module-tree">
           <div
-            class="secondary-column__how-to-use multiselect-xxl-container multiselect-container container"
+            class="
+              secondary-column__how-to-use
+              multiselect-xxl-container multiselect-container
+              container
+            "
           >
             <div class="row modules-header">
               <h5 class="fibo-title-modules">FIBO Viewer</h5>
               <div class="button-small">
-                <router-link class="button-small-text" to="/ontology" @click="data = null">
+                <router-link
+                  class="button-small-text"
+                  to="/ontology"
+                  @click="data = null"
+                >
                   How to use
                 </router-link>
               </div>
             </div>
           </div>
           <div
-            class="secondary-column__versions multiselect-xxl-container multiselect-container container"
+            class="
+              secondary-column__versions
+              multiselect-xxl-container multiselect-container
+              container
+            "
           >
             <div class="menu-box">
               <div class="menu-box__label">Select FIBO version</div>
@@ -48,7 +60,9 @@
                   <template v-slot:tag="{ option, remove }">
                     <span class="custom__tag">
                       <span>{{ option.label }}</span>
-                      <span class="custom__remove" @click="remove(option)">❌</span>
+                      <span class="custom__remove" @click="remove(option)"
+                        >❌</span
+                      >
                     </span>
                   </template>
                   <!-- <template slot="clear" slot-scope="props">
@@ -57,7 +71,8 @@
                   </template> -->
                   <template v-slot:noResult>
                     <span>
-                      Oops! No elements found. Consider changing the search query.
+                      Oops! No elements found. Consider changing the search
+                      query.
                     </span>
                   </template>
                 </multiselect>
@@ -71,7 +86,11 @@
             <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
           </div>
           <div
-            class="secondary-column__tree multiselect-xxl-container multiselect-container container"
+            class="
+              secondary-column__tree
+              multiselect-xxl-container multiselect-container
+              container
+            "
           >
             <div class="menu-box">
               <div class="menu-box__label">Browse FIBO domains</div>
@@ -116,7 +135,8 @@
                         label="labelForInternalSearch"
                         track-by="iri"
                         :placeholder="
-                          searchBox.inputValue || 'Find domains, ontologies, concepts...'
+                          searchBox.inputValue ||
+                          'Find domains, ontologies, concepts...'
                         "
                         tagPlaceholder="Search..."
                         selectLabel="x"
@@ -156,12 +176,16 @@
                         </template>
                         <template v-slot:noResult>
                           <span>
-                            Oops! No elements found. Consider changing the search query.
+                            Oops! No elements found. Consider changing the
+                            search query.
                           </span>
                         </template>
                         <template v-slot:singleLabel>
                           <span>
-                            {{ searchBox.inputValue || "Find domains, ontologies, concepts..." }}
+                            {{
+                              searchBox.inputValue ||
+                              "Find domains, ontologies, concepts..."
+                            }}
                           </span>
                         </template>
                       </multiselect>
@@ -187,7 +211,9 @@
             </div>
             <div
               class="expand-advanced-btn"
-              @click="searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded"
+              @click="
+                searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
+              "
             >
               <div v-if="!searchBox.isAdvancedExpanded">
                 <div class="see-more-btn">search configuration</div>
@@ -200,7 +226,11 @@
           </div>
 
           <div
-            class="advanced-search-box advanced-search-box--desktop card d-none d-lg-block"
+            class="
+              advanced-search-box advanced-search-box--desktop
+              card
+              d-none d-lg-block
+            "
             v-if="searchBox.isAdvancedExpanded"
           >
             <div class="row">
@@ -247,18 +277,29 @@
         </div>
 
         <div class="container px-0">
-          <a name="ontologyViewerTopOfContainer" id="ontologyViewerTopOfContainer"></a>
+          <a
+            name="ontologyViewerTopOfContainer"
+            id="ontologyViewerTopOfContainer"
+          ></a>
         </div>
 
         <!-- mobile multiselects -->
         <div class="secondary-column--mobile container px-0 mb-2 d-lg-none">
           <div
-            class="secondary-column__how-to-use secondary-column__how-to-use--mobile multiselect-container container"
+            class="
+              secondary-column__how-to-use secondary-column__how-to-use--mobile
+              multiselect-container
+              container
+            "
           >
             <div class="row modules-header">
               <h5 class="fibo-title-modules">FIBO Viewer</h5>
               <div class="button-small">
-                <router-link class="button-small-text" to="/ontology" @click="data = null">
+                <router-link
+                  class="button-small-text"
+                  to="/ontology"
+                  @click="data = null"
+                >
                   How to use
                 </router-link>
               </div>
@@ -266,7 +307,11 @@
           </div>
 
           <div
-            class="secondary-column__versions secondary-column__versions--mobile multiselect-container container"
+            class="
+              secondary-column__versions secondary-column__versions--mobile
+              multiselect-container
+              container
+            "
           >
             <div class="menu-box">
               <div class="menu-box__label">Select FIBO version</div>
@@ -297,7 +342,9 @@
                   <template v-slot:tag="{ option, remove }"
                     ><span class="custom__tag"
                       ><span>{{ option.label }}</span
-                      ><span class="custom__remove" @click="remove(option)">❌</span></span
+                      ><span class="custom__remove" @click="remove(option)"
+                        >❌</span
+                      ></span
                     ></template
                   >
                   <!-- <template slot="clear" slot-scope="props">
@@ -306,7 +353,8 @@
                   </template> -->
                   <template v-slot:noResult>
                     <span>
-                      Oops! No elements found. Consider changing the search query.
+                      Oops! No elements found. Consider changing the search
+                      query.
                     </span>
                   </template>
                 </multiselect>
@@ -321,7 +369,11 @@
           </div>
 
           <div
-            class="secondary-column__tree secondary-column__tree--mobile multiselect-container container"
+            class="
+              secondary-column__tree secondary-column__tree--mobile
+              multiselect-container
+              container
+            "
           >
             <div class="menu-box" v-on:click="toggleModuleTree()">
               <div class="menu-box__label">Browse FIBO domains</div>
@@ -332,7 +384,10 @@
             </div>
           </div>
 
-          <ul v-if="display_modules" class="modules-list modules-list--mobile list-unstyled">
+          <ul
+            v-if="display_modules"
+            class="modules-list modules-list--mobile list-unstyled"
+          >
             <module-tree
               :item="item"
               v-for="item in modulesList"
@@ -387,7 +442,8 @@
                   </template>
                   <template v-slot:noResult>
                     <span>
-                      Oops! No elements found. Consider changing the search query.
+                      Oops! No elements found. Consider changing the search
+                      query.
                     </span>
                   </template>
                   <template v-slot:singleLabel>
@@ -400,7 +456,8 @@
               <div
                 class="menu-box__icons"
                 :class="{
-                  'menu-box__icons--inactive': !searchBox.dropdownActive && !searchBox.inputValue,
+                  'menu-box__icons--inactive':
+                    !searchBox.dropdownActive && !searchBox.inputValue,
                   'menu-box__icons--loading': searchBox.isLoading,
                 }"
               >
@@ -412,7 +469,9 @@
             </div>
             <div
               class="expand-advanced-btn"
-              @click="searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded"
+              @click="
+                searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
+              "
             >
               <div v-if="!searchBox.isAdvancedExpanded">
                 <div class="see-more-btn">search configuration</div>
@@ -475,7 +534,9 @@
 
         <div
           class="text-center mt-5"
-          v-if="!error && (loader || searchBox.isLoadingResults || !modulesList)"
+          v-if="
+            !error && (loader || searchBox.isLoadingResults || !modulesList)
+          "
         >
           <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
@@ -507,9 +568,11 @@
                   <div
                     class="search-item__icon"
                     :class="{
-                      'maturity-provisional': result.maturityLevel.icon === 'dev',
+                      'maturity-provisional':
+                        result.maturityLevel.icon === 'dev',
                       'maturity-release': result.maturityLevel.icon === 'prod',
-                      'maturity-mixed': result.maturityLevel.icon === 'prod_and_dev_mixed',
+                      'maturity-mixed':
+                        result.maturityLevel.icon === 'prod_and_dev_mixed',
                     }"
                   ></div>
                   <customLink
@@ -529,7 +592,10 @@
                   ></customLink>
                 </div>
 
-                <div class="search-item__description-wrapper" v-if="result.highlights.length > 0">
+                <div
+                  class="search-item__description-wrapper"
+                  v-if="result.highlights.length > 0"
+                >
                   <div
                     class="search-item__description"
                     v-for="(highlight, index) in result.highlights"
@@ -552,7 +618,10 @@
             <!-- No results -->
           </div>
 
-          <div class="search-section__load-more" v-if="searchBox.totalResultsCount > 0">
+          <div
+            class="search-section__load-more"
+            v-if="searchBox.totalResultsCount > 0"
+          >
             <p>
               1 -
               {{ searchBox.displayedResults.length }}
@@ -563,12 +632,16 @@
               type="button"
               class="btn normal-button search-section__load-more__button"
               @click="loadMoreResults()"
-              v-if="searchBox.totalResultsCount > searchBox.displayedResults.length"
+              v-if="
+                searchBox.totalResultsCount > searchBox.displayedResults.length
+              "
             >
               Load next
               {{
-                searchBox.totalResultsCount - searchBox.displayedResultsCount < searchBox.perPage
-                  ? searchBox.totalResultsCount - searchBox.displayedResultsCount
+                searchBox.totalResultsCount - searchBox.displayedResultsCount <
+                searchBox.perPage
+                  ? searchBox.totalResultsCount -
+                    searchBox.displayedResultsCount
                   : searchBox.perPage
               }}
               results
@@ -594,7 +667,10 @@
           </div>
         </div>
 
-        <div class="container" v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch">
+        <div
+          class="container"
+          v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
+        >
           <div class="row">
             <!-- SHOW ITEM -->
             <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
@@ -612,7 +688,9 @@
                         target="_blank"
                         :href="
                           `https://github.com/edmcouncil/fibo/issues/new` +
-                          `?labels=${encodeURI(githubNewIssueDetails().label)}` +
+                          `?labels=${encodeURI(
+                            githubNewIssueDetails().label
+                          )}` +
                           `&template=issue.md` +
                           `&title=${encodeURI(githubNewIssueDetails().title)}` +
                           `&body=${encodeURI(githubNewIssueDetails().body)}`
@@ -627,7 +705,8 @@
                           role="alert"
                           v-if="data.deprecated"
                         >
-                          This resource is deprecated and may be removed shortly.
+                          This resource is deprecated and may be removed
+                          shortly.
                         </div>
                         <div
                           class="alert alert-primary alert-maturity"
@@ -664,8 +743,10 @@
                           'maturity-provisional':
                             this.data.maturityLevel.label === 'PROVISIONAL' ||
                             this.data.maturityLevel.label === 'INFORMATIVE',
-                          'maturity-production': this.data.maturityLevel.label === 'RELEASE',
-                          'maturity-mixed': this.data.maturityLevel.label === 'MIXED',
+                          'maturity-production':
+                            this.data.maturityLevel.label === 'RELEASE',
+                          'maturity-mixed':
+                            this.data.maturityLevel.label === 'MIXED',
                         }"
                       >
                         {{ data.label }}
@@ -673,18 +754,27 @@
 
                       <div class="clearfix"></div>
 
-                      <h6 class="card-subtitle mb-2 text-muted data-iri" v-if="data.iri">
+                      <h6
+                        class="card-subtitle mb-2 text-muted data-iri"
+                        v-if="data.iri"
+                      >
                         {{ data.iri }}
                       </h6>
                       <div class="url-buttons-container">
-                        <button v-clipboard="data.iri" type="button" class="btn-copy-url">
+                        <button
+                          v-clipboard="data.iri"
+                          type="button"
+                          class="btn-copy-url"
+                        >
                           Copy URL
                         </button>
 
                         <button
                           v-if="this.$route.query && this.$route.query.version"
                           v-clipboard="
-                            data.iri + '?version=' + encodeURI(this.$route.query.version)
+                            data.iri +
+                            '?version=' +
+                            encodeURI(this.$route.query.version)
                           "
                           type="button"
                           class="btn-copy-url btn-copy-iri"
@@ -723,7 +813,9 @@
                   <h5
                     class="section-title"
                     @click="
-                      $refs.ontologyPaths.querySelector('h5').classList.toggle('section-collapse')
+                      $refs.ontologyPaths
+                        .querySelector('h5')
+                        .classList.toggle('section-collapse')
                     "
                   >
                     Path(s)
@@ -736,11 +828,22 @@
                         id="paths-switch"
                         v-model="pathsSection.isTreeView"
                       />
-                      <label class="custom-control-label-prev" for="paths-switch"> Paths </label>
-                      <label class="custom-control-label" for="paths-switch"> Tree </label>
+                      <label
+                        class="custom-control-label-prev"
+                        for="paths-switch"
+                      >
+                        Paths
+                      </label>
+                      <label class="custom-control-label" for="paths-switch">
+                        Tree
+                      </label>
                     </div>
 
-                    <transition @enter="checkPathsOverflow" name="fade" mode="out-in">
+                    <transition
+                      @enter="checkPathsOverflow"
+                      name="fade"
+                      mode="out-in"
+                    >
                       <div
                         key="path-view"
                         class="ontology-item__paths__path-view"
@@ -750,9 +853,13 @@
                           <!-- when isPathsMoreVisible is false the v-for works on array slice from 0 to 2,
                             when isPathsMoreVisible is true the v-for works on the whole array -->
                           <div
-                            v-for="(taxonomy, tIndex) in data.taxonomy.value.slice(
+                            v-for="(
+                              taxonomy, tIndex
+                            ) in data.taxonomy.value.slice(
                               0,
-                              2 + pathsSection.isPathsMoreVisible * (data.taxonomy.value.length - 2)
+                              2 +
+                                pathsSection.isPathsMoreVisible *
+                                  (data.taxonomy.value.length - 2)
                             )"
                             :key="'taxonomyParagraph' + tIndex"
                             class="ontology-item__paths__taxonomy collapsed"
@@ -763,10 +870,15 @@
                                 v-for="(element, index) in taxonomy"
                                 :key="'taxonomyEl' + tIndex + element.iri"
                               >
-                                <customLink :name="element.label" :query="element.iri"></customLink>
+                                <customLink
+                                  :name="element.label"
+                                  :query="element.iri"
+                                ></customLink>
                                 <span
                                   class="card-subtitle mb-2 text-muted"
-                                  v-if="index != Object.keys(taxonomy).length - 1"
+                                  v-if="
+                                    index != Object.keys(taxonomy).length - 1
+                                  "
                                 >
                                   /
                                 </span>
@@ -791,30 +903,44 @@
 
                         <div
                           v-show="
-                            !pathsSection.isPathsMoreVisible && data.taxonomy.value.length > 2
+                            !pathsSection.isPathsMoreVisible &&
+                            data.taxonomy.value.length > 2
                           "
                           @click.prevent="
-                            pathsSection.isPathsMoreVisible = !pathsSection.isPathsMoreVisible;
+                            pathsSection.isPathsMoreVisible =
+                              !pathsSection.isPathsMoreVisible;
                             checkPathsOverflow();
                           "
                         >
                           <div class="see-more-btn">
                             Show {{ data.taxonomy.value.length - 2 }} more
-                            {{ data.taxonomy.value.length - 2 > 1 ? "paths" : "path" }}
+                            {{
+                              data.taxonomy.value.length - 2 > 1
+                                ? "paths"
+                                : "path"
+                            }}
                           </div>
                         </div>
 
                         <div
-                          v-show="pathsSection.isPathsMoreVisible && data.taxonomy.value.length > 2"
+                          v-show="
+                            pathsSection.isPathsMoreVisible &&
+                            data.taxonomy.value.length > 2
+                          "
                           @click.prevent="
-                            pathsSection.isPathsMoreVisible = !pathsSection.isPathsMoreVisible;
+                            pathsSection.isPathsMoreVisible =
+                              !pathsSection.isPathsMoreVisible;
                             checkPathsOverflow();
                           "
                         >
                           <div class="see-less-btn">Show less paths</div>
                         </div>
                       </div>
-                      <div key="tree-view" class="ontology-item__paths__tree-view" v-else>
+                      <div
+                        key="tree-view"
+                        class="ontology-item__paths__tree-view"
+                        v-else
+                      >
                         <ul class="ontology-item__paths__tree-view__root">
                           <paths-tree
                             v-for="(child, index) in pathsSection.treeView"
@@ -830,10 +956,25 @@
                   </div>
                 </div>
 
+                <!-- ontology download -->
+                <div
+                  class="col-12 px-0"
+                  v-if="
+                    data.iri.slice(-1) === '/' &&
+                    data.iri.startsWith(
+                      'https://spec.edmcouncil.org/fibo/ontology/'
+                    )
+                  "
+                >
+                  <DownloadSection :data="data" :version="version" />
+                </div>
+
                 <!-- sections -->
                 <div
                   class="col-md-12 px-0"
-                  v-for="(section, sectionName, sectionIndex) in data.properties"
+                  v-for="(
+                    section, sectionName, sectionIndex
+                  ) in data.properties"
                   :key="sectionName"
                 >
                   <ResourceSection
@@ -842,17 +983,17 @@
                     :sectionIndex="sectionIndex"
                   />
                 </div>
-              </div>
 
-              <!-- DATA GRAPH -->
-              <div class="row" v-if="data && data.graph">
-                <div class="col-12 px-0">
+                <!-- DATA GRAPH -->
+                <div class="col-12 px-0" v-if="data.graph">
                   <div class="card">
                     <div class="card-body" ref="dataGraph">
                       <h5
                         class="card-title section-title"
                         @click="
-                          $refs.dataGraph.querySelector('h5').classList.toggle('section-collapse')
+                          $refs.dataGraph
+                            .querySelector('h5')
+                            .classList.toggle('section-collapse')
                         "
                       >
                         Data model for {{ data.label }}
@@ -867,9 +1008,7 @@
             </div>
 
             <!-- NO DATA (HOW TO USE) -->
-            <div
-              v-else-if="!loader && !searchBox.isLoadingResults"
-            >
+            <div v-else-if="!loader && !searchBox.isLoadingResults">
               <article class="how-to-article">
                 <section>
                   <h2>How to use FIBO Viewer</h2>
@@ -895,7 +1034,7 @@
                 </section>
 
                 <section class="blank">
-                  <img class="article-icon" src="@/assets/img/directory.svg"/>
+                  <img class="article-icon" src="@/assets/img/directory.svg" />
                   <h3>FIBO structure</h3>
                   <p>
                     FIBO is a set of ontologies. It is organized in a
@@ -914,29 +1053,20 @@
                 </section>
 
                 <section class="blank">
-                  <img class="article-icon" src="@/assets/img/maturity.svg"
-                  />
+                  <img class="article-icon" src="@/assets/img/maturity.svg" />
                   <h3>FIBO maturity levels</h3>
-                  <p>
-                    Each FIBO ontology has one of three levels of maturity.
-                  </p>
-                  <p class="small muted title">
-                    Release
-                  </p>
+                  <p>Each FIBO ontology has one of three levels of maturity.</p>
+                  <p class="small muted title">Release</p>
                   <p class="small muted">
                     Release ontologies are ones that are considered to be stable
                     and mature from a development perspective.
                   </p>
-                  <p class="small muted title">
-                    Provisional
-                  </p>
+                  <p class="small muted title">Provisional</p>
                   <p class="small muted">
                     Provisional ontologies are ones that are considered to be
                     under development.
                   </p>
-                  <p class="small muted title">
-                    Informative
-                  </p>
+                  <p class="small muted title">Informative</p>
                   <p class="small muted">
                     Provisional ontologies are ones that are considered
                     deprecated but included for informational purposes because
@@ -952,8 +1082,8 @@
                   </p>
                   <div class="color-container">
                     <img
-                    class="article-icon--small"
-                    src="@/assets/icons/production-maturity.svg"
+                      class="article-icon--small"
+                      src="@/assets/icons/production-maturity.svg"
                     />
                     <p class="small muted">
                       The green square icon indicates that an ontology has a
@@ -964,20 +1094,20 @@
 
                   <div class="color-container">
                     <img
-                    class="article-icon--small"
-                    src="@/assets/icons/provisional-maturity.svg"
+                      class="article-icon--small"
+                      src="@/assets/icons/provisional-maturity.svg"
                     />
                     <p class="small muted">
-                      Yellow square icon means that it provisional or informative.
-                      Domains or modules are yellow if they contain only yellow
-                      ontologies.
+                      Yellow square icon means that it provisional or
+                      informative. Domains or modules are yellow if they contain
+                      only yellow ontologies.
                     </p>
                   </div>
 
                   <div class="color-container">
                     <img
-                    class="article-icon--small"
-                    src="@/assets/icons/mixed-maturity.svg"
+                      class="article-icon--small"
+                      src="@/assets/icons/mixed-maturity.svg"
                     />
                     <p class="small muted">
                       Mixed, green-yellow icon means domains or modules include
@@ -987,9 +1117,7 @@
                 </section>
 
                 <section>
-                  <h2>
-                    About FIBO Viewer
-                  </h2>
+                  <h2>About FIBO Viewer</h2>
                   <p class="small muted">
                     FIBO Viewer is a JAVA application that is specifically
                     designed to access both the FIBO structure and its content
@@ -1020,6 +1148,7 @@ export default {
     PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
     StatsComponent: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
     ResourceSection: () => import(/* webpackChunkName: "ResourceSection" */ "../components/Ontology/ResourceSection"),
+    DownloadSection: () => import(/* webpackChunkName: "DownloadSection" */ "../components/Ontology/DownloadSection"),
     Multiselect,
   },
   props: ["ontology"],
@@ -1106,7 +1235,7 @@ export default {
       queryParam = `https://spec.edmcouncil.org/fibo/ontology/${ontologyQuery}`;
       // this.githubNewIssue.title = this.githubNewIssue.titleTemplate.replace('<LABEL>', this.githubNewIssue.label);
     } else if (this.$route.query && this.$route.query.query) {
-      queryParam = encodeURIComponent(this.$route.query.query)+encodeURIComponent(this.$route.hash) || "";
+      queryParam = encodeURI(this.$route.query.query)+encodeURI(this.$route.hash) || "";
     }
 
     // check for taxonomy paths overflow in mobile view with debounce
@@ -1194,9 +1323,7 @@ export default {
           }
           // check if resource is deprecated
           if (
-            body.result.properties["Ontological characteristic"] &&
-            body.result.properties["Ontological characteristic"].deprecated &&
-            body.result.properties["Ontological characteristic"].deprecated[0].value === "true"
+            body.result.properties["Ontological characteristic"]?.deprecated?.[0]?.value === "true"
           ) {
             body.result.deprecated = true;
             delete body.result.properties["Ontological characteristic"].deprecated;
@@ -1209,7 +1336,7 @@ export default {
 
           this.data = body.result;
 
-          if (this.data.taxonomy && this.data.taxonomy.value) {
+          if (this.data.taxonomy?.value) {
             this.pathsSection.treeView = [];
             let tempTaxonomy = JSON.parse(JSON.stringify(this.data.taxonomy.value));
             tempTaxonomy.forEach((element) => {
@@ -1250,7 +1377,7 @@ export default {
         console.error(err);
         this.error = true;
       } finally {
-        if (this.data && this.data.taxonomy && this.data.taxonomy.value.length > 0) {
+        if (this.data?.taxonomy?.value.length > 0) {
           this.checkPathsOverflow();
         }
       }
@@ -1602,7 +1729,7 @@ export default {
         this.query = "";
         this.data = null;
       } else {
-        this.query = encodeURIComponent(this.query);
+        this.query = encodeURI(this.query);
       }
 
       this.$nextTick(async function () {

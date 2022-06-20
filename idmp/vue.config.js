@@ -38,7 +38,7 @@ module.exports = {
       "^/idmp/ontology/.*api/hint": {
         target: "https://spec.edmcouncil.org",
       },
-      "^/idmp/ontology/api": {
+      "^/idmp/ontology/.*api": {
         target: "https://spec.edmcouncil.org",
       },
     },

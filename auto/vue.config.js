@@ -48,7 +48,7 @@ module.exports = {
         // pathRewrite: {'^/auto': '/'},
         //logLevel: 'debug'
       },
-      '^/auto/ontology/api': {
+      '^/auto/ontology/.*api': {
         target: 'https://spec.edmcouncil.org',
       },
     },

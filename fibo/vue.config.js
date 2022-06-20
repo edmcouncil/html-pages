@@ -38,7 +38,7 @@ module.exports = {
       '^/fibo/ontology/.*api/hint': {
         target: 'https://spec.edmcouncil.org',
       },
-      '^/fibo/ontology/api': {
+      '^/fibo/ontology/.*api': {
         target: 'https://spec.edmcouncil.org',
       },
     },

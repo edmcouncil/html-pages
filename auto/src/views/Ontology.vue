@@ -601,6 +601,19 @@
                   </div>
                 </div>
 
+                <!-- ontology download -->
+                <div
+                  class="col-12 px-0"
+                  v-if="
+                    data.iri.slice(-1) === '/' &&
+                    data.iri.startsWith(
+                      'https://spec.edmcouncil.org/auto/ontology/'
+                    )
+                  "
+                >
+                  <DownloadSection :data="data" :version="version" />
+                </div>
+
                 <!-- sections -->
                 <div
                   class="col-md-12 px-0"
@@ -797,6 +810,7 @@ export default {
     PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
     Stats: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
     ResourceSection: () => import(/* webpackChunkName: "ResourceSection" */ "../components/Ontology/ResourceSection"),
+    DownloadSection: () => import(/* webpackChunkName: "DownloadSection" */ "../components/Ontology/DownloadSection"),
     Multiselect,
   },
   props: ['ontology'],

@@ -14,7 +14,11 @@
             <div class="row modules-header">
               <h5 class="fibo-title-modules">IDMP Viewer</h5>
               <div class="button-small">
-                <router-link class="button-small-text" to="/ontology" @click="data=null">
+                <router-link
+                  class="button-small-text"
+                  to="/ontology"
+                  @click="data = null"
+                >
                   How to use
                 </router-link>
               </div>
@@ -60,15 +64,15 @@
                         ❌
                       </span>
                     </span>
-                  </template
-                  >
+                  </template>
                   <!-- <template slot="clear" slot-scope="props">
                   <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
                   @mousedown.prevent.stop="clearAll(props.search)"></div>
                   </template> -->
                   <template v-slot:noResult>
                     <span>
-                      Oops! No elements found. Consider changing the search query.
+                      Oops! No elements found. Consider changing the search
+                      query.
                     </span>
                   </template>
                 </multiselect>
@@ -172,15 +176,16 @@
                         </template>
                         <template v-slot:noResult>
                           <span>
-                            Oops! No elements found. Consider changing the search query.
+                            Oops! No elements found. Consider changing the
+                            search query.
                           </span>
                         </template>
                         <template v-slot:singleLabel>
                           <span>
                             {{
-                            searchBox.inputValue ||
-                            "Find domains, ontologies, concepts..."
-                          }}
+                              searchBox.inputValue ||
+                              "Find domains, ontologies, concepts..."
+                            }}
                           </span>
                         </template>
                       </multiselect>
@@ -290,7 +295,11 @@
             <div class="row modules-header">
               <h5 class="fibo-title-modules">IDMP Viewer</h5>
               <div class="button-small">
-                <router-link class="button-small-text" to="/ontology" @click="data=null">
+                <router-link
+                  class="button-small-text"
+                  to="/ontology"
+                  @click="data = null"
+                >
                   How to use
                 </router-link>
               </div>
@@ -333,7 +342,9 @@
                   <template v-slot:tag="{ option, remove }">
                     <span class="custom__tag">
                       <span>{{ option.label }}</span>
-                      <span class="custom__remove" @click="remove(option)">❌</span>
+                      <span class="custom__remove" @click="remove(option)"
+                        >❌</span
+                      >
                     </span>
                   </template>
                   <!-- <template slot="clear" slot-scope="props">
@@ -342,7 +353,8 @@
                   </template> -->
                   <template v-slot:noResult>
                     <span>
-                      Oops! No elements found. Consider changing the search query.
+                      Oops! No elements found. Consider changing the search
+                      query.
                     </span>
                   </template>
                 </multiselect>
@@ -372,7 +384,10 @@
             </div>
           </div>
 
-          <ul v-if="display_modules" class="modules-list modules-list--mobile list-unstyled">
+          <ul
+            v-if="display_modules"
+            class="modules-list modules-list--mobile list-unstyled"
+          >
             <module-tree
               :item="item"
               v-for="item in modulesList"
@@ -427,7 +442,8 @@
                   </template>
                   <template v-slot:noResult>
                     <span>
-                      Oops! No elements found. Consider changing the search query.
+                      Oops! No elements found. Consider changing the search
+                      query.
                     </span>
                   </template>
                   <template v-slot:singleLabel>
@@ -554,9 +570,9 @@
                     :class="{
                       'maturity-provisional':
                         result.maturityLevel.icon === 'dev',
-                      'maturity-release':
-                        result.maturityLevel.icon === 'prod',
-                      'maturity-mixed': result.maturityLevel.icon === 'prod_and_dev_mixed',
+                      'maturity-release': result.maturityLevel.icon === 'prod',
+                      'maturity-mixed':
+                        result.maturityLevel.icon === 'prod_and_dev_mixed',
                     }"
                   ></div>
                   <customLink
@@ -616,10 +632,14 @@
               type="button"
               class="btn normal-button search-section__load-more__button"
               @click="loadMoreResults()"
-              v-if="searchBox.totalResultsCount > searchBox.displayedResults.length">
+              v-if="
+                searchBox.totalResultsCount > searchBox.displayedResults.length
+              "
+            >
               Load next
               {{
-                searchBox.totalResultsCount - searchBox.displayedResultsCount < searchBox.perPage
+                searchBox.totalResultsCount - searchBox.displayedResultsCount <
+                searchBox.perPage
                   ? searchBox.totalResultsCount -
                     searchBox.displayedResultsCount
                   : searchBox.perPage
@@ -665,7 +685,8 @@
                           role="alert"
                           v-if="data.deprecated"
                         >
-                          This resource is deprecated and may be removed shortly.
+                          This resource is deprecated and may be removed
+                          shortly.
                         </div>
                         <div
                           class="alert alert-primary alert-maturity"
@@ -702,8 +723,10 @@
                           'maturity-provisional':
                             this.data.maturityLevel.label === 'PROVISIONAL' ||
                             this.data.maturityLevel.label === 'INFORMATIVE',
-                          'maturity-production': this.data.maturityLevel.label === 'RELEASE',
-                          'maturity-mixed': this.data.maturityLevel.label === 'MIXED',
+                          'maturity-production':
+                            this.data.maturityLevel.label === 'RELEASE',
+                          'maturity-mixed':
+                            this.data.maturityLevel.label === 'MIXED',
                         }"
                       >
                         {{ data.label }}
@@ -785,7 +808,10 @@
                         id="paths-switch"
                         v-model="pathsSection.isTreeView"
                       />
-                      <label class="custom-control-label-prev" for="paths-switch">
+                      <label
+                        class="custom-control-label-prev"
+                        for="paths-switch"
+                      >
                         Paths
                       </label>
                       <label class="custom-control-label" for="paths-switch">
@@ -793,8 +819,16 @@
                       </label>
                     </div>
 
-                    <transition @enter="checkPathsOverflow" name="fade" mode="out-in">
-                      <div key="path-view" class="ontology-item__paths__path-view" v-if="!pathsSection.isTreeView">
+                    <transition
+                      @enter="checkPathsOverflow"
+                      name="fade"
+                      mode="out-in"
+                    >
+                      <div
+                        key="path-view"
+                        class="ontology-item__paths__path-view"
+                        v-if="!pathsSection.isTreeView"
+                      >
                         <span>
                           <!-- when isPathsMoreVisible is false the v-for works on array slice from 0 to 2,
                             when isPathsMoreVisible is true the v-for works on the whole array -->
@@ -822,7 +856,9 @@
                                 ></customLink>
                                 <span
                                   class="card-subtitle mb-2 text-muted"
-                                  v-if="index != Object.keys(taxonomy).length - 1"
+                                  v-if="
+                                    index != Object.keys(taxonomy).length - 1
+                                  "
                                 >
                                   /
                                 </span>
@@ -880,21 +916,37 @@
                           <div class="see-less-btn">Show less paths</div>
                         </div>
                       </div>
-                      <div key="tree-view" class="ontology-item__paths__tree-view" v-else>
+                      <div
+                        key="tree-view"
+                        class="ontology-item__paths__tree-view"
+                        v-else
+                      >
                         <ul class="ontology-item__paths__tree-view__root">
                           <paths-tree
                             v-for="(child, index) in pathsSection.treeView"
                             :key="child.label"
                             :item="child"
-                            :isLast="index == pathsSection.treeView.length-1"
+                            :isLast="index == pathsSection.treeView.length - 1"
                             :isOnly="pathsSection.treeView.length === 1"
                             :isRoot="true"
                           />
                         </ul>
                       </div>
                     </transition>
-
                   </div>
+                </div>
+
+                <!-- ontology download -->
+                <div
+                  class="col-12 px-0"
+                  v-if="
+                    data.iri.slice(-1) === '/' &&
+                    data.iri.startsWith(
+                      'https://spec.pistoiaalliance.org/idmp/ontology/'
+                    )
+                  "
+                >
+                  <DownloadSection :data="data" :version="version" />
                 </div>
 
                 <!-- sections -->
@@ -938,9 +990,7 @@
             </div>
 
             <!-- NO DATA (HOW TO USE) -->
-            <div
-              v-else-if="!loader && !searchBox.isLoadingResults"
-            >
+            <div v-else-if="!loader && !searchBox.isLoadingResults">
               <article class="how-to-article">
                 <section>
                   <h2>How to use IDMP Viewer</h2>
@@ -966,7 +1016,7 @@
                 </section>
 
                 <section class="blank">
-                  <img class="article-icon" src="@/assets/img/directory.svg"/>
+                  <img class="article-icon" src="@/assets/img/directory.svg" />
                   <h3>IDMP structure</h3>
                   <p>
                     IDMP is a set of ontologies. It is organized in a
@@ -985,29 +1035,20 @@
                 </section>
 
                 <section class="blank">
-                  <img class="article-icon" src="@/assets/img/maturity.svg"
-                  />
+                  <img class="article-icon" src="@/assets/img/maturity.svg" />
                   <h3>IDMP maturity levels</h3>
-                  <p>
-                    Each IDMP ontology has one of three levels of maturity.
-                  </p>
-                  <p class="small muted title">
-                    Release
-                  </p>
+                  <p>Each IDMP ontology has one of three levels of maturity.</p>
+                  <p class="small muted title">Release</p>
                   <p class="small muted">
                     Release ontologies are ones that are considered to be stable
                     and mature from a development perspective.
                   </p>
-                  <p class="small muted title">
-                    Provisional
-                  </p>
+                  <p class="small muted title">Provisional</p>
                   <p class="small muted">
                     Provisional ontologies are ones that are considered to be
                     under development.
                   </p>
-                  <p class="small muted title">
-                    Informative
-                  </p>
+                  <p class="small muted title">Informative</p>
                   <p class="small muted">
                     Provisional ontologies are ones that are considered
                     deprecated but included for informational purposes because
@@ -1023,8 +1064,8 @@
                   </p>
                   <div class="color-container">
                     <img
-                    class="article-icon--small"
-                    src="@/assets/icons/production-maturity.svg"
+                      class="article-icon--small"
+                      src="@/assets/icons/production-maturity.svg"
                     />
                     <p class="small muted">
                       The green square icon indicates that an ontology has a
@@ -1035,20 +1076,20 @@
 
                   <div class="color-container">
                     <img
-                    class="article-icon--small"
-                    src="@/assets/icons/provisional-maturity.svg"
+                      class="article-icon--small"
+                      src="@/assets/icons/provisional-maturity.svg"
                     />
                     <p class="small muted">
-                      Yellow square icon means that it provisional or informative.
-                      Domains or modules are yellow if they contain only yellow
-                      ontologies.
+                      Yellow square icon means that it provisional or
+                      informative. Domains or modules are yellow if they contain
+                      only yellow ontologies.
                     </p>
                   </div>
 
                   <div class="color-container">
                     <img
-                    class="article-icon--small"
-                    src="@/assets/icons/mixed-maturity.svg"
+                      class="article-icon--small"
+                      src="@/assets/icons/mixed-maturity.svg"
                     />
                     <p class="small muted">
                       Mixed, green-yellow icon means domains or modules include
@@ -1058,9 +1099,7 @@
                 </section>
 
                 <section>
-                  <h2>
-                    About IDMP Viewer
-                  </h2>
+                  <h2>About IDMP Viewer</h2>
                   <p class="small muted">
                     IDMP Viewer is a JAVA application that is specifically
                     designed to access both the IDMP structure and its content
@@ -1091,6 +1130,7 @@ export default {
     PathsTree: () => import(/* webpackChunkName: "PathsTree" */ "../components/PathsTree"),
     StatsComponent: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
     ResourceSection: () => import(/* webpackChunkName: "ResourceSection" */ "../components/Ontology/ResourceSection"),
+    DownloadSection: () => import(/* webpackChunkName: "DownloadSection" */ "../components/Ontology/DownloadSection"),
     Multiselect,
   },
   props: ["ontology"],
