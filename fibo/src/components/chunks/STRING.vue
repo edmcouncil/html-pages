@@ -3,16 +3,23 @@
     <component v-bind:is="fullProcessedHtml"></component>
   </div>
   <div v-else>
-    <component v-bind:is="sliceProcessedHtml"></component>
-    <transition name="list">
-      <div class="animated-list" v-show="isMoreVisible" ref="scrollTarget">
-        <component v-bind:is="moreProcessedHtml"></component>
-      </div>
-    </transition>
+    <div class="list-wrapper">
+      <div class="list-wrapper__guiding-line" @click="guidingLineClick"></div>
+      <component v-bind:is="sliceProcessedHtml"></component>
+      <transition name="list">
+        <div class="animated-list" v-show="isMoreVisible" ref="scrollTarget">
+          <component v-bind:is="moreProcessedHtml"></component>
+        </div>
+      </transition>
+    </div>
 
-    <div v-if="!isMoreVisible" href="#" @click.prevent="toggleIsMoreVisible()">
+    <div
+      v-if="!isMoreVisible"
+      href="#"
+      @click.prevent="toggleIsMoreVisible()"
+      class="see-more-btn-wrapper"
+    >
       <div class="see-more-btn">Show {{ lines.length - 6 }} more</div>
-      <br />
     </div>
     <div
       v-else
@@ -21,9 +28,9 @@
         toggleIsMoreVisible();
         scrollBackUp();
       "
+      class="see-more-btn-wrapper"
     >
       <div class="see-less-btn">Show less</div>
-      <br />
     </div>
   </div>
 </template>
@@ -84,6 +91,11 @@ export default {
         });
       }
     },
+    guidingLineClick() {
+      if(this.isMoreVisible)
+        this.scrollBackUp();
+      this.toggleIsMoreVisible();
+    }
   },
   //need this and use as components to display flags
   computed: {
@@ -117,6 +129,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.see-more-btn-wrapper {
+  padding-left: 15px;
+  padding-bottom: 5px;
+}
+.list-wrapper {
+  position: relative;
+}
+.list-wrapper__guiding-line {
+  position: absolute;
+  height: calc(100% - 30px);
+  left: -15px;
+  width: 5px;
+  top: 25px;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  &:hover {
+    border-left: 1px solid rgba(0, 0, 0, 0.3);
+    &::after {
+      left: -1px;
+      border-left: 1px solid rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    }
+    cursor: pointer;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    left: -1px;
+    bottom: -40px;
+    width: 15px;
+    height: 40px;
+    transition: border 0.2s;
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}
+
 .animated-list {
   overflow: hidden;
   max-height: 60000px;
