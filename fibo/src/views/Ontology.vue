@@ -1301,7 +1301,7 @@ export default {
           "{version}",
           `${internalRoute.query.version}/`
         );
-        this.statsServer = this.statssServer.replace(
+        this.statsServer = this.statsServer.replace(
           "{version}",
           `${internalRoute.query.version}/`
         );
