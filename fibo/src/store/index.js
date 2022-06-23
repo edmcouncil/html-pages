@@ -10,7 +10,7 @@ export default new Vuex.Store({
     searchDefaultDomain: '/fibo/ontology/{version}api/find',
     ontologyDefaultDomain: '/fibo/ontology/{version}api/entity',
     modulesDefaultDomain: '/fibo/ontology/{version}api/module',
-    statsDefaultDomain: '/fibo/ontology/api/stats',
+    statsDefaultDomain: '/fibo/ontology/{version}api/stats',
     missingImportsDefaultDomain: '/fibo/ontology/api/missingImports',
   },
   mutations: {

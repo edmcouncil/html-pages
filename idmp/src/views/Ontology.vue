@@ -1259,12 +1259,15 @@ export default {
         this.searchServer = this.searchServer.replace("{version}", `${internalRoute.query.version}/`);
         this.modulesServer = this.modulesServer.replace("{version}", `${internalRoute.query.version}/`);
         this.hintServer = this.hintDefaultDomain.replace("{version}", `${internalRoute.query.version}/`);
+        this.statsServer = this.statsServer.replace("{version}",`${internalRoute.query.version}/`
+        );
         this.version = internalRoute.query.version;
       } else {
         this.ontologyServer = this.ontologyServer.replace("{version}", "");
         this.searchServer = this.searchServer.replace("{version}", "");
         this.modulesServer = this.modulesServer.replace("{version}", "");
         this.hintServer = this.hintDefaultDomain.replace("{version}", "");
+        this.statsServer = this.statsServer.replace("{version}", "");
         this.version = null;
       }
     },

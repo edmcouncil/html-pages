@@ -87,17 +87,22 @@ export default {
     this.fetchStats();
     this.fetchMissingImports();
   },
+  watch: {
+    statsServer: function() {
+      this.fetchStats();
+    }
+  },
   methods: {
-    async fetchStats() {
+  async fetchStats() {
       try {
         const result = await getStats(this.statsServer);
         const body = await result.json();
-
         for (const key in body.stats) {
-          this.stats[key] = {
-            label: body.labels[key],
-            value: body.stats[key],
-          };
+          if(this.stats[key] == undefined) {
+            this.$set(this.stats, key, {});
+          }
+          this.$set(this.stats[key], 'label', body.labels[key]);
+          this.$set(this.stats[key], 'value', body.stats[key]);
         }
       } catch (err) {
         console.error(err);

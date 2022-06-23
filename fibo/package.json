@@ -26,7 +26,8 @@
     "vue-multiselect": "^2.1.6",
     "vue-router": "^3.5.3",
     "vuejs-paginate": "^2.1.0",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.5.4",
