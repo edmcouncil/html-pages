@@ -1,6 +1,7 @@
 <template>
   <div class="show-more-list">
     <div v-if="list.length > 1">
+      <div v-if="list.length > limit" @click="guidingLineClick" class="properties-list-guiding-line"></div>
       <ul>
         <li v-for="field in list.slice(0, limit)" :key="field.id">
           <component
@@ -106,6 +107,11 @@ export default {
           behavior: "smooth"
         });
       }
+    },
+    guidingLineClick() {
+      if(!this.collapsed)
+        this.scrollBackUp();
+      this.toggleCollapsed();
     }
   },
   computed: {
@@ -117,6 +123,66 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.properties-list-guiding-line {
+  position: absolute;
+  left: -15px;
+  top: -15px;
+  height: calc(100% - 5px);
+  width: 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  &:hover {
+    border-left: 1px solid rgba(0, 0, 0, 0.3);
+    &::before {
+      border-left: 1px solid rgba(0, 0, 0, 0.3);
+      border-top: 1px solid rgba(0, 0, 0, 0.3);
+    }
+    &::after {
+      border-left: 1px solid rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    }
+    cursor: pointer;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 7px;
+    height: 0px;
+    transition: border 0.2s;
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 15px;
+    height: 0px;
+    transition: border 0.2s;
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}
+.see-more-btn-wrapper {
+  padding-left: 15px;
+}
+.show-more-list {
+  position: relative;
+  padding: 5px 5px 5px 0px;
+  border-radius: 2px;
+}
+ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+li {
+  padding: 5px 0;
+}
+li::marker {
+  color: rgba(0, 0, 0, 0.4);
+}
 .animated-list {
   overflow: hidden;
   max-height: 60000px;
