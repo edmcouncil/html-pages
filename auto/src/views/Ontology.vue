@@ -1276,7 +1276,6 @@ export default {
   },
   updated() {
     // scrollTo: ontologyViewerTopOfContainer
-    console.log(this.$route.fullPath)
     if (this.$root.ontologyRouteIsUpdating || this.$route.query.scrollToTop === 'true') {
       this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
       this.$nextTick(() => {
