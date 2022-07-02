@@ -7,6 +7,7 @@
           <h1>FIBO Release Notes</h1>
           <p><b>2022</b></p>
           <ul>
+            <li><a href="#2022Q2">2022 Q2</a></li>
             <li><a href="#2022Q2">2022 Q1</a></li>
           </ul>
           <p><b>2021</b></p>
@@ -49,13 +50,17 @@
           <h2 id="2022Q2"><strong>2022 Q2</strong></h2>
           <h3>Revisions Summary by Elisa Kendall</h3>
           <p>
-            This quarter focused primarily on the Loans (LOAN) domain area, as summarized below. Significant restructuring of Loans was completed and our first Loan ontology was released. Use cases include providing support for ILDR-based reporting for loans and
-            support for ACTUS-driven cash flow analysis, as well as the enabling work on asset-backed securities later this year. We also updated the ISO 10383 MIC codes to include the latest ISO updates.
+            This quarter focused primarily on the Loans (LOAN) domain area, as summarized below. Significant restructuring of 
+            Loans was completed and our first Loan ontology was released. Use cases include providing support for 
+            ILDR-based reporting for loans and support for ACTUS-driven cash flow analysis, as well as the enabling work 
+            on asset-backed securities later this year. We also updated the ISO 10383 MIC codes to include 
+            the latest ISO updates.
           </p>
 
           <h3>Business Entities (BE)</h3>
           <p>
-            There were minor changes in BE this quarter. Deprecated concepts in BE that have been deprecated for several quarters were eliminated in Q2 2022.
+            There were minor changes in BE this quarter. Deprecated concepts in BE that have been deprecated for several 
+            quarters were eliminated in Q2 2022.
           </p>
           <a
             href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3ABE+"
@@ -70,7 +75,9 @@
 
           <h3>Corporate Actions and Events (CAE)</h3>
           <p>
-            No significant updates were made to the CAE ontologies in Q2. Work to better integrate the corporate actions specified by GLEIF with the ISO 20022 corporate actions related to business entities is underway, and will be integrated over the coming months.
+            No significant updates were made to the CAE ontologies in Q2. Work to better integrate the corporate actions 
+            specified by GLEIF with the ISO 20022 corporate actions related to business entities is underway, 
+            and will be integrated over the coming months.
           </p>
           <a
             href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3ACAE+"
@@ -79,7 +86,9 @@
 
           <h3>Derivatives (DER)</h3>
           <p>
-            Changes to the DER ontologies were limited this quarter to providing better support for composite identifiers and for the ISO Unique Transaction Identifier (UTI) in particular. Deprecated concepts in equity and interest rate swaps were eliminated in Q2 2022.
+            Changes to the DER ontologies were limited this quarter to providing better support for composite identifiers 
+            and for the ISO Unique Transaction Identifier (UTI) in particular. Deprecated concepts in equity and 
+            interest rate swaps were eliminated in Q2 2022.
           </p>
           <a
             href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3ADER+"
@@ -88,8 +97,11 @@
 
           <h3>Financial Business and Commerce (FBC)</h3>
           <p>
-            In Q2 we continued work to improve coverage of reporting requirements outlined in the Interagency Loan Data Reporting (ILDR) standard in the United States and corresponding fields in ACTUS. We also initiated work on certain asset-backed securities 
-            provisional content that required support in FBC. We also revised the ISO 10383 Market Identifier Codes (MIC) to incorporate the latest changes published by ISO, i.e., as of 10 June 2022. Deprecated concepts in financial instruments and business registries 
+            In Q2 we continued work to improve coverage of reporting requirements outlined in 
+            the Interagency Loan Data Reporting (ILDR) standard in the United States and corresponding fields in ACTUS. 
+            We also initiated work on certain asset-backed securities provisional content that required support in FBC. 
+            We also revised the ISO 10383 Market Identifier Codes (MIC) to incorporate the latest changes published by ISO, 
+            i.e., as of 10 June 2022. Deprecated concepts in financial instruments and business registries 
             were eliminated in Q2 2022.
           </p>
           <a
@@ -99,7 +111,8 @@
 
           <h3>Foundations (FND)</h3>
           <p>
-            There were minor changes in FND this quarter. Deprecated concepts in FND that have been deprecated for several quarters were eliminated in Q2 2022.
+            There were minor changes in FND this quarter. Deprecated concepts in FND that have been deprecated 
+            for several quarters were eliminated in Q2 2022.
           </p>
           <a
             href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3AFND+"
@@ -117,11 +130,17 @@
 
           <h3>Loans (LOAN)</h3>
           <p>
-            The bulk of the work done in Q2 was to restructure the LOAN domain area and revise content of what was the “LoanCore” ontology, now called “Loans” under a new LoansGeneral module, to support the majority of the required elements specified in the US 
-            Interagency Loan Data Reporting standard and corresponding elements required for ACTUS cash flow analyses. A number of smaller ontologies were merged and moved to new modules, with provisional construction loans, mortgages, and the related-jurisdiction-
-            specific HMDA ontology in a new RealEstateLoans module, and other content such as for commercial and consumer lending under LoansSpecific. This restructuring effort, which we had put on hold for some time, will provide the support needed for basic loan data 
-            reporting, ACTUS-based cash flow analysis, and for asset-backed securities over time. We also released our first production Loans ontology. FIBO users should anticipate seeing increasing coverage of both required and optional ILDR fields and ACTUS cash flow 
-            related properties of loans in general over the coming months, sufficient to support ABS and MBS work later this year.
+            The bulk of the work done in Q2 was to restructure the LOAN domain area and revise content of what was 
+            the “LoanCore” ontology, now called “Loans” under a new LoansGeneral module, to support the majority of 
+            the required elements specified in the US Interagency Loan Data Reporting standard and corresponding elements 
+            required for ACTUS cash flow analyses. A number of smaller ontologies were merged and moved to new modules, 
+            with provisional construction loans, mortgages, and the related-jurisdiction-specific HMDA ontology in 
+            a new RealEstateLoans module, and other content such as for commercial and consumer lending under LoansSpecific. 
+            This restructuring effort, which we had put on hold for some time, will provide the support needed for 
+            basic loan data reporting, ACTUS-based cash flow analysis, and for asset-backed securities over time. 
+            We also released our first production Loans ontology. FIBO users should anticipate seeing increasing coverage of 
+            both required and optional ILDR fields and ACTUS cash flow related properties of loans in general over 
+            the coming months, sufficient to support ABS and MBS work later this year.
           </p>
           <a
             href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3ALOAN+"
@@ -139,7 +158,8 @@
 
           <h3>Securities (SEC)</h3>
           <p>
-            There were minor changes in SEC this quarter. Deprecated concepts in SEC in funds, equities, and pools that have been deprecated for several quarters were eliminated in Q2 2022.
+            There were minor changes in SEC this quarter. Deprecated concepts in SEC in funds, equities, and pools that 
+            have been deprecated for several quarters were eliminated in Q2 2022.
           </p>
           <a
             href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3ASEC+"
@@ -153,7 +173,7 @@
           <a
             href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022+Q2+FIBO+Release%22+label%3Ahygiene+"
             >All 2022 hygiene Q2 PRs and Issues</a
-
+          >
 
           <h2 id="2022Q2"><strong>2022 Q1</strong></h2>
           <h3>Revisions Summary by Elisa Kendall</h3>
