@@ -8,7 +8,7 @@
           <p><b>2022</b></p>
           <ul>
             <li><a href="#2022Q2">2022 Q2</a></li>
-            <li><a href="#2022Q2">2022 Q1</a></li>
+            <li><a href="#2022Q1">2022 Q1</a></li>
           </ul>
           <p><b>2021</b></p>
           <ul>
@@ -175,7 +175,7 @@
             >All 2022 hygiene Q2 PRs and Issues</a
           >
 
-          <h2 id="2022Q2"><strong>2022 Q1</strong></h2>
+          <h2 id="2022Q1"><strong>2022 Q1</strong></h2>
           <h3>Revisions Summary by Elisa Kendall</h3>
           <p>
             This quarter we expanded our efforts in several areas, including
@@ -221,7 +221,7 @@
             couple of releases.
           </p>
           <a
-            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3ACAE+"
+            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ACAE+"
             >All 2022 CAE Q1 PRs and Issues</a
           >
 
@@ -241,7 +241,7 @@
             interest rate swaps will be eliminated in Q2 2022.
           </p>
           <a
-            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3ADER+"
+            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ADER+"
             >All 2022 DER Q1 PRs and Issues</a
           >
 
@@ -260,7 +260,7 @@
             the latest changes published by ISO, i.e., as of 11 March 2022.
           </p>
           <a
-            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3AFBC+"
+            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AFBC+"
             >All 2022 FBC Q1 PRs and Issues</a
           >
 
@@ -275,7 +275,7 @@
             DER, which FIBO users will see over the next couple of quarters.
           </p>
           <a
-            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3AFND+"
+            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AFND+"
             >All 2022 FND Q1 PRs and Issues</a
           >
 
@@ -291,7 +291,7 @@
             time as they are eliminated in FpML itself.
           </p>
           <a
-            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3AIND+"
+            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AIND+"
             >All 2022 IND Q1 PRs and Issues</a
           >
 
@@ -312,7 +312,7 @@
             sufficient to support ABS and MBS this year.
           </p>
           <a
-            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3ALOAN+"
+            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ALOAN+"
             >All 2022 LOAN Q1 PRs and Issues</a
           >
 
@@ -324,7 +324,7 @@
             between them.
           </p>
           <a
-            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3AMD+"
+            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3AMD+"
             >All 2022 MD Q1 PRs and Issues</a
           >
 
@@ -342,7 +342,7 @@
             above for additional details.
           </p>
           <a
-            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q2+FIBO+Release%22+label%3ASEC+"
+            href="https://github.com/edmcouncil/fibo/issues?q=milestone%3A%222022Q1+FIBO+Release%22+label%3ASEC+"
             >All 2022 SEC Q1 PRs and Issues</a
           >
 
