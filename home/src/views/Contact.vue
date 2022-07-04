@@ -331,7 +331,6 @@ section {
 .contact-card {
   display: flex;
   align-items: center;
-  // background-color: rgba(0, 0, 0, 0.05);
   border-radius: 2px;
   padding: 15px;
   margin: 30px 0px;
@@ -357,6 +356,13 @@ section {
     &:first-of-type {
       border-left: none;
     }
+  }
+}
+
+@media (max-width: 575px) {
+  .contact-card {
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }
 </style>
