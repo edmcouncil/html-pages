@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid slider">
+  <div class="container slider">
     <div id="carouselExampleIndicators" class="carousel slide">
       <ol class="carousel-indicators">
         <li
@@ -12,14 +12,9 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
       </ol>
       <div class="carousel-inner">
-        <div class="carousel-item">
-          <img
-            class="d-block w-100"
-            src="../assets/img/baner1.png"
-            alt="Third slide"
-          />
+        <div class="carousel-item active">
           <div class="carousel-caption d-none d-md-block">
-            <h2>OPEN KNOWLEDGE GRAPH LAB</h2>
+            <h2>Open Knowledge Graph Lab</h2>
             <p>We deliver Graph Powered Agile Intelligence</p>
             <a
               href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-shared-lab"
@@ -29,16 +24,12 @@
                   'https://edmconnect.edmcouncil.org/okginterestcommunity/okg-shared-lab'
                 )
               "
-              >OKGSL mission</a
             >
+              OKGSL mission
+            </a>
           </div>
         </div>
-        <div class="carousel-item active">
-          <img
-            class="d-block w-100"
-            src="../assets/img/baner1.png"
-            alt="First slide"
-          />
+        <div class="carousel-item">
           <div class="carousel-caption d-none d-md-block">
             <h2>Open Knowledge Graph Training</h2>
             <p>
@@ -53,22 +44,18 @@
                   'https://edmconnect.edmcouncil.org/okginterestcommunity/okg-training/okg-training-events'
                 )
               "
-              >CHECK AND REGISTER</a
             >
+              CHECK AND REGISTER
+            </a>
           </div>
         </div>
         <div class="carousel-item">
-          <img
-            class="d-block w-100"
-            src="../assets/img/baner1.png"
-            alt="Second slide"
-          />
           <div class="carousel-caption d-none d-md-block">
             <h2>FIBO</h2>
             <p>
               The Financial Industry Business Ontology (FIBO) defines the sets
               of things that are of interest in financial business applications
-              and the ways that those things can relate to one another
+              and the ways that those things can relate to one another.
             </p>
             <a
               href="https://spec.edmcouncil.org/fibo/"
@@ -76,16 +63,12 @@
               v-on:click="
                 outboundLinkClick('https://spec.edmcouncil.org/fibo/')
               "
-              >Official FIBO website</a
             >
+              Official FIBO website
+            </a>
           </div>
         </div>
         <div class="carousel-item">
-          <img
-            class="d-block w-100"
-            src="../assets/img/baner1.png"
-            alt="Third slide"
-          />
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTO</h2>
             <p>
@@ -98,8 +81,9 @@
               v-on:click="
                 outboundLinkClick('https://spec.edmcouncil.org/auto/')
               "
-              >Official AUTO website</a
             >
+              Official AUTO website
+            </a>
           </div>
         </div>
       </div>
@@ -121,7 +105,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-      <div class="fill-image-auto"></div>
+      <div class="fill-image-fibo"></div>
     </div>
   </div>
 </template>
@@ -144,24 +128,35 @@ export default {
 .slider {
   padding-left: 0;
   padding-right: 0;
-  border-top: 6px solid map-get($colors-map, "blue");
 
   img {
     max-height: 250px !important;
     min-height: 250px !important;
+    object-fit: cover;
   }
 }
 
-.carousel {
-  border-top: 1px solid #ffffff;
+.carousel-inner {
+  height: 250px;
+  background-image: url("@/assets/img/banerBlack.jpg");
+  background-color: black;
+  background-size: 100% 100%;
 }
+
 .carousel-caption {
   top: 20px;
+  padding-top: 10px;
+
+  h2 {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+  }
 
   p {
     font-size: 19px !important;
     font-weight: 600 !important;
-    color: map-get($colors-map, "white");
+    color: rgba(255, 255, 255, 0.8);
     max-width: 1300px;
     margin-left: auto;
     margin-right: auto;
@@ -177,60 +172,93 @@ a.btn-sl {
   color: map-get($colors-map, "white");
   padding: 8px 13px;
   font-size: 13px;
-  background-color: map-get($colors-map, "orange");
   margin-top: 12px;
   font-weight: 500;
   letter-spacing: 1px;
+  text-decoration: underline !important;
+  transition: color 0.2s;
 
   &:hover {
     text-decoration: underline !important;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.carousel-item {
+  opacity: 0;
+  transition: transform 1.25s ease-in-out, opacity .7s;
+  &.active {
+    opacity: 1;
+  }
+  &.active.carousel-item-left {
+    opacity: 0;
+  }
+  &.active.carousel-item-right {
+    opacity: 0;
+  }
+  &.carousel-item-next {
+    transition: transform .8s ease-in-out, opacity .8s;
+    opacity: 0;
+    &.carousel-item-right {
+      opacity: 1;
+    }
+    &.carousel-item-left {
+      opacity: 1;
+    }
+  }
+  &.carousel-item-prev {
+    transition: transform .8s ease-in-out, opacity .8s;
+    opacity: 0;
+     &.carousel-item-right {
+      opacity: 1;
+    }
+    &.carousel-item-left {
+      opacity: 1;
+    }
   }
 }
 
 .carousel-indicators li {
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
+  width: 16px;
+  height: 4px;
   opacity: 0.9;
-  border: 1px solid map-get($colors-map, "white");
   margin-left: 6px;
   margin-right: 6px;
   padding-top: 0;
   padding-left: 0;
+  background-color: white;
+  opacity: 0.4;
+  transition: transform .6s ease-in-out, opacity .3s;
 
   &.active {
-    background-color: map-get($colors-map, "black");
+    background-color: white;
+    opacity: 1;
   }
 }
 .carousel-control-prev,
 .carousel-control-next {
   opacity: 1;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+  &:active {
+    cursor: pointer;
+    opacity: 1;
+  }
 }
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  width: 50px;
-  height: 50px;
-  background-color: map-get($colors-map, "white");
-  border-radius: 32px;
-
-  &:before {
-    font-family: $font-family-awsome-solid;
-    color: map-get($colors-map, "dark-grey");
-    font-size: 20px;
-    line-height: 50px;
-  }
+  width: 48px;
+  height: 48px;
 }
 
 .carousel-control-prev-icon {
-  &:before {
-    content: "\f053";
-  }
+  background-image: url("@/assets/icons/carousel-previous.svg");
 }
 
 .carousel-control-next-icon {
-  &:before {
-    content: "\f054";
-  }
+  background-image: url("@/assets/icons/carousel-next.svg");
 }
 
 @media (max-width: 1620px) {
@@ -262,6 +290,7 @@ a.btn-sl {
 
 @media (max-width: 991px) {
   .carousel-caption.d-none {
+    padding-top: 30px;
     display: block !important;
     margin-top: -20px;
   }

@@ -1,83 +1,59 @@
 <template>
   <footer>
     <div class="container">
-      <div class="row">
-        <div class="footer-sitemap col-md-4">
-          <span class="footer-header">Sitemap</span>
-          <div class="row">
-            <div class="col-md-6">
-              <ul>
-                <li>
-                  <router-link :to="{ path: router() }">About OKG</router-link>
-                </li>
-                <li>
-                  <a
-                    href="https://spec.edmcouncil.org/fibo/"
-                    v-on:click="
-                      outboundLinkClick('https://spec.edmcouncil.org/fibo/')
-                    "
-                    >FIBO</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://spec.edmcouncil.org/auto/"
-                    v-on:click="
-                      outboundLinkClick('https://spec.edmcouncil.org/auto/')
-                    "
-                    >AUTO</a
-                  >
-                </li>
-                <li>
-                  <router-link :to="{ path: router('contact') }"
-                    >Contact Person</router-link
-                  >
-                </li>
-              </ul>
-            </div>
-            <!-- <div class="col-md-6">
-              <ul>
-                <li>
-                  <router-link :to="{ path: router('vocabulary') }">AUTO vocabulary</router-link>
-                </li>
-              </ul>
-            </div> -->
-
-            <!-- end content -->
+      <div class="footer-contact row">
+        <div class="col-md-3">
+          <span class="footer-header">Contact us</span>
+          <div class="footer-text">
+            <a href="mailto:info@edmcouncil.org">info@edmcouncil.org</a>
           </div>
-          <!-- end row -->
         </div>
-        <!-- end footer-sitemap -->
-        <div class="footer-contact col-md-3">
-          <span class="footer-header">Contact Us</span>
-          <ul>
-            <li class="mail">
-              <a href="mailto:info@edmcouncil.org">info@edmcouncil.org</a>
-            </li>
-            <li class="phone">
-              USA +1
-              <span style="color: #ffffff">(646) 722-4381</span>
-            </li>
-            <li class="phone">UK +44 (0) 1794 390044</li>
-          </ul>
+        <div class="col-md-3">
+          <span class="footer-header">USA</span>
+          <div class="phone footer-text">+1 (646) 722-4381</div>
         </div>
-        <!-- end footer-contact -->
+        <div class="col-md-3">
+          <span class="footer-header">UK</span>
+          <div class="footer-text">+44 (0) 1794 390044</div>
+        </div>
+        <div class="col-md-3 social">
+          <a
+            href="https://www.youtube.com/user/EDMCouncil"
+            target="_blank"
+            v-on:click="outboundClick('youtube')"
+            ><img class="social-icons-first" src="../assets/icons/social-icons-yt.svg" alt="YouTube"
+          /></a>
+          <a
+            href="https://twitter.com/edmcouncil"
+            target="_blank"
+            v-on:click="outboundClick('twitter')"
+          >
+            <img class="social-icons" src="../assets/icons/social-icons-twitter.svg" alt="Twitter" />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/edm-council/"
+            target="_blank"
+            v-on:click="outboundClick('linkedin')"
+          >
+            <img class="social-icons" src="../assets/icons/social-icons-in.svg" alt="LinkedIn" />
+          </a>
+        </div>
       </div>
+
       <hr />
       <div class="row">
-        <div class="col-md-8">
-          <p>
-            © 2022 EDM Council. All rights reserved. DCAM and AUTO are
-            registered trademarks of EDM Council. All other marks are the
-            property of their respective owners. Membership Management Software
-            Powered by YourMembership
+        <div class="col-md-12">
+          <p class="copyright">
+            © {{ new Date().getFullYear() }} EDM Council. All rights reserved. DCAM and FIBO are registered trademarks of EDM
+            Council. All other marks are the property of their respective owners. Membership
+            Management Software Powered by YourMembership
           </p>
-
+          <hr />
           <div class="footer-links">
             <ul>
               <li>
                 <a
-  href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC__Terms_of_Use_032318.pdf"
+            href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC__Terms_of_Use_032318.pdf"
                   target="_blank"
                   v-on:click="outboundClick('EDMC__Terms_of_Use_032318.pdf')"
                   >Terms of Use</a
@@ -85,7 +61,7 @@
               </li>
               <li>
                 <a
-  href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC_Privacy_Policy_032318.pdf"
+            href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC_Privacy_Policy_032318.pdf"
                   target="_blank"
                   v-on:click="outboundClick('EDMC_Privacy_Policy_032318.pdf')"
                   >Privacy Policy</a
@@ -93,33 +69,11 @@
               </li>
               <li>
                 <a
-  href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC_Copyright_Policy_032318.pdf"
+            href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC_Copyright_Policy_032318.pdf"
                   target="_blank"
                   v-on:click="outboundClick('EDMC_Copyright_Policy_032318.pdf')"
                   >Copyright</a
                 >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="footer-social-links">
-            <ul>
-              <li class="twitter">
-                <a
-                  href="https://twitter.com/edmcouncil"
-                  target="_blank"
-                  v-on:click="outboundClick('twitter')"
-                  aria-label="Twitter"
-                ></a>
-              </li>
-              <li class="linkedin">
-                <a
-                  href="https://www.linkedin.com/company/edm-council/"
-                  target="_blank"
-                  v-on:click="outboundClick('linkedin')"
-                  aria-label="LinkedIn"
-                ></a>
               </li>
             </ul>
           </div>
@@ -144,36 +98,44 @@ export default {
 
 <style lang="scss">
 footer {
-  background-color: map-get($colors-map, "blue");
+  background-color: map-get($colors-map, "white");
   padding: 40px 0;
 
   a {
-    color: map-get($colors-map, "white");
+    color: map-get($colors-map, "black");
   }
   a:hover {
-    color: map-get($colors-map, "orange");
+    color: map-get($colors-map, "gray");
   }
   p {
     font-size: 12px;
-    color: #fff;
+    color: map-get($colors-map, "black");
   }
   .footer-text {
-    padding: 30px 0;
-    color: map-get($colors-map, "white");
-    font-weight: 300;
-    font-size: 14px;
+    color: map-get($colors-map, "darker-gray");
+    font-weight: 400;
+    line-height: 36px;
+    margin-top: 20px;
+    min-height: 36px;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+  .footer-text a {
+    color: map-get($colors-map, "darker-gray");
   }
   li:before {
     border: 0 !important;
   }
   span.footer-header {
-    margin: 0px;
-    padding: 0px;
-    display: inline-block;
-    padding-bottom: 12px;
-    font-weight: 600;
-    font-size: 24px;
-    color: map-get($colors-map, "white");
+    color: map-get($colors-map, "dark-grey");
+    font-weight: 700;
+    line-height: 30px;
+    min-height: 30px;
+    white-space: nowrap;
+  }
+  .copyright {
+    font-size: 10px;
+    color: map-get($colors-map, "gray");
   }
   ul {
     margin: 0;
@@ -184,57 +146,29 @@ footer {
     padding-left: 0;
     font-size: 15px;
   }
-  .footer-contact {
-    ul {
-      margin-left: 12px;
-
-      li {
-        list-style-type: none;
-        font-size: 15px;
-        color: map-get($colors-map, "white");
-        text-decoration: none;
-        height: 50px;
-        line-height: 50px;
-        border-bottom: 1px map-get($colors-map, "white") dotted;
-
-        a {
-          color: map-get($colors-map, "white");
-        }
-
-        &.mail a {
-          display: block;
-          padding-left: 33px;
-          font-size: 15px;
-          color: map-get($colors-map, "white");
-          text-decoration: none;
-          background: url(//edmcouncil.site-ym.com/resource/resmgr/images/Homepage_Images/bgr_footer_contact_mail.png)
-            no-repeat left 15px;
-        }
-        &.phone {
-          padding-left: 33px;
-          background: url(//edmcouncil.site-ym.com/resource/resmgr/images/Homepage_Images/bgr_footer_contact_phone.png)
-            no-repeat left 15px;
-        }
-        &:last-child {
-          border-bottom: 0;
-        }
-      }
-    }
+  .social {
+    align-items: flex-start;
+    display: flex;
+    justify-content: flex-end;
   }
-
-  .footer-sitemap ul {
-    border-left: 1px dotted map-get($colors-map, "white");
-    padding-left: 10px;
+  .social-icons-first {
+    height: 40px;
+    width: 40px;
   }
-
+  .social-icons {
+    height: 40px;
+    margin-left: 40px;
+    width: 40px;
+  }
   .footer-links ul {
     font-size: 12px;
     list-style-type: none;
-    padding: 20px 0;
+    padding: 0 0;
     margin: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    text-decoration: underline;
 
     li {
       padding: 0;
@@ -243,43 +177,16 @@ footer {
       font-size: 12px;
 
       &:first-child {
-        border-right: 1px solid map-get($colors-map, "white");
+        border-right: 1px solid map-get($colors-map, "grey");
         padding-right: 12px;
       }
       &:nth-child(2) {
-        border-right: 1px solid map-get($colors-map, "white");
+        border-right: 1px solid map-get($colors-map, "grey");
         padding-right: 12px;
         padding-left: 12px;
       }
       &:nth-child(3) {
         padding-left: 12px;
-      }
-    }
-  }
-
-  .footer-social-links ul {
-    margin: 0px;
-    padding: 0px;
-    text-align: right;
-
-    li {
-      list-style-type: none;
-      display: inline-block;
-      margin-left: 4px;
-
-      &.twitter a {
-        display: block;
-        width: 54px;
-        height: 54px;
-        background: url(//edmcouncil.site-ym.com/resource/resmgr/images/Homepage_Images/footer_twitter.png)
-          no-repeat left top;
-      }
-      &.linkedin a {
-        display: block;
-        width: 54px;
-        height: 54px;
-        background: url(//edmcouncil.site-ym.com/resource/resmgr/images/Homepage_Images/footer_linkedin.png)
-          no-repeat left top;
       }
     }
   }
