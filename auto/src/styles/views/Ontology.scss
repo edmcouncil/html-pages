@@ -675,11 +675,9 @@
       float: right;
       margin-top: 40px;
       margin-left: 10px;
-      background: rgba(0, 0, 0, 0.8);
       border-radius: 2px;
       padding: 5px 15px;
       border: none;
-      color: rgba(255, 255, 255, 0.9);
       text-decoration: none;
       font-family: Inter;
       font-style: normal;
@@ -687,14 +685,6 @@
       font-size: 14px;
       line-height: 20px;
       letter-spacing: 0.01em;
-      transition: background 0.2s;
-
-      &:hover{
-        background: $link-active-color;
-      }
-      &:active{
-        background: $link-hover-color;
-      }
     }
 
     h5 {
