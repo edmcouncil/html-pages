@@ -13,15 +13,13 @@
           >
             <div class="row modules-header">
               <h5 class="fibo-title-modules">AUTO Viewer</h5>
-              <div class="button-small">
-                <router-link
-                  class="button-small-text"
-                  to="/ontology"
-                  @click="data = null"
-                >
-                  How to use
-                </router-link>
-              </div>
+              <button
+                type="button"
+                class="btn normal-button button-small"
+                @click="howToUseHandler()"
+              >
+                How to use
+              </button>
             </div>
           </div>
           <div
@@ -127,10 +125,26 @@
         </div>
 
         <div class="container px-0">
-          <a
-            name="ontologyViewerTopOfContainer"
-            id="ontologyViewerTopOfContainer"
-          ></a>
+          <div
+            class="
+              secondary-column__how-to-use
+              secondary-column__how-to-use--mobile
+              multiselect-xxl-container multiselect-container
+              container
+              d-lg-none
+            "
+          >
+            <div class="row modules-header">
+              <h5 class="fibo-title-modules">AUTO Viewer</h5>
+              <button
+                type="button"
+                class="btn normal-button button-small"
+                @click="howToUseHandler()"
+              >
+                How to use
+              </button>
+            </div>
+          </div>
 
           <!-- search box mobile -->
           <div
@@ -213,7 +227,7 @@
             </div>
           </div>
 
-          <ul v-if="display_modules" class="modules-list list-unstyled">
+          <ul v-if="display_modules" class="modules-list list-unstyled d-lg-none">
             <module-tree
               :item="item"
               v-for="item in modulesList"
@@ -227,6 +241,11 @@
             </div>
           </div>
         </div>
+
+        <a
+          name="ontologyViewerTopOfContainer"
+          id="ontologyViewerTopOfContainer"
+        ></a>
 
         <div class="row" v-if="loader">
           <div class="col-12">
@@ -869,16 +888,7 @@ export default {
         selectedData: null,
         data: [],
         isLoading: false,
-      },
-      scrollToOntologyViewerTopOfContainer() {
-        const element = document.getElementById('ontologyViewerTopOfContainer');
-
-        const rect = element.getBoundingClientRect();
-        const scrollTop = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
-
-        window.scrollTo(0, scrollTop);
-        this.$root.ontologyRouteIsUpdating = false;
-      },
+      }
     };
   },
   mounted() {
@@ -1206,6 +1216,31 @@ export default {
 
       window.open(url, '_blank');
     },
+    scrollToOntologyViewerTopOfContainer(behavior) {
+      const element = document.getElementById("ontologyViewerTopOfContainer");
+
+      const rect = element.getBoundingClientRect();
+      const scrollTop = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
+
+      if (behavior == 'smooth')
+        window.scrollTo({
+          top: scrollTop,
+          behavior: 'smooth',
+        });
+      else
+        window.scrollTo(0, scrollTop);
+
+      this.$root.ontologyRouteIsUpdating = false;
+    },
+    howToUseHandler() {
+      this.data = null;
+      if(this.$route.fullPath != '/ontology')
+        this.$router.push('/ontology');
+
+      this.$nextTick(async function () {
+        this.scrollToOntologyViewerTopOfContainer('smooth');
+      });
+    }
   },
   computed: {
     ...mapState({
@@ -1262,7 +1297,10 @@ export default {
     // scrollTo: ontologyViewerTopOfContainer
     if (this.$root.ontologyRouteIsUpdating || this.$route.query.scrollToTop === 'true') {
       this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
-      this.scrollToOntologyViewerTopOfContainer(); // scroll only after internal navigaion
+      this.$nextTick(() => {
+        if(this.$route.fullPath != '/ontology')
+          this.scrollToOntologyViewerTopOfContainer();
+      });
     }
 
     // const currentTimestamp = Math.floor(Date.now() / 1000);
@@ -1272,7 +1310,10 @@ export default {
     // }
 
     if (this.$route.query.searchBoxQuery && this.$route.query.searchBoxQuery_isExecuted !== true) {
-      this.scrollToOntologyViewerTopOfContainer();
+      this.$nextTick(() => {
+        if(this.$route.fullPath != '/ontology')
+          this.scrollToOntologyViewerTopOfContainer();
+      });
       this.clearSearchResults();
       this.handleSearchBoxQuery(decodeURI(this.$route.query.searchBoxQuery));
       this.$route.query.searchBoxQuery_isExecuted = true;

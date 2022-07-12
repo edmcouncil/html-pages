@@ -13,15 +13,13 @@
           >
             <div class="row modules-header">
               <h5 class="fibo-title-modules">FIBO Viewer</h5>
-              <div class="button-small">
-                <router-link
-                  class="button-small-text"
-                  to="/ontology"
-                  @click="data = null"
-                >
-                  How to use
-                </router-link>
-              </div>
+              <button
+                type="button"
+                class="btn normal-button button-small"
+                @click="howToUseHandler()"
+              >
+                How to use
+              </button>
             </div>
           </div>
           <div
@@ -276,13 +274,6 @@
           </div>
         </div>
 
-        <div class="container px-0">
-          <a
-            name="ontologyViewerTopOfContainer"
-            id="ontologyViewerTopOfContainer"
-          ></a>
-        </div>
-
         <!-- mobile multiselects -->
         <div class="secondary-column--mobile container px-0 mb-2 d-lg-none">
           <div
@@ -294,15 +285,13 @@
           >
             <div class="row modules-header">
               <h5 class="fibo-title-modules">FIBO Viewer</h5>
-              <div class="button-small">
-                <router-link
-                  class="button-small-text"
-                  to="/ontology"
-                  @click="data = null"
-                >
-                  How to use
-                </router-link>
-              </div>
+              <button
+                type="button"
+                class="btn normal-button button-small"
+                @click="howToUseHandler()"
+              >
+                How to use
+              </button>
             </div>
           </div>
 
@@ -530,6 +519,13 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="container px-0">
+          <a
+            name="ontologyViewerTopOfContainer"
+            id="ontologyViewerTopOfContainer"
+          ></a>
         </div>
 
         <div
@@ -1196,15 +1192,6 @@ export default {
         data: [],
         isLoading: false,
       },
-      scrollToOntologyViewerTopOfContainer() {
-        const element = document.getElementById("ontologyViewerTopOfContainer");
-
-        const rect = element.getBoundingClientRect();
-        const scrollTop = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
-
-        window.scrollTo(0, scrollTop);
-        this.$root.ontologyRouteIsUpdating = false;
-      },
     };
   },
   mounted() {
@@ -1690,6 +1677,31 @@ export default {
 
       window.open(url, '_blank');
     },
+    scrollToOntologyViewerTopOfContainer(behavior) {
+      const element = document.getElementById("ontologyViewerTopOfContainer");
+
+      const rect = element.getBoundingClientRect();
+      const scrollTop = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
+
+      if (behavior == 'smooth')
+        window.scrollTo({
+          top: scrollTop,
+          behavior: 'smooth',
+        });
+      else
+        window.scrollTo(0, scrollTop);
+
+      this.$root.ontologyRouteIsUpdating = false;
+    },
+    howToUseHandler() {
+      this.data = null;
+      if(this.$route.fullPath != '/ontology')
+        this.$router.push('/ontology');
+
+      this.$nextTick(async function () {
+        this.scrollToOntologyViewerTopOfContainer('smooth');
+      });
+    }
   },
   computed: {
     ...mapState({
@@ -1752,7 +1764,8 @@ export default {
     if (this.$root.ontologyRouteIsUpdating || this.$route.query.scrollToTop === "true") {
       this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
       this.$nextTick(() => {
-        this.scrollToOntologyViewerTopOfContainer();
+        if(this.$route.fullPath != '/ontology')
+          this.scrollToOntologyViewerTopOfContainer();
       });
     }
 
@@ -1770,7 +1783,8 @@ export default {
       this.$refs.searchBoxInput.search = searchQuery;
       this.handleSearchBoxQuery(searchQuery);
       this.$nextTick(() => {
-        this.scrollToOntologyViewerTopOfContainer();
+        if(this.$route.fullPath != '/ontology')
+          this.scrollToOntologyViewerTopOfContainer();
       });
       this.$route.query.searchBoxQuery_isExecuted = true;
     }
