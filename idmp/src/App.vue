@@ -1,19 +1,29 @@
 <template>
-  <div id="app">
+  <div v-if="isConnected" id="app">
     <HeaderComponent></HeaderComponent>
     <router-view />
     <FooterComponent></FooterComponent>
+  </div>
+  <div v-else>
+    <ConnectionProblem></ConnectionProblem>
   </div>
 </template>
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
+import ConnectionProblem from '@/components/ConnectionProblem.vue';
 
 export default {
   components: {
     HeaderComponent,
     FooterComponent,
+    ConnectionProblem,
   },
+  data() {
+    return {
+      isConnected: true,
+    }
+  }
 };
 </script>
 
