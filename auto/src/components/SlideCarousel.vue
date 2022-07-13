@@ -8,7 +8,6 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="First slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE ONTOLOGY</h2>
             <p>The entirely new branch of the EDMC OKG initiative focused on Automotive Industry applications of Knowledge Graphs</p>
@@ -16,7 +15,6 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="Second slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE ONTOLOGY</h2>
             <p>A wide range of vital applications from the unique aspects of traditional and autonomous vehicles safety to the cross-industry edge computing applications</p>
@@ -24,7 +22,6 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="../assets/img/banerBlack.jpg" alt="Third slide">
           <div class="carousel-caption d-none d-md-block">
             <h2>AUTOMOTIVE COMMUNITY</h2>
             <p>The new activity will engage members of existing  W3C’s Automotive Ontology Community Group</p>
@@ -65,11 +62,11 @@ export default {
 </script>
 
 <style lang="scss">
-  .fa,
-  .fas {
-    font-family: $font-family-awsome-solid;
-    font-weight: 900;
-  }
+.fa,
+.fas {
+  font-family: $font-family-awsome-solid;
+  font-weight: 900;
+}
 .slider {
   padding-left: 0;
   padding-right: 0;
@@ -77,16 +74,31 @@ export default {
   img {
     max-height: 250px !important;
     min-height: 250px !important;
+    object-fit: cover;
   }
+}
+
+.carousel-inner {
+  min-height: 250px;
+  background-image: url("@/assets/img/banerBlack.jpg");
+  background-color: black;
+  background-size: 100% 100%;
 }
 
 .carousel-caption {
   top: 20px;
+  padding-top: 10px;
+
+  h2 {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+  }
 
   p {
     font-size: 19px !important;
     font-weight: 600 !important;
-    color: map-get($colors-map, 'white');
+    color: rgba(255, 255, 255, 0.8);
     max-width: 1300px;
     margin-left: auto;
     margin-right: auto;
@@ -96,64 +108,99 @@ export default {
   h5 {
     font-size: 32px;
   }
-
 }
 a.btn-sl {
   display: inline-block;
-  color: map-get($colors-map, 'white');
+  color: map-get($colors-map, "white");
   padding: 8px 13px;
   font-size: 13px;
   margin-top: 12px;
   font-weight: 500;
   letter-spacing: 1px;
+  text-decoration: underline !important;
+  transition: color 0.2s;
 
   &:hover {
     text-decoration: underline !important;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.carousel-item {
+  opacity: 0;
+  transition: transform 1.25s ease-in-out, opacity .7s;
+  &.active {
+    opacity: 1;
+  }
+  &.active.carousel-item-left {
+    opacity: 0;
+  }
+  &.active.carousel-item-right {
+    opacity: 0;
+  }
+  &.carousel-item-next {
+    transition: transform .8s ease-in-out, opacity .8s;
+    opacity: 0;
+    &.carousel-item-right {
+      opacity: 1;
+    }
+    &.carousel-item-left {
+      opacity: 1;
+    }
+  }
+  &.carousel-item-prev {
+    transition: transform .8s ease-in-out, opacity .8s;
+    opacity: 0;
+     &.carousel-item-right {
+      opacity: 1;
+    }
+    &.carousel-item-left {
+      opacity: 1;
+    }
   }
 }
 
 .carousel-indicators li {
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
+  width: 16px;
+  height: 4px;
   opacity: 0.9;
   margin-left: 6px;
   margin-right: 6px;
   padding-top: 0;
   padding-left: 0;
+  background-color: white;
+  opacity: 0.4;
+  transition: transform .6s ease-in-out, opacity .3s;
 
   &.active {
-    background-color: map-get($colors-map, 'black');
-  }
-}
-  .carousel-control-prev, .carousel-control-next{
+    background-color: white;
     opacity: 1;
   }
+}
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 1;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+  &:active {
+    cursor: pointer;
+    opacity: 1;
+  }
+}
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  width: 50px;
-  height: 50px;
-  background-color: map-get($colors-map, 'white');
-  border-radius: 32px;
-
-  &:before{
-    font-family: $font-family-awsome-solid;
-    color: map-get($colors-map, 'dark-grey');
-    font-size: 20px;
-    line-height: 50px;
-  }
+  width: 48px;
+  height: 48px;
 }
 
 .carousel-control-prev-icon {
-  &:before {
-     content: "\f053";
-  }
+  background-image: url("@/assets/icons/carousel-previous.svg");
 }
 
 .carousel-control-next-icon {
-  &:before {
-    content: "\f054";
-  }
+  background-image: url("@/assets/icons/carousel-next.svg");
 }
 
 @media (max-width: 1620px) {
@@ -185,6 +232,7 @@ a.btn-sl {
 
 @media (max-width: 991px) {
   .carousel-caption.d-none {
+    padding-top: 30px;
     display: block !important;
     margin-top: -20px;
   }
@@ -219,7 +267,5 @@ a.btn-sl {
     margin-top: 0px;
     padding: 5px 10px;
   }
-
 }
-
 </style>

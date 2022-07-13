@@ -21,17 +21,17 @@ export default new Router({
     {
       path: '/okgl',
       name: 'OKGL',
-      component: () => import(/* webpackChunkName: "Products" */ './views/OKGL.vue'),
+      component: () => import(/* webpackChunkName: "OKGL" */ './views/OKGL.vue'),
     },
     {
       path: '/courses',
       name: 'Courses',
-      component: () => import(/* webpackChunkName: "Products" */ './views/Courses.vue'),
+      component: () => import(/* webpackChunkName: "Courses" */ './views/Courses.vue'),
     },
     {
       path: '/contact',
       name: 'Contact',
-      component: () => import(/* webpackChunkName: "Products" */ './views/Contact.vue'),
+      component: () => import(/* webpackChunkName: "Contact" */ './views/Contact.vue'),
     },
     {
       path: '*',
