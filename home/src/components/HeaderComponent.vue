@@ -1,141 +1,236 @@
 <template>
-  <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
-        <img id="logo-auto" src="@/assets/img/logo.png" alt="logo"/>
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        MENU
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <ul class="navbar-links">
-        <li>
-          <a href="https://edmcouncil.org/events/event_list.asp" target="_blank"
-            >CALENDAR</a
-          >
-        </li>
-        <li>
-          <a href="https://edmcouncil.org/Login.aspx" target="_blank"
-            >GO TO EDMCONNECT</a
-          >
-        </li>
-        <li>
-          <a href="https://edmcouncil.org/login.aspx" target="_blank"
-            >SIGN IN</a
-          >
-        </li>
-        <li>
-          <a href="https://edmcouncil.org/page/NewWebReg" target="_blank"
-            >REGISTER</a
-          >
-        </li>
-        <li class="ico">
-          <a
-            href="https://twitter.com/edmcouncil"
-            target="_blank"
-            class="foot-li"
-            aria-label="Twitter"
-          >
-            <i class="fab fa-twitter"></i>
-          </a>
-        </li>
-        <li class="ico">
-          <a
-            href="https://www.linkedin.com/company/edm-council/"
-            target="_blank"
-            class="foot-li"
-            aria-label="LinkedIn"
-          >
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-        </li>
-        <li class="ico">
-          <a
-            href="https://www.youtube.com/edmcouncil"
-            target="_blank"
-            class="foot-li"
-            aria-label="YouTube"
-          >
-            <i class="fab fa-youtube"></i>
-          </a>
-        </li>
-      </ul>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ path: router() }"
-              >About OKG</router-link
-            >
-          </li>
-          <!--<li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >EDMC Knowledge Graphs</a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a href="https://spec.edmcouncil.org/fibo/"
-                    class="dropdown-item" v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')">
-                    Financial Industry Business Ontology (FIBO)</a>
-                    <a href="https://spec.edmcouncil.org/auto/" class="dropdown-item"
-                    v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')">
-                    Automotive Ontology (AUTO)</a>
+  <div class="container header">
+    <div class="desktop-view">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
+          <img id="logo-fibo" src="@/assets/img/logo.png" alt="Logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item padding-top15">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/events/event_list.asp"
+                target="_blank"
+              >
+                Calendar
+              </a>
+            </li>
+            <li class="nav-item padding-top15">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/Login.aspx"
+                target="_blank"
+              >
+                EDMConnect
+              </a>
+            </li>
+            <li class="nav-item padding-top15">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/login.aspx"
+                target="_blank"
+              >
+                Sign in / Register
+              </a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-label="Menu"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <div class="burger-button">
+                  <div class="icon-burger">
+                    <img
+                      src="@/assets/icons/union-burger.svg"
+                      alt="Menu image"
+                    />
                   </div>
-                  </li>-->
-          <!--                <li class="nav-item">
-                  <router-link class="nav-link" :to="{ path: router('okgl') }">OKG Lab</router-link>
-               </li> -->
-          <!--                <li class="nav-item">
-                  <router-link class="nav-link" :to="{ path: router('courses') }">OKG Training</router-link>
-               </li> -->
-          <li class="nav-item">
-            <a
-              href="https://spec.edmcouncil.org/fibo/"
-              class="nav-link"
-              v-on:click="
-                outboundLinkClick('https://spec.edmcouncil.org/fibo/')
-              "
-              >FIBO home</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              href="https://spec.edmcouncil.org/auto/"
-              class="nav-link"
-              v-on:click="
-                outboundLinkClick('https://spec.edmcouncil.org/auto/')
-              "
-              >AUTO home</a
-            >
-          </li>
-          <!--                <li class="nav-item">
-                  <router-link class="nav-link" :to="{ path: router('contact') }">Contact</router-link>
-               </li> -->
-        </ul>
-      </div>
-    </nav>
+                </div>
+              </a>
+              <div
+                class="dropdown-menu desktop"
+                aria-labelledby="navbarDropdown"
+              >
+                <router-link class="nav-link" :to="{ path: router('/') }">
+                  <span
+                    @click="navigationHandler('/')"
+                    @keydown.enter="navigationHandler('/')"
+                  >
+                    About OKG
+                  </span>
+                </router-link>
+                <a
+                  href="https://spec.edmcouncil.org/fibo/"
+                  class="nav-link"
+                  v-on:click="
+                    outboundLinkClick('https://spec.edmcouncil.org/fibo/')
+                  "
+                >
+                  FIBO Home
+                </a>
+                <a
+                  href="https://spec.edmcouncil.org/auto/"
+                  class="nav-link"
+                  v-on:click="
+                    outboundLinkClick('https://spec.edmcouncil.org/auto/')
+                  "
+                >
+                  AUTO Home
+                </a>
+                <router-link class="nav-link" :to="{ path: router('contact') }">
+                  <span
+                    @click="navigationHandler('contact')"
+                    @keydown.enter="navigationHandler('contact')"
+                  >
+                    Contact Person
+                  </span>
+                </router-link>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="mobile-view">
+      <nav class="navbar navbar-expand-lg navbar-light mobile-view">
+        <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
+          <img id="logo-fibo" src="@/assets/img/logo.png" alt="Logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/events/event_list.asp"
+                target="_blank"
+              >
+                Calendar
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/Login.aspx"
+                target="_blank"
+              >
+                EDMConnect
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://edmcouncil.org/login.aspx"
+                target="_blank"
+              >
+                Sign in / Register
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ path: router('/') }">
+                <span
+                  @click="navigationHandler('/')"
+                  @keydown.enter="navigationHandler('/')"
+                >
+                  About OKG
+                </span>
+              </router-link>
+            </li>
+
+            <li class="nav-item">
+              <a
+                href="https://spec.edmcouncil.org/fibo/"
+                class="nav-link"
+                v-on:click="
+                  outboundLinkClick('https://spec.edmcouncil.org/fibo/')
+                "
+              >
+                FIBO Home
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a
+                href="https://spec.edmcouncil.org/auto/"
+                class="nav-link"
+                v-on:click="
+                  outboundLinkClick('https://spec.edmcouncil.org/auto/')
+                "
+              >
+                AUTO Home
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ path: router('contact') }">
+                <span
+                  @click="navigationHandler('contact')"
+                  @keydown.enter="navigationHandler('contact')"
+                >
+                  Contact Person
+                </span>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <SlideCarousel v-if="!$route.meta.plainLayout"></SlideCarousel>
   </div>
 </template>
+
 <script>
+import Vue from 'vue';
+import SlideCarousel from '@/components/SlideCarousel.vue';
 import helpers from '../store/helpers';
+
+Vue.component('SlideCarousel', SlideCarousel);
 
 export default {
   extends: helpers,
   name: 'HeaderComponent',
+  methods: {
+    navigationHandler(to) {
+      this.$emit('navigationEvent', to);
+    },
+  },
 };
 </script>
+
 <style lang="scss">
 .fab {
   font-family: $font-family-awsome-brands;
@@ -150,6 +245,65 @@ export default {
 .fa-youtube:before {
   content: "\f167";
 }
+.header {
+  background-size: cover;
+  width: 100%;
+  padding: 0;
+}
+
+.burger-button {
+  align-items: center;
+  background-color: map-get($colors-map, "black");
+  border-radius: 2px;
+  box-shadow: 0px 5px 20px #07539526;
+  display: flex;
+  height: 60px;
+  margin-left: 40px;
+  min-width: 104px;
+  padding: 0px 40px;
+  .icon-burger {
+    align-items: flex-end;
+    display: flex;
+    height: 24px;
+    min-width: 24px;
+    img {
+      height: 23px;
+      width: 24px;
+    }
+  }
+}
+.burger-button img {
+  max-width: 90%;
+  height: auto;
+}
+
+.sub-nav-link {
+  padding-left: 10px;
+  color: black;
+}
+.nav-sub-link {
+  color: map-get($colors-map, "grey") !important;
+  text-shadow: 0 0 1px #ccc;
+}
+
+@media (min-width: 992px) {
+  .desktop-view {
+    padding: 0 45px;
+    display: block !important;
+  }
+  .mobile-view {
+    display: none !important;
+  }
+}
+@media (max-width: 991px) {
+  .mobile-view {
+    display: block !important;
+  }
+  .desktop-view {
+    display: none !important;
+  }
+}
+
 .padding-top30-bottom30 {
   padding: 30px 0;
 }
@@ -162,40 +316,46 @@ export default {
   }
 }
 .nav-item {
-  text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 50;
+}
+
+.nav-item.padding-top15 {
+  padding-top: 15px !important;
 }
 .navbar-nav {
   align-self: flex-end;
   padding-bottom: 5px;
-  margin-top: 45px;
+  margin-top: 0px;
+  padding-top: 15px;
   margin-bottom: 12px;
 }
 .navbar-collapse {
-  padding-top: 40px;
+  padding-top: 0px;
 }
 .navbar-nav li:before,
 .navbar-links li:before {
   border: none !important;
 }
-.navbarauto {
+.navbarfibo {
   align-self: end;
   justify-content: flex-end;
   padding-bottom: 15px;
   font-weight: 700;
 }
 .navbar-brand img {
-  margin-top: 15px;
+  margin-top: 0px;
 }
 .navbar-expand-lg .navbar-nav .nav-link {
   padding: 2px 0 2px 30px;
   font-size: 18px;
-  font-weight: 500;
-  color: map-get($colors-map, "blue");
+  font-weight: 100;
+  padding-top: 5px;
+  color: map-get($colors-map, "black");
   text-shadow: 0 0 1px #ccc;
 }
 .nav-link {
   transition: 0.5s;
+
   &:focus,
   &:active {
     outline: none !important;
@@ -203,19 +363,21 @@ export default {
   }
 }
 .navbar-light .navbar-toggler {
-  margin-top: 40px;
+  margin-top: 10px;
   color: map-get($colors-map, "white");
   border-color: transparent;
   line-height: 20px;
 }
 .navbar-toggler {
-  background-color: map-get($colors-map, "orange");
+  background-color: map-get($colors-map, "black");
   font-size: 15px;
+  float: right;
+  margin-right: 5px;
 }
-.navbar-light .navbar-toggler-icon {
-  background-image: url("../assets/icons/union-burger.svg");
-  background-size: 75%;
+.navbar-toggler-icon {
+  background-image: url("../assets/icons/union-burger.svg") !important;
 }
+
 .navbar-links {
   position: absolute;
   top: 25px;
@@ -223,6 +385,7 @@ export default {
   list-style-type: none;
   padding: 0;
   margin: 0;
+
   li {
     display: inline-block;
     background-color: map-get($colors-map, "orange");
@@ -248,6 +411,7 @@ export default {
       text-transform: uppercase;
       padding: 0 15px;
       line-height: 36px;
+
       &:hover {
         text-decoration: none;
       }
@@ -261,6 +425,7 @@ export default {
     &.ico {
       background-color: map-get($colors-map, "white");
       margin: 0 0;
+
       a {
         padding: 0;
         font-size: 22px;
@@ -278,6 +443,7 @@ export default {
         margin: 0 1px;
         font-size: 22px;
         transition: all 0.6s ease 0s;
+
         &:hover {
           background-color: map-get($colors-map, "lighter-grey");
           color: map-get($colors-map, "blue");
@@ -286,18 +452,30 @@ export default {
     }
   }
 }
+
 .dropdown-menu {
+  min-width: 250px;
   border: none;
-  background-color: map-get($colors-map, "blue");
+  background-color: map-get($colors-map, "white");
   border-radius: 0;
 }
+
+//multiselect burger hide down arrow
+.dropdown-toggle::after {
+  display: none;
+}
+.dropdown-menu.desktop {
+  left: -95%;
+}
+
 .dropdown-item {
-  color: #fff;
+  color: map-get($colors-map, "black");
   padding: 2px 12px;
   font-size: 18px;
   font-weight: 400;
   text-transform: capitalize;
   line-height: 24px;
+
   &:hover,
   &:focus {
     text-decoration: none;
@@ -305,14 +483,15 @@ export default {
     color: #fff;
   }
 }
+
 .ml-auto {
   left: auto !important;
   right: 0px;
 }
 @media (max-width: 1559px) {
-  #logo-auto {
+  #logo-fibo {
     width: 140px;
-    margin-top: 43px;
+    margin-top: 10px;
   }
   .navbar-nav {
     margin-bottom: 7px;
@@ -334,7 +513,7 @@ export default {
   }
 }
 @media (max-width: 991px) {
-  #logo-auto {
+  #logo-fibo {
     margin-bottom: 20px;
   }
   .navbar-nav {
@@ -346,16 +525,17 @@ export default {
 }
 @media (max-width: 767px) {
   .navbar-brand img {
-    margin-top: 40px;
+    margin-top: 10px;
     width: 260px;
   }
-  #logo-auto {
+  #logo-fibo {
     margin-bottom: 10px;
   }
   .carousel-caption.d-none {
     display: block !important;
     margin-top: -30px;
   }
+
   .navbar-links li:nth-child(4) {
     margin-right: 0;
   }

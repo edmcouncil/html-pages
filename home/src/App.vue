@@ -1,21 +1,25 @@
 <template>
   <div id="app">
-    <HeaderComponent></HeaderComponent>
-    <SlideCarousel v-if="!$route.meta.plainLayout"></SlideCarousel>
-    <router-view/>
+    <HeaderComponent @navigationEvent="navigationHandler"></HeaderComponent>
+    <router-view ref="routerView"/>
     <FooterComponent></FooterComponent>
   </div>
 </template>
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue';
-import SlideCarousel from '@/components/SlideCarousel.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 
 export default {
   components: {
     HeaderComponent,
-    SlideCarousel,
     FooterComponent,
+  },
+  methods: {
+    navigationHandler(to) {
+      if (this.$refs.routerView.navigationHandler) {
+        this.$refs.routerView.navigationHandler(to);
+      }
+    },
   },
 };
 </script>
