@@ -375,6 +375,19 @@
                 <div class="col-md-12 ontology-item__header">
                   <div class="card">
                     <div class="card-body">
+                      <!-- report a problem -->
+                      <button
+                        type="button"
+                        class="btn normal-button btn-report-a-problem"
+                        v-if="
+                          !data.iri.startsWith('http://') &&
+                          !(this.$route.query && this.$route.query.version)
+                        "
+                        @click="githubNewIssue()"
+                      >
+                        Report a problem
+                      </button>
+
                       <!-- maturity alert -->
                       <div
                         class="alert alert-primary alert-maturity"
@@ -875,16 +888,7 @@ export default {
         selectedData: null,
         data: [],
         isLoading: false,
-      },
-      githubNewIssueDetails() {
-        const ontologyQuery = this.data.iri.replace('https://spec.edmcouncil.org/fibo/ontology/', '');
-        const label = ontologyQuery.substring(0, ontologyQuery.indexOf('/'));
-        return {
-          label,
-          title: `Problem with ${this.data.label.toUpperCase()}`,
-          body: `Resource URL:\n${this.data.iri}`,
-        };
-      },
+      }
     };
   },
   mounted() {
@@ -894,7 +898,6 @@ export default {
     if (this.$route.params && this.$route.params[1]) {
       const ontologyQuery = window.location.pathname.replace('/auto/ontology/', '');
       queryParam = `https://spec.edmcouncil.org/auto/ontology/${ontologyQuery}`;
-      // this.githubNewIssue.title = this.githubNewIssue.titleTemplate.replace('<LABEL>', this.githubNewIssue.label);
     } else if (this.$route.query && this.$route.query.query) {
       queryParam = encodeURIComponent(this.$route.query.query)+encodeURIComponent(this.$route.hash) || "";
     }
@@ -1196,6 +1199,22 @@ export default {
       let newNode = {'value': parts[0] ,'children':[]};
       treeNode.push(newNode);
       this.getTreeFromList(parts.splice(1,parts.length), newNode.children);
+    },
+    githubNewIssue() {
+      const ontologyQuery = this.data.iri.replace('https://spec.edmcouncil.org/auto/ontology/', '');
+      const label = ontologyQuery.substring(0, ontologyQuery.indexOf("/"));
+      const details = {
+        label,
+        title: `Problem with ${this.data.label.toUpperCase()}`,
+        body: `Resource URL:\n${this.data.iri}`,
+      };
+      const url =  `https://github.com/edmcouncil/auto/issues/new` +
+        `?labels=${encodeURI(details.label)}` +
+        `&template=issue.md` +
+        `&title=${encodeURI(details.title)}` +
+        `&body=${encodeURI(details.body)}`;
+
+      window.open(url, '_blank');
     },
     scrollToOntologyViewerTopOfContainer(behavior) {
       const element = document.getElementById("ontologyViewerTopOfContainer");
