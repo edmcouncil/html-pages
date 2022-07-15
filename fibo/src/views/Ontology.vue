@@ -23,6 +23,7 @@
             </div>
           </div>
           <div
+            v-if="hasVersions"
             class="
               secondary-column__versions
               multiselect-xxl-container multiselect-container
@@ -296,6 +297,7 @@
           </div>
 
           <div
+            v-if="hasVersions"
             class="
               secondary-column__versions secondary-column__versions--mobile
               multiselect-container
@@ -1015,7 +1017,10 @@
                   </p>
                 </section>
 
-                <section class="blank">
+                <section
+                  v-if="hasVersions"
+                  class="blank"
+                >
                   <img class="article-icon" src="@/assets/img/clock.svg" />
                   <h3>FIBO Versions</h3>
                   <p>
@@ -1711,7 +1716,10 @@ export default {
       modulesDefaultDomain: state => state.modulesDefaultDomain,
       statsDefaultDomain: state => state.statsDefaultDomain,
       missingImportsDefaultDomain: state => state.missingImportsDefaultDomain,
-    })
+    }),
+    hasVersions() {
+      return this.ontologyVersionsDropdownData.data.length > 1;
+    }
   },
   watch: {
     // eslint-disable-next-line vue/no-arrow-functions-in-watch

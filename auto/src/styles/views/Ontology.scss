@@ -219,6 +219,85 @@
 }
 
 // --------------------------
+// Version select
+// --------------------------
+.multiselect-container.secondary-column__versions {
+  margin-top: 60px;
+  padding: 0 20px 0px 20px;
+  border-radius: 2px;
+  border: none;
+
+  .multiselect {
+    width: 100%;
+    min-height: 30px;
+    .multiselect__placeholder {
+      color: map-get($colors-map, "black") !important;
+      font-weight: 700;
+      font-size: 18px;
+      padding-top: 0px;
+      margin-bottom: 0px;
+    }
+  }
+
+  .multiselect--active{
+    .multiselect__select {
+      transform: none;
+    }
+  }
+  .multiselect__content-wrapper /*, .multiselect__element */ {
+    margin-top: 15px;
+    border-radius: 0px;
+    border: none;
+    overflow-x: hidden;
+
+    box-shadow: inset 0px 20px 20px -20px rgba(8, 84, 150, 0.15),
+                0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+  }
+  
+  .multiselect__content {
+    max-width: 100%;
+    overflow-x: hidden;
+    
+    .multiselect__option {
+
+      margin: 0px 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    li{
+      .multiselect__option--highlight,
+      .multiselect__option--highlight:after {
+        background: #f3f3f3;
+        color: #000;
+      }
+      .multiselect__option--highlight{
+        &:after{
+          background-image: url("../../assets/icons/search-select-arrow.svg");
+          background-position: center;
+          background-repeat: no-repeat;
+          color: transparent;
+        }
+      }
+    }
+    
+    li:first-of-type{
+      .multiselect__option--highlight:after{
+        background:none;
+        color: black;
+      }
+    }
+  }
+}
+.multiselect-container.secondary-column__versions.secondary-column__versions--mobile{
+  background-color: transparent;
+  margin-top: 30px;
+  .menu-box {
+    margin-top: 0px;
+    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+  }
+}
+
+// --------------------------
 // Search box
 // --------------------------
 .search-box {
