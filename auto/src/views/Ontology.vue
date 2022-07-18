@@ -23,6 +23,68 @@
             </div>
           </div>
           <div
+            v-if="hasVersions"
+            class="
+              secondary-column__versions
+              multiselect-xxl-container multiselect-container
+              container
+            "
+          >
+            <div class="menu-box">
+              <div class="menu-box__label">Select AUTO version</div>
+              <div class="menu-box__content-text">
+                <multiselect
+                  v-model="ontologyVersionsDropdownData.selectedData"
+                  id="ontologyVersionsMultiselect"
+                  label="@id"
+                  track-by="url"
+                  placeholder="Select..."
+                  tagPlaceholder="Select..."
+                  selectLabel=""
+                  open-direction="bottom"
+                  :options="ontologyVersionsDropdownData.data"
+                  :multiple="false"
+                  :searchable="false"
+                  :loading="ontologyVersionsDropdownData.isLoading"
+                  :internal-search="false"
+                  :clear-on-select="false"
+                  :close-on-select="true"
+                  :max-height="600"
+                  :preserve-search="true"
+                  :show-no-results="false"
+                  :hide-selected="true"
+                  :taggable="true"
+                  @select="ontologyVersions_optionSelected"
+                >
+                  <template v-slot:tag="{ option, remove }">
+                    <span class="custom__tag">
+                      <span>{{ option.label }}</span>
+                      <span class="custom__remove" @click="remove(option)">
+                        ❌
+                      </span>
+                    </span>
+                  </template>
+                  <!-- <template slot="clear" slot-scope="props">
+                  <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
+                  @mousedown.prevent.stop="clearAll(props.search)"></div>
+                  </template> -->
+                  <template v-slot:noResult>
+                    <span>
+                      Oops! No elements found. Consider changing the search
+                      query.
+                    </span>
+                  </template>
+                </multiselect>
+              </div>
+
+              <div class="menu-box__icons">
+                <div class="menu-box__icons__icon icon-clock"></div>
+              </div>
+            </div>
+            <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
+            <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
+          </div>
+          <div
             class="
               secondary-column__tree
               multiselect-xxl-container multiselect-container
@@ -144,6 +206,69 @@
                 How to use
               </button>
             </div>
+          </div>
+
+          <div
+            v-if="hasVersions"
+            class="
+              secondary-column__versions secondary-column__versions--mobile
+              multiselect-container
+              container
+            "
+          >
+            <div class="menu-box">
+              <div class="menu-box__label">Select AUTO version</div>
+              <div class="menu-box__content-text">
+                <multiselect
+                  v-model="ontologyVersionsDropdownData.selectedData"
+                  id="ontologyVersionsMultiselect2"
+                  label="@id"
+                  track-by="url"
+                  placeholder="Search..."
+                  tagPlaceholder="Search for..."
+                  selectLabel=""
+                  open-direction="bottom"
+                  :options="ontologyVersionsDropdownData.data"
+                  :multiple="false"
+                  :searchable="false"
+                  :loading="ontologyVersionsDropdownData.isLoading"
+                  :internal-search="false"
+                  :clear-on-select="false"
+                  :close-on-select="true"
+                  :max-height="600"
+                  :preserve-search="true"
+                  :show-no-results="false"
+                  :hide-selected="true"
+                  :taggable="true"
+                  @select="ontologyVersions_optionSelected"
+                >
+                  <template v-slot:tag="{ option, remove }">
+                    <span class="custom__tag">
+                      <span>{{ option.label }}</span>
+                      <span class="custom__remove" @click="remove(option)"
+                        >❌</span
+                      >
+                    </span>
+                  </template>
+                  <!-- <template slot="clear" slot-scope="props">
+                  <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
+                  @mousedown.prevent.stop="clearAll(props.search)"></div>
+                  </template> -->
+                  <template v-slot:noResult>
+                    <span>
+                      Oops! No elements found. Consider changing the search
+                      query.
+                    </span>
+                  </template>
+                </multiselect>
+              </div>
+
+              <div class="menu-box__icons">
+                <div class="menu-box__icons__icon icon-clock"></div>
+              </div>
+            </div>
+            <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
+            <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
           </div>
 
           <!-- search box mobile -->
@@ -700,7 +825,10 @@
                   </p>
                 </section>
 
-                <section class="blank">
+                <section
+                  v-if="hasVersions"
+                  class="blank"
+                >
                   <img class="article-icon" src="@/assets/img/clock.svg" />
                   <h3>AUTO Versions</h3>
                   <p>
@@ -832,7 +960,7 @@
 import { mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
 import {
-  getEntity, getFindSearch, getModules, getHint,
+  getEntity, getFindSearch, getModules, getOntologyVersions, getHint,
 } from '../api/ontology';
 
 export default {
@@ -1005,6 +1133,32 @@ export default {
         this.loader = false;
         this.isPathsMoreVisible = false;
       }
+
+      try {
+        const result = await getOntologyVersions();
+        const ontologyVersions = await result.json();
+        this.ontologyVersionsDropdownData.data = ontologyVersions;
+        ontologyVersions.unshift(this.versionDefaultSelectedData); // add default at the beginning
+
+        if (this.version !== null) {
+          this.ontologyVersionsDropdownData.selectedData = ontologyVersions.find(val => {
+            if (val["@id"] === this.version) {
+              return true;
+            }
+            return false;
+          });
+        } else {
+          this.ontologyVersionsDropdownData.selectedData = this.versionDefaultSelectedData;
+        }
+        this.error = false;
+      } catch (err) {
+        console.error(err);
+        this.error = true;
+      } finally {
+        if (this.data && this.data.taxonomy && this.data.taxonomy.value.length > 0) {
+            this.checkPathsOverflow();
+        }
+      }
     },
     async fetchModules() {
       try {
@@ -1015,7 +1169,25 @@ export default {
         this.error = true;
       }
     },
+    ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
+      if (selectedOntologyVersion["@id"] === this.versionDefaultSelectedData["@id"]) {
+        // default selected
+        const { version, ...rest } = this.$route.query; // get rid of version
+        this.$router.push({ query: rest });
+      } else {
+        this.$router.push({
+          query: {
+            ...this.$route.query,
+            ...{
+              version: encodeURI(selectedOntologyVersion["@id"])
+            }
+          }
+        });
+      }
 
+      // clear search results after changing version
+      this.clearSearchResults();
+    },
     // vue-multiselect
     searchBox_limitText(count) {
       return `and ${count} other results`;
@@ -1250,6 +1422,9 @@ export default {
       statsDefaultDomain: state => state.statsDefaultDomain,
       missingImportsDefaultDomain: state => state.missingImportsDefaultDomain,
     }),
+    hasVersions() {
+      return this.ontologyVersionsDropdownData.data.length > 1;
+    }
   },
   watch: {
     // eslint-disable-next-line vue/no-arrow-functions-in-watch

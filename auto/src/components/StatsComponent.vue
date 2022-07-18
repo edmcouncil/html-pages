@@ -8,7 +8,7 @@
   >
     <div class="menu-box">
       <div class="menu-box__label">Browse logs</div>
-      <div class="menu-box__content-text">FIBO Instrumentation</div>
+      <div class="menu-box__content-text">AUTO Instrumentation</div>
       <div class="menu-box__icons">
         <div class="menu-box__icons__icon icon-warning"></div>
       </div>

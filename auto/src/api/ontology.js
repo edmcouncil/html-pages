@@ -26,6 +26,13 @@ const getModules = function (domain) {
   }).then(parseServerError);
 };
 
+const getOntologyVersions = function () {
+  return fetch('/auto/ontology/api/', {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  }).then(parseServerError);
+};
+
 const getHint = function (query, domain) {
   return fetch(domain + '/', {
     method: 'POST',
@@ -49,5 +56,5 @@ const getMissingImports = function(domain) {
 };
 
 export {
-  getEntity, getFindSearch, getModules, getHint, getStats, getMissingImports,
+  getEntity, getFindSearch, getModules, getOntologyVersions, getHint, getStats, getMissingImports,
 };
