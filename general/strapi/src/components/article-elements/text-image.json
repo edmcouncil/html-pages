@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_article_elements_text_images",
+  "info": {
+    "displayName": "text-image",
+    "icon": "adjust",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "img_name": {
+      "type": "string"
+    },
+    "text": {
+      "type": "richtext"
+    }
+  }
+}

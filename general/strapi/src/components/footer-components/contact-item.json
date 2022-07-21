@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_footer_components_contact_items",
+  "info": {
+    "displayName": "contact-item"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  }
+}

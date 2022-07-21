@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_2s",
+  "info": {
+    "singularName": "about-2",
+    "pluralName": "about-2s",
+    "displayName": "about-2",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "article-elements.image-text-zone",
+        "article-elements.text-zone"
+      ]
+    }
+  }
+}

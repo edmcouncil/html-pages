@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_carousel_carousel_links",
+  "info": {
+    "displayName": "carousel-link",
+    "icon": "allergies"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_article_elements_image_text_zones",
+  "info": {
+    "displayName": "image_text_zone",
+    "icon": "angle-right",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "article-elements.text-image"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "image_text"
+      ],
+      "required": true,
+      "default": "image_text"
+    }
+  }
+}

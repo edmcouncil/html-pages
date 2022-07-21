@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_article_elements_text_onlies",
+  "info": {
+    "displayName": "text-only",
+    "icon": "arrow-circle-right",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "richtext"
+    }
+  }
+}

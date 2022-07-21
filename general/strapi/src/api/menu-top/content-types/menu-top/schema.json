@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "menu_tops",
+  "info": {
+    "singularName": "menu-top",
+    "pluralName": "menu-tops",
+    "displayName": "menu-top",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "menu.menu-item"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_menu_menu_links",
+  "info": {
+    "displayName": "menu-link",
+    "icon": "air-freshener"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "link",
+        "page",
+        "group"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}
