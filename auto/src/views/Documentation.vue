@@ -2,7 +2,7 @@
   <div class="container">
     <main>
       <ScrollTopHandler ref="scrollTopHandler" />
-      <article class="ful-page">
+      <article class="full-page">
         <section>
           <h1>Documentation</h1>
 
