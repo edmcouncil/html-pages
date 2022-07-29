@@ -87,8 +87,9 @@
 
   .menu-box__label {
     position: absolute;
-    color: map-get($colors-map, "medium-grey");
-    letter-spacing: 0.14px;
+    color: map-get($colors-map, "black-40");
+    letter-spacing: 0.01em;
+    font-size: 14px;
     line-height: 20px;
     min-height: 20px;
     white-space: nowrap;
