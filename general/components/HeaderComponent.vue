@@ -19,17 +19,21 @@
                                     </div>
                                 </div>
                             </a>
-                            <div class="dropdown-menu desktop" aria-labelledby="navbarDropdown">
-                                <nuxt-link class="nav-link" :to="{ path: router('ontology') }">
-                                    ONTO Viewer</nuxt-link>
-                                <nuxt-link class="nav-link" :to="{ path: router('products') }">IDMP Products</nuxt-link>
-                                <div class="sub-nav-link">
-                                    <nuxt-link class="nav-link nav-sub-link" :to="{ path: router('OWL') }">IDMP Ontology</nuxt-link>
-                                    <nuxt-link class="nav-link nav-sub-link" :to="{ path: router('vocabulary') }">IDMP Vocabulary</nuxt-link>
-                                    <nuxt-link class="nav-link nav-sub-link" :to="{ path: router('data-dictionary') }">IDMP Data Dictionary</nuxt-link>
-                                </div>
 
-                                <a href="https://spec.edmcouncil.org" class="nav-link" v-on:click="outboundLinkClick('https://spec.edmcouncil.org')">OKG Home</a>
+                            <div class="dropdown-menu desktop" aria-labelledby="navbarDropdown">
+
+                              <li v-for="(item) in dropdownMenu" :key="item.id">
+                                <nuxt-link v-if="item.item.type='router-link'" class="nav-link" :to="{ path: item.item.link }">
+                                    {{item.item.name}}</nuxt-link>
+                                <a v-else-if="item.item.type='link'" :href=item.item.link class="nav-link" v-on:click="outboundLinkClick(item.item.link)">{{item.item.name}}</a>
+                                <span v-else class="nav-link">{{item.item.name}}</span>
+
+                                <div v-if="item.submenu && item.submenu.length > 0" class="sub-nav-link">
+                                    <nuxt-link v-if="item.submenu.type='router-link'" class="nav-link nav-sub-link" :to="{ path: router(item.submenu.link) }">
+                                        {{item.submenu.name}}</nuxt-link>
+                                    <a v-else-if="item.submenu.type='link'" :href="item.submenu.link" class="nav-link nav-sub-link" v-on:click="outboundLinkClick(item.submenu.link)">{{item.submenu.name}}</a>
+                                </div>
+                              </li>
                   </div>
                 </li>
               </ul>
@@ -107,7 +111,7 @@ import helpers from "../store/helpers.js";
 export default {
     extends: helpers,
     name: "HeaderComponent",
-    props: ["carousel"],
+    props: ["carousel", "dropdownMenu"],
 };
 </script>
 

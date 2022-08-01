@@ -1139,8 +1139,8 @@
 <script>
 import { mapState } from "vuex";
 import multiselect from "vue-multiselect";
-import { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
-import { getPageElementsStrapiData } from "../api/strapi"
+import { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../../api/ontology";
+import { getPageElementsStrapiData } from "../../api/strapi"
 
 export default {
   name: 'OntologyView',
@@ -1232,7 +1232,7 @@ export default {
         this.pathsSection.isTreeView = true;
     }
 
-    this.updateServers();
+    this.updateServers(process.env.ontoViewerBaseUri);
 
     this.query = queryParam;
     this.fetchData(this.query);

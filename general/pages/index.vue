@@ -1,6 +1,6 @@
 <template>
 <div>
-    <HeaderComponent :carousel="carousel"></HeaderComponent>
+    <HeaderComponent :carousel="carousel" :dropdownMenu="dropdownMenu"></HeaderComponent>
     <div class="container">
         <main>
             <article class="full-page">
@@ -78,8 +78,10 @@ export default {
                 page: response.data.data.attributes.content,
                 copyright: pageData.copyright,
                 carousel: pageData.carousel,
+                dropdownMenu: pageData.menuDropdown,
             };
         } catch (error) {
+          console.log(error);
             redirect('/error');
         }
     }

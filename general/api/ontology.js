@@ -4,6 +4,11 @@ const parseServerError = function (response) {
   }
   return response;
 };
+//test
+const ontoViewerBaseUrl =
+  "http://edmc-fibo-viewer.dc.makolab.pl:9000/fibo/ontology/api/";
+
+//const ontoViewerBaseUrl = process.env.ontoViewerBaseUri;
 
 const getEntity = function (domain) {
   return fetch(domain, {

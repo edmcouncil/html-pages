@@ -1,7 +1,7 @@
 process.env.VUE_APP_PRODUCT =
   process.env.PRODUCT ||
   process.env.ontology_publisher_current_product ||
-  "htmlpages";
+  "pages";
 process.env.VUE_APP_BRANCH = (
   process.env.BRANCH ||
   (process.env.BRANCH_NAME === process.env.TAG_NAME
@@ -46,17 +46,19 @@ export default {
       },
     ],
   },
-  publicPath: `/${process.env.ONTPUB_FAMILY || "idmp"}/`,
+  server: {
+    host: process.env.PUBLIC_URL || 'localhost',
+  },
   assetsDir: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
   indexPath: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/index.html`,
   router: {
     base: process.env.BASE_URL || "",
-    // extendRoutes(routes, resolve) {
-    //   routes.push({
-    //     path: "/ontology/:1?/:2?/:3?/:4?/:5?",
-    //     component: resolve(__dirname, "pages/ontology.vue"),
-    //   });
-    // },
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path: "/ontology/:1?/:2?/:3?/:4?/:5?",
+        component: resolve(__dirname, "pages/ontology/index.vue"),
+      });
+    },
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

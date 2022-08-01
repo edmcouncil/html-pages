@@ -35,7 +35,21 @@ export async function getPageElementsStrapiData() {
     const response = await getStrapiData(collectionName, populateParams);
     data.carousel = response.data.data.attributes.items;
   } catch (error) {
-    this.error = error;
+    return {
+      error: error,
+    };
+  }
+
+  //menu-dropdown
+  collectionName = "menu-single";
+  populateParams = ["items", "items.item", "items.submenu"];
+  try {
+    const response = await getStrapiData(collectionName, populateParams);
+    data.menuDropdown = response.data.data.attributes.items;
+  } catch (error) {
+    return {
+      error: error,
+    };
   }
 
   return data;
