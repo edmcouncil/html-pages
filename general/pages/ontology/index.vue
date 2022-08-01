@@ -1002,7 +1002,7 @@
               </div>
             </div>
 
-            <!-- NO DATA (HOW TO USE) -->
+            <!-- NO DATA (How to use) -->
             <div v-else-if="!loader && !searchBox.isLoadingResults">
               <article class="how-to-article">
                 <section>
@@ -1232,7 +1232,7 @@ export default {
         this.pathsSection.isTreeView = true;
     }
 
-    //this.updateServers(process.env.ontoViewerBaseUri);
+    this.updateServers();
 
     this.query = queryParam;
     this.fetchData(this.query);
@@ -1245,7 +1245,7 @@ export default {
     },
     updateServers(to) {
       let internalRoute = this.$route;
-      console.log(internalRoute);
+      console.log('ssss' + internalRoute);
       if (to !== undefined) {
         internalRoute = to;
       }

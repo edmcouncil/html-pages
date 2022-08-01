@@ -47,7 +47,7 @@ export default {
     ],
   },
   server: {
-    host: process.env.PUBLIC_URL || 'localhost',
+    host: process.env.PUBLIC_URL || "localhost",
   },
   assetsDir: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
   indexPath: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/index.html`,
@@ -56,6 +56,12 @@ export default {
     extendRoutes(routes, resolve) {
       routes.push({
         path: "/ontology/:1?/:2?/:3?/:4?/:5?",
+        component: resolve(__dirname, "pages/ontology/index.vue"),
+      });
+    },
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path: "/ontology",
         component: resolve(__dirname, "pages/ontology/index.vue"),
       });
     },
