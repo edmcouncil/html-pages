@@ -1232,7 +1232,7 @@ export default {
         this.pathsSection.isTreeView = true;
     }
 
-    this.updateServers(process.env.ontoViewerBaseUri);
+    //this.updateServers(process.env.ontoViewerBaseUri);
 
     this.query = queryParam;
     this.fetchData(this.query);
@@ -1245,6 +1245,7 @@ export default {
     },
     updateServers(to) {
       let internalRoute = this.$route;
+      console.log(internalRoute);
       if (to !== undefined) {
         internalRoute = to;
       }
