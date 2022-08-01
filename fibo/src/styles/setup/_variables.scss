@@ -82,14 +82,23 @@ $font-family-awsome-brands: 'Font Awesome 5 Brands';
 $font-family-awsome-solid: 'Font Awesome 5 Solid';
 
 $colors-map: (
-        'white': #fff,
-        'orange': #e78747,
-        'light-grey': #f3f3f3,
-        'lighter-grey': #efefef,
-        'medium-grey': #c5c5c5,
-        'grey': #888,
-        'darker-gray': #707070,
-        'dark-grey': #455560,
-        'blue': #2a83be,
-        'black': #000,
+  'green': #00B855,
+  'orange': #FF6000,
+  'yellow': #FEB700,
+  'yellow-50': rgba(254, 183, 0, 0.5),
+  'red': #EC241D,
+
+  'black': #000,
+  'black-80': rgba(0, 0, 0, 0.8),
+  'black-60': rgba(0, 0, 0, 0.6),
+  'black-40': rgba(0, 0, 0, 0.4),
+  'black-20': rgba(0, 0, 0, 0.2),
+  'black-12': rgba(0, 0, 0, 0.12),
+  'black-5': rgba(0, 0, 0, 0.05),
+
+  'white': #fff,
+  'white-90': rgba(255, 255, 255, 0.9),
+  'white-80': rgba(255, 255, 255, 0.8),
+  'white-60': rgba(255, 255, 255, 0.6),
+  'white-5': rgba(255, 255, 255, 0.05),
 );
