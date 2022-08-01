@@ -107,6 +107,16 @@ export default {
     "@nuxtjs/style-resources",
     "bootstrap-vue/nuxt",
     "@nuxtjs/markdownit",
+    "@nuxtjs/proxy",
+  ],
+
+  http: {
+    proxy: true,
+  },
+
+  proxy: [
+    'http://fibo-viewer.korora.makolab.net/idmp/ontology/api',
+    'http://fibo-viewer.korora.makolab.net/idmp/ontology/*/api'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

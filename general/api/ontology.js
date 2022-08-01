@@ -24,8 +24,8 @@ const getModules = function (domain) {
   }).then(parseServerError);
 };
 
-const getOntologyVersions = function () {
-  return fetch('/idmp/ontology/api/', {
+const getOntologyVersions = function (domain) {
+  return fetch(domain, {
     method: 'GET',
     headers: { 'Accept': 'application/json' },
   }).then(parseServerError);

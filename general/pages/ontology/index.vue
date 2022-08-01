@@ -1332,7 +1332,7 @@ export default {
       }
 
       try {
-        const result = await getOntologyVersions();
+        const result = await getOntologyVersions('/idmp/ontology/api/');
         const ontologyVersions = await result.json();
         this.ontologyVersionsDropdownData.data = ontologyVersions;
         ontologyVersions.unshift(this.versionDefaultSelectedData); // add default at the beginning
