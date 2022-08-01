@@ -113,6 +113,7 @@
           </ul>
 
           <StatsComponent
+            v-if="statsServer && missingImportsServer"
             :statsServer="statsServer"
             :missingImportsServer="missingImportsServer"
           />
@@ -1138,7 +1139,6 @@
 
 <script>
 import { mapState } from "vuex";
-import multiselect from "vue-multiselect";
 import { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../../api/ontology";
 import { getPageElementsStrapiData } from "../../api/strapi"
 
@@ -1198,18 +1198,18 @@ export default {
       }
     };
   },
-   async asyncData({ params, redirect }) {
-        try {
-            console.log(params)
-            const pageData = await getPageElementsStrapiData();
-            return {
-                copyright: pageData.copyright,
-                carousel: pageData.carousel,
-            };
-        } catch (error) {
-            redirect('/error');
-        }
-    },
+  async asyncData({ params, redirect }) {
+    try {
+        console.log(params)
+        const pageData = await getPageElementsStrapiData();
+        return {
+            copyright: pageData.copyright,
+            carousel: pageData.carousel,
+        };
+    } catch (error) {
+        redirect('/error');
+    }
+  },
   mounted() {
     let queryParam = "";
     this.mountedTimestamp = Math.floor(Date.now() / 1000);
@@ -1245,7 +1245,7 @@ export default {
     },
     updateServers(to) {
       let internalRoute = this.$route;
-      console.log('ssss' + internalRoute);
+
       if (to !== undefined) {
         internalRoute = to;
       }
