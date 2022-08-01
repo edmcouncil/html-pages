@@ -3,29 +3,22 @@
     <li class="module container">
       <div class="row">
         <div
-          class="arrow-container"
-          :class="{ hidden: !isFolder }"
+          class="icon-arrow"
+          :class="{ hidden: !isFolder, down: isOpen }"
           @click="toggle"
-        >
-          <img
-            v:if="!isOpen"
-            class="icon-arrow"
-            :class="{ down: isOpen }"
-            src="../assets/icons/arrow.svg"
-          />
-        </div>
-        <div class="indicator-container">
-          <i
-            :class="{
-              devIndicator:
-                this.item.maturityLevel.label === 'PROVISIONAL' ||
-                this.item.maturityLevel.label === 'INFORMATIVE',
-              prodIndicator: this.item.maturityLevel.label === 'RELEASE',
-              prodDevIndicator: this.item.maturityLevel.label === 'MIXED',
-              indicator: true,
-            }"
-          ></i>
-        </div>
+        ></div>
+        <div
+          v-if="this.item.maturityLevel.label !== 'NOT_SET'"
+          class="indicator-container"
+          :class="{
+            devIndicator:
+              this.item.maturityLevel.label === 'PROVISIONAL' ||
+              this.item.maturityLevel.label === 'INFORMATIVE',
+            prodIndicator: this.item.maturityLevel.label === 'RELEASE',
+            prodDevIndicator: this.item.maturityLevel.label === 'MIXED',
+            indicator: true,
+          }"
+        ></div>
         <div class="label" :class="{ selected: isSelected }">
           <customLink
             class="custom-link"
@@ -48,13 +41,13 @@
 </template>
 
 <script>
-import Vue from "vue";
 import customLink from "./chunks/link";
-
-Vue.component("customLink", customLink);
 
 export default {
   name: "module-tree",
+  components: {
+    customLink,
+  },
   props: {
     item: Object,
     location: Object,
@@ -101,11 +94,8 @@ export default {
 
 <style lang="scss" scoped>
 .module {
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   user-select: none;
+  margin-bottom: 5px;
 
   .row {
     flex-wrap: nowrap;
@@ -113,10 +103,7 @@ export default {
 
   ul,
   li {
-    margin: 0;
     padding: 0;
-    line-height: 24px;
-    font-size: 12px;
 
     ::before {
       margin-top: 10px;
@@ -125,63 +112,55 @@ export default {
   }
 
   ul {
-    margin-left: 15px;
+    margin: 5px 0px 5px 15px;
   }
   .icon-arrow.down {
-    -ms-transform: rotate(90deg); /* IE 9 */
     transform: rotate(90deg);
   }
-  .arrow-container {
+  .icon-arrow {
     display: inline-block;
-    width: 10px;
-    height: 1em;
-    width: 1em;
+    height: 30px;
+    width: 30px;
+    background-image: url("../assets/icons/arrow.svg");
+    background-position: center;
+    flex-shrink: 0;
     &.hidden {
       visibility: hidden;
-    }
-    &.down {
-      transform: rotate(45deg);
-      -webkit-transform: rotate(45deg);
-      margin-bottom: 4px;
     }
     &:hover {
       cursor: pointer;
     }
   }
-  .indicator-container {
-    pointer-events: none;
-  }
   .indicator {
-    margin-left: 10px;
-    margin-top: 4px;
-    font-size: 0.8rem;
-    height: 1.6em;
-    width: 1.6em;
+    pointer-events: none;
     display: inline-block;
-    background-size: 1.6em;
+    height: 30px;
+    width: 24px;
+    background-position: center;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    margin-right: 5px;
     &.devIndicator {
-      background-image: url("~/assets/icons/provisional-maturity.svg");
-      background-position: center;
+      background-image: url("../assets/icons/provisional-maturity.svg");
     }
     &.prodIndicator {
-      background-image: url("~/assets/icons/production-maturity.svg");
-      background-position: center;
+      background-image: url("../assets/icons/production-maturity.svg");
     }
     &.prodDevIndicator {
-      background-image: url("~/assets/icons/mixed-maturity.svg");
-      background-position: center;
+      background-image: url("../assets/icons/mixed-maturity.svg");
     }
   }
   .label {
     display: inline;
+    line-height: 24px;
+    padding-top: 2px;
     &.selected {
       text-decoration: underline;
     }
-
     .custom-link {
       font-size: 14px;
       color: map-get($colors-map, "black");
-      margin-left: 6px;
     }
   }
 }
