@@ -318,23 +318,23 @@ article {
 
     margin-bottom: 15px;
 
-    color: #000000;
+    color: rgba(0, 0, 0, 0.8);
   }
 
   li {
-    font-size: 14px;
-    line-height: 20px;
-    margin-bottom: 15px;
-    color: rgba(0, 0, 0, 0.6);
+    margin: 5px 0;
+    padding-left: 5px;
+    font-size: 18px;
+    line-height: 30px;
+    color: rgba(0, 0, 0, 0.8);
   }
 
   li p {
     margin: 0px;
   }
 
-  ul,
-  ol {
-    margin: 15px 0;
+  ul, ol {
+    padding-left: 30px;
   }
 
   p.small {
@@ -415,9 +415,10 @@ article {
 
     section {
       margin-bottom: 45px;
+      padding: 60px;
 
       &.blank {
-        padding: 30px 60px;
+        padding: 60px;
       }
     }
 
