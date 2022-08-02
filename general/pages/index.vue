@@ -67,7 +67,7 @@ export default {
           aElement.remove();
         }
     },
-    async asyncData({ params, redirect }) {
+    async asyncData({ params, redirect, error }) {
         var collectionName = 'about';
         var populateParams = ['content', 'content.items', 'content.button'];
 
@@ -81,9 +81,9 @@ export default {
                 dropdownMenu: pageData.menuDropdown,
                 dropdownTop: pageData.menuTop,
             };
-        } catch (error) {
-          console.log(error);
-            redirect('/error');
+        } catch (e) {
+          console.error(e);
+          error({ statusCode: 503, message: 'Service Unavailable' })
         }
     }
 };
