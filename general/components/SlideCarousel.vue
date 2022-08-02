@@ -1,219 +1,278 @@
 <template>
-  <div class="container slider">
-    <div id="carouselExampleIndicators" class="carousel slide">
-      <ol class="carousel-indicators">
-        <li
-          data-target="#carouselExampleIndicators"
-          data-slide-to="0"
-          class="active"
-        ></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      </ol>
-      <div class="carousel-inner">
+  <div class="container-fluid carousel-container">
+    <b-carousel
+      id="carouselController"
+      :interval="8000"
+      v-model="currentSlide"
+      ref="carousel"
+    >
+      <b-carousel-slide v-for="item in carousel" :key="item.id">
+        <span class="text-display">{{ item.title }}</span>
+        <h2>{{ item.text }}</h2>
 
-        <div v-for="(item, index) in carousel" :key="item.id" class="carousel-item" :class="index == 0?'active':''">
-          <img
-            class="d-block w-100"
-            src="../assets/img/banerBlack.jpg"
-            alt="First slide"
-          />
-          <div class="carousel-caption d-none d-md-block">
-            <h2>{{item.title}}</h2>
-            <p>{{item.text}}</p>
-            <a :href=item.link.url class="btn-sl">
-              {{item.link.name}}
-            </a>
+        <a :href="item.link.url" v-on:click="outboundLinkClick(item.link.url)">
+          {{item.link.name}}
+        </a>
+      </b-carousel-slide>
+
+      <div class="carousel-controls-container">
+        <div class="controls">
+          <div
+            class="controls__chevron controls__chevron--prev"
+            role="button"
+            @click="prevSlide()"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </div>
+          <div class="controls__text">
+            <p>{{ currentSlide + 1 }} of {{ slideCount }}</p>
+          </div>
+          <div
+            class="controls__chevron controls__chevron--next"
+            role="button"
+            @click="nextSlide()"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
           </div>
         </div>
       </div>
-      <a
-        class="carousel-control-prev"
-        href="#carouselExampleIndicators"
-        role="button"
-        data-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a
-        class="carousel-control-next"
-        href="#carouselExampleIndicators"
-        role="button"
-        data-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-      <div class="fill-image-fibo"></div>
-    </div>
+    </b-carousel>
   </div>
 </template>
 
 <script>
+import { outboundClick, outboundLinkClick } from "../helpers/ga";
 import helpers from '../store/helpers.js';
-import { getStrapiData } from "../api/strapi"
 
 export default {
   extends: helpers,
   name: 'SlideCarousel',
   props: ['carousel'],
+  data() {
+    return {
+      currentSlide: 0,
+      slideCount: this.carousel.length,
+      isSliding: false,
+      carouselThrottle: null,
+    }
+  },
+  methods: {
+    nextSlide() {
+      if(this.carouselThrottle === null)
+      {
+        this.$refs.carousel.next();
+        this.carouselThrottle = setTimeout(()=>{
+          this.carouselThrottle = null
+        }, 800);
+      }
+
+    },
+    prevSlide() {
+      if(this.carouselThrottle === null)
+      {
+        this.$refs.carousel.prev();
+        this.carouselThrottle = setTimeout(()=>{
+          this.carouselThrottle = null
+        }, 800);
+      }
+    },
+    outboundClick,
+    outboundLinkClick,
+  }
 };
 </script>
 
 <style lang="scss">
-.fa,
-.fas {
-  font-family: $font-family-awsome-solid;
-  font-weight: 900;
-}
-.slider {
-  padding-left: 0;
-  padding-right: 0;
+.carousel-container {
+  flex: 1;
+  padding: 30px 60px 60px 60px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
-  img {
-    max-height: 250px !important;
-    min-height: 250px !important;
+  #carouselController {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .carousel-inner {
+    overflow: visible;
+    flex: 1;
   }
 }
 
-.carousel-caption {
-  top: 20px;
+.carousel-controls-container {
+  display: flex;
+  position: absolute;
+  flex-direction: column-reverse;
+  bottom: 0;
+  right: 0;
+  padding: 0;
 
-  p {
-    font-size: 19px !important;
-    font-weight: 600 !important;
-    color: $white;
-    max-width: 1300px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
-    text-transform: uppercase;
-  }
-  h5 {
-    font-size: 32px;
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .controls__text p {
+      margin: 0px 30px;
+      width: 50px;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .controls__chevron {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      position: relative;
+
+      &:after {
+        content: "";
+        padding: 50px;
+        position: absolute;
+        left: -25px;
+        top: -25px;
+      }
+
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        width: 100%;
+        height: 100%;
+      }
+
+      .carousel-control-prev-icon {
+        background-image: url("@/assets/icons/carousel-previous.svg");
+      }
+
+      .carousel-control-next-icon {
+        background-image: url("@/assets/icons/carousel-next.svg");
+      }
+    }
   }
 }
-a.btn-sl {
-  display: inline-block;
-  color: $white;
-  padding: 8px 13px;
-  font-size: 13px;
-  margin-top: 12px;
-  font-weight: 500;
-  letter-spacing: 1px;
 
-  &:hover {
-    text-decoration: underline !important;
+.carousel-item {
+  // height: 100%;
+  padding: 0;
+
+  .carousel-caption {
+    position: relative;
+    padding: 0;
+    left: unset;
+    right: unset;
+    bottom: unset;
+    text-align: left;
   }
-}
-
-.carousel-indicators li {
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
-  opacity: 0.9;
-  margin-left: 6px;
-  margin-right: 6px;
-  padding-top: 0;
-  padding-left: 0;
-
-  &.active {
-    background-color: map-get($colors-map, "black");
+  span.text-display {
+    display: inline-block;
+    color: map-get($colors-map, "black");
   }
-}
-.carousel-control-prev,
-.carousel-control-next {
-  opacity: 1;
-}
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  width: 50px;
-  height: 50px;
-  background-color: $white;
-  border-radius: 32px;
-
-  &:before {
-    font-family: $font-family-awsome-solid;
-    color: map-get($colors-map, "dark-grey");
+  h2 {
+    margin: 40px 0;
+    color: map-get($colors-map, "black-80");
+  }
+  a {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
     font-size: 20px;
-    line-height: 50px;
-  }
-}
+    line-height: 24px;
 
-.carousel-control-prev-icon {
-  &:before {
-    content: "\f053";
-  }
-}
+    display: inline-block;
 
-.carousel-control-next-icon {
-  &:before {
-    content: "\f054";
-  }
-}
+    letter-spacing: 0.02em;
+    text-decoration-line: underline;
 
-@media (max-width: 1620px) {
-  .carousel-caption {
-    p {
-      font-size: 32px;
-      padding-bottom: 20px;
-      padding-top: 10px;
-    }
-    h5 {
-      font-size: 24px;
+    color: map-get($colors-map, "black");
+
+    &:hover {
+      color: map-get($colors-map, "black-60");
     }
   }
+  // transition
+  &.active {
+    opacity: 1;
+    transition: transform 1s ease-out 0.2s, opacity 0.5s ease-out 0.5s;
+  }
+  // entering slide
+  &.carousel-item-next {
+    opacity: 1;
+    transition: transform 1s ease-out 0.2s, opacity 0.5s ease-out 0.5s;
+  }
+  &.carousel-item-prev {
+    opacity: 1;
+    transition: transform 1s ease-out 0.2s, opacity 0.5s ease-out 0.5s;
+  }
+  &.active.carousel-item-right,
+  &.carousel-item-next:not(.carousel-item-left) {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  &.active.carousel-item-left,
+  &.carousel-item-prev:not(.carousel-item-right) {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  // leaving slide
+  &.active.carousel-item-left {
+    opacity: 0;
+    transition: transform 1s ease-in, opacity 0.5s ease-out;
+  }
+  &.active.carousel-item-right {
+    opacity: 0;
+    transition: transform 1s ease-in, opacity 0.5s ease-out;
+  }
 }
 
-@media (max-width: 1199px) {
-  .carousel-caption {
-    p {
-      font-size: 24px;
-      padding-bottom: 10px;
-      padding-top: 5px;
+@media (max-width: 992px) {
+  .carousel-container {
+    padding: 30px;
+  }
+
+  .carousel-item {
+    h2 {
+      margin: 32px 0;
+      color: map-get($colors-map, "black-60");
+    }
+    a {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+
+  .carousel-controls-container .controls {
+    .controls__chevron {
+      width: 24px;
+      height: 24px;
+      &:after {
+        padding: 35px;
+        left: -25px;
+        top: -25px;
+      }
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .carousel-item {
+    .text-display {
+      font-size: 30px;
+      line-height: 36px;
     }
     h2 {
-      font-size: 32px;
-      margin-bottom: 0;
+      font-size: 16px;
+      line-height: 24px;
+      margin: 15px 0;
+      color: map-get($colors-map, "black-60");
     }
-  }
-}
-
-@media (max-width: 991px) {
-  .carousel-caption.d-none {
-    display: block !important;
-    margin-top: -20px;
-  }
-  .slider img {
-    min-height: 230px !important;
-  }
-}
-@media (max-width: 767px) {
-  .carousel-caption.d-none {
-    display: block !important;
-    margin-top: -30px;
-  }
-
-  .slider img {
-    min-height: 200px !important;
-  }
-  .carousel-caption h2 {
-    font-size: 24px;
-    margin-bottom: 0;
-  }
-}
-@media (max-width: 575px) {
-  .slider img {
-    min-height: 220px !important;
-  }
-  .carousel-caption p {
-    font-size: 12px !important;
-    font-weight: 400 !important;
-    padding-bottom: 5px;
-  }
-  a.btn-sl {
-    margin-top: 0px;
-    padding: 5px 10px;
+    a {
+      font-size: 16px;
+      line-height: 24px;
+    }
   }
 }
 </style>

@@ -1,467 +1,448 @@
 <template>
-    <div class="container header">
-        <div class="desktop-view">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
-              <img id="logo-fibo" src="@/assets/img/logo.png" />
-            </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+  <header class="container px-0">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col px-0">
+          <div class="navigation-container d-block d-lg-block">
+            <nav class="navbar navbar-expand navbar-light">
+              <a
+                class="navbar-brand"
+                href="https://edmcouncil.org"
+                target="_blank"
+              >
+                <img id="logo-fibo" src="@/assets/img/logo.png" />
+              </a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="burger-button">
-                                    <div class="icon-burger">
-                                        <img src="@/assets/icons/union-burger.svg" />
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="dropdown-menu desktop" aria-labelledby="navbarDropdown">
-
-                              <li v-for="(item) in dropdownMenu" :key="item.id">
-                                <nuxt-link v-if="item.item.type='router-link'" class="nav-link" :to="{ path: item.item.link }">
-                                    {{item.item.name}}</nuxt-link>
-                                <a v-else-if="item.item.type='link'" :href=item.item.link class="nav-link" v-on:click="outboundLinkClick(item.item.link)">{{item.item.name}}</a>
-                                <span v-else class="nav-link">{{item.item.name}}</span>
-
-                                <div v-if="item.submenu && item.submenu.length > 0" class="sub-nav-link">
-                                    <nuxt-link v-if="item.submenu.type='router-link'" class="nav-link nav-sub-link" :to="{ path: router(item.submenu.link) }">
-                                        {{item.submenu.name}}</nuxt-link>
-                                    <a v-else-if="item.submenu.type='link'" :href="item.submenu.link" class="nav-link nav-sub-link" v-on:click="outboundLinkClick(item.submenu.link)">{{item.submenu.name}}</a>
-                                </div>
-                              </li>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-
-        <div class="mobile-view">
-          <nav class="navbar navbar-expand-lg navbar-light mobile-view">
-            <a class="navbar-brand" href="https://edmcouncil.org" target="_blank">
-              <img id="logo-fibo" src="@/assets/img/logo.png" />
-            </a>
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul class="navbar-nav ml-auto">
-                                        <li class="nav-item">
-                                            <nuxt-link class="nav-link" :to="{ path: router('ontology') }">IDMP Viewer</nuxt-link>
-                                        </li>
-
-                                        <li class="nav-item dropdown">
-                                            <!-- <nuxt-link class="nav-link" :to="{ path: router('products') }">FIBO Products</nuxt-link> -->
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">IDMP Products</a
-                  >
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <nuxt-link
-                      class="dropdown-item"
-                      :to="{ path: router('products') }"
-                    >
-                      About IDMP Products
-                    </nuxt-link>
-                    <nuxt-link class="dropdown-item" :to="{ path: router('OWL') }">
-                      IDMP Ontology
-                    </nuxt-link>
-                    <nuxt-link
-                      class="dropdown-item"
-                      :to="{ path: router('vocabulary') }"
-                    >
-                      IDMP Vocabulary
-                    </nuxt-link>
-                    <nuxt-link
-                      class="dropdown-item"
-                      :to="{ path: router('data-dictionary') }"
-                    >
-                      IDMP Data Dictionary
-                    </nuxt-link>
-                  </div>
-                </li>
-
-                <li class="nav-item">
-                  <a
-                    href="https://spec.edmcouncil.org"
+              <ul class="navbar-nav ml-auto align-items-center">
+                <li
+                  class="nav-item d-none d-lg-block"
+                  v-for="item in dropdownTop"
+                  :key="item.id"
+                >
+                  <nuxt-link
+                    v-if="item.item.type === 'router-link'"
                     class="nav-link"
-                    v-on:click="outboundLinkClick('https://spec.edmcouncil.org')"
-                    >OKG Home</a
+                    :to="{ path: item.item.link }"
                   >
+                    {{ item.item.name }}
+                  </nuxt-link>
+                  <a
+                    v-else-if="(item.item.type = 'link')"
+                    :href="item.item.link"
+                    class="nav-link"
+                    @click="outboundLinkClick(item.item.link)"
+                  >
+                    {{ item.item.name }}
+                  </a>
+                  <span v-else class="nav-link">{{ item.item.name }}</span>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a
+                    class="dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <div class="burger-button">
+                      <img
+                        class="icon-burger"
+                        src="@/assets/icons/union-burger.svg"
+                      />
+                      <h3>MENU</h3>
+                    </div>
+                  </a>
+                  <div
+                    class="dropdown-menu dropdown-menu-right"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <!-- mobile only menu items -->
+
+                    <template v-for="item in dropdownTop">
+                      <nuxt-link
+                        v-if="item.item.type === 'router-link'"
+                        class="nav-link dropdown-item d-lg-none"
+                        :to="{ path: item.item.link }"
+                        :key="item.id"
+                      >
+                        {{ item.item.name }}
+                      </nuxt-link>
+                      <a
+                        v-else-if="(item.item.type = 'link')"
+                        :href="item.item.link"
+                        class="nav-link dropdown-item d-lg-none"
+                        @click="outboundLinkClick(item.item.link)"
+                        :key="item.id"
+                      >
+                        {{ item.item.name }}
+                      </a>
+                      <span
+                        v-else
+                        class="nav-link dropdown-item d-lg-none"
+                        :key="item.id"
+                      >
+                        {{ item.item.name }}
+                      </span>
+                    </template>
+
+                    <div class="dropdown-divider d-lg-none"></div>
+
+                    <!-- regular menu items -->
+
+                    <template v-for="item in dropdownMenu">
+                      <nuxt-link
+                        v-if="item.item.type === 'router-link'"
+                        class="nav-link dropdown-item"
+                        :to="{ path: item.item.link }"
+                        :key="item.id"
+                      >
+                        {{ item.item.name }}
+                      </nuxt-link>
+                      <a
+                        v-else-if="item.item.type === 'link'"
+                        :href="item.item.link"
+                        class="nav-link dropdown-item"
+                        @click="outboundLinkClick(item.item.link)"
+                        :key="item.id"
+                      >
+                        {{ item.item.name }}
+                      </a>
+
+                      <template v-else-if="item.item.type === 'group'">
+                        <button
+                          class="nav-link dropdown-item sub-nav-menu collapsed"
+                          aria-expanded="false"
+                          aria-controls="documentationCollapse"
+                          v-b-toggle="
+                            item.item.name.replace(' ', '_') + item.id
+                          "
+                          @click.stop
+                          :key="item.id"
+                        >
+                          {{ item.item.name }}
+                        </button>
+                        <b-collapse
+                          :id="item.item.name.replace(' ', '_') + item.id"
+                          :key="item.id + 'collapse'"
+                        >
+                          <template v-for="subitem in item.submenu">
+                            <nuxt-link
+                              v-if="subitem.type === 'router-link'"
+                              class="nav-link dropdown-item sub-nav-item"
+                              :to="{ path: router(subitem.link) }"
+                              :key="subitem.id"
+                            >
+                              {{ subitem.name }}</nuxt-link
+                            >
+                            <a
+                              v-else-if="subitem.type === 'link'"
+                              :href="subitem.link"
+                              class="nav-link dropdown-item sub-nav-item"
+                              v-on:click="outboundLinkClick(item.submenu.link)"
+                              :key="subitem.id"
+                            >
+                              {{ subitem.name }}
+                            </a>
+                          </template>
+                        </b-collapse>
+                      </template>
+
+                      <span
+                        v-else
+                        class="nav-link dropdown-item"
+                        :key="item.id"
+                      >
+                        {{ item.item.name }}
+                      </span>
+                    </template>
+                  </div>
                 </li>
               </ul>
-            </div>
-          </nav>
+            </nav>
+          </div>
         </div>
-
-        <SlideCarousel
-          v-if="!$route.meta.plainLayout"
-          :carousel="carousel"
-        ></SlideCarousel>
       </div>
+    </div>
+    <SlideCarousel :carousel="carousel" v-if="!$route.meta.plainLayout"></SlideCarousel>
+  </header>
 </template>
 
 <script>
-import helpers from "../store/helpers.js";
+import helpers from '../store/helpers';
 
 export default {
-    extends: helpers,
-    name: "HeaderComponent",
-    props: ["carousel", "dropdownMenu"],
+  extends: helpers,
+  name: 'HeaderComponent',
+  props: ["carousel", "dropdownMenu", "dropdownTop"],
 };
 </script>
 
 <style lang="scss">
-.fab {
-    font-family: $font-family-awsome-brands;
-    font-style: normal;
-}
+header {
+  background: linear-gradient(
+      98.03deg,
+      rgba(255, 255, 255, 0.9) 5.63%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+    url("@/assets/img/header-white.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 0;
+  min-height: 532px;
+  max-height: 532px;
 
-.fa-linkedin-in:before {
-    content: "\f0e1";
+  display: flex;
+  flex-direction: column;
 }
-
-.fa-twitter:before {
-    content: "\f099";
-}
-
-.fa-youtube:before {
-    content: "\f167";
-}
-
-.header {
-    width: 100%;
+.navbar {
+  padding: 0;
+  li {
+    border-bottom: 0;
     padding: 0;
+    margin-left: 40px;
+    letter-spacing: 0;
+  }
 }
 
-.burger-button {
+.navigation-container {
+  padding: 40px 60px;
+}
+
+// edmc logo
+.navbar-brand {
+  padding: 0;
+  margin: 0;
+
+  #logo-fibo {
+    width: 140px;
+  }
+}
+
+// menu button
+.dropdown {
+  .burger-button {
     align-items: center;
-    background-color: map-get($colors-map, "black");
+    background-color: map-get($colors-map, "white");
+    color: map-get($colors-map, "black-80");
     border-radius: 2px;
     box-shadow: 0px 5px 20px #07539526;
     display: flex;
-    height: 60px;
-    margin-left: 40px;
-    min-width: 104px;
-    padding: 0px 40px;
+    padding: 15px 40px;
+
+    transition: background-color 0.35s ease;
+
     .icon-burger {
-        align-items: flex-end;
-        display: flex;
-        height: 24px;
-        min-width: 24px;
-        img {
-            height: 23px;
-            width: 24px;
-        }
+      height: 24px;
+      width: 24px;
+      margin-right: 20px;
     }
-}
+  }
 
-.burger-button img {
-    max-width: 90%;
-    height: auto;
-}
-
-.sub-nav-link {
-    padding-left: 10px;
-    color: black;
-}
-
-.nav-sub-link {
-    color: map-get($colors-map, "grey") !important;
-    text-shadow: 0 0 1px #ccc;
-}
-
-@media (min-width: 992px) {
-    .desktop-view {
-        padding: 0 45px;
-        display: block !important;
-    }
-    .mobile-view {
-        display: none !important;
-    }
-}
-
-@media (max-width: 991px) {
-    .mobile-view {
-        display: block !important;
-    }
-    .desktop-view {
-        display: none !important;
-    }
-}
-
-.padding-top30-bottom30 {
-    padding: 30px 0;
-}
-
-.navbar {
-    padding: 0;
-    li {
-        border-bottom: 0;
-        padding: 0;
-        letter-spacing: 0;
-    }
-}
-
-.nav-item {
-    font-weight: 50;
-}
-
-.nav-item.padding-top15 {
-    padding-top: 15px !important;
-}
-
-.navbar-nav {
-    align-self: flex-end;
-    padding-bottom: 5px;
-    margin-top: 0px;
-    padding-top: 15px;
-    margin-bottom: 12px;
-}
-
-.navbar-collapse {
-    padding-top: 0px;
-}
-
-.navbar-nav li:before,
-.navbar-links li:before {
-    border: none !important;
-}
-
-.navbarfibo {
-    align-self: end;
-    justify-content: flex-end;
-    padding-bottom: 15px;
-    font-weight: 700;
-}
-
-.navbar-brand img {
-    margin-top: 0px;
-}
-
-.navbar-expand-lg .navbar-nav .nav-link {
-    padding: 2px 0 2px 30px;
-    font-size: 18px;
-    font-weight: 100;
-    padding-top: 5px;
-    color: map-get($colors-map, "black");
-    text-shadow: 0 0 1px #ccc;
-}
-
-.nav-link {
-    transition: 0.5s;
-    &:focus,
-    &:active {
-        outline: none !important;
-        box-shadow: none;
-    }
-}
-
-.navbar-light .navbar-toggler {
-    margin-top: 10px;
-    color: $white;
-    border-color: transparent;
-    line-height: 20px;
-}
-
-.navbar-toggler {
-    background-color: map-get($colors-map, "black");
-    font-size: 15px;
-    float: right;
-    margin-right: 5px;
-}
-
-.navbar-toggler-icon {
-    background-image: url("~/assets/icons/union-burger.svg") !important;
-}
-
-.navbar-links {
-    position: absolute;
-    top: 25px;
-    right: 0;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    li {
-        display: inline-block;
-        background-color: map-get($colors-map, "orange");
-        text-decoration: none;
-        white-space: nowrap;
-        margin: 0 3px;
-        padding: 0;
-        transition: 0.3s;
-        vertical-align: top;
-        line-height: 34px;
-        height: 34px;
-        &:hover {
-            background-color: map-get($colors-map, "blue");
-        }
-        &:nth-child(4) {
-            margin-right: 40px;
-        }
-        a {
-            color: $white;
-            font-size: 12px;
-            font-weight: 500;
-            line-height: 33px;
-            text-transform: uppercase;
-            padding: 0 15px;
-            line-height: 36px;
-            &:hover {
-                text-decoration: none;
-            }
-        }
-        &.edm-logo {
-            background-color: transparent;
-        }
-        &.edm-logo {
-            background-color: transparent;
-        }
-        &.ico {
-            background-color: $white;
-            margin: 0 0;
-            a {
-                padding: 0;
-                font-size: 22px;
-            }
-            i {
-                display: inline-block;
-                margin-top: 60px;
-                background-color: map-get($colors-map, "medium-grey");
-                color: $white;
-                border-radius: 100%;
-                line-height: 40px;
-                height: 40px;
-                width: 40px;
-                text-align: center;
-                margin: 0 1px;
-                font-size: 22px;
-                transition: all 0.6s ease 0s;
-                &:hover {
-                    background-color: map-get($colors-map, "lighter-grey");
-                    color: map-get($colors-map, "blue");
-                }
-            }
-        }
-    }
+  &.show .burger-button {
+    background-color: map-get($colors-map, "white-60");
+  }
 }
 
 .dropdown-menu {
-    min-width: 250px;
-    border: none;
-    background-color: $white;
-    border-radius: 0;
+  user-select: none;
+  pointer-events: none;
+
+  display: block;
+  padding: 0;
+  width: 320px;
+  max-width: calc(100vw - 75px);
+  border: none;
+  background-color: map-get($colors-map, "white");
+  box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+  border-radius: 0;
+
+  margin-top: 5px;
+  opacity: 0;
+
+  transition: opacity 0.35s ease, margin-top 0.35s ease;
+
+  &.show {
+    user-select: unset;
+    pointer-events: unset;
+
+    margin-top: 15px;
+    opacity: 1;
+  }
 }
 
-//multiselect burger hide down arrow
-.dropdown-toggle::after {
+.dropdown-toggle {
+  &:hover {
+    text-decoration: none;
+  }
+
+  &::after {
     display: none;
+  }
 }
 
-.dropdown-menu.desktop {
-    left: -95%;
+// nav items - title list
+.navbar-expand .navbar-nav .nav-link {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 30px;
+
+  padding: 0;
+
+  color: map-get($colors-map, "black");
+
+  &:hover {
+    color: map-get($colors-map, "black-60");
+  }
 }
 
-.dropdown-item {
-    color: map-get($colors-map, "black");
-    padding: 2px 12px;
-    font-size: 18px;
-    font-weight: 400;
-    text-transform: capitalize;
-    line-height: 24px;
-    &:hover,
-    &:focus {
-        text-decoration: none;
-        background-color: map-get($colors-map, "blue");
-        color: #fff;
+// nav items inside menu
+.navbar-light .navbar-nav .dropdown-menu > .nav-link {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 30px;
+
+  color: map-get($colors-map, "black-80");
+
+  margin: 0;
+  padding: 15px 40px;
+
+  &:hover {
+    color: map-get($colors-map, "black-80");
+    background-color: map-get($colors-map, "black-5");
+  }
+  &:focus {
+    color: map-get($colors-map, "black-80");
+    background-color: unset;
+  }
+  &:active {
+    color: map-get($colors-map, "black-80");
+    background-color: map-get($colors-map, "black-20");
+  }
+
+  // sub items collapse (category title)
+  &.sub-nav-menu {
+    background-color: transparent;
+    position: relative;
+
+    &::after {
+      content: "";
+      background-image: url("@/assets/icons/triangle-down.svg");
+      background-size: 24px;
+      background-position: center;
+      width: 24px;
+      height: 24px;
+      position: absolute;
+
+      right: 40px;
+      top: 18px;
+      transition: transform 0.35s ease;
     }
+
+    &.collapsed {
+      &::after {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+.dropdown-divider {
+  border-top: 1px solid map-get($colors-map, "black-5");
 }
 
-.ml-auto {
-    left: auto !important;
-    right: 0px;
+// nav items inside menu - sub items
+.navbar-expand .navbar-nav .nav-link.sub-nav-item {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 30px;
+
+  color: map-get($colors-map, "black-80");
+
+  margin: 0;
+  padding: 15px 40px 15px 60px;
+
+  &:hover {
+    background-color: map-get($colors-map, "black-5");
+  }
+  &:focus {
+    background-color: unset;
+  }
+  &:active {
+    background-color: map-get($colors-map, "black-20");
+  }
 }
 
-@media (max-width: 1559px) {
-    #logo-fibo {
-        width: 140px;
-        margin-top: 10px;
+@media (max-width: 350px) {
+  .dropdown {
+    .burger-button {
+      .icon-burger {
+        margin: 0;
+      }
+      h3 {
+        display: none;
+      }
     }
-    .navbar-nav {
-        margin-bottom: 7px;
-    }
+  }
 }
 
-@media (max-width: 1199px) {
-    .navbar-expand-lg .navbar-nav .nav-link {
-        padding-left: 18px;
-        padding-right: 0;
-        font-size: 14px;
-    }
-    .navbar-links li {
-        height: 29px;
-        line-height: 29px;
-    }
-    .navbar-links li a {
-        padding: 0 10px;
-        line-height: 29px;
-    }
+@media (max-width: 1024px) {
+  .navbar li {
+    margin-left: 30px;
+  }
 }
 
 @media (max-width: 991px) {
+  .navbar-brand {
     #logo-fibo {
-        margin-bottom: 20px;
+      width: 105px;
     }
-    .navbar-nav {
-        margin-top: 0px;
+  }
+
+  .navbar li {
+    margin-left: 0px;
+  }
+  .dropdown {
+    .burger-button {
+      padding: 15px 30px;
     }
-    .navbar-collapse {
-        padding-top: 0px;
-    }
+  }
+  .navbar-light .navbar-nav .dropdown-menu > .nav-link,
+  .navbar-expand .navbar-nav .nav-link.sub-nav-item {
+    padding: 10px 30px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+    white-space: normal;
+  }
+
+  .navbar-expand .navbar-nav .nav-link.sub-nav-item {
+    padding: 10px 30px 10px 45px;
+  }
+
+  .navbar-light .navbar-nav .dropdown-menu > .nav-link.sub-nav-menu::after {
+    top: 9px;
+    right: 30px;
+  }
+
+  .navigation-container {
+    padding: 20px 30px;
+  }
 }
 
-@media (max-width: 767px) {
-    .navbar-brand img {
-        margin-top: 10px;
-        width: 260px;
-    }
-    #logo-fibo {
-        margin-bottom: 10px;
-    }
-    .carousel-caption.d-none {
-        display: block !important;
-        margin-top: -30px;
-    }
-    .navbar-links li:nth-child(4) {
-        margin-right: 0;
-    }
-    .navbar-links li.ico {
-        display: none;
-    }
-    .navbar-links li {
-        height: 23px;
-        line-height: 18px;
-        margin: 0 1px;
-    }
-    .navbar-links li a {
-        padding: 0 7px;
-        font-size: 10px;
-        line-height: 14px;
-    }
-}
-
-@media (max-width: 575px) {
-    .navbar-brand img {
-        margin-top: 80px;
-    }
-    .navbar-links {
-        top: 5px;
-        right: 0;
-        margin-left: -20px;
-    }
+@media (max-width: 992px) and (min-width: 700px) {
+  header {
+    min-height: 400px;
+    max-height: 400px;
+  }
 }
 </style>

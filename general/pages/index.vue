@@ -1,6 +1,6 @@
 <template>
 <div>
-    <HeaderComponent :carousel="carousel" :dropdownMenu="dropdownMenu"></HeaderComponent>
+    <HeaderComponent :carousel="carousel" :dropdownMenu="dropdownMenu" :dropdownTop="dropdownTop"></HeaderComponent>
     <div class="container">
         <main>
             <article class="full-page">
@@ -79,6 +79,7 @@ export default {
                 copyright: pageData.copyright,
                 carousel: pageData.carousel,
                 dropdownMenu: pageData.menuDropdown,
+                dropdownTop: pageData.menuTop,
             };
         } catch (error) {
           console.log(error);

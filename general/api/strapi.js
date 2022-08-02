@@ -52,6 +52,18 @@ export async function getPageElementsStrapiData() {
     };
   }
 
+  //menu-top
+  collectionName = "menu-top";
+  populateParams = ["items", "items.item", "items.submenu"];
+  try {
+    const response = await getStrapiData(collectionName, populateParams);
+    data.menuTop = response.data.data.attributes.items;
+  } catch (error) {
+    return {
+      error: error,
+    };
+  }
+
   return data;
 }
 

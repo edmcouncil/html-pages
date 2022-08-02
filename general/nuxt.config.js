@@ -72,6 +72,7 @@ export default {
     "~assets/scss/_variables.scss",
     "~assets/scss/_bootstrap-override.scss",
     "~assets/scss/global.scss",
+    "~assets/scss/typography.scss",
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
