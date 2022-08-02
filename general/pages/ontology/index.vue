@@ -3,7 +3,7 @@
   <HeaderComponent :carousel="carousel"></HeaderComponent>
   <div class="container ontology-container">
     <div class="row">
-      <!-- tree large -->
+      <!-- secondary column -->
       <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
         <div class="module-tree">
           <div
@@ -1709,16 +1709,6 @@ export default {
     }
   },
   watch: {
-    // eslint-disable-next-line vue/no-arrow-functions-in-watch
-    "$route.query.version": () => {
-      this.updateServers();
-
-      this.fetchData(this.query);
-      this.fetchModules();
-
-      // clear search results after changing version
-      this.clearSearchResults();
-    },
     // eslint-disable-next-line vue/no-arrow-functions-in-watch
     "pathsSection.isTreeView": newValue => {
       localStorage.isTreeView = newValue;
