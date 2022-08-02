@@ -1,43 +1,42 @@
 <template>
-  <div>
-    <li class="module container">
-      <div class="row">
-        <div
-          class="icon-arrow"
-          :class="{ hidden: !isFolder, down: isOpen }"
-          @click="toggle"
-        ></div>
-        <div
-          v-if="this.item.maturityLevel.label !== 'NOT_SET'"
-          class="indicator-container"
-          :class="{
-            devIndicator:
-              this.item.maturityLevel.label === 'PROVISIONAL' ||
-              this.item.maturityLevel.label === 'INFORMATIVE',
-            prodIndicator: this.item.maturityLevel.label === 'RELEASE',
-            prodDevIndicator: this.item.maturityLevel.label === 'MIXED',
-            indicator: true,
-          }"
-        ></div>
-        <div class="label" :class="{ selected: isSelected }">
-          <customLink
-            class="custom-link"
-            :name="item.label"
-            :query="item.iri"
-            :customLinkOnClick="this.ontologyClicked"
-          ></customLink>
-        </div>
+  <li class="module container">
+    <div class="row">
+      <div
+        class="icon-arrow"
+        :class="{ hidden: !isFolder, down: isOpen }"
+        @click="toggle"
+        v-b-toggle.collapse-3
+      ></div>
+      <div
+        v-if="this.item.maturityLevel.label !== 'NOT_SET'"
+        class="indicator-container"
+        :class="{
+          devIndicator:
+            this.item.maturityLevel.label === 'PROVISIONAL' ||
+            this.item.maturityLevel.label === 'INFORMATIVE',
+          prodIndicator: this.item.maturityLevel.label === 'RELEASE',
+          prodDevIndicator: this.item.maturityLevel.label === 'MIXED',
+          indicator: true,
+        }"
+      ></div>
+      <div class="label" :class="{ selected: isSelected }">
+        <customLink
+          class="custom-link"
+          :name="item.label"
+          :query="item.iri"
+          :customLinkOnClick="this.ontologyClicked"
+        ></customLink>
       </div>
-      <ul v-show="isOpen" v-if="isFolder" class="list-unstyled">
-        <module-tree
-          :item="subItem"
-          :location="location"
-          v-for="subItem in item.subModule"
-          :key="subItem.label"
-        />
-      </ul>
-    </li>
-  </div>
+    </div>
+    <ul v-show="isOpen" v-if="isFolder" class="list-unstyled">
+      <module-tree
+        :item="subItem"
+        :location="location"
+        v-for="subItem in item.subModule"
+        :key="subItem.label"
+      />
+    </ul>
+  </li>
 </template>
 
 <script>
@@ -155,6 +154,8 @@ export default {
     display: inline;
     line-height: 24px;
     padding-top: 2px;
+    word-wrap: break-word;
+    max-width: calc( 100% - 60px );
     &.selected {
       text-decoration: underline;
     }
