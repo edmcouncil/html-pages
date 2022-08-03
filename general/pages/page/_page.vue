@@ -2,6 +2,7 @@
   <div>
     <div class="container">
       <main>
+        <div ref="article-top-element"></div>
         <article class="full-page">
           <section
             v-for="sectionItem in page"
@@ -68,6 +69,14 @@ export default {
       aElement.click();
       aElement.remove();
     },
+  },
+  scrollToTop: false,
+  mounted() {
+    const scrollTopElement = this.$refs['article-top-element'];
+    console.log('scroll top:', scrollTopElement)
+    scrollTopElement.scrollIntoView({
+        behavior: "smooth"
+    });
   },
   async asyncData({ params, error }) {
     var collectionName = params.page.toLowerCase();

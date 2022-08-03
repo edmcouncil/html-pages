@@ -153,6 +153,7 @@ export default {
   env: {
     strapiBaseUri: process.env.STRAPI_URL || "http://localhost:1337",
     ontoViewerBaseUri: process.env.ONTO_VIEWER_URL || "http://localhost:8080",
+    ontologyResourcesBaseUri: process.env.ONTO_VIEWER_URL || "http://localhost:8080",
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
   },
 
