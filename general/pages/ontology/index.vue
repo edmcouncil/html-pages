@@ -120,7 +120,7 @@
                       <div class="menu-box__content-text">
                         <multiselect
                           v-model="searchBox.selectedData"
-                          id="ajax2"
+                          :autocomplete="'off'"
                           label="labelForInternalSearch"
                           track-by="iri"
                           :placeholder="
@@ -130,7 +130,7 @@
                           tagPlaceholder="Search..."
                           selectLabel="x"
                           open-direction="bottom"
-                          ref="searchBoxInput2"
+                          ref="searchBoxInputDesktop"
                           spellcheck="false"
                           :class="{
                             'multiselect--input-empty': !searchBox.inputValue,
@@ -369,14 +369,13 @@
                 <div class="menu-box__content-text">
                   <multiselect
                     v-model="searchBox.selectedData"
-                    id="ajax"
                     label="labelForInternalSearch"
                     track-by="iri"
                     :placeholder="searchBox.inputValue || 'Find...'"
                     tagPlaceholder="Search..."
                     selectLabel="x"
                     open-direction="bottom"
-                    ref="searchBoxInput"
+                    ref="searchBoxInputMobile"
                     spellcheck="false"
                     :class="{
                       'multiselect--input-empty': !searchBox.inputValue,
@@ -1134,7 +1133,6 @@ import {
   getFindSearch,
   getFindProperties,
 } from "../../api/ontology";
-import { getPageElementsStrapiData } from "../../api/strapi";
 
 export default {
   name: "OntologyView",
@@ -1192,18 +1190,6 @@ export default {
       },
     };
   },
-  async asyncData({ params, redirect }) {
-    try {
-      console.log(params);
-      const pageData = await getPageElementsStrapiData();
-      return {
-        copyright: pageData.copyright,
-        carousel: pageData.carousel,
-      };
-    } catch (error) {
-      redirect("/error");
-    }
-  },
   mounted() {
     let queryParam = "";
     this.mountedTimestamp = Math.floor(Date.now() / 1000);
@@ -1237,6 +1223,10 @@ export default {
     this.fetchData(this.query);
     this.fetchModules();
     this.fetchSearchProperties();
+
+    // disable input autocomplete in multiselect
+    this.$refs.searchBoxInputMobile.$refs.search.setAttribute("autocomplete", "off")
+    this.$refs.searchBoxInputDesktop.$refs.search.setAttribute("autocomplete", "off")
   },
   methods: {
     toggleModuleTree() {
@@ -1587,8 +1577,8 @@ export default {
     clearAll() {
       this.searchBox.selectedData = null;
       this.searchBox.inputValue = "";
-      this.$refs.searchBoxInput2.search = "";
-      this.$refs.searchBoxInput.search = "";
+      this.$refs.searchBoxInputDesktop.search = "";
+      this.$refs.searchBoxInputMobile.search = "";
     },
     searchResultClicked() {
       this.$root.ontologyRouteIsUpdating = true;
@@ -1832,8 +1822,8 @@ export default {
       this.clearSearchResults();
       const searchQuery = decodeURI(this.$route.query.searchBoxQuery);
       this.searchBox.inputValue = searchQuery;
-      this.$refs.searchBoxInput2.search = searchQuery;
-      this.$refs.searchBoxInput.search = searchQuery;
+      this.$refs.searchBoxInputDesktop.search = searchQuery;
+      this.$refs.searchBoxInputMobile.search = searchQuery;
       this.handleSearchBoxQuery(searchQuery);
       this.$nextTick(() => {
         if (this.$route.fullPath != "/ontology")
@@ -1841,10 +1831,6 @@ export default {
       });
       this.$route.query.searchBoxQuery_isExecuted = true;
     }
-
-    // disable input autocomplete in multiselect
-    document.getElementById("ajax2").autocomplete = "off";
-    document.getElementById("ajax").autocomplete = "off";
   },
 };
 </script>
