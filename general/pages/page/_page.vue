@@ -73,7 +73,6 @@ export default {
   scrollToTop: false,
   mounted() {
     const scrollTopElement = this.$refs['article-top-element'];
-    console.log('scroll top:', scrollTopElement)
     scrollTopElement.scrollIntoView({
         behavior: "smooth"
     });

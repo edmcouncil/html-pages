@@ -8,7 +8,7 @@
   >
     <div class="menu-box">
       <div class="menu-box__label">Browse logs</div>
-      <div class="menu-box__content-text">ONTO Instrumentation</div>
+      <div class="menu-box__content-text">{{ productNameUppercase }} Instrumentation</div>
       <div class="menu-box__icons">
         <div class="menu-box__icons__icon icon-info"></div>
       </div>
@@ -112,7 +112,7 @@ export default {
     }
   },
   methods: {
-  async fetchStats() {
+    async fetchStats() {
       try {
         const result = await getStats(this.statsServer);
         const body = await result.json();
@@ -136,6 +136,11 @@ export default {
       }
     },
   },
+  computed: {
+    productNameUppercase() {
+      return process.env.productName.toUpperCase();
+    },
+  }
 };
 </script>
 

@@ -59,7 +59,6 @@ export default {
     return {
       collapsed: false,
       includeImports: false,
-      baseUrl: 'https://spec.edmcouncil.org/idmp/ontology/',
     }
   },
   methods: {
@@ -72,7 +71,7 @@ export default {
       const filename = iriElements[iriElements.length - 2] + '.rdf';
 
       // get file path from iri
-      const filepath = this.data.iri.replace('https://spec.pistoiaalliance.org/idmp/ontology/', '').slice(0, -1)+'.rdf';
+      const filepath = this.data.iri.replace(`${this.ontologyResourcesBaseUri}`, '').slice(0, -1)+'.rdf';
 
       const link = `${this.baseUrl}${this.version ? this.version+'/' : ''}${filepath}`;
       const aElement = document.createElement('a');
@@ -85,6 +84,17 @@ export default {
       aElement.remove();
     }
   },
+  computed: {
+    productName() {
+      return process.env.productName.toLowerCase();
+    },
+    ontologyResourcesBaseUri() {
+      return process.env.ontologyResourcesBaseUri;
+    },
+    baseUrl() {
+      return `https://spec.edmcouncil.org/${this.productName}/ontology/`;
+    }
+  }
 };
 </script>
 

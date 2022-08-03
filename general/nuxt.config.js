@@ -1,7 +1,7 @@
 process.env.VUE_APP_PRODUCT =
   process.env.PRODUCT ||
   process.env.ontology_publisher_current_product ||
-  "pages";
+  "fibo";
 process.env.VUE_APP_BRANCH = (
   process.env.BRANCH ||
   (process.env.BRANCH_NAME === process.env.TAG_NAME
@@ -125,15 +125,6 @@ export default {
     "@nuxtjs/proxy",
   ],
 
-  http: {
-    proxy: true,
-  },
-
-  proxy: [
-    'http://fibo-viewer.korora.makolab.net/idmp/ontology/api',
-    'http://fibo-viewer.korora.makolab.net/idmp/ontology/*/api'
-  ],
-
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     loaders: {
@@ -150,12 +141,28 @@ export default {
   },
 
   // variable for our app
+  // default ontologyResourcesBaseUri for ontologies:
+  // FIBO - https://spec.edmcouncil.org/fibo/ontology/
+  // AUTO - https://spec.edmcouncil.org/auto/ontology/
+  // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
   env: {
+    productName: process.env.VUE_APP_PRODUCT,
+
     strapiBaseUri: process.env.STRAPI_URL || "http://localhost:1337",
     ontoViewerBaseUri: process.env.ONTO_VIEWER_URL || "http://localhost:8080",
-    ontologyResourcesBaseUri: process.env.ONTO_VIEWER_URL || "http://localhost:8080",
+    ontologyResourcesBaseUri: process.env.RESOURCES_BASE_URL || "https://spec.edmcouncil.org/fibo/ontology/",
+
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
   },
+
+  http: {
+    proxy: true,
+  },
+
+  proxy: [
+    "http://fibo-viewer.korora.makolab.net/" + process.env.VUE_APP_PRODUCT + "/ontology/api",
+    "http://fibo-viewer.korora.makolab.net/" + process.env.VUE_APP_PRODUCT + "/ontology/*/api",
+  ],
 
   styleResources: {
     scss: ["./assets/scss/*.scss"],

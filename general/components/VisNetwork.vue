@@ -1,14 +1,8 @@
 <template>
   <div id="graphWindowWraper" class="graph-parent">
-
-
     <div class="smallGraphWraper">
-
       <div id="connectionsMenu" ref="connectionsElement" class="collapsed">
-        <div
-          class="connections-title"
-          @click="toggleConnectionsCollapsed()"
-        >
+        <div class="connections-title" @click="toggleConnectionsCollapsed()">
           <h6>Connections</h6>
           <div class="collapse-icon"></div>
         </div>
@@ -22,7 +16,9 @@
               id="internal"
               value="internal"
             />
-            <label class="custom-control-label" for="internal">Class specific</label>
+            <label class="custom-control-label" for="internal"
+              >Class specific</label
+            >
           </div>
           <div class="custom-control custom-checkbox">
             <input
@@ -52,10 +48,11 @@
               id="non_optional"
               value="non_optional"
             />
-            <label class="custom-control-label" for="non_optional">Required</label>
+            <label class="custom-control-label" for="non_optional"
+              >Required</label
+            >
           </div>
         </div>
-
       </div>
 
       <div id="smallGraph">
@@ -87,12 +84,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <div
-                type="button"
-                class="close-btn"
-                data-dismiss="modal"
-                aria-label="Close"
-                v-on:click="hideModal()"
-              ></div>
+              type="button"
+              class="close-btn"
+              data-dismiss="modal"
+              aria-label="Close"
+              v-on:click="hideModal()"
+            ></div>
             <h5 class="modal-title" id="graphModalLabel">
               Data model for {{ title }}
             </h5>
@@ -228,13 +225,14 @@ export default {
           const sNode = selectedNodes[0];
           nodes.forEach((entry) => {
             if (entry.id === sNode) {
-              if (entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/idmp/)) {
-                window.location.href = `/idmp${entry.iri.replace(
-                  "https://spec.edmcouncil.org/idmp",
+              const regex = new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.productName}/` );
+              if (entry.iri.match(regex)) {
+                window.location.href = `${entry.iri.replace(
+                  `https://spec.edmcouncil.org/${this.productName}`,
                   ""
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
-                window.location.href = `/idmp/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
+                window.location.href = `/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
               }
             }
           });
@@ -242,13 +240,14 @@ export default {
           const sEgde = selectedEdges[0];
           edgesView.forEach((entry) => {
             if (entry.id === sEgde) {
-              if (entry.iri.match(/^https:\/\/spec\.edmcouncil\.org\/idmp/)) {
-                window.location.href = `/idmp${entry.iri.replace(
-                  "https://spec.edmcouncil.org/idmp",
+              const regex = new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.productName}/` );
+              if (entry.iri.match(regex)) {
+                window.location.href = `${entry.iri.replace(
+                  `https://spec.edmcouncil.org/${this.productName}`,
                   ""
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
-                window.location.href = `/idmp/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
+                window.location.href = `/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
               }
             }
           });
@@ -356,6 +355,11 @@ export default {
       window.network.redraw();
     }
   },
+  computed: {
+    productName() {
+      return process.env.productName.toLowerCase();
+    },
+  }
 };
 </script>
 
@@ -378,40 +382,39 @@ export default {
   height: 100%;
 }
 
-
 // global/not in modal
 #connectionsMenu {
   padding-left: 40px;
   padding-right: 40px;
-    h6{
-        padding: 0;
-        margin: 0;
+  h6 {
+    padding: 0;
+    margin: 0;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 30px;
+    color: #000000;
+  }
+  .connections-title {
+    padding-bottom: 40px;
+  }
+  .connections-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    .custom-control {
+      padding-right: 40px;
+      padding-bottom: 40px;
+
+      .custom-control-label {
         font-style: normal;
-        font-weight: bold;
+        font-weight: normal;
         font-size: 18px;
         line-height: 30px;
-        color: #000000;
-    }
-    .connections-title {
-      padding-bottom: 40px;
-    }
-    .connections-list {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      .custom-control {
-        padding-right: 40px;
-        padding-bottom: 40px;
-
-        .custom-control-label {
-          font-style: normal;
-          font-weight: normal;
-          font-size: 18px;
-          line-height: 30px;
-          color: rgba(0, 0, 0, 0.8);
-        }
+        color: rgba(0, 0, 0, 0.8);
       }
     }
+  }
 }
 
 //global in modal
@@ -422,29 +425,29 @@ export default {
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     border: none;
     padding: 18px 30px;
-    z-index:2;
+    z-index: 2;
 
-    justify-content:start;
+    justify-content: start;
 
     .close-btn {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        width: 24px;
-        height: 30px;
-        padding: 0;
-        margin-right: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 24px;
+      height: 30px;
+      padding: 0;
+      margin-right: 20px;
 
-        &::before {
-          content: "";
-          background-image: url("../assets/icons/return-arrow.svg");
-          background-repeat: no-repeat;
-          background-size: 24px 24px;
-          width: 24px;
-          height: 24px;
-        }
+      &::before {
+        content: "";
+        background-image: url("../assets/icons/return-arrow.svg");
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+        width: 24px;
+        height: 24px;
       }
+    }
 
     h5 {
       font-style: normal;
@@ -457,7 +460,6 @@ export default {
       margin: 0;
       position: relative;
     }
-
   }
   .modal-dialog {
     margin: 0;
@@ -476,9 +478,8 @@ export default {
     overflow: hidden;
 
     #connectionsMenu {
-
       width: 100%;
-      background: rgb(242,242,242);
+      background: rgb(242, 242, 242);
       z-index: 1;
       .connections-title {
         padding: 20px 0px;
@@ -486,7 +487,6 @@ export default {
     }
   }
 }
-
 
 //mobile
 @media (max-width: 768px) {
@@ -549,8 +549,8 @@ export default {
     }
 
     &.collapsed {
-      .connections-title .collapse-icon  {
-          background-image: url("../assets/icons/triangle-down.svg");
+      .connections-title .collapse-icon {
+        background-image: url("../assets/icons/triangle-down.svg");
       }
       .connections-list {
         height: 0px;
@@ -558,56 +558,55 @@ export default {
       }
     }
   }
-
 }
 
 @media (max-width: 1300px) {
-.smallGraphWraper{
-  #connectionsMenu {
-    padding-left: 30px;
-    padding-right: 30px;
+  .smallGraphWraper {
+    #connectionsMenu {
+      padding-left: 30px;
+      padding-right: 30px;
 
-    .connections-title {
-      padding-bottom: 20px;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor:pointer;
-
-      .collapse-icon {
-        content: "";
-        background-image: url("../assets/icons/triangle-up.svg");
-        background-repeat: no-repeat;
-        background-size: 24px 24px;
-        width: 24px;
-        height: 24px;
-      }
-    }
-
-    .connections-list {
-      flex-direction: column;
-
-      .custom-control {
-        padding-right: 0px;
+      .connections-title {
         padding-bottom: 20px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
 
-        .custom-control-label {
-          color: rgba(0, 0, 0, 0.8);
+        .collapse-icon {
+          content: "";
+          background-image: url("../assets/icons/triangle-up.svg");
+          background-repeat: no-repeat;
+          background-size: 24px 24px;
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .connections-list {
+        flex-direction: column;
+
+        .custom-control {
+          padding-right: 0px;
+          padding-bottom: 20px;
+
+          .custom-control-label {
+            color: rgba(0, 0, 0, 0.8);
+          }
+        }
+      }
+
+      &.collapsed {
+        .connections-title .collapse-icon {
+          background-image: url("../assets/icons/triangle-down.svg");
+        }
+        .connections-list {
+          height: 0px;
+          overflow: hidden;
         }
       }
     }
-
-    &.collapsed {
-      .connections-title .collapse-icon  {
-          background-image: url("../assets/icons/triangle-down.svg");
-      }
-      .connections-list {
-        height: 0px;
-        overflow: hidden;
-      }
-    }
   }
-}
 }
 </style>

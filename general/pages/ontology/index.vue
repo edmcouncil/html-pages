@@ -1,15 +1,22 @@
 <template>
   <div>
     <div class="container ontology-container">
+      <div ref="article-top-element"></div>
       <div class="row">
         <!-- secondary column -->
         <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
           <div class="module-tree">
             <div
-              class="secondary-column__how-to-use multiselect-xxl-container multiselect-container container"
+              class="
+                secondary-column__how-to-use
+                multiselect-xxl-container multiselect-container
+                container
+              "
             >
               <div class="row modules-header">
-                <h5 class="fibo-title-modules">ONTO Viewer</h5>
+                <h5 class="fibo-title-modules">
+                  {{ productNameUppercase }} Viewer
+                </h5>
                 <button
                   type="button"
                   class="btn normal-button button-small"
@@ -21,10 +28,16 @@
             </div>
             <div
               v-if="hasVersions"
-              class="secondary-column__versions multiselect-xxl-container multiselect-container container"
+              class="
+                secondary-column__versions
+                multiselect-xxl-container multiselect-container
+                container
+              "
             >
               <div class="menu-box">
-                <div class="menu-box__label">Select IDMP version</div>
+                <div class="menu-box__label">
+                  Select {{ productNameUppercase }} version
+                </div>
                 <div class="menu-box__content-text">
                   <multiselect
                     v-model="ontologyVersionsDropdownData.selectedData"
@@ -78,11 +91,19 @@
               <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
             </div>
             <div
-              class="secondary-column__tree multiselect-xxl-container multiselect-container container"
+              class="
+                secondary-column__tree
+                multiselect-xxl-container multiselect-container
+                container
+              "
             >
               <div class="menu-box">
-                <div class="menu-box__label">Browse ONTO domains</div>
-                <div class="menu-box__content-text">ONTO Domains</div>
+                <div class="menu-box__label">
+                  Browse {{ productNameUppercase }} domains
+                </div>
+                <div class="menu-box__content-text">
+                  {{ productNameUppercase }} Domains
+                </div>
                 <div class="menu-box__icons">
                   <div class="menu-box__icons__icon icon-directory"></div>
                 </div>
@@ -214,7 +235,11 @@
             </div>
 
             <div
-              class="advanced-search-box advanced-search-box--desktop card d-none d-lg-block"
+              class="
+                advanced-search-box advanced-search-box--desktop
+                card
+                d-none d-lg-block
+              "
               v-if="searchBox.isAdvancedExpanded"
             >
               <div class="row">
@@ -265,10 +290,17 @@
           <!-- mobile multiselects -->
           <div class="secondary-column--mobile container px-0 mb-2 d-lg-none">
             <div
-              class="secondary-column__how-to-use secondary-column__how-to-use--mobile multiselect-container container"
+              class="
+                secondary-column__how-to-use
+                secondary-column__how-to-use--mobile
+                multiselect-container
+                container
+              "
             >
               <div class="row modules-header">
-                <h5 class="fibo-title-modules">ONTO Viewer</h5>
+                <h5 class="fibo-title-modules">
+                  {{ productNameUppercase }} Viewer
+                </h5>
                 <button
                   type="button"
                   class="btn normal-button button-small"
@@ -281,7 +313,11 @@
 
             <div
               v-if="hasVersions"
-              class="secondary-column__versions secondary-column__versions--mobile multiselect-container container"
+              class="
+                secondary-column__versions secondary-column__versions--mobile
+                multiselect-container
+                container
+              "
             >
               <div class="menu-box">
                 <div class="menu-box__label">Select version</div>
@@ -339,11 +375,19 @@
             </div>
 
             <div
-              class="secondary-column__tree secondary-column__tree--mobile multiselect-container container"
+              class="
+                secondary-column__tree secondary-column__tree--mobile
+                multiselect-container
+                container
+              "
             >
               <div class="menu-box" v-on:click="toggleModuleTree()">
-                <div class="menu-box__label">Browse ONTO domains</div>
-                <div class="menu-box__content-text">ONTO Domains</div>
+                <div class="menu-box__label">
+                  Browse {{ productNameUppercase }} domains
+                </div>
+                <div class="menu-box__content-text">
+                  {{ productNameUppercase }} Domains
+                </div>
                 <div class="menu-box__icons">
                   <div class="menu-box__icons__icon icon-directory"></div>
                 </div>
@@ -364,7 +408,9 @@
 
             <div class="search-box search-box--mobile multiselect-container">
               <div class="menu-box">
-                <div class="menu-box__label">Search IDMP</div>
+                <div class="menu-box__label">
+                  Search {{ productNameUppercase }}
+                </div>
                 <div class="menu-box__content-text">
                   <multiselect
                     v-model="searchBox.selectedData"
@@ -939,9 +985,7 @@
                     class="col-12 px-0"
                     v-if="
                       data.iri.slice(-1) === '/' &&
-                      data.iri.startsWith(
-                        'https://spec.pistoiaalliance.org/idmp/ontology/'
-                      )
+                      data.iri.startsWith(this.ontologyResourcesBaseUri)
                     "
                   >
                     <DownloadSection :data="data" :version="version" />
@@ -991,26 +1035,28 @@
               <div v-else-if="!loader && !searchBox.isLoadingResults">
                 <article class="how-to-article">
                   <section>
-                    <h2>How to use IDMP Viewer</h2>
+                    <h2>How to use {{ productNameUppercase }} Viewer</h2>
                     <p class="muted">
-                      To start using IDMP Viewer, search for interesting
-                      concepts by walking through the IDMP directory structure
-                      on the left-hand side or use the full-text search
-                      function.
+                      To start using {{ productNameUppercase }} Viewer, search
+                      for interesting concepts by walking through the
+                      {{ productNameUppercase }} directory structure on the
+                      left-hand side or use the full-text search function.
                     </p>
                   </section>
 
                   <section v-if="hasVersions" class="blank">
                     <img class="article-icon" src="@/assets/img/clock.svg" />
-                    <h3>IDMP Versions</h3>
+                    <h3>{{ productNameUppercase }} Versions</h3>
                     <p>
-                      IDMP Viewer allows for browsing the past versions of IDMP.
+                      {{ productNameUppercase }} Viewer allows for browsing the
+                      past versions of {{ productNameUppercase }}.
                     </p>
                     <p class="small muted">
                       It also helps developers to see the changes proposed to
-                      IDMP in pull requests before their approval. To see the
-                      content of the past IDMP releases or recent pull requests,
-                      choose them from the drop-down list.
+                      {{ productNameUppercase }} in pull requests before their
+                      approval. To see the content of the past
+                      {{ productNameUppercase }} releases or recent pull
+                      requests, choose them from the drop-down list.
                     </p>
                   </section>
 
@@ -1019,28 +1065,24 @@
                       class="article-icon"
                       src="@/assets/img/directory.svg"
                     />
-                    <h3>IDMP structure</h3>
+                    <h3>{{ productNameUppercase }} structure</h3>
                     <p>
-                      IDMP is a set of ontologies. It is organized in a
-                      hierarchical directory structure.
+                      {{ productNameUppercase }} is a set of ontologies. It is
+                      organized in a hierarchical directory structure.
                     </p>
                     <p class="small muted">
                       Top-level directories are called domains; beneath that may
                       be one or two levels of sub-domain and then modules and
-                      dozens of ontologies at the bottom level, e.g.:
-                    </p>
-                    <p class="small muted">
-                      On the left-hand side, there is a list of eleven IDMP
-                      Domains, starting with the Business Entities at the top
-                      and ending with Securities at the bottom.
+                      dozens of ontologies at the bottom level.
                     </p>
                   </section>
 
                   <section class="blank">
                     <img class="article-icon" src="@/assets/img/maturity.svg" />
-                    <h3>IDMP maturity levels</h3>
+                    <h3>{{ productNameUppercase }} maturity levels</h3>
                     <p>
-                      Each IDMP ontology has one of three levels of maturity.
+                      Each {{ productNameUppercase }} ontology has one of three
+                      levels of maturity.
                     </p>
                     <p class="small muted title">Release</p>
                     <p class="small muted">
@@ -1063,8 +1105,9 @@
                   <section class="blank">
                     <h3>Colours</h3>
                     <p class="paragraph--regular">
-                      IDMP Viewer uses colours to indicate the status of an
-                      ontology. Each ontology is either green or yellow.
+                      {{ productNameUppercase }} Viewer uses colours to indicate
+                      the status of an ontology. Each ontology is either green
+                      or yellow.
                     </p>
                     <div class="color-container">
                       <img
@@ -1103,12 +1146,14 @@
                   </section>
 
                   <section>
-                    <h2>About IDMP Viewer</h2>
+                    <h2>About {{ productNameUppercase }} Viewer</h2>
                     <p class="small muted">
-                      IDMP Viewer is a JAVA application that is specifically
-                      designed to access both the IDMP structure and its content
-                      in the easiest possible way. It can serve both as a web
-                      application and REST API. IDMP Viewer is an open-source
+                      {{ productNameUppercase }} Viewer is a JAVA application
+                      that is specifically designed to access both the
+                      {{ productNameUppercase }} structure and its content in
+                      the easiest possible way. It can serve both as a web
+                      application and REST API.
+                      {{ productNameUppercase }} Viewer is an open-source
                       project that EDM Council hosts. See
                       https://github.com/edmcouncil/onto-viewer for details.
                     </p>
@@ -1155,7 +1200,6 @@ export default {
       searchServer: null,
       statsServer: null,
       missingImportsServer: null,
-      hintDefaultDomain: "/idmp/ontology/{version}api/find/",
       version: null,
       versionDefaultSelectedData: {
         "@id": "stable",
@@ -1189,16 +1233,17 @@ export default {
       },
     };
   },
+  scrollToTop: false,
   mounted() {
     let queryParam = "";
     this.mountedTimestamp = Math.floor(Date.now() / 1000);
 
     if (this.$route.params && this.$route.params[1]) {
       const ontologyQuery = window.location.pathname.replace(
-        "idmp/ontology/",
+        `${this.productName}/ontology/`,
         ""
       );
-      queryParam = `https://spec.edmcouncil.org/idmp/ontology/${ontologyQuery}`;
+      queryParam = `https://spec.edmcouncil.org/${this.productName}/ontology/${ontologyQuery}`;
     } else if (this.$route.query && this.$route.query.query) {
       queryParam =
         encodeURIComponent(this.$route.query.query) +
@@ -1226,6 +1271,11 @@ export default {
     // disable input autocomplete in multiselect
     this.$refs.searchBoxInputMobile.$refs.search.setAttribute("autocomplete", "off")
     this.$refs.searchBoxInputDesktop.$refs.search.setAttribute("autocomplete", "off")
+
+    const scrollTopElement = this.$refs['article-top-element'];
+    scrollTopElement.scrollIntoView({
+        behavior: "smooth"
+    });
   },
   methods: {
     toggleModuleTree() {
@@ -1269,10 +1319,6 @@ export default {
           "{version}",
           `${internalRoute.query.version}/`
         );
-        this.hintServer = this.hintDefaultDomain.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
-        );
         this.statsServer = this.statsServer.replace(
           "{version}",
           `${internalRoute.query.version}/`
@@ -1282,7 +1328,6 @@ export default {
         this.ontologyServer = this.ontologyServer.replace("{version}", "");
         this.searchServer = this.searchServer.replace("{version}", "");
         this.modulesServer = this.modulesServer.replace("{version}", "");
-        this.hintServer = this.hintDefaultDomain.replace("{version}", "");
         this.statsServer = this.statsServer.replace("{version}", "");
         this.version = null;
       }
@@ -1343,7 +1388,7 @@ export default {
       }
 
       try {
-        const result = await getOntologyVersions("/idmp/ontology/api/");
+        const result = await getOntologyVersions(`/${this.productName}/ontology/api/`);
         const ontologyVersions = await result.json();
         this.ontologyVersionsDropdownData.data = ontologyVersions;
         ontologyVersions.unshift(this.versionDefaultSelectedData); // add default at the beginning
@@ -1433,9 +1478,9 @@ export default {
     },
     searchBox_optionSelected(selectedOption /* , id */) {
       let destRoute = selectedOption.iri;
-      if (destRoute.startsWith("https://spec.edmcouncil.org/idmp")) {
+      if (destRoute.startsWith(`https://spec.edmcouncil.org/${this.productName}`)) {
         // internal ontology
-        destRoute = destRoute.replace("https://spec.edmcouncil.org/idmp", "");
+        destRoute = destRoute.replace(`https://spec.edmcouncil.org/${this.productName}`, "");
         this.$router.push({
           path: destRoute,
           query: {
@@ -1703,7 +1748,7 @@ export default {
     },
     githubNewIssue() {
       const ontologyQuery = this.data.iri.replace(
-        "https://spec.pistoiaalliance.org/idmp/ontology/",
+        this.ontologyResourcesBaseUri,
         ""
       );
       const label = ontologyQuery.substring(0, ontologyQuery.indexOf("/"));
@@ -1713,7 +1758,7 @@ export default {
         body: `Resource URL:\n${this.data.iri}`,
       };
       const url =
-        `https://github.com/edmcouncil/idmp/issues/new` +
+        `https://github.com/edmcouncil/${this.productName}/issues/new` +
         `?labels=${encodeURI(details.label)}` +
         `&template=issue.md` +
         `&title=${encodeURI(details.title)}` +
@@ -1757,6 +1802,15 @@ export default {
     hasVersions() {
       return this.ontologyVersionsDropdownData.data.length > 1;
     },
+    productName() {
+      return process.env.productName.toLowerCase();
+    },
+    productNameUppercase() {
+      return process.env.productName.toUpperCase();
+    },
+    ontologyResourcesBaseUri() {
+      return process.env.ontologyResourcesBaseUri;
+    }
   },
   watch: {
     // eslint-disable-next-line vue/no-arrow-functions-in-watch
@@ -1773,11 +1827,11 @@ export default {
       if (to.query && to.query.query) {
         queryParam = to.query.query + to.hash || "";
       } else {
-        queryParam = `https://spec.edmcouncil.org/idmp${to.path}`;
+        queryParam = `https://spec.edmcouncil.org/${this.productName}${to.path}`;
       }
       this.query = queryParam;
 
-      if (this.query === "https://spec.edmcouncil.org/idmp/ontology") {
+      if (this.query === `https://spec.edmcouncil.org/${this.productName}/ontology`) {
         this.query = "";
         this.data = null;
       } else {
