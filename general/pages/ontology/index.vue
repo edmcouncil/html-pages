@@ -120,7 +120,6 @@
                       <div class="menu-box__content-text">
                         <multiselect
                           v-model="searchBox.selectedData"
-                          :autocomplete="'off'"
                           label="labelForInternalSearch"
                           track-by="iri"
                           :placeholder="

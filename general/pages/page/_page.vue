@@ -9,11 +9,11 @@
             :class="sectionItem.type == 'download' ? 'blank' : ''"
           >
             <div v-if="sectionItem.type == 'text'">
-              <p
+              <div
                 v-for="item in sectionItem.items"
                 :key="item.id"
                 v-html="$md.render(item.text)"
-              ></p>
+              ></div>
             </div>
             <div v-else-if="sectionItem.type == 'image_text'">
               <div class="subsection">
@@ -31,7 +31,7 @@
               </div>
             </div>
             <div v-else-if="sectionItem.type == 'download'">
-              <p v-html="$md.render(sectionItem.text)"></p>
+              <div v-html="$md.render(sectionItem.text)"></div>
               <button
                 class="normal-button"
                 @click="visit(sectionItem.button.url)"
@@ -69,20 +69,18 @@ export default {
       aElement.remove();
     },
   },
-  async asyncData({ params, redirect }) {
+  async asyncData({ params, error }) {
     var collectionName = params.page.toLowerCase();
     var populateParams = ["content", "content.items", "content.button"];
 
     try {
       const response = await getStrapiData(collectionName, populateParams);
-      const pageData = await getPageElementsStrapiData();
       return {
         page: response.data.data.attributes.content,
-        copyright: pageData.copyright,
-        carousel: pageData.carousel,
       };
-    } catch (error) {
-      redirect("/error");
+    } catch (e) {
+      console.error(e);
+      error({ statusCode: 503, message: "Service Unavailable" });
     }
   },
 };

@@ -67,6 +67,12 @@ export default {
     },
   },
 
+  // loading bar
+  loading: {
+    color: 'black',
+    height: '5px'
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     "~assets/scss/_variables.scss",

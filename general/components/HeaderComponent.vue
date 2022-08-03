@@ -132,7 +132,7 @@
                             <nuxt-link
                               v-if="subitem.type === 'router-link'"
                               class="nav-link dropdown-item sub-nav-item"
-                              :to="{ path: router(subitem.link) }"
+                              :to="{ path: subitem.link }"
                               :key="subitem.id"
                             >
                               {{ subitem.name }}</nuxt-link
