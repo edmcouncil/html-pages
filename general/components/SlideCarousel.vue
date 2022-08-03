@@ -6,12 +6,16 @@
       v-model="currentSlide"
       ref="carousel"
     >
-      <b-carousel-slide v-for="item in carousel" :key="item.id">
+      <b-carousel-slide
+        v-for="(item, index) in carousel"
+        :key="item.id"
+        :class="{ active: index === 0 }"
+      >
         <span class="text-display">{{ item.title }}</span>
         <h2>{{ item.text }}</h2>
 
         <a :href="item.link.url" v-on:click="outboundLinkClick(item.link.url)">
-          {{item.link.name}}
+          {{ item.link.name }}
         </a>
       </b-carousel-slide>
 
@@ -44,43 +48,46 @@
 
 <script>
 import { outboundClick, outboundLinkClick } from "../helpers/ga";
-import helpers from '../store/helpers.js';
+import helpers from "../store/helpers.js";
 
 export default {
   extends: helpers,
   name: 'SlideCarousel',
-  props: ['carousel'],
   data() {
     return {
       currentSlide: 0,
-      slideCount: this.carousel.length,
       isSliding: false,
       carouselThrottle: null,
-    }
+    };
   },
   methods: {
     nextSlide() {
-      if(this.carouselThrottle === null)
-      {
+      if (this.carouselThrottle === null) {
         this.$refs.carousel.next();
-        this.carouselThrottle = setTimeout(()=>{
-          this.carouselThrottle = null
+        this.carouselThrottle = setTimeout(() => {
+          this.carouselThrottle = null;
         }, 800);
       }
-
     },
     prevSlide() {
-      if(this.carouselThrottle === null)
-      {
+      if (this.carouselThrottle === null) {
         this.$refs.carousel.prev();
-        this.carouselThrottle = setTimeout(()=>{
-          this.carouselThrottle = null
+        this.carouselThrottle = setTimeout(() => {
+          this.carouselThrottle = null;
         }, 800);
       }
     },
     outboundClick,
     outboundLinkClick,
-  }
+  },
+  computed: {
+    slideCount() {
+      return this.carousel?.length || 1;
+    },
+    carousel() {
+      return this.$store.state.headerData.carousel;
+    },
+  },
 };
 </script>
 

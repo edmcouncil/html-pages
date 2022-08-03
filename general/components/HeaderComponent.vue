@@ -166,17 +166,29 @@
         </div>
       </div>
     </div>
-    <SlideCarousel :carousel="carousel" v-if="!$route.meta.plainLayout"></SlideCarousel>
+    <SlideCarousel v-if="!$route.meta.plainLayout"></SlideCarousel>
   </header>
 </template>
 
 <script>
 import helpers from '../store/helpers';
+import { outboundClick, outboundLinkClick } from "../helpers/ga";
 
 export default {
   extends: helpers,
   name: 'HeaderComponent',
-  props: ["carousel", "dropdownMenu", "dropdownTop"],
+  methods: {
+    outboundClick,
+    outboundLinkClick,
+  },
+  computed: {
+    dropdownMenu () {
+      return this.$store.state.headerData.menuDropdown;
+    },
+    dropdownTop () {
+      return this.$store.state.headerData.menuTop;
+    },
+  }
 };
 </script>
 

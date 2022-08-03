@@ -95,7 +95,6 @@ import { outboundClick } from "../helpers/ga";
 export default {
   extends: helpers,
   name: 'FooterComponent',
-  props: ['copyright'],
   methods: {
     outboundClick,
   },
@@ -104,6 +103,11 @@ export default {
       showTermsLinkOnFooter: process.env.showTermsLinkOnFooter,
     }
   },
+  computed: {
+    copyright () {
+      return this.$store.state.footerData.copyright;
+    },
+  }
 };
 </script>
 
@@ -256,7 +260,7 @@ footer {
         margin-bottom: 40px;
       }
     }
-    footer-contact .footer-contact__content a {
+    .footer-contact .footer-contact__content a {
       font-size: 20px;
       line-height: 30px;
     }
@@ -277,8 +281,6 @@ footer {
       line-height: 20px;
     }
     .footer-links ul {
-      flex-direction: column;
-
       li {
         padding-left: 0;
         padding-bottom: 40px;
@@ -291,6 +293,12 @@ footer {
         }
       }
     }
+  }
+}
+
+@media (max-width: 750px) {
+  footer .footer-links ul {
+    flex-direction: column;
   }
 }
 </style>

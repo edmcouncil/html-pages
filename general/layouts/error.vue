@@ -8,11 +8,11 @@
     <article class="full-page">
       <section class="blank">
         <img src="@/assets/icons/warning.svg" alt="Warning image" />
-        <h1 v-if="error.statusCode === 404">Page not found</h1>
+        <h1 v-if="error.statusCode === 404">404</h1>
         <h1 v-else>Connection Failed</h1>
 
         <p v-if="error.statusCode === 404" class="muted">
-          Couldn't find the page you are looking for.
+          Page not found.
         </p>
         <p v-else class="muted">
           Couldn't reach our servers, please try again later.
@@ -28,7 +28,8 @@
 <script>
 export default {
   name: 'Error',
-  props: ['error']
+  props: ['error'],
+  layout: 'empty'
 }
 </script>
 
