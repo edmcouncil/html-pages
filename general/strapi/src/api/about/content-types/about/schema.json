@@ -8,15 +8,15 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "content": {
+    "sections": {
       "type": "dynamiczone",
       "components": [
-        "article-elements.image-text-zone",
-        "article-elements.text-zone"
+        "sections.image-text-section",
+        "sections.text-section"
       ]
     }
   }

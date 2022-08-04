@@ -1,7 +1,8 @@
 {
   "collectionName": "components_footer_components_footer_links",
   "info": {
-    "displayName": "footer-link"
+    "displayName": "Footer link",
+    "description": ""
   },
   "options": {},
   "attributes": {

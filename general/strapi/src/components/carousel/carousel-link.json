@@ -1,8 +1,9 @@
 {
   "collectionName": "components_carousel_carousel_links",
   "info": {
-    "displayName": "carousel-link",
-    "icon": "allergies"
+    "displayName": "Carousel link",
+    "icon": "allergies",
+    "description": ""
   },
   "options": {},
   "attributes": {

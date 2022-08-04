@@ -71,12 +71,15 @@ export default {
   },
   async asyncData({ error }) {
     var collectionName = "about";
-    var populateParams = ["content", "content.items", "content.button"];
+    var populateParams = ["sections", "sections.image-text-section"];
 
     try {
       const response = await getStrapiData(collectionName, populateParams);
+
+      // console.log(response.data.data.attributes.sections)
+
       return {
-        page: response.data.data.attributes.content,
+        page: response.data.data.attributes.sections,
       };
     } catch (e) {
       console.error(e);

@@ -1,24 +1,39 @@
 {
   "collectionName": "components_article_elements_image_text_zones",
   "info": {
-    "displayName": "image_text_zone",
+    "displayName": "Image with text",
     "icon": "angle-right",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "items": {
-      "type": "component",
-      "repeatable": true,
-      "component": "article-elements.text-image"
-    },
-    "type": {
+    "image_align": {
       "type": "enumeration",
       "enum": [
-        "image_text"
-      ],
-      "required": true,
-      "default": "image_text"
+        "left",
+        "right",
+        "center"
+      ]
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "image_description": {
+      "type": "string"
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "text_content": {
+      "type": "richtext"
     }
   }
 }
