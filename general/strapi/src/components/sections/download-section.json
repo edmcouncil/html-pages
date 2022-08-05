@@ -7,12 +7,9 @@
   },
   "options": {},
   "attributes": {
-    "section_title": {
+    "title": {
       "type": "string",
-      "required": true
-    },
-    "text_content": {
-      "type": "string"
+      "required": false
     },
     "download_button_text": {
       "type": "string"
@@ -27,6 +24,9 @@
         "blank"
       ],
       "default": "normal"
+    },
+    "text_content": {
+      "type": "richtext"
     }
   }
 }

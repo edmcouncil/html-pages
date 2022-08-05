@@ -15,8 +15,11 @@
       ],
       "default": "normal"
     },
-    "content": {
+    "text_content": {
       "type": "richtext"
+    },
+    "title": {
+      "type": "string"
     }
   }
 }

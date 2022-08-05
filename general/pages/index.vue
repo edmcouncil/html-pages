@@ -6,39 +6,28 @@
           <section
             v-for="sectionItem in page"
             :key="sectionItem.id"
-            :class="sectionItem.type == 'download' ? 'blank' : ''"
+            :class="sectionItem.background == 'blank' ? 'blank' : ''"
           >
-            <div v-if="sectionItem.type == 'text'">
-              <p
-                v-for="item in sectionItem.items"
-                :key="item.id"
-                v-html="$md.render(item.text)"
-              ></p>
-            </div>
-            <div v-else-if="sectionItem.type == 'image_text'">
-              <div class="subsection">
-                <div v-for="item in sectionItem.items" :key="item.id">
-                  <div class="image-container">
-                    <img
-                      :src="require(`~/assets/img/${item.img_name}`)"
-                      class="transparent-image"
-                    />
-                  </div>
-                  <div class="text-content">
-                    <p v-html="$md.render(item.text)"></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div v-else-if="sectionItem.type == 'download'">
-              <p v-html="$md.render(sectionItem.text)"></p>
-              <button
-                class="normal-button"
-                @click="visit(sectionItem.button.url)"
-              >
-                {{ sectionItem.button.text }}
-              </button>
-            </div>
+            <ImageTextSection
+              v-if="sectionItem['__component'] == 'sections.image-text-section'"
+              :sectionItem="sectionItem"
+            />
+            <TextSection
+              v-else-if="sectionItem['__component'] == 'sections.text-section'"
+              :sectionItem="sectionItem"
+            />
+            <DownloadSection
+              v-else-if="sectionItem['__component'] == 'sections.download-section'"
+              :sectionItem="sectionItem"
+            />
+            <TableListSection
+              v-else-if="sectionItem['__component'] == 'sections.table-list-section'"
+              :sectionItem="sectionItem"
+            />
+            <SerializationListSection
+              v-else-if="sectionItem['__component'] == 'sections.serialization-list-section'"
+              :sectionItem="sectionItem"
+            />
           </section>
         </article>
       </main>
@@ -49,7 +38,7 @@
 <script>
 import helpers from "../store/helpers.js";
 import { outboundClick, outboundLinkClick } from "../helpers/ga";
-import { getStrapiData, getPageElementsStrapiData } from "../api/strapi";
+import { getStrapiSingleType } from "../api/strapi";
 
 export default {
   extends: helpers,
@@ -58,25 +47,13 @@ export default {
   methods: {
     outboundClick,
     outboundLinkClick,
-    visit(url) {
-      this.outboundClick(url);
-      const aElement = document.createElement("a");
-      aElement.setAttribute("href", url);
-      aElement.setAttribute("target", "_blank");
-      aElement.style.display = "none";
-      document.body.appendChild(aElement);
-      aElement.click();
-      aElement.remove();
-    },
   },
   async asyncData({ error }) {
-    var collectionName = "about";
-    var populateParams = ["sections", "sections.image-text-section"];
+    const singleTypeName = "about";
+    const populateParams = ["sections", "sections.items", "sections.items.image"];
 
     try {
-      const response = await getStrapiData(collectionName, populateParams);
-
-      // console.log(response.data.data.attributes.sections)
+      const response = await getStrapiSingleType(singleTypeName, populateParams);
 
       return {
         page: response.data.data.attributes.sections,
@@ -95,54 +72,6 @@ section {
   margin-bottom: 10px;
   h2 {
     position: relative;
-  }
-  .subsection {
-    margin-bottom: 60px;
-    text-align: justify;
-    display: flex;
-    .image-container {
-      width: 100%;
-      max-width: 460px;
-      flex-shrink: 0;
-    }
-    .text-content {
-      padding-left: 45px;
-    }
-  }
-  .subsection:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.transparent-image {
-  margin: 30px;
-  width: calc(100% - 60px);
-}
-
-.filled-image {
-  margin: 30px;
-  width: calc(100% - 60px);
-  box-shadow: 0px 0px 60px 60px white;
-}
-
-@media (max-width: 1199px) {
-  section .subsection {
-    flex-direction: column;
-    align-items: center;
-    .image-container {
-      max-width: 70%;
-    }
-    .text-content {
-      padding-left: 0;
-    }
-  }
-}
-
-@media (max-width: 575px) {
-  section .subsection {
-    .image-container {
-      max-width: 100%;
-    }
   }
 }
 </style>

@@ -164,7 +164,6 @@ export default {
 }
 
 .carousel-item {
-  // height: 100%;
   padding: 0;
 
   .carousel-caption {
@@ -281,6 +280,18 @@ export default {
       font-size: 16px;
       line-height: 24px;
     }
+  }
+}
+
+@media (min-width: 1439px) {
+  .carousel-item {
+    width: calc( 100% - 320px );
+  }
+}
+
+@media (min-width: 1800px) {
+  .carousel-item {
+    width: 50%;
   }
 }
 </style>

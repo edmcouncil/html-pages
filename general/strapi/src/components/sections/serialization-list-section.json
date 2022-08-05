@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_sections_table_list_sections",
+  "collectionName": "components_sections_serialization_list_sections",
   "info": {
-    "displayName": "Table list section",
+    "displayName": "Serialization section",
     "icon": "table",
     "description": ""
   },
@@ -10,11 +10,11 @@
     "title": {
       "type": "string"
     },
-    "items": {
-      "displayName": "table_item",
-      "type": "component",
-      "repeatable": true,
-      "component": "article-elements.table-item"
+    "text_content": {
+      "type": "richtext"
+    },
+    "serialization": {
+      "type": "json"
     },
     "background": {
       "type": "enumeration",

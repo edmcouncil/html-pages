@@ -26,70 +26,74 @@
                 </button>
               </div>
             </div>
-            <div
-              v-if="hasVersions"
-              class="
-                secondary-column__versions
-                multiselect-xxl-container multiselect-container
-                container
-              "
+            <transition
+              name="fade"
             >
-              <div class="menu-box">
-                <div class="menu-box__label">
-                  Select {{ productNameUppercase }} version
-                </div>
-                <div class="menu-box__content-text">
-                  <multiselect
-                    v-model="ontologyVersionsDropdownData.selectedData"
-                    id="ontologyVersionsMultiselect"
-                    label="@id"
-                    track-by="url"
-                    placeholder="Select..."
-                    tagPlaceholder="Select..."
-                    selectLabel=""
-                    open-direction="bottom"
-                    :options="ontologyVersionsDropdownData.data"
-                    :multiple="false"
-                    :searchable="false"
-                    :loading="ontologyVersionsDropdownData.isLoading"
-                    :internal-search="false"
-                    :clear-on-select="false"
-                    :close-on-select="true"
-                    :max-height="600"
-                    :preserve-search="true"
-                    :show-no-results="false"
-                    :hide-selected="true"
-                    :taggable="true"
-                    @select="ontologyVersions_optionSelected"
-                  >
-                    <template v-slot:tag="{ option, remove }">
-                      <span class="custom__tag">
-                        <span>{{ option.label }}</span>
-                        <span class="custom__remove" @click="remove(option)">
-                          ❌
+              <div
+                v-if="hasVersions"
+                class="
+                  secondary-column__versions
+                  multiselect-xxl-container multiselect-container
+                  container
+                "
+              >
+                <div class="menu-box">
+                  <div class="menu-box__label">
+                    Select {{ productNameUppercase }} version
+                  </div>
+                  <div class="menu-box__content-text">
+                    <multiselect
+                      v-model="ontologyVersionsDropdownData.selectedData"
+                      id="ontologyVersionsMultiselect"
+                      label="@id"
+                      track-by="url"
+                      placeholder="Select..."
+                      tagPlaceholder="Select..."
+                      selectLabel=""
+                      open-direction="bottom"
+                      :options="ontologyVersionsDropdownData.data"
+                      :multiple="false"
+                      :searchable="false"
+                      :loading="ontologyVersionsDropdownData.isLoading"
+                      :internal-search="false"
+                      :clear-on-select="false"
+                      :close-on-select="true"
+                      :max-height="600"
+                      :preserve-search="true"
+                      :show-no-results="false"
+                      :hide-selected="true"
+                      :taggable="true"
+                      @select="ontologyVersions_optionSelected"
+                    >
+                      <template v-slot:tag="{ option, remove }">
+                        <span class="custom__tag">
+                          <span>{{ option.label }}</span>
+                          <span class="custom__remove" @click="remove(option)">
+                            ❌
+                          </span>
                         </span>
-                      </span>
-                    </template>
-                    <!-- <template slot="clear" slot-scope="props">
-                  <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
-                  @mousedown.prevent.stop="clearAll(props.search)"></div>
-                  </template> -->
-                    <template v-slot:noResult>
-                      <span>
-                        Oops! No elements found. Consider changing the search
-                        query.
-                      </span>
-                    </template>
-                  </multiselect>
-                </div>
+                      </template>
+                      <!-- <template slot="clear" slot-scope="props">
+                    <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
+                    @mousedown.prevent.stop="clearAll(props.search)"></div>
+                    </template> -->
+                      <template v-slot:noResult>
+                        <span>
+                          Oops! No elements found. Consider changing the search
+                          query.
+                        </span>
+                      </template>
+                    </multiselect>
+                  </div>
 
-                <div class="menu-box__icons">
-                  <div class="menu-box__icons__icon icon-clock"></div>
+                  <div class="menu-box__icons">
+                    <div class="menu-box__icons__icon icon-clock"></div>
+                  </div>
                 </div>
+                <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
+                <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
               </div>
-              <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
-              <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
-            </div>
+            </transition>
             <div
               class="
                 secondary-column__tree

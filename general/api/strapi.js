@@ -1,7 +1,7 @@
 const qs = require("qs");
 import axios from "axios";
 
-export function getStrapiData (collectionName, populateParams) {
+export function getStrapiSingleType (singleTypeName, populateParams) {
 const query = qs.stringify(
   {
     populate: populateParams,
@@ -10,17 +10,30 @@ const query = qs.stringify(
     encodeValuesOnly: true,
   }
 );
-return axios.get(`${process.env.strapiBaseUri}/api/${collectionName}?${query}`);
+return axios.get(`${process.env.strapiBaseUri}/api/${singleTypeName}?${query}`);
+}
+
+export function getStrapiCollection(collectionName, populateParams, collectionItemSlug) {
+  var queryParams = { populate: populateParams };
+  if (collectionItemSlug) {
+    queryParams.filters = { Slug: { $eq: collectionItemSlug } };
+  }
+  const query = qs.stringify(queryParams, {
+    encodeValuesOnly: true,
+  });
+  return axios.get(
+    `${process.env.strapiBaseUri}/api/${collectionName}?${query}`
+  );
 }
 
 export async function getPageElementsStrapiData() {
   var data = {};
   //footer
-  var collectionName = "footer";
+  var singleTypeName = "footer";
   var populateParams = [];
 
   try {
-    const response = await getStrapiData(collectionName, populateParams);
+    const response = await getStrapiSingleType(singleTypeName, populateParams);
     data.copyright = response.data.data.attributes.copyright;
   } catch (error) {
     return {
@@ -29,10 +42,10 @@ export async function getPageElementsStrapiData() {
   }
 
   //carousel
-  collectionName = "carousel";
+  singleTypeName = "carousel";
   populateParams = ["items", "items.link"];
   try {
-    const response = await getStrapiData(collectionName, populateParams);
+    const response = await getStrapiSingleType(singleTypeName, populateParams);
     data.carousel = response.data.data.attributes.items;
   } catch (error) {
     return {
@@ -41,10 +54,10 @@ export async function getPageElementsStrapiData() {
   }
 
   //menu-dropdown
-  collectionName = "menu-single";
+  singleTypeName = "menu-single";
   populateParams = ["items", "items.item", "items.submenu"];
   try {
-    const response = await getStrapiData(collectionName, populateParams);
+    const response = await getStrapiSingleType(singleTypeName, populateParams);
     data.menuDropdown = response.data.data.attributes.items;
   } catch (error) {
     return {
@@ -53,10 +66,10 @@ export async function getPageElementsStrapiData() {
   }
 
   //menu-top
-  collectionName = "menu-top";
+  singleTypeName = "menu-top";
   populateParams = ["items", "items.item", "items.submenu"];
   try {
-    const response = await getStrapiData(collectionName, populateParams);
+    const response = await getStrapiSingleType(singleTypeName, populateParams);
     data.menuTop = response.data.data.attributes.items;
   } catch (error) {
     return {

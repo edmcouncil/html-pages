@@ -9,37 +9,26 @@
             :key="sectionItem.id"
             :class="sectionItem.type == 'download' ? 'blank' : ''"
           >
-            <div v-if="sectionItem.type == 'text'">
-              <div
-                v-for="item in sectionItem.items"
-                :key="item.id"
-                v-html="$md.render(item.text)"
-              ></div>
-            </div>
-            <div v-else-if="sectionItem.type == 'image_text'">
-              <div class="subsection">
-                <div v-for="item in sectionItem.items" :key="item.id">
-                  <div class="image-container">
-                    <img
-                      :src="require(`~/assets/img/${item.img_name}`)"
-                      class="transparent-image"
-                    />
-                  </div>
-                  <div class="text-content">
-                    <p v-html="$md.render(item.text)"></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div v-else-if="sectionItem.type == 'download'">
-              <div v-html="$md.render(sectionItem.text)"></div>
-              <button
-                class="normal-button"
-                @click="visit(sectionItem.button.url)"
-              >
-                {{ sectionItem.button.text }}
-              </button>
-            </div>
+            <ImageTextSection
+              v-if="sectionItem['__component'] == 'sections.image-text-section'"
+              :sectionItem="sectionItem"
+            />
+            <TextSection
+              v-else-if="sectionItem['__component'] == 'sections.text-section'"
+              :sectionItem="sectionItem"
+            />
+            <DownloadSection
+              v-else-if="sectionItem['__component'] == 'sections.download-section'"
+              :sectionItem="sectionItem"
+            />
+            <TableListSection
+              v-else-if="sectionItem['__component'] == 'sections.table-list-section'"
+              :sectionItem="sectionItem"
+            />
+            <SerializationListSection
+              v-else-if="sectionItem['__component'] == 'sections.serialization-list-section'"
+              :sectionItem="sectionItem"
+            />
           </section>
         </article>
       </main>
@@ -50,7 +39,7 @@
 <script>
 import helpers from "../../store/helpers.js";
 import { outboundClick, outboundLinkClick } from "../../helpers/ga";
-import { getStrapiData, getPageElementsStrapiData } from "../../api/strapi";
+import { getStrapiSingleType, getStrapiCollection } from "../../api/strapi";
 
 export default {
   extends: helpers,
@@ -72,19 +61,24 @@ export default {
   },
   scrollToTop: false,
   mounted() {
-    const scrollTopElement = this.$refs['article-top-element'];
+    const scrollTopElement = this.$refs["article-top-element"];
     scrollTopElement.scrollIntoView({
         behavior: "smooth"
     });
   },
   async asyncData({ params, error }) {
-    var collectionName = params.page.toLowerCase();
-    var populateParams = ["content", "content.items", "content.button"];
+    const slugName = params.page.toLowerCase();
+    const populateParams = ["sections", "sections.items", "sections.items.image"];
 
     try {
-      const response = await getStrapiData(collectionName, populateParams);
+      const response = await getStrapiCollection(
+        "pages",
+        populateParams,
+        slugName
+      );
+
       return {
-        page: response.data.data.attributes.content,
+        page: response.data.data[0].attributes.sections, //[0].attributes,
       };
     } catch (e) {
       console.error(e);
