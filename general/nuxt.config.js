@@ -1,7 +1,7 @@
 process.env.VUE_APP_PRODUCT =
   process.env.PRODUCT ||
   process.env.ontology_publisher_current_product ||
-  "fibo"; // need to change
+  "pages";
 process.env.VUE_APP_BRANCH = (
   process.env.BRANCH ||
   (process.env.BRANCH_NAME === process.env.TAG_NAME
@@ -10,11 +10,12 @@ process.env.VUE_APP_BRANCH = (
 ).toLowerCase();
 process.env.VUE_APP_TAG = process.env.TAG || process.env.TAG_NAME || "latest";
 process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || "2021Q4";
+process.env.VUE_ONTOLOGY_NAME = process.env.ONTOLOGY_NAME || "fibo";
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "html-pages-general",
+    title: process.env.VUE_ONTOLOGY_NAME.toUpperCase(),
     htmlAttrs: {
       lang: "en",
     },
@@ -158,10 +159,9 @@ export default {
   // AUTO - https://spec.edmcouncil.org/auto/ontology/
   // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
   env: {
-    productName: process.env.VUE_APP_PRODUCT,
+    productName: process.env.VUE_ONTOLOGY_NAME,
 
     strapiBaseUri: process.env.STRAPI_URL || "http://localhost:1337",
-    ontoViewerBaseUri: process.env.ONTO_VIEWER_URL || "http://localhost:8080",
     ontologyResourcesBaseUri:
       process.env.RESOURCES_BASE_URL ||
       "https://spec.edmcouncil.org/fibo/ontology/",
@@ -175,10 +175,10 @@ export default {
 
   proxy: [
     "http://fibo-viewer.korora.makolab.net/" +
-      process.env.VUE_APP_PRODUCT +
+      process.env.VUE_ONTOLOGY_NAME +
       "/ontology/api",
     "http://fibo-viewer.korora.makolab.net/" +
-      process.env.VUE_APP_PRODUCT +
+      process.env.VUE_ONTOLOGY_NAME +
       "/ontology/*/api",
   ],
 
