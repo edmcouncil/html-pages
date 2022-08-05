@@ -63,7 +63,7 @@ export default {
   mounted() {
     const scrollTopElement = this.$refs["article-top-element"];
     scrollTopElement.scrollIntoView({
-        behavior: "smooth"
+      behavior: "smooth",
     });
   },
   async asyncData({ params, error }) {
@@ -78,7 +78,7 @@ export default {
       );
 
       return {
-        page: response.data.data[0].attributes.sections, //[0].attributes,
+        page: response.data.data[0].attributes.sections,
       };
     } catch (e) {
       console.error(e);
@@ -92,22 +92,27 @@ export default {
 section {
   overflow: auto;
   margin-bottom: 10px;
+
   h2 {
     position: relative;
   }
+
   .subsection {
     margin-bottom: 60px;
     text-align: justify;
     display: flex;
+
     .image-container {
       width: 100%;
       max-width: 460px;
       flex-shrink: 0;
     }
+
     .text-content {
       padding-left: 45px;
     }
   }
+
   .subsection:last-child {
     margin-bottom: 0;
   }
@@ -128,9 +133,11 @@ section {
   section .subsection {
     flex-direction: column;
     align-items: center;
+
     .image-container {
       max-width: 70%;
     }
+
     .text-content {
       padding-left: 0;
     }

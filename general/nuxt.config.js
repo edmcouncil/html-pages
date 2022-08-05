@@ -1,7 +1,7 @@
 process.env.VUE_APP_PRODUCT =
   process.env.PRODUCT ||
   process.env.ontology_publisher_current_product ||
-  "fibo";
+  "fibo"; // need to change
 process.env.VUE_APP_BRANCH = (
   process.env.BRANCH ||
   (process.env.BRANCH_NAME === process.env.TAG_NAME
@@ -69,8 +69,8 @@ export default {
 
   // loading bar
   loading: {
-    color: 'black',
-    height: '5px'
+    color: "black",
+    height: "5px",
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -84,17 +84,17 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: "~/plugins/vue-multiselect" },
-    { src: "~/plugins/v-clipboard"},
+    { src: "~/plugins/v-clipboard" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
     dirs: [
-      '~/components',
-      '~/components/Articles',
-      '~/components/chunks',
-      '~/components/Ontology',
-    ]
+      "~/components",
+      "~/components/Articles",
+      "~/components/chunks",
+      "~/components/Ontology",
+    ],
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -136,8 +136,8 @@ export default {
       },
     },
     extend(config) {
-      config.resolve.alias.vue = 'vue/dist/vue.common'
-    }
+      config.resolve.alias.vue = "vue/dist/vue.common";
+    },
   },
 
   // variable for our app
@@ -150,7 +150,9 @@ export default {
 
     strapiBaseUri: process.env.STRAPI_URL || "http://localhost:1337",
     ontoViewerBaseUri: process.env.ONTO_VIEWER_URL || "http://localhost:8080",
-    ontologyResourcesBaseUri: process.env.RESOURCES_BASE_URL || "https://spec.edmcouncil.org/fibo/ontology/",
+    ontologyResourcesBaseUri:
+      process.env.RESOURCES_BASE_URL ||
+      "https://spec.edmcouncil.org/fibo/ontology/",
 
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
   },
@@ -160,8 +162,12 @@ export default {
   },
 
   proxy: [
-    "http://fibo-viewer.korora.makolab.net/" + process.env.VUE_APP_PRODUCT + "/ontology/api",
-    "http://fibo-viewer.korora.makolab.net/" + process.env.VUE_APP_PRODUCT + "/ontology/*/api",
+    "http://fibo-viewer.korora.makolab.net/" +
+      process.env.VUE_APP_PRODUCT +
+      "/ontology/api",
+    "http://fibo-viewer.korora.makolab.net/" +
+      process.env.VUE_APP_PRODUCT +
+      "/ontology/*/api",
   ],
 
   styleResources: {
