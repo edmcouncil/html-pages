@@ -4,42 +4,54 @@
       <main>
         <div ref="article-top-element"></div>
         <article class="full-page">
-          <section
-            v-for="sectionItem in page"
-            :key="sectionItem.id"
-            :class="sectionItem.type == 'download' ? 'blank' : ''"
-          >
-            <div v-if="sectionItem.type == 'text'">
+          <section v-for="sectionItem in page" :key="sectionItem.id">
+            <div v-for="item in sectionItem.attributes.sections" :key="item.id">
               <div
-                v-for="item in sectionItem.items"
-                :key="item.id"
-                v-html="$md.render(item.text)"
+                v-if="item.__component == 'sections.text-section'"
+                v-html="$md.render(item.content)"
+                :class="item.background"
               ></div>
-            </div>
-            <div v-else-if="sectionItem.type == 'image_text'">
-              <div class="subsection">
-                <div v-for="item in sectionItem.items" :key="item.id">
-                  <div class="image-container">
-                    <img
-                      :src="require(`~/assets/img/${item.img_name}`)"
-                      class="transparent-image"
-                    />
-                  </div>
-                  <div class="text-content">
-                    <p v-html="$md.render(item.text)"></p>
+
+              <div
+                v-else-if="item.__component == 'sections.image-text-section'"
+                :class="item.background"
+              >
+                <h1>{{ item.title }}</h1>
+                <div class="subsection">
+                  <div
+                    v-for="itemSubSection in item.items"
+                    :key="itemSubSection.id"
+                  >
+                    <div class="image-container">
+                      <img
+                        :src="itemSubSection.image.data.attributes.url"
+                        class="transparent-image"
+                      />
+                    </div>
+                    <div class="text-content">
+                      <p v-html="$md.render(itemSubSection.text_content)"></p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div v-else-if="sectionItem.type == 'download'">
-              <div v-html="$md.render(sectionItem.text)"></div>
-              <button
-                class="normal-button"
-                @click="visit(sectionItem.button.url)"
+              <div
+                v-else-if="item.__component == 'sections.download-section'"
+                :class="item.background"
               >
-                {{ sectionItem.button.text }}
-              </button>
+                <h1 v-html="item.section_title"></h1>
+                <div v-html="$md.render(item.text_content)"></div>
+                <button
+                  class="normal-button"
+                  @click="visit(item.download_button_url)"
+                >
+                  {{ item.download_button_text }}
+                </button>
+              </div>
+
+
             </div>
+
+            <div v-if="sectionItem.type == 'download'"></div>
           </section>
         </article>
       </main>
@@ -50,7 +62,7 @@
 <script>
 import helpers from "../../store/helpers.js";
 import { outboundClick, outboundLinkClick } from "../../helpers/ga";
-import { getStrapiData, getPageElementsStrapiData } from "../../api/strapi";
+import { getStrapiSingleType, getStrapiCollection } from "../../api/strapi";
 
 export default {
   extends: helpers,
@@ -72,19 +84,24 @@ export default {
   },
   scrollToTop: false,
   mounted() {
-    const scrollTopElement = this.$refs['article-top-element'];
+    const scrollTopElement = this.$refs["article-top-element"];
     scrollTopElement.scrollIntoView({
-        behavior: "smooth"
+      behavior: "smooth",
     });
   },
   async asyncData({ params, error }) {
-    var collectionName = params.page.toLowerCase();
-    var populateParams = ["content", "content.items", "content.button"];
+    var slugName = params.page.toLowerCase();
+    var populateParams = ["sections", "sections.items", "sections.items.image"];
 
     try {
-      const response = await getStrapiData(collectionName, populateParams);
+      const response = await getStrapiCollection(
+        "pages",
+        populateParams,
+        slugName
+      );
+      console.log(JSON.stringify(response.data.data));
       return {
-        page: response.data.data.attributes.content,
+        page: response.data.data, //[0].attributes,
       };
     } catch (e) {
       console.error(e);
@@ -98,22 +115,27 @@ export default {
 section {
   overflow: auto;
   margin-bottom: 10px;
+
   h2 {
     position: relative;
   }
+
   .subsection {
     margin-bottom: 60px;
     text-align: justify;
     display: flex;
+
     .image-container {
       width: 100%;
       max-width: 460px;
       flex-shrink: 0;
     }
+
     .text-content {
       padding-left: 45px;
     }
   }
+
   .subsection:last-child {
     margin-bottom: 0;
   }
@@ -134,9 +156,11 @@ section {
   section .subsection {
     flex-direction: column;
     align-items: center;
+
     .image-container {
       max-width: 70%;
     }
+
     .text-content {
       padding-left: 0;
     }

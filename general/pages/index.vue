@@ -49,7 +49,7 @@
 <script>
 import helpers from "../store/helpers.js";
 import { outboundClick, outboundLinkClick } from "../helpers/ga";
-import { getStrapiData, getPageElementsStrapiData } from "../api/strapi";
+import { getStrapiSingleType } from "../api/strapi";
 
 export default {
   extends: helpers,
@@ -70,11 +70,11 @@ export default {
     },
   },
   async asyncData({ error }) {
-    var collectionName = "about";
+    var singleTypeName = "about";
     var populateParams = ["sections", "sections.image-text-section"];
 
     try {
-      const response = await getStrapiData(collectionName, populateParams);
+      const response = await getStrapiSingleType(singleTypeName, populateParams);
 
       // console.log(response.data.data.attributes.sections)
 

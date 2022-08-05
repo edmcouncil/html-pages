@@ -1,7 +1,7 @@
 const qs = require("qs");
 import axios from "axios";
 
-export function getStrapiData (collectionName, populateParams) {
+export function getStrapiSingleType (singleTypeName, populateParams) {
 const query = qs.stringify(
   {
     populate: populateParams,
@@ -10,7 +10,20 @@ const query = qs.stringify(
     encodeValuesOnly: true,
   }
 );
-return axios.get(`${process.env.strapiBaseUri}/api/${collectionName}?${query}`);
+return axios.get(`${process.env.strapiBaseUri}/api/${singleTypeName}?${query}`);
+}
+
+export function getStrapiCollection(collectionName, populateParams, collectionItemSlug) {
+  var queryParams = { populate: populateParams };
+  if (collectionItemSlug) {
+    queryParams.filters = { Slug: { $eq: collectionItemSlug } };
+  }
+  const query = qs.stringify(queryParams, {
+    encodeValuesOnly: true,
+  });
+  return axios.get(
+    `${process.env.strapiBaseUri}/api/${collectionName}?${query}`
+  );
 }
 
 export async function getPageElementsStrapiData() {
