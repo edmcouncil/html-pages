@@ -11,9 +11,6 @@
       "type": "string",
       "required": true
     },
-    "text_content": {
-      "type": "string"
-    },
     "download_button_text": {
       "type": "string"
     },
@@ -27,6 +24,9 @@
         "blank"
       ],
       "default": "normal"
+    },
+    "text_content": {
+      "type": "richtext"
     }
   }
 }
