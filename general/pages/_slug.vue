@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import helpers from "../../store/helpers.js";
-import { outboundClick, outboundLinkClick } from "../../helpers/ga";
-import { getStrapiSingleType, getStrapiCollection } from "../../api/strapi";
+import helpers from "../store/helpers.js";
+import { outboundClick, outboundLinkClick } from "../helpers/ga";
+import { getStrapiSingleType, getStrapiCollection } from "../api/strapi";
 
 export default {
   extends: helpers,
@@ -67,7 +67,7 @@ export default {
     });
   },
   async asyncData({ params, error }) {
-    const slugName = params.page.toLowerCase();
+    const slugName = params.slug.toLowerCase();
     const populateParams = ["sections", "sections.items", "sections.items.image"];
 
     try {

@@ -54,16 +54,28 @@ export default {
   router: {
     base: process.env.BASE_URL || "",
     extendRoutes(routes, resolve) {
-      routes.push({
-        path: "/ontology/:1?/:2?/:3?/:4?/:5?",
-        component: resolve(__dirname, "pages/ontology/index.vue"),
-      });
-    },
-    extendRoutes(routes, resolve) {
-      routes.push({
-        path: "/ontology",
-        component: resolve(__dirname, "pages/ontology/index.vue"),
-      });
+      routes.push(
+        {
+          path: "/",
+          component: resolve(__dirname, "pages/index.vue"),
+        },
+        {
+          path: "/index",
+          component: resolve(__dirname, "pages/index.vue"),
+        },
+        {
+          path: "/^",
+          component: resolve(__dirname, "pages/_slug.vue"),
+        },
+        {
+          path: "/ontology/:1?/:2?/:3?/:4?/:5?",
+          component: resolve(__dirname, "pages/ontology/index.vue"),
+        },
+        {
+          path: "/ontology",
+          component: resolve(__dirname, "pages/ontology/index.vue"),
+        }
+      );
     },
   },
 
