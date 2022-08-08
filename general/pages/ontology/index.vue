@@ -713,7 +713,7 @@
                           class="btn normal-button btn-report-a-problem"
                           v-if="
                             data.iri.startsWith(
-                              'https://spec.pistoiaalliance.org'
+                              ontologyResourcesBaseUri
                             ) &&
                             !(this.$route.query && this.$route.query.version)
                           "
@@ -992,7 +992,7 @@
                       data.iri.startsWith(this.ontologyResourcesBaseUri)
                     "
                   >
-                    <DownloadSection :data="data" :version="version" />
+                    <OntologyDownload :data="data" :version="version" />
                   </div>
 
                   <!-- sections -->

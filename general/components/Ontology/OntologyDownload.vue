@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  name: 'DownloadSection',
+  name: 'OntologyDownload',
   props: [ 'data', 'version' ],
   data() {
     return {
