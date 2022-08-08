@@ -67,3 +67,18 @@ More information about the usage of this directory in [the documentation](https:
 This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+
+### `Strapi configuration for develop local run`
+
+To run strapi locally, you need to go [Strapi quick start](https://docs.strapi.io/developer-docs/latest/getting-started/quick-start.html) and after install and first run, close strapi app and import database and structure definition into strapi directories. Instruction are below.
+
+Dev database with some examples is in directory `/strapi/.tmp/`. Database to use need to been copied to the stapi `.tmp` directory when u use SQLite.
+
+Components with definition of strapi structures and default api options can be imported into the strapi directory `/.src/`, all required directories is available in `/strapi/.src`.
+
+For admin panel with develop database login data is:
+
+```js
+login: edmc-strapi@dev.com
+pwd: devDBonly1
+```

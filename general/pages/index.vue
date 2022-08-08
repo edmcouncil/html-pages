@@ -42,7 +42,7 @@ import { getStrapiSingleType } from "../api/strapi";
 
 export default {
   extends: helpers,
-  name: "PageView",
+  name: "AboutView",
   components: {},
   methods: {
     outboundClick,

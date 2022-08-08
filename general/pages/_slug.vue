@@ -39,7 +39,7 @@
 <script>
 import helpers from "../store/helpers.js";
 import { outboundClick, outboundLinkClick } from "../helpers/ga";
-import { getStrapiSingleType, getStrapiCollection } from "../api/strapi";
+import { getStrapiElementFromCollection } from "../api/strapi";
 
 export default {
   extends: helpers,
@@ -71,7 +71,7 @@ export default {
     const populateParams = ["sections", "sections.items", "sections.items.image"];
 
     try {
-      const response = await getStrapiCollection(
+      const response = await getStrapiElementFromCollection(
         "pages",
         populateParams,
         slugName

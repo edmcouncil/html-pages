@@ -13,10 +13,30 @@ const query = qs.stringify(
 return axios.get(`${process.env.strapiBaseUri}/api/${singleTypeName}?${query}`);
 }
 
-export function getStrapiCollection(collectionName, populateParams, collectionItemSlug) {
+export function getStrapiElementFromCollection(
+  collectionName,
+  populateParams,
+  collectionItemSlug
+) {
   var queryParams = { populate: populateParams };
   if (collectionItemSlug) {
     queryParams.filters = { Slug: { $eq: collectionItemSlug } };
+  }
+  const query = qs.stringify(queryParams, {
+    encodeValuesOnly: true,
+  });
+  return axios.get(
+    `${process.env.strapiBaseUri}/api/${collectionName}?${query}`
+  );
+}
+export function getStrapiCollection(
+  collectionName,
+  populateParams,
+  sortParams,
+) {
+  var queryParams = { populate: populateParams };
+  if (sortParams) {
+    queryParams.sort = sortParams;
   }
   const query = qs.stringify(queryParams, {
     encodeValuesOnly: true,

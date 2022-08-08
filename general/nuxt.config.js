@@ -65,7 +65,7 @@ export default {
           component: resolve(__dirname, "pages/index.vue"),
         },
         {
-          path: "/^",
+          path: "/:slug",
           component: resolve(__dirname, "pages/_slug.vue"),
         },
         {
