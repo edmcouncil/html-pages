@@ -17,6 +17,11 @@
     },
     "content": {
       "type": "richtext"
+    },
+    "release_tag": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
     }
   }
 }
