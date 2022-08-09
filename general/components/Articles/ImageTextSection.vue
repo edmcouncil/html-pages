@@ -11,7 +11,7 @@
           center: item.image_align === 'center',
         }"
       >
-        <div class="image-container">
+        <div v-if="getImageUrl(item)!='undefined'" class="image-container">
           <img :src="getImageUrl(item)" class="transparent-image" />
           <p v-if="item.image_description" class="muted small">
             {{ item.image_description }}
@@ -31,6 +31,9 @@ export default {
     getImageUrl(item) {
       const strapiUrl = process.env.strapiBaseUri;
       const location = item?.image?.data?.attributes?.url
+      if(location == 'undefined'){
+        return 'undefined';
+      }
       return strapiUrl + location;
     }
   },
