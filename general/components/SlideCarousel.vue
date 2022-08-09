@@ -3,8 +3,8 @@
     <b-carousel
       id="carouselController"
       :interval="8000"
-      v-model="currentSlide"
       ref="carousel"
+      @sliding-start="onSlideStart"
     >
       <b-carousel-slide
         v-for="(item, index) in carousel"
@@ -62,20 +62,23 @@ export default {
   },
   methods: {
     nextSlide() {
-      if (this.carouselThrottle === null) {
+      if (this.carouselThrottle === null && !this.isSliding) {
         this.$refs.carousel.next();
         this.carouselThrottle = setTimeout(() => {
           this.carouselThrottle = null;
-        }, 800);
+        }, 500);
       }
     },
     prevSlide() {
-      if (this.carouselThrottle === null) {
+      if (this.carouselThrottle === null && !this.isSliding) {
         this.$refs.carousel.prev();
         this.carouselThrottle = setTimeout(() => {
           this.carouselThrottle = null;
-        }, 800);
+        }, 500);
       }
+    },
+    onSlideStart(slideIndex) {
+      this.currentSlide = slideIndex;
     },
     outboundClick,
     outboundLinkClick,
