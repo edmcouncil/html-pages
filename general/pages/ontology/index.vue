@@ -1036,7 +1036,7 @@
               </div>
 
               <!-- NO DATA (How to use) -->
-              <div v-else-if="!loader && !searchBox.isLoadingResults">
+              <div v-else-if="!loader && !searchBox.isLoadingResults && modulesList">
                 <article class="how-to-article">
                   <section>
                     <h2>How to use {{ productNameUppercase }} Viewer</h2>
