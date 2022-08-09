@@ -20,7 +20,7 @@ export function getStrapiElementFromCollection(
 ) {
   var queryParams = { populate: populateParams };
   if (collectionItemSlug) {
-    queryParams.filters = { Slug: { $eq: collectionItemSlug } };
+    queryParams.filters = { slug: { $eq: collectionItemSlug } };
   }
   const query = qs.stringify(queryParams, {
     encodeValuesOnly: true,
