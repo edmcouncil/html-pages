@@ -31,7 +31,7 @@ export default {
     getImageUrl(item) {
       const strapiUrl = process.env.strapiBaseUri;
       const location = item?.image?.data?.attributes?.url
-      if(location == 'undefined'){
+      if(location == undefined){
         return 'undefined';
       }
       return strapiUrl + location;
