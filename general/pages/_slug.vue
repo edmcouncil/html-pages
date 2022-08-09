@@ -69,14 +69,14 @@ export default {
   async asyncData({ params, error }) {
     const slugName = params.slug.toLowerCase();
     const populateParams = ["sections", "sections.items", "sections.items.image"];
-
+    console.log ("_slug page data: ", slugName, populateParams)
     try {
       const response = await getStrapiElementFromCollection(
         "pages",
         populateParams,
         slugName
       );
-
+      console.log(response.data);
       return {
         page: response.data.data[0].attributes.sections,
       };
