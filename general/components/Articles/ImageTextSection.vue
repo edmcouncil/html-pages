@@ -47,6 +47,7 @@ export default {
   margin-bottom: 60px;
   text-align: justify;
   display: flex;
+
   .image-container {
     width: 100%;
     max-width: 460px;
@@ -56,21 +57,28 @@ export default {
     align-items: center;
 
     img {
-      margin: 30px;
+      padding: 30px;
       width: calc(100% - 60px);
-      // background: white;
-      // box-shadow: 0px 0px 60px 60px white;
     }
     p {
-      padding: 30px;
+      margin-top: -15px;
+      padding: 0px 30px 30px 30px;
     }
   }
-  .text-content {
-    padding-left: 45px;
+
+  &.left {
+    .text-content {
+      padding-left: 45px;
+    }
   }
 
   &.right {
     flex-direction: row-reverse;
+
+    .text-content {
+      padding-right: 45px;
+      flex: 1;
+    }
   }
 
   &.center {
@@ -80,6 +88,9 @@ export default {
     .image-container {
       max-width: 885px;
     }
+    .text-content {
+      width: 100%;
+    }
   }
 }
 .image-text-content-container:last-child {
@@ -88,13 +99,15 @@ export default {
 
 @media (max-width: 1199px) {
   section .image-text-content-container {
-    flex-direction: column;
+    flex-direction: column !important;
     align-items: center;
     .image-container {
       max-width: 70%;
     }
     .text-content {
-      padding-left: 0;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      width: 100%;
     }
   }
 }

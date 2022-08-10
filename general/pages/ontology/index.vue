@@ -27,7 +27,7 @@
               </div>
             </div>
             <transition
-              name="fade"
+              name="slowfade"
             >
               <div
                 v-if="hasVersions"
@@ -94,41 +94,54 @@
                 <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
               </div>
             </transition>
-            <div
-              class="
-                secondary-column__tree
-                multiselect-xxl-container multiselect-container
-                container
-              "
+            <transition
+              name="slowfade"
             >
-              <div class="menu-box">
-                <div class="menu-box__label">
-                  Browse {{ productNameUppercase }} domains
-                </div>
-                <div class="menu-box__content-text">
-                  {{ productNameUppercase }} Domains
-                </div>
-                <div class="menu-box__icons">
-                  <div class="menu-box__icons__icon icon-directory"></div>
+              <div
+                v-if="modulesList"
+                class="
+                  secondary-column__tree
+                  multiselect-xxl-container multiselect-container
+                  container
+                "
+              >
+                <div class="menu-box">
+                  <div class="menu-box__label">
+                    Browse {{ productNameUppercase }} domains
+                  </div>
+                  <div class="menu-box__content-text">
+                    {{ productNameUppercase }} Domains
+                  </div>
+                  <div class="menu-box__icons">
+                    <div class="menu-box__icons__icon icon-directory"></div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </transition>
 
             <!-- module tree --->
-            <ul class="modules-list list-unstyled">
-              <module-tree
-                :item="item"
-                v-for="item in modulesList"
-                :location="data"
-                :key="item.label"
-              />
-            </ul>
+            <transition
+              name="slowfade"
+            >
+              <ul v-if="modulesList" class="modules-list list-unstyled">
+                <module-tree
+                  :item="item"
+                  v-for="item in modulesList"
+                  :location="data"
+                  :key="item.label"
+                />
+              </ul>
+            </transition>
 
-            <StatsComponent
-              v-if="statsServer && missingImportsServer"
-              :statsServer="statsServer"
-              :missingImportsServer="missingImportsServer"
-            />
+            <transition
+              name="slowfade"
+            >
+              <StatsComponent
+                v-if="statsServer && missingImportsServer"
+                :statsServer="statsServer"
+                :missingImportsServer="missingImportsServer"
+              />
+            </transition>
           </div>
         </div>
 

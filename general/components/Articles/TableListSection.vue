@@ -8,7 +8,8 @@
     >
       <div class="table-box">
         <div class="table-box__column title">
-          <h2><a :href="item.title_link">{{ item.title }}</a></h2>
+          <h2 v-if="item.title_link"><a :href="item.title_link">{{ item.title }}</a></h2>
+          <h2 v-else>{{ item.title }}</h2>
           <div class="short-description" v-html="$md.render(item.subtitle || '')">
           </div>
         </div>
@@ -19,7 +20,8 @@
           <button
             type="button"
             class="btn normal-button"
-            @click="routerGoTo('/OWL')"
+            v-if="item.title_link"
+            @click="visit(item.title_link)"
           >
             Learn more
           </button>
@@ -30,12 +32,26 @@
 </template>
 
 <script>
+import { outboundClick, outboundLinkClick } from "../../helpers/ga";
+
 export default {
   name: 'TableListSection',
   props: [ 'sectionItem' ],
   methods: {
   },
   computed: {
+    outboundClick,
+    outboundLinkClick,
+    visit(url) {
+      this.outboundClick(url);
+      const aElement = document.createElement("a");
+      aElement.setAttribute("href", url);
+      aElement.setAttribute("target", "_blank");
+      aElement.style.display = "none";
+      document.body.appendChild(aElement);
+      aElement.click();
+      aElement.remove();
+    },
   }
 }
 </script>

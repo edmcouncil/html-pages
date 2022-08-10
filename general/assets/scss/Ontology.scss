@@ -1650,3 +1650,10 @@
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
+
+.slowfade-enter-active, .slowfade-leave-active {
+  transition: opacity .5s;
+}
+.slowfade-enter, .slowfade-leave-to {
+  opacity: 0;
+}

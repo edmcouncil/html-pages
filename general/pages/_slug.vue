@@ -7,7 +7,7 @@
           <section
             v-for="sectionItem in page"
             :key="sectionItem.id"
-            :class="sectionItem.type == 'download' ? 'blank' : ''"
+            :class="sectionItem.background == 'blank' ? 'blank' : ''"
           >
             <ImageTextSection
               v-if="sectionItem['__component'] == 'sections.image-text-section'"
@@ -91,63 +91,8 @@ export default {
 section {
   overflow: auto;
   margin-bottom: 10px;
-
   h2 {
     position: relative;
-  }
-
-  .subsection {
-    margin-bottom: 60px;
-    text-align: justify;
-    display: flex;
-
-    .image-container {
-      width: 100%;
-      max-width: 460px;
-      flex-shrink: 0;
-    }
-
-    .text-content {
-      padding-left: 45px;
-    }
-  }
-
-  .subsection:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.transparent-image {
-  margin: 30px;
-  width: calc(100% - 60px);
-}
-
-.filled-image {
-  margin: 30px;
-  width: calc(100% - 60px);
-  box-shadow: 0px 0px 60px 60px white;
-}
-
-@media (max-width: 1199px) {
-  section .subsection {
-    flex-direction: column;
-    align-items: center;
-
-    .image-container {
-      max-width: 70%;
-    }
-
-    .text-content {
-      padding-left: 0;
-    }
-  }
-}
-
-@media (max-width: 575px) {
-  section .subsection {
-    .image-container {
-      max-width: 100%;
-    }
   }
 }
 </style>
