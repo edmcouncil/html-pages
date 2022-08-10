@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 process.env.VUE_APP_PRODUCT =
   process.env.PRODUCT ||
   process.env.ontology_publisher_current_product ||
@@ -61,10 +63,6 @@ export default {
           component: resolve(__dirname, "pages/index.vue"),
         },
         {
-          path: "/index",
-          component: resolve(__dirname, "pages/index.vue"),
-        },
-        {
           path: "/:slug",
           component: resolve(__dirname, "pages/_slug.vue"),
         },
@@ -78,6 +76,17 @@ export default {
         }
       );
     },
+  },
+  generate: {
+    routes () {
+      return axios.get(`${process.env.STRAPI_URL || "http://localhost:1337"}/api/pages`)
+      .then(res => {
+        return res.data.data.map((page) => {
+          const slug = page.attributes.slug;
+          return `/${slug}`;
+        })
+      })
+    }
   },
 
   // loading bar

@@ -714,469 +714,474 @@
             v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
           >
             <div class="row">
-              <!-- SHOW ITEM -->
-              <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
-                <div class="row">
-                  <div class="col-md-12 ontology-item__header">
-                    <div class="card">
-                      <div class="card-body">
-                        <!-- report a problem -->
-                        <button
-                          type="button"
-                          class="btn normal-button btn-report-a-problem"
-                          v-if="
-                            data.iri.startsWith(
-                              ontologyResourcesBaseUri
-                            ) &&
-                            !(this.$route.query && this.$route.query.version)
-                          "
-                          @click="githubNewIssue()"
-                        >
-                          Report a problem
-                        </button>
-
-                        <!-- maturity alert -->
-                        <div class="ontology-item__header__status">
-                          <div
-                            class="alert alert-error alert-deprecated"
-                            role="alert"
-                            v-if="data.deprecated"
+              <transition
+                name="fade"
+                mode="out-in"
+              >
+                <!-- SHOW ITEM -->
+                <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
+                  <div class="row">
+                    <div class="col-md-12 ontology-item__header">
+                      <div class="card">
+                        <div class="card-body">
+                          <!-- report a problem -->
+                          <button
+                            type="button"
+                            class="btn normal-button btn-report-a-problem"
+                            v-if="
+                              data.iri.startsWith(
+                                ontologyResourcesBaseUri
+                              ) &&
+                              !(this.$route.query && this.$route.query.version)
+                            "
+                            @click="githubNewIssue()"
                           >
-                            This resource is deprecated and may be removed
-                            shortly.
+                            Report a problem
+                          </button>
+
+                          <!-- maturity alert -->
+                          <div class="ontology-item__header__status">
+                            <div
+                              class="alert alert-error alert-deprecated"
+                              role="alert"
+                              v-if="data.deprecated"
+                            >
+                              This resource is deprecated and may be removed
+                              shortly.
+                            </div>
+                            <div
+                              class="alert alert-primary alert-maturity"
+                              role="alert"
+                              v-if="
+                                data.maturityLevel.label === 'INFORMATIVE' ||
+                                data.maturityLevel.label === 'PROVISIONAL'
+                              "
+                            >
+                              This resource has maturity level
+                              {{ this.data.maturityLevel.label.toLowerCase() }}.
+
+                              <customLink
+                                class="custom-link"
+                                :name="'Read more'"
+                                :query="data.maturityLevel.iri"
+                              ></customLink>
+                            </div>
                           </div>
+
                           <div
-                            class="alert alert-primary alert-maturity"
-                            role="alert"
                             v-if="
                               data.maturityLevel.label === 'INFORMATIVE' ||
-                              data.maturityLevel.label === 'PROVISIONAL'
+                              data.maturityLevel.label === 'PROVISIONAL' ||
+                              data.deprecated
                             "
-                          >
-                            This resource has maturity level
-                            {{ this.data.maturityLevel.label.toLowerCase() }}.
+                            class="clearfix"
+                          ></div>
 
-                            <customLink
-                              class="custom-link"
-                              :name="'Read more'"
-                              :query="data.maturityLevel.iri"
-                            ></customLink>
+                          <!-- header item title -->
+                          <h5
+                            class="card-title"
+                            :class="{
+                              'maturity-provisional':
+                                this.data.maturityLevel.label === 'PROVISIONAL' ||
+                                this.data.maturityLevel.label === 'INFORMATIVE',
+                              'maturity-production':
+                                this.data.maturityLevel.label === 'RELEASE',
+                              'maturity-mixed':
+                                this.data.maturityLevel.label === 'MIXED',
+                            }"
+                          >
+                            {{ data.label }}
+                          </h5>
+
+                          <div class="clearfix"></div>
+
+                          <h6
+                            class="card-subtitle mb-2 text-muted data-iri"
+                            v-if="data.iri"
+                          >
+                            {{ data.iri }}
+                          </h6>
+                          <div class="url-buttons-container">
+                            <button
+                              v-clipboard="data.iri"
+                              type="button"
+                              class="btn-copy-url"
+                            >
+                              Copy URL
+                            </button>
+
+                            <button
+                              v-if="
+                                this.$route.query && this.$route.query.version
+                              "
+                              v-clipboard="
+                                data.iri +
+                                '?version=' +
+                                encodeURI(this.$route.query.version)
+                              "
+                              type="button"
+                              class="btn-copy-url btn-copy-iri"
+                            >
+                              Copy versioned IRI
+                            </button>
                           </div>
-                        </div>
 
-                        <div
-                          v-if="
-                            data.maturityLevel.label === 'INFORMATIVE' ||
-                            data.maturityLevel.label === 'PROVISIONAL' ||
-                            data.deprecated
-                          "
-                          class="clearfix"
-                        ></div>
-
-                        <!-- header item title -->
-                        <h5
-                          class="card-title"
-                          :class="{
-                            'maturity-provisional':
-                              this.data.maturityLevel.label === 'PROVISIONAL' ||
-                              this.data.maturityLevel.label === 'INFORMATIVE',
-                            'maturity-production':
-                              this.data.maturityLevel.label === 'RELEASE',
-                            'maturity-mixed':
-                              this.data.maturityLevel.label === 'MIXED',
-                          }"
-                        >
-                          {{ data.label }}
-                        </h5>
-
-                        <div class="clearfix"></div>
-
-                        <h6
-                          class="card-subtitle mb-2 text-muted data-iri"
-                          v-if="data.iri"
-                        >
-                          {{ data.iri }}
-                        </h6>
-                        <div class="url-buttons-container">
-                          <button
-                            v-clipboard="data.iri"
-                            type="button"
-                            class="btn-copy-url"
-                          >
-                            Copy URL
-                          </button>
-
-                          <button
-                            v-if="
-                              this.$route.query && this.$route.query.version
-                            "
-                            v-clipboard="
-                              data.iri +
-                              '?version=' +
-                              encodeURI(this.$route.query.version)
-                            "
-                            type="button"
-                            class="btn-copy-url btn-copy-iri"
-                          >
-                            Copy versioned IRI
-                          </button>
-                        </div>
-
-                        <h6
-                          class="card-subtitle mb-2 text-muted qname"
-                          v-if="data.qName && data.qName !== ''"
-                        >
-                          {{ data.qName }}
-                        </h6>
-
-                        <div class="url-buttons-container">
-                          <button
-                            v-clipboard="data.qName.replace('QName: ', '')"
-                            type="button"
-                            class="btn-copy-url"
+                          <h6
+                            class="card-subtitle mb-2 text-muted qname"
                             v-if="data.qName && data.qName !== ''"
                           >
-                            Copy QName
-                          </button>
+                            {{ data.qName }}
+                          </h6>
+
+                          <div class="url-buttons-container">
+                            <button
+                              v-clipboard="data.qName.replace('QName: ', '')"
+                              type="button"
+                              class="btn-copy-url"
+                              v-if="data.qName && data.qName !== ''"
+                            >
+                              Copy QName
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!-- paths -->
-                  <div
-                    class="ontology-item__paths col-md-12"
-                    v-if="data.taxonomy && data.taxonomy.value"
-                    ref="ontologyPaths"
-                  >
-                    <h5
-                      class="section-title"
-                      @click="
-                        $refs.ontologyPaths
-                          .querySelector('h5')
-                          .classList.toggle('section-collapse')
+                    <!-- paths -->
+                    <div
+                      class="ontology-item__paths col-md-12"
+                      v-if="data.taxonomy && data.taxonomy.value"
+                      ref="ontologyPaths"
+                    >
+                      <h5
+                        class="section-title"
+                        @click="
+                          $refs.ontologyPaths
+                            .querySelector('h5')
+                            .classList.toggle('section-collapse')
+                        "
+                      >
+                        Path(s)
+                      </h5>
+                      <div class="section-content-wrapper">
+                        <div class="custom-control custom-switch">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="paths-switch"
+                            v-model="pathsSection.isTreeView"
+                          />
+                          <label
+                            class="custom-control-label-prev"
+                            for="paths-switch"
+                          >
+                            Paths
+                          </label>
+                          <label class="custom-control-label" for="paths-switch">
+                            Tree
+                          </label>
+                        </div>
+
+                        <transition
+                          @enter="checkPathsOverflow"
+                          name="fade"
+                          mode="out-in"
+                        >
+                          <div
+                            key="path-view"
+                            class="ontology-item__paths__path-view"
+                            v-if="!pathsSection.isTreeView"
+                          >
+                            <span>
+                              <!-- when isPathsMoreVisible is false the v-for works on array slice from 0 to 2,
+                              when isPathsMoreVisible is true the v-for works on the whole array -->
+                              <div
+                                v-for="(
+                                  taxonomy, tIndex
+                                ) in data.taxonomy.value.slice(
+                                  0,
+                                  2 +
+                                    pathsSection.isPathsMoreVisible *
+                                      (data.taxonomy.value.length - 2)
+                                )"
+                                :key="'taxonomyParagraph' + tIndex"
+                                class="ontology-item__paths__taxonomy collapsed"
+                                ref="taxonomyItems"
+                              >
+                                <div class="taxonomy-wrapper">
+                                  <span
+                                    v-for="(element, index) in taxonomy"
+                                    :key="'taxonomyEl' + tIndex + element.iri"
+                                  >
+                                    <customLink
+                                      :name="element.label"
+                                      :query="element.iri"
+                                    ></customLink>
+                                    <span
+                                      class="card-subtitle mb-2 text-muted"
+                                      v-if="
+                                        index != Object.keys(taxonomy).length - 1
+                                      "
+                                    >
+                                      /
+                                    </span>
+                                  </span>
+                                </div>
+
+                                <div
+                                  class="collapseButtons"
+                                  v-if="pathsSection.hasOverflow[tIndex]"
+                                  @click.prevent="togglePathCollapsed(tIndex)"
+                                >
+                                  <div>
+                                    <div class="see-more-btn">Show full path</div>
+                                  </div>
+
+                                  <div>
+                                    <div class="see-less-btn">Hide full path</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </span>
+
+                            <div
+                              v-show="
+                                !pathsSection.isPathsMoreVisible &&
+                                data.taxonomy.value.length > 2
+                              "
+                              @click.prevent="
+                                pathsSection.isPathsMoreVisible =
+                                  !pathsSection.isPathsMoreVisible;
+                                checkPathsOverflow();
+                              "
+                            >
+                              <div class="see-more-btn">
+                                Show {{ data.taxonomy.value.length - 2 }} more
+                                {{
+                                  data.taxonomy.value.length - 2 > 1
+                                    ? "paths"
+                                    : "path"
+                                }}
+                              </div>
+                            </div>
+
+                            <div
+                              v-show="
+                                pathsSection.isPathsMoreVisible &&
+                                data.taxonomy.value.length > 2
+                              "
+                              @click.prevent="
+                                pathsSection.isPathsMoreVisible =
+                                  !pathsSection.isPathsMoreVisible;
+                                checkPathsOverflow();
+                              "
+                            >
+                              <div class="see-less-btn">Show less paths</div>
+                            </div>
+                          </div>
+                          <div
+                            key="tree-view"
+                            class="ontology-item__paths__tree-view"
+                            v-else
+                          >
+                            <ul class="ontology-item__paths__tree-view__root">
+                              <paths-tree
+                                v-for="(child, index) in pathsSection.treeView"
+                                :key="child.label"
+                                :item="child"
+                                :isLast="
+                                  index == pathsSection.treeView.length - 1
+                                "
+                                :isOnly="pathsSection.treeView.length === 1"
+                                :isRoot="true"
+                              />
+                            </ul>
+                          </div>
+                        </transition>
+                      </div>
+                    </div>
+
+                    <!-- ontology download -->
+                    <div
+                      class="col-12 px-0"
+                      v-if="
+                        data.iri.slice(-1) === '/' &&
+                        data.iri.startsWith(this.ontologyResourcesBaseUri)
                       "
                     >
-                      Path(s)
-                    </h5>
-                    <div class="section-content-wrapper">
-                      <div class="custom-control custom-switch">
-                        <input
-                          type="checkbox"
-                          class="custom-control-input"
-                          id="paths-switch"
-                          v-model="pathsSection.isTreeView"
+                      <OntologyDownload :data="data" :version="version" />
+                    </div>
+
+                    <!-- sections -->
+                    <div
+                      class="col-md-12 px-0"
+                      v-for="(
+                        section, sectionName, sectionIndex
+                      ) in data.properties"
+                      :key="sectionName"
+                    >
+                      <ResourceSection
+                        :section="section"
+                        :sectionName="sectionName"
+                        :sectionIndex="sectionIndex"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- DATA GRAPH -->
+                  <div class="row" v-if="data && data.graph">
+                    <div class="col-12 px-0">
+                      <div class="card">
+                        <div class="card-body" ref="dataGraph">
+                          <h5
+                            class="card-title section-title"
+                            @click="
+                              $refs.dataGraph
+                                .querySelector('h5')
+                                .classList.toggle('section-collapse')
+                            "
+                          >
+                            Data model for {{ data.label }}
+                          </h5>
+                          <div class="section-content-wrapper">
+                            <vis-network :data="data.graph" :title="data.label" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- NO DATA (How to use) -->
+                <div v-else-if="!loader && !searchBox.isLoadingResults && modulesList">
+                  <article class="how-to-article">
+                    <section>
+                      <h2>How to use {{ productNameUppercase }} Viewer</h2>
+                      <p class="muted">
+                        To start using {{ productNameUppercase }} Viewer, search
+                        for interesting concepts by walking through the
+                        {{ productNameUppercase }} directory structure on the
+                        left-hand side or use the full-text search function.
+                      </p>
+                    </section>
+
+                    <section v-if="hasVersions" class="blank">
+                      <img class="article-icon" src="@/assets/img/clock.svg" />
+                      <h3>{{ productNameUppercase }} Versions</h3>
+                      <p>
+                        {{ productNameUppercase }} Viewer allows for browsing the
+                        past versions of {{ productNameUppercase }}.
+                      </p>
+                      <p class="small muted">
+                        It also helps developers to see the changes proposed to
+                        {{ productNameUppercase }} in pull requests before their
+                        approval. To see the content of the past
+                        {{ productNameUppercase }} releases or recent pull
+                        requests, choose them from the drop-down list.
+                      </p>
+                    </section>
+
+                    <section class="blank">
+                      <img
+                        class="article-icon"
+                        src="@/assets/img/directory.svg"
+                      />
+                      <h3>{{ productNameUppercase }} structure</h3>
+                      <p>
+                        {{ productNameUppercase }} is a set of ontologies. It is
+                        organized in a hierarchical directory structure.
+                      </p>
+                      <p class="small muted">
+                        Top-level directories are called domains; beneath that may
+                        be one or two levels of sub-domain and then modules and
+                        dozens of ontologies at the bottom level.
+                      </p>
+                    </section>
+
+                    <section class="blank">
+                      <img class="article-icon" src="@/assets/img/maturity.svg" />
+                      <h3>{{ productNameUppercase }} maturity levels</h3>
+                      <p>
+                        Each {{ productNameUppercase }} ontology has one of three
+                        levels of maturity.
+                      </p>
+                      <p class="small muted title">Release</p>
+                      <p class="small muted">
+                        Release ontologies are ones that are considered to be
+                        stable and mature from a development perspective.
+                      </p>
+                      <p class="small muted title">Provisional</p>
+                      <p class="small muted">
+                        Provisional ontologies are ones that are considered to be
+                        under development.
+                      </p>
+                      <p class="small muted title">Informative</p>
+                      <p class="small muted">
+                        Provisional ontologies are ones that are considered
+                        deprecated but included for informational purposes because
+                        they are referenced by some provisional concept.
+                      </p>
+                    </section>
+
+                    <section class="blank">
+                      <h3>Colours</h3>
+                      <p class="paragraph--regular">
+                        {{ productNameUppercase }} Viewer uses colours to indicate
+                        the status of an ontology. Each ontology is either green
+                        or yellow.
+                      </p>
+                      <div class="color-container">
+                        <img
+                          class="article-icon--small"
+                          src="@/assets/icons/production-maturity.svg"
                         />
-                        <label
-                          class="custom-control-label-prev"
-                          for="paths-switch"
-                        >
-                          Paths
-                        </label>
-                        <label class="custom-control-label" for="paths-switch">
-                          Tree
-                        </label>
+                        <p class="small muted">
+                          The green square icon indicates that an ontology has a
+                          "release" maturity level. Domains or modules are green
+                          if they contain only green ontologies.
+                        </p>
                       </div>
 
-                      <transition
-                        @enter="checkPathsOverflow"
-                        name="fade"
-                        mode="out-in"
-                      >
-                        <div
-                          key="path-view"
-                          class="ontology-item__paths__path-view"
-                          v-if="!pathsSection.isTreeView"
-                        >
-                          <span>
-                            <!-- when isPathsMoreVisible is false the v-for works on array slice from 0 to 2,
-                            when isPathsMoreVisible is true the v-for works on the whole array -->
-                            <div
-                              v-for="(
-                                taxonomy, tIndex
-                              ) in data.taxonomy.value.slice(
-                                0,
-                                2 +
-                                  pathsSection.isPathsMoreVisible *
-                                    (data.taxonomy.value.length - 2)
-                              )"
-                              :key="'taxonomyParagraph' + tIndex"
-                              class="ontology-item__paths__taxonomy collapsed"
-                              ref="taxonomyItems"
-                            >
-                              <div class="taxonomy-wrapper">
-                                <span
-                                  v-for="(element, index) in taxonomy"
-                                  :key="'taxonomyEl' + tIndex + element.iri"
-                                >
-                                  <customLink
-                                    :name="element.label"
-                                    :query="element.iri"
-                                  ></customLink>
-                                  <span
-                                    class="card-subtitle mb-2 text-muted"
-                                    v-if="
-                                      index != Object.keys(taxonomy).length - 1
-                                    "
-                                  >
-                                    /
-                                  </span>
-                                </span>
-                              </div>
-
-                              <div
-                                class="collapseButtons"
-                                v-if="pathsSection.hasOverflow[tIndex]"
-                                @click.prevent="togglePathCollapsed(tIndex)"
-                              >
-                                <div>
-                                  <div class="see-more-btn">Show full path</div>
-                                </div>
-
-                                <div>
-                                  <div class="see-less-btn">Hide full path</div>
-                                </div>
-                              </div>
-                            </div>
-                          </span>
-
-                          <div
-                            v-show="
-                              !pathsSection.isPathsMoreVisible &&
-                              data.taxonomy.value.length > 2
-                            "
-                            @click.prevent="
-                              pathsSection.isPathsMoreVisible =
-                                !pathsSection.isPathsMoreVisible;
-                              checkPathsOverflow();
-                            "
-                          >
-                            <div class="see-more-btn">
-                              Show {{ data.taxonomy.value.length - 2 }} more
-                              {{
-                                data.taxonomy.value.length - 2 > 1
-                                  ? "paths"
-                                  : "path"
-                              }}
-                            </div>
-                          </div>
-
-                          <div
-                            v-show="
-                              pathsSection.isPathsMoreVisible &&
-                              data.taxonomy.value.length > 2
-                            "
-                            @click.prevent="
-                              pathsSection.isPathsMoreVisible =
-                                !pathsSection.isPathsMoreVisible;
-                              checkPathsOverflow();
-                            "
-                          >
-                            <div class="see-less-btn">Show less paths</div>
-                          </div>
-                        </div>
-                        <div
-                          key="tree-view"
-                          class="ontology-item__paths__tree-view"
-                          v-else
-                        >
-                          <ul class="ontology-item__paths__tree-view__root">
-                            <paths-tree
-                              v-for="(child, index) in pathsSection.treeView"
-                              :key="child.label"
-                              :item="child"
-                              :isLast="
-                                index == pathsSection.treeView.length - 1
-                              "
-                              :isOnly="pathsSection.treeView.length === 1"
-                              :isRoot="true"
-                            />
-                          </ul>
-                        </div>
-                      </transition>
-                    </div>
-                  </div>
-
-                  <!-- ontology download -->
-                  <div
-                    class="col-12 px-0"
-                    v-if="
-                      data.iri.slice(-1) === '/' &&
-                      data.iri.startsWith(this.ontologyResourcesBaseUri)
-                    "
-                  >
-                    <OntologyDownload :data="data" :version="version" />
-                  </div>
-
-                  <!-- sections -->
-                  <div
-                    class="col-md-12 px-0"
-                    v-for="(
-                      section, sectionName, sectionIndex
-                    ) in data.properties"
-                    :key="sectionName"
-                  >
-                    <ResourceSection
-                      :section="section"
-                      :sectionName="sectionName"
-                      :sectionIndex="sectionIndex"
-                    />
-                  </div>
-                </div>
-
-                <!-- DATA GRAPH -->
-                <div class="row" v-if="data && data.graph">
-                  <div class="col-12 px-0">
-                    <div class="card">
-                      <div class="card-body" ref="dataGraph">
-                        <h5
-                          class="card-title section-title"
-                          @click="
-                            $refs.dataGraph
-                              .querySelector('h5')
-                              .classList.toggle('section-collapse')
-                          "
-                        >
-                          Data model for {{ data.label }}
-                        </h5>
-                        <div class="section-content-wrapper">
-                          <vis-network :data="data.graph" :title="data.label" />
-                        </div>
+                      <div class="color-container">
+                        <img
+                          class="article-icon--small"
+                          src="@/assets/icons/provisional-maturity.svg"
+                        />
+                        <p class="small muted">
+                          Yellow square icon means that it provisional or
+                          informative. Domains or modules are yellow if they
+                          contain only yellow ontologies.
+                        </p>
                       </div>
-                    </div>
-                  </div>
+
+                      <div class="color-container">
+                        <img
+                          class="article-icon--small"
+                          src="@/assets/icons/mixed-maturity.svg"
+                        />
+                        <p class="small muted">
+                          Mixed, green-yellow icon means domains or modules
+                          include both green and yellow ontologies.
+                        </p>
+                      </div>
+                    </section>
+
+                    <section>
+                      <h2>About {{ productNameUppercase }} Viewer</h2>
+                      <p class="small muted">
+                        {{ productNameUppercase }} Viewer is a JAVA application
+                        that is specifically designed to access both the
+                        {{ productNameUppercase }} structure and its content in
+                        the easiest possible way. It can serve both as a web
+                        application and REST API.
+                        {{ productNameUppercase }} Viewer is an open-source
+                        project that EDM Council hosts. See
+                        https://github.com/edmcouncil/onto-viewer for details.
+                      </p>
+                    </section>
+                  </article>
                 </div>
-              </div>
-
-              <!-- NO DATA (How to use) -->
-              <div v-else-if="!loader && !searchBox.isLoadingResults && modulesList">
-                <article class="how-to-article">
-                  <section>
-                    <h2>How to use {{ productNameUppercase }} Viewer</h2>
-                    <p class="muted">
-                      To start using {{ productNameUppercase }} Viewer, search
-                      for interesting concepts by walking through the
-                      {{ productNameUppercase }} directory structure on the
-                      left-hand side or use the full-text search function.
-                    </p>
-                  </section>
-
-                  <section v-if="hasVersions" class="blank">
-                    <img class="article-icon" src="@/assets/img/clock.svg" />
-                    <h3>{{ productNameUppercase }} Versions</h3>
-                    <p>
-                      {{ productNameUppercase }} Viewer allows for browsing the
-                      past versions of {{ productNameUppercase }}.
-                    </p>
-                    <p class="small muted">
-                      It also helps developers to see the changes proposed to
-                      {{ productNameUppercase }} in pull requests before their
-                      approval. To see the content of the past
-                      {{ productNameUppercase }} releases or recent pull
-                      requests, choose them from the drop-down list.
-                    </p>
-                  </section>
-
-                  <section class="blank">
-                    <img
-                      class="article-icon"
-                      src="@/assets/img/directory.svg"
-                    />
-                    <h3>{{ productNameUppercase }} structure</h3>
-                    <p>
-                      {{ productNameUppercase }} is a set of ontologies. It is
-                      organized in a hierarchical directory structure.
-                    </p>
-                    <p class="small muted">
-                      Top-level directories are called domains; beneath that may
-                      be one or two levels of sub-domain and then modules and
-                      dozens of ontologies at the bottom level.
-                    </p>
-                  </section>
-
-                  <section class="blank">
-                    <img class="article-icon" src="@/assets/img/maturity.svg" />
-                    <h3>{{ productNameUppercase }} maturity levels</h3>
-                    <p>
-                      Each {{ productNameUppercase }} ontology has one of three
-                      levels of maturity.
-                    </p>
-                    <p class="small muted title">Release</p>
-                    <p class="small muted">
-                      Release ontologies are ones that are considered to be
-                      stable and mature from a development perspective.
-                    </p>
-                    <p class="small muted title">Provisional</p>
-                    <p class="small muted">
-                      Provisional ontologies are ones that are considered to be
-                      under development.
-                    </p>
-                    <p class="small muted title">Informative</p>
-                    <p class="small muted">
-                      Provisional ontologies are ones that are considered
-                      deprecated but included for informational purposes because
-                      they are referenced by some provisional concept.
-                    </p>
-                  </section>
-
-                  <section class="blank">
-                    <h3>Colours</h3>
-                    <p class="paragraph--regular">
-                      {{ productNameUppercase }} Viewer uses colours to indicate
-                      the status of an ontology. Each ontology is either green
-                      or yellow.
-                    </p>
-                    <div class="color-container">
-                      <img
-                        class="article-icon--small"
-                        src="@/assets/icons/production-maturity.svg"
-                      />
-                      <p class="small muted">
-                        The green square icon indicates that an ontology has a
-                        "release" maturity level. Domains or modules are green
-                        if they contain only green ontologies.
-                      </p>
-                    </div>
-
-                    <div class="color-container">
-                      <img
-                        class="article-icon--small"
-                        src="@/assets/icons/provisional-maturity.svg"
-                      />
-                      <p class="small muted">
-                        Yellow square icon means that it provisional or
-                        informative. Domains or modules are yellow if they
-                        contain only yellow ontologies.
-                      </p>
-                    </div>
-
-                    <div class="color-container">
-                      <img
-                        class="article-icon--small"
-                        src="@/assets/icons/mixed-maturity.svg"
-                      />
-                      <p class="small muted">
-                        Mixed, green-yellow icon means domains or modules
-                        include both green and yellow ontologies.
-                      </p>
-                    </div>
-                  </section>
-
-                  <section>
-                    <h2>About {{ productNameUppercase }} Viewer</h2>
-                    <p class="small muted">
-                      {{ productNameUppercase }} Viewer is a JAVA application
-                      that is specifically designed to access both the
-                      {{ productNameUppercase }} structure and its content in
-                      the easiest possible way. It can serve both as a web
-                      application and REST API.
-                      {{ productNameUppercase }} Viewer is an open-source
-                      project that EDM Council hosts. See
-                      https://github.com/edmcouncil/onto-viewer for details.
-                    </p>
-                  </section>
-                </article>
-              </div>
+              </transition>
             </div>
           </div>
         </div>
