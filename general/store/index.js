@@ -7,8 +7,8 @@ export default {
     searchDefaultDomain: `/${ productName }/ontology/{version}api/find`,
     ontologyDefaultDomain: `/${ productName }/ontology/{version}api/entity`,
     modulesDefaultDomain: `/${ productName }/ontology/{version}api/module`,
-    statsDefaultDomain: `/${ productName }/ontology/api/stats`,
-    missingImportsDefaultDomain: `/${ productName }/ontology/api/missingImports`,
+    statsDefaultDomain: `/${ productName }/ontology/{version}api/stats`,
+    missingImportsDefaultDomain: `/${ productName }/ontology/{version}api/missingImports`,
 
     headerData: {
       menuDropdown: null,

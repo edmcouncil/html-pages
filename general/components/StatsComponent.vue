@@ -109,6 +109,7 @@ export default {
   watch: {
     statsServer: function() {
       this.fetchStats();
+      this.fetchMissingImports();
     }
   },
   methods: {

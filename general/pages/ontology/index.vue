@@ -1345,12 +1345,17 @@ export default {
           "{version}",
           `${internalRoute.query.version}/`
         );
+        this.missingImportsServer = this.missingImportsServer.replace(
+          "{version}",
+          `${internalRoute.query.version}/`
+        );
         this.version = internalRoute.query.version;
       } else {
         this.ontologyServer = this.ontologyServer.replace("{version}", "");
         this.searchServer = this.searchServer.replace("{version}", "");
         this.modulesServer = this.modulesServer.replace("{version}", "");
         this.statsServer = this.statsServer.replace("{version}", "");
+        this.missingImportsServer = this.missingImportsServer.replace("{version}", "");
         this.version = null;
       }
     },
