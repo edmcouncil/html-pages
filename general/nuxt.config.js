@@ -101,6 +101,7 @@ export default {
     "~assets/scss/_bootstrap-override.scss",
     "~assets/scss/global.scss",
     "~assets/scss/typography.scss",
+    "~assets/scss/highlight.scss"
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -199,7 +200,7 @@ export default {
     preset: "default",
     linkify: true,
     breaks: true,
-    use: ["markdown-it-div", "markdown-it-attrs"],
+    use: ["markdown-it-div", "markdown-it-attrs", "markdown-it-highlightjs"],
     runtime: true,
   },
 };
