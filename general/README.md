@@ -1,5 +1,10 @@
 # html-pages general template
 
+## General setup
+
+- `nodejs v16.14.2`
+- `postgresql v11` if you are not using development database in SQLite
+
 ## Build and run frontend
 
 ```bash
@@ -18,6 +23,24 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+
+## Command line frontend properties
+
+- `ONTOLOGY_NAME` - ontology name (default: fibo)
+
+- `PUBLIC_URL` - host url (default: localhost)
+
+- `BASE_URL` - base after host url ex. BASE_URL='fibo' runs application on localhost:3000/fibo
+
+- `STRAPI_URL` - url to strapi instance (default: http://localhost:1337)
+
+- `RESOURCES_BASE_URL` - resource base url (default: https://spec.edmcouncil.org/fibo/ontology/)
+
+- `SHOW_TERMS_LINK_ON_FOOTER` - show or hide terms links in footer (default: true)
+
+- `PRODUCT`
+
+- `BRANCH || BRANCH_NAME || TAG_NAME`
 
 ## Strapi configuration for develop local run
 
