@@ -1,16 +1,59 @@
 # html-pages general template
 
+Strapi is used as a content managment system. This frontend application(html-pages/general) use strapi api to fetch data.
+
 ## General setup
 
 - `nodejs v16.14.2`
 - `postgresql v11` if you are not using development database in SQLite
 
+## Strapi configuration for develop local run
+
+- create directory for strapi instance for run (`strapiDir`)
+- install strapi using quick start with no additional arguments 
+    ```
+    npx create-strapi-app@latest strapi-dashboard --quickstart
+    ```
+    for advanced options see strapi documentation [Strapi quick start](https://docs.strapi.io/developer-docs/latest/getting-started/quick-start.html)
+- after the installation and first run, close strapi and import the database and structure definition.
+    - database (if you are not using a development database skip this point): 
+        - development database in SQLite is located in directory `html-pages/general/strapi/.tmp/`, it should be copied to `strapiDir/.tmp/`
+    - strapi structure definition: 
+        - definitions is located in directory `html-pages/general/strapi/.src/`, all directories should be copied to `strapiDir/.src/` with replace option if needed
+ - run strapi with one of the selected commands:
+ 
+ ``` bash
+ # run strapi with dev settings(it automaticly refresh panel when changes is detected)
+ $ npm run develop
+ 
+ # run strapi with prod settings
+ $ npm run start
+ ```
+
+Admin pannel run default on: `http://localhost:1337/admin`
+For admin panel with develop database login data is:
+
+```js
+login: edmc-strapi@dev.com
+pwd: devDBonly1
+```
+
+
 ## Build and run frontend
 
-```bash
-# install dependencies
-$ npm install
+- create directory for frontend application instance
 
+- clone code -> go to `general` directory
+
+- install dependencies using: 
+
+```bash
+npm install
+```
+
+- run application with one of the selected block of commands
+
+```bash
 # serve with hot reload at localhost:3000
 $ npm run dev
 
@@ -24,13 +67,15 @@ $ npm run generate
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
-## Command line frontend properties
+Application run default on: `http://localhost:3000`.
+
+### Command line frontend properties
 
 - `ONTOLOGY_NAME` - ontology name (default: fibo)
 
 - `PUBLIC_URL` - host url (default: localhost)
 
-- `BASE_URL` - base after host url ex. BASE_URL='fibo' runs application on localhost:3000/fibo
+- `BASE_URL` - base after host url ex. BASE_URL='fibo' runs application on localhost:3000/fibo (default: *empty*)
 
 - `STRAPI_URL` - url to strapi instance (default: http://localhost:1337)
 
@@ -42,19 +87,10 @@ For detailed explanation on how things work, check out the [documentation](https
 
 - `BRANCH || BRANCH_NAME || TAG_NAME`
 
-## Strapi configuration for develop local run
+#### Example how to use properties in command line
 
-To run strapi locally, you need to go [Strapi quick start](https://docs.strapi.io/developer-docs/latest/getting-started/quick-start.html) and after install and first run, close strapi app and import database and structure definition into strapi directories. Instruction are below.
-
-Dev database with some examples is in directory `/strapi/.tmp/`. Database to use need to been copied to the stapi `.tmp` directory when u use SQLite.
-
-Components with definition of strapi structures and default api options can be imported into the strapi directory `/.src/`, all required directories is available in `/strapi/.src` copy paste it with replace option if needed.
-
-For admin panel with develop database login data is:
-
-```js
-login: edmc-strapi@dev.com
-pwd: devDBonly1
+```bash
+$ set ONTOLOGY_NAME=auto && npm run dev
 ```
 
-Admin pannel run default on: `localhost:1337/admin`
+
