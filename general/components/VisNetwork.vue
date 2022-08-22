@@ -449,7 +449,7 @@ export default {
       }
     }
 
-    h5 {
+    h5.modal-title {
       font-style: normal;
       font-weight: normal;
       font-size: 18px;
@@ -491,7 +491,7 @@ export default {
 //mobile
 @media (max-width: 768px) {
   .modal .modal-header {
-    h5 {
+    h5.modal-title {
       font-size: 16px;
       line-height: 24px;
       color: rgba(0, 0, 0, 0.6);

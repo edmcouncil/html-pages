@@ -1029,7 +1029,7 @@
                   </div>
 
                   <!-- DATA GRAPH -->
-                  <div class="row" v-if="data && data.graph">
+                  <div class="row" v-if="hasGraph">
                     <div class="col-12 px-0">
                       <div class="card">
                         <div class="card-body" ref="dataGraph">
@@ -1828,6 +1828,9 @@ export default {
     }),
     hasVersions() {
       return this.ontologyVersionsDropdownData.data.length > 1;
+    },
+    hasGraph() {
+      return this.data?.graph?.nodes?.length > 1;
     },
     productName() {
       return process.env.productName.toLowerCase();
