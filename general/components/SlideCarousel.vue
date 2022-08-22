@@ -97,7 +97,7 @@ export default {
 <style lang="scss">
 .carousel-container {
   flex: 1;
-  padding: 30px 60px 60px 60px;
+  padding: 0px 60px 60px 60px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -111,6 +111,8 @@ export default {
   .carousel-inner {
     overflow: visible;
     flex: 1;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -168,6 +170,8 @@ export default {
 
 .carousel-item {
   padding: 0;
+  margin: 0;
+  position: absolute;
 
   .carousel-caption {
     position: relative;
@@ -182,7 +186,7 @@ export default {
     color: map-get($colors-map, "black");
   }
   h2 {
-    margin: 40px 0;
+    margin: 30px 0;
     color: map-get($colors-map, "black-80");
   }
   a {
@@ -240,12 +244,12 @@ export default {
 
 @media (max-width: 992px) {
   .carousel-container {
-    padding: 30px;
+    padding: 0px 30px 30px 30px;
   }
 
   .carousel-item {
     h2 {
-      margin: 32px 0;
+      margin: 30px 0;
       color: map-get($colors-map, "black-60");
     }
     a {
@@ -286,6 +290,13 @@ export default {
   }
 }
 
+@media (max-width: 991px) {
+  .carousel-container .carousel-inner {
+    display: flex;
+    align-items: flex-start;
+  }
+}
+
 @media (min-width: 1439px) {
   .carousel-item {
     width: calc( 100% - 320px );
@@ -294,7 +305,7 @@ export default {
 
 @media (min-width: 1800px) {
   .carousel-item {
-    width: 50%;
+    width: 70%;
   }
 }
 </style>

@@ -204,8 +204,8 @@ header {
   background-size: cover;
   background-position: center;
   padding: 0;
-  min-height: 532px;
-  max-height: 532px;
+  min-height: 460px;
+  max-height: 460px;
 
   display: flex;
   flex-direction: column;
@@ -406,9 +406,10 @@ header {
   }
 }
 
-@media (max-width: 1024px) {
-  .navbar li {
-    margin-left: 30px;
+@media (max-width: 430px) {
+  header {
+    min-height: 520px;
+    max-height: 520px;
   }
 }
 
@@ -447,7 +448,7 @@ header {
   }
 
   .navigation-container {
-    padding: 20px 30px;
+    padding: 20px 30px 60px 30px;
   }
 }
 
@@ -455,6 +456,12 @@ header {
   header {
     min-height: 400px;
     max-height: 400px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar li {
+    margin-left: 30px;
   }
 }
 </style>
