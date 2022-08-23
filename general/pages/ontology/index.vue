@@ -1265,7 +1265,7 @@ export default {
         `${this.productName}/ontology/`,
         ""
       );
-      queryParam = `https://spec.edmcouncil.org/${this.productName}/ontology/${ontologyQuery}`;
+      queryParam = `https://spec.edmcouncil.org/${this.productName}/ontology${ontologyQuery}`;
     } else if (this.$route.query && this.$route.query.query) {
       queryParam =
         encodeURIComponent(this.$route.query.query) +
@@ -1295,9 +1295,13 @@ export default {
     this.$refs.searchBoxInputDesktop.$refs.search.setAttribute("autocomplete", "off")
 
     const scrollTopElement = this.$refs['article-top-element'];
-    scrollTopElement.scrollIntoView({
-        behavior: "smooth"
-    });
+    if (!this.query) {
+      scrollTopElement.scrollIntoView({
+          behavior: "smooth"
+      });
+    } else {
+      this.scrollToOntologyViewerTopOfContainer();
+    }
   },
   methods: {
     toggleModuleTree() {

@@ -55,7 +55,7 @@ export default {
   assetsDir: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
   indexPath: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/index.html`,
   router: {
-    base: process.env.BASE_URL || "",
+    base: process.env.BASE_URL || "/fibo",
     extendRoutes(routes, resolve) {
       routes.push(
         {
