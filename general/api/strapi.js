@@ -92,9 +92,7 @@ export async function getPageElementsStrapiData() {
     const response = await getStrapiSingleType(singleTypeName, populateParams);
     data.menuTop = response.data.data.attributes.items;
   } catch (error) {
-    return {
-      error: error,
-    };
+    data.menuTop = [];
   }
 
   return data;
