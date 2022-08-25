@@ -78,15 +78,17 @@ export default {
     },
   },
   generate: {
-    routes () {
-      return axios.get(`${process.env.STRAPI_URL || "http://localhost:1337"}/api/pages`)
-      .then(res => {
-        return res.data.data.map((page) => {
-          const slug = page.attributes.slug;
-          return `/${slug}`;
-        })
-      })
-    }
+    dir: `dist/${process.env.VUE_ONTOLOGY_NAME}/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
+    routes() {
+      return axios
+        .get(`${process.env.STRAPI_URL || "http://localhost:1337"}/api/pages`)
+        .then((res) => {
+          return res.data.data.map((page) => {
+            const slug = page.attributes.slug;
+            return `/${slug}`;
+          });
+        });
+    },
   },
 
   // loading bar
@@ -101,7 +103,7 @@ export default {
     "~assets/scss/_bootstrap-override.scss",
     "~assets/scss/global.scss",
     "~assets/scss/typography.scss",
-    "~assets/scss/highlight.scss"
+    "~assets/scss/highlight.scss",
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
