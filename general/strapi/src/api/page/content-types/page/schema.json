@@ -21,7 +21,8 @@
         "sections.download-section",
         "sections.image-text-section",
         "sections.table-list-section",
-        "sections.text-section"
+        "sections.text-section",
+        "sections.serialization-list-section"
       ]
     },
     "slug": {

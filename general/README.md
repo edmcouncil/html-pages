@@ -75,7 +75,7 @@ Application run default on: `http://localhost:3000`.
 
 - `PUBLIC_URL` - host url (default: localhost)
 
-- `BASE_URL` - base after host url ex. BASE_URL='fibo' runs application on localhost:3000/fibo (default: *empty*)
+- `BASE_URL` - base after host url ex. BASE_URL='fibo' runs application on localhost:3000/fibo (default: *fibo*)
 
 - `STRAPI_URL` - url to strapi instance (default: http://localhost:1337)
 
