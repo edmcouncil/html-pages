@@ -169,7 +169,7 @@ export default {
   // AUTO - https://spec.edmcouncil.org/auto/ontology/
   // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
   env: {
-    productName: process.env.VUE_ONTOLOGY_NAME,
+    ontologyName: process.env.VUE_ONTOLOGY_NAME,
 
     strapiBaseUri: process.env.STRAPI_URL || "http://localhost:1337",
     ontologyResourcesBaseUri:

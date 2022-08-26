@@ -1,14 +1,14 @@
 import { getPageElementsStrapiData } from "../api/strapi"
 
-const productName = process.env.productName.toLowerCase();
+const ontologyName = process.env.ontologyName.toLowerCase();
 
 export default {
   state: () => ({
-    searchDefaultDomain: `/${ productName }/ontology/{version}api/find`,
-    ontologyDefaultDomain: `/${ productName }/ontology/{version}api/entity`,
-    modulesDefaultDomain: `/${ productName }/ontology/{version}api/module`,
-    statsDefaultDomain: `/${ productName }/ontology/{version}api/stats`,
-    missingImportsDefaultDomain: `/${ productName }/ontology/{version}api/missingImports`,
+    searchDefaultDomain: `/${ ontologyName }/ontology/{version}api/find`,
+    ontologyDefaultDomain: `/${ ontologyName }/ontology/{version}api/entity`,
+    modulesDefaultDomain: `/${ ontologyName }/ontology/{version}api/module`,
+    statsDefaultDomain: `/${ ontologyName }/ontology/{version}api/stats`,
+    missingImportsDefaultDomain: `/${ ontologyName }/ontology/{version}api/missingImports`,
 
     headerData: {
       menuDropdown: null,

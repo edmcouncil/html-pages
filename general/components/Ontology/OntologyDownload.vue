@@ -85,14 +85,14 @@ export default {
     }
   },
   computed: {
-    productName() {
-      return process.env.productName.toLowerCase();
+    ontologyName() {
+      return process.env.ontologyName.toLowerCase();
     },
     ontologyResourcesBaseUri() {
       return process.env.ontologyResourcesBaseUri;
     },
     baseUrl() {
-      return `https://spec.edmcouncil.org/${this.productName}/ontology/`;
+      return `https://spec.edmcouncil.org/${this.ontologyName}/ontology/`;
     }
   }
 };

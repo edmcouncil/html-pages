@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     download(name) {
-      const baseUrl = `https://spec.edmcouncil.org/${this.productName}/ontology`;
+      const baseUrl = `https://spec.edmcouncil.org/${this.ontologyName}/ontology`;
       const branch = 'master/latest';
       const link = `${baseUrl}/${branch}/${name}`;
       const aElement = document.createElement('a');
@@ -126,8 +126,8 @@ export default {
     },
   },
   computed: {
-    productName() {
-      return process.env.productName.toLowerCase();
+    ontologyName() {
+      return process.env.ontologyName.toLowerCase();
     },
   }
 }

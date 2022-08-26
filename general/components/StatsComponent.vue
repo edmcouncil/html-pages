@@ -8,7 +8,7 @@
   >
     <div class="menu-box">
       <div class="menu-box__label">Browse logs</div>
-      <div class="menu-box__content-text">{{ productNameUppercase }} Instrumentation</div>
+      <div class="menu-box__content-text">{{ ontologyNameUppercase }} Instrumentation</div>
       <div class="menu-box__icons">
         <div class="menu-box__icons__icon icon-info"></div>
       </div>
@@ -138,8 +138,8 @@ export default {
     },
   },
   computed: {
-    productNameUppercase() {
-      return process.env.productName.toUpperCase();
+    ontologyNameUppercase() {
+      return process.env.ontologyName.toUpperCase();
     },
   }
 };

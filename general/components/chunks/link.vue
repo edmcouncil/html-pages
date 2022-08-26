@@ -41,14 +41,14 @@ export default {
     next();
   },
   computed: {
-    productName() {
-      return process.env.productName.toLowerCase();
+    ontologyName() {
+      return process.env.ontologyName.toLowerCase();
     },
     regex() {
-      return new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.productName}/` );
+      return new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.ontologyName}/` );
     },
     regexToReplace() {
-      return new RegExp( `/https:\/\/spec\.edmcouncil\.org\/${this.productName}/` );
+      return new RegExp( `/https:\/\/spec\.edmcouncil\.org\/${this.ontologyName}/` );
     }
   }
 };

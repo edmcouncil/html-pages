@@ -225,14 +225,14 @@ export default {
           const sNode = selectedNodes[0];
           nodes.forEach((entry) => {
             if (entry.id === sNode) {
-              const regex = new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.productName}/` );
+              const regex = new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.ontologyName}/` );
               if (entry.iri.match(regex)) {
                 window.location.href = `${entry.iri.replace(
-                  `https://spec.edmcouncil.org/${this.productName}`,
+                  `https://spec.edmcouncil.org/${this.ontologyName}`,
                   ""
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
-                window.location.href = `/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
+                window.location.href = `/${this.ontologyName}/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
               }
             }
           });
@@ -240,14 +240,14 @@ export default {
           const sEgde = selectedEdges[0];
           edgesView.forEach((entry) => {
             if (entry.id === sEgde) {
-              const regex = new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.productName}/` );
+              const regex = new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.ontologyName}/` );
               if (entry.iri.match(regex)) {
                 window.location.href = `${entry.iri.replace(
-                  `https://spec.edmcouncil.org/${this.productName}`,
+                  `https://spec.edmcouncil.org/${this.ontologyName}`,
                   ""
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
-                window.location.href = `/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
+                window.location.href = `/${this.ontologyName}/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
               }
             }
           });
@@ -356,8 +356,8 @@ export default {
     }
   },
   computed: {
-    productName() {
-      return process.env.productName.toLowerCase();
+    ontologyName() {
+      return process.env.ontologyName.toLowerCase();
     },
   }
 };

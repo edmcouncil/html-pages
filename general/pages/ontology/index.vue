@@ -15,7 +15,7 @@
             >
               <div class="row modules-header">
                 <h5 class="fibo-title-modules">
-                  {{ productNameUppercase }} Viewer
+                  {{ ontologyNameUppercase }} Viewer
                 </h5>
                 <button
                   type="button"
@@ -39,7 +39,7 @@
               >
                 <div class="menu-box">
                   <div class="menu-box__label">
-                    Select {{ productNameUppercase }} version
+                    Select {{ ontologyNameUppercase }} version
                   </div>
                   <div class="menu-box__content-text">
                     <multiselect
@@ -107,10 +107,10 @@
               >
                 <div class="menu-box">
                   <div class="menu-box__label">
-                    Browse {{ productNameUppercase }} domains
+                    Browse {{ ontologyNameUppercase }} domains
                   </div>
                   <div class="menu-box__content-text">
-                    {{ productNameUppercase }} Domains
+                    {{ ontologyNameUppercase }} Domains
                   </div>
                   <div class="menu-box__icons">
                     <div class="menu-box__icons__icon icon-directory"></div>
@@ -316,7 +316,7 @@
             >
               <div class="row modules-header">
                 <h5 class="fibo-title-modules">
-                  {{ productNameUppercase }} Viewer
+                  {{ ontologyNameUppercase }} Viewer
                 </h5>
                 <button
                   type="button"
@@ -400,10 +400,10 @@
             >
               <div class="menu-box" v-on:click="toggleModuleTree()">
                 <div class="menu-box__label">
-                  Browse {{ productNameUppercase }} domains
+                  Browse {{ ontologyNameUppercase }} domains
                 </div>
                 <div class="menu-box__content-text">
-                  {{ productNameUppercase }} Domains
+                  {{ ontologyNameUppercase }} Domains
                 </div>
                 <div class="menu-box__icons">
                   <div class="menu-box__icons__icon icon-directory"></div>
@@ -426,7 +426,7 @@
             <div class="search-box search-box--mobile multiselect-container">
               <div class="menu-box">
                 <div class="menu-box__label">
-                  Search {{ productNameUppercase }}
+                  Search {{ ontologyNameUppercase }}
                 </div>
                 <div class="menu-box__content-text">
                   <multiselect
@@ -1056,27 +1056,27 @@
                 <div v-else-if="!loader && !searchBox.isLoadingResults && modulesList">
                   <article class="how-to-article">
                     <section>
-                      <h2>How to use {{ productNameUppercase }} Viewer</h2>
+                      <h2>How to use {{ ontologyNameUppercase }} Viewer</h2>
                       <p class="muted">
-                        To start using {{ productNameUppercase }} Viewer, search
+                        To start using {{ ontologyNameUppercase }} Viewer, search
                         for interesting concepts by walking through the
-                        {{ productNameUppercase }} directory structure on the
+                        {{ ontologyNameUppercase }} directory structure on the
                         left-hand side or use the full-text search function.
                       </p>
                     </section>
 
                     <section v-if="hasVersions" class="blank">
                       <img class="article-icon" src="@/assets/img/clock.svg" />
-                      <h3>{{ productNameUppercase }} Versions</h3>
+                      <h3>{{ ontologyNameUppercase }} Versions</h3>
                       <p>
-                        {{ productNameUppercase }} Viewer allows for browsing the
-                        past versions of {{ productNameUppercase }}.
+                        {{ ontologyNameUppercase }} Viewer allows for browsing the
+                        past versions of {{ ontologyNameUppercase }}.
                       </p>
                       <p class="small muted">
                         It also helps developers to see the changes proposed to
-                        {{ productNameUppercase }} in pull requests before their
+                        {{ ontologyNameUppercase }} in pull requests before their
                         approval. To see the content of the past
-                        {{ productNameUppercase }} releases or recent pull
+                        {{ ontologyNameUppercase }} releases or recent pull
                         requests, choose them from the drop-down list.
                       </p>
                     </section>
@@ -1086,9 +1086,9 @@
                         class="article-icon"
                         src="@/assets/img/directory.svg"
                       />
-                      <h3>{{ productNameUppercase }} structure</h3>
+                      <h3>{{ ontologyNameUppercase }} structure</h3>
                       <p>
-                        {{ productNameUppercase }} is a set of ontologies. It is
+                        {{ ontologyNameUppercase }} is a set of ontologies. It is
                         organized in a hierarchical directory structure.
                       </p>
                       <p class="small muted">
@@ -1100,9 +1100,9 @@
 
                     <section class="blank">
                       <img class="article-icon" src="@/assets/img/maturity.svg" />
-                      <h3>{{ productNameUppercase }} maturity levels</h3>
+                      <h3>{{ ontologyNameUppercase }} maturity levels</h3>
                       <p>
-                        Each {{ productNameUppercase }} ontology has one of three
+                        Each {{ ontologyNameUppercase }} ontology has one of three
                         levels of maturity.
                       </p>
                       <p class="small muted title">Release</p>
@@ -1126,7 +1126,7 @@
                     <section class="blank">
                       <h3>Colours</h3>
                       <p class="paragraph--regular">
-                        {{ productNameUppercase }} Viewer uses colours to indicate
+                        {{ ontologyNameUppercase }} Viewer uses colours to indicate
                         the status of an ontology. Each ontology is either green
                         or yellow.
                       </p>
@@ -1167,14 +1167,14 @@
                     </section>
 
                     <section>
-                      <h2>About {{ productNameUppercase }} Viewer</h2>
+                      <h2>About {{ ontologyNameUppercase }} Viewer</h2>
                       <p class="small muted">
-                        {{ productNameUppercase }} Viewer is a JAVA application
+                        {{ ontologyNameUppercase }} Viewer is a JAVA application
                         that is specifically designed to access both the
-                        {{ productNameUppercase }} structure and its content in
+                        {{ ontologyNameUppercase }} structure and its content in
                         the easiest possible way. It can serve both as a web
                         application and REST API.
-                        {{ productNameUppercase }} Viewer is an open-source
+                        {{ ontologyNameUppercase }} Viewer is an open-source
                         project that EDM Council hosts. See
                         https://github.com/edmcouncil/onto-viewer for details.
                       </p>
@@ -1262,10 +1262,10 @@ export default {
 
     if (this.$route.params && this.$route.params[1]) {
       const ontologyQuery = window.location.pathname.replace(
-        `${this.productName}/ontology/`,
+        `${this.ontologyName}/ontology/`,
         ""
       );
-      queryParam = `https://spec.edmcouncil.org/${this.productName}/ontology${ontologyQuery}`;
+      queryParam = `https://spec.edmcouncil.org/${this.ontologyName}/ontology${ontologyQuery}`;
     } else if (this.$route.query && this.$route.query.query) {
       queryParam =
         encodeURIComponent(this.$route.query.query) +
@@ -1419,7 +1419,7 @@ export default {
       }
 
       try {
-        const result = await getOntologyVersions(`/${this.productName}/ontology/api/`);
+        const result = await getOntologyVersions(`/${this.ontologyName}/ontology/api/`);
         const ontologyVersions = await result.json();
         this.ontologyVersionsDropdownData.data = ontologyVersions;
         ontologyVersions.unshift(this.versionDefaultSelectedData); // add default at the beginning
@@ -1509,9 +1509,9 @@ export default {
     },
     searchBox_optionSelected(selectedOption /* , id */) {
       let destRoute = selectedOption.iri;
-      if (destRoute.startsWith(`https://spec.edmcouncil.org/${this.productName}`)) {
+      if (destRoute.startsWith(`https://spec.edmcouncil.org/${this.ontologyName}`)) {
         // internal ontology
-        destRoute = destRoute.replace(`https://spec.edmcouncil.org/${this.productName}`, "");
+        destRoute = destRoute.replace(`https://spec.edmcouncil.org/${this.ontologyName}`, "");
         this.$router.push({
           path: destRoute,
           query: {
@@ -1789,7 +1789,7 @@ export default {
         body: `Resource URL:\n${this.data.iri}`,
       };
       const url =
-        `https://github.com/edmcouncil/${this.productName}/issues/new` +
+        `https://github.com/edmcouncil/${this.ontologyName}/issues/new` +
         `?labels=${encodeURI(details.label)}` +
         `&template=issue.md` +
         `&title=${encodeURI(details.title)}` +
@@ -1836,11 +1836,11 @@ export default {
     hasGraph() {
       return this.data?.graph?.nodes?.length > 1;
     },
-    productName() {
-      return process.env.productName.toLowerCase();
+    ontologyName() {
+      return process.env.ontologyName.toLowerCase();
     },
-    productNameUppercase() {
-      return process.env.productName.toUpperCase();
+    ontologyNameUppercase() {
+      return process.env.ontologyName.toUpperCase();
     },
     ontologyResourcesBaseUri() {
       return process.env.ontologyResourcesBaseUri;
@@ -1861,11 +1861,11 @@ export default {
       if (to.query && to.query.query) {
         queryParam = to.query.query + to.hash || "";
       } else {
-        queryParam = `https://spec.edmcouncil.org/${this.productName}${to.path}`;
+        queryParam = `https://spec.edmcouncil.org/${this.ontologyName}${to.path}`;
       }
       this.query = queryParam;
 
-      if (this.query === `https://spec.edmcouncil.org/${this.productName}/ontology`) {
+      if (this.query === `https://spec.edmcouncil.org/${this.ontologyName}/ontology`) {
         this.query = "";
         this.data = null;
       } else {
