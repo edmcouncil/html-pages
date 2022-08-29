@@ -2,7 +2,12 @@
   <div class="show-more-list">
     <div v-if="list.length > 1">
       <ul>
-        <li v-for="field in list.slice(0, limit)" :key="field.id">
+        <li
+          v-for="field in list.slice(0, limit)"
+          :key="field.id"
+          :class="{'has-list': field.hasList}"
+          ref="sliceList"
+        >
           <component
             :is="field.type"
             :value="field.value"
@@ -11,22 +16,27 @@
           />
         </li>
       </ul>
-      <transition name="list">
-        <ul class="animated-list" v-show="!collapsed" :id="sectionId">
-          <li
-            v-for="field in list.slice(limit)"
-            :key="field.id"
-            class="list-item"
-          >
-            <component
-              :is="field.type"
-              :value="field.value"
-              :entityMaping="field.entityMaping"
-              v-bind="field"
-            />
-          </li>
-        </ul>
-      </transition>
+      <b-collapse :id="`${sectionId}-collapse`" v-model="expanded">
+        <transition name="list">
+          <ul class="animated-list" :id="sectionId" v-show="expanded">
+            <li
+              v-for="(field, index) in list.slice(limit)"
+              :key="field.id"
+              :class="{'has-list': field.hasList}"
+              class="list-item"
+              ref="collapsedList"
+            >
+              <component
+                :is="field.type"
+                :value="field.value"
+                :entityMaping="field.entityMaping"
+                :identifier="sectionId + index"
+                v-bind="field"
+              />
+            </li>
+          </ul>
+        </transition>
+      </b-collapse>
     </div>
 
     <component
@@ -36,29 +46,27 @@
       :is="field.type"
       :value="field.value"
       :entityMaping="field.entityMaping"
+      :class="{'has-list': field.hasList}"
       v-bind="field"
     ></component>
 
     <div class="see-more-btn-wrapper" v-if="list.length > limit">
-        <div
-          v-if="collapsed"
-          class="see-more-btn"
-          :key="'see-more-btn'"
-          @click="toggleCollapsed()"
-        >
-          <div>Show {{ howManyMore }} more</div>
-        </div>
-        <div
-          v-else
-          class="see-less-btn"
-          :key="'see-less-btn'"
-          @click="
-            toggleCollapsed();
-            scrollBackUp();
-          "
-        >
-          <div>Show less</div>
-        </div>
+      <div
+        v-if="!expanded"
+        class="see-more-btn"
+        :key="'see-more-btn'"
+        @click="toggleExpanded()"
+      >
+        <div>Show {{ howManyMore }} more</div>
+      </div>
+      <div
+        v-else
+        class="see-less-btn"
+        :key="'see-less-btn'"
+        @click="toggleExpanded()"
+      >
+        <div>Show less</div>
+      </div>
     </div>
   </div>
 </template>
@@ -90,28 +98,46 @@ export default {
   ],
   data() {
     return {
-      collapsed: true,
+      expanded: false,
     }
   },
+  created() {
+    this.list.forEach(element => {
+      this.checkHasList(element)
+    })
+  },
   methods: {
-    toggleCollapsed() {
-      this.collapsed = !this.collapsed;
-    },
-    scrollBackUp() {
-      // only scroll back when element is higher
+    toggleExpanded() {
       const element = document.getElementById(this.sectionId);
       const topOffset = element.getBoundingClientRect().top;
-      if(topOffset < 0) {
+
+      if (!this.expanded) {
+        this.expanded = !this.expanded;
+      } else if(topOffset < 0) {
         element.scrollIntoView({
           behavior: "smooth"
         });
+        setTimeout(()=>{
+          this.expanded = !this.expanded;
+        }, 500)
+      }
+      else {
+        this.expanded = !this.expanded;
+      }
+    },
+    checkHasList(item) {
+      if (item.type === "AXIOM" && item.fullRenderedString?.includes("<br />")) {
+        item.hasList = true
+      }
+      else if (item.type === "STRING" && item.value?.includes("\n")) {
+        item.hasList = true
       }
     }
   },
   computed: {
     howManyMore() {
       return this.list.length - this.limit;
-    }
+    },
   }
 };
 </script>
@@ -119,17 +145,19 @@ export default {
 <style lang="scss" scoped>
 .animated-list {
   overflow: hidden;
-  max-height: 60000px;
 }
 .list-leave-active {
-  transition: max-height 1s cubic-bezier(0.075, 0.820, 0.000, 1.000), opacity 0.5s;
+  transition: opacity 0.3s ease-out;
 }
 .list-enter-active {
-  transition: max-height 1s cubic-bezier(0.920, 0.005, 0.980, 0.335), opacity 0.5s;
+  transition: opacity 0.3s ease-in;
 }
 .list-enter,
 .list-leave-to {
   opacity: 0;
-  max-height: 0px;
+}
+
+.see-more-btn-wrapper {
+  margin-left: 10px;
 }
 </style>

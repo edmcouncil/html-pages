@@ -5,17 +5,15 @@
         class="icon-arrow"
         :class="{ hidden: !isFolder, down: isOpen }"
         @click="toggle"
-        v-b-toggle.collapse-3
       ></div>
       <div
         v-if="this.item.maturityLevel.label !== 'NOT_SET'"
         class="indicator-container"
         :class="{
-          devIndicator:
-            this.item.maturityLevel.label === 'PROVISIONAL' ||
-            this.item.maturityLevel.label === 'INFORMATIVE',
-          prodIndicator: this.item.maturityLevel.label === 'RELEASE',
-          prodDevIndicator: this.item.maturityLevel.label === 'MIXED',
+          provisionalIndicator: this.item.maturityLevel.label === 'PROVISIONAL',
+          informativeIndicator: this.item.maturityLevel.label === 'INFORMATIVE',
+          releaseIndicator: this.item.maturityLevel.label === 'RELEASE',
+          mixedIndicator: this.item.maturityLevel.label === 'MIXED',
           indicator: true,
         }"
       ></div>
@@ -30,8 +28,9 @@
     </div>
     <ul v-show="isOpen" v-if="isFolder" class="list-unstyled">
       <module-tree
+        ref="treeNodes"
+        :location="childrenLocation"
         :item="subItem"
-        :location="location"
         v-for="subItem in item.subModule"
         :key="subItem.label"
       />
@@ -55,6 +54,7 @@ export default {
     return {
       isOpen: false,
       isSelected: false,
+      childrenLocation: null,
     };
   },
   methods: {
@@ -83,7 +83,15 @@ export default {
   watch: {
     location: {
       handler(val, oldVal) {
-        this.expandOpened(val);
+        if (val) {
+          this.childrenLocation = val;
+          setTimeout(()=>{
+            this.expandOpened(val);
+          }, 400);
+        } else {
+          this.childrenLocation = val;
+          this.expandOpened(val);
+        }
       },
       deep: true,
     },
@@ -94,10 +102,10 @@ export default {
 <style lang="scss" scoped>
 .module {
   user-select: none;
-  margin-bottom: 5px;
 
   .row {
     flex-wrap: nowrap;
+    padding-top: 5px;
   }
 
   ul,
@@ -111,7 +119,7 @@ export default {
   }
 
   ul {
-    margin: 5px 0px 5px 15px;
+    padding: 0px 0px 0px 30px;
   }
   .icon-arrow.down {
     transform: rotate(90deg);
@@ -140,13 +148,16 @@ export default {
     background-repeat: no-repeat;
     flex-shrink: 0;
     margin-right: 5px;
-    &.devIndicator {
+    &.provisionalIndicator {
       background-image: url("../assets/icons/provisional-maturity.svg");
     }
-    &.prodIndicator {
+    &.informativeIndicator {
+      background-image: url("../assets/icons/informative-maturity.svg");
+    }
+    &.releaseIndicator {
       background-image: url("../assets/icons/production-maturity.svg");
     }
-    &.prodDevIndicator {
+    &.mixedIndicator {
       background-image: url("../assets/icons/mixed-maturity.svg");
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container px-0">
       <main>
         <article class="full-page">
           <section

@@ -204,8 +204,8 @@ header {
   background-size: cover;
   background-position: center;
   padding: 0;
-  min-height: 460px;
-  max-height: 460px;
+  min-height: 480px;
+  max-height: 480px;
 
   display: flex;
   flex-direction: column;

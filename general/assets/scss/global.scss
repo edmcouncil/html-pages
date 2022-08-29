@@ -3,7 +3,7 @@ $link-active-color: rgba(0, 0, 0, 0.6);
 
 // custom controls
 $custom-control-indicator-border-radius: 2px;
-$custom-control-indicator-checked-bg: rgba(0, 0, 0, 0.8);
+$custom-control-indicator-checked-bg: rgb(51, 51, 51);
 $custom-control-indicator-icon-checked: url('@/assets/icons/checkbox-check.svg');
 $custom-control-indicator-indeterminate-bg: #ffffff;
 $custom-control-indicator-indeterminate-box-shadow: 0px 0px 0px 6px rgba(0, 0, 0, 0.4);
@@ -26,8 +26,8 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
 // Common elements
 
 .custom-switch {
-  padding-left: 40px;
-  padding-bottom: 20px;
+  padding-left: 60px;
+  padding-bottom: 30px;
 
   .custom-control-label-prev {
     position: relative;
@@ -43,8 +43,8 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     font-size: 18px;
     line-height: 30px;
     color: rgba(0, 0, 0, 0.8);
-    left: -40px;
-    margin-right: 15px;
+    left: -60px;
+    margin-right: 10px;
   }
 
   .custom-control-label {
@@ -55,22 +55,24 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     font-size: 18px;
     line-height: 30px;
     color: rgba(0, 0, 0, 0.8);
-    margin-left: 15px;
+    margin-left: 10px;
   }
 
   .custom-control-label::before {
     border: 2px solid $custom-control-indicator-checked-bg;
-    top: 8px;
-    left: -55px;
-    width: 40px;
-    height: 16px;
+    top: 0px;
+    left: -70px;
+    width: 60px;
+    height: 30px;
+    border-radius: 60px;
   }
   .custom-control-label::after {
-    top: 9.5px;
-    left: -54.5px;
-    width: 13px;
-    height: 13px;
+    top: 6px;
+    left: -64px;
+    width: 18px;
+    height: 18px;
     background-color: rgb(51, 51, 51);
+    border-radius: 60px;
   }
 
   .custom-control-input:checked ~ .custom-control-label {
@@ -81,7 +83,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     &::after {
       border: 2px solid $custom-control-indicator-indeterminate-bg;
       background-color: $custom-control-indicator-indeterminate-bg;
-      left: -42px;
+      left: -46px;
     }
   }
 
@@ -90,9 +92,14 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     border: 2px solid $custom-control-indicator-checked-bg;
   }
   .custom-control-input:active ~ .custom-control-label::before {
-    background-color: $custom-control-indicator-indeterminate-bg;
     box-shadow: $custom-control-indicator-indeterminate-box-shadow !important;
     border: 2px solid $custom-control-indicator-checked-bg;
+  }
+  .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+    background-color: $custom-control-indicator-indeterminate-bg;
+  }
+  .custom-control-input:checked:not(:disabled):active ~ .custom-control-label::before {
+    background-color: $custom-control-indicator-checked-bg;
   }
 
   .custom-control-input:indeterminate ~ .custom-control-label {
@@ -113,8 +120,6 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     }
     & ~ .custom-control-label::after {
       background-color: $custom-control-disabled-fill;
-      width: 14px;
-      height: 14px;
     }
     &:indeterminate ~ .custom-control-label::before {
       background-color: $custom-control-disabled-bg;
@@ -150,6 +155,10 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
 
     top: 0px;
     left: -40px;
+
+    background-size: 24px 24px;
+
+    transition: background 0.15s;
   }
 
   .custom-control-input:checked ~ .custom-control-label {
@@ -242,7 +251,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
 
 article {
   margin-top: 0px;
-  padding-top: 45px;
+  padding-top: 40px;
   margin-left: auto;
   margin-right: auto;
   color: black;
@@ -250,6 +259,11 @@ article {
   .spacing-45 {
     width: 100%;
     margin-top: 45px;
+  }
+
+  .spacing-30 {
+    width: 100%;
+    margin-top: 30px;
   }
 
   section {
@@ -365,7 +379,6 @@ article {
 
   a {
     color: rgba(0, 0, 0, 0.8);
-    transition: color 0.2s;
     text-decoration: underline;
 
     &:hover {
@@ -411,7 +424,7 @@ article {
   }
 
   &.full-page {
-    margin: 0 30px;
+    margin: 0 60px;
     padding-top: 60px;
 
     section {
@@ -436,7 +449,7 @@ article {
 // articles mobile
 
 @media (max-width: 991px) {
-  article.full-page {
+  article {
     margin: 0;
     padding-top: 30px;
 
@@ -488,6 +501,45 @@ article {
         }
       }
     }
+
+    &.full-page {
+      margin: 0;
+      padding-top: 30px;
+
+      section {
+        margin-bottom: 30px;
+        padding: 60px 30px;
+
+        &.blank {
+          background: transparent;
+          padding: 30px 30px;
+        }
+      }
+
+      h2 {
+        margin-top: 45px;
+      }
+
+      h3 {
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+
+@media (min-width: 991px) {
+  // scrollbar
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: map-get($colors-map , "black-40");
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: map-get($colors-map , "black-80");
   }
 }
 

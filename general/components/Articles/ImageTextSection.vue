@@ -45,7 +45,6 @@ export default {
 <style scoped lang="scss">
 .image-text-content-container {
   margin-bottom: 60px;
-  text-align: justify;
   display: flex;
 
   .image-container {

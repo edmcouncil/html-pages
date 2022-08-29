@@ -179,7 +179,7 @@
                           :internal-search="false"
                           :clear-on-select="false"
                           :close-on-select="true"
-                          :options-limit="300"
+                          :options-limit="50"
                           :limit="3"
                           :limit-text="searchBox_limitText"
                           :max-height="600"
@@ -230,8 +230,6 @@
                         ></div>
                       </div>
                     </div>
-                    <!-- <pre class="language-json"><code>{{ searchBox.selectedData }}</code></pre>
-                  <pre class="language-json"><code>{{ searchBox.data }}</code></pre> -->
                   </div>
                 </div>
               </div>
@@ -242,11 +240,11 @@
                 "
               >
                 <div v-if="!searchBox.isAdvancedExpanded">
-                  <div class="see-more-btn">search configuration</div>
+                  <div class="see-more-btn">Search configuration</div>
                 </div>
 
                 <div v-else>
-                  <div class="see-less-btn">search configuration</div>
+                  <div class="see-less-btn">Search configuration</div>
                 </div>
               </div>
             </div>
@@ -263,7 +261,7 @@
                 <div class="col-lg-12">
                   <div class="multiselect-xxl-container multiselect-container">
                     <div class="menu-box">
-                      <div class="menu-box__label">Search by properties</div>
+                      <div class="menu-box__label">Select search properties</div>
                       <div class="menu-box__content-text">
                         <multiselect
                           v-model="searchBox.findProperties"
@@ -275,8 +273,21 @@
                           :options="searchBox.findPropertiesAll"
                           :close-on-select="false"
                           :multiple="true"
-                          @input="encodeProperties"
+                          @input="onPropertiesChanged"
                         >
+                          <template v-slot:option="props">
+                            <div class="custom-control custom-checkbox">
+                              <input
+                                class="custom-control-input"
+                                type="checkbox"
+                                :name="props.option.identifier"
+                                :checked="props.option.selected"
+                              />
+                              <label class="custom-control-label" :for="props.option.identifier">
+                                {{ props.option.label }}
+                              </label>
+                            </div>
+                          </template>
                         </multiselect>
                       </div>
                     </div>
@@ -285,14 +296,12 @@
                   <div
                     class="d-flex justify-content-between align-items-center"
                   >
-                    <div class="custom-control custom-checkbox">
+                    <div class="custom-control custom-switch">
                       <input
-                        v-model="searchBox.useHighlighting"
-                        class="custom-control-input"
                         type="checkbox"
-                        name="useHighlight"
+                        class="custom-control-input"
                         id="useHighlight"
-                        value="useHighlight"
+                        v-model="searchBox.useHighlighting"
                       />
                       <label class="custom-control-label" for="useHighlight">
                         Use highlighting
@@ -449,7 +458,7 @@
                     :internal-search="false"
                     :clear-on-select="false"
                     :close-on-select="true"
-                    :options-limit="300"
+                    :options-limit="60"
                     :limit="3"
                     :limit-text="searchBox_limitText"
                     :max-height="600"
@@ -535,7 +544,7 @@
                           :options="searchBox.findPropertiesAll"
                           :close-on-select="false"
                           :multiple="true"
-                          @input="encodeProperties"
+                          @input="onPropertiesChanged"
                         >
                         </multiselect>
                       </div>
@@ -751,6 +760,7 @@
                             </div>
                             <div
                               class="alert alert-primary alert-maturity"
+                              :class="{informative: data.maturityLevel.label === 'INFORMATIVE'}"
                               role="alert"
                               v-if="
                                 data.maturityLevel.label === 'INFORMATIVE' ||
@@ -782,7 +792,8 @@
                             class="card-title"
                             :class="{
                               'maturity-provisional':
-                                this.data.maturityLevel.label === 'PROVISIONAL' ||
+                                this.data.maturityLevel.label === 'PROVISIONAL',
+                              'maturity-informative':
                                 this.data.maturityLevel.label === 'INFORMATIVE',
                               'maturity-production':
                                 this.data.maturityLevel.label === 'RELEASE',
@@ -796,52 +807,37 @@
                           <div class="clearfix"></div>
 
                           <h6
-                            class="card-subtitle mb-2 text-muted data-iri"
+                            class="card-subtitle data-iri"
                             v-if="data.iri"
                           >
                             {{ data.iri }}
                           </h6>
                           <div class="url-buttons-container">
-                            <button
-                              v-clipboard="data.iri"
-                              type="button"
-                              class="btn-copy-url"
-                            >
-                              Copy URL
-                            </button>
+                            <CopyButton :copyContent="data.iri" :text="'Copy URL'" />
 
-                            <button
-                              v-if="
-                                this.$route.query && this.$route.query.version
-                              "
-                              v-clipboard="
-                                data.iri +
+                            <CopyButton
+                              v-if="this.$route.query && this.$route.query.version"
+                              :copyContent="data.iri +
                                 '?version=' +
-                                encodeURI(this.$route.query.version)
-                              "
-                              type="button"
-                              class="btn-copy-url btn-copy-iri"
-                            >
-                              Copy versioned IRI
-                            </button>
+                                encodeURI(this.$route.query.version)"
+                              :text="'Copy versioned IRI'"
+                              class="btn-copy-iri"
+                            />
                           </div>
 
                           <h6
-                            class="card-subtitle mb-2 text-muted qname"
+                            class="card-subtitle qname"
                             v-if="data.qName && data.qName !== ''"
                           >
                             {{ data.qName }}
                           </h6>
 
                           <div class="url-buttons-container">
-                            <button
-                              v-clipboard="data.qName.replace('QName: ', '')"
-                              type="button"
-                              class="btn-copy-url"
+                            <CopyButton
                               v-if="data.qName && data.qName !== ''"
-                            >
-                              Copy QName
-                            </button>
+                              :copyContent="data.qName.replace('QName: ', '')"
+                              :text="'Copy QName'"
+                            />
                           </div>
                         </div>
                       </div>
@@ -875,7 +871,7 @@
                             class="custom-control-label-prev"
                             for="paths-switch"
                           >
-                            Paths
+                            List
                           </label>
                           <label class="custom-control-label" for="paths-switch">
                             Tree
@@ -1105,18 +1101,18 @@
                         Each {{ ontologyNameUppercase }} ontology has one of three
                         levels of maturity.
                       </p>
-                      <p class="small muted title">Release</p>
-                      <p class="small muted">
+                      <p class="small title">Release</p>
+                      <p class="small">
                         Release ontologies are ones that are considered to be
                         stable and mature from a development perspective.
                       </p>
-                      <p class="small muted title">Provisional</p>
-                      <p class="small muted">
+                      <p class="small title">Provisional</p>
+                      <p class="small">
                         Provisional ontologies are ones that are considered to be
                         under development.
                       </p>
-                      <p class="small muted title">Informative</p>
-                      <p class="small muted">
+                      <p class="small title">Informative</p>
+                      <p class="small">
                         Provisional ontologies are ones that are considered
                         deprecated but included for informational purposes because
                         they are referenced by some provisional concept.
@@ -1135,7 +1131,7 @@
                           class="article-icon--small"
                           src="@/assets/icons/production-maturity.svg"
                         />
-                        <p class="small muted">
+                        <p class="small">
                           The green square icon indicates that an ontology has a
                           "release" maturity level. Domains or modules are green
                           if they contain only green ontologies.
@@ -1147,10 +1143,22 @@
                           class="article-icon--small"
                           src="@/assets/icons/provisional-maturity.svg"
                         />
-                        <p class="small muted">
-                          Yellow square icon means that it provisional or
-                          informative. Domains or modules are yellow if they
+                        <p class="small">
+                          Yellow square icon means that it's provisional.
+                          Domains or modules are yellow if they
                           contain only yellow ontologies.
+                        </p>
+                      </div>
+
+                      <div class="color-container">
+                        <img
+                          class="article-icon--small"
+                          src="@/assets/icons/informative-maturity.svg"
+                        />
+                        <p class="small">
+                          Orange circle icon means that it's informative.
+                          Domains or modules are yellow if they
+                          contain only orange ontologies.
                         </p>
                       </div>
 
@@ -1159,15 +1167,16 @@
                           class="article-icon--small"
                           src="@/assets/icons/mixed-maturity.svg"
                         />
-                        <p class="small muted">
-                          Mixed, green-yellow icon means domains or modules
-                          include both green and yellow ontologies.
+                        <p class="small">
+                          Mixed, green-yellow-orange icon means domains or modules
+                          include both green, yellow and orange ontologies.
                         </p>
                       </div>
                     </section>
 
                     <section>
-                      <h2>About {{ ontologyNameUppercase }} Viewer</h2>
+                      <p class="title muted">About {{ ontologyNameUppercase }} Viewer</p>
+                      <div class="spacing-30"></div>
                       <p class="small muted">
                         {{ ontologyNameUppercase }} Viewer is a JAVA application
                         that is specifically designed to access both the
@@ -1314,7 +1323,7 @@ export default {
         internalRoute = to;
       }
 
-      if (internalRoute.query && internalRoute.query.domain) {
+      if (internalRoute.query?.domain) {
         this.searchServer = internalRoute.query.domain;
         this.ontologyServer = internalRoute.query.domain;
         this.statsServer = internalRoute.query.domain;
@@ -1326,13 +1335,13 @@ export default {
         this.missingImportsServer = this.missingImportsDefaultDomain;
       }
 
-      if (internalRoute.query && internalRoute.query.modules) {
+      if (internalRoute.query?.modules) {
         this.modulesServer = internalRoute.query.modules;
       } else {
         this.modulesServer = this.modulesDefaultDomain;
       }
 
-      if (internalRoute.query && internalRoute.query.version) {
+      if (internalRoute.query?.version) {
         this.ontologyServer = this.ontologyServer.replace(
           "{version}",
           `${internalRoute.query.version}/`
@@ -1474,7 +1483,7 @@ export default {
           );
         }
 
-        this.encodeProperties();
+        this.onPropertiesChanged();
       } catch (err) {
         console.error(err);
         this.error = true;
@@ -1749,13 +1758,14 @@ export default {
         (property) => property.identifier === identifier
       ).label;
     },
-    encodeProperties() {
-      this.searchBox.encodedProperties = "";
-      for (const [index, property] of this.searchBox.findProperties.entries()) {
-        this.searchBox.encodedProperties += property.identifier;
-        if (index < this.searchBox.findProperties.length - 1) {
-          this.searchBox.encodedProperties += ".";
-        }
+    onPropertiesChanged() {
+      const identifiersArray = this.searchBox.findProperties.map(
+        property => property.identifier
+      );
+      this.searchBox.encodedProperties = identifiersArray.join(".");
+
+      for (const property of this.searchBox.findPropertiesAll) {
+        property.selected = this.searchBox.findProperties.includes(property);
       }
     },
     getTreeFromList(parts, treeNode) {
@@ -1799,6 +1809,7 @@ export default {
     },
     howToUseHandler() {
       this.data = null;
+      this.searchBox.isLoading = false;
       if (this.$route.fullPath != "/ontology") this.$router.push("/ontology");
 
       this.$nextTick(async function () {
@@ -1923,4 +1934,3 @@ export default {
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<style src="@/assets/scss/Ontology.scss" lang="scss"></style>

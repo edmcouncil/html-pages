@@ -1,14 +1,37 @@
 <template>
   <div v-if="!isShowMore">
-    <component v-bind:is="fullProcessedHtml"></component>
+    <component :is="processedTitle"></component>
+    <ul>
+      <li
+        v-for="(item, index) in processedList"
+        :key="`${processedTitle}_${item}_${index}`"
+      >
+        <component :is="item"></component>
+      </li>
+    </ul>
   </div>
   <div v-else>
-    <component v-bind:is="sliceProcessedHtml"></component>
-    <transition name="list">
-      <div class="animated-list" v-show="isMoreVisible" ref="scrollTarget">
-        <component v-bind:is="moreProcessedHtml"></component>
-      </div>
-    </transition>
+    <component :is="processedTitle"></component>
+    <ul>
+      <li
+        v-for="(item, index) in processedListSlice"
+        :key="`${processedTitle}_${item}_${index}`"
+      >
+        <component :is="item"></component>
+      </li>
+    </ul>
+    <b-collapse :id="`${identifier}-collapse`" v-model="isMoreVisible">
+      <transition name="list">
+        <ul class="animated-list" v-show="isMoreVisible" ref="scrollTarget">
+          <li
+            v-for="(item, index) in processedListMore"
+            :key="`${processedTitle}_${item}_${index}`"
+          >
+            <component :is="item"></component>
+          </li>
+        </ul>
+      </transition>
+    </b-collapse>
 
     <div
       v-if="!isMoreVisible"
@@ -16,11 +39,9 @@
       @click.prevent="toggleIsMoreVisible()"
     >
       <div class="see-more-btn">Show {{ lines.length - 6 }} more</div>
-      <br />
     </div>
-    <div v-else href="#" @click.prevent="toggleIsMoreVisible(); scrollBackUp()">
+    <div v-else href="#" @click.prevent="toggleIsMoreVisible()">
       <div class="see-less-btn">Show less</div>
-      <br />
     </div>
   </div>
 </template>
@@ -39,7 +60,7 @@ export default {
     customLink,
     langCodeFlags,
   },
-  props: ["value", "entityMaping"],
+  props: ["value", "entityMaping", "identifier"],
   data() {
     const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
     let html = this.value;
@@ -64,26 +85,26 @@ export default {
     };
   },
   computed: {
-    fullProcessedHtml() {
-      let html = this.processedHtml(this.lines.join("<br />"));
-      return {
-        template: `<div>${html}</div>`,
-      };
+    processedTitle() {
+      const html = this.processedHtml(this.lines[0]);
+      return { template: `<div>${html}</div>` };
     },
-    sliceProcessedHtml() {
-      let html = this.processedHtml(this.lines.slice(0, 6).join("<br />"));
-      return {
-        template: `<div>${html}</div>`,
-      };
+    processedList() {
+      return this.lines.slice(1).map(item => (
+        { template: `<div>${this.processedHtml(item)}</div>` }
+      ));
     },
-    moreProcessedHtml() {
-      let html = this.processedHtml(this.lines.slice(6).join("<br />"));
-      return {
-        template: `<div>${html}</div>`,
-      };
+    processedListSlice() {
+      return this.lines.slice(1, 6).map(item => (
+        { template: `<div>${this.processedHtml(item)}</div>` }
+      ));
+    },
+    processedListMore() {
+      return this.lines.slice(6).map(item => (
+        { template: `<div>${this.processedHtml(item)}</div>` }
+      ));
     },
   },
-
   mounted() {
     if (this.lines.length > 6) {
       // yes 6, first line is "title"
@@ -92,20 +113,27 @@ export default {
   },
   methods: {
     toggleIsMoreVisible() {
-      this.isMoreVisible = !this.isMoreVisible;
-    },
-    scrollBackUp() {
-      // only scroll back when element is higher
       const element = this.$refs.scrollTarget;
       const topOffset = element.getBoundingClientRect().top;
-      if(topOffset < 0) {
+
+      if (!this.isMoreVisible) {
+        this.isMoreVisible = !this.isMoreVisible;
+      } else if(topOffset < 0) {
         element.scrollIntoView({
           behavior: "smooth"
         });
+        setTimeout(()=>{
+          this.isMoreVisible = !this.isMoreVisible;
+        }, 500)
+      }
+      else {
+        this.isMoreVisible = !this.isMoreVisible;
       }
     },
     processedHtml(htmlInput) {
       let htmlResult = htmlInput;
+      if(htmlResult.startsWith('- '))
+        htmlResult = htmlResult.substring(2);
       htmlResult = htmlResult.replace("/arg1/", "<b>/arg1/</b>");
       if (this.entityMaping) {
         Object.keys(this.entityMaping).forEach((name) => {
@@ -125,17 +153,19 @@ export default {
 <style lang="scss" scoped>
 .animated-list {
   overflow: hidden;
-  max-height: 60000px;
 }
 .list-leave-active {
-  transition: max-height 1s cubic-bezier(0.075, 0.820, 0.000, 1.000), opacity 0.5s;
+  transition: opacity 0.3s ease-out;
 }
 .list-enter-active {
-  transition: max-height 1s cubic-bezier(0.920, 0.005, 0.980, 0.335), opacity 0.5s;
+  transition: opacity 0.3s ease-in;
 }
 .list-enter,
 .list-leave-to {
   opacity: 0;
-  max-height: 0px;
+}
+
+.see-more-btn, .see-less-btn {
+  margin-left: -6px;
 }
 </style>

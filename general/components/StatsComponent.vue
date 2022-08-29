@@ -147,14 +147,14 @@ export default {
 
 <style scoped lang="scss">
 .stats {
-  margin: 30px;
+  margin: 25px 30px;
 
   .stats-box {
     margin-bottom: 5px;
     border-radius: 2px;
 
     .stats-box__content {
-      margin-top: 20px;
+      margin-top: 7px;
       margin-bottom: 20px;
     }
 
@@ -236,7 +236,6 @@ export default {
       }
 
       .stats-box__content__no-missing-import {
-        padding-top: 15px;
         font-weight: 400;
         font-size: 14px;
         line-height: 30px;

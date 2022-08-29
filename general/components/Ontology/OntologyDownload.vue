@@ -124,11 +124,7 @@ article {
 
 .custom-switch {
   padding-bottom: 0;
-  padding-top: 5px;
-
-  .custom-control-label {
-    font-size: 14px;
-  }
+  padding-top: 15px;
 }
 
 .normal-button {

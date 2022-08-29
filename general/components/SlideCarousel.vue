@@ -186,7 +186,7 @@ export default {
     color: map-get($colors-map, "black");
   }
   h2 {
-    margin: 30px 0;
+    margin: 40px 0;
     color: map-get($colors-map, "black-80");
   }
   a {
