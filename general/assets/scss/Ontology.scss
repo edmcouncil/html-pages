@@ -963,54 +963,6 @@
     text-decoration: none;
     padding-right: 60px;
     padding-left: 60px;
-    .see-more-btn {
-      margin-top: 20px;
-    }
-    .see-less-btn {
-      margin-top: 20px;
-    }
-    h5 {
-      margin-bottom: 40px;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 24px;
-      line-height: 36px;
-      color: black;
-    }
-
-    .ontology-item__paths__taxonomy {
-      background: rgba(0, 0, 0, 0.05);
-      color: rgba(0, 0, 0, 0.4);
-      border-radius: 2px;
-      padding: 10px 20px;
-      margin-bottom: 20px;
-      font-size: 18px;
-      line-height: 30px;
-      letter-spacing: 0.01em;
-      .collapseButtons {
-        display: none;
-      }
-      span a {
-        color: rgba(0, 0, 0, 0.8);
-
-        &:active {
-          color: $link-active-color;
-        }
-        &:hover {
-          color: $link-hover-color;
-        }
-      }
-    }
-
-    .ontology-item__paths__tree-view {
-      background-color: rgba(0, 0, 0, 0.05);
-      padding: 10px 20px;
-      .ontology-item__paths__tree-view__root {
-        padding-left: 0px;
-        margin: 0;
-        list-style: none;
-      }
-    }
   }
   .ontology-item__header {
     background: rgba(0, 0, 0, 0.05);
@@ -1467,58 +1419,6 @@
     .ontology-item__paths {
       padding-right: 30px;
       padding-left: 30px;
-
-      h5 {
-        font-style: normal;
-        font-weight: bold;
-        font-size: 20px;
-        line-height: 30px;
-        color: black;
-      }
-
-      .ontology-item__paths__taxonomy {
-        background: rgba(0, 0, 0, 0.05);
-        color: rgba(0, 0, 0, 0.4);
-        padding: 10px 20px;
-        margin-bottom: 20px;
-        font-size: 16px;
-        line-height: 24px;
-
-        .taxonomy-wrapper {
-          width: 100%;
-          overflow: hidden;
-        }
-        span {
-          color: rgba(0, 0, 0, 0.8);
-        }
-        .collapseButtons {
-          display: block;
-          .see-less-btn {
-            display: block;
-          }
-          .see-more-btn {
-            display: none;
-          }
-        }
-        &.collapsed {
-          .taxonomy-wrapper {
-            white-space: nowrap;
-            text-overflow: ellipsis;
-          }
-
-          .collapseButtons {
-            .see-less-btn {
-              display: none;
-            }
-            .see-more-btn {
-              display: block;
-            }
-          }
-          .span {
-            height: 1em;
-          }
-        }
-      }
     }
 
     .card {

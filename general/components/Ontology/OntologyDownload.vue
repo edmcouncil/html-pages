@@ -8,45 +8,46 @@
       >
         Download
       </h5>
-
-      <article>
-        <section class="blank">
-          <div class="table-container">
-            <div class="table-box">
-              <div class="table-box__column title-column">
-                <h3>{{ data.label }}</h3>
-                <div class="custom-control custom-switch">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="download-imports-switch"
-                    v-model="includeImports"
-                    disabled
-                  />
-                  <label
-                    class="custom-control-label"
-                    for="download-imports-switch"
-                  >
-                    Include imports
-                  </label>
+      <div>
+        <article>
+          <section class="blank">
+            <div class="table-container">
+              <div class="table-box">
+                <div class="table-box__column title-column">
+                  <h3>{{ data.label }}</h3>
+                  <div class="custom-control custom-switch">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="download-imports-switch"
+                      v-model="includeImports"
+                      disabled
+                    />
+                    <label
+                      class="custom-control-label"
+                      for="download-imports-switch"
+                    >
+                      Include imports
+                    </label>
+                  </div>
                 </div>
-              </div>
-              <div class="table-box__column">
-                <div class="download-container">
-                  <p class="title small">RDF/XML</p>
-                  <button
-                    type="button"
-                    class="btn normal-button"
-                    @click="download()"
-                  >
-                    Download
-                  </button>
+                <div class="table-box__column">
+                  <div class="download-container">
+                    <p class="title small">RDF/XML</p>
+                    <button
+                      type="button"
+                      class="btn normal-button"
+                      @click="download()"
+                    >
+                      Download
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      </article>
+          </section>
+        </article>
+      </div>
     </div>
   </div>
 </template>

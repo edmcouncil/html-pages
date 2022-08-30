@@ -33,7 +33,7 @@
 
 <script>
 import Vue from "vue";
-import customLink from "./chunks/link";
+import customLink from "../chunks/link";
 
 Vue.component("customLink", customLink);
 
@@ -108,7 +108,7 @@ li {
   }
 
   .icon {
-    background-image: url("../assets/icons/arrow.svg");
+    background-image: url("@/assets/icons/arrow.svg");
     background-repeat: no-repeat;
     background-size: 24px 24px;
     background-position: center;
