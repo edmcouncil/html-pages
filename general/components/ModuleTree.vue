@@ -26,15 +26,20 @@
         ></customLink>
       </div>
     </div>
-    <ul v-show="isOpen" v-if="isFolder" class="list-unstyled">
-      <module-tree
-        ref="treeNodes"
-        :location="childrenLocation"
-        :item="subItem"
-        v-for="subItem in item.subModule"
-        :key="subItem.label"
-      />
-    </ul>
+    <b-collapse v-if="isFolder" v-model="isOpen" @shown="$emit('openingFinished')">
+      <transition name="list">
+        <ul class="list-unstyled" v-show="isOpen">
+          <module-tree
+            ref="childNodes"
+            :item="subItem"
+            v-for="subItem in item.subModule"
+            :location="location"
+            :key="subItem.label"
+            @openingFinished="openFolder()"
+          />
+        </ul>
+      </transition>
+    </b-collapse>
   </li>
 </template>
 
@@ -54,7 +59,6 @@ export default {
     return {
       isOpen: false,
       isSelected: false,
-      childrenLocation: null,
     };
   },
   methods: {
@@ -64,16 +68,29 @@ export default {
     ontologyClicked(event) {},
     expandOpened(loc) {
       if (loc && loc.locationInModules) {
+        const isLowestLevel = !this.isFolder || loc.locationInModules.at(-1) == this.item.iri;
         this.isSelected = loc.locationInModules.some((location) => location == this.item.iri);
-        this.isOpen = /* this.isOpen || */ this.isSelected; //isOpen is commented out to enable collapsing tree after opening different branch
+        this.isOpen = this.isSelected && isLowestLevel;
+        if(this.isOpen && !this.isFolder) {
+          this.$emit('openingFinished');
+        }
       } else {
         this.isSelected = false;
         this.isOpen = false;
       }
     },
+    openFolder() {
+      if (this.isOpen) {
+        return;
+      }
+
+      this.isOpen = true;
+      this.isSelected = true;
+    },
   },
   mounted() {
-    this.expandOpened(this.location);
+    if (!this.isSelected)
+      this.expandOpened(this.location);
   },
   computed: {
     isFolder() {
@@ -82,16 +99,8 @@ export default {
   },
   watch: {
     location: {
-      handler(val, oldVal) {
-        if (val) {
-          this.childrenLocation = val;
-          setTimeout(()=>{
-            this.expandOpened(val);
-          }, 400);
-        } else {
-          this.childrenLocation = val;
-          this.expandOpened(val);
-        }
+      handler(val) {
+        this.expandOpened(val);
       },
       deep: true,
     },
@@ -119,7 +128,7 @@ export default {
   }
 
   ul {
-    padding: 0px 0px 0px 30px;
+    padding: 0px 15px 0px 30px;
   }
   .icon-arrow.down {
     transform: rotate(90deg);
@@ -131,6 +140,7 @@ export default {
     background-image: url("../assets/icons/arrow.svg");
     background-position: center;
     flex-shrink: 0;
+    transition: transform 0.4s;
     &.hidden {
       visibility: hidden;
     }

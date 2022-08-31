@@ -98,7 +98,7 @@
               name="slowfade"
             >
               <div
-                v-if="modulesList"
+                v-show="modulesList"
                 class="
                   secondary-column__tree
                   multiselect-xxl-container multiselect-container
@@ -123,7 +123,7 @@
             <transition
               name="slowfade"
             >
-              <ul v-if="modulesList" class="modules-list list-unstyled">
+              <ul v-show="modulesList" class="modules-list list-unstyled">
                 <module-tree
                   :item="item"
                   v-for="item in modulesList"

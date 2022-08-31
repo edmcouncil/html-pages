@@ -8,7 +8,9 @@
   >
     <div class="menu-box">
       <div class="menu-box__label">Browse logs</div>
-      <div class="menu-box__content-text">{{ ontologyNameUppercase }} Instrumentation</div>
+      <div class="menu-box__content-text">
+        {{ ontologyNameUppercase }} Instrumentation
+      </div>
       <div class="menu-box__icons">
         <div class="menu-box__icons__icon icon-info"></div>
       </div>
@@ -26,12 +28,20 @@
             :class="{ expanded: numbersExpanded }"
           ></div>
         </div>
-        <div class="stats-box__content" v-if="numbersExpanded">
-          <div class="stats-box__entry" v-for="stat in stats" :key="stat.label">
-            <div class="stats-box__entry__label">{{ stat.label }}</div>
-            <div class="stats-box__entry__value">{{ stat.value }}</div>
-          </div>
-        </div>
+        <b-collapse v-model="numbersExpanded">
+          <transition name="list">
+            <div class="stats-box__content" v-if="numbersExpanded">
+              <div
+                class="stats-box__entry"
+                v-for="stat in stats"
+                :key="stat.label"
+              >
+                <div class="stats-box__entry__label">{{ stat.label }}</div>
+                <div class="stats-box__entry__value">{{ stat.value }}</div>
+              </div>
+            </div>
+          </transition>
+        </b-collapse>
       </div>
 
       <div class="stats-box stats-box--status">
@@ -47,41 +57,51 @@
             :class="{ expanded: statusExpanded }"
           ></div>
         </div>
-        <div class="stats-box__content" v-if="statusExpanded">
-          <div
-            class="stats-box__content__wrapper"
-            v-if="missingImports.length > 0"
-          >
-            <div class="stats-box stats-box--status__imports">
+        <b-collapse v-model="statusExpanded">
+          <transition name="list">
+            <div class="stats-box__content" v-if="statusExpanded">
               <div
-                class="stats-box__title"
-                @click="importsExpanded = !importsExpanded"
+                class="stats-box__content__wrapper"
+                v-if="missingImports.length > 0"
               >
-                <div class="stats-box__title__text">
-                  Missing Imports ({{ missingImports.length }})
-                </div>
-                <div
-                  class="stats-box__title__arrow"
-                  :class="{ expanded: importsExpanded }"
-                ></div>
-              </div>
-              <div class="stats-box__content" v-if="importsExpanded">
-                <div class="stats-box__content__wrapper">
+                <div class="stats-box stats-box--status__imports">
                   <div
-                    class="stats-box__entry"
-                    v-for="item in missingImports"
-                    :key="item.iri"
+                    class="stats-box__title"
+                    @click="importsExpanded = !importsExpanded"
                   >
-                    <div class="stats-box__entry__label">{{ item.iri }}</div>
+                    <div class="stats-box__title__text">
+                      Missing Imports ({{ missingImports.length }})
+                    </div>
+                    <div
+                      class="stats-box__title__arrow"
+                      :class="{ expanded: importsExpanded }"
+                    ></div>
                   </div>
+                  <b-collapse v-model="importsExpanded">
+                    <transition name="list">
+                      <div class="stats-box__content" v-if="importsExpanded">
+                        <div class="stats-box__content__wrapper">
+                          <div
+                            class="stats-box__entry"
+                            v-for="item in missingImports"
+                            :key="item.iri"
+                          >
+                            <div class="stats-box__entry__label">
+                              {{ item.iri }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </transition>
+                  </b-collapse>
                 </div>
+              </div>
+              <div class="stats-box__content__no-missing-import" v-else>
+                Everything is loaded correctly!
               </div>
             </div>
-          </div>
-          <div class="stats-box__content__no-missing-import" v-else>
-            Everything is loaded correctly!
-          </div>
-        </div>
+          </transition>
+        </b-collapse>
       </div>
     </div>
   </div>
@@ -150,12 +170,12 @@ export default {
   margin: 25px 30px;
 
   .stats-box {
-    margin-bottom: 5px;
+    padding-bottom: 5px;
     border-radius: 2px;
 
     .stats-box__content {
-      margin-top: 7px;
-      margin-bottom: 20px;
+      padding-top: 7px;
+      padding-bottom: 20px;
     }
 
     .stats-box__title {
@@ -187,6 +207,8 @@ export default {
         background-image: url("../assets/icons/arrow.svg");
         background-position: center;
 
+        transition: transform 0.4s;
+
         &.expanded {
           transform: rotate(90deg);
         }
@@ -196,7 +218,7 @@ export default {
 
   .stats-box--numbers {
     .stats-box__entry {
-      margin-top: 5px;
+      padding-top: 5px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -219,7 +241,7 @@ export default {
 
   .stats-box--status {
     .stats-box__content {
-      margin-top: 5px;
+      padding-top: 5px;
 
       .stats-box__entry {
         background: rgba(0, 0, 0, 0.05);

@@ -552,3 +552,14 @@ article {
   clear: both;
   display: table;
 }
+
+.list-leave-active {
+  transition: opacity 0.3s ease-out;
+}
+.list-enter-active {
+  transition: opacity 0.3s ease-in;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+}

@@ -146,16 +146,6 @@ export default {
 .animated-list {
   overflow: hidden;
 }
-.list-leave-active {
-  transition: opacity 0.3s ease-out;
-}
-.list-enter-active {
-  transition: opacity 0.3s ease-in;
-}
-.list-enter,
-.list-leave-to {
-  opacity: 0;
-}
 
 .see-more-btn-wrapper {
   margin-left: 10px;

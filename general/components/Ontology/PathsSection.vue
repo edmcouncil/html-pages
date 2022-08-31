@@ -197,15 +197,4 @@ h5 {
     color: black;
   }
 }
-
-.list-leave-active {
-  transition: opacity 0.3s ease-out;
-}
-.list-enter-active {
-  transition: opacity 0.3s ease-in;
-}
-.list-enter,
-.list-leave-to {
-  opacity: 0;
-}
 </style>
