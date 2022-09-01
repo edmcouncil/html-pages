@@ -811,10 +811,34 @@
   }
 
   .how-to-article {
+    h2, h3 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 40px;
+    }
+
+    p.big.muted {
+      margin-bottom: 60px;
+    }
+
+    .maturity-section {
+      margin-bottom: 60px;
+    }
+
+    .colours-section {
+      padding-bottom: 40px;
+    }
+
+    .about-section {
+      margin-bottom: 60px;
+    }
+
     .color-container {
-      padding: 15px 0px;
+      margin-bottom: 40px;
       img {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
       }
       p {
         margin: 0;
@@ -1404,6 +1428,20 @@
   .main-column {
     padding-left: 0px;
     padding-right: 0px;
+
+    .how-to-article {
+      .maturity-section {
+        margin-bottom: 0px;
+      }
+
+      .colours-section {
+        padding-bottom: 0px;
+      }
+
+      .about-section {
+        padding: 40px 30px;
+      }
+    }
   }
 
   .ontology-item {

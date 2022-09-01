@@ -267,10 +267,14 @@ article {
   }
 
   section {
-    margin-bottom: 45px;
-    padding: 30px 60px;
+    margin-bottom: 40px;
+    padding: 60px;
     background: rgba(0, 0, 0, 0.05);
     border-radius: 2px;
+
+    *:last-child {
+      margin-bottom: 0 !important
+    }
 
     * > :last-child {
       margin-bottom: 0 !important
@@ -278,15 +282,15 @@ article {
 
     &.blank {
       background: transparent;
-      padding: 15px 60px;
-      margin-bottom: 45px;
+      padding: 40px 60px 0 60px;
+      margin-bottom: 40px;
     }
   }
 
   .article-icon {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 15px;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 60px;
   }
 
   .article-icon--small {
@@ -300,7 +304,7 @@ article {
     line-height: 50px;
     min-height: 50px;
     padding: 0;
-    margin-bottom: 45px;
+    margin-bottom: 40px;
 
     color: #000000;
   }
@@ -311,7 +315,7 @@ article {
     font-size: 24px;
     line-height: 36px;
     padding: 0;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 
     color: #000000;
   }
@@ -321,7 +325,7 @@ article {
     font-size: 18px;
     line-height: 30px;
     padding: 0;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 
     color: #000000;
   }
@@ -353,18 +357,10 @@ article {
   }
 
   p.small {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-
     color: #000000;
   }
 
   p.big {
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 40px;
-
     color: #000000;
   }
 
@@ -454,14 +450,14 @@ article {
     padding-top: 30px;
 
     section {
-      margin-bottom: 30px;
-      padding: 30px 30px;
+      margin-bottom: 40px;
+      padding: 60px 30px;
       background: rgba(0, 0, 0, 0.05);
       border-radius: 2px;
 
       &.blank {
         background: transparent;
-        padding: 30px 30px;
+        padding: 40px 30px 0 30px;
       }
     }
 

@@ -906,9 +906,9 @@
                 <!-- NO DATA (How to use) -->
                 <div v-else-if="!loader && !searchBox.isLoadingResults && modulesList">
                   <article class="how-to-article">
-                    <section>
-                      <h2>How to use {{ ontologyNameUppercase }} Viewer</h2>
-                      <p class="muted">
+                    <section class="header-section">
+                      <h1>How to use {{ ontologyNameUppercase }} Viewer</h1>
+                      <p class="big muted">
                         To start using {{ ontologyNameUppercase }} Viewer, search
                         for interesting concepts by walking through the
                         {{ ontologyNameUppercase }} directory structure on the
@@ -916,14 +916,14 @@
                       </p>
                     </section>
 
-                    <section v-if="hasVersions" class="blank">
+                    <section v-if="hasVersions" class="blank versions-section">
                       <img class="article-icon" src="@/assets/img/clock.svg" />
-                      <h3>{{ ontologyNameUppercase }} Versions</h3>
-                      <p>
+                      <h2>{{ ontologyNameUppercase }} Versions</h2>
+                      <p class="big muted">
                         {{ ontologyNameUppercase }} Viewer allows for browsing the
                         past versions of {{ ontologyNameUppercase }}.
                       </p>
-                      <p class="small muted">
+                      <p>
                         It also helps developers to see the changes proposed to
                         {{ ontologyNameUppercase }} in pull requests before their
                         approval. To see the content of the past
@@ -932,51 +932,51 @@
                       </p>
                     </section>
 
-                    <section class="blank">
+                    <section class="blank structure-section">
                       <img
                         class="article-icon"
                         src="@/assets/img/directory.svg"
                       />
-                      <h3>{{ ontologyNameUppercase }} structure</h3>
-                      <p>
+                      <h2>{{ ontologyNameUppercase }} structure</h2>
+                      <p class="big muted">
                         {{ ontologyNameUppercase }} is a set of ontologies. It is
                         organized in a hierarchical directory structure.
                       </p>
-                      <p class="small muted">
+                      <p>
                         Top-level directories are called domains; beneath that may
                         be one or two levels of sub-domain and then modules and
                         dozens of ontologies at the bottom level.
                       </p>
                     </section>
 
-                    <section class="blank">
+                    <section class="blank maturity-section">
                       <img class="article-icon" src="@/assets/img/maturity.svg" />
-                      <h3>{{ ontologyNameUppercase }} maturity levels</h3>
-                      <p>
+                      <h2>{{ ontologyNameUppercase }} maturity levels</h2>
+                      <p class="big muted">
                         Each {{ ontologyNameUppercase }} ontology has one of three
                         levels of maturity.
                       </p>
-                      <p class="small title">Release</p>
-                      <p class="small">
+                      <h3>Release</h3>
+                      <p>
                         Release ontologies are ones that are considered to be
                         stable and mature from a development perspective.
                       </p>
-                      <p class="small title">Provisional</p>
-                      <p class="small">
+                      <h3>Provisional</h3>
+                      <p>
                         Provisional ontologies are ones that are considered to be
                         under development.
                       </p>
-                      <p class="small title">Informative</p>
-                      <p class="small">
+                      <h3>Informative</h3>
+                      <p>
                         Provisional ontologies are ones that are considered
                         deprecated but included for informational purposes because
                         they are referenced by some provisional concept.
                       </p>
                     </section>
 
-                    <section class="blank">
-                      <h3>Colours</h3>
-                      <p class="paragraph--regular">
+                    <section class="blank colours-section">
+                      <h2>Colours</h2>
+                      <p class="big muted">
                         {{ ontologyNameUppercase }} Viewer uses colours to indicate
                         the status of an ontology. Each ontology is either green
                         or yellow.
@@ -986,7 +986,7 @@
                           class="article-icon--small"
                           src="@/assets/icons/production-maturity.svg"
                         />
-                        <p class="small">
+                        <p>
                           The green square icon indicates that an ontology has a
                           "release" maturity level. Domains or modules are green
                           if they contain only green ontologies.
@@ -998,7 +998,7 @@
                           class="article-icon--small"
                           src="@/assets/icons/provisional-maturity.svg"
                         />
-                        <p class="small">
+                        <p>
                           Yellow square icon means that it's provisional.
                           Domains or modules are yellow if they
                           contain only yellow ontologies.
@@ -1010,7 +1010,7 @@
                           class="article-icon--small"
                           src="@/assets/icons/informative-maturity.svg"
                         />
-                        <p class="small">
+                        <p>
                           Orange circle icon means that it's informative.
                           Domains or modules are yellow if they
                           contain only orange ontologies.
@@ -1022,17 +1022,17 @@
                           class="article-icon--small"
                           src="@/assets/icons/mixed-maturity.svg"
                         />
-                        <p class="small">
+                        <p>
                           Mixed, green-yellow-orange icon means domains or modules
                           include both green, yellow and orange ontologies.
                         </p>
                       </div>
                     </section>
 
-                    <section>
+                    <section class="about-section">
                       <p class="title muted">About {{ ontologyNameUppercase }} Viewer</p>
                       <div class="spacing-30"></div>
-                      <p class="small muted">
+                      <p class="small">
                         {{ ontologyNameUppercase }} Viewer is a JAVA application
                         that is specifically designed to access both the
                         {{ ontologyNameUppercase }} structure and its content in
