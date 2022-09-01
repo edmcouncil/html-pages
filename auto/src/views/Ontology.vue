@@ -971,6 +971,7 @@ export default {
     Stats: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
     ResourceSection: () => import(/* webpackChunkName: "ResourceSection" */ "../components/Ontology/ResourceSection"),
     DownloadSection: () => import(/* webpackChunkName: "DownloadSection" */ "../components/Ontology/DownloadSection"),
+    customLink: () => import(/* webpackChunkName: "customLink" */ "../components/chunks/link"),
     Multiselect,
   },
   props: ['ontology'],
