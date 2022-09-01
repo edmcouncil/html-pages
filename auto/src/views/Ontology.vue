@@ -959,6 +959,7 @@
 <script>
 import { mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
+import customLink from '../components/chunks/link';
 import {
   getEntity, getFindSearch, getModules, getOntologyVersions, getHint,
 } from '../api/ontology';
@@ -971,7 +972,7 @@ export default {
     Stats: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
     ResourceSection: () => import(/* webpackChunkName: "ResourceSection" */ "../components/Ontology/ResourceSection"),
     DownloadSection: () => import(/* webpackChunkName: "DownloadSection" */ "../components/Ontology/DownloadSection"),
-    customLink: () => import(/* webpackChunkName: "customLink" */ "../components/chunks/link"),
+    customLink,
     Multiselect,
   },
   props: ['ontology'],
