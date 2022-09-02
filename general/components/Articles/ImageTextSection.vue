@@ -11,13 +11,16 @@
           center: item.image_align === 'center',
         }"
       >
-        <div v-if="getImageUrl(item)!='undefined'" class="image-container">
+        <div v-if="getImageUrl(item) != 'undefined'" class="image-container">
           <img :src="getImageUrl(item)" class="transparent-image" />
           <p v-if="item.image_description" class="muted small">
             {{ item.image_description }}
           </p>
         </div>
-        <div class="text-content" v-html="$md.render(item.text_content || '')"></div>
+        <div
+          class="text-content"
+          v-html="$md.render(item.text_content || '')"
+        ></div>
       </div>
     </div>
   </div>
@@ -25,21 +28,20 @@
 
 <script>
 export default {
-  name: 'ImageTextSection',
-  props: [ 'sectionItem' ],
+  name: "ImageTextSection",
+  props: ["sectionItem"],
   methods: {
     getImageUrl(item) {
-      const strapiUrl = process.env.strapiBaseUri;
-      const location = item?.image?.data?.attributes?.url
-      if(location == undefined){
-        return 'undefined';
+      const strapiUrl = process.env.strapiResourcesUri;
+      const location = item?.image?.data?.attributes?.url;
+      if (location == undefined) {
+        return "undefined";
       }
       return strapiUrl + location;
-    }
+    },
   },
-  computed: {
-  }
-}
+  computed: {},
+};
 </script>
 
 <style scoped lang="scss">

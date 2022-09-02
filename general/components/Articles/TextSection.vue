@@ -9,13 +9,6 @@
 export default {
   name: 'TextSection',
   props: [ 'sectionItem' ],
-  methods: {
-    getImageUrl(item) {
-      const strapiUrl = process.env.strapiBaseUri;
-      const location = item?.image?.data?.attributes?.url
-      return strapiUrl + location;
-    }
-  },
   computed: {
   }
 }

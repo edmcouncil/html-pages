@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 
 process.env.VUE_APP_PRODUCT =
   process.env.PRODUCT ||
@@ -12,7 +12,26 @@ process.env.VUE_APP_BRANCH = (
 ).toLowerCase();
 process.env.VUE_APP_TAG = process.env.TAG || process.env.TAG_NAME || "latest";
 process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || "2021Q4";
-process.env.VUE_ONTOLOGY_NAME = process.env.ONTOLOGY_NAME || "fibo";
+process.env.VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || "fibo";
+process.env.VUE_BASE_URL =
+  process.env.BASE_URL ||
+  "https://spec." +
+    (process.env.VUE_ONTOLOGY_NAME === "idmp"
+      ? "pistoiaalliance"
+      : "edmcouncil") +
+    ".org/";
+
+// default ontologyResourcesBaseUri for ontologies:
+// FIBO - https://spec.edmcouncil.org/fibo/ontology/
+// AUTO - https://spec.edmcouncil.org/auto/ontology/
+// IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
+process.env.VUE_RESOURCES_BASE_URL =
+  process.env.RESOURCES_BASE_URL ||
+  process.env.BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
+
+process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
+process.env.STRAPI_RESOURCES_URL =
+  process.env.STRAPI_RESOURCES_URL || process.env.STRAPI_URL;
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -55,7 +74,7 @@ export default {
   assetsDir: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
   indexPath: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/index.html`,
   router: {
-    base: process.env.BASE_URL || "/fibo",
+    base: `/${process.env.VUE_ONTOLOGY_NAME}`,
     extendRoutes(routes, resolve) {
       routes.push(
         {
@@ -79,16 +98,16 @@ export default {
   },
   generate: {
     dir: `dist/${process.env.VUE_ONTOLOGY_NAME}/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
-    routes() {
-      return axios
-        .get(`${process.env.STRAPI_URL || "http://localhost:1337"}/api/pages`)
-        .then((res) => {
-          return res.data.data.map((page) => {
-            const slug = page.attributes.slug;
-            return `/${slug}`;
-          });
-        });
-    },
+    // routes() {
+    //   return axios
+    //     .get(`${process.env.STRAPI_URL || "http://localhost:1337"}/api/pages`)
+    //     .then((res) => {
+    //       return res.data.data.map((page) => {
+    //         const slug = page.attributes.slug;
+    //         return `/${slug}`;
+    //       });
+    //     });
+    // },
   },
 
   // loading bar
@@ -152,6 +171,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    publicPath: `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/_nuxt/`,
     loaders: {
       sass: {
         implementation: require("sass"),
@@ -173,25 +193,32 @@ export default {
   env: {
     ontologyName: process.env.VUE_ONTOLOGY_NAME,
 
-    strapiBaseUri: process.env.STRAPI_URL || "http://localhost:1337",
+    strapiBaseUri: process.env.STRAPI_URL,
+    strapiResourcesUri: process.env.STRAPI_RESOURCES_URL,
+    ontologyResourcesBaseUri: process.env.VUE_RESOURCES_BASE_URL,
+    showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
     ontologyResourcesBaseUri:
       process.env.RESOURCES_BASE_URL ||
       "https://spec.edmcouncil.org/fibo/ontology/",
-
-    showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
   },
 
   http: {
-    proxy: true,
+    proxy: process.env.NODE_ENV !== "production",
   },
 
   proxy: [
-    "http://fibo-viewer.korora.makolab.net/" +
-      process.env.VUE_ONTOLOGY_NAME +
-      "/ontology/api",
-    "http://fibo-viewer.korora.makolab.net/" +
-      process.env.VUE_ONTOLOGY_NAME +
-      "/ontology/*/api",
+    process.env.VUE_RESOURCES_BASE_URL.startsWith("http://") ||
+    process.env.VUE_RESOURCES_BASE_URL.startsWith("https://")
+      ? process.env.VUE_RESOURCES_BASE_URL
+      : process.env.VUE_BASE_URL +
+        process.env.VUE_ONTOLOGY_NAME +
+        "/ontology/api",
+    process.env.VUE_RESOURCES_BASE_URL.startsWith("http://") ||
+    process.env.VUE_RESOURCES_BASE_URL.startsWith("https://")
+      ? process.env.VUE_RESOURCES_BASE_URL
+      : process.env.VUE_BASE_URL +
+        process.env.VUE_ONTOLOGY_NAME +
+        "/ontology/*/api",
   ],
 
   styleResources: {
