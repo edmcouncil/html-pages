@@ -1133,6 +1133,7 @@
 <script>
 import { mapState } from "vuex";
 import Multiselect from "vue-multiselect";
+import customLink from '../components/chunks/link';
 import { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties } from "../api/ontology";
 
 export default {
@@ -1143,6 +1144,7 @@ export default {
     StatsComponent: () => import(/* webpackChunkName: "Stats" */ "../components/StatsComponent"),
     ResourceSection: () => import(/* webpackChunkName: "ResourceSection" */ "../components/Ontology/ResourceSection"),
     DownloadSection: () => import(/* webpackChunkName: "DownloadSection" */ "../components/Ontology/DownloadSection"),
+    customLink,
     Multiselect,
   },
   props: ["ontology"],
@@ -1224,9 +1226,9 @@ export default {
     this.updateServers();
 
     this.query = queryParam;
+    this.fetchSearchProperties();
     this.fetchData(this.query);
     this.fetchModules();
-    this.fetchSearchProperties();
   },
   methods: {
     toggleModuleTree() {
@@ -1528,6 +1530,11 @@ export default {
 
       this.searchBox.debounce = setTimeout(async () => {
         try {
+          // wait for properties to be loaded if they arent
+          while (this.searchBox.findPropertiesAll.length === 0) {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+          }
+
           // eslint-disable-next-line max-len
           let domain = encodeURI(`${this.searchServer}?term=${query}&mode=advance&useHighlighting=false&findProperties=${this.searchBox.encodedProperties}`);
           const result = await getFindSearch(domain);
