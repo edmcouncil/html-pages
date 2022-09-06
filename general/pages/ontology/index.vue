@@ -26,9 +26,7 @@
                 </button>
               </div>
             </div>
-            <transition
-              name="slowfade"
-            >
+            <transition name="slowfade">
               <div
                 v-if="hasVersions"
                 class="
@@ -65,12 +63,9 @@
                       :taggable="true"
                       @select="ontologyVersions_optionSelected"
                     >
-                      <template v-slot:tag="{ option, remove }">
+                      <template v-slot:tag="{ option }">
                         <span class="custom__tag">
                           <span>{{ option.label }}</span>
-                          <span class="custom__remove" @click="remove(option)">
-                            ❌
-                          </span>
                         </span>
                       </template>
                       <!-- <template slot="clear" slot-scope="props">
@@ -94,9 +89,7 @@
                 <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
               </div>
             </transition>
-            <transition
-              name="slowfade"
-            >
+            <transition name="slowfade">
               <div
                 v-show="modulesList"
                 class="
@@ -120,9 +113,7 @@
             </transition>
 
             <!-- module tree --->
-            <transition
-              name="slowfade"
-            >
+            <transition name="slowfade">
               <ul v-show="modulesList" class="modules-list list-unstyled">
                 <module-tree
                   :item="item"
@@ -133,9 +124,7 @@
               </ul>
             </transition>
 
-            <transition
-              name="slowfade"
-            >
+            <transition name="slowfade">
               <StatsComponent
                 v-if="statsServer && missingImportsServer"
                 :statsServer="statsServer"
@@ -261,7 +250,9 @@
                 <div class="col-lg-12">
                   <div class="multiselect-xxl-container multiselect-container">
                     <div class="menu-box">
-                      <div class="menu-box__label">Select search properties</div>
+                      <div class="menu-box__label">
+                        Select search properties
+                      </div>
                       <div class="menu-box__content-text">
                         <multiselect
                           v-model="searchBox.findProperties"
@@ -283,7 +274,10 @@
                                 :name="props.option.identifier"
                                 :checked="props.option.selected"
                               />
-                              <label class="custom-control-label" :for="props.option.identifier">
+                              <label
+                                class="custom-control-label"
+                                :for="props.option.identifier"
+                              >
                                 {{ props.option.label }}
                               </label>
                             </div>
@@ -337,17 +331,22 @@
               </div>
             </div>
 
-            <div
+            <MobileMenuBox
               v-if="hasVersions"
               class="
                 secondary-column__versions secondary-column__versions--mobile
-                multiselect-container
-                container
               "
+              :icon="'icon-clock'"
             >
-              <div class="menu-box">
-                <div class="menu-box__label">Select version</div>
-                <div class="menu-box__content-text">
+              <template v-slot:label> Select version </template>
+              <template v-slot:multiselect>
+                <div
+                  class="
+                    multiselect-container
+                    secondary-column__versions
+                    secondary-column__versions--mobile
+                  "
+                >
                   <multiselect
                     v-model="ontologyVersionsDropdownData.selectedData"
                     id="ontologyVersionsMultiselect2"
@@ -364,25 +363,17 @@
                     :internal-search="false"
                     :clear-on-select="false"
                     :close-on-select="true"
-                    :max-height="600"
                     :preserve-search="true"
                     :show-no-results="false"
                     :hide-selected="true"
                     :taggable="true"
                     @select="ontologyVersions_optionSelected"
                   >
-                    <template v-slot:tag="{ option, remove }">
+                    <template v-slot:tag="{ option }">
                       <span class="custom__tag">
                         <span>{{ option.label }}</span>
-                        <span class="custom__remove" @click="remove(option)"
-                          >❌</span
-                        >
                       </span>
                     </template>
-                    <!-- <template slot="clear" slot-scope="props">
-                  <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
-                  @mousedown.prevent.stop="clearAll(props.search)"></div>
-                  </template> -->
                     <template v-slot:noResult>
                       <span>
                         Oops! No elements found. Consider changing the search
@@ -391,53 +382,42 @@
                     </template>
                   </multiselect>
                 </div>
+              </template>
+            </MobileMenuBox>
 
-                <div class="menu-box__icons">
-                  <div class="menu-box__icons__icon icon-clock"></div>
-                </div>
-              </div>
-              <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
-              <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
-            </div>
-
-            <div
-              class="
-                secondary-column__tree secondary-column__tree--mobile
-                multiselect-container
-                container
-              "
+            <MobileMenuBox
+              class="secondary-column__tree secondary-column__tree--mobile"
+              :icon="'icon-directory'"
             >
-              <div class="menu-box" v-on:click="toggleModuleTree()">
-                <div class="menu-box__label">
-                  Browse {{ ontologyNameUppercase }} domains
-                </div>
-                <div class="menu-box__content-text">
-                  {{ ontologyNameUppercase }} Domains
-                </div>
-                <div class="menu-box__icons">
-                  <div class="menu-box__icons__icon icon-directory"></div>
-                </div>
-              </div>
-            </div>
+              <template v-slot:label>
+                Browse {{ ontologyNameUppercase }} domains
+              </template>
+              <template v-slot:textOnly>
+                {{ ontologyNameUppercase }} Domains
+              </template>
+              <template v-slot:textOnlyContent>
+                <ul class="modules-list modules-list--mobile list-unstyled">
+                  <module-tree
+                    :item="item"
+                    v-for="item in modulesList"
+                    :location="data"
+                    :key="item.label"
+                  />
+                </ul>
+              </template>
+            </MobileMenuBox>
 
-            <ul
-              v-if="display_modules"
-              class="modules-list modules-list--mobile list-unstyled"
+            <MobileMenuBox
+              :icon="'icon-search'"
+              class="search-box search-box--mobile"
+              ref="mobileSearchbox"
             >
-              <module-tree
-                :item="item"
-                v-for="item in modulesList"
-                :location="data"
-                :key="item.label"
-              />
-            </ul>
-
-            <div class="search-box search-box--mobile multiselect-container">
-              <div class="menu-box">
-                <div class="menu-box__label">
-                  Search {{ ontologyNameUppercase }}
-                </div>
-                <div class="menu-box__content-text">
+              <template v-slot:label>
+                Search {{ ontologyNameUppercase }}
+              </template>
+              <template v-slot:multiselectPlaceholder> Find... </template>
+              <template v-slot:multiselect>
+                <div class="search-box search-box--mobile">
                   <multiselect
                     v-model="searchBox.selectedData"
                     label="labelForInternalSearch"
@@ -485,89 +465,81 @@
                         query.
                       </span>
                     </template>
+                    <template v-slot:noOptions>
+                      <span> Start typing to show hints. </span>
+                    </template>
                     <template v-slot:singleLabel>
                       <span>
                         {{ searchBox.inputValue || "Find..." }}
                       </span>
                     </template>
                   </multiselect>
-                </div>
-                <div
-                  class="menu-box__icons"
-                  :class="{
-                    'menu-box__icons--inactive':
-                      !searchBox.dropdownActive && !searchBox.inputValue,
-                    'menu-box__icons--loading': searchBox.isLoading,
-                  }"
-                >
                   <div
-                    class="menu-box__icons__icon icon-search"
+                    class="mobile-search-icon"
+                    v-if="!searchBox.isLoading"
                     @click="searchBox_addTag(searchBox.inputValue)"
                   ></div>
                 </div>
-              </div>
-              <div
-                class="expand-advanced-btn"
-                @click="
-                  searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
-                "
-              >
-                <div v-if="!searchBox.isAdvancedExpanded">
-                  <div class="see-more-btn">search configuration</div>
-                </div>
+              </template>
+            </MobileMenuBox>
 
-                <div v-else>
-                  <div class="see-less-btn">search configuration</div>
-                </div>
+            <div
+              class="expand-advanced-btn expand-advanced-btn--mobile"
+              @click="
+                searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
+              "
+            >
+              <div v-if="!searchBox.isAdvancedExpanded">
+                <div class="see-more-btn">search configuration</div>
+              </div>
+
+              <div v-else>
+                <div class="see-less-btn">search configuration</div>
               </div>
             </div>
+
             <div
-              class="advanced-search-box advanced-search-box--mobile card"
+              class="advanced-search-box-wrapper"
               v-if="searchBox.isAdvancedExpanded"
             >
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="multiselect-xxl-container multiselect-container">
-                    <div class="menu-box">
-                      <div class="menu-box__label">Search by properties</div>
-                      <div class="menu-box__content-text">
-                        <multiselect
-                          v-model="searchBox.findProperties"
-                          placeholder="Select properties..."
-                          open-direction="bottom"
-                          label="label"
-                          selectLabel=""
-                          deselectLabel=""
-                          selectedLabel=""
-                          track-by="identifier"
-                          :searchable="false"
-                          :options="searchBox.findPropertiesAll"
-                          :close-on-select="false"
-                          :multiple="true"
-                          @input="onPropertiesChanged"
-                        >
-                        </multiselect>
-                      </div>
-                    </div>
+              <MobileMenuBox
+                class="advanced-search-box advanced-search-box--mobile card"
+              >
+                <template v-slot:label> Search by properties </template>
+                <template v-slot:multiselectPlaceholder> Find... </template>
+                <template v-slot:multiselect>
+                  <div class="advanced-search-box advanced-search-box--mobile">
+                    <multiselect
+                      v-model="searchBox.findProperties"
+                      placeholder="Select properties..."
+                      open-direction="bottom"
+                      label="label"
+                      selectLabel=""
+                      deselectLabel=""
+                      selectedLabel=""
+                      track-by="identifier"
+                      :searchable="false"
+                      :options="searchBox.findPropertiesAll"
+                      :close-on-select="false"
+                      :multiple="true"
+                      @input="onPropertiesChanged"
+                    >
+                    </multiselect>
                   </div>
+                </template>
+              </MobileMenuBox>
 
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="custom-control custom-checkbox">
-                      <input
-                        v-model="searchBox.useHighlighting"
-                        class="custom-control-input"
-                        type="checkbox"
-                        name="useHighlight"
-                        id="useHighlight"
-                        value="useHighlight"
-                      />
-                      <label class="custom-control-label" for="useHighlight">
-                        Use highlighting
-                      </label>
-                    </div>
-                  </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="useHighlight"
+                    v-model="searchBox.useHighlighting"
+                  />
+                  <label class="custom-control-label" for="useHighlight">
+                    Use highlighting
+                  </label>
                 </div>
               </div>
             </div>
@@ -723,10 +695,7 @@
             v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
           >
             <div class="row">
-              <transition
-                name="fade"
-                mode="out-in"
-              >
+              <transition name="fade" mode="out-in">
                 <!-- SHOW ITEM -->
                 <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
                   <div class="row">
@@ -738,9 +707,7 @@
                             type="button"
                             class="btn normal-button btn-report-a-problem"
                             v-if="
-                              data.iri.startsWith(
-                                ontologyResourcesBaseUri
-                              ) &&
+                              data.iri.startsWith(ontologyResourcesBaseUri) &&
                               !(this.$route.query && this.$route.query.version)
                             "
                             @click="githubNewIssue()"
@@ -760,7 +727,10 @@
                             </div>
                             <div
                               class="alert alert-primary alert-maturity"
-                              :class="{informative: data.maturityLevel.label === 'INFORMATIVE'}"
+                              :class="{
+                                informative:
+                                  data.maturityLevel.label === 'INFORMATIVE',
+                              }"
                               role="alert"
                               v-if="
                                 data.maturityLevel.label === 'INFORMATIVE' ||
@@ -806,20 +776,24 @@
 
                           <div class="clearfix"></div>
 
-                          <h6
-                            class="card-subtitle data-iri"
-                            v-if="data.iri"
-                          >
+                          <h6 class="card-subtitle data-iri" v-if="data.iri">
                             {{ data.iri }}
                           </h6>
                           <div class="url-buttons-container">
-                            <CopyButton :copyContent="data.iri" :text="'Copy URL'" />
+                            <CopyButton
+                              :copyContent="data.iri"
+                              :text="'Copy URL'"
+                            />
 
                             <CopyButton
-                              v-if="this.$route.query && this.$route.query.version"
-                              :copyContent="data.iri +
+                              v-if="
+                                this.$route.query && this.$route.query.version
+                              "
+                              :copyContent="
+                                data.iri +
                                 '?version=' +
-                                encodeURI(this.$route.query.version)"
+                                encodeURI(this.$route.query.version)
+                              "
                               :text="'Copy versioned IRI'"
                               class="btn-copy-iri"
                             />
@@ -895,7 +869,10 @@
                             Data model for {{ data.label }}
                           </h5>
                           <div class="section-content-wrapper">
-                            <vis-network :data="data.graph" :title="data.label" />
+                            <vis-network
+                              :data="data.graph"
+                              :title="data.label"
+                            />
                           </div>
                         </div>
                       </div>
@@ -904,13 +881,17 @@
                 </div>
 
                 <!-- NO DATA (How to use) -->
-                <div v-else-if="!loader && !searchBox.isLoadingResults && modulesList">
+                <div
+                  v-else-if="
+                    !loader && !searchBox.isLoadingResults && modulesList
+                  "
+                >
                   <article class="how-to-article">
                     <section class="header-section">
                       <h1>How to use {{ ontologyNameUppercase }} Viewer</h1>
                       <p class="big muted">
-                        To start using {{ ontologyNameUppercase }} Viewer, search
-                        for interesting concepts by walking through the
+                        To start using {{ ontologyNameUppercase }} Viewer,
+                        search for interesting concepts by walking through the
                         {{ ontologyNameUppercase }} directory structure on the
                         left-hand side or use the full-text search function.
                       </p>
@@ -920,13 +901,13 @@
                       <img class="article-icon" src="@/assets/img/clock.svg" />
                       <h2>{{ ontologyNameUppercase }} Versions</h2>
                       <p class="big muted">
-                        {{ ontologyNameUppercase }} Viewer allows for browsing the
-                        past versions of {{ ontologyNameUppercase }}.
+                        {{ ontologyNameUppercase }} Viewer allows for browsing
+                        the past versions of {{ ontologyNameUppercase }}.
                       </p>
                       <p>
                         It also helps developers to see the changes proposed to
-                        {{ ontologyNameUppercase }} in pull requests before their
-                        approval. To see the content of the past
+                        {{ ontologyNameUppercase }} in pull requests before
+                        their approval. To see the content of the past
                         {{ ontologyNameUppercase }} releases or recent pull
                         requests, choose them from the drop-down list.
                       </p>
@@ -939,22 +920,25 @@
                       />
                       <h2>{{ ontologyNameUppercase }} structure</h2>
                       <p class="big muted">
-                        {{ ontologyNameUppercase }} is a set of ontologies. It is
-                        organized in a hierarchical directory structure.
+                        {{ ontologyNameUppercase }} is a set of ontologies. It
+                        is organized in a hierarchical directory structure.
                       </p>
                       <p>
-                        Top-level directories are called domains; beneath that may
-                        be one or two levels of sub-domain and then modules and
-                        dozens of ontologies at the bottom level.
+                        Top-level directories are called domains; beneath that
+                        may be one or two levels of sub-domain and then modules
+                        and dozens of ontologies at the bottom level.
                       </p>
                     </section>
 
                     <section class="blank maturity-section">
-                      <img class="article-icon" src="@/assets/img/maturity.svg" />
+                      <img
+                        class="article-icon"
+                        src="@/assets/img/maturity.svg"
+                      />
                       <h2>{{ ontologyNameUppercase }} maturity levels</h2>
                       <p class="big muted">
-                        Each {{ ontologyNameUppercase }} ontology has one of three
-                        levels of maturity.
+                        Each {{ ontologyNameUppercase }} ontology has one of
+                        three levels of maturity.
                       </p>
                       <h3>Release</h3>
                       <p>
@@ -963,23 +947,23 @@
                       </p>
                       <h3>Provisional</h3>
                       <p>
-                        Provisional ontologies are ones that are considered to be
-                        under development.
+                        Provisional ontologies are ones that are considered to
+                        be under development.
                       </p>
                       <h3>Informative</h3>
                       <p>
                         Provisional ontologies are ones that are considered
-                        deprecated but included for informational purposes because
-                        they are referenced by some provisional concept.
+                        deprecated but included for informational purposes
+                        because they are referenced by some provisional concept.
                       </p>
                     </section>
 
                     <section class="blank colours-section">
                       <h2>Colours</h2>
                       <p class="big muted">
-                        {{ ontologyNameUppercase }} Viewer uses colours to indicate
-                        the status of an ontology. Each ontology is either green
-                        or yellow.
+                        {{ ontologyNameUppercase }} Viewer uses colours to
+                        indicate the status of an ontology. Each ontology is
+                        either green or yellow.
                       </p>
                       <div class="color-container">
                         <img
@@ -1000,8 +984,8 @@
                         />
                         <p>
                           Yellow square icon means that it's provisional.
-                          Domains or modules are yellow if they
-                          contain only yellow ontologies.
+                          Domains or modules are yellow if they contain only
+                          yellow ontologies.
                         </p>
                       </div>
 
@@ -1012,8 +996,8 @@
                         />
                         <p>
                           Orange circle icon means that it's informative.
-                          Domains or modules are yellow if they
-                          contain only orange ontologies.
+                          Domains or modules are yellow if they contain only
+                          orange ontologies.
                         </p>
                       </div>
 
@@ -1023,14 +1007,17 @@
                           src="@/assets/icons/mixed-maturity.svg"
                         />
                         <p>
-                          Mixed, green-yellow-orange icon means domains or modules
-                          include both green, yellow and orange ontologies.
+                          Mixed, green-yellow-orange icon means domains or
+                          modules include both green, yellow and orange
+                          ontologies.
                         </p>
                       </div>
                     </section>
 
                     <section class="about-section">
-                      <p class="title muted">About {{ ontologyNameUppercase }} Viewer</p>
+                      <p class="title muted">
+                        About {{ ontologyNameUppercase }} Viewer
+                      </p>
                       <div class="spacing-30"></div>
                       <p class="small">
                         {{ ontologyNameUppercase }} Viewer is a JAVA application
@@ -1069,7 +1056,6 @@ export default {
   props: ["ontology"],
   data() {
     return {
-      display_modules: false,
       mountedTimestamp: null,
       loader: false,
       data: null,
@@ -1150,9 +1136,6 @@ export default {
     }
   },
   methods: {
-    toggleModuleTree() {
-      this.display_modules = !this.display_modules;
-    },
     updateServers(to) {
       let internalRoute = this.$route;
 
@@ -1333,6 +1316,8 @@ export default {
       return `and ${count} other results`;
     },
     searchBox_optionSelected(selectedOption /* , id */) {
+      if (this.$refs.mobileSearchbox?.showModal)
+        this.$refs.mobileSearchbox.hideModal();
       let destRoute = selectedOption.iri;
       if (destRoute.startsWith(`https://spec.edmcouncil.org/${this.ontologyName}`)) {
         // internal ontology
@@ -1363,6 +1348,8 @@ export default {
     },
     async searchBox_addTag(newTag) {
       if (newTag != "") {
+        if (this.$refs.mobileSearchbox?.showModal)
+          this.$refs.mobileSearchbox.hideModal();
         this.$router.push({
           path: "/ontology",
           query: {

@@ -1,5 +1,5 @@
 <template>
-  <header class="container px-0">
+  <header class="container website-header px-0">
     <div class="container-fluid">
       <div class="row">
         <div class="col px-0">
@@ -193,7 +193,7 @@ export default {
 </script>
 
 <style lang="scss">
-header {
+header.website-header {
   background: linear-gradient(
       98.03deg,
       rgba(255, 255, 255, 0.9) 5.63%,
@@ -407,7 +407,7 @@ header {
 }
 
 @media (max-width: 430px) {
-  header {
+  header.website-header {
     min-height: 520px;
     max-height: 520px;
   }
@@ -453,7 +453,7 @@ header {
 }
 
 @media (max-width: 992px) and (min-width: 700px) {
-  header {
+  header.website-header {
     min-height: 400px;
     max-height: 400px;
   }

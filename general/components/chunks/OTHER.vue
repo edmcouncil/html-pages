@@ -1,10 +1,10 @@
 <template>
-  <a :href="value" target="_blank">{{ value }}</a>
+  <span>{{ value }}</span>
 </template>
 
 <script>
 export default {
-  name: 'ANY_URI',
+  name: 'OTHER',
   props: ['value'],
 };
 </script>
