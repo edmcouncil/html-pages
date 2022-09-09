@@ -1,8 +1,8 @@
 <template>
   <nuxt-link
-    v-if="query.match(this.regex)"
+    v-if="query.startsWith(this.internalOntologyUrl)"
     :to="{
-      path: query.replace(this.regexToReplace, ''),
+      path: query.replace(this.internalOntologyUrl, ''),
       query: {
         ...(this.$route.query && this.$route.query.version
           ? { version: encodeURI(this.$route.query.version) }
@@ -10,12 +10,13 @@
       },
     }"
     @click.native="linkClickNative"
-    >{{ name }}</nuxt-link
   >
+    {{ name }}
+  </nuxt-link>
   <nuxt-link
     v-else
     :to="{
-      name: 'ontology',
+      path: '/ontology',
       query: {
         ...{ query },
         ...(this.$route.query && this.$route.query.version
@@ -23,8 +24,9 @@
           : null),
       },
     }"
-    >{{ name }}</nuxt-link
   >
+    {{ name }}
+  </nuxt-link>
 </template>
 <script>
 export default {
@@ -44,12 +46,9 @@ export default {
     ontologyName() {
       return process.env.ontologyName.toLowerCase();
     },
-    regex() {
-      return new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.ontologyName}/` );
+    internalOntologyUrl() {
+      return `https://spec.edmcouncil.org/${this.ontologyName}`;
     },
-    regexToReplace() {
-      return new RegExp( `/https:\/\/spec\.edmcouncil\.org\/${this.ontologyName}/` );
-    }
   }
 };
 </script>

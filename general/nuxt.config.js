@@ -29,12 +29,13 @@ process.env.VUE_RESOURCES_BASE_URL =
   process.env.RESOURCES_BASE_URL ||
   process.env.BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
 
-process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
+process.env.STRAPI_URL = process.env.STRAPI_URL || "http://edmc-fibo-viewer.dc.makolab.pl:1330/";
 process.env.STRAPI_RESOURCES_URL =
   process.env.STRAPI_RESOURCES_URL || process.env.STRAPI_URL;
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  target: "static",
   head: {
     title: process.env.VUE_ONTOLOGY_NAME.toUpperCase(),
     htmlAttrs: {
@@ -75,39 +76,19 @@ export default {
   indexPath: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/index.html`,
   router: {
     base: `/${process.env.VUE_ONTOLOGY_NAME}`,
-    extendRoutes(routes, resolve) {
-      routes.push(
-        {
-          path: "/",
-          component: resolve(__dirname, "pages/index.vue"),
-        },
-        {
-          path: "/:slug",
-          component: resolve(__dirname, "pages/_slug.vue"),
-        },
-        {
-          path: "/ontology/:1?/:2?/:3?/:4?/:5?",
-          component: resolve(__dirname, "pages/ontology/index.vue"),
-        },
-        {
-          path: "/ontology",
-          component: resolve(__dirname, "pages/ontology/index.vue"),
-        }
-      );
-    },
   },
   generate: {
     dir: `dist/${process.env.VUE_ONTOLOGY_NAME}/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
-    // routes() {
-    //   return axios
-    //     .get(`${process.env.STRAPI_URL || "http://localhost:1337"}/api/pages`)
-    //     .then((res) => {
-    //       return res.data.data.map((page) => {
-    //         const slug = page.attributes.slug;
-    //         return `/${slug}`;
-    //       });
-    //     });
-    // },
+    routes() {
+      return axios
+        .get(`${process.env.STRAPI_URL || "http://localhost:1337"}/api/pages`)
+        .then((res) => {
+          return res.data.data.map((page) => {
+            const slug = page.attributes.slug;
+            return `/page/${slug}`;
+          });
+        });
+    },
   },
 
   // loading bar
@@ -192,14 +173,11 @@ export default {
   // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
   env: {
     ontologyName: process.env.VUE_ONTOLOGY_NAME,
-
+    ontologyResourcesBaseUri: process.env.RESOURCES_BASE_URL ||
+    "https://spec.edmcouncil.org/fibo/ontology/",
     strapiBaseUri: process.env.STRAPI_URL,
     strapiResourcesUri: process.env.STRAPI_RESOURCES_URL,
-    ontologyResourcesBaseUri: process.env.VUE_RESOURCES_BASE_URL,
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
-    ontologyResourcesBaseUri:
-      process.env.RESOURCES_BASE_URL ||
-      "https://spec.edmcouncil.org/fibo/ontology/",
   },
 
   http: {

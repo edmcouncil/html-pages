@@ -854,7 +854,7 @@
                   </div>
 
                   <!-- DATA GRAPH -->
-                  <div class="row" v-if="hasGraph">
+                  <div class="row">
                     <div class="col-12 px-0">
                       <div class="card">
                         <div class="card-body" ref="dataGraph">
@@ -1042,38 +1042,31 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import {
   getEntity,
   getModules,
   getOntologyVersions,
   getFindSearch,
   getFindProperties,
-} from "../../api/ontology";
+} from "../api/ontology";
 
 export default {
   name: "OntologyView",
   props: ["ontology"],
+  key: "ontology",
+  scrollToTop: false,
+  async validate({ params }) {
+    return params.pathMatch.startsWith("ontology");
+  },
   data() {
     return {
-      mountedTimestamp: null,
-      loader: false,
-      data: null,
-      query: "",
-      ontologyServer: null,
-      modulesServer: null,
-      hintServer: null,
-      searchServer: null,
-      statsServer: null,
-      missingImportsServer: null,
-      version: null,
-      versionDefaultSelectedData: {
-        "@id": "stable",
-        url: "",
-      },
-      modulesList: null,
-      error: false,
-      searchBox: {
+      loader: this.loader || false,
+      data: this.data || null,
+      query: this.query || "",
+      modulesList: this.modulesList || null,
+      error: this.error || false,
+      searchBox: this.searchBox || {
         inputValue: "",
         selectedData: null,
         data: [], // search box hints
@@ -1092,19 +1085,22 @@ export default {
         useHighlighting: true,
         dropdownActive: false,
       },
-      ontologyVersionsDropdownData: {
+      ontologyVersionsDropdownData: this.ontologyVersionsDropdownData || {
+        defaultData: {
+          "@id": "stable",
+          url: "",
+        },
         selectedData: null,
         data: [],
         isLoading: false,
       },
     };
   },
-  scrollToTop: false,
   mounted() {
     let queryParam = "";
-    this.mountedTimestamp = Math.floor(Date.now() / 1000);
 
-    if (this.$route.params && this.$route.params[1]) {
+    const pathParams = this.$route.params?.pathMatch?.split("/");
+    if (pathParams && pathParams[1]?.length > 0) {
       const ontologyQuery = window.location.pathname.replace(
         `${this.ontologyName}/ontology/`,
         ""
@@ -1115,9 +1111,9 @@ export default {
         encodeURIComponent(this.$route.query.query) +
           encodeURIComponent(this.$route.hash) || "";
     }
-
-    this.updateServers();
     this.query = queryParam;
+
+    this.updateServers({ route: this.$route });
     this.fetchData(this.query);
     this.fetchModules();
     this.fetchSearchProperties();
@@ -1136,62 +1132,9 @@ export default {
     }
   },
   methods: {
-    updateServers(to) {
-      let internalRoute = this.$route;
-
-      if (to !== undefined) {
-        internalRoute = to;
-      }
-
-      if (internalRoute.query?.domain) {
-        this.searchServer = internalRoute.query.domain;
-        this.ontologyServer = internalRoute.query.domain;
-        this.statsServer = internalRoute.query.domain;
-        this.missingImportsServer = internalRoute.query.domain;
-      } else {
-        this.searchServer = this.searchDefaultDomain;
-        this.ontologyServer = this.ontologyDefaultDomain;
-        this.statsServer = this.statsDefaultDomain;
-        this.missingImportsServer = this.missingImportsDefaultDomain;
-      }
-
-      if (internalRoute.query?.modules) {
-        this.modulesServer = internalRoute.query.modules;
-      } else {
-        this.modulesServer = this.modulesDefaultDomain;
-      }
-
-      if (internalRoute.query?.version) {
-        this.ontologyServer = this.ontologyServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
-        );
-        this.searchServer = this.searchServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
-        );
-        this.modulesServer = this.modulesServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
-        );
-        this.statsServer = this.statsServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
-        );
-        this.missingImportsServer = this.missingImportsServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
-        );
-        this.version = internalRoute.query.version;
-      } else {
-        this.ontologyServer = this.ontologyServer.replace("{version}", "");
-        this.searchServer = this.searchServer.replace("{version}", "");
-        this.modulesServer = this.modulesServer.replace("{version}", "");
-        this.statsServer = this.statsServer.replace("{version}", "");
-        this.missingImportsServer = this.missingImportsServer.replace("{version}", "");
-        this.version = null;
-      }
-    },
+    ...mapActions({
+      updateServers: 'servers/updateServers'
+    }),
     async fetchData(iri) {
       if (iri) {
         this.loader = true;
@@ -1238,7 +1181,7 @@ export default {
         const result = await getOntologyVersions(`/${this.ontologyName}/ontology/api/`);
         const ontologyVersions = await result.json();
         this.ontologyVersionsDropdownData.data = ontologyVersions;
-        ontologyVersions.unshift(this.versionDefaultSelectedData); // add default at the beginning
+        ontologyVersions.unshift(this.ontologyVersionsDropdownData.defaultData); // add default at the beginning
 
         if (this.version !== null) {
           this.ontologyVersionsDropdownData.selectedData =
@@ -1250,7 +1193,7 @@ export default {
             });
         } else {
           this.ontologyVersionsDropdownData.selectedData =
-            this.versionDefaultSelectedData;
+            this.ontologyVersionsDropdownData.defaultData;
         }
         this.error = false;
       } catch (err) {
@@ -1292,7 +1235,7 @@ export default {
     ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
       if (
         selectedOntologyVersion["@id"] ===
-        this.versionDefaultSelectedData["@id"]
+        this.ontologyVersionsDropdownData.defaultData["@id"]
       ) {
         // default selected
         const { version, ...rest } = this.$route.query; // get rid of version
@@ -1560,11 +1503,12 @@ export default {
   },
   computed: {
     ...mapState({
-      searchDefaultDomain: (state) => state.searchDefaultDomain,
-      ontologyDefaultDomain: (state) => state.ontologyDefaultDomain,
-      modulesDefaultDomain: (state) => state.modulesDefaultDomain,
-      statsDefaultDomain: (state) => state.statsDefaultDomain,
-      missingImportsDefaultDomain: (state) => state.missingImportsDefaultDomain,
+      version: (state) => state.servers.version,
+      searchServer: (state) => state.servers.searchServer,
+      ontologyServer: (state) => state.servers.ontologyServer,
+      modulesServer: (state) => state.servers.modulesServer,
+      statsServer: (state) => state.servers.statsServer,
+      missingImportsServer: (state) => state.servers.missingImportsServer,
     }),
     hasVersions() {
       return this.ontologyVersionsDropdownData.data.length > 1;
@@ -1583,7 +1527,7 @@ export default {
     }
   },
   beforeRouteUpdate(to, from, next) {
-    this.updateServers(to);
+    this.updateServers({ route: this.$route, to });
     this.$root.ontologyRouteIsUpdating = true;
     if (to !== from) {
       let queryParam = "";
@@ -1625,12 +1569,6 @@ export default {
           this.scrollToOntologyViewerTopOfContainer();
       });
     }
-
-    // const currentTimestamp = Math.floor(Date.now() / 1000);
-    // if (this.mountedTimestamp + 2 >= currentTimestamp) {
-    // //  this IF makes trick to execute only on page load
-    //  this.scrollToOntologyViewerTopOfContainer();
-    // }
 
     if (
       this.$route.query.searchBoxQuery &&

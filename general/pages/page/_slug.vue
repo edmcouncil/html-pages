@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import helpers from "../store/helpers.js";
-import { outboundClick, outboundLinkClick } from "../helpers/ga";
-import { getStrapiElementFromCollection } from "../api/strapi";
+import helpers from "../../store/helpers.js";
+import { outboundClick, outboundLinkClick } from "../../helpers/ga";
+import { getStrapiElementFromCollection } from "../../api/strapi";
 
 export default {
   extends: helpers,
