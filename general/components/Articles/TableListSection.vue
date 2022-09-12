@@ -114,7 +114,7 @@ export default {
     }
 
     &.long-description {
-      text-align: justify;
+      text-align: center;
     }
   }
 }
