@@ -33,12 +33,8 @@ process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
 process.env.STRAPI_RESOURCES_URL =
   process.env.STRAPI_RESOURCES_URL || process.env.STRAPI_URL;
 
-  //process.env.VUE_ASSETS_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/_nuxt/`;
-//process.env.VUE_DIST_DIR = `dist/${process.env.VUE_ONTOLOGY_NAME}/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
-
-process.env.VUE_ASSETS_DIR = `/_nuxt/`;
-process.env.VUE_DIST_DIR = `dist/${process.env.VUE_ONTOLOGY_NAME}`;
-
+process.env.VUE_ASSETS_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/_nuxt/`;
+process.env.VUE_DIST_DIR = `dist/${process.env.VUE_ONTOLOGY_NAME}/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
 
 export default {
   // target: 'static' description https://nuxtjs.org/announcements/going-full-static/
