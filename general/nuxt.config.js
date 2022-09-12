@@ -29,7 +29,7 @@ process.env.VUE_RESOURCES_BASE_URL =
   process.env.RESOURCES_BASE_URL ||
   process.env.BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
 
-process.env.STRAPI_URL = process.env.STRAPI_URL || "http://edmc-fibo-viewer.dc.makolab.pl:1330/";
+process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
 process.env.STRAPI_RESOURCES_URL =
   process.env.STRAPI_RESOURCES_URL || process.env.STRAPI_URL;
 

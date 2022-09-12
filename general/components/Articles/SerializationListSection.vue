@@ -11,7 +11,7 @@
         <div class="table-box__column title">
           <h3>{{ element.name }}</h3>
         </div>
-        <div class="downloads-container">
+        <div v-if="!element.csv" class="downloads-container">
           <div class="table-box__column download">
             <p>RDF-XML</p>
             <button
@@ -85,6 +85,48 @@
             </button>
             <button
               v-if="!element.nq || element.nq.length === 0"
+              disabled
+              type="button"
+              class="btn normal-button"
+            >
+              N/A
+            </button>
+          </div>
+        </div>
+        <div v-else class="downloads-container">
+          <div class="table-box__column download">
+            <p>CSV</p>
+            <button
+              v-for="Link in element.csv"
+              :key="Link.name"
+              type="button"
+              class="btn normal-button"
+              @click="download(Link.name)"
+            >
+              {{ Link.name }}
+            </button>
+            <button
+              v-if="!element.csv || element.csv.length === 0"
+              disabled
+              type="button"
+              class="btn normal-button"
+            >
+              N/A
+            </button>
+          </div>
+          <div class="table-box__column download">
+            <p>XLSX</p>
+            <button
+              v-for="Link in element.xlsx"
+              :key="Link.name"
+              type="button"
+              class="btn normal-button"
+              @click="download(Link.name)"
+            >
+              {{ Link.name }}
+            </button>
+            <button
+              v-if="!element.xlsx || element.xlsx.length === 0"
               disabled
               type="button"
               class="btn normal-button"
