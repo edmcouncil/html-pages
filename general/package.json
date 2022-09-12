@@ -56,5 +56,10 @@
     "sass": "^1.51.0",
     "sass-loader": "^10.1.1",
     "vue-template-compiler": "^2.6.11"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
   }
 }

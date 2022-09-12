@@ -29,13 +29,21 @@ process.env.VUE_RESOURCES_BASE_URL =
   process.env.RESOURCES_BASE_URL ||
   process.env.BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
 
-process.env.STRAPI_URL = process.env.STRAPI_URL || "http://edmc-fibo-viewer.dc.makolab.pl:1330/";
+process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
 process.env.STRAPI_RESOURCES_URL =
   process.env.STRAPI_RESOURCES_URL || process.env.STRAPI_URL;
 
+  //process.env.VUE_ASSETS_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/_nuxt/`;
+//process.env.VUE_DIST_DIR = `dist/${process.env.VUE_ONTOLOGY_NAME}/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
+
+process.env.VUE_ASSETS_DIR = `/_nuxt/`;
+process.env.VUE_DIST_DIR = `dist/${process.env.VUE_ONTOLOGY_NAME}`;
+
+
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
+  // target: 'static' description https://nuxtjs.org/announcements/going-full-static/
   target: "static",
+  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: process.env.VUE_ONTOLOGY_NAME.toUpperCase(),
     htmlAttrs: {
@@ -72,13 +80,11 @@ export default {
   server: {
     host: process.env.PUBLIC_URL || "localhost",
   },
-  assetsDir: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
-  indexPath: `${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/index.html`,
   router: {
     base: `/${process.env.VUE_ONTOLOGY_NAME}`,
   },
   generate: {
-    dir: `dist/${process.env.VUE_ONTOLOGY_NAME}/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`,
+    dir: process.env.VUE_DIST_DIR,
     routes() {
       return axios
         .get(`${process.env.STRAPI_URL || "http://localhost:1337"}/api/pages`)
@@ -152,7 +158,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    publicPath: `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/_nuxt/`,
+    publicPath: process.env.VUE_ASSETS_DIR,
     loaders: {
       sass: {
         implementation: require("sass"),
@@ -173,10 +179,13 @@ export default {
   // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
   env: {
     ontologyName: process.env.VUE_ONTOLOGY_NAME,
-    ontologyResourcesBaseUri: process.env.RESOURCES_BASE_URL ||
-    "https://spec.edmcouncil.org/fibo/ontology/",
+    assetsDir: process.env.VUE_ASSETS_DIR,
+    distDir: process.env.VUE_DIST_DIR,
+    staticGenerationMode: process.env.NODE_ENV === "production",
+    ontologyResourcesBaseUri:
+      process.env.RESOURCES_BASE_URL ||
+      +"https://spec.edmcouncil.org/fibo/ontology/",
     strapiBaseUri: process.env.STRAPI_URL,
-    strapiResourcesUri: process.env.STRAPI_RESOURCES_URL,
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
   },
 

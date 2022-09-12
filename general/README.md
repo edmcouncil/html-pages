@@ -71,15 +71,13 @@ Application run default on: `http://localhost:3000`.
 
 ### Command line frontend properties
 
-- `ONTOLOGY_NAME` - ontology name (default: fibo)
+- `ONTPUB_FAMILY` - ontology name (default: fibo), ontology name is used as base url (base url is after host url ex. base url(`ONTPUB_FAMILY`)='fibo' runs application on `host:3000/fibo`)
 
 - `PUBLIC_URL` - host url (default: localhost)
 
-- `BASE_URL` - base after host url ex. BASE_URL='fibo' runs application on localhost:3000/fibo (default: *fibo*)
-
 - `STRAPI_URL` - url to strapi instance (default: http://localhost:1337)
 
-- `RESOURCES_BASE_URL` - resource base url (default: https://spec.edmcouncil.org/fibo/ontology/)
+- `RESOURCES_BASE_URL` - resource base url (default: `BASE_URL` + `ONTPUB_FAMILY` + `/ontology/`)
 
 - `SHOW_TERMS_LINK_ON_FOOTER` - show or hide terms links in footer (default: true)
 

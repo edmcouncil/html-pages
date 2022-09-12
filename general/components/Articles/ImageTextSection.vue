@@ -32,10 +32,13 @@ export default {
   props: ["sectionItem"],
   methods: {
     getImageUrl(item) {
-      const strapiUrl = process.env.strapiResourcesUri;
+      const strapiUrl = process.env.strapiBaseUri;
       const location = item?.image?.data?.attributes?.url;
       if (location == undefined) {
         return "undefined";
+      }
+      if (location.includes("_nuxt") && location.includes("downloads")) {
+        return location;
       }
       return strapiUrl + location;
     },
