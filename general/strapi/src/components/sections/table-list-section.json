@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_sections_table_list_sections",
+  "info": {
+    "displayName": "Table list section",
+    "icon": "table",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "items": {
+      "displayName": "table_item",
+      "type": "component",
+      "repeatable": true,
+      "component": "article-elements.table-item"
+    },
+    "background": {
+      "type": "enumeration",
+      "enum": [
+        "normal",
+        "blank"
+      ],
+      "default": "normal"
+    }
+  }
+}
