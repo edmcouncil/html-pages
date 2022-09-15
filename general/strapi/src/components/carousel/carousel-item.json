@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_carousel_carousel_items",
+  "info": {
+    "displayName": "Carousel item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "carousel.carousel-link"
+    }
+  }
+}
