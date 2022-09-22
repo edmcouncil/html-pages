@@ -151,8 +151,7 @@ async function downloadImagesFromStrapi(response, elementTypeName) {
         : distDir.endsWith("/") && imageDownloadPath.startsWith("/")
         ? distDir + imageDownloadPath.substring(1)
         : distDir + "/" + imageDownloadPath;
-    if (response.data.data.attributes)
-    {
+    if (response.data.data && response.data.data.attributes) {
       for (var section of response.data.data.attributes.sections) {
         section = await tryToDownloadImages(
           section,
@@ -160,7 +159,7 @@ async function downloadImagesFromStrapi(response, elementTypeName) {
           imageDownloadPath
         );
       }
-    } else if(response.data.data[0]) {
+    } else if (response.data.data[0]) {
       for (var dataElement of response.data.data) {
         for (var section of dataElement.attributes.sections) {
           section = await tryToDownloadImages(
@@ -183,9 +182,9 @@ async function tryToDownloadImages(
   if (section.__component == "sections.image-text-section" && section.items) {
     for (const item of section.items) {
       if (item.image) {
-        let imageName = item.image.data.attributes.url.split("/").pop();
         const imageResponseUrl = item?.image?.data?.attributes?.url;
         if (imageResponseUrl != undefined) {
+          let imageName = imageResponseUrl.split("/").pop();
           const imageUrl = process.env.strapiBaseUrl + imageResponseUrl;
           downloadImage(imageUrl, imageDestination, imageName);
           item.image.data.attributes.url = `/${process.env.ontologyName}${imageDownloadPath}${imageName}`;
