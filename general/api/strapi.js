@@ -151,27 +151,47 @@ async function downloadImagesFromStrapi(response, elementTypeName) {
         : distDir.endsWith("/") && imageDownloadPath.startsWith("/")
         ? distDir + imageDownloadPath.substring(1)
         : distDir + "/" + imageDownloadPath;
-    //console.log("Response data attributes: ", JSON.stringify());
     if (response.data.data.attributes)
-      for (const section of response.data.data.attributes.sections) {
-        if (
-          section.__component == "sections.image-text-section" &&
-          section.items
-        ) {
-          for (const item of section.items) {
-            if (item.image) {
-              let imageName = item.image.data.attributes.url.split("/").pop();
-              //console.log("image name: " + imageName);
-              const imageResponseUrl = item?.image?.data?.attributes?.url;
-              if (imageResponseUrl != undefined) {
-                const imageUrl = process.env.strapiBaseUrl + imageResponseUrl;
-                downloadImage(imageUrl, imageDestination, imageName);
-                item.image.data.attributes.url = `/${process.env.ontologyName}${imageDownloadPath}${imageName}`;
-              }
-            }
-          }
+    {
+      for (var section of response.data.data.attributes.sections) {
+        section = await tryToDownloadImages(
+          section,
+          imageDestination,
+          imageDownloadPath
+        );
+      }
+    } else if(response.data.data[0]) {
+      for (var dataElement of response.data.data) {
+        for (var section of dataElement.attributes.sections) {
+          section = await tryToDownloadImages(
+            section,
+            imageDestination,
+            imageDownloadPath
+          );
         }
       }
+    }
   }
   return response;
+}
+
+async function tryToDownloadImages(
+  section,
+  imageDestination,
+  imageDownloadPath
+) {
+  if (section.__component == "sections.image-text-section" && section.items) {
+    for (const item of section.items) {
+      if (item.image) {
+        let imageName = item.image.data.attributes.url.split("/").pop();
+        const imageResponseUrl = item?.image?.data?.attributes?.url;
+        if (imageResponseUrl != undefined) {
+          const imageUrl = process.env.strapiBaseUrl + imageResponseUrl;
+          downloadImage(imageUrl, imageDestination, imageName);
+          item.image.data.attributes.url = `/${process.env.ontologyName}${imageDownloadPath}${imageName}`;
+        }
+      }
+    }
+  }
+  return section;
 }
