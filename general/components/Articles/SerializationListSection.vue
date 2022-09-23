@@ -19,7 +19,7 @@
               :key="Link.name"
               type="button"
               class="btn normal-button"
-              @click="download(Link.name)"
+              @click="download(Link.name, Link.product)"
             >
               {{ Link.name }}
             </button>
@@ -39,7 +39,7 @@
               :key="Link.name"
               type="button"
               class="btn normal-button"
-              @click="download(Link.name)"
+              @click="download(Link.name, Link.product)"
             >
               {{ Link.name }}
             </button>
@@ -59,7 +59,7 @@
               :key="Link.name"
               type="button"
               class="btn normal-button"
-              @click="download(Link.name)"
+              @click="download(Link.name, Link.product)"
             >
               {{ Link.name }}
             </button>
@@ -79,7 +79,7 @@
               :key="Link.name"
               type="button"
               class="btn normal-button"
-              @click="download(Link.name)"
+              @click="download(Link.name, Link.product)"
             >
               {{ Link.name }}
             </button>
@@ -101,7 +101,7 @@
               :key="Link.name"
               type="button"
               class="btn normal-button"
-              @click="download(Link.name)"
+              @click="download(Link.name, Link.product)"
             >
               {{ Link.name }}
             </button>
@@ -121,7 +121,7 @@
               :key="Link.name"
               type="button"
               class="btn normal-button"
-              @click="download(Link.name)"
+              @click="download(Link.name, Link.product)"
             >
               {{ Link.name }}
             </button>
@@ -142,26 +142,27 @@
 
 <script>
 export default {
-  name: 'SerializationListSection',
-  props: [ 'sectionItem' ],
+  name: "SerializationListSection",
+  props: ["sectionItem"],
   data() {
     return {
       serialization: null,
-    }
+    };
   },
   async mounted() {
     this.serialization = this.sectionItem.serialization;
   },
   methods: {
-    download(name) {
-      const baseUrl = `https://spec.edmcouncil.org/${this.ontologyName}/ontology`;
-      const branch = 'master/latest';
+    download(name, product) {
+      const productName = product || 'ontology';
+      const baseUrl = `https://spec.edmcouncil.org/${this.ontologyName}/${productName}`;
+      const branch = "master/latest";
       const link = `${baseUrl}/${branch}/${name}`;
-      const aElement = document.createElement('a');
-      aElement.setAttribute('download', name);
-      aElement.setAttribute('href', link);
-      aElement.setAttribute('target', '_blank');
-      aElement.style.display = 'none';
+      const aElement = document.createElement("a");
+      aElement.setAttribute("download", name);
+      aElement.setAttribute("href", link);
+      aElement.setAttribute("target", "_blank");
+      aElement.style.display = "none";
       document.body.appendChild(aElement);
       aElement.click();
       aElement.remove();
@@ -171,8 +172,8 @@ export default {
     ontologyName() {
       return process.env.ontologyName.toLowerCase();
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -223,7 +224,7 @@ article.full-page .table-container .table-box {
   }
 
   .table-container .table-box {
-    flex-direction: column!important;
+    flex-direction: column !important;
   }
 
   article.full-page .table-container .table-box .table-box__column {
