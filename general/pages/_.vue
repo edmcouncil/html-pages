@@ -854,7 +854,7 @@
                   </div>
 
                   <!-- DATA GRAPH -->
-                  <div class="row">
+                  <div class="row" v-if="hasGraph">
                     <div class="col-12 px-0">
                       <div class="card">
                         <div class="card-body" ref="dataGraph">
