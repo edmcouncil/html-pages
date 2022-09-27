@@ -117,6 +117,15 @@
                     >
                       AUTO Home
                     </a>
+                    <a
+                      class="nav-link dropdown-item"
+                      href="https://spec.edmcouncil.org/idmp/"
+                      v-on:click="
+                        outboundLinkClick('https://spec.edmcouncil.org/idmp/')
+                      "
+                    >
+                      IDMP Home
+                    </a>
                     <div
                       class="nav-link dropdown-item"
                       @click="navigationHandler('contact')"
