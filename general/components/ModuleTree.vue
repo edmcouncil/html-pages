@@ -7,13 +7,14 @@
         @click="toggle"
       ></div>
       <div
-        v-if="this.item.maturityLevel.label !== 'NOT_SET'"
+        v-if="this.item.maturityLevel.label !== 'Not Set'"
         class="indicator-container"
         :class="{
-          provisionalIndicator: this.item.maturityLevel.label === 'PROVISIONAL',
-          informativeIndicator: this.item.maturityLevel.label === 'INFORMATIVE',
-          releaseIndicator: this.item.maturityLevel.label === 'RELEASE',
-          mixedIndicator: this.item.maturityLevel.label === 'MIXED',
+          provisionalIndicator: this.item.maturityLevel.label === 'Provisional' ||
+                                this.item.maturityLevel.label === 'Preliminary',
+          informativeIndicator: this.item.maturityLevel.label === 'Informative',
+          releaseIndicator: this.item.maturityLevel.label === 'Release',
+          mixedIndicator: this.item.maturityLevel.label === 'Mixed',
           indicator: true,
         }"
       ></div>
