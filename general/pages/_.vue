@@ -729,12 +729,13 @@
                               class="alert alert-primary alert-maturity"
                               :class="{
                                 informative:
-                                  data.maturityLevel.label === 'INFORMATIVE',
+                                  data.maturityLevel.label === 'Informative',
                               }"
                               role="alert"
                               v-if="
-                                data.maturityLevel.label === 'INFORMATIVE' ||
-                                data.maturityLevel.label === 'PROVISIONAL'
+                                data.maturityLevel.label === 'Informative' ||
+                                data.maturityLevel.label === 'Provisional' ||
+                                data.maturityLevel.label === 'Preliminary'
                               "
                             >
                               This resource has maturity level
@@ -750,8 +751,9 @@
 
                           <div
                             v-if="
-                              data.maturityLevel.label === 'INFORMATIVE' ||
-                              data.maturityLevel.label === 'PROVISIONAL' ||
+                              data.maturityLevel.label === 'Informative' ||
+                              data.maturityLevel.label === 'Provisional' ||
+                              data.maturityLevel.label === 'Preliminary' ||
                               data.deprecated
                             "
                             class="clearfix"
@@ -762,13 +764,14 @@
                             class="card-title"
                             :class="{
                               'maturity-provisional':
-                                this.data.maturityLevel.label === 'PROVISIONAL',
+                                this.data.maturityLevel.label === 'Provisional' ||
+                                this.data.maturityLevel.label === 'Preliminary',
                               'maturity-informative':
-                                this.data.maturityLevel.label === 'INFORMATIVE',
+                                this.data.maturityLevel.label === 'Informative',
                               'maturity-production':
-                                this.data.maturityLevel.label === 'RELEASE',
+                                this.data.maturityLevel.label === 'Release',
                               'maturity-mixed':
-                                this.data.maturityLevel.label === 'MIXED',
+                                this.data.maturityLevel.label === 'Mixed',
                             }"
                           >
                             {{ data.label }}
