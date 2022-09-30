@@ -59,7 +59,7 @@
           <span class="text-display">AUTO</span>
           <h2>
             The Automotive Ontology (AUTO) defines the shared conceptual
-            structures in the automotive indus
+            structures in the automotive industry.
           </h2>
 
           <a
@@ -67,6 +67,21 @@
             v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')"
           >
             Official AUTO website
+          </a>
+        </div>
+        <div class="carousel-item">
+          <span class="text-display">IDMP</span>
+          <h2>
+            The Identification of Medicinal Products Ontology (IDMP) aims to demonstrates
+            added value to the ISO IDMP standards for data usability across organizational
+            boundaries and regulatory jurisdictions.
+          </h2>
+
+          <a
+            href="https://spec.edmcouncil.org/idmp/"
+            v-on:click="outboundLinkClick('https://spec.edmcouncil.org/idmp/')"
+          >
+            Official IDMP website
           </a>
         </div>
       </div>
@@ -114,7 +129,7 @@ export default {
   data() {
     return {
       currentSlide: 1,
-      slideCount: 4,
+      slideCount: 5,
     };
   },
 };
