@@ -11,7 +11,7 @@ process.env.VUE_APP_BRANCH = (
     : process.env.BRANCH_NAME || "master")
 ).toLowerCase();
 process.env.VUE_APP_TAG = process.env.TAG || process.env.TAG_NAME || "latest";
-process.env.VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || "idmp";
+process.env.VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || "fibo";
 process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || process.env.VUE_ONTOLOGY_NAME==='idmp'?"latest":"2022Q3";
 process.env.VUE_BASE_URL =
   process.env.BASE_URL ||
