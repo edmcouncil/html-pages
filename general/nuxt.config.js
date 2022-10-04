@@ -26,7 +26,6 @@ process.env.VUE_BASE_URL =
 // AUTO - https://spec.edmcouncil.org/auto/ontology/
 // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
 process.env.VUE_RESOURCES_BASE_URL =
-  process.env.RESOURCES_BASE_URL ||
   process.env.VUE_BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
 
 process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
