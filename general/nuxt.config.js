@@ -27,7 +27,7 @@ process.env.VUE_BASE_URL =
 // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
 process.env.VUE_RESOURCES_BASE_URL =
   process.env.RESOURCES_BASE_URL ||
-  process.env.BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
+  process.env.VUE_BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
 
 process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
 
@@ -177,7 +177,7 @@ export default {
     assetsDir: process.env.VUE_ASSETS_DIR,
     distDir: process.env.VUE_DIST_DIR,
     staticGenerationMode: process.env.NODE_ENV === "production",
-    ontologyResourcesBaseUri: process.env.RESOURCES_BASE_URL,
+    ontologyResourcesBaseUri: process.env.VUE_RESOURCES_BASE_URL,
     strapiBaseUrl: process.env.STRAPI_URL,
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
   },
@@ -187,18 +187,8 @@ export default {
   },
 
   proxy: [
-    process.env.VUE_RESOURCES_BASE_URL.startsWith("http://") ||
-    process.env.VUE_RESOURCES_BASE_URL.startsWith("https://")
-      ? process.env.VUE_RESOURCES_BASE_URL
-      : process.env.VUE_BASE_URL +
-        process.env.VUE_ONTOLOGY_NAME +
-        "/ontology/api",
-    process.env.VUE_RESOURCES_BASE_URL.startsWith("http://") ||
-    process.env.VUE_RESOURCES_BASE_URL.startsWith("https://")
-      ? process.env.VUE_RESOURCES_BASE_URL
-      : process.env.VUE_BASE_URL +
-        process.env.VUE_ONTOLOGY_NAME +
-        "/ontology/*/api",
+    "https://spec.edmcouncil.org/" + process.env.VUE_ONTOLOGY_NAME + "/ontology/api",
+    "https://spec.edmcouncil.org/" + process.env.VUE_ONTOLOGY_NAME + "/ontology/*/api"
   ],
 
   styleResources: {
