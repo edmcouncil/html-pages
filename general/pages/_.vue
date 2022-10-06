@@ -161,7 +161,7 @@
                           :class="{
                             'multiselect--input-empty': !searchBox.inputValue,
                           }"
-                          :options="searchBox.data"
+                          :options="searchBox.hintsData"
                           :multiple="false"
                           :searchable="true"
                           :loading="searchBox.isLoading"
@@ -431,7 +431,7 @@
                     :class="{
                       'multiselect--input-empty': !searchBox.inputValue,
                     }"
-                    :options="searchBox.data"
+                    :options="searchBox.hintsData"
                     :multiple="false"
                     :searchable="true"
                     :loading="searchBox.isLoading"
@@ -571,21 +571,26 @@
           >
             <div class="search-section__header">
               <h5>Search results for “{{ searchBox.selectedData.iri }}”</h5>
-              <p>{{ searchBox.totalResultsCount }} results</p>
+              <!-- <p>{{ searchBox.totalResultsCount }} total results</p> -->
+              <p>
+                {{ searchBox.fromCount }} -
+                {{ searchBox.toCount }}
+                of {{ searchBox.totalResultsCount }} total results
+              </p>
             </div>
 
             <div
-              v-if="searchBox.totalResults && searchBox.totalResults.length"
+              v-if="searchBox.pageResults && searchBox.pageResults.length"
               class="search-section__items"
             >
               <div
-                v-for="(result, index) in searchBox.displayedResults"
+                v-for="(result, index) in searchBox.pageResults"
                 :key="index + searchBox.selectedData.iri"
                 class="search-item"
               >
                 <div>
                   <div class="search-item__title">
-                    <div
+                    <!-- <div
                       class="search-item__icon"
                       :class="{
                         'maturity-provisional':
@@ -595,7 +600,7 @@
                         'maturity-mixed':
                           result.maturityLevel.icon === 'prod_and_dev_mixed',
                       }"
-                    ></div>
+                    ></div> -->
                     <customLink
                       class="custom-link"
                       :name="result.label"
@@ -643,30 +648,31 @@
               class="search-section__load-more"
               v-if="searchBox.totalResultsCount > 0"
             >
-              <p>
-                1 -
-                {{ searchBox.displayedResults.length }}
-                of {{ searchBox.totalResultsCount }} results
+              <b-pagination
+                pills
+                first-number
+                last-number
+                v-model="searchBox.page"
+                :total-rows="searchBox.totalResultsCount"
+                :per-page="searchBox.perPage"
+                @input="paginationHandler()"
+                v-if="searchBox.totalResultsCount > searchBox.perPage"
+              ></b-pagination>
+
+              <p v-else>
+                There is only one page.
               </p>
 
-              <button
+              <!-- <button
                 type="button"
                 class="btn normal-button search-section__load-more__button"
                 @click="loadMoreResults()"
                 v-if="
                   searchBox.totalResultsCount >
-                  searchBox.displayedResults.length
+                  searchBox.pageResults.length
                 "
               >
                 Load next
-                {{
-                  searchBox.totalResultsCount -
-                    searchBox.displayedResultsCount <
-                  searchBox.perPage
-                    ? searchBox.totalResultsCount -
-                      searchBox.displayedResultsCount
-                    : searchBox.perPage
-                }}
                 results
               </button>
 
@@ -677,7 +683,7 @@
                 v-else
               >
                 No more results to load
-              </button>
+              </button> -->
             </div>
           </div>
 
@@ -1072,16 +1078,17 @@ export default {
       searchBox: this.searchBox || {
         inputValue: "",
         selectedData: null,
-        data: [], // search box hints
+        hintsData: [], // search box hints
         totalResultsCount: 0,
-        displayedResultsCount: 0,
-        totalResults: [], // results: all fetched results
-        displayedResults: [], // results: currently displayed
+        fromCount: 0,
+        toCount: 0,
+        pageResults: [], // search results data
         isLoading: false,
         searchError: false,
         isAdvancedExpanded: false,
         lastSearchBQuery: null, // contains last searchBQuery used
-        perPage: 10,
+        page: 1,
+        perPage: 0,
         findPropertiesAll: [],
         findProperties: [],
         encodedProperties: "",
@@ -1132,6 +1139,15 @@ export default {
       });
     } else {
       this.scrollToOntologyViewerTopOfContainer();
+    }
+    if (this.$route.query.search) {
+      this.clearSearchResults();
+      const searchQuery = decodeURI(this.$route.query.search);
+      this.searchBox.inputValue = searchQuery;
+      this.$refs.searchBoxInputDesktop.search = searchQuery;
+      this.$refs.searchBoxInputMobile.search = searchQuery;
+      const page = this.$route.query.page;
+      this.handleSearchBoxQuery(searchQuery, page);
     }
   },
   methods: {
@@ -1296,10 +1312,12 @@ export default {
       if (newTag != "") {
         if (this.$refs.mobileSearchbox?.showModal)
           this.$refs.mobileSearchbox.hideModal();
+
         this.$router.push({
           path: "/ontology",
           query: {
-            ...{ searchBoxQuery: encodeURI(newTag) },
+            ...{ search: encodeURI(newTag) },
+            ...{ page: 1 },
             ...(this.$route.query && this.$route.query.version
               ? { version: encodeURI(this.$route.query.version) }
               : null),
@@ -1307,7 +1325,7 @@ export default {
         });
       }
     },
-    async handleSearchBoxQuery(searchBQuery) {
+    async handleSearchBoxQuery(searchBQuery, page) {
       try {
         this.searchBox.isLoadingResults = true;
         const isHighlighting = this.searchBox.useHighlighting;
@@ -1318,44 +1336,34 @@ export default {
         }
 
         if (this.searchBox.findProperties.length > 0) {
+          this.searchBox.page = page;
+
           // eslint-disable-next-line max-len
           let domain = encodeURI(
-            `${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${this.searchBox.encodedProperties}`
+            `${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${this.searchBox.encodedProperties}&page=${page}`
           );
 
           const result = await getFindSearch(domain);
           const body = await result.json();
 
-          // eslint-disable-next-line no-restricted-syntax
-          for (const res of body) {
-            if (
-              res.maturityLevel === undefined ||
-              res.maturityLevel.icon === undefined
-            ) {
-              res.maturityLevel = {};
-              res.maturityLevel.icon = "";
-            }
-          }
+          this.searchBox.pageResults = body.results;
 
-          this.searchBox.totalResults = body;
-          this.searchBox.displayedResults = body.slice(
-            0,
-            this.searchBox.perPage
-          );
+          this.searchBox.lastSearchBQuery = searchBQuery;
+          this.searchBox.perPage = body.pageSize;
+
+          this.searchBox.totalResultsCount = body.totalHits;
+
+          const from = (page - 1) * body.pageSize + 1;
+          const to = from + body.results.length - 1;
+          this.searchBox.fromCount = from;
+          this.searchBox.toCount = to;
+
+          this.error = false;
+          this.searchBox.isLoadingResults = false;
+          this.searchBox.searchError = false;
         } else {
-          this.searchBox.totalResults = [];
-          this.searchBox.displayedResults = [];
+          this.searchBox.pageResults = [];
         }
-
-        this.searchBox.lastSearchBQuery = searchBQuery;
-
-        this.searchBox.displayedResultsCount =
-          this.searchBox.displayedResults.length;
-        this.searchBox.totalResultsCount = this.searchBox.totalResults.length;
-
-        this.error = false;
-        this.searchBox.isLoadingResults = false;
-        this.searchBox.searchError = false;
       } catch (err) {
         console.error(err);
         this.error = true;
@@ -1371,9 +1379,21 @@ export default {
       };
       this.searchBox.selectedData = tag;
     },
+    paginationHandler() {
+      this.$router.push({
+        path: "/ontology",
+        query: {
+          ...{ search: encodeURI(this.searchBox.lastSearchBQuery) },
+          ...{ page: this.searchBox.page },
+          ...(this.$route.query && this.$route.query.version
+            ? { version: encodeURI(this.$route.query.version) }
+            : null),
+        },
+      });
+    },
     searchBox_asyncFind(query) {
       this.searchBox.inputValue = query;
-      this.searchBox.data = [];
+      this.searchBox.hintsData = [];
 
       if (query.trim().length === 0) {
         return;
@@ -1387,18 +1407,25 @@ export default {
 
       this.searchBox.debounce = setTimeout(async () => {
         try {
+          // wait for properties to be loaded if they arent
+          while (this.searchBox.findPropertiesAll.length === 0) {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+          }
+
           // eslint-disable-next-line max-len
           let domain = encodeURI(
             `${this.searchServer}?term=${query}&mode=advance&useHighlighting=false&findProperties=${this.searchBox.encodedProperties}`
           );
           const result = await getFindSearch(domain);
-          const hints = await result.json();
+          const json = await result.json();
+          const hints = json.results;
 
           hints.forEach((el) => {
             // eslint-disable-next-line no-param-reassign
             el.labelForInternalSearch = `${el.label} `; // this is hacky to make it possible to search text (add tag) the same as the label in hint results
           });
-          this.searchBox.data = hints;
+
+          this.searchBox.hintsData = hints;
           this.error = false;
         } catch (err) {
           console.error(err);
@@ -1425,22 +1452,18 @@ export default {
     },
     clearSearchResults() {
       this.searchBox = {
-        inputValue: this.searchBox.inputValue,
+        ...this.searchBox,
         selectedData: null,
-        data: [],
+        hintsData: [],
         totalResultsCount: 0,
-        displayedResultsCount: 0,
-        totalResults: [],
-        displayedResults: [],
-        encodedProperties: this.searchBox.encodedProperties,
+        fromCount: 0,
+        toCount: 0,
+        pageResults: [], // search results data
         isLoading: false,
-        isSearchError: false,
-        isAdvancedExpanded: this.searchBox.isAdvancedExpanded,
-        lastSearchBQuery: null,
-        perPage: this.searchBox.perPage,
-        findPropertiesAll: this.searchBox.findPropertiesAll,
-        findProperties: this.searchBox.findProperties,
-        useHighlighting: this.searchBox.useHighlighting,
+        searchError: false,
+        isAdvancedExpanded: false,
+        lastSearchBQuery: null, // contains last searchBQuery used
+        perPage: 10,
       };
     },
     getPropertyLabel(identifier) {
@@ -1553,10 +1576,19 @@ export default {
         this.fetchData(this.query);
       });
     }
-    if (!to.query.searchBoxQuery) {
+    if (!to.query.search) {
       this.clearSearchResults();
       this.clearAll();
       this.searchBox.isAdvancedExpanded = false;
+    }
+    if (to.query.search) {
+      this.clearSearchResults();
+      const searchQuery = decodeURI(to.query.search);
+      this.searchBox.inputValue = searchQuery;
+      this.$refs.searchBoxInputDesktop.search = searchQuery;
+      this.$refs.searchBoxInputMobile.search = searchQuery;
+      const page = to.query.page;
+      this.handleSearchBoxQuery(searchQuery, page);
     }
     next();
   },
@@ -1571,23 +1603,6 @@ export default {
         if (this.$route.fullPath != "/ontology")
           this.scrollToOntologyViewerTopOfContainer();
       });
-    }
-
-    if (
-      this.$route.query.searchBoxQuery &&
-      this.$route.query.searchBoxQuery_isExecuted !== true
-    ) {
-      this.clearSearchResults();
-      const searchQuery = decodeURI(this.$route.query.searchBoxQuery);
-      this.searchBox.inputValue = searchQuery;
-      this.$refs.searchBoxInputDesktop.search = searchQuery;
-      this.$refs.searchBoxInputMobile.search = searchQuery;
-      this.handleSearchBoxQuery(searchQuery);
-      this.$nextTick(() => {
-        if (this.$route.fullPath != "/ontology")
-          this.scrollToOntologyViewerTopOfContainer();
-      });
-      this.$route.query.searchBoxQuery_isExecuted = true;
     }
   },
 };
