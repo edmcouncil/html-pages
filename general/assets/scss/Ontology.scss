@@ -369,8 +369,9 @@
       margin-top: -15px;
       &::after {
         border-top-color: black;
-        border-right-color: black;
-        border-bottom-color: black;
+      }
+      &::before {
+        border-top-color: black;
       }
     }
   }
@@ -1217,8 +1218,8 @@
     }
     p {
       color: rgba(0, 0, 0, 0.6);
-      font-size: 24px;
-      line-height: 40px;
+      font-size: 18px;
+      line-height: 30px;
     }
   }
   .search-section__items {
@@ -1357,9 +1358,55 @@
   }
   .search-section__load-more {
     padding: 40px;
-    background: rgba(0, 0, 0, 0.05);
     border-radius: 2px;
     margin-top: 60px;
+
+    .b-pagination-pills {
+      justify-content: center;
+
+      .page-item {
+        .page-link {
+          font-size: 18px;
+          border-radius: 2px!important;
+          user-select: none;
+          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+      }
+      .page-item .page-link {
+        background-color: transparent;
+        border: 2px solid transparent;
+        color: rgb(51,51,51);
+        margin-left: 6px;
+      }
+      .page-item .page-link:hover {
+        background-color: map-get($colors-map, "black-20");
+      }
+      .page-item .page-link:active {
+        background-color: rgb(153,153,153);
+        border: 2px solid rgb(153,153,153);
+        color: rgb(51,51,51);
+      }
+      .page-item .page-link:focus {
+        box-shadow: none;
+        outline: none;
+      }
+      .page-item.active .page-link {
+        background-color: rgb(51,51,51);
+        border: 2px solid rgb(51,51,51);
+        color: map-get($colors-map, "white");
+      }
+      .page-item.active .page-link:active {
+        background-color: map-get($colors-map, "black");
+        border: 2px solid map-get($colors-map, "black");
+        color: map-get($colors-map, "white");
+      }
+      .page-item.disabled .page-link {
+        background-color: transparent;
+        border: 2px solid transparent;
+        color: map-get($colors-map, "black-40");
+      }
+    }
+
 
     p {
       color: rgba(0, 0, 0, 0.6);
@@ -1368,9 +1415,7 @@
       line-height: 30px;
       margin: 0px;
       padding: 0px;
-    }
-    .search-section__load-more__button {
-      margin-top: 16px;
+      text-align: center;
     }
   }
 }
