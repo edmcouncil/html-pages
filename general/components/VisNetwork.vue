@@ -366,7 +366,6 @@ export default {
 <style lang="scss">
 #graphWindowWraper {
   background: rgba(0, 0, 0, 0.05);
-  padding: 40px 0px;
   .fullscreen-button {
     margin-top: 40px;
     margin-left: 40px;
@@ -383,230 +382,230 @@ export default {
 }
 
 // global/not in modal
-#connectionsMenu {
-  padding-left: 40px;
-  padding-right: 40px;
-  h6 {
-    padding: 0;
-    margin: 0;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 30px;
-    color: #000000;
-  }
-  .connections-title {
-    padding-bottom: 40px;
-  }
-  .connections-list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    .custom-control {
-      padding-right: 40px;
-      padding-bottom: 40px;
+// #connectionsMenu {
+//   padding-left: 40px;
+//   padding-right: 40px;
+//   h6 {
+//     padding: 0;
+//     margin: 0;
+//     font-style: normal;
+//     font-weight: bold;
+//     font-size: 18px;
+//     line-height: 30px;
+//     color: #000000;
+//   }
+//   .connections-title {
+//     padding-bottom: 40px;
+//   }
+//   .connections-list {
+//     display: flex;
+//     flex-direction: row;
+//     flex-wrap: nowrap;
+//     .custom-control {
+//       padding-right: 40px;
+//       padding-bottom: 40px;
 
-      .custom-control-label {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 18px;
-        line-height: 30px;
-        color: rgba(0, 0, 0, 0.8);
-      }
-    }
-  }
-}
+//       .custom-control-label {
+//         font-style: normal;
+//         font-weight: normal;
+//         font-size: 18px;
+//         line-height: 30px;
+//         color: rgba(0, 0, 0, 0.8);
+//       }
+//     }
+//   }
+// }
 
-//global in modal
-.modal {
-  display: block;
+// //global in modal
+// .modal {
+//   display: block;
 
-  .modal-header {
-    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
-    border: none;
-    padding: 18px 30px;
-    z-index: 2;
+//   .modal-header {
+//     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+//     border: none;
+//     padding: 18px 30px;
+//     z-index: 2;
 
-    justify-content: start;
+//     justify-content: start;
 
-    .close-btn {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      width: 24px;
-      height: 30px;
-      padding: 0;
-      margin-right: 20px;
+//     .close-btn {
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: space-around;
+//       align-items: center;
+//       width: 24px;
+//       height: 30px;
+//       padding: 0;
+//       margin-right: 20px;
 
-      &::before {
-        content: "";
-        background-image: url("../assets/icons/return-arrow.svg");
-        background-repeat: no-repeat;
-        background-size: 24px 24px;
-        width: 24px;
-        height: 24px;
-      }
-    }
+//       &::before {
+//         content: "";
+//         background-image: url("../assets/icons/return-arrow.svg");
+//         background-repeat: no-repeat;
+//         background-size: 24px 24px;
+//         width: 24px;
+//         height: 24px;
+//       }
+//     }
 
-    h5.modal-title {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 30px;
-      color: #000000;
+//     h5.modal-title {
+//       font-style: normal;
+//       font-weight: normal;
+//       font-size: 18px;
+//       line-height: 30px;
+//       color: #000000;
 
-      padding: 0;
-      margin: 0;
-      position: relative;
-    }
-  }
-  .modal-dialog {
-    margin: 0;
-  }
-  .modal-content {
-    border-radius: 0;
-    border: none;
-    height: 100vh;
-    width: 100vw;
-  }
-  .modal-body {
-    background: rgba(0, 0, 0, 0.05);
-    padding: 0;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
+//       padding: 0;
+//       margin: 0;
+//       position: relative;
+//     }
+//   }
+//   .modal-dialog {
+//     margin: 0;
+//   }
+//   .modal-content {
+//     border-radius: 0;
+//     border: none;
+//     height: 100vh;
+//     width: 100vw;
+//   }
+//   .modal-body {
+//     background: rgba(0, 0, 0, 0.05);
+//     padding: 0;
+//     height: 100%;
+//     position: relative;
+//     overflow: hidden;
 
-    #connectionsMenu {
-      width: 100%;
-      background: rgb(242, 242, 242);
-      z-index: 1;
-      .connections-title {
-        padding: 20px 0px;
-      }
-    }
-  }
-}
+//     #connectionsMenu {
+//       width: 100%;
+//       background: rgb(242, 242, 242);
+//       z-index: 1;
+//       .connections-title {
+//         padding: 20px 0px;
+//       }
+//     }
+//   }
+// }
 
-//mobile
-@media (max-width: 768px) {
-  .modal .modal-header {
-    h5.modal-title {
-      font-size: 16px;
-      line-height: 24px;
-      color: rgba(0, 0, 0, 0.6);
-    }
-    .close-btn {
-      height: 24px;
-    }
-  }
+// //mobile
+// @media (max-width: 768px) {
+//   .modal .modal-header {
+//     h5.modal-title {
+//       font-size: 16px;
+//       line-height: 24px;
+//       color: rgba(0, 0, 0, 0.6);
+//     }
+//     .close-btn {
+//       height: 24px;
+//     }
+//   }
 
-  #graphWindowWraper {
-    .fullscreen-button {
-      margin-left: 20px;
-    }
-  }
+//   #graphWindowWraper {
+//     .fullscreen-button {
+//       margin-left: 20px;
+//     }
+//   }
 
-  #connectionsMenu {
-    padding-left: 30px;
-    padding-right: 30px;
+//   #connectionsMenu {
+//     padding-left: 30px;
+//     padding-right: 30px;
 
-    .connections-title {
-      padding-bottom: 20px;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
+//     .connections-title {
+//       padding-bottom: 20px;
+//       margin: 0;
+//       display: flex;
+//       align-items: center;
+//       justify-content: space-between;
+//       cursor: pointer;
 
-      .collapse-icon {
-        content: "";
-        background-image: url("../assets/icons/triangle-up.svg");
-        background-repeat: no-repeat;
-        background-size: 24px 24px;
-        width: 24px;
-        height: 24px;
-      }
-    }
+//       .collapse-icon {
+//         content: "";
+//         background-image: url("../assets/icons/triangle-up.svg");
+//         background-repeat: no-repeat;
+//         background-size: 24px 24px;
+//         width: 24px;
+//         height: 24px;
+//       }
+//     }
 
-    .connections-list {
-      flex-direction: column;
+//     .connections-list {
+//       flex-direction: column;
 
-      .custom-control {
-        padding-right: 0px;
-        padding-bottom: 20px;
+//       .custom-control {
+//         padding-right: 0px;
+//         padding-bottom: 20px;
 
-        .custom-control-label {
-          padding-top: 3px;
-          padding-bottom: 3px;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 16px;
-          line-height: 24px;
-          color: rgba(0, 0, 0, 0.8);
-        }
-      }
-    }
+//         .custom-control-label {
+//           padding-top: 3px;
+//           padding-bottom: 3px;
+//           font-style: normal;
+//           font-weight: normal;
+//           font-size: 16px;
+//           line-height: 24px;
+//           color: rgba(0, 0, 0, 0.8);
+//         }
+//       }
+//     }
 
-    &.collapsed {
-      .connections-title .collapse-icon {
-        background-image: url("../assets/icons/triangle-down.svg");
-      }
-      .connections-list {
-        height: 0px;
-        overflow: hidden;
-      }
-    }
-  }
-}
+//     &.collapsed {
+//       .connections-title .collapse-icon {
+//         background-image: url("../assets/icons/triangle-down.svg");
+//       }
+//       .connections-list {
+//         height: 0px;
+//         overflow: hidden;
+//       }
+//     }
+//   }
+// }
 
-@media (max-width: 1300px) {
-  .smallGraphWraper {
-    #connectionsMenu {
-      padding-left: 30px;
-      padding-right: 30px;
+// @media (max-width: 1300px) {
+//   .smallGraphWraper {
+//     #connectionsMenu {
+//       padding-left: 30px;
+//       padding-right: 30px;
 
-      .connections-title {
-        padding-bottom: 20px;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        cursor: pointer;
+//       .connections-title {
+//         padding-bottom: 20px;
+//         margin: 0;
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-between;
+//         cursor: pointer;
 
-        .collapse-icon {
-          content: "";
-          background-image: url("../assets/icons/triangle-up.svg");
-          background-repeat: no-repeat;
-          background-size: 24px 24px;
-          width: 24px;
-          height: 24px;
-        }
-      }
+//         .collapse-icon {
+//           content: "";
+//           background-image: url("../assets/icons/triangle-up.svg");
+//           background-repeat: no-repeat;
+//           background-size: 24px 24px;
+//           width: 24px;
+//           height: 24px;
+//         }
+//       }
 
-      .connections-list {
-        flex-direction: column;
+//       .connections-list {
+//         flex-direction: column;
 
-        .custom-control {
-          padding-right: 0px;
-          padding-bottom: 20px;
+//         .custom-control {
+//           padding-right: 0px;
+//           padding-bottom: 20px;
 
-          .custom-control-label {
-            color: rgba(0, 0, 0, 0.8);
-          }
-        }
-      }
+//           .custom-control-label {
+//             color: rgba(0, 0, 0, 0.8);
+//           }
+//         }
+//       }
 
-      &.collapsed {
-        .connections-title .collapse-icon {
-          background-image: url("../assets/icons/triangle-down.svg");
-        }
-        .connections-list {
-          height: 0px;
-          overflow: hidden;
-        }
-      }
-    }
-  }
-}
+//       &.collapsed {
+//         .connections-title .collapse-icon {
+//           background-image: url("../assets/icons/triangle-down.svg");
+//         }
+//         .connections-list {
+//           height: 0px;
+//           overflow: hidden;
+//         }
+//       }
+//     }
+//   }
+// }
 </style>

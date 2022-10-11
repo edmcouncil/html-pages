@@ -857,7 +857,7 @@
                   <div class="row">
                     <div class="col-12 px-0">
                       <div class="card">
-                        <div class="card-body" ref="dataGraph">
+                        <div class="card-body" ref="dataGraph" v-if="hasGraph">
                           <h5
                             class="card-title section-title"
                             @click="
@@ -869,10 +869,7 @@
                             Data model for {{ data.label }}
                           </h5>
                           <div class="section-content-wrapper">
-                            <vis-network
-                              :data="data.graph"
-                              :title="data.label"
-                            />
+                            <GraphVisualization :data="data" />
                           </div>
                         </div>
                       </div>

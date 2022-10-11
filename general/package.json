@@ -16,6 +16,7 @@
     "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.19.3",
+    "d3": "^7.6.1",
     "flag-icons": "^6.2.0",
     "jquery": "^3.6.0",
     "linkify-html": "^3.0.5",
