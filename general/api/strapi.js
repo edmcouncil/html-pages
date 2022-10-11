@@ -13,7 +13,7 @@ export async function getStrapiSingleType(singleTypeName, populateParams) {
   );
 
   let response = await axios.get(
-    `${process.env.strapiBaseUri}/api/${singleTypeName}?${query}`
+    `${process.env.strapiBaseUrl}/api/${singleTypeName}?${query}`
   );
 
   // save image and edit response to use downloaded image instead of link to strapi resources
@@ -21,7 +21,7 @@ export async function getStrapiSingleType(singleTypeName, populateParams) {
     response = await downloadImagesFromStrapi(response, singleTypeName);
   }
 
-  // return axios.get(`/api/${singleTypeName}?${query}`,{baseURL: (typeof window !== 'undefined') ? window.location.origin + `/${process.env.ontologyName}` : `${process.env.strapiBaseUri}`});
+  // return axios.get(`/api/${singleTypeName}?${query}`,{baseURL: (typeof window !== 'undefined') ? window.location.origin + `/${process.env.ontologyName}` : `${process.env.strapiBaseUrl}`});
   return response;
 }
 
@@ -39,7 +39,7 @@ export async function getStrapiElementFromCollection(
   });
 
   let response = await axios.get(
-    `${process.env.strapiBaseUri}/api/${collectionName}?${query}`
+    `${process.env.strapiBaseUrl}/api/${collectionName}?${query}`
   );
 
   // save image and edit response to use downloaded image instead of link to strapi resources
@@ -62,7 +62,7 @@ export function getStrapiCollection(
   });
   // currently only release notes is processed in this function, so we don't need to download images, they don't have them
   return axios.get(
-    `${process.env.strapiBaseUri}/api/${collectionName}?${query}`
+    `${process.env.strapiBaseUrl}/api/${collectionName}?${query}`
   );
 }
 
@@ -143,7 +143,7 @@ async function downloadImagesFromStrapi(response, elementTypeName) {
       process.env.assetsDir +
       (process.env.assetsDir.endsWith("/") ? "" : "/") +
       "downloads/";
-    const distDir = process.env.distDir;
+    const distDir = process.env.generateDir + process.env.distDir;
     const imageDestination =
       (distDir.endsWith("/") && !imageDownloadPath.startsWith("/")) ||
       (!distDir.endsWith("/") && imageDownloadPath.startsWith("/"))
@@ -151,28 +151,46 @@ async function downloadImagesFromStrapi(response, elementTypeName) {
         : distDir.endsWith("/") && imageDownloadPath.startsWith("/")
         ? distDir + imageDownloadPath.substring(1)
         : distDir + "/" + imageDownloadPath;
-    //console.log("Response data attributes: ", JSON.stringify());
-    if (response.data.data.attributes)
-      for (const section of response.data.data.attributes.sections) {
-        if (
-          section.__component == "sections.image-text-section" &&
-          section.items
-        ) {
-          for (const item of section.items) {
-            if (item.image) {
-              let imageName = item.image.data.attributes.url.split("/").pop();
-              //console.log("image name: " + imageName);
-              const imageResponseUrl = item?.image?.data?.attributes?.url;
-              if (imageResponseUrl != undefined) {
-                const imageUrl =
-                  process.env.strapiResourcesUri + imageResponseUrl;
-                downloadImage(imageUrl, imageDestination, imageName);
-                item.image.data.attributes.url = imageDownloadPath + imageName;
-              }
-            }
-          }
+    if (response.data.data && response.data.data.attributes) {
+      for (var section of response.data.data.attributes.sections) {
+        section = await tryToDownloadImages(
+          section,
+          imageDestination,
+          imageDownloadPath
+        );
+      }
+    } else if (response.data.data[0]) {
+      for (var dataElement of response.data.data) {
+        for (var section of dataElement.attributes.sections) {
+          section = await tryToDownloadImages(
+            section,
+            imageDestination,
+            imageDownloadPath
+          );
         }
       }
+    }
   }
   return response;
+}
+
+async function tryToDownloadImages(
+  section,
+  imageDestination,
+  imageDownloadPath
+) {
+  if (section.__component == "sections.image-text-section" && section.items) {
+    for (const item of section.items) {
+      if (item.image) {
+        const imageResponseUrl = item?.image?.data?.attributes?.url;
+        if (imageResponseUrl != undefined) {
+          let imageName = imageResponseUrl.split("/").pop();
+          const imageUrl = process.env.strapiBaseUrl + imageResponseUrl;
+          downloadImage(imageUrl, imageDestination, imageName);
+          item.image.data.attributes.url = `/${process.env.ontologyName}${imageDownloadPath}${imageName}`;
+        }
+      }
+    }
+  }
+  return section;
 }

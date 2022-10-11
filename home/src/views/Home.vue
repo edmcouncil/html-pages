@@ -28,7 +28,9 @@
                       @click="
                         outboundLinkClick('https://github.com/edmcouncil/fibo')
                       "
-                    >EDMC GitHub space</a>
+                    >
+                      EDMC GitHub space
+                    </a>
                     is the main EDMC development space and the space where all
                     the official dev materials are located.
                   </p>
@@ -36,7 +38,8 @@
                 <div>
                   <button
                     @click="visit('https://github.com/edmcouncil/', true, true)"
-                    class="btn normal-button small-button">
+                    class="btn normal-button small-button"
+                  >
                     Open
                   </button>
                 </div>
@@ -53,14 +56,22 @@
                           'https://edmconnect.edmcouncil.org/fibointerestgroup/home'
                         )
                       "
-                    >EDMConnect platform</a>
+                    >
+                      EDMConnect platform
+                    </a>
                     is an official discussion forum for the OKG Community.
                   </p>
                 </div>
                 <div>
                   <button
-                    @click="visit('https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community', true)"
-                    class="btn normal-button small-button">
+                    @click="
+                      visit(
+                        'https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community',
+                        true
+                      )
+                    "
+                    class="btn normal-button small-button"
+                  >
                     Open
                   </button>
                 </div>
@@ -138,6 +149,35 @@
                 </button>
               </div>
             </div>
+            <div class="table-box">
+              <div class="table-box__column title">
+                <h2><a href="https://spec.edmcouncil.org/idmp/">IDMP</a></h2>
+                <div class="short-description">
+                  <p>Identification of Medicinal Products Ontology</p>
+                </div>
+              </div>
+
+              <div class="table-box__column long-description">
+                <p class="small">
+                  A well-defined ontology that bridges between regional and
+                  functional perspectives on common substance-related data
+                  objects and global and scientifically objective
+                  representations is required. The goal of our project is to
+                  build an IDMP Ontology that enables deep, semantic
+                  interoperability based on FAIR principles to enhance and
+                  augment the existing ISO IDMP standards.
+                </p>
+              </div>
+              <div class="table-box__column mobile-visit-btn">
+                <button
+                  type="button"
+                  class="btn normal-button"
+                  @click="visit('https://spec.edmcouncil.org/idmp/', false)"
+                >
+                  Launch
+                </button>
+              </div>
+            </div>
           </div>
 
           <h2 class="more-coming-soon">... more to come soon</h2>
@@ -158,7 +198,8 @@
             joining
             <a
               href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community"
-            >OKG Interest Community</a>.
+              >OKG Interest Community</a
+            >.
           </p>
 
           <h2>OKG Training</h2>
@@ -254,7 +295,7 @@ button.small-button {
       max-width: 50%;
 
       p {
-        text-align: justify;
+        text-align: center;
       }
     }
   }
@@ -298,7 +339,7 @@ button.small-button {
   .community-spaces-container {
     .communities-list {
       flex-direction: column;
-        .communities-list__item {
+      .communities-list__item {
         width: 100%;
         max-width: unset;
         margin: 15px 0 15px 0;

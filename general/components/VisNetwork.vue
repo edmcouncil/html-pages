@@ -15,10 +15,13 @@
               name="edgesFilter"
               id="internal"
               value="internal"
+              ref="internalInput"
+              v-model="edgesFilterValues.internal"
+              @change="checkboxChangedHandler()"
             />
-            <label class="custom-control-label" for="internal"
-              >Class specific</label
-            >
+            <label class="custom-control-label" for="internal">
+              Class specific
+            </label>
           </div>
           <div class="custom-control custom-checkbox">
             <input
@@ -27,8 +30,13 @@
               name="edgesFilter"
               id="external"
               value="external"
+              ref="externalInput"
+              v-model="edgesFilterValues.external"
+              @change="checkboxChangedHandler()"
             />
-            <label class="custom-control-label" for="external">Inherited</label>
+            <label class="custom-control-label" for="external">
+              Inherited
+            </label>
           </div>
           <div class="custom-control custom-checkbox">
             <input
@@ -37,8 +45,13 @@
               name="edgesFilter"
               id="optional"
               value="optional"
+              ref="optionalInput"
+              v-model="edgesFilterValues.optional"
+              @change="checkboxChangedHandler()"
             />
-            <label class="custom-control-label" for="optional">Optional</label>
+            <label class="custom-control-label" for="optional">
+              Optional
+            </label>
           </div>
           <div class="custom-control custom-checkbox">
             <input
@@ -47,16 +60,19 @@
               name="edgesFilter"
               id="non_optional"
               value="non_optional"
+              ref="nonOptionalInput"
+              v-model="edgesFilterValues.non_optional"
+              @change="checkboxChangedHandler()"
             />
-            <label class="custom-control-label" for="non_optional"
-              >Required</label
-            >
+            <label class="custom-control-label" for="non_optional">
+              Required
+            </label>
           </div>
         </div>
       </div>
 
       <div id="smallGraph">
-        <div id="ontograph"></div>
+        <div id="ontograph" ref="ontograph"></div>
       </div>
     </div>
 
@@ -112,6 +128,12 @@ export default {
     return {
       modalVisible: false,
       connectionsCollapsed: true,
+      edgesFilterValues: {
+        internal: true,
+        external: true,
+        optional: true,
+        non_optional: true,
+      },
     };
   },
   mounted() {
@@ -142,50 +164,26 @@ export default {
       const nodes = new DataSet(this.data.nodes);
       const edges = new DataSet(this.data.edges);
 
-      const container = document.getElementById("ontograph");
-      const edgeFilters = document.getElementsByName("edgesFilter");
+      const containerElement = this.$refs.ontograph;
 
-      const isSomeGreenSquare = this.data.nodes.some(
-        (node) => node.color == "#C2FABC"
-      );
-
-      // initial checkboxes setting
-      const edgesFilterValues = {
-        optional: true,
-        non_optional: true,
-        internal: true,
-        external: !isSomeGreenSquare || false,
-      };
-      edgeFilters.forEach((filter) => {
-        filter.checked = edgesFilterValues[filter.value];
-      });
       const edgesFilter = (edge) =>
-        edgesFilterValues[edge.optional] && edgesFilterValues[edge.type];
+        this.edgesFilterValues[edge.optional] && this.edgesFilterValues[edge.type];
 
-      edgeFilters.forEach((filter) =>
-        filter.addEventListener("change", (e) => {
-          const { value, checked } = e.target;
-          edgesFilterValues[value] = checked;
-          edgesView.refresh();
-          nodeView.refresh();
-        })
-      );
-      const edgesView = new DataView(edges, { filter: edgesFilter });
+      const nodesFilter = (node) => {
+        let connEdges = this.edgesView.get({
+              filter: function (edge) {
+                return edge.to === node.id || edge.from === node.id;
+              },
+            });
+        return connEdges.length > 0 || node.id === 1;
+      }
 
-      var nodeView = new DataView(nodes, {
-        filter: function (node) {
-          let connEdges = edgesView.get({
-            filter: function (edge) {
-              return edge.to === node.id || edge.from === node.id;
-            },
-          });
-          return connEdges.length > 0 || node.id === 1;
-        },
-      });
+      this.edgesView = new DataView(edges, { filter: edgesFilter });
+      this.nodeView = new DataView(nodes, { filter: nodesFilter });
 
       const data = {
-        nodes: nodeView,
-        edges: edgesView,
+        nodes: this.nodeView,
+        edges: this.edgesView,
       };
       const options = {
         edges: {
@@ -206,11 +204,15 @@ export default {
           solver: "forceAtlas2Based",
         },
       };
-      const network = new Network(container, data, options);
+      const network = new Network(containerElement, data, options);
 
       window.network = network;
 
       network.redraw();
+      this.$nextTick(() => {
+        this.adjustGraphSize();
+        network.fit();
+      });
 
       network.on("doubleClick", (params) => {
         const versionQueryStringPart =
@@ -238,7 +240,7 @@ export default {
           });
         } else if (selectedEdges[0] !== undefined) {
           const sEgde = selectedEdges[0];
-          edgesView.forEach((entry) => {
+          this.edgesView.forEach((entry) => {
             if (entry.id === sEgde) {
               const regex = new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.ontologyName}/` );
               if (entry.iri.match(regex)) {
@@ -259,7 +261,7 @@ export default {
     swapGraphContent() {
       const graphModalElement = document.getElementById("graphModalBody");
       const connectionsMenuElement = document.getElementById("connectionsMenu");
-      const ontographElement = document.getElementById("ontograph");
+      const ontographElement = this.$refs.ontograph;
 
       document.body.style.overflowY = "hidden";
 
@@ -353,6 +355,10 @@ export default {
         window.network.setSize('100%', '100%');
       }
       window.network.redraw();
+    },
+    checkboxChangedHandler() {
+      this.edgesView.refresh();
+      this.nodeView.refresh();
     }
   },
   computed: {

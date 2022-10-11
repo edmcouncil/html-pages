@@ -11,8 +11,8 @@ process.env.VUE_APP_BRANCH = (
     : process.env.BRANCH_NAME || "master")
 ).toLowerCase();
 process.env.VUE_APP_TAG = process.env.TAG || process.env.TAG_NAME || "latest";
-process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || "2021Q4";
 process.env.VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || "fibo";
+process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || process.env.VUE_ONTOLOGY_NAME==='idmp'?"latest":"2022Q3";
 process.env.VUE_BASE_URL =
   process.env.BASE_URL ||
   "https://spec." +
@@ -26,15 +26,12 @@ process.env.VUE_BASE_URL =
 // AUTO - https://spec.edmcouncil.org/auto/ontology/
 // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
 process.env.VUE_RESOURCES_BASE_URL =
-  process.env.RESOURCES_BASE_URL ||
-  process.env.BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
+  process.env.VUE_BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
 
 process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
-process.env.STRAPI_RESOURCES_URL =
-  process.env.STRAPI_RESOURCES_URL || process.env.STRAPI_URL;
 
-process.env.VUE_ASSETS_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}/_nuxt/`;
-process.env.VUE_DIST_DIR = `dist/${process.env.VUE_ONTOLOGY_NAME}/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
+process.env.VUE_DIST_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
+process.env.VUE_ASSETS_DIR = `${process.env.VUE_DIST_DIR}/_nuxt/`;
 
 export default {
   // target: 'static' description https://nuxtjs.org/announcements/going-full-static/
@@ -80,7 +77,7 @@ export default {
     base: `/${process.env.VUE_ONTOLOGY_NAME}`,
   },
   generate: {
-    dir: process.env.VUE_DIST_DIR,
+    dir: `dist/${process.env.VUE_ONTOLOGY_NAME}${process.env.VUE_DIST_DIR}`,
     routes() {
       return axios
         .get(`${process.env.STRAPI_URL || "http://localhost:1337"}/api/pages`)
@@ -175,14 +172,13 @@ export default {
   // AUTO - https://spec.edmcouncil.org/auto/ontology/
   // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
   env: {
+    generateDir: `dist/${process.env.VUE_ONTOLOGY_NAME}`,
     ontologyName: process.env.VUE_ONTOLOGY_NAME,
     assetsDir: process.env.VUE_ASSETS_DIR,
     distDir: process.env.VUE_DIST_DIR,
     staticGenerationMode: process.env.NODE_ENV === "production",
-    ontologyResourcesBaseUri:
-      process.env.RESOURCES_BASE_URL ||
-      +"https://spec.edmcouncil.org/fibo/ontology/",
-    strapiBaseUri: process.env.STRAPI_URL,
+    ontologyResourcesBaseUri: process.env.VUE_RESOURCES_BASE_URL,
+    strapiBaseUrl: process.env.STRAPI_URL,
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
   },
 
@@ -193,13 +189,13 @@ export default {
   proxy: [
     process.env.VUE_RESOURCES_BASE_URL.startsWith("http://") ||
     process.env.VUE_RESOURCES_BASE_URL.startsWith("https://")
-      ? process.env.VUE_RESOURCES_BASE_URL
+      ? process.env.VUE_RESOURCES_BASE_URL.replace("pistoiaalliance", "edmcouncil")
       : process.env.VUE_BASE_URL +
         process.env.VUE_ONTOLOGY_NAME +
         "/ontology/api",
     process.env.VUE_RESOURCES_BASE_URL.startsWith("http://") ||
     process.env.VUE_RESOURCES_BASE_URL.startsWith("https://")
-      ? process.env.VUE_RESOURCES_BASE_URL
+      ? process.env.VUE_RESOURCES_BASE_URL.replace("pistoiaalliance", "edmcouncil")
       : process.env.VUE_BASE_URL +
         process.env.VUE_ONTOLOGY_NAME +
         "/ontology/*/api",
