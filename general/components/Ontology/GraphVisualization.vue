@@ -1,7 +1,7 @@
 <template>
   <div class="graph-section">
     <div class="control-panel control-panel--minimal">
-      <div ref="layoutsTitle" class="collapsible-section">
+      <div ref="layoutsTitle" class="collapsible-section collapsed">
         <div class="collapsible-section-title" @click="toggleLayoutsCollapsed()">
           <h6>Layouts</h6>
           <div class="collapse-icon"></div>
@@ -27,7 +27,7 @@
           <div class="collapse-icon"></div>
         </div>
 
-        <div class="collapsible-section-content collapsed">
+        <div class="collapsible-section-content">
           <div class="custom-control custom-checkbox">
             <input
               class="custom-control-input"
@@ -101,6 +101,7 @@
       v-model="fullscreen"
       footer-class="d-none"
       @shown="modalShown()"
+      @hidden="modalHidden()"
     >
       <template v-slot:modal-header>
         <div
@@ -228,6 +229,8 @@ export default {
       ontograph: null,
       height: null,
       layout: null,
+      navigatingOutFlag: false,
+      navigatingOutUrl: null,
 
       internal: true,
       external: true,
@@ -277,20 +280,12 @@ export default {
       this.layout = this.ontograph.getLayout();
     },
     navigationHandler(to) {
-      const versionQueryStringPart =
-          this.$route.query && this.$route.query.version
-            ? `?version=${encodeURI(this.$route.query.version)}`
-            : "";
-      if(this.fullscreen) {
+      if (this.fullscreen) {
         this.hideModal();
-      }
-      if (to.startsWith(`https://spec.edmcouncil.org/${this.ontologyName}`)) {
-        // internal ontology
-        to = to.replace(`https://spec.edmcouncil.org/${this.ontologyName}`, "");
-        window.location.href = `${to}${versionQueryStringPart}`;
+        this.navigatingOutFlag = true;
+        this.navigatingOutUrl = to;
       } else {
-        // external ontology
-        window.location.href = `/${this.ontologyName}/ontology?query=${to}${versionQueryStringPart}`;
+        this.routingHandler(to);
       }
     },
     sortAZ() {
@@ -317,6 +312,37 @@ export default {
       this.fullscreen = false;
       this.ontograph.resizeHandler(ontograph);
     },
+    toggleConnectionsCollapsed() {
+      this.$refs.connectionsTitle.classList.toggle('collapsed');
+    },
+    toggleLayoutsCollapsed() {
+      this.$refs.layoutsTitle.classList.toggle('collapsed');
+    },
+    routingHandler(to) {
+      if (to.startsWith(`https://spec.edmcouncil.org/${this.ontologyName}`)) {
+        // internal ontology
+        to = to.replace(`https://spec.edmcouncil.org/${this.ontologyName}`, "");
+        this.$router.push({
+          path: to,
+          query: {
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null),
+          },
+        });
+      } else {
+        // external ontology
+        this.$router.push({
+          path: "/ontology",
+          query: {
+            ...{ query: encodeURI(to) },
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null),
+          },
+        });
+      }
+    },
     modalShown() {
       const ontograph = this.$refs.ontograph.querySelector('svg');
       const modalOntograph = this.$refs.graphModalTarget;
@@ -324,12 +350,10 @@ export default {
       modalOntograph.appendChild(ontograph);
       this.ontograph.resizeHandler(modalOntograph);
     },
-    toggleConnectionsCollapsed() {
-      this.$refs.connectionsTitle.classList.toggle('collapsed');
-    },
-    toggleLayoutsCollapsed() {
-      this.$refs.layoutsTitle.classList.toggle('collapsed');
-    },
+    modalHidden() {
+      if (!this.navigatingOutFlag) return;
+      this.routingHandler(this.navigatingOutUrl);
+    }
   },
   computed: {
     ontologyName() {
@@ -340,6 +364,10 @@ export default {
 </script>
 
 <style lang="scss">
+.graph-section {
+  background: rgba(0, 0, 0, 0.05);
+}
+
 .open-control-panel-text {
   position: absolute;
   right: 30px;

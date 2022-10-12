@@ -149,7 +149,7 @@ export class Ontograph {
             .select("path")
             .attr("id", (d) => `path-id-${d.target.id}`)
             .attr("stroke-opacity", "0.4")
-            .attr("stroke", (d) => (d.target.data.dashes ? "#777" : "#222"))
+            .attr("stroke", (d) => (d.target.data.dashes ? "#777" : "#777"))
             .attr("stroke-dasharray", (d) => (d.target.data.dashes ? 5 : null))
             .each((d, i) => {
               d.target.data.linkPathElement = d;
@@ -187,12 +187,14 @@ export class Ontograph {
     const drag = (simulation) => {
       const that = this;
 
-      function dragstarted(event, d) {
+      function dragStarted(event, d) {
         if (that.layout !== "force") return;
         if (!event.active) simulation.alphaTarget(0.5).restart();
-        d3.select(this).raise();
         d.fx = d.x;
         d.fy = d.y;
+        setTimeout(() => {
+          d3.select(this).raise();
+        },100);
       }
 
       function dragged(event, d) {
@@ -201,10 +203,7 @@ export class Ontograph {
         d.fy = event.y;
       }
 
-      function dragended(event, d) {
-        if (event.defaultPrevented) {
-          that.nodeClick(d);
-        }
+      function dragEnded(event, d) {
         if (!event.active) simulation.alphaTarget(0);
         d.fx = null;
         d.fy = null;
@@ -212,9 +211,9 @@ export class Ontograph {
 
       return d3
         .drag()
-        .on("start", dragstarted)
+        .on("start", dragStarted)
         .on("drag", dragged)
-        .on("end", dragended);
+        .on("end", dragEnded);
     };
 
     this.node = this.svg
@@ -814,6 +813,7 @@ export class Ontograph {
   }
 
   nodeClick(event, node) {
+    if (event.defaultPrevented) return;
     this.simulation.stop();
     this.nav(node.data.nodeIri);
   }

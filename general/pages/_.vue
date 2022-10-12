@@ -1153,6 +1153,7 @@ export default {
     }),
     async fetchData(iri) {
       if (iri) {
+        this.scrollToOntologyViewerTopOfContainer();
         this.loader = true;
         this.data = null;
         try {
@@ -1185,6 +1186,7 @@ export default {
           this.data = body.result;
           this.error = false;
           this.searchBox.searchError = false;
+          this.scrollToOntologyViewerTopOfContainer();
         } catch (err) {
           console.error(err);
           this.data = null;
@@ -1587,20 +1589,24 @@ export default {
       const page = to.query.page;
       this.handleSearchBoxQuery(searchQuery, page);
     }
+    this.$nextTick(() => {
+      if (this.$route.fullPath != "/ontology")
+        this.scrollToOntologyViewerTopOfContainer();
+    });
     next();
   },
   updated() {
     // scrollTo: ontologyViewerTopOfContainer
-    if (
-      this.$root.ontologyRouteIsUpdating ||
-      this.$route.query.scrollToTop === "true"
-    ) {
-      this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
-      this.$nextTick(() => {
-        if (this.$route.fullPath != "/ontology")
-          this.scrollToOntologyViewerTopOfContainer();
-      });
-    }
+    // if (
+    //   this.$root.ontologyRouteIsUpdating ||
+    //   this.$route.query.scrollToTop === "true"
+    // ) {
+    //   this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
+    //   this.$nextTick(() => {
+    //     if (this.$route.fullPath != "/ontology")
+    //       this.scrollToOntologyViewerTopOfContainer();
+    //   });
+    // }
   },
 };
 </script>
