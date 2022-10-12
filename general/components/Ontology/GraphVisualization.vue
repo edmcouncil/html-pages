@@ -2,27 +2,43 @@
   <div class="graph-section">
     <div class="control-panel control-panel--minimal">
       <div ref="layoutsTitle" class="collapsible-section collapsed">
-        <div class="collapsible-section-title" @click="toggleLayoutsCollapsed()">
+        <div
+          class="collapsible-section-title"
+          @click="toggleLayoutsCollapsed()"
+        >
           <h6>Layouts</h6>
           <div class="collapse-icon"></div>
         </div>
 
         <div class="collapsible-section-content">
           <button class="btn normal-button small" @click="toTree">Tree</button>
-          <button class="btn normal-button small"
+          <button
+            class="btn normal-button small"
             @click="toClusterTree"
             :disabled="height < 2"
-          >Cluster Tree</button>
-          <button class="btn normal-button small" @click="toRadial">Radial</button>
-          <button class="btn normal-button small"
+          >
+            Cluster Tree
+          </button>
+          <button class="btn normal-button small" @click="toRadial">
+            Radial
+          </button>
+          <button
+            class="btn normal-button small"
             @click="toClusterRadial"
             :disabled="height < 2"
-          >Cluster Radial</button>
-          <button class="btn normal-button small" @click="toForce">Force</button>
+          >
+            Cluster Radial
+          </button>
+          <button class="btn normal-button small" @click="toForce">
+            Force
+          </button>
         </div>
       </div>
       <div ref="connectionsTitle" class="collapsible-section collapsed">
-        <div class="collapsible-section-title"  @click="toggleConnectionsCollapsed()">
+        <div
+          class="collapsible-section-title"
+          @click="toggleConnectionsCollapsed()"
+        >
           <h6>Connections</h6>
           <div class="collapse-icon"></div>
         </div>
@@ -84,7 +100,6 @@
       </div>
     </div>
 
-
     <div class="ontograph-minimal" ref="ontograph"></div>
     <div class="fullscreen-btn-wrapper">
       <button
@@ -121,7 +136,10 @@
           Show Control Panel
         </p>
       </div>
-      <div class="control-panel control-panel--fullscreen" :class="{visible: isControlPanelOpen}">
+      <div
+        class="control-panel control-panel--fullscreen"
+        :class="{ visible: isControlPanelOpen }"
+      >
         <h2 @click="isControlPanelOpen = !isControlPanelOpen">Control Panel</h2>
         <button class="btn normal-button small" @click="center">Center</button>
         <h3>Connections</h3>
@@ -182,42 +200,66 @@
         <h3>Layout</h3>
         <div class="layouts-container">
           <button class="btn normal-button small" @click="toTree">Tree</button>
-          <button class="btn normal-button small"
+          <button
+            class="btn normal-button small"
             @click="toClusterTree"
             :disabled="height < 2"
-          >Cluster Tree</button>
-          <button class="btn normal-button small" @click="toRadial">Radial</button>
-          <button class="btn normal-button small"
+          >
+            Cluster Tree
+          </button>
+          <button class="btn normal-button small" @click="toRadial">
+            Radial
+          </button>
+          <button
+            class="btn normal-button small"
             @click="toClusterRadial"
             :disabled="height < 2"
-          >Cluster Radial</button>
-          <button class="btn normal-button small" @click="toForce">Force</button>
+          >
+            Cluster Radial
+          </button>
+          <button class="btn normal-button small" @click="toForce">
+            Force
+          </button>
         </div>
         <h3>Sort</h3>
         <div class="layouts-container">
-          <button class="btn normal-button small" @click="sortAZ" :disabled="layout == 'force'">A - Z</button>
-          <button class="btn normal-button small" @click="sortHeight" :disabled="height < 2 || layout == 'force'">
+          <button
+            class="btn normal-button small"
+            @click="sortAZ"
+            :disabled="layout == 'force'"
+          >
+            A - Z
+          </button>
+          <button
+            class="btn normal-button small"
+            @click="sortHeight"
+            :disabled="height < 2 || layout == 'force'"
+          >
             Height
           </button>
-          <button class="btn normal-button small" @click="sortType" :disabled="layout == 'force'">
+          <button
+            class="btn normal-button small"
+            @click="sortType"
+            :disabled="layout == 'force'"
+          >
             Inherited
           </button>
-          <button class="btn normal-button small" @click="sortInherited" :disabled="layout == 'force'">
+          <button
+            class="btn normal-button small"
+            @click="sortInherited"
+            :disabled="layout == 'force'"
+          >
             Optional
           </button>
         </div>
-
       </div>
-      <div class="graph-modal-content" ref="graphModalTarget">
-
-      </div>
+      <div class="graph-modal-content" ref="graphModalTarget"></div>
     </b-modal>
-
   </div>
 </template>
 
 <script>
-import { Ontograph } from '../../helpers/ontograph';
+import { Ontograph } from "../../helpers/ontograph";
 
 export default {
   name: "GraphVisualization",
@@ -226,11 +268,16 @@ export default {
     return {
       isControlPanelOpen: true,
       fullscreen: false,
+
       ontograph: null,
       height: null,
       layout: null,
+
+      // used when modal needs to be closed before navigation
       navigatingOutFlag: false,
       navigatingOutUrl: null,
+
+      resizeDebounce: null,
 
       internal: true,
       external: true,
@@ -244,6 +291,10 @@ export default {
 
     this.height = this.ontograph.getHeight();
     this.layout = this.ontograph.getLayout();
+    window.addEventListener("resize", this.onResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
   },
   methods: {
     toTree() {
@@ -305,7 +356,7 @@ export default {
     },
     hideModal() {
       const ontograph = this.$refs.ontograph;
-      const modalOntograph = this.$refs.graphModalTarget.querySelector('svg');
+      const modalOntograph = this.$refs.graphModalTarget.querySelector("svg");
 
       ontograph.appendChild(modalOntograph);
 
@@ -313,10 +364,10 @@ export default {
       this.ontograph.resizeHandler(ontograph);
     },
     toggleConnectionsCollapsed() {
-      this.$refs.connectionsTitle.classList.toggle('collapsed');
+      this.$refs.connectionsTitle.classList.toggle("collapsed");
     },
     toggleLayoutsCollapsed() {
-      this.$refs.layoutsTitle.classList.toggle('collapsed');
+      this.$refs.layoutsTitle.classList.toggle("collapsed");
     },
     routingHandler(to) {
       if (to.startsWith(`https://spec.edmcouncil.org/${this.ontologyName}`)) {
@@ -344,7 +395,7 @@ export default {
       }
     },
     modalShown() {
-      const ontograph = this.$refs.ontograph.querySelector('svg');
+      const ontograph = this.$refs.ontograph.querySelector("svg");
       const modalOntograph = this.$refs.graphModalTarget;
 
       modalOntograph.appendChild(ontograph);
@@ -353,13 +404,26 @@ export default {
     modalHidden() {
       if (!this.navigatingOutFlag) return;
       this.routingHandler(this.navigatingOutUrl);
-    }
+    },
+    onResize() {
+      clearTimeout(this.resizeDebounce);
+      this.resizeDebounce = setTimeout(() => {
+        let target;
+        if (this.fullscreen) {
+          target = this.$refs.graphModalTarget;
+        } else {
+          target = this.$refs.ontograph;
+        }
+
+        this.ontograph.resizeHandler(target);
+      }, 300);
+    },
   },
   computed: {
     ontologyName() {
       return process.env.ontologyName.toLowerCase();
     },
-  }
+  },
 };
 </script>
 
