@@ -26,7 +26,7 @@
           aria-label="Close"
           v-on:click="hideModal()"
         ></div>
-        <h5 class="modal-title" id="graphModalLabel">
+        <h5 class="modal-title">
           <slot name="label"></slot>
         </h5>
       </template>
