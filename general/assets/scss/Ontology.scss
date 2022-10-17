@@ -1140,6 +1140,7 @@
     .data-iri {
       margin: 0px 0px;
       padding: 0;
+      word-break: break-all;
     }
     // qname
     .qname {
@@ -1149,7 +1150,7 @@
     // copy url button
     .btn-copy-url {
       color: rgba(0, 0, 0, 0.8);
-      margin-top: 20px;
+      margin-top: 15px;
       margin-bottom: 40px;
       border: none;
       background: none;
@@ -1187,9 +1188,6 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-    }
-    .btn-copy-iri {
-      margin-top: -30px;
     }
     .card {
       background: none;

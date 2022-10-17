@@ -791,17 +791,30 @@
                           <div class="url-buttons-container">
                             <CopyButton
                               :copyContent="data.iri"
-                              :text="'Copy URL'"
+                              :text="'Copy IRI'"
                             />
-
+                          </div>
+                          <h6
+                            class="card-subtitle data-iri"
+                            v-if="this.$route.query && this.$route.query.version &&
+                            data.iri && data.iri.startsWith(ontologyResourcesBaseUri)"
+                          >
+                            {{ this.ontologyResourcesBaseUri +
+                                this.$route.query.version +
+                                '/' +
+                                data.iri.replace(this.ontologyResourcesBaseUri, '') }}
+                          </h6>
+                          <div
+                            class="url-buttons-container"
+                            v-if="this.$route.query && this.$route.query.version &&
+                              data.iri.startsWith(ontologyResourcesBaseUri)"
+                          >
                             <CopyButton
-                              v-if="
-                                this.$route.query && this.$route.query.version
-                              "
                               :copyContent="
-                                data.iri +
-                                '?version=' +
-                                encodeURI(this.$route.query.version)
+                                this.ontologyResourcesBaseUri +
+                                this.$route.query.version +
+                                '/' +
+                                data.iri.replace(this.ontologyResourcesBaseUri, '')
                               "
                               :text="'Copy versioned IRI'"
                               class="btn-copy-iri"
