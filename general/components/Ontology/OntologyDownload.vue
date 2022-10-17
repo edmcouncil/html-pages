@@ -21,7 +21,7 @@
                       class="custom-control-input"
                       id="download-imports-switch"
                       v-model="includeImports"
-                      disabled
+                      :disabled="!hasImports"
                     />
                     <label
                       class="custom-control-label"
@@ -54,36 +54,77 @@
 
 <script>
 export default {
-  name: 'OntologyDownload',
-  props: [ 'data', 'version' ],
+  name: "OntologyDownload",
+  props: ["data", "version"],
   data() {
     return {
       collapsed: false,
       includeImports: false,
-    }
+      hasImports: false,
+      filename: null,
+
+      downloadUrl: null,
+      downloadWithImportsUrl: null,
+    };
+  },
+  async mounted() {
+    // find download urls
+    const resourceUrl = this.data.iri;
+    const base = this.ontologyResourcesBaseUri;
+    const name = this.ontologyName;
+
+    const iriElements = resourceUrl.split("/");
+    this.filename = iriElements[iriElements.length - 2] + ".rdf";
+    this.filenameWithImports = iriElements[iriElements.length - 2] + "-Merged.rdf";
+
+    this.downloadUrl = `/${name}/ontology/${
+      this.version ? this.version + "/" : ""
+    }${resourceUrl.replace(base, "").slice(0, -1)}`;
+
+    this.downloadWithImportsUrl = `/${name}/ontology/${
+      this.version ? this.version + "/" : ""
+    }${resourceUrl.replace(base, "").slice(0, -1)}-Merged`;
+
+    this.hasImports = await this.checkImportsExist();
   },
   methods: {
     toggleCollapsed() {
       this.collapsed = !this.collapsed;
     },
     download() {
-      // get file name from iri
-      const iriElements = this.data.iri.split('/');
-      const filename = iriElements[iriElements.length - 2] + '.rdf';
+      const link = this.includeImports ? this.downloadWithImportsUrl : this.downloadUrl;
+      const filename = this.includeImports ? this.filenameWithImports : this.filename;
 
-      // get file path from iri
-      const filepath = this.data.iri.replace(`${this.ontologyResourcesBaseUri}`, '').slice(0, -1)+'.rdf';
-
-      const link = `${this.baseUrl}${this.version ? this.version+'/' : ''}${filepath}`;
-      const aElement = document.createElement('a');
-      aElement.setAttribute('download', filename);
-      aElement.setAttribute('href', link);
-      aElement.setAttribute('target', '_blank');
-      aElement.style.display = 'none';
+      const aElement = document.createElement("a");
+      aElement.setAttribute("download", filename);
+      aElement.setAttribute("href", link+".rdf");
+      aElement.setAttribute("target", "_blank");
+      aElement.style.display = "none";
       document.body.appendChild(aElement);
       aElement.click();
       aElement.remove();
-    }
+    },
+    async checkImportsExist() {
+      try {
+        this.loader = true;
+        return await fetch(this.downloadWithImportsUrl+"/", {
+          method: "HEAD",
+          headers: { Accept: "application/rdf+xml" },
+        }).then((res) => {
+          if (res.status != 200)
+            throw new Error('Bad response from server');
+
+          const contentType = res.headers.get("content-type");
+
+          if (contentType.indexOf("application/rdf+xml") != -1)
+            return true;
+
+          return false;
+        });
+      } catch {
+        return false;
+      }
+    },
   },
   computed: {
     ontologyName() {
@@ -92,10 +133,7 @@ export default {
     ontologyResourcesBaseUri() {
       return process.env.ontologyResourcesBaseUri;
     },
-    baseUrl() {
-      return `https://spec.edmcouncil.org/${this.ontologyName}/ontology/`;
-    }
-  }
+  },
 };
 </script>
 
@@ -135,7 +173,6 @@ article {
   line-height: 20px;
   margin: 5px !important;
 }
-
 
 @media (max-width: 1220px) and (min-width: 991px) {
   .table-box {
