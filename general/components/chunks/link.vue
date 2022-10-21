@@ -10,9 +10,7 @@
       },
     }"
     @click.native="linkClickNative"
-  >
-    {{ name }}
-  </nuxt-link>
+  >{{ name }}</nuxt-link>
   <nuxt-link
     v-else
     :to="{
@@ -24,9 +22,7 @@
           : null),
       },
     }"
-  >
-    {{ name }}
-  </nuxt-link>
+  >{{ name }}</nuxt-link>
 </template>
 <script>
 export default {
