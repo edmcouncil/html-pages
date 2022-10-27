@@ -17,7 +17,13 @@
       </div>
     </div>
 
-    <b-modal :header-class="noMultiselect ? '' : 'no-shadow'" no-fade v-model="showModal" footer-class="mobile-modal-footer">
+    <b-modal
+      :header-class="noMultiselect ? '' : 'no-shadow'"
+      no-fade
+      v-model="showModal"
+      modal-class="fullscreen"
+      footer-class="mobile-modal-footer"
+    >
       <template v-slot:modal-header>
         <div
           type="button"
