@@ -1,39 +1,45 @@
 <template>
   <div class="graph-section">
     <div class="control-panel control-panel--minimal">
-      <div ref="layoutsTitle" class="collapsible-section collapsed">
-        <div
-          class="collapsible-section-title"
-          @click="toggleLayoutsCollapsed()"
-        >
-          <h6>Layouts</h6>
-          <div class="collapse-icon"></div>
-        </div>
+      <div class="layouts-and-guide-container">
+        <div ref="layoutsTitle" class="collapsible-section collapsed">
+          <div
+            class="collapsible-section-title"
+            @click="toggleLayoutsCollapsed()"
+          >
+            <h6>Layouts</h6>
+            <div class="collapse-icon"></div>
+          </div>
 
-        <div class="collapsible-section-content">
-          <button class="btn normal-button small" @click="toTree">Tree</button>
-          <button
-            class="btn normal-button small"
-            @click="toClusterTree"
-            :disabled="height < 2"
-          >
-            Cluster Tree
-          </button>
-          <button class="btn normal-button small" @click="toRadial">
-            Radial
-          </button>
-          <button
-            class="btn normal-button small"
-            @click="toClusterRadial"
-            :disabled="height < 2"
-          >
-            Cluster Radial
-          </button>
-          <button class="btn normal-button small" @click="toForce">
-            Force
-          </button>
+          <div class="collapsible-section-content">
+            <button class="btn normal-button small" @click="toTree">Tree</button>
+            <button
+              class="btn normal-button small"
+              @click="toClusterTree"
+              :disabled="height < 2"
+            >
+              Cluster Tree
+            </button>
+            <button class="btn normal-button small" @click="toRadial">
+              Radial
+            </button>
+            <button
+              class="btn normal-button small"
+              @click="toClusterRadial"
+              :disabled="height < 2"
+            >
+              Cluster Radial
+            </button>
+            <button class="btn normal-button small" @click="toForce">
+              Force
+            </button>
+          </div>
+        </div>
+        <div class="minimal-user-guide">
+          <button class="btn normal-button small" @click="openGuide('guide-main')">User Guide</button>
         </div>
       </div>
+
       <div ref="connectionsTitle" class="collapsible-section collapsed">
         <div
           class="collapsible-section-title"
@@ -115,6 +121,7 @@
     <b-modal
       v-model="fullscreen"
       footer-class="d-none"
+      modal-class="fullscreen"
       @shown="modalShown()"
       @hidden="modalHidden()"
     >
@@ -132,17 +139,24 @@
         </h5>
       </template>
       <div class="open-control-panel-text">
-        <p @click="isControlPanelOpen = !isControlPanelOpen">
-          Show Control Panel
-        </p>
+        <button class="btn normal-button small" @click="isControlPanelOpen = !isControlPanelOpen">
+          Open Control Panel
+        </button>
       </div>
       <div
         class="control-panel control-panel--fullscreen"
         :class="{ visible: isControlPanelOpen }"
       >
         <h2 @click="isControlPanelOpen = !isControlPanelOpen">Control Panel</h2>
+        <div class="panel-section-title">
+          <h3>Menu</h3>
+        </div>
         <button class="btn normal-button small" @click="center">Center</button>
-        <h3>Connections</h3>
+        <button class="btn normal-button small" @click="openGuide('guide-main')">User Guide</button>
+        <div class="panel-section-title">
+          <h3>Connections</h3>
+          <div class="help-icon" @click="openGuide('guide-connections')"></div>
+        </div>
         <div class="filters-container">
           <div class="custom-control custom-checkbox">
             <input
@@ -197,7 +211,10 @@
             </label>
           </div>
         </div>
-        <h3>Layout</h3>
+        <div class="panel-section-title">
+          <h3>Layout</h3>
+          <div class="help-icon"  @click="openGuide('guide-layouts')"></div>
+        </div>
         <div class="layouts-container">
           <button class="btn normal-button small" @click="toTree">Tree</button>
           <button
@@ -221,7 +238,10 @@
             Force
           </button>
         </div>
-        <h3>Sort</h3>
+        <div class="panel-section-title">
+          <h3>Sort</h3>
+          <div class="help-icon" @click="openGuide('guide-sorting')"></div>
+        </div>
         <div class="layouts-container">
           <button
             class="btn normal-button small"
@@ -255,6 +275,8 @@
       </div>
       <div class="graph-modal-content" ref="graphModalTarget"></div>
     </b-modal>
+
+    <GraphGuide ref="graphGuide" />
   </div>
 </template>
 
@@ -266,7 +288,7 @@ export default {
   props: ["data", "title"],
   data() {
     return {
-      isControlPanelOpen: true,
+      isControlPanelOpen: false,
       fullscreen: false,
 
       ontograph: null,
@@ -297,6 +319,9 @@ export default {
     window.removeEventListener("resize", this.onResize);
   },
   methods: {
+    openGuide(id) {
+      this.$refs.graphGuide.openGuide(id);
+    },
     toTree() {
       this.ontograph.changeLayoutTo("tree");
       this.layout = this.ontograph.getLayout();
@@ -432,6 +457,14 @@ export default {
   background: rgba(0, 0, 0, 0.05);
 }
 
+.normal-button.small {
+  padding: 5px 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0px 10px 10px 0px !important;
+}
+
 .open-control-panel-text {
   position: absolute;
   right: 30px;
@@ -439,20 +472,23 @@ export default {
   user-select: none;
   opacity: 0.5;
 
+  .normal-button.small {
+    margin: 0 !important;
+  }
+
   &:hover {
-    cursor: pointer;
     opacity: 1;
   }
 }
 
 .control-panel {
   padding: 30px;
-  .normal-button.small {
-    padding: 5px 10px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    margin: 0px 10px 10px 0px !important;
+
+  &.control-panel--minimal {
+    .layouts-and-guide-container {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   &.control-panel--fullscreen {
@@ -467,13 +503,37 @@ export default {
 
     overflow-y: scroll;
 
-    h3 {
-      margin-top: 30px;
-      margin-bottom: 15px;
+    .panel-section-title {
+      position: relative;
+
+      h3 {
+        margin-top: 30px;
+        margin-bottom: 15px;
+      }
+
+      .help-icon {
+        position: absolute;
+
+        content: "";
+        background-image: url("../../assets/icons/help.svg");
+        opacity: 0.4;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 16px 16px;
+        top: 0;
+        right: 0;
+        width: 30px;
+        height: 30px;
+
+        &:hover {
+          cursor: pointer;
+          opacity: 0.6;
+        }
+      }
     }
 
     h2 {
-      margin-bottom: 15px;
+      margin-bottom: 40px;
       user-select: none;
       &:hover {
         cursor: pointer;
@@ -483,7 +543,7 @@ export default {
         position: absolute;
 
         content: "";
-        background-image: url("../../assets/icons/return-arrow.svg");
+        background-image: url("../../assets/icons/close.svg");
         background-repeat: no-repeat;
         background-position: center;
         background-size: 24px 24px;
@@ -571,7 +631,7 @@ export default {
   }
 }
 
-.modal {
+.modal.fullscreen {
   display: block;
 
   .modal-header {
@@ -711,6 +771,17 @@ export default {
 }
 
 @media (max-width: 1300px) {
+  .control-panel--minimal {
+    .layouts-and-guide-container {
+      flex-direction: column-reverse;
+      align-items: stretch;
+
+      button {
+        margin: 0 0 45px 0!important;
+        width: 100%;
+      }
+    }
+  }
   .graph-section {
     .collapsible-section {
       .collapsible-section-title {
