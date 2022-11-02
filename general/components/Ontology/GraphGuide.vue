@@ -5,30 +5,39 @@
       @closeEvent="closeHandler()"
       @returnEvent="returnHandler()"
     >
-      <template v-slot:label> User Guide </template>
-      <template v-slot:footer-left>
-        <button
-          class="btn normal-button small"
-          @click="navigateToPage('guide-connections')"
-        >
-          Connections
-        </button>
-        <button
-          class="btn normal-button small"
-          @click="navigateToPage('guide-layouts')"
-        >
-          Layouts
-        </button>
-        <button
-          class="btn normal-button small"
-          @click="navigateToPage('guide-sorting')"
-        >
-          Sorting
-        </button>
-      </template>
+      <template v-slot:label> User Guide: Overview </template>
+
       <template v-slot:content>
         <article>
-          <h1>Graph User Guide</h1>
+          <div class="see-also-box">
+            <h3>User Guide pages:</h3>
+            <p>1. <b>Overview</b></p>
+            <p>
+              2.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-connections')"
+                >Connections</span
+              >
+            </p>
+            <p>
+              3.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-layouts')"
+                >Layouts</span
+              >
+            </p>
+            <p>
+              4.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-sorting')"
+                >Sorting</span
+              >
+            </p>
+          </div>
+          <h1>Overview</h1>
           <h2>1. Introduction</h2>
           <p>
             This guide explains how to explore the graph data and conventions
@@ -194,6 +203,34 @@
       <template v-slot:label> User Guide: Connections </template>
       <template v-slot:content>
         <article>
+          <div class="see-also-box">
+            <h3>User Guide pages:</h3>
+            <p>
+              1.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-main')"
+                >Overview</span
+              >
+            </p>
+            <p>2. <b>Connections</b></p>
+            <p>
+              3.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-layouts')"
+                >Layouts</span
+              >
+            </p>
+            <p>
+              4.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-sorting')"
+                >Sorting</span
+              >
+            </p>
+          </div>
           <h1>Connections</h1>
           <h2>1. Introduction</h2>
           <div class="img-zoom">
@@ -310,6 +347,34 @@
       <template v-slot:label> User Guide: Layouts </template>
       <template v-slot:content>
         <article>
+          <div class="see-also-box">
+            <h3>User Guide pages:</h3>
+            <p>
+              1.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-main')"
+                >Overview</span
+              >
+            </p>
+            <p>
+              2.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-connections')"
+                >Connections</span
+              >
+            </p>
+            <p>3. <b>Layouts</b></p>
+            <p>
+              4.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-sorting')"
+                >Sorting</span
+              >
+            </p>
+          </div>
           <h1>Layouts</h1>
           <h2>1. Introduction</h2>
           <div class="img-zoom">
@@ -410,6 +475,34 @@
       <template v-slot:label> User Guide: Sorting </template>
       <template v-slot:content>
         <article>
+          <div class="see-also-box">
+            <h3>User Guide pages:</h3>
+            <p>
+              1.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-main')"
+                >Overview</span
+              >
+            </p>
+            <p>
+              2.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-connections')"
+                >Connections</span
+              >
+            </p>
+            <p>
+              3.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-layouts')"
+                >Layouts</span
+              >
+            </p>
+            <p>4. <b>Sorting</b></p>
+          </div>
           <h1>Sorting</h1>
           <h2>1. Introduction</h2>
           <div class="img-zoom">
@@ -427,8 +520,8 @@
             layout.
           </p>
           <p>
-            The nodes can be sorted by pressing corresponding buttons in
-            the Sort section of Control Panel.
+            The nodes can be sorted by pressing corresponding buttons in the
+            Sort section of Control Panel.
           </p>
 
           <h2>2. A - Z</h2>
@@ -440,9 +533,7 @@
               style="transform-origin: right 50%"
             ></b-img>
           </div>
-          <p>
-            This is basic alphabetical order sorting.
-          </p>
+          <p>This is basic alphabetical order sorting.</p>
 
           <h2>3. Height</h2>
           <div class="img-zoom">
@@ -454,13 +545,13 @@
             ></b-img>
           </div>
           <p>
-            Nodes get sorted based on height - maximum distance from
-            any child node to the root. This means that more nested
-            nodes will appear first in a hierarchy.
+            Nodes get sorted based on height - maximum distance from any child
+            node to the root. This means that more nested nodes will appear
+            first in a hierarchy.
           </p>
           <p>
-            Sorting based on height can be helpful in cluster
-            layouts where it minimizes link crossing.
+            Sorting based on height can be helpful in cluster layouts where it
+            minimizes link crossing.
           </p>
 
           <h2>4. Inherited</h2>
@@ -473,13 +564,13 @@
             ></b-img>
           </div>
           <p>
-            When sorting based on inheritance the Class Specific nodes
-            will appear first. You can read more about inheritance
-            in the
+            When sorting based on inheritance the Class Specific nodes will
+            appear first. You can read more about inheritance in the
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
-            >Connections</span>
+              >Connections</span
+            >
             section.
           </p>
 
@@ -493,13 +584,13 @@
             ></b-img>
           </div>
           <p>
-            In Optional sorting the optional nodes
-            will appear first. You can read more about required
-            and optional nodes in the
+            In Optional sorting the optional nodes will appear first. You can
+            read more about required and optional nodes in the
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
-              >Connections</span>
+              >Connections</span
+            >
             section.
           </p>
         </article>
@@ -514,20 +605,6 @@ export default {
   data() {
     return {
       currentPage: null,
-      pages: {
-        "guide-main": {
-          parent: null,
-        },
-        "guide-connections": {
-          parent: "guide-main",
-        },
-        "guide-layouts": {
-          parent: "guide-main",
-        },
-        "guide-sorting": {
-          parent: "guide-main",
-        },
-      },
     };
   },
   mounted() {},
@@ -541,13 +618,7 @@ export default {
       this.currentPage = null;
     },
     returnHandler() {
-      const parent = this.pages[this.currentPage].parent;
-      if (!parent) {
-        this.closeHandler();
-      }
-
       this.closeHandler();
-      this.openGuide(parent);
     },
     navigateToPage(id) {
       this.closeHandler();
@@ -583,6 +654,19 @@ export default {
       transition: transform 0.5s;
       &:hover {
         transform: scale(2);
+      }
+    }
+  }
+
+  article {
+    .see-also-box {
+      background: map-get($colors-map, "black-5");
+      margin-bottom: 45px;
+      padding: 30px;
+      border-radius: 2px;
+
+      p {
+        margin: 0;
       }
     }
   }
@@ -632,7 +716,7 @@ export default {
     background: white;
   }
   .modal-body {
-    padding: 15px 30px;
+    padding: 0px 30px;
     height: 100%;
     position: relative;
 
@@ -669,6 +753,15 @@ span.guide-navigation {
 
   &:active {
     color: $link-active-color;
+  }
+}
+
+@media (max-width: 991px) {
+  .modal.help article {
+    .see-also-box {
+      margin-bottom: 45px;
+      padding: 15px;
+    }
   }
 }
 </style>
