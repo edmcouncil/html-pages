@@ -98,11 +98,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    "~assets/scss/_variables.scss",
-    "~assets/scss/_bootstrap-override.scss",
-    "~assets/scss/global.scss",
-    "~assets/scss/typography.scss",
-    "~assets/scss/highlight.scss",
+    "./assets/scss/Ontology.scss"
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -204,7 +200,13 @@ export default {
   ],
 
   styleResources: {
-    scss: ["./assets/scss/*.scss"],
+    scss: [
+      "~assets/scss/_variables.scss",
+      "~assets/scss/_bootstrap-override.scss",
+      "~assets/scss/global.scss",
+      "~assets/scss/typography.scss",
+      "~assets/scss/highlight.scss",
+    ],
   },
 
   markdownit: {
