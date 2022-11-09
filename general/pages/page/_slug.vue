@@ -38,26 +38,34 @@
 
 <script>
 import helpers from "../../store/helpers.js";
-import { outboundClick, outboundLinkClick } from "../../helpers/ga";
+import { prepareDescription } from "../../helpers/meta";
 import { getStrapiElementFromCollection } from "../../api/strapi";
 
 export default {
   extends: helpers,
   name: "PageView",
   components: {},
-  methods: {
-    outboundClick,
-    outboundLinkClick,
-    visit(url) {
-      this.outboundClick(url);
-      const aElement = document.createElement("a");
-      aElement.setAttribute("href", url);
-      aElement.setAttribute("target", "_blank");
-      aElement.style.display = "none";
-      document.body.appendChild(aElement);
-      aElement.click();
-      aElement.remove();
-    },
+    head() {
+    return {
+        title: this.title,
+        meta: [
+            {
+                hid: 'description',
+                name: 'description',
+                content: this.description,
+            },
+            {
+                hid: 'og:title',
+                name: 'og:title',
+                content: this.title,
+            },
+            {
+                hid: 'og:description',
+                property: 'og:description',
+                content: this.description,
+            },
+        ],
+    }
   },
   scrollToTop: false,
   mounted() {
@@ -76,8 +84,13 @@ export default {
         populateParams,
         slugName
       );
+
+      const title = response.data.data[0].attributes.title || process.env.VUE_ONTOLOGY_NAME;
+      const description = prepareDescription(response.data.data[0].attributes.sections[0].text_content);
       return {
         page: response.data.data[0].attributes.sections,
+        title: title,
+        description: description
       };
     } catch (e) {
       console.error(e);

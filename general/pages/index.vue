@@ -37,16 +37,34 @@
 
 <script>
 import helpers from "../store/helpers.js";
-import { outboundClick, outboundLinkClick } from "../helpers/ga";
+import { prepareDescription } from "../helpers/meta";
 import { getStrapiSingleType } from "../api/strapi";
 
 export default {
   extends: helpers,
   name: "AboutView",
   components: {},
-  methods: {
-    outboundClick,
-    outboundLinkClick,
+  head() {
+    return {
+        title: this.title,
+        meta: [
+            {
+                hid: 'description',
+                name: 'description',
+                content: this.description,
+            },
+            {
+                hid: 'og:title',
+                name: 'og:title',
+                content: this.title,
+            },
+            {
+                hid: 'og:description',
+                property: 'og:description',
+                content: this.description,
+            },
+        ],
+    }
   },
   async asyncData({ error }) {
     const singleTypeName = "about";
@@ -54,9 +72,12 @@ export default {
 
     try {
       const response = await getStrapiSingleType(singleTypeName, populateParams);
-
+      const title = response.data.data.attributes.sections[0].title || process.env.VUE_ONTOLOGY_NAME;
+      const description = prepareDescription(response.data.data.attributes.sections[0].items[0].text_content);
       return {
         page: response.data.data.attributes.sections,
+        title: title,
+        description: description
       };
     } catch (e) {
       console.error(e);

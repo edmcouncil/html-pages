@@ -16,7 +16,7 @@ process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || process.env.VUE_ONTOLOG
 process.env.VUE_BASE_URL =
   process.env.BASE_URL ||
   "https://spec." +
-    (process.env.VUE_ONTOLOGY_NAME === "idmp"
+    (process.env.VUE_ONTOLOGY_NAME=== "idmp"
       ? "pistoiaalliance"
       : "edmcouncil") +
     ".org/";
@@ -38,7 +38,7 @@ process.env.VUE_GOOGLE_ANALYTICS_ID = process.env.VUE_ONTOLOGY_NAME === "fibo"
         : process.env.VUE_ONTOLOGY_NAME === "auto"
         ? "G-V3S2FY7ZQ2"
         : process.env.VUE_ONTOLOGY_NAME === "idmp"
-        ? "TARGET_ID" // idmp don't have gtag id yet
+        ? "IDMP_ID" // idmp don't have gtag id yet
         : "none"; // default id
 
 export default {
@@ -156,7 +156,6 @@ export default {
     "@nuxtjs/markdownit",
     "@nuxtjs/proxy",
     "@nuxtjs/google-gtag",
-    "@nuxtjs/google-analytics",
   ],
 
   // gtag config
@@ -165,18 +164,8 @@ export default {
     config: {
       anonymize_ip: true,
       send_page_view: false, // might be necessary to avoid duplicated page track on page reload
-      linker: {
-        domains: ["spec.edmcouncil.org"],
-      },
     },
     debug: process.env.NODE_ENV !== "production",
-  },
-
-  //google-analytics config
-  googleAnalytics: {
-    id: process.env.VUE_GOOGLE_ANALYTICS_ID,
-    debug: process.env.NODE_ENV !== "production",
-    checkDuplicatedScript: true,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
