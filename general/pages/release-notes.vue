@@ -52,6 +52,11 @@ import { getStrapiCollection } from "../api/strapi";
 export default {
   extends: helpers,
   name: "ReleaseNotes",
+  head(){
+    return {
+      title: "FIBO Release Notes"
+    }
+  },
   async asyncData({ error }) {
     const collectionTypeName = "release-notes";
     const sortParams = ["title:desc"];
