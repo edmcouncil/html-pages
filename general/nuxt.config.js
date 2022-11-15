@@ -51,6 +51,10 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     script: [
       {
+        src: `gtm.js`,
+        crossorigin: "anonymous",
+      },
+      {
         src: "https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js",
         integrity:
           "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj",
@@ -97,9 +101,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    "./assets/scss/Ontology.scss"
-  ],
+  css: ["./assets/scss/Ontology.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -185,15 +187,19 @@ export default {
   proxy: [
     process.env.VUE_RESOURCES_BASE_URL.startsWith("http://") ||
     process.env.VUE_RESOURCES_BASE_URL.startsWith("https://")
-      ? process.env.VUE_RESOURCES_BASE_URL.replace("pistoiaalliance", "edmcouncil") +
-        "api"
+      ? process.env.VUE_RESOURCES_BASE_URL.replace(
+          "pistoiaalliance",
+          "edmcouncil"
+        ) + "api"
       : process.env.VUE_BASE_URL +
         process.env.VUE_ONTOLOGY_NAME +
         "/ontology/api",
     process.env.VUE_RESOURCES_BASE_URL.startsWith("http://") ||
     process.env.VUE_RESOURCES_BASE_URL.startsWith("https://")
-      ? process.env.VUE_RESOURCES_BASE_URL.replace("pistoiaalliance", "edmcouncil") +
-        "*/api"
+      ? process.env.VUE_RESOURCES_BASE_URL.replace(
+          "pistoiaalliance",
+          "edmcouncil"
+        ) + "*/api"
       : process.env.VUE_BASE_URL +
         process.env.VUE_ONTOLOGY_NAME +
         "/ontology/*/api",
