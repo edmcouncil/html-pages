@@ -16,7 +16,7 @@ process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || process.env.VUE_ONTOLOG
 process.env.VUE_BASE_URL =
   process.env.BASE_URL ||
   "https://spec." +
-    (process.env.VUE_ONTOLOGY_NAME === "idmp"
+    (process.env.VUE_ONTOLOGY_NAME=== "idmp"
       ? "pistoiaalliance"
       : "edmcouncil") +
     ".org/";
@@ -33,6 +33,14 @@ process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
 process.env.VUE_DIST_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
 process.env.VUE_ASSETS_DIR = `${process.env.VUE_DIST_DIR}/_nuxt/`;
 
+process.env.VUE_GOOGLE_ANALYTICS_ID = process.env.VUE_ONTOLOGY_NAME === "fibo"
+        ? "UA-124531442-2"
+        : process.env.VUE_ONTOLOGY_NAME === "auto"
+        ? "G-V3S2FY7ZQ2"
+        : process.env.VUE_ONTOLOGY_NAME === "idmp"
+        ? "IDMP_ID" // idmp don't have gtag id yet
+        : "none"; // default id
+
 export default {
   // target: 'static' description https://nuxtjs.org/announcements/going-full-static/
   target: "static",
@@ -46,6 +54,12 @@ export default {
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: "" },
+      {
+        hid: "keywords",
+        name: "keywords",
+        content:
+          "ontology, Open Knowledge Graph, OKG, EDM Council, Enterprise Data Management Council",
+      },
       { name: "format-detection", content: "telephone=no" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
@@ -145,7 +159,18 @@ export default {
     "bootstrap-vue/nuxt",
     "@nuxtjs/markdownit",
     "@nuxtjs/proxy",
+    "@nuxtjs/google-gtag",
   ],
+
+  // gtag config
+  "google-gtag": {
+    id: process.env.VUE_GOOGLE_ANALYTICS_ID,
+    config: {
+      anonymize_ip: true,
+      send_page_view: false, // might be necessary to avoid duplicated page track on page reload
+    },
+    debug: process.env.NODE_ENV !== "production",
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
