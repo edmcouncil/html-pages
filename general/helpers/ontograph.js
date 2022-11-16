@@ -1,55 +1,21 @@
 import * as d3 from "d3";
 
 export class Ontograph {
-  target;
-
-  root;
-  nodes;
-  links;
-
-  simulation;
-  link;
-  node;
-
-  zoomController;
-
   layout = "force";
-  transitionSpeed = 700;
+  transitionSpeed = 500;
   mouseoverTransitionSpeed = 300;
+  distance = 50;
+  alertId = 0;
 
-  constructor(data, target, navigationHandler) {
+  constructor(data, target, navigationHandler, alertHandler, graphServer) {
     this.target = target;
     this.nav = navigationHandler;
+    this.alertHandler = alertHandler;
+    this.graphServer = graphServer;
 
-    const edges = data.graph.edges;
-    const nodes = data.graph.nodes;
+    this.lastId = data.graph.lastId;
 
-    this.parsedNodes = nodes.map((node) => {
-      const edge = edges.find((e) => e.to === node.id);
-
-      return edge
-        ? {
-            nodeIri: node.iri,
-            nodeLabel: node.label,
-            type: node.type,
-            optional: node.optional,
-            id: node.id,
-
-            pathLabel: edge.label,
-            pathIri: edge.iri,
-            from: edge.from,
-            dashes: edge.dashes,
-          }
-        : {
-            nodeIri: node.iri,
-            nodeLabel: node.label,
-            type: node.type,
-            optional: node.optional,
-            id: node.id,
-
-            from: "",
-          };
-    });
+    this.parsedNodes = this.parseNodes(data.graph);
 
     this.root = d3
       .stratify()
@@ -84,7 +50,41 @@ export class Ontograph {
     target.append(this.svg.node());
   }
 
-  initLinks() {
+  parseNodes(graphData) {
+    const edges = graphData.edges;
+    const nodes = graphData.nodes;
+
+    const newNodes = nodes.map((node) => {
+      const edge = edges.find((e) => e.to === node.id);
+
+      return edge
+        ? {
+            nodeIri: node.iri,
+            nodeLabel: node.label,
+            type: node.type,
+            optional: node.optional,
+            id: node.id,
+
+            pathLabel: edge.label,
+            pathIri: edge.iri,
+            from: edge.from,
+            dashes: edge.dashes,
+          }
+        : {
+            nodeIri: node.iri,
+            nodeLabel: node.label,
+            type: node.type,
+            optional: node.optional,
+            id: node.id,
+
+            from: "",
+          };
+    });
+
+    return newNodes;
+  }
+
+  initLinks(at) {
     this.link = this.svg
       .select(".links")
       .attr("fill", "none")
@@ -101,10 +101,10 @@ export class Ontograph {
             .attr("stroke", (d) => (d.target.data.dashes ? "#777" : "#777"))
             .attr("stroke-dasharray", (d) => (d.target.data.dashes ? 5 : null))
             .attr("d", (d) => {
-              const x0 = d.source.x;
-              const y0 = d.source.y;
-              const x1 = d.source.x;
-              const y1 = d.source.y;
+              const x0 = at ? at.x : d.source.x;
+              const y0 = at ? at.y : d.source.y;
+              const x1 = at ? at.x : d.source.x;
+              const y1 = at ? at.y : d.source.y;
               const xcontrol = x1 * 0.45 + x0 * 0.55;
               const ycontrol = y1 * 0.55 + y0 * 0.45;
               return [
@@ -183,18 +183,18 @@ export class Ontograph {
     this.linkLabels = this.link.selectAll("text");
   }
 
-  initNodes() {
+  initNodes(at) {
     const drag = (simulation) => {
       const that = this;
 
       function dragStarted(event, d) {
         if (that.layout !== "force") return;
-        if (!event.active) simulation.alphaTarget(0.5).restart();
+        if (!event.active) simulation.alphaTarget(0.6).restart();
         d.fx = d.x;
         d.fy = d.y;
         setTimeout(() => {
           d3.select(this).raise();
-        },100);
+        }, 100);
       }
 
       function dragged(event, d) {
@@ -225,7 +225,10 @@ export class Ontograph {
           const newNode = enter
             .append("g")
             .attr("class", "node")
-            .attr("transform", (d) => `translate(${d.x},${d.y})`);
+            .attr(
+              "transform",
+              (d) => `translate(${at ? at.x : d.x},${at ? at.y : d.y})`
+            );
 
           newNode
             .attr("fill", "#000")
@@ -293,19 +296,7 @@ export class Ontograph {
             .on("mouseout", (e, d) => {
               if (this.isShifting != null) return;
 
-              this.link
-                .transition()
-                .duration(this.mouseoverTransitionSpeed)
-                .attr("opacity", "1");
-              this.linkLabels
-                .transition()
-                .duration(this.mouseoverTransitionSpeed)
-                .attr("opacity", "0");
-              this.node
-                .transition()
-                .duration(this.mouseoverTransitionSpeed)
-                .attr("opacity", "1")
-                .attr("font-weight", "normal");
+              this.blurHighlight();
             })
             .on("click", (e, d) => this.nodeClick(e, d));
 
@@ -314,7 +305,7 @@ export class Ontograph {
           return newNode;
         },
         (update) => {
-          return update.on(".drag", null).call(drag(this.simulation));
+          return update;
         },
         (exit) => {
           return exit.remove();
@@ -357,12 +348,13 @@ export class Ontograph {
         d3
           .forceManyBody()
           .strength(
-            (d) => (-1100 * (d.parent ? 1 : 5)) / (d.children ? 0.5 : 3)
+            (d) => (-1600 * (d.parent ? 1 : 5)) / (d.children ? 0.5 : 3)
           )
       )
       .force("center", d3.forceCenter().strength(0.2))
       .force("x", d3.forceX())
-      .force("y", d3.forceY());
+      .force("y", d3.forceY())
+      .alphaDecay(0.055);
 
     newSimulation.on("tick", () => {
       if (this.layout != "force") return;
@@ -402,6 +394,61 @@ export class Ontograph {
     return newSimulation;
   }
 
+  updateSimulation() {
+    this.simulation
+      .nodes(this.nodes)
+      .force(
+        "link",
+        d3
+          .forceLink(this.links)
+          .id((d) => d.id)
+          .distance(0.5)
+          .strength(0.5)
+      )
+      .force(
+        "charge",
+        d3
+          .forceManyBody()
+          .strength(
+            (d) => ((-this.distance * 30) * (d.parent ? 1 : 5)) / (d.children ? 0.5 : 3)
+          )
+      )
+      .force("center", d3.forceCenter().strength(0.2))
+      .force("x", d3.forceX())
+      .force("y", d3.forceY())
+      .restart();
+  }
+
+  setControlPanelOpen(isControlPanelOpen) {
+    this.isControlPanelOpen = isControlPanelOpen;
+  }
+
+  distanceUpdate(value) {
+    this.distance = value;
+
+    if (this.layout === "tree") this.toTree();
+    else if (this.layout === "clusterTree") this.toClusterTree();
+    else if (this.layout === "radial") this.toRadial();
+    else if (this.layout === "clusterRadial") this.toClusterRadial();
+    else if (this.layout === "force") this.toForce();
+  }
+
+  blurHighlight() {
+    this.link
+      .transition()
+      .duration(this.mouseoverTransitionSpeed)
+      .attr("opacity", "1");
+    this.linkLabels
+      .transition()
+      .duration(this.mouseoverTransitionSpeed)
+      .attr("opacity", "0");
+    this.node
+      .transition()
+      .duration(this.mouseoverTransitionSpeed)
+      .attr("opacity", "1")
+      .attr("font-weight", "normal");
+  }
+
   sort(type) {
     this.isShifting = null;
     this.isShifting = setTimeout(() => {
@@ -424,7 +471,7 @@ export class Ontograph {
     this.nodes = this.root.descendants();
 
     this.simulation.stop();
-    this.simulation = this.getSimulation();
+    this.updateSimulation();
     this.initLinks();
     this.initNodes();
 
@@ -435,8 +482,9 @@ export class Ontograph {
     else if (this.layout === "force") this.toForce();
   }
 
-  filter({ external, internal, optional, required }) {
-    const beforeFilter = this.parsedNodes;
+  filter(filters) {
+    this.filters = filters;
+    let { external, internal, optional, required } = filters;
 
     let filteredData = this.parsedNodes.filter((n) => {
       if (n.type == "MAIN") return true;
@@ -478,15 +526,163 @@ export class Ontograph {
     this.nodes = this.root.descendants();
 
     this.simulation.stop();
-    this.simulation = this.getSimulation();
+    this.updateSimulation();
     this.initLinks();
     this.initNodes();
+
+    if (this.sortType) this.sort(this.sortType);
 
     if (this.layout === "tree") this.toTree();
     else if (this.layout === "clusterTree") this.toClusterTree();
     else if (this.layout === "radial") this.toRadial();
     else if (this.layout === "clusterRadial") this.toClusterRadial();
     else if (this.layout === "force") this.toForce();
+  }
+
+  async expandGraph(d) {
+    if (this.isShifting) {
+      return;
+    }
+    this.isShifting = true;
+    this.simulation.alphaTarget(0);
+
+    // if node contains already collapsed children then expand them
+    if (d._children) {
+      d.children = d._children;
+      d._children = null;
+    }
+    // if node contains expanded children hide them
+    else if (d.children) {
+      d._children = d.children;
+      d.children = null;
+    }
+    // if node has no saved children and height equal to 0 then fetch nodes
+    else if (!d.height || d.height == 0) {
+      try {
+        // add loader
+        this.svg
+          .select(".nodes")
+          .selectAll("g")
+          .data(this.nodes, n => n.data.id)
+          .filter(n => {
+              return n.data.id == d.data.id;
+          })
+          .append("g")
+          .attr("class", "node-loader")
+          .append("circle")
+          .attr("r", 5)
+          .attr("fill", "none")
+          .attr("stroke-width", 2)
+          .attr("class", "node-loader__circle");
+
+
+        // fetch children from server
+        const domain = `${this.graphServer}?iri=${encodeURI(
+          d.data.nodeIri
+        )}&nodeId=${d.id}&lastId=${this.lastId}`;
+        const result = await fetch(domain, {
+          method: "GET",
+          headers: { Accept: "application/json" },
+        });
+        let body = null;
+
+        try {
+          body = await result.json();
+        } catch (e) {
+          this.pushAlert("noChildren", d.data.nodeLabel);
+          this.isShifting = null;
+          this.svg
+            .select(".nodes")
+            .selectAll("g")
+            .data(this.nodes, n => n.data.id)
+            .filter(n => {
+                return n.data.id == d.data.id;
+            })
+            .select(".node-loader")
+            .remove();
+          this.blurHighlight();
+          return;
+        }
+
+        if (body.nodes.length == 1) {
+          this.pushAlert("noChildren", d.data.nodeLabel);
+          this.isShifting = null;
+          this.svg
+            .select(".nodes")
+            .selectAll("g")
+            .data(this.nodes, n => n.data.id)
+            .filter(n => {
+                return n.data.id == d.data.id;
+            })
+            .select(".node-loader")
+            .remove();
+          this.blurHighlight();
+          return;
+        }
+
+        this.lastId = body.lastId;
+
+        let newNodes = this.parseNodes(body);
+        this.parsedNodes.push(...newNodes.filter((n) => n.id != d.id));
+
+        let childRoot = d3
+          .stratify()
+          .id((node) => node.id)
+          .parentId((node) => node.from)(newNodes);
+
+        d.height = childRoot.height;
+
+        childRoot.each((node) => {
+          if (node.parent?.id === d.id) node.parent = d;
+          node.depth += d.depth;
+        });
+
+        d.children = childRoot.children;
+
+        // update all heights
+        let tmp = d;
+        while (tmp.parent?.height < tmp.height + 1) {
+          tmp.parent.height = tmp.height + 1;
+          tmp = tmp.parent;
+        }
+      } catch (err) {
+        this.pushAlert("noChildren");
+        console.error(err);
+      }
+
+      this.svg
+        .select(".nodes")
+        .selectAll("g")
+        .data(this.nodes, n => n.data.id)
+        .filter(n => {
+            return n.data.id == d.data.id;
+        })
+        .select(".node-loader")
+        .remove();
+    }
+
+    this.links = this.root.links();
+    this.nodes = this.root.descendants();
+
+    this.initLinks(d);
+    this.initNodes(d);
+
+    this.isShifting = setTimeout(() => {
+      this.isShifting = null;
+      this.blurHighlight();
+    }, this.transitionSpeed);
+
+    if (this.layout === "tree") this.toTree();
+    else if (this.layout === "clusterTree") this.toClusterTree();
+    else if (this.layout === "radial") this.toRadial();
+    else if (this.layout === "clusterRadial") this.toClusterRadial();
+    else if (this.layout === "force") {
+      this.toForce();
+      d.children?.forEach((node) => {
+        node.x = d.x + (0.5 - Math.random()) * 100;
+        node.y = d.y + (0.5 - Math.random()) * 100;
+      });
+    }
   }
 
   changeLayoutTo(to) {
@@ -511,7 +707,7 @@ export class Ontograph {
   toTree() {
     this.simulation.stop();
 
-    const dx = Math.min(this.width / this.root.height - 30, 250);
+    const dx = this.distance * 4;
     const dy = 12;
 
     const treeLayout = d3.tree().nodeSize([dy, dx])(this.root);
@@ -570,7 +766,7 @@ export class Ontograph {
     this.links = this.root.links();
     this.nodes = this.root.descendants();
 
-    const dx = Math.min(this.width / this.root.height - 30, 250);
+    const dx = this.distance * 4;
     const dy = 12;
 
     const treeLayout = d3.cluster().nodeSize([dy, dx])(this.root);
@@ -626,19 +822,7 @@ export class Ontograph {
   toRadial() {
     this.simulation.stop();
 
-    let radius;
-
-    if (!this.root.children)
-      radius = Math.min(this.width - 30, this.height - 30) / 3;
-    else if (this.root.children.length <= 4)
-      radius = Math.min(this.width - 30, this.height - 30) / 2.8;
-    else if (this.root.children.length <= 6)
-      radius = Math.min(this.width - 30, this.height - 30) / 2.6;
-    else if (this.root.children.length <= 8)
-      radius = Math.min(this.width - 30, this.height - 30) / 2.5;
-    else if (this.root.children.length <= 10)
-      radius = Math.min(this.width - 30, this.height - 30) / 2.3;
-    else radius = Math.min(this.width - 30, this.height - 30) / 2;
+    let radius = this.root.height * this.distance * 4;
 
     const radialLayout = d3
       .tree()
@@ -705,15 +889,7 @@ export class Ontograph {
   toClusterRadial() {
     this.simulation.stop();
 
-    let radius;
-
-    if (!this.root.children)
-      radius = Math.min(this.width - 30, this.height - 30) / 3;
-    else if (this.root.children.length <= 4)
-      radius = Math.min(this.width - 30, this.height - 30) / 3;
-    else if (this.root.children.length <= 8)
-      radius = Math.min(this.width - 30, this.height - 30) / 2.5;
-    else radius = Math.min(this.width - 30, this.height - 30) / 2;
+    let radius = this.root.height * this.distance * 4;
 
     const radialLayout = d3
       .cluster()
@@ -774,8 +950,8 @@ export class Ontograph {
   }
 
   toForce() {
-    this.simulation.stop();
-    this.simulation.alphaTarget(0.5).restart();
+    this.updateSimulation();
+    this.simulation.alpha(1).alphaTarget(0.5);
 
     this.node
       .selectAll("text")
@@ -794,12 +970,13 @@ export class Ontograph {
     this.simulation.stop();
     const nodesBBox = this.svg.select(".nodes").node().getBBox();
 
-    const midX = (nodesBBox.x + nodesBBox.x + nodesBBox.width) / 2;
-    const midY = (nodesBBox.y + nodesBBox.y + nodesBBox.height) / 2;
+    const midX = nodesBBox.x + nodesBBox.width / 2;
+    const midY = nodesBBox.y + nodesBBox.height / 2;
 
     const margin = 60;
+    const controlPanelOffset = this.isControlPanelOpen ? 300 : 0;
 
-    const scaleX = (this.width - margin) / nodesBBox.width;
+    const scaleX = (this.width - controlPanelOffset - margin) / nodesBBox.width;
     const scaleY = (this.height - margin) / nodesBBox.height;
     const scale = d3.min([scaleX, scaleY]);
 
@@ -808,14 +985,14 @@ export class Ontograph {
       .duration(this.transitionSpeed)
       .call(
         this.zoomController.transform,
-        d3.zoomIdentity.translate(-midX * scale, -midY * scale).scale(scale)
+        d3.zoomIdentity.translate(-midX * scale - controlPanelOffset / 2, -midY * scale).scale(scale)
       );
   }
 
   nodeClick(event, node) {
     if (event.defaultPrevented) return;
-    this.simulation.stop();
-    this.nav(node.data.nodeIri);
+    this.expandGraph(node);
+    //this.nav(node.data.nodeIri);
   }
 
   removeGraph() {
@@ -834,5 +1011,10 @@ export class Ontograph {
     ]);
 
     this.center();
+  }
+
+  pushAlert(type, source) {
+    this.alertId++;
+    this.alertHandler(type, this.alertId, source);
   }
 }
