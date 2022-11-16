@@ -1,6 +1,11 @@
+function ServerError(message, status) {
+  this.message = message;
+  this.status = status;
+}
+
 const parseServerError = function (response) {
   if (response.status >= 400 && response.status < 600) {
-    throw new Error('Bad response from server');
+    throw new ServerError('Bad response from server', response.status);
   }
   return response;
 };

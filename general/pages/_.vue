@@ -7,11 +7,7 @@
         <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
           <div class="module-tree">
             <div
-              class="
-                secondary-column__how-to-use
-                multiselect-xxl-container multiselect-container
-                container
-              "
+              class="secondary-column__how-to-use multiselect-xxl-container multiselect-container container"
             >
               <div class="row modules-header">
                 <h5 class="fibo-title-modules">
@@ -29,11 +25,7 @@
             <transition name="slowfade">
               <div
                 v-if="hasVersions"
-                class="
-                  secondary-column__versions
-                  multiselect-xxl-container multiselect-container
-                  container
-                "
+                class="secondary-column__versions multiselect-xxl-container multiselect-container container"
               >
                 <div class="menu-box">
                   <div class="menu-box__label">
@@ -92,11 +84,7 @@
             <transition name="slowfade">
               <div
                 v-show="modulesList"
-                class="
-                  secondary-column__tree
-                  multiselect-xxl-container multiselect-container
-                  container
-                "
+                class="secondary-column__tree multiselect-xxl-container multiselect-container container"
               >
                 <div class="menu-box">
                   <div class="menu-box__label">
@@ -239,11 +227,7 @@
             </div>
 
             <div
-              class="
-                advanced-search-box advanced-search-box--desktop
-                card
-                d-none d-lg-block
-              "
+              class="advanced-search-box advanced-search-box--desktop card d-none d-lg-block"
               v-if="searchBox.isAdvancedExpanded"
             >
               <div class="row">
@@ -310,12 +294,7 @@
           <!-- mobile multiselects -->
           <div class="secondary-column--mobile container px-0 mb-2 d-lg-none">
             <div
-              class="
-                secondary-column__how-to-use
-                secondary-column__how-to-use--mobile
-                multiselect-container
-                container
-              "
+              class="secondary-column__how-to-use secondary-column__how-to-use--mobile multiselect-container container"
             >
               <div class="row modules-header">
                 <h5 class="fibo-title-modules">
@@ -333,19 +312,13 @@
 
             <MobileMenuBox
               v-if="hasVersions"
-              class="
-                secondary-column__versions secondary-column__versions--mobile
-              "
+              class="secondary-column__versions secondary-column__versions--mobile"
               :icon="'icon-clock'"
             >
               <template v-slot:label> Select version </template>
               <template v-slot:multiselect>
                 <div
-                  class="
-                    multiselect-container
-                    secondary-column__versions
-                    secondary-column__versions--mobile
-                  "
+                  class="multiselect-container secondary-column__versions secondary-column__versions--mobile"
                 >
                   <multiselect
                     v-model="ontologyVersionsDropdownData.selectedData"
@@ -555,7 +528,7 @@
           <div
             class="text-center mt-5"
             v-if="
-              !error && (loader || searchBox.isLoadingResults || !modulesList)
+              !isError && (loader || searchBox.isLoadingResults || !modulesList)
             "
           >
             <div class="spinner-border" role="status">
@@ -571,12 +544,12 @@
           >
             <div class="search-section__header">
               <h5>Search results for “{{ searchBox.selectedData.iri }}”</h5>
-              <!-- <p>{{ searchBox.totalResultsCount }} total results</p> -->
-              <p>
+              <p v-if="searchBox.totalResultsCount > 0">
                 {{ searchBox.fromCount }} -
                 {{ searchBox.toCount }}
                 of {{ searchBox.totalResultsCount }} total results
               </p>
+              <p v-else>0 total results</p>
             </div>
 
             <div
@@ -641,7 +614,15 @@
               </div>
             </div>
             <div v-else>
-              <!-- No results -->
+              <article>
+                <section class="blank">
+                  <h2>No results found</h2>
+                  <p class="muted">
+                    Consider adjusting search configuration or try changing
+                    search phrase.
+                  </p>
+                </section>
+              </article>
             </div>
 
             <div
@@ -659,39 +640,68 @@
                 v-if="searchBox.totalResultsCount > searchBox.perPage"
               ></b-pagination>
 
-              <p v-else>
-                There is only one page.
-              </p>
-
-              <!-- <button
-                type="button"
-                class="btn normal-button search-section__load-more__button"
-                @click="loadMoreResults()"
-                v-if="
-                  searchBox.totalResultsCount >
-                  searchBox.pageResults.length
-                "
-              >
-                Load next
-                results
-              </button>
-
-              <button
-                disabled
-                type="button"
-                class="btn normal-button search-section__load-more__button"
-                v-else
-              >
-                No more results to load
-              </button> -->
+              <p v-else>There is only one page.</p>
             </div>
           </div>
 
-          <!-- error -->
-          <div class="row" v-if="error || searchBox.searchError">
+          <!-- errors -->
+          <div class="row" v-if="error.search">
             <div class="col-12">
-              <div class="alert alert-danger alert-error" role="alert">
+              <div class="ontology-alert red" role="alert">
+                <strong>Error!</strong> We had trouble connecting with our
+                search server, please try later.
+                <div
+                  @click="error.search = false"
+                  class="dismiss-alert-button"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" v-if="error.entityData">
+            <div class="col-12">
+              <div class="ontology-alert red" role="alert">
                 <strong>Error!</strong> Cannot fetch data, please try later.
+                <div
+                  @click="error.entityData = false"
+                  class="dismiss-alert-button"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" v-if="error.versions">
+            <div class="col-12">
+              <div class="ontology-alert yellow" role="alert">
+                <strong>Warning!</strong> Versions could not be loaded.
+                <div
+                  @click="error.versions = false"
+                  class="dismiss-alert-button"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" v-if="error.modules">
+            <div class="col-12">
+              <div class="ontology-alert yellow" role="alert">
+                <strong>Warning!</strong> Modules could not be loaded.
+                <div
+                  @click="error.modules = false"
+                  class="dismiss-alert-button"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" v-if="error.properties">
+            <div class="col-12">
+              <div class="ontology-alert yellow" role="alert">
+                <strong>Warning!</strong> Search properties could not be loaded.
+                <div
+                  @click="error.properties = false"
+                  class="dismiss-alert-button"
+                ></div>
               </div>
             </div>
           </div>
@@ -770,7 +780,8 @@
                             class="card-title"
                             :class="{
                               'maturity-provisional':
-                                this.data.maturityLevel.label === 'Provisional' ||
+                                this.data.maturityLevel.label ===
+                                  'Provisional' ||
                                 this.data.maturityLevel.label === 'Preliminary',
                               'maturity-informative':
                                 this.data.maturityLevel.label === 'Informative',
@@ -796,25 +807,40 @@
                           </div>
                           <h6
                             class="card-subtitle data-iri"
-                            v-if="this.$route.query && this.$route.query.version &&
-                            data.iri && data.iri.startsWith(ontologyResourcesBaseUri)"
+                            v-if="
+                              this.$route.query &&
+                              this.$route.query.version &&
+                              data.iri &&
+                              data.iri.startsWith(ontologyResourcesBaseUri)
+                            "
                           >
-                            {{ this.ontologyResourcesBaseUri +
-                                this.$route.query.version +
-                                '/' +
-                                data.iri.replace(this.ontologyResourcesBaseUri, '') }}
+                            {{
+                              this.ontologyResourcesBaseUri +
+                              this.$route.query.version +
+                              "/" +
+                              data.iri.replace(
+                                this.ontologyResourcesBaseUri,
+                                ""
+                              )
+                            }}
                           </h6>
                           <div
                             class="url-buttons-container"
-                            v-if="this.$route.query && this.$route.query.version &&
-                              data.iri.startsWith(ontologyResourcesBaseUri)"
+                            v-if="
+                              this.$route.query &&
+                              this.$route.query.version &&
+                              data.iri.startsWith(ontologyResourcesBaseUri)
+                            "
                           >
                             <CopyButton
                               :copyContent="
                                 this.ontologyResourcesBaseUri +
                                 this.$route.query.version +
                                 '/' +
-                                data.iri.replace(this.ontologyResourcesBaseUri, '')
+                                data.iri.replace(
+                                  this.ontologyResourcesBaseUri,
+                                  ''
+                                )
                               "
                               :text="'Copy versioned IRI'"
                               class="btn-copy-iri"
@@ -902,7 +928,9 @@
                 <!-- NO DATA (How to use) -->
                 <div
                   v-else-if="
-                    !loader && !searchBox.isLoadingResults && modulesList
+                    !loader &&
+                    !searchBox.isLoadingResults &&
+                    !error.entityNotFound
                   "
                 >
                   <article class="how-to-article">
@@ -1051,6 +1079,30 @@
                     </section>
                   </article>
                 </div>
+
+                <div
+                  v-else-if="!loader && error.entityNotFound"
+                  class="not-found"
+                >
+                  <article>
+                    <section class="blank not-found-header">
+                      <p class="big-sign">404</p>
+                      <p class="big muted">Entity not found</p>
+                      <p class="muted">
+                        The entity you are looking for does not exist. Please
+                        try again.
+                      </p>
+                    </section>
+
+                    <section>
+                      <h2>Tips</h2>
+                      <p>
+                        Try using search box or modules tree to find ontology
+                        resources.
+                      </p>
+                    </section>
+                  </article>
+                </div>
               </transition>
             </div>
           </div>
@@ -1086,7 +1138,14 @@ export default {
       data: this.data || null,
       query: this.query || "",
       modulesList: this.modulesList || null,
-      error: this.error || false,
+      error: this.error || {
+        versions: false,
+        modules: false,
+        properties: false,
+        search: false,
+        entityData: false,
+        entityNotFound: false,
+      },
       searchBox: this.searchBox || {
         inputValue: "",
         selectedData: null,
@@ -1096,7 +1155,6 @@ export default {
         toCount: 0,
         pageResults: [], // search results data
         isLoading: false,
-        searchError: false,
         isAdvancedExpanded: false,
         lastSearchBQuery: null, // contains last searchBQuery used
         page: 1,
@@ -1160,16 +1218,23 @@ export default {
     this.updateServers({ route: this.$route });
     this.fetchData(this.query);
     this.fetchModules();
+    this.fetchVersions();
     this.fetchSearchProperties();
 
     // disable input autocomplete in multiselect
-    this.$refs.searchBoxInputMobile.$refs.search.setAttribute("autocomplete", "off")
-    this.$refs.searchBoxInputDesktop.$refs.search.setAttribute("autocomplete", "off")
+    this.$refs.searchBoxInputMobile.$refs.search.setAttribute(
+      "autocomplete",
+      "off"
+    );
+    this.$refs.searchBoxInputDesktop.$refs.search.setAttribute(
+      "autocomplete",
+      "off"
+    );
 
-    const scrollTopElement = this.$refs['article-top-element'];
+    const scrollTopElement = this.$refs["article-top-element"];
     if (!this.query) {
       scrollTopElement.scrollIntoView({
-          behavior: "smooth"
+        behavior: "smooth",
       });
     } else {
       this.scrollToOntologyViewerTopOfContainer();
@@ -1186,7 +1251,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateServers: 'servers/updateServers'
+      updateServers: "servers/updateServers",
     }),
     async fetchData(iri) {
       if (iri) {
@@ -1241,19 +1306,28 @@ export default {
           }
 
           this.data = body.result;
-          this.error = false;
-          this.searchBox.searchError = false;
-          this.scrollToOntologyViewerTopOfContainer();
+          this.error.entityData = false;
+          this.error.entityNotFound = false;
         } catch (err) {
-          console.error(err);
+          console.error(err.message);
           this.data = null;
-          this.error = true;
+          if (err.status === 404) {
+            this.error.entityNotFound = true;
+            this.error.entityData = false;
+          } else {
+            this.error.entityNotFound = false;
+            this.error.entityData = true;
+          }
         }
         this.loader = false;
+        this.scrollToOntologyViewerTopOfContainer();
       }
-
+    },
+    async fetchVersions() {
       try {
-        const result = await getOntologyVersions(`/${this.ontologyName}/ontology/api/`);
+        const result = await getOntologyVersions(
+          `/${this.ontologyName}/ontology/api/`
+        );
         const ontologyVersions = await result.json();
         this.ontologyVersionsDropdownData.data = ontologyVersions;
         ontologyVersions.unshift(this.ontologyVersionsDropdownData.defaultData); // add default at the beginning
@@ -1270,19 +1344,20 @@ export default {
           this.ontologyVersionsDropdownData.selectedData =
             this.ontologyVersionsDropdownData.defaultData;
         }
-        this.error = false;
+        this.error.versions = false;
       } catch (err) {
         console.error(err);
-        this.error = true;
+        this.error.versions = true;
       }
     },
     async fetchModules() {
       try {
         const result = await getModules(this.modulesServer);
         this.modulesList = await result.json();
+        this.error.modules = false;
       } catch (err) {
         console.error(err);
-        this.error = true;
+        this.error.modules = true;
       }
     },
     async fetchSearchProperties() {
@@ -1301,9 +1376,10 @@ export default {
         }
 
         this.onPropertiesChanged();
+        this.error.properties = false;
       } catch (err) {
         console.error(err);
-        this.error = true;
+        this.error.properties = true;
       }
     },
     // vue-multiselect ontologyVersions
@@ -1337,9 +1413,14 @@ export default {
       if (this.$refs.mobileSearchbox?.showModal)
         this.$refs.mobileSearchbox.hideModal();
       let destRoute = selectedOption.iri;
-      if (destRoute.startsWith(`https://spec.edmcouncil.org/${this.ontologyName}`)) {
+      if (
+        destRoute.startsWith(`https://spec.edmcouncil.org/${this.ontologyName}`)
+      ) {
         // internal ontology
-        destRoute = destRoute.replace(`https://spec.edmcouncil.org/${this.ontologyName}`, "");
+        destRoute = destRoute.replace(
+          `https://spec.edmcouncil.org/${this.ontologyName}`,
+          ""
+        );
         this.$router.push({
           path: destRoute,
           query: {
@@ -1384,6 +1465,7 @@ export default {
     async handleSearchBoxQuery(searchBQuery, page) {
       try {
         this.searchBox.isLoadingResults = true;
+        this.error.entityNotFound = false;
         const isHighlighting = this.searchBox.useHighlighting;
 
         // wait for properties to be loaded if they arent
@@ -1414,16 +1496,14 @@ export default {
           this.searchBox.fromCount = from;
           this.searchBox.toCount = to;
 
-          this.error = false;
+          this.error.search = false;
           this.searchBox.isLoadingResults = false;
-          this.searchBox.searchError = false;
         } else {
           this.searchBox.pageResults = [];
         }
       } catch (err) {
         console.error(err);
-        this.error = true;
-        this.searchBox.searchError = true;
+        this.error.search = true;
         this.searchBox.isLoadingResults = false;
       }
 
@@ -1482,10 +1562,10 @@ export default {
           });
 
           this.searchBox.hintsData = hints;
-          this.error = false;
+          this.error.search = false;
         } catch (err) {
           console.error(err);
-          this.error = true;
+          this.error.search = true;
         }
         this.searchBox.isLoading = false;
       }, 500);
@@ -1529,7 +1609,7 @@ export default {
     },
     onPropertiesChanged() {
       const identifiersArray = this.searchBox.findProperties.map(
-        property => property.identifier
+        (property) => property.identifier
       );
       this.searchBox.encodedProperties = identifiersArray.join(".");
 
@@ -1559,6 +1639,7 @@ export default {
     },
     howToUseHandler() {
       this.data = null;
+      this.error.entityNotFound = false;
       this.searchBox.isLoading = false;
       if (this.$route.fullPath != "/ontology") this.$router.push("/ontology");
 
@@ -1592,6 +1673,16 @@ export default {
       statsServer: (state) => state.servers.statsServer,
       missingImportsServer: (state) => state.servers.missingImportsServer,
     }),
+    isError() {
+      return (
+        this.error.versions ||
+        this.error.modules ||
+        this.error.properties ||
+        this.error.search ||
+        this.error.entityData ||
+        this.error.entityNotFound
+      );
+    },
     hasVersions() {
       return this.ontologyVersionsDropdownData.data.length > 1;
     },
@@ -1606,7 +1697,7 @@ export default {
     },
     ontologyResourcesBaseUri() {
       return process.env.ontologyResourcesBaseUri;
-    }
+    },
   },
   beforeRouteUpdate(to, from, next) {
     this.updateServers({ route: this.$route, to });
@@ -1621,7 +1712,10 @@ export default {
       }
       this.query = queryParam;
 
-      if (this.query === `https://spec.edmcouncil.org/${this.ontologyName}/ontology`) {
+      if (
+        this.query ===
+        `https://spec.edmcouncil.org/${this.ontologyName}/ontology`
+      ) {
         this.query = "";
         this.data = null;
       } else {
