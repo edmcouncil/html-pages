@@ -10,7 +10,8 @@
           v-for="(element, index) in itemData"
           :key="'taxonomyEl' + index + element.iri"
         >
-          <customLink :name="element.label" :query="element.iri"></customLink>
+          <span v-if="element.iri.includes('http://org.semanticweb.owlapi/error#')" class="error-iri-element">{{element.label}}</span>
+          <customLink v-else :name="element.label" :query="element.iri"></customLink>
           <span
             class="card-subtitle taxonomy-separator"
             v-if="index != Object.keys(itemData).length - 1"
@@ -80,6 +81,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.error-iri-element {
+  color: #ff6000 !important;
+}
 .ontology-item__paths__list-item {
   padding-bottom: 20px;
 
