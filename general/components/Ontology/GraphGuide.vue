@@ -36,6 +36,14 @@
                 >Sorting</span
               >
             </p>
+            <p>
+              5.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-configuration')"
+                >Configuration</span
+              >
+            </p>
           </div>
           <h1>Overview</h1>
           <h2>1. Introduction</h2>
@@ -169,7 +177,7 @@
           <p>
             You can hover over a node to highlight it. When a node is
             highlighted the relation label will appear. You can click on the
-            node to visit it's resource page.
+            node to show or hide it's children.
           </p>
           <p>
             Nodes have two visual traits that express connection type they have
@@ -228,6 +236,14 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 >Sorting</span
+              >
+            </p>
+            <p>
+              5.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-configuration')"
+                >Configuration</span
               >
             </p>
           </div>
@@ -374,6 +390,14 @@
                 >Sorting</span
               >
             </p>
+            <p>
+              5.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-configuration')"
+                >Configuration</span
+              >
+            </p>
           </div>
           <h1>Layouts</h1>
           <h2>1. Introduction</h2>
@@ -502,6 +526,14 @@
               >
             </p>
             <p>4. <b>Sorting</b></p>
+            <p>
+              5.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-configuration')"
+                >Configuration</span
+              >
+            </p>
           </div>
           <h1>Sorting</h1>
           <h2>1. Introduction</h2>
@@ -593,6 +625,71 @@
             >
             section.
           </p>
+        </article>
+      </template>
+    </GraphGuideModal>
+
+    <GraphGuideModal
+      modalId="guide-configuration"
+      @closeEvent="closeHandler()"
+      @returnEvent="returnHandler()"
+    >
+      <template v-slot:label> User Guide: Sorting </template>
+      <template v-slot:content>
+        <article>
+          <div class="see-also-box">
+            <h3>User Guide pages:</h3>
+            <p>
+              1.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-main')"
+                >Overview</span
+              >
+            </p>
+            <p>
+              2.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-connections')"
+                >Connections</span
+              >
+            </p>
+            <p>
+              3.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-layouts')"
+                >Layouts</span
+              >
+            </p>
+            <p>
+              4.
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-sorting')"
+                >Sorting</span
+              >
+            </p>
+            <p>5. <b>Configuration</b></p>
+          </div>
+          <h1>Configuration</h1>
+          <h2>1. Introduction</h2>
+          <div class="img-zoom">
+            <b-img
+              src="../../assets/img/graph-guide-configuration-0.png"
+              fluid
+              alt="Graph general image"
+              style="transform-origin: right bottom"
+            ></b-img>
+          </div>
+          <p>
+            In the configuration section the user can adjust visualization
+            to his preferences by changing graph variables.
+          </p>
+
+          <h2>2. Node distance</h2>
+          <p>Node distance range slider determines how far nodes are placed from each other.</p>
         </article>
       </template>
     </GraphGuideModal>

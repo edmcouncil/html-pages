@@ -7,6 +7,7 @@ export default {
     modulesDefaultDomain: `/${ontologyName}/ontology/{version}api/module`,
     statsDefaultDomain: `/${ontologyName}/ontology/{version}api/stats`,
     missingImportsDefaultDomain: `/${ontologyName}/ontology/{version}api/missingImports`,
+    graphDefaultDomain: `/${ontologyName}/ontology/{version}api/graph`,
 
     version: null,
 
@@ -15,6 +16,7 @@ export default {
     modulesServer: null,
     statsServer: null,
     missingImportsServer: null,
+    graphServer: null,
   }),
   mutations: {
     SET_VERSION(state, { version }) {
@@ -35,6 +37,9 @@ export default {
     SET_MISSING_IMPORTS_SERVER(state, { missingImportsServer }) {
       state.missingImportsServer = missingImportsServer;
     },
+    SET_GRAPH_SERVER(state, { graphServer }) {
+      state.graphServer = graphServer;
+    },
   },
   actions: {
     updateServers({ commit, state }, { route, to }) {
@@ -45,6 +50,7 @@ export default {
       let statsServer = state.statsDefaultDomain;
       let missingImportsServer = state.missingImportsDefaultDomain;
       let modulesServer = state.modulesDefaultDomain;
+      let graphServer = state.graphDefaultDomain;
       let version = null;
 
       if (to !== undefined) {
@@ -56,6 +62,7 @@ export default {
         ontologyServer = internalRoute.query.domain;
         statsServer = internalRoute.query.domain;
         missingImportsServer = internalRoute.query.domain;
+        graphServer = internalRoute.query.domain;
       }
 
       if (internalRoute.query?.modules) {
@@ -83,6 +90,10 @@ export default {
           "{version}",
           `${internalRoute.query.version}/`
         );
+        graphServer = graphServer.replace(
+          "{version}",
+          `${internalRoute.query.version}/`
+        );
         version = internalRoute.query.version;
       } else {
         ontologyServer = ontologyServer.replace("{version}", "");
@@ -90,6 +101,7 @@ export default {
         modulesServer = modulesServer.replace("{version}", "");
         statsServer = statsServer.replace("{version}", "");
         missingImportsServer = missingImportsServer.replace("{version}", "");
+        graphServer = graphServer.replace("{version}", "");
         version = null;
       }
 
@@ -99,6 +111,7 @@ export default {
       commit("SET_MODULES_SERVER", { modulesServer });
       commit("SET_STATS_SERVER", { statsServer });
       commit("SET_MISSING_IMPORTS_SERVER", { missingImportsServer });
+      commit("SET_GRAPH_SERVER", { graphServer });
     },
   },
 };

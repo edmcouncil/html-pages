@@ -12,7 +12,9 @@
           </div>
 
           <div class="collapsible-section-content">
-            <button class="btn normal-button small" @click="toTree">Tree</button>
+            <button class="btn normal-button small" @click="toTree">
+              Tree
+            </button>
             <button
               class="btn normal-button small"
               @click="toClusterTree"
@@ -36,7 +38,12 @@
           </div>
         </div>
         <div class="minimal-user-guide">
-          <button class="btn normal-button small" @click="openGuide('guide-main')">User Guide</button>
+          <button
+            class="btn normal-button small"
+            @click="openGuide('guide-main')"
+          >
+            User Guide
+          </button>
         </div>
       </div>
 
@@ -138,8 +145,18 @@
           <slot name="label"></slot>
         </h5>
       </template>
+      <div class="alerts-container">
+        <div class="node-alert" v-for="alert in alerts" :key="alert.id">
+          <p v-if="alert.type=='noChildren'">
+            Child nodes not found in {{ alert.source }}.
+          </p>
+        </div>
+      </div>
       <div class="open-control-panel-text">
-        <button class="btn normal-button small" @click="isControlPanelOpen = !isControlPanelOpen">
+        <button
+          class="btn normal-button small"
+          @click="toggleControlPanelOpen()"
+        >
           Open Control Panel
         </button>
       </div>
@@ -147,12 +164,17 @@
         class="control-panel control-panel--fullscreen"
         :class="{ visible: isControlPanelOpen }"
       >
-        <h2 @click="isControlPanelOpen = !isControlPanelOpen">Control Panel</h2>
+        <h2 @click="toggleControlPanelOpen()">Control Panel</h2>
         <div class="panel-section-title">
           <h3>Menu</h3>
         </div>
         <button class="btn normal-button small" @click="center">Center</button>
-        <button class="btn normal-button small" @click="openGuide('guide-main')">User Guide</button>
+        <button
+          class="btn normal-button small"
+          @click="openGuide('guide-main')"
+        >
+          User Guide
+        </button>
         <div class="panel-section-title">
           <h3>Connections</h3>
           <div class="help-icon" @click="openGuide('guide-connections')"></div>
@@ -213,7 +235,7 @@
         </div>
         <div class="panel-section-title">
           <h3>Layout</h3>
-          <div class="help-icon"  @click="openGuide('guide-layouts')"></div>
+          <div class="help-icon" @click="openGuide('guide-layouts')"></div>
         </div>
         <div class="layouts-container">
           <button class="btn normal-button small" @click="toTree">Tree</button>
@@ -272,6 +294,19 @@
             Optional
           </button>
         </div>
+        <div class="panel-section-title">
+          <h3>Configuration</h3>
+          <div
+            class="help-icon"
+            @click="openGuide('guide-configuration')"
+          ></div>
+        </div>
+        <div>
+          <div>
+            <p>Node distance: {{ distanceValue }}</p>
+            <input v-model="distanceValue" type="range" min="20" max="200" step="2" class="custom-slider" @change="handleDistanceUpdate()">
+          </div>
+        </div>
       </div>
       <div class="graph-modal-content" ref="graphModalTarget"></div>
     </b-modal>
@@ -282,6 +317,7 @@
 
 <script>
 import { Ontograph } from "../../helpers/ontograph";
+import { mapState } from "vuex";
 
 export default {
   name: "GraphVisualization",
@@ -305,12 +341,21 @@ export default {
       external: true,
       optional: true,
       required: true,
+
+      distanceValue: 50,
+
+      alerts: [],
     };
   },
   mounted() {
     const target = this.$refs.ontograph;
-    this.ontograph = new Ontograph(this.data, target, this.navigationHandler);
-
+    this.ontograph = new Ontograph(
+      this.data,
+      target,
+      this.navigationHandler,
+      this.alertHandler,
+      this.graphServer
+    );
     this.height = this.ontograph.getHeight();
     this.layout = this.ontograph.getLayout();
     window.addEventListener("resize", this.onResize);
@@ -345,6 +390,9 @@ export default {
     center() {
       this.ontograph.center();
     },
+    handleDistanceUpdate() {
+      this.ontograph.distanceUpdate(this.distanceValue);
+    },
     filterHandler() {
       this.ontograph.filter({
         external: this.external,
@@ -364,6 +412,16 @@ export default {
         this.routingHandler(to);
       }
     },
+    alertHandler(type, id, source) {
+      this.alerts.push({
+        type,
+        id,
+        source
+      });
+      setTimeout(() => {
+        this.alerts.pop();
+      }, 2500);
+    },
     sortAZ() {
       this.ontograph.sort("az");
     },
@@ -378,6 +436,7 @@ export default {
     },
     showModal() {
       this.fullscreen = true;
+      this.ontograph.setControlPanelOpen(this.isControlPanelOpen);
     },
     hideModal() {
       const ontograph = this.$refs.ontograph;
@@ -386,6 +445,7 @@ export default {
       ontograph.appendChild(modalOntograph);
 
       this.fullscreen = false;
+      this.ontograph.setControlPanelOpen(false);
       this.ontograph.resizeHandler(ontograph);
     },
     toggleConnectionsCollapsed() {
@@ -393,6 +453,10 @@ export default {
     },
     toggleLayoutsCollapsed() {
       this.$refs.layoutsTitle.classList.toggle("collapsed");
+    },
+    toggleControlPanelOpen() {
+      this.isControlPanelOpen = !this.isControlPanelOpen;
+      this.ontograph.setControlPanelOpen(this.isControlPanelOpen);
     },
     routingHandler(to) {
       if (to.startsWith(`https://spec.edmcouncil.org/${this.ontologyName}`)) {
@@ -445,6 +509,9 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      graphServer: (state) => state.servers.graphServer,
+    }),
     ontologyName() {
       return process.env.ontologyName.toLowerCase();
     },
@@ -478,6 +545,23 @@ export default {
 
   &:hover {
     opacity: 1;
+  }
+}
+
+.alerts-container {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
   }
 }
 
@@ -701,6 +785,37 @@ export default {
   }
 }
 
+.node-loader {
+  animation: rotate 2s linear infinite;
+  stroke: #fff;
+  }
+  .node-loader__circle {
+    stroke: rgba(0, 0, 0, 0.8);
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 5, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 20, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 40, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
 //mobile
 @media (max-width: 768px) {
   .modal .modal-header {
@@ -777,7 +892,7 @@ export default {
       align-items: stretch;
 
       button {
-        margin: 0 0 45px 0!important;
+        margin: 0 0 45px 0 !important;
         width: 100%;
       }
     }
