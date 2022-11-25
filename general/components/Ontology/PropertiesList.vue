@@ -1,12 +1,13 @@
 <template>
   <div class="show-more-list">
     <div v-if="list.length > 1">
-      <ul>
+      <ul :class="{'is-show-more': list.length > limit}">
         <li
           v-for="field in list.slice(0, limit)"
           :key="field.id"
           :class="{'has-list': field.hasList}"
           ref="sliceList"
+          class="top-level top-level--list"
         >
           <component
             :is="field.type"
@@ -18,12 +19,12 @@
       </ul>
       <b-collapse :id="`${sectionId}-collapse`" v-model="expanded">
         <transition name="list">
-          <ul class="animated-list" :id="sectionId" v-show="expanded">
+          <ul class="animated-list" :id="sectionId" v-show="expanded" :class="{'is-show-more': list.length > limit}">
             <li
               v-for="(field, index) in list.slice(limit)"
               :key="field.id"
               :class="{'has-list': field.hasList}"
-              class="list-item"
+              class="list-item top-level top-level--list"
               ref="collapsedList"
             >
               <component
@@ -48,6 +49,7 @@
       :entityMaping="field.entityMaping"
       :class="{'has-list': field.hasList}"
       v-bind="field"
+      class="top-level top-level--single"
     ></component>
 
     <div class="see-more-btn-wrapper" v-if="list.length > limit">
@@ -127,10 +129,10 @@ export default {
     },
     checkHasList(item) {
       if (item.type === "AXIOM" && item.fullRenderedString?.includes("<br />")) {
-        item.hasList = true
+        item.hasList = true;
       }
       else if (item.type === "STRING" && item.value?.includes("\n")) {
-        item.hasList = true
+        item.hasList = true;
       }
     }
   },
@@ -145,9 +147,5 @@ export default {
 <style lang="scss" scoped>
 .animated-list {
   overflow: hidden;
-}
-
-.see-more-btn-wrapper {
-  margin-left: 10px;
 }
 </style>

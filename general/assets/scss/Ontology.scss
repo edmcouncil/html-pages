@@ -902,12 +902,13 @@
 }
 
 .secondary-column {
-  margin-top: 40px;
+  // margin-top: 40px;
   padding: 0px;
 
   .module-tree {
     min-width: 285px;
-    margin-bottom: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 
     .modules-list {
       margin: 20px 0 0 20px;
@@ -949,80 +950,7 @@
 
     .card-content {
       margin-bottom: 60px;
-      background: rgba(0, 0, 0, 0.05);
       border-radius: 2px;
-      padding: 40px 30px 0 30px;
-    }
-
-    dt {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 18px;
-      line-height: 30px;
-      text-transform: capitalize;
-
-      margin: 0;
-      padding: 0;
-    }
-
-    dd {
-      font-family: Inter;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 30px;
-
-      margin: 15px 0 40px 0;
-      padding: 0;
-
-      .see-less-btn,
-      .see-more-btn {
-        margin-top: 15px;
-      }
-
-      ul:not(.animated-list) > li:first-child {
-        margin-top: 0px;
-      }
-
-      ul {
-        margin-bottom: 0;
-        padding-left: 10px;
-
-        .see-less-btn,
-        .see-more-btn {
-          margin-top: 10px;
-        }
-
-        & > li {
-          margin-top: 15px;
-          background: url("@/assets/icons/dot.svg") no-repeat 0px 3px;
-          list-style: none;
-          padding: 0px 0px 0px 34px;
-
-          &.has-list {
-            background: url("@/assets/icons/triangle-down.svg") no-repeat 0px
-              3px;
-          }
-
-          ul {
-            padding-left: 20px;
-          }
-
-          li {
-            margin-top: 10px !important;
-            background: none;
-            list-style: disc;
-            padding: 0 0 0 5px;
-
-            &::marker {
-              color: rgba(0, 0, 0, 0.8);
-            }
-          }
-        }
-      }
-      a {
-        text-decoration: underline;
-      }
     }
   }
   a {
@@ -1576,59 +1504,6 @@
       h5 {
         font-size: 20px;
         line-height: 30px;
-      }
-      .card-content {
-        background: rgba(0, 0, 0, 0.05);
-        padding: 40px 30px 0 30px;
-      }
-      dt {
-        font-size: 16px;
-        line-height: 24px;
-      }
-      dd {
-        font-size: 16px;
-        line-height: 24px;
-        a {
-          text-decoration: underline;
-        }
-        .see-more-btn-wrapper {
-          margin-left: 0;
-        }
-        ul {
-          padding-left: 0px;
-
-          .see-less-btn,
-          .see-more-btn {
-            margin-left: -11px;
-          }
-
-          & > li {
-            margin-top: 15px;
-            background: url("@/assets/icons/dot.svg") no-repeat 0px 0px;
-            list-style: none;
-            padding: 0px 0px 0px 29px;
-
-            &.has-list {
-              background: url("@/assets/icons/triangle-down.svg") no-repeat 0px
-                0px;
-            }
-
-            ul {
-              padding-left: 15px;
-            }
-
-            li {
-              margin-top: 10px !important;
-              background: none;
-              list-style: disc;
-              padding: 0 0 0 5px;
-
-              &::marker {
-                color: rgba(0, 0, 0, 0.8);
-              }
-            }
-          }
-        }
       }
     }
 

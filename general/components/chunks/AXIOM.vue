@@ -1,7 +1,7 @@
 <template>
   <div v-if="!isShowMore">
     <component :is="processedTitle"></component>
-    <ul>
+    <ul v-if="processedList.length > 0">
       <li
         v-for="(item, index) in processedList"
         :key="`${processedTitle}_${item}_${index}`"
@@ -153,9 +153,5 @@ export default {
 <style lang="scss" scoped>
 .animated-list {
   overflow: hidden;
-}
-
-.see-more-btn, .see-less-btn {
-  margin-left: -6px;
 }
 </style>
