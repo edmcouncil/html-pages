@@ -122,8 +122,4 @@ export default {
 .animated-list {
   overflow: hidden;
 }
-
-.see-more-btn, .see-less-btn {
-  margin-left: -6px;
-}
 </style>
