@@ -564,6 +564,13 @@ export class Ontograph {
     }
     // if node contains expanded children hide them
     else if (d.children) {
+      // disable collapsing for root node
+      if (!d.parent) {
+        this.blurHighlight();
+        this.isShifting = null;
+        return;
+      }
+
       d._children = d.children;
       d.children = null;
     }
