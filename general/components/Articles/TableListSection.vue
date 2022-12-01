@@ -32,16 +32,12 @@
 </template>
 
 <script>
-import { outboundClick, outboundLinkClick } from "../../helpers/ga";
-
 export default {
   name: 'TableListSection',
   props: [ 'sectionItem' ],
   methods: {
   },
   computed: {
-    outboundClick,
-    outboundLinkClick,
     visit(url) {
       this.outboundClick(url);
       const aElement = document.createElement("a");

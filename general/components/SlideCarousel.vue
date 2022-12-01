@@ -14,7 +14,7 @@
         <span class="text-display">{{ item.title }}</span>
         <h2>{{ item.text }}</h2>
 
-        <a :href="item.link.url" v-on:click="outboundLinkClick(item.link.url)">
+        <a :href="item.link.url">
           {{ item.link.name }}
         </a>
       </b-carousel-slide>
@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import { outboundClick, outboundLinkClick } from "../helpers/ga";
 import helpers from "../store/helpers.js";
 
 export default {
@@ -80,8 +79,7 @@ export default {
     onSlideStart(slideIndex) {
       this.currentSlide = slideIndex;
     },
-    outboundClick,
-    outboundLinkClick,
+
   },
   computed: {
     slideCount() {

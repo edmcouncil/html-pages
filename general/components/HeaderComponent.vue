@@ -30,7 +30,6 @@
                     v-else-if="(item.item.type = 'link')"
                     :href="item.item.link"
                     class="nav-link"
-                    @click="outboundLinkClick(item.item.link)"
                   >
                     {{ item.item.name }}
                   </a>
@@ -74,7 +73,6 @@
                         v-else-if="(item.item.type = 'link')"
                         :href="item.item.link"
                         class="nav-link dropdown-item d-lg-none"
-                        @click="outboundLinkClick(item.item.link)"
                         :key="item.id"
                       >
                         {{ item.item.name }}
@@ -105,7 +103,6 @@
                         v-else-if="item.item.type === 'link'"
                         :href="item.item.link"
                         class="nav-link dropdown-item"
-                        @click="outboundLinkClick(item.item.link)"
                         :key="item.id"
                       >
                         {{ item.item.name }}
@@ -141,7 +138,6 @@
                               v-else-if="subitem.type === 'link'"
                               :href="subitem.link"
                               class="nav-link dropdown-item sub-nav-item"
-                              v-on:click="outboundLinkClick(item.submenu.link)"
                               :key="subitem.id"
                             >
                               {{ subitem.name }}
@@ -172,14 +168,11 @@
 
 <script>
 import helpers from '../store/helpers';
-import { outboundClick, outboundLinkClick } from "../helpers/ga";
 
 export default {
   extends: helpers,
   name: 'HeaderComponent',
   methods: {
-    outboundClick,
-    outboundLinkClick,
   },
   computed: {
     dropdownMenu () {

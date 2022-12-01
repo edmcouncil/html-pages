@@ -46,7 +46,6 @@
 
 <script>
 import helpers from "../store/helpers.js";
-import { outboundClick, outboundLinkClick } from "../helpers/ga";
 import { getStrapiCollection } from "../api/strapi";
 
 export default {
@@ -105,8 +104,6 @@ export default {
     };
   },
   methods: {
-    outboundClick,
-    outboundLinkClick,
     scrollTop() {
       this.$refs.scrollTopHandler.scrollBackUp();
     },
