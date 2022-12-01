@@ -488,19 +488,7 @@ export class Ontograph {
       });
     }
 
-    this.links = this.root.links();
-    this.nodes = this.root.descendants();
-
-    this.simulation.stop();
-    this.updateSimulation();
-    this.initLinks();
-    this.initNodes();
-
-    if (this.layout === "tree") this.toTree();
-    else if (this.layout === "clusterTree") this.toClusterTree();
-    else if (this.layout === "radial") this.toRadial();
-    else if (this.layout === "clusterRadial") this.toClusterRadial();
-    else if (this.layout === "force") this.toForce();
+    this.filter(this.filters);
   }
 
   filter(filters) {
