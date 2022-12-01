@@ -151,7 +151,7 @@
             Child nodes not found in "{{ alert.source }}".
           </p>
           <p v-if="alert.type=='duplicate'">
-            Node "{{ alert.source }}" is expanded already.
+            Node "{{ alert.source }}" is already expanded.
           </p>
         </div>
       </div>
