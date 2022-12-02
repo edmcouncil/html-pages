@@ -634,7 +634,7 @@
       @closeEvent="closeHandler()"
       @returnEvent="returnHandler()"
     >
-      <template v-slot:label> User Guide: Sorting </template>
+      <template v-slot:label> User Guide: Configuration </template>
       <template v-slot:content>
         <article>
           <div class="see-also-box">

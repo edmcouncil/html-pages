@@ -148,7 +148,10 @@
       <div class="alerts-container">
         <div class="node-alert" v-for="alert in alerts" :key="alert.id">
           <p v-if="alert.type=='noChildren'">
-            Child nodes not found in {{ alert.source }}.
+            Child nodes not found in "{{ alert.source }}".
+          </p>
+          <p v-if="alert.type=='duplicate'">
+            Node "{{ alert.source }}" is already expanded.
           </p>
         </div>
       </div>
@@ -419,8 +422,8 @@ export default {
         source
       });
       setTimeout(() => {
-        this.alerts.pop();
-      }, 2500);
+        this.alerts.shift();
+      }, 3500);
     },
     sortAZ() {
       this.ontograph.sort("az");
@@ -555,6 +558,7 @@ export default {
   padding: 15px;
   display: flex;
   flex-direction: column;
+  pointer-events: none;
 
   p {
     font-family: 'Inter';
@@ -562,6 +566,31 @@ export default {
     font-weight: 400;
     font-size: 18px;
     line-height: 30px;
+
+    color: map-get($colors-map, "black-80");
+    background: map-get($colors-map, "white");
+    width: max-content;
+    border-radius: 2px;
+    padding: 5px 15px;
+    margin-top: 10px;
+
+    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+  }
+
+  .node-alert {
+    animation-name: alert-appear;
+    animation-duration: 0.3s;
+  }
+}
+
+@keyframes alert-appear {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
   }
 }
 

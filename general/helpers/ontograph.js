@@ -2,10 +2,16 @@ import * as d3 from "d3";
 
 export class Ontograph {
   layout = "force";
-  transitionSpeed = 500;
+  transitionSpeed = 400;
   mouseoverTransitionSpeed = 300;
   distance = 50;
   alertId = 0;
+  filters = {
+    external: true,
+    internal: true,
+    optional: true,
+    required: true,
+  };
 
   constructor(data, target, navigationHandler, alertHandler, graphServer) {
     this.target = target;
@@ -21,6 +27,11 @@ export class Ontograph {
       .stratify()
       .id((d) => d.id)
       .parentId((d) => d.from)(this.parsedNodes);
+
+    this.root.each((node) => {
+      if (node.children)
+        node._totalChildren = node.children;
+    });
 
     this.links = this.root.links();
     this.nodes = this.root.descendants();
@@ -189,7 +200,7 @@ export class Ontograph {
 
       function dragStarted(event, d) {
         if (that.layout !== "force") return;
-        if (!event.active) simulation.alphaTarget(0.6).restart();
+        if (!event.active) simulation.alphaTarget(0.3).restart();
         d.fx = d.x;
         d.fy = d.y;
         setTimeout(() => {
@@ -227,7 +238,7 @@ export class Ontograph {
             .attr("class", "node")
             .attr(
               "transform",
-              (d) => `translate(${at ? at.x : d.x},${at ? at.y : d.y})`
+              (d) => `translate(${at ? at.x : d.parent ? d.parent.x : d.x},${at ? at.y : d.parent ? d.parent.y : d.y})`
             );
 
           newNode
@@ -410,7 +421,9 @@ export class Ontograph {
         d3
           .forceManyBody()
           .strength(
-            (d) => ((-this.distance * 30) * (d.parent ? 1 : 5)) / (d.children ? 0.5 : 3)
+            (d) =>
+              (-this.distance * 30 * (d.parent ? 1 : 5)) /
+              (d.children ? 0.5 : 3)
           )
       )
       .force("center", d3.forceCenter().strength(0.2))
@@ -456,71 +469,71 @@ export class Ontograph {
     }, this.transitionSpeed);
 
     if (type === "az") {
-      this.root.sort((a, b) =>
-        d3.ascending(a.data.nodeLabel, b.data.nodeLabel)
-      );
+      this.root.each(d => {
+        d._totalChildren?.sort((a, b) =>
+          d3.ascending(a.data.nodeLabel, b.data.nodeLabel)
+        );
+      });
     } else if (type === "height") {
-      this.root.sort((a, b) => d3.descending(a.height, b.height));
+      this.root.each(d => {
+        d._totalChildren?.sort((a, b) => d3.descending(a.height, b.height));
+      });
     } else if (type === "type") {
-      this.root.sort((a, b) => d3.descending(a.data.type, b.data.type));
+      this.root.each(d => {
+        d._totalChildren?.sort((a, b) => d3.descending(a.data.type, b.data.type));
+      });
     } else if (type === "inherited") {
-      this.root.sort((a, b) => d3.descending(a.data.dashes, b.data.dashes));
+      this.root.each(d => {
+        d._totalChildren?.sort((a, b) => d3.descending(a.data.dashes, b.data.dashes));
+      });
     }
 
-    this.links = this.root.links();
-    this.nodes = this.root.descendants();
-
-    this.simulation.stop();
-    this.updateSimulation();
-    this.initLinks();
-    this.initNodes();
-
-    if (this.layout === "tree") this.toTree();
-    else if (this.layout === "clusterTree") this.toClusterTree();
-    else if (this.layout === "radial") this.toRadial();
-    else if (this.layout === "clusterRadial") this.toClusterRadial();
-    else if (this.layout === "force") this.toForce();
+    this.filter(this.filters);
   }
 
   filter(filters) {
     this.filters = filters;
     let { external, internal, optional, required } = filters;
 
-    let filteredData = this.parsedNodes.filter((n) => {
-      if (n.type == "MAIN") return true;
+    this.root.each((d) => {
+      if(!d._totalChildren)
+        return;
 
-      if (n.dashes && !optional) return false;
-      if (!n.dashes && !required) return false;
-      if (n.type == "EXTERNAL" && !external) return false;
-      if (n.type == "INTERNAL" && !internal) return false;
+      if(d._children)
+        return;
 
-      return true;
-    });
+      let totalChildren = d._totalChildren;
 
-    // find abandoned edges
-    let repeat;
-    do {
-      repeat = false;
-      filteredData = filteredData.filter((n) => {
-        if (n.type == "MAIN") return true;
+      let remaining = [];
+      let filteredOut = [];
 
-        if (filteredData.find((f) => f.id == n.from)) return true;
-        else {
-          repeat = true;
-          return false;
+      totalChildren.forEach((child) => {
+        if (
+          (child.data.dashes && !optional) ||
+          (!child.data.dashes && !required) ||
+          (child.data.type == "EXTERNAL" && !external) ||
+          (child.data.type == "INTERNAL" && !internal)
+        ) {
+          filteredOut.push(child);
+          return;
         }
+
+        remaining.push(child);
       });
-    } while (repeat);
+
+      d.children = remaining;
+      d._children = null;
+      d._filtered = filteredOut;
+
+      if(d.children.length == 0) {
+        delete d.children;
+      }
+    });
 
     this.isShifting = null;
     this.isShifting = setTimeout(() => {
       this.isShifting = null;
     }, this.transitionSpeed);
-
-    this.root = d3
-      .stratify()
-      .id((d) => d.id)
-      .parentId((d) => d.from)(filteredData);
 
     this.links = this.root.links();
     this.nodes = this.root.descendants();
@@ -529,8 +542,6 @@ export class Ontograph {
     this.updateSimulation();
     this.initLinks();
     this.initNodes();
-
-    if (this.sortType) this.sort(this.sortType);
 
     if (this.layout === "tree") this.toTree();
     else if (this.layout === "clusterTree") this.toClusterTree();
@@ -553,19 +564,42 @@ export class Ontograph {
     }
     // if node contains expanded children hide them
     else if (d.children) {
+      // disable collapsing for root node
+      if (!d.parent) {
+        this.blurHighlight();
+        this.isShifting = null;
+        return;
+      }
+
       d._children = d.children;
       d.children = null;
     }
     // if node has no saved children and height equal to 0 then fetch nodes
     else if (!d.height || d.height == 0) {
+      // check if node is a duplicate to avoid infinite loops
+      let tmp = d;
+      while (tmp.parent) {
+        tmp = tmp.parent;
+
+        if (
+          d.data.nodeIri === tmp.data.nodeIri &&
+          d.data.nodeLabel === tmp.data.nodeLabel
+        ) {
+          this.pushAlert("duplicate", d.data.nodeLabel);
+          this.isShifting = null;
+          this.blurHighlight();
+          return;
+        }
+      }
+
       try {
         // add loader
         this.svg
           .select(".nodes")
           .selectAll("g")
-          .data(this.nodes, n => n.data.id)
-          .filter(n => {
-              return n.data.id == d.data.id;
+          .data(this.nodes, (n) => n.data.id)
+          .filter((n) => {
+            return n.data.id == d.data.id;
           })
           .append("g")
           .attr("class", "node-loader")
@@ -574,7 +608,6 @@ export class Ontograph {
           .attr("fill", "none")
           .attr("stroke-width", 2)
           .attr("class", "node-loader__circle");
-
 
         // fetch children from server
         const domain = `${this.graphServer}?iri=${encodeURI(
@@ -594,9 +627,9 @@ export class Ontograph {
           this.svg
             .select(".nodes")
             .selectAll("g")
-            .data(this.nodes, n => n.data.id)
-            .filter(n => {
-                return n.data.id == d.data.id;
+            .data(this.nodes, (n) => n.data.id)
+            .filter((n) => {
+              return n.data.id == d.data.id;
             })
             .select(".node-loader")
             .remove();
@@ -610,9 +643,9 @@ export class Ontograph {
           this.svg
             .select(".nodes")
             .selectAll("g")
-            .data(this.nodes, n => n.data.id)
-            .filter(n => {
-                return n.data.id == d.data.id;
+            .data(this.nodes, (n) => n.data.id)
+            .filter((n) => {
+              return n.data.id == d.data.id;
             })
             .select(".node-loader")
             .remove();
@@ -639,6 +672,11 @@ export class Ontograph {
 
         d.children = childRoot.children;
 
+        d.each((node) => {
+          if (node.children)
+            node._totalChildren = node.children;
+        });
+
         // update all heights
         let tmp = d;
         while (tmp.parent?.height < tmp.height + 1) {
@@ -653,9 +691,9 @@ export class Ontograph {
       this.svg
         .select(".nodes")
         .selectAll("g")
-        .data(this.nodes, n => n.data.id)
-        .filter(n => {
-            return n.data.id == d.data.id;
+        .data(this.nodes, (n) => n.data.id)
+        .filter((n) => {
+          return n.data.id == d.data.id;
         })
         .select(".node-loader")
         .remove();
@@ -671,6 +709,8 @@ export class Ontograph {
       this.isShifting = null;
       this.blurHighlight();
     }, this.transitionSpeed);
+
+    this.filter(this.filters);
 
     if (this.layout === "tree") this.toTree();
     else if (this.layout === "clusterTree") this.toClusterTree();
@@ -951,7 +991,7 @@ export class Ontograph {
 
   toForce() {
     this.updateSimulation();
-    this.simulation.alpha(1).alphaTarget(0.5);
+    this.simulation.alpha(0.7).alphaTarget(0.5);
 
     this.node
       .selectAll("text")
@@ -963,7 +1003,7 @@ export class Ontograph {
 
     setTimeout(() => {
       this.simulation.alphaTarget(0);
-    }, 50);
+    }, 150);
   }
 
   center() {
@@ -985,7 +1025,9 @@ export class Ontograph {
       .duration(this.transitionSpeed)
       .call(
         this.zoomController.transform,
-        d3.zoomIdentity.translate(-midX * scale - controlPanelOffset / 2, -midY * scale).scale(scale)
+        d3.zoomIdentity
+          .translate(-midX * scale - controlPanelOffset / 2, -midY * scale)
+          .scale(scale)
       );
   }
 
