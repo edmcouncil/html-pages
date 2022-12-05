@@ -73,7 +73,9 @@ export default {
     try {
       const response = await getStrapiSingleType(singleTypeName, populateParams);
       const title = response.data.data.attributes.sections[0].title || process.env.VUE_ONTOLOGY_NAME;
-      const description = prepareDescription(response.data.data.attributes.sections[0].items[0].text_content);
+
+      const description = (response.data.data.attributes.sections[0] != null && response.data.data.attributes.sections[0].items[0] != null) ?
+        prepareDescription(response.data.data.attributes.sections[0].items[0].text_content) : "";
       return {
         page: response.data.data.attributes.sections,
         title: title,
