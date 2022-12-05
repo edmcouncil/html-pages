@@ -1121,7 +1121,7 @@ import {
   getFindSearch,
   getFindProperties,
 } from "../api/ontology";
-
+import {prepareDescription} from "../helpers/meta"
 export default {
   name: "OntologyView",
   props: ["ontology"],
@@ -1132,6 +1132,8 @@ export default {
   },
   data() {
     return {
+      title: "Ontology Viewer",
+      description: "",
       loader: this.loader || false,
       data: this.data || null,
       query: this.query || "",
@@ -1173,6 +1175,28 @@ export default {
         isLoading: false,
       },
     };
+  },
+  head() {
+    return {
+        title: this.title,
+        meta: [
+            {
+                hid: 'description',
+                name: 'description',
+                content: this.description,
+            },
+            {
+                hid: 'og:title',
+                name: 'og:title',
+                content: this.title,
+            },
+            {
+                hid: 'og:description',
+                property: 'og:description',
+                content: this.description,
+            },
+        ],
+    }
   },
   mounted() {
     let queryParam = "";
@@ -1241,6 +1265,26 @@ export default {
           if (body.type !== "details") {
             console.error(`body.type: ${body.type}, expected: details`);
           }
+
+          if(body.result.properties["Glossary"] ){
+            //check is title or label exist and set it to title page
+            if(body.result.properties["Glossary"].title &&
+                body.result.properties["Glossary"].title[0] ){
+              this.title = body.result.properties["Glossary"].title[0].value;
+            } else if(body.result.properties["Glossary"].label &&
+                body.result.properties["Glossary"].label[0] ){
+              this.title = body.result.properties["Glossary"].label[0].value;
+            }
+            //check is abstract or definition exist and set it to description
+            if(body.result.properties["Glossary"].abstract &&
+                body.result.properties["Glossary"].abstract[0] ){
+              this.description = prepareDescription(body.result.properties["Glossary"].abstract[0].value);
+            } else if(body.result.properties["Glossary"].definition &&
+                body.result.properties["Glossary"].definition[0] ){
+              this.description = prepareDescription(body.result.properties["Glossary"].definition[0].value);
+            }
+          }
+
           // check if resource is deprecated
           if (
             body.result.properties["Ontological characteristic"] &&

@@ -25,14 +25,12 @@
             href="https://www.youtube.com/user/EDMCouncil"
             class="social-icons"
             target="_blank"
-            v-on:click="outboundClick('youtube')"
             ><img src="../assets/icons/social-icons-yt.svg"
           /></a>
           <a
             href="https://twitter.com/edmcouncil"
             class="social-icons"
             target="_blank"
-            v-on:click="outboundClick('twitter')"
           >
             <img src="../assets/icons/social-icons-twitter.svg" />
           </a>
@@ -40,7 +38,6 @@
             href="https://www.linkedin.com/company/edm-council/"
             class="social-icons"
             target="_blank"
-            v-on:click="outboundClick('linkedin')"
           >
             <img src="../assets/icons/social-icons-in.svg" />
           </a>
@@ -57,7 +54,6 @@
                 <a
                   href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC__Terms_of_Use_032318.pdf"
                   target="_blank"
-                  v-on:click="outboundClick('EDMC__Terms_of_Use_032318.pdf')"
                 >
                   Terms of Use
                 </a>
@@ -66,7 +62,6 @@
                 <a
                   href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC_Privacy_Policy_032318.pdf"
                   target="_blank"
-                  v-on:click="outboundClick('EDMC_Privacy_Policy_032318.pdf')"
                 >
                   Privacy Policy
                 </a>
@@ -75,7 +70,6 @@
                 <a
                   href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC_Copyright_Policy_032318.pdf"
                   target="_blank"
-                  v-on:click="outboundClick('EDMC_Copyright_Policy_032318.pdf')"
                 >
                   Copyright
                 </a>
@@ -90,14 +84,9 @@
 
 <script>
 import helpers from "../store/helpers.js";
-import { outboundClick } from "../helpers/ga";
-
 export default {
   extends: helpers,
   name: 'FooterComponent',
-  methods: {
-    outboundClick,
-  },
   data() {
     return {
       showTermsLinkOnFooter: process.env.showTermsLinkOnFooter,

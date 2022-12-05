@@ -46,12 +46,16 @@
 
 <script>
 import helpers from "../store/helpers.js";
-import { outboundClick, outboundLinkClick } from "../helpers/ga";
 import { getStrapiCollection } from "../api/strapi";
 
 export default {
   extends: helpers,
   name: "ReleaseNotes",
+  head(){
+    return {
+      title: "FIBO Release Notes"
+    }
+  },
   async asyncData({ error }) {
     const collectionTypeName = "release-notes";
     const sortParams = ["title:desc"];
@@ -100,8 +104,6 @@ export default {
     };
   },
   methods: {
-    outboundClick,
-    outboundLinkClick,
     scrollTop() {
       this.$refs.scrollTopHandler.scrollBackUp();
     },

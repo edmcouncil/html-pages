@@ -12,13 +12,10 @@
 </template>
 
 <script>
-import { outboundClick } from "../../helpers/ga";
-
 export default {
   name: 'DownloadSection',
   props: [ 'sectionItem' ],
   methods: {
-    outboundClick,
     visit(url) {
       this.outboundClick(url);
       const aElement = document.createElement("a");

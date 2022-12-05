@@ -33,6 +33,7 @@ process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
 process.env.VUE_DIST_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
 process.env.VUE_ASSETS_DIR = `${process.env.VUE_DIST_DIR}/_nuxt/`;
 
+
 export default {
   // target: 'static' description https://nuxtjs.org/announcements/going-full-static/
   target: "static",
@@ -46,6 +47,12 @@ export default {
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: "" },
+      {
+        hid: "keywords",
+        name: "keywords",
+        content:
+          "ontology, Open Knowledge Graph, OKG, EDM Council, Enterprise Data Management Council",
+      },
       { name: "format-detection", content: "telephone=no" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
