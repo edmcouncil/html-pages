@@ -58,7 +58,7 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     script: [
       {
-        src: `gtm.js`,
+        src: `gtm-custom.js`,
         crossorigin: "anonymous",
       },
       {
@@ -152,6 +152,7 @@ export default {
     "bootstrap-vue/nuxt",
     "@nuxtjs/markdownit",
     "@nuxtjs/proxy",
+    "@nuxtjs/gtm",
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -185,6 +186,24 @@ export default {
     ontologyResourcesBaseUri: process.env.VUE_RESOURCES_BASE_URL,
     strapiBaseUrl: process.env.STRAPI_URL,
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
+  },
+
+  // gtm config
+  gtm: {
+    id: "GTM-N7GL2D5",
+    layer: "dataLayer",
+    variables: {},
+
+    pageTracking: false,
+    pageViewEventName: "nuxtRoute",
+
+    autoInit: true,
+    respectDoNotTrack: true,
+
+    scriptId: "gtm-script",
+    scriptDefer: false,
+    scriptURL: "https://www.googletagmanager.com/gtm.js",
+    crossOrigin: false,
   },
 
   http: {
