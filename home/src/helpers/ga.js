@@ -1,12 +1,3 @@
-export function outboundClick(name = 'outbound') {
-  this.$gtag.query('event', 'download', {
-    event_category: name,
-    event_label: this.tcURL,
-  });
-}
-export function outboundLinkClick(name = 'outbound') {
-  this.$gtag.query('event', 'click', {
-    event_category: name,
-    event_label: this.tcURL,
-  });
-}
+/* eslint-disable */
+export function outboundClick(name = "outbound") {}
+export function outboundLinkClick(name = "outbound") {}
