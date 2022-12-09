@@ -18,7 +18,7 @@ To run and/or build Vue application you need to have installed:
 
 Some kind of code editor, along with a project in repository configuration files are provided for [Visual Studio Code](https://code.visualstudio.com/).
 
-Run in console/terminal in main Vue folder ('fibo' or 'auto'):
+Run in console/terminal in main Vue folder:
 
 ```
 yarn
