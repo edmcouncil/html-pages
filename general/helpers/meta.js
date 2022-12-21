@@ -3,7 +3,7 @@ const linkLabelRegex = /\[([^\]]*?)\][\[\(].*?[\]\)]/g;
 const linkRegex = /~(.*?)~/g;
 
 export function prepareDescription(input){
-  if(!input) return "";
+  if(!input || input.length === 0) return "";
   var tmp = input
     .replace(headerRegex, "")
     .trim()
