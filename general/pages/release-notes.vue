@@ -62,6 +62,15 @@ export default {
 
     try {
       const response = await getStrapiCollection(collectionTypeName, [], sortParams);
+
+      if(response?.data?.data == null)
+      {
+        console.error(`Page data(sections) is not recognized in the response from the server.
+        Error occurred while rendering page ${collectionTypeName}.\n
+        Current server response:\n${response}`);
+        error({ statusCode: 503, message: "Service Unavailable" });
+      }
+
       let responseData = response.data.data;
       let releaseTree = new Map();
       let releaseList = [];

@@ -85,10 +85,18 @@ export default {
         slugName
       );
 
-      const title = response.data.data[0].attributes.title || process.env.VUE_ONTOLOGY_NAME;
-      const description = prepareDescription(response.data.data[0].attributes.sections[0].text_content);
+      if(response?.data?.data?.[0]?.attributes?.sections == null)
+      {
+        console.error(`Page data(sections) is not recognized in the response from the server.
+        Error occurred while rendering page ${slugName}.\n
+        Current server response:\n${response}`);
+        error({ statusCode: 503, message: "Service Unavailable" });
+      }
+
+      const title = response?.data?.data?.[0]?.attributes?.title || process.env.VUE_ONTOLOGY_NAME;
+      const description = prepareDescription(response?.data?.data?.[0]?.attributes?.sections?.[0]?.text_content ?? "");
       return {
-        page: response.data.data[0].attributes.sections,
+        page: response?.data?.data?.[0]?.attributes?.sections,
         title: title,
         description: description
       };
