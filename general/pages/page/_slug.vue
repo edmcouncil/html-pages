@@ -89,7 +89,7 @@ export default {
       {
         console.error(`Page data(sections) is not recognized in the response from the server.
         Error occurred while rendering page ${slugName}.\n
-        Current server response:\n${response}`);
+        Current server response:\n`, response);
         error({ statusCode: 503, message: "Service Unavailable" });
       }
 
