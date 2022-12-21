@@ -84,7 +84,7 @@ export default {
       const description = prepareDescription(response?.data?.data?.attributes?.sections?.[0]?.items?.[0]?.text_content ?? "");
 
       return {
-        page: response?.data?.data?.attributes.sections,
+        page: response?.data?.data?.attributes?.sections,
         title: title,
         description: description
       };
