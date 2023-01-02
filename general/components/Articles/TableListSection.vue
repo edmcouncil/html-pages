@@ -39,7 +39,6 @@ export default {
   },
   computed: {
     visit(url) {
-      this.outboundClick(url);
       const aElement = document.createElement("a");
       aElement.setAttribute("href", url);
       aElement.setAttribute("target", "_blank");
