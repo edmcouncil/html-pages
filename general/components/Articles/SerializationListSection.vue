@@ -12,6 +12,7 @@
               multiselect-xxl-container multiselect-container
               container
             "
+            v-if="ontologyVersionsDropdownData.data.length > 0"
           >
             <div class="menu-box">
               <div class="menu-box__label">
@@ -20,7 +21,7 @@
               <div class="menu-box__content-text">
                 <multiselect
                   v-model="ontologyVersionsDropdownData.selectedData"
-                  id="ontologyVersionsMultiselect"
+                  id="ontologyVersionsMultiselect--products"
                   label="@id"
                   track-by="url"
                   placeholder="Select..."
@@ -43,11 +44,6 @@
                   <template v-slot:tag="{ option }">
                     <span class="custom__tag">
                       <span>{{ option.label }}</span>
-                    </span>
-                  </template>
-                  <template v-slot:noResult>
-                    <span>
-                      Oops! No elements found. Consider changing the search query.
                     </span>
                   </template>
                 </multiselect>
