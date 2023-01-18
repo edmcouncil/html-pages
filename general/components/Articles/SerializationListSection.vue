@@ -1,6 +1,63 @@
 <template>
   <div>
-    <h1 v-if="sectionItem.title">{{ sectionItem.title }}</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md px-0">
+          <h1 v-if="sectionItem.title">{{ sectionItem.title }}</h1>
+        </div>
+        <div class="col-12 col-md-4 px-0">
+          <div
+            class="
+              secondary-column__versions
+              multiselect-xxl-container multiselect-container
+              container
+            "
+            v-if="ontologyVersionsDropdownData.data.length > 0"
+          >
+            <div class="menu-box">
+              <div class="menu-box__label">
+                Select {{ ontologyNameUppercase }} version
+              </div>
+              <div class="menu-box__content-text">
+                <multiselect
+                  v-model="ontologyVersionsDropdownData.selectedData"
+                  id="ontologyVersionsMultiselect--products"
+                  label="@id"
+                  track-by="url"
+                  placeholder="Select..."
+                  tagPlaceholder="Select..."
+                  selectLabel=""
+                  open-direction="bottom"
+                  :options="ontologyVersionsDropdownData.data"
+                  :multiple="false"
+                  :searchable="false"
+                  :loading="ontologyVersionsDropdownData.isLoading"
+                  :internal-search="false"
+                  :clear-on-select="false"
+                  :close-on-select="true"
+                  :max-height="600"
+                  :preserve-search="true"
+                  :show-no-results="false"
+                  :hide-selected="true"
+                  :taggable="true"
+                >
+                  <template v-slot:tag="{ option }">
+                    <span class="custom__tag">
+                      <span>{{ option.label }}</span>
+                    </span>
+                  </template>
+                </multiselect>
+              </div>
+
+              <div class="menu-box__icons">
+                <div class="menu-box__icons__icon icon-clock"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="table-container">
       <div
@@ -141,22 +198,35 @@
 </template>
 
 <script>
+import { getOntologyVersions } from "../../api/ontology";
+
 export default {
   name: "SerializationListSection",
   props: ["sectionItem"],
   data() {
     return {
+      version: "master/latest",
       serialization: null,
+      ontologyVersionsDropdownData: {
+        defaultData: {
+          "@id": "master/latest",
+          url: "",
+        },
+        selectedData: null,
+        data: [],
+        isLoading: false,
+      },
     };
   },
   async mounted() {
     this.serialization = this.sectionItem.serialization;
+    this.fetchVersions();
   },
   methods: {
     download(name, product) {
       const productName = product || 'ontology';
       const baseUrl = `https://spec.edmcouncil.org/${this.ontologyName}/${productName}`;
-      const branch = "master/latest";
+      const branch = this.ontologyVersionsDropdownData?.selectedData['@id'] || "master/latest";
       const link = `${baseUrl}/${branch}/${name}`;
       const aElement = document.createElement("a");
       aElement.setAttribute("download", name);
@@ -167,16 +237,53 @@ export default {
       aElement.click();
       aElement.remove();
     },
+    async fetchVersions() {
+      try {
+        const result = await getOntologyVersions(
+          `/${this.ontologyName}/ontology/api/`
+        );
+        const ontologyVersions = await result.json();
+        this.ontologyVersionsDropdownData.data = ontologyVersions;
+
+        if (this.version !== null) {
+          this.ontologyVersionsDropdownData.selectedData =
+            ontologyVersions.find((val) => {
+              if (val["@id"] === this.version) {
+                return true;
+              }
+              return false;
+            });
+        } else {
+          this.ontologyVersionsDropdownData.selectedData =
+            this.ontologyVersionsDropdownData.defaultData;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
   },
   computed: {
     ontologyName() {
       return process.env.ontologyName.toLowerCase();
+    },
+    ontologyNameUppercase() {
+      return process.env.ontologyName.toUpperCase();
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
+.multiselect-container.secondary-column__versions {
+  margin-top: 0;
+  padding: 0;
+  height: 80px;
+}
+
+.menu-box {
+  margin-top: 0;
+}
+
 .downloads-container {
   width: 70%;
   display: flex;
@@ -248,3 +355,5 @@ article.full-page .table-container .table-box {
   }
 }
 </style>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
