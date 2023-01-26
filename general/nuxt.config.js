@@ -18,7 +18,7 @@ process.env.VUE_APP_TAG = process.env.TAG || process.env.TAG_NAME || "latest";
 process.env.VUE_DIST_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
 process.env.VUE_ASSETS_DIR = `${process.env.VUE_DIST_DIR}/_nuxt/`;
 
-process.env.VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || "idmp";
+process.env.VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || "iof";
 process.env.VUE_BASE_URL =
   process.env.BASE_URL ||
   "https://spec." +
@@ -29,7 +29,7 @@ process.env.VUE_BASE_URL =
 
 process.env.VUE_RESOURCES_BASE_URL = process.env.VUE_BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
 
-process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
+process.env.STRAPI_URL = "https://spec.industrialontologies.org/iof/strapi" || process.env.STRAPI_URL || "http://localhost:1337";
 
 export default {
   // target: 'static' description https://nuxtjs.org/announcements/going-full-static/
@@ -208,7 +208,6 @@ export default {
   },
 
   proxy: [
-    "https://spec.industrialontologies.org/iof/ontology/api",
     process.env.VUE_RESOURCES_BASE_URL.startsWith("http://") ||
     process.env.VUE_RESOURCES_BASE_URL.startsWith("https://")
       ? process.env.VUE_RESOURCES_BASE_URL.replace(
