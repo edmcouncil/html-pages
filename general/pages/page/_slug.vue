@@ -37,12 +37,10 @@
 </template>
 
 <script>
-import helpers from "../../store/helpers.js";
 import { prepareDescription } from "../../helpers/meta";
 import { getStrapiElementFromCollection } from "../../api/strapi";
 
 export default {
-  extends: helpers,
   name: "PageView",
   components: {},
     head() {

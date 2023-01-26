@@ -1,5 +1,8 @@
 import axios from "axios";
 
+process.env.VUE_APP_TIMESTAMP =
+  process.env.TIMESTAMP || process.env.VUE_ONTOLOGY_NAME==='idmp'?"latest":"2022Q3";
+
 process.env.VUE_APP_PRODUCT =
   process.env.PRODUCT ||
   process.env.ontology_publisher_current_product ||
@@ -7,12 +10,15 @@ process.env.VUE_APP_PRODUCT =
 process.env.VUE_APP_BRANCH = (
   process.env.BRANCH ||
   (process.env.BRANCH_NAME === process.env.TAG_NAME
-    ? "master"
-    : process.env.BRANCH_NAME || "master")
+    ? "develop"
+    : process.env.BRANCH_NAME || "develop")
 ).toLowerCase();
 process.env.VUE_APP_TAG = process.env.TAG || process.env.TAG_NAME || "latest";
-process.env.VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || "fibo";
-process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || process.env.VUE_ONTOLOGY_NAME==='idmp'?"latest":"2022Q3";
+
+process.env.VUE_DIST_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
+process.env.VUE_ASSETS_DIR = `${process.env.VUE_DIST_DIR}/_nuxt/`;
+
+process.env.VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || "idmp";
 process.env.VUE_BASE_URL =
   process.env.BASE_URL ||
   "https://spec." +
@@ -21,18 +27,9 @@ process.env.VUE_BASE_URL =
       : "edmcouncil") +
     ".org/";
 
-// default ontologyResourcesBaseUri for ontologies:
-// FIBO - https://spec.edmcouncil.org/fibo/ontology/
-// AUTO - https://spec.edmcouncil.org/auto/ontology/
-// IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
-process.env.VUE_RESOURCES_BASE_URL =
-  process.env.VUE_BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
+process.env.VUE_RESOURCES_BASE_URL = process.env.VUE_BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
 
-process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
-
-process.env.VUE_DIST_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
-process.env.VUE_ASSETS_DIR = `${process.env.VUE_DIST_DIR}/_nuxt/`;
-
+process.env.STRAPI_URL = "http://idmp-onto-viewer.dc.makolab.pl:1332" || process.env.STRAPI_URL || "http://localhost:1337";
 
 export default {
   // target: 'static' description https://nuxtjs.org/announcements/going-full-static/
@@ -211,6 +208,7 @@ export default {
   },
 
   proxy: [
+    "https://spec.industrialontologies.org/iof/ontology/api",
     process.env.VUE_RESOURCES_BASE_URL.startsWith("http://") ||
     process.env.VUE_RESOURCES_BASE_URL.startsWith("https://")
       ? process.env.VUE_RESOURCES_BASE_URL.replace(

@@ -12,7 +12,7 @@
               multiselect-xxl-container multiselect-container
               container
             "
-            v-if="ontologyVersionsDropdownData.data.length > 0"
+            v-if="hasVersions"
           >
             <div class="menu-box">
               <div class="menu-box__label">
@@ -225,8 +225,11 @@ export default {
   methods: {
     download(name, product) {
       const productName = product || 'ontology';
-      const baseUrl = `https://spec.edmcouncil.org/${this.ontologyName}/${productName}`;
-      const branch = this.ontologyVersionsDropdownData?.selectedData['@id'] || "master/latest";
+      const baseUrl = `/${this.ontologyName}/${productName}`;
+      const branch =
+        this.hasVersions ?
+        this.ontologyVersionsDropdownData?.selectedData['@id'] :
+        "master/latest";
       const link = `${baseUrl}/${branch}/${name}`;
       const aElement = document.createElement("a");
       aElement.setAttribute("download", name);
@@ -264,11 +267,14 @@ export default {
   },
   computed: {
     ontologyName() {
-      return process.env.ontologyName.toLowerCase();
+      return this.$store.state.configuration.ontpubFamily.toLowerCase();
     },
     ontologyNameUppercase() {
-      return process.env.ontologyName.toUpperCase();
+      return this.$store.state.configuration.ontpubFamily.toUpperCase();
     },
+    hasVersions() {
+      return this.ontologyVersionsDropdownData.data.length > 0;
+    }
   },
 };
 </script>

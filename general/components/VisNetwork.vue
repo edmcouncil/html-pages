@@ -227,10 +227,10 @@ export default {
           const sNode = selectedNodes[0];
           nodes.forEach((entry) => {
             if (entry.id === sNode) {
-              const regex = new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.ontologyName}/` );
+              const regex = new RegExp( this.uriSpace );
               if (entry.iri.match(regex)) {
                 window.location.href = `${entry.iri.replace(
-                  `https://spec.edmcouncil.org/${this.ontologyName}`,
+                  this.uriSpace,
                   ""
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
@@ -242,10 +242,10 @@ export default {
           const sEgde = selectedEdges[0];
           this.edgesView.forEach((entry) => {
             if (entry.id === sEgde) {
-              const regex = new RegExp( `/^https:\/\/spec\.edmcouncil\.org\/${this.ontologyName}/` );
+              const regex = new RegExp( this.uriSpace );
               if (entry.iri.match(regex)) {
                 window.location.href = `${entry.iri.replace(
-                  `https://spec.edmcouncil.org/${this.ontologyName}`,
+                  this.uriSpace,
                   ""
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
@@ -363,7 +363,10 @@ export default {
   },
   computed: {
     ontologyName() {
-      return process.env.ontologyName.toLowerCase();
+      return this.$store.state.configuration.ontpubFamily.toLowerCase();
+    },
+    uriSpace() {
+      return this.$store.state.configuration.uriSpace;
     },
   }
 };

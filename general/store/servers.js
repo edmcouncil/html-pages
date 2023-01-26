@@ -1,13 +1,13 @@
-const ontologyName = process.env.ontologyName.toLowerCase();
-
 export default {
   state: () => ({
-    searchDefaultDomain: `/${ontologyName}/ontology/{version}api/find`,
-    ontologyDefaultDomain: `/${ontologyName}/ontology/{version}api/entity`,
-    modulesDefaultDomain: `/${ontologyName}/ontology/{version}api/module`,
-    statsDefaultDomain: `/${ontologyName}/ontology/{version}api/stats`,
-    missingImportsDefaultDomain: `/${ontologyName}/ontology/{version}api/missingImports`,
-    graphDefaultDomain: `/${ontologyName}/ontology/{version}api/graph`,
+    ontoviewerDefaultDomain: '',
+
+    searchSegment: `find`,
+    ontologySegment: `entity`,
+    modulesSegment: `module`,
+    statsSegment: `stats`,
+    missingImportsSegment: `missingImports`,
+    graphSegment: `graph`,
 
     version: null,
 
@@ -42,27 +42,16 @@ export default {
     },
   },
   actions: {
-    updateServers({ commit, state }, { route, to }) {
+    async updateServers({ commit, state, rootState }, { route, to }) {
       let internalRoute = route;
-
-      let searchServer = state.searchDefaultDomain;
-      let ontologyServer = state.ontologyDefaultDomain;
-      let statsServer = state.statsDefaultDomain;
-      let missingImportsServer = state.missingImportsDefaultDomain;
-      let modulesServer = state.modulesDefaultDomain;
-      let graphServer = state.graphDefaultDomain;
-      let version = null;
+      let ontoviewerDefaultDomain = rootState.configuration.ontoviewerServerUrl;
 
       if (to !== undefined) {
         internalRoute = to;
       }
 
       if (internalRoute.query?.domain) {
-        searchServer = internalRoute.query.domain;
-        ontologyServer = internalRoute.query.domain;
-        statsServer = internalRoute.query.domain;
-        missingImportsServer = internalRoute.query.domain;
-        graphServer = internalRoute.query.domain;
+        ontoviewerDefaultDomain = internalRoute.query.domain;
       }
 
       if (internalRoute.query?.modules) {
@@ -70,40 +59,28 @@ export default {
       }
 
       if (internalRoute.query?.version) {
-        ontologyServer = ontologyServer.replace(
-          "{version}",
+        ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
+          "{version}/",
           `${internalRoute.query.version}/`
         );
-        searchServer = searchServer.replace(
+        ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
           "{version}",
-          `${internalRoute.query.version}/`
-        );
-        modulesServer = modulesServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
-        );
-        statsServer = statsServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
-        );
-        missingImportsServer = missingImportsServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
-        );
-        graphServer = graphServer.replace(
-          "{version}",
-          `${internalRoute.query.version}/`
+          `${internalRoute.query.version}`
         );
         version = internalRoute.query.version;
       } else {
-        ontologyServer = ontologyServer.replace("{version}", "");
-        searchServer = searchServer.replace("{version}", "");
-        modulesServer = modulesServer.replace("{version}", "");
-        statsServer = statsServer.replace("{version}", "");
-        missingImportsServer = missingImportsServer.replace("{version}", "");
-        graphServer = graphServer.replace("{version}", "");
+        ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace("{version}/", "");
+        ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace("{version}", "");
         version = null;
       }
+
+      let searchServer = ontoviewerDefaultDomain + state.searchSegment;
+      let ontologyServer = ontoviewerDefaultDomain + state.ontologySegment;
+      let statsServer = ontoviewerDefaultDomain + state.statsSegment;
+      let missingImportsServer = ontoviewerDefaultDomain + state.missingImportsSegment;
+      let modulesServer = ontoviewerDefaultDomain + state.modulesSegment;
+      let graphServer = ontoviewerDefaultDomain + state.graphSegment;
+      let version = null;
 
       commit("SET_VERSION", { version });
       commit("SET_SEARCH_SERVER", { searchServer });
