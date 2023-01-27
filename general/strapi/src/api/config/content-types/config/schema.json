@@ -1,0 +1,37 @@
+{
+  "kind": "singleType",
+  "collectionName": "configs",
+  "info": {
+    "singularName": "config",
+    "pluralName": "configs",
+    "displayName": "Config"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ontpubFamily": {
+      "type": "string",
+      "required": true
+    },
+    "ontologyLogo": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "uriSpace": {
+      "type": "string",
+      "required": true
+    },
+    "ontoviewerServerUrl": {
+      "type": "string"
+    },
+    "ontologyRepositoryUrl": {
+      "type": "string"
+    }
+  }
+}
