@@ -9,6 +9,15 @@
                 class="navbar-brand"
                 href="https://edmcouncil.org"
                 target="_blank"
+                v-if="isCustomLogo"
+              >
+                <img id="logo-fibo" :src="ontologyLogoUrl" />
+              </a>
+              <a
+                class="navbar-brand"
+                href="https://edmcouncil.org"
+                target="_blank"
+                v-else
               >
                 <img id="logo-fibo" src="@/assets/img/logo.png" />
               </a>
@@ -167,10 +176,7 @@
 </template>
 
 <script>
-import helpers from '../store/helpers';
-
 export default {
-  extends: helpers,
   name: 'HeaderComponent',
   methods: {
   },
@@ -181,6 +187,12 @@ export default {
     dropdownTop () {
       return this.$store.state.headerData.menuTop;
     },
+    ontologyLogoUrl () {
+      return this.$store.state.configuration.ontologyLogoUrl;
+    },
+    isCustomLogo() {
+      return this.ontologyLogoUrl && this.ontologyLogoUrl.length > 0;
+    }
   }
 };
 </script>

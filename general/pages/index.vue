@@ -36,12 +36,10 @@
 </template>
 
 <script>
-import helpers from "../store/helpers.js";
 import { prepareDescription } from "../helpers/meta";
 import { getStrapiSingleType } from "../api/strapi";
 
 export default {
-  extends: helpers,
   name: "AboutView",
   components: {},
   head() {

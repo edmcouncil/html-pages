@@ -1,8 +1,8 @@
 <template>
   <nuxt-link
-    v-if="query.startsWith(this.internalOntologyUrl)"
+    v-if="query.startsWith(this.uriSpace)"
     :to="{
-      path: query.replace(this.internalOntologyUrl, ''),
+      path: `/ontology/${query.replace(this.uriSpace, '')}`,
       query: {
         ...(this.$route.query && this.$route.query.version
           ? { version: encodeURI(this.$route.query.version) }
@@ -40,10 +40,10 @@ export default {
   },
   computed: {
     ontologyName() {
-      return process.env.ontologyName.toLowerCase();
+      return this.$store.state.configuration.ontpubFamily.toLowerCase();
     },
-    internalOntologyUrl() {
-      return `https://spec.edmcouncil.org/${this.ontologyName}`;
+    uriSpace() {
+      return this.$store.state.configuration.uriSpace;
     },
   }
 };

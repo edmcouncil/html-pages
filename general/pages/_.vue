@@ -7,7 +7,11 @@
         <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
           <div class="module-tree">
             <div
-              class="secondary-column__how-to-use multiselect-xxl-container multiselect-container container"
+              class="
+                secondary-column__how-to-use
+                multiselect-xxl-container multiselect-container
+                container
+              "
             >
               <div class="row modules-header">
                 <h5 class="fibo-title-modules">
@@ -25,7 +29,11 @@
             <transition name="slowfade">
               <div
                 v-if="hasVersions"
-                class="secondary-column__versions multiselect-xxl-container multiselect-container container"
+                class="
+                  secondary-column__versions
+                  multiselect-xxl-container multiselect-container
+                  container
+                "
               >
                 <div class="menu-box">
                   <div class="menu-box__label">
@@ -84,7 +92,11 @@
             <transition name="slowfade">
               <div
                 v-show="modulesList"
-                class="secondary-column__tree multiselect-xxl-container multiselect-container container"
+                class="
+                  secondary-column__tree
+                  multiselect-xxl-container multiselect-container
+                  container
+                "
               >
                 <div class="menu-box">
                   <div class="menu-box__label">
@@ -227,7 +239,11 @@
             </div>
 
             <div
-              class="advanced-search-box advanced-search-box--desktop card d-none d-lg-block"
+              class="
+                advanced-search-box advanced-search-box--desktop
+                card
+                d-none d-lg-block
+              "
               v-if="searchBox.isAdvancedExpanded"
             >
               <div class="row">
@@ -294,7 +310,12 @@
           <!-- mobile multiselects -->
           <div class="secondary-column--mobile container px-0 mb-2 d-lg-none">
             <div
-              class="secondary-column__how-to-use secondary-column__how-to-use--mobile multiselect-container container"
+              class="
+                secondary-column__how-to-use
+                secondary-column__how-to-use--mobile
+                multiselect-container
+                container
+              "
             >
               <div class="row modules-header">
                 <h5 class="fibo-title-modules">
@@ -312,13 +333,19 @@
 
             <MobileMenuBox
               v-if="hasVersions"
-              class="secondary-column__versions secondary-column__versions--mobile"
+              class="
+                secondary-column__versions secondary-column__versions--mobile
+              "
               :icon="'icon-clock'"
             >
               <template v-slot:label> Select version </template>
               <template v-slot:multiselect>
                 <div
-                  class="multiselect-container secondary-column__versions secondary-column__versions--mobile"
+                  class="
+                    multiselect-container
+                    secondary-column__versions
+                    secondary-column__versions--mobile
+                  "
                 >
                   <multiselect
                     v-model="ontologyVersionsDropdownData.selectedData"
@@ -578,7 +605,6 @@
                       class="custom-link"
                       :name="result.label"
                       :query="result.iri"
-                      :customLinkOnClick="searchResultClicked"
                     ></customLink>
                   </div>
 
@@ -587,7 +613,6 @@
                       class="custom-link"
                       :name="result.iri"
                       :query="result.iri"
-                      :customLinkOnClick="searchResultClicked"
                     ></customLink>
                   </div>
 
@@ -723,7 +748,7 @@
                             type="button"
                             class="btn normal-button btn-report-a-problem"
                             v-if="
-                              data.iri.startsWith(ontologyResourcesBaseUri) &&
+                              data.iri.startsWith(uriSpace) &&
                               !(this.$route.query && this.$route.query.version)
                             "
                             @click="githubNewIssue()"
@@ -811,17 +836,14 @@
                               this.$route.query &&
                               this.$route.query.version &&
                               data.iri &&
-                              data.iri.startsWith(ontologyResourcesBaseUri)
+                              data.iri.startsWith(uriSpace)
                             "
                           >
                             {{
-                              this.ontologyResourcesBaseUri +
+                              this.uriSpace +
                               this.$route.query.version +
                               "/" +
-                              data.iri.replace(
-                                this.ontologyResourcesBaseUri,
-                                ""
-                              )
+                              data.iri.replace(this.uriSpace, "")
                             }}
                           </h6>
                           <div
@@ -829,18 +851,15 @@
                             v-if="
                               this.$route.query &&
                               this.$route.query.version &&
-                              data.iri.startsWith(ontologyResourcesBaseUri)
+                              data.iri.startsWith(uriSpace)
                             "
                           >
                             <CopyButton
                               :copyContent="
-                                this.ontologyResourcesBaseUri +
+                                this.uriSpace +
                                 this.$route.query.version +
                                 '/' +
-                                data.iri.replace(
-                                  this.ontologyResourcesBaseUri,
-                                  ''
-                                )
+                                data.iri.replace(this.uriSpace, '')
                               "
                               :text="'Copy versioned IRI'"
                               class="btn-copy-iri"
@@ -879,7 +898,7 @@
                       class="col-12 px-0"
                       v-if="
                         data.iri.slice(-1) === '/' &&
-                        data.iri.startsWith(this.ontologyResourcesBaseUri)
+                        data.iri.startsWith(this.uriSpace)
                       "
                     >
                       <OntologyDownload :data="data" :version="version" />
@@ -1121,7 +1140,7 @@ import {
   getFindSearch,
   getFindProperties,
 } from "../api/ontology";
-import {prepareDescription} from "../helpers/meta"
+import { prepareDescription } from "../helpers/meta";
 export default {
   name: "OntologyView",
   props: ["ontology"],
@@ -1167,7 +1186,7 @@ export default {
       },
       ontologyVersionsDropdownData: this.ontologyVersionsDropdownData || {
         defaultData: {
-          "@id": "stable",
+          "@id": "current",
           url: "",
         },
         selectedData: null,
@@ -1178,36 +1197,39 @@ export default {
   },
   head() {
     return {
-        title: this.title,
-        meta: [
-            {
-                hid: 'description',
-                name: 'description',
-                content: this.description,
-            },
-            {
-                hid: 'og:title',
-                name: 'og:title',
-                content: this.title,
-            },
-            {
-                hid: 'og:description',
-                property: 'og:description',
-                content: this.description,
-            },
-        ],
-    }
+      title: this.title,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.description,
+        },
+        {
+          hid: "og:title",
+          name: "og:title",
+          content: this.title,
+        },
+        {
+          hid: "og:description",
+          property: "og:description",
+          content: this.description,
+        },
+      ],
+    };
   },
   mounted() {
     let queryParam = "";
 
     const pathParams = this.$route.params?.pathMatch?.split("/");
     if (pathParams && pathParams[1]?.length > 0) {
-      const ontologyQuery = window.location.pathname.replace(
-        `${this.ontologyName}/ontology/`,
-        ""
-      );
-      queryParam = `https://spec.edmcouncil.org/${this.ontologyName}/ontology${ontologyQuery}`;
+      const fullPath = window.location.pathname;
+
+      const pathPrefix = "ontology/";
+      const index = fullPath.indexOf(pathPrefix);
+      const length = pathPrefix.length;
+
+      const ontologyQuery = fullPath.slice(index + length);
+      queryParam = `${this.uriSpace}${ontologyQuery}`;
     } else if (this.$route.query && this.$route.query.query) {
       queryParam =
         encodeURIComponent(this.$route.query.query) +
@@ -1266,22 +1288,34 @@ export default {
             console.error(`body.type: ${body.type}, expected: details`);
           }
 
-          if(body.result.properties["Glossary"] ){
+          if (body.result.properties["Glossary"]) {
             //check is title or label exist and set it to title page
-            if(body.result.properties["Glossary"].title &&
-                body.result.properties["Glossary"].title[0] ){
+            if (
+              body.result.properties["Glossary"].title &&
+              body.result.properties["Glossary"].title[0]
+            ) {
               this.title = body.result.properties["Glossary"].title[0].value;
-            } else if(body.result.properties["Glossary"].label &&
-                body.result.properties["Glossary"].label[0] ){
+            } else if (
+              body.result.properties["Glossary"].label &&
+              body.result.properties["Glossary"].label[0]
+            ) {
               this.title = body.result.properties["Glossary"].label[0].value;
             }
             //check is abstract or definition exist and set it to description
-            if(body.result.properties["Glossary"].abstract &&
-                body.result.properties["Glossary"].abstract[0] ){
-              this.description = prepareDescription(body.result.properties["Glossary"].abstract[0].value);
-            } else if(body.result.properties["Glossary"].definition &&
-                body.result.properties["Glossary"].definition[0] ){
-              this.description = prepareDescription(body.result.properties["Glossary"].definition[0].value);
+            if (
+              body.result.properties["Glossary"].abstract &&
+              body.result.properties["Glossary"].abstract[0]
+            ) {
+              this.description = prepareDescription(
+                body.result.properties["Glossary"].abstract[0].value
+              );
+            } else if (
+              body.result.properties["Glossary"].definition &&
+              body.result.properties["Glossary"].definition[0]
+            ) {
+              this.description = prepareDescription(
+                body.result.properties["Glossary"].definition[0].value
+              );
             }
           }
 
@@ -1413,16 +1447,11 @@ export default {
       if (this.$refs.mobileSearchbox?.showModal)
         this.$refs.mobileSearchbox.hideModal();
       let destRoute = selectedOption.iri;
-      if (
-        destRoute.startsWith(`https://spec.edmcouncil.org/${this.ontologyName}`)
-      ) {
+      if (destRoute.startsWith(this.uriSpace)) {
         // internal ontology
-        destRoute = destRoute.replace(
-          `https://spec.edmcouncil.org/${this.ontologyName}`,
-          ""
-        );
+        destRoute = destRoute.replace(this.uriSpace, "");
         this.$router.push({
-          path: destRoute,
+          path: `/ontology/${destRoute}`,
           query: {
             ...(this.$route.query && this.$route.query.version
               ? { version: encodeURI(this.$route.query.version) }
@@ -1576,9 +1605,6 @@ export default {
       this.$refs.searchBoxInputDesktop.search = "";
       this.$refs.searchBoxInputMobile.search = "";
     },
-    searchResultClicked() {
-      this.$root.ontologyRouteIsUpdating = true;
-    },
     loadMoreResults() {
       this.searchBox.displayedResultsCount += this.searchBox.perPage;
       this.searchBox.displayedResults = this.searchBox.totalResults.slice(
@@ -1618,10 +1644,7 @@ export default {
       }
     },
     githubNewIssue() {
-      const ontologyQuery = this.data.iri.replace(
-        this.ontologyResourcesBaseUri,
-        ""
-      );
+      const ontologyQuery = this.data.iri.replace(this.uriSpace, "");
       const label = ontologyQuery.substring(0, ontologyQuery.indexOf("/"));
       const details = {
         label,
@@ -1629,7 +1652,7 @@ export default {
         body: `Resource URL:\n${this.data.iri}`,
       };
       const url =
-        `https://github.com/edmcouncil/${this.ontologyName}/issues/new` +
+        `${this.ontologyRepositoryUrl}/issues/new` +
         `?labels=${encodeURI(details.label)}` +
         `&template=issue.md` +
         `&title=${encodeURI(details.title)}` +
@@ -1660,18 +1683,22 @@ export default {
           behavior: "smooth",
         });
       else window.scrollTo(0, scrollTop);
-
-      this.$root.ontologyRouteIsUpdating = false;
     },
   },
   computed: {
     ...mapState({
+      // servers
       version: (state) => state.servers.version,
       searchServer: (state) => state.servers.searchServer,
       ontologyServer: (state) => state.servers.ontologyServer,
       modulesServer: (state) => state.servers.modulesServer,
       statsServer: (state) => state.servers.statsServer,
       missingImportsServer: (state) => state.servers.missingImportsServer,
+      // configuration
+      ontologyName: (state) => state.configuration.ontpubFamily,
+      ontologyRepositoryUrl: (state) =>
+        state.configuration.ontologyRepositoryUrl,
+      uriSpace: (state) => state.configuration.uriSpace,
     }),
     isError() {
       return (
@@ -1689,33 +1716,25 @@ export default {
     hasGraph() {
       return this.data?.graph?.nodes?.length > 1;
     },
-    ontologyName() {
-      return process.env.ontologyName.toLowerCase();
-    },
     ontologyNameUppercase() {
-      return process.env.ontologyName.toUpperCase();
-    },
-    ontologyResourcesBaseUri() {
-      return process.env.ontologyResourcesBaseUri;
+      return this.ontologyName.toUpperCase();
     },
   },
   beforeRouteUpdate(to, from, next) {
     this.updateServers({ route: this.$route, to });
-    this.$root.ontologyRouteIsUpdating = true;
     if (to !== from) {
       let queryParam = "";
 
-      if (to.query && to.query.query) {
+      if (to.query?.query) {
         queryParam = to.query.query + to.hash || "";
       } else {
-        queryParam = `https://spec.edmcouncil.org/${this.ontologyName}${to.path}`;
+        let destination = to.path.replace("/ontology/", "");
+        destination = destination.replace("/ontology", "");
+        queryParam = `${this.uriSpace}${destination}`;
       }
       this.query = queryParam;
 
-      if (
-        this.query ===
-        `https://spec.edmcouncil.org/${this.ontologyName}/ontology`
-      ) {
+      if (this.query === this.uriSpace) {
         this.query = "";
         this.data = null;
       } else {
@@ -1745,19 +1764,6 @@ export default {
         this.scrollToOntologyViewerTopOfContainer();
     });
     next();
-  },
-  updated() {
-    // scrollTo: ontologyViewerTopOfContainer
-    // if (
-    //   this.$root.ontologyRouteIsUpdating ||
-    //   this.$route.query.scrollToTop === "true"
-    // ) {
-    //   this.searchBox.selectedData = null; // to hide search results after rerouting on ontology page
-    //   this.$nextTick(() => {
-    //     if (this.$route.fullPath != "/ontology")
-    //       this.scrollToOntologyViewerTopOfContainer();
-    //   });
-    // }
   },
 };
 </script>

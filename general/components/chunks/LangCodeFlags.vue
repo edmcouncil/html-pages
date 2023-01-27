@@ -15,8 +15,8 @@ export default {
         var isFlag = relation[this.iso.toLowerCase()] === null ? false : true;
         return {
             isFlag: isFlag,
-            flagIso: relation[this.iso.toLowerCase()].flag,
-            langName: relation[this.iso.toLowerCase()].name
+            flagIso: relation[this.iso.toLowerCase()]?.flag,
+            langName: relation[this.iso.toLowerCase()]?.name
         };
     },
     computed: {

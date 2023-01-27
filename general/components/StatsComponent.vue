@@ -159,7 +159,7 @@ export default {
   },
   computed: {
     ontologyNameUppercase() {
-      return process.env.ontologyName.toUpperCase();
+      return this.$store.state.configuration.ontpubFamily.toUpperCase();
     },
   }
 };

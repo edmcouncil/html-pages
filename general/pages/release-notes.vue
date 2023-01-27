@@ -45,11 +45,9 @@
 </template>
 
 <script>
-import helpers from "../store/helpers.js";
 import { getStrapiCollection } from "../api/strapi";
 
 export default {
-  extends: helpers,
   name: "ReleaseNotes",
   head(){
     return {

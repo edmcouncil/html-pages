@@ -118,6 +118,51 @@ export async function getPageElementsStrapiData() {
   return data;
 }
 
+export async function getAppConfigurationData() {
+  var data = {};
+
+  //config
+  var singleTypeName = "config";
+  var populateParams = ["ontologyLogo"];
+  try {
+    const response = await getStrapiSingleType(singleTypeName, populateParams);
+    data.ontpubFamily = response.data.data.attributes.ontpubFamily;
+    data.ontoviewerServerUrl = response.data.data.attributes.ontoviewerServerUrl;
+    data.uriSpace = response.data.data.attributes.uriSpace;
+    data.ontologyRepositoryUrl = response.data.data.attributes.ontologyRepositoryUrl;
+
+    // download logo
+    const imgPath = response.data.data.attributes.ontologyLogo?.data?.attributes?.url;
+
+    const imageDownloadPath =
+      process.env.assetsDir +
+      (process.env.assetsDir.endsWith("/") ? "" : "/") +
+      "downloads/";
+    const distDir = process.env.generateDir + process.env.distDir;
+    const imageDestination =
+      (distDir.endsWith("/") && !imageDownloadPath.startsWith("/")) ||
+      (!distDir.endsWith("/") && imageDownloadPath.startsWith("/"))
+        ? distDir + imageDownloadPath
+        : distDir.endsWith("/") && imageDownloadPath.startsWith("/")
+        ? distDir + imageDownloadPath.substring(1)
+        : distDir + "/" + imageDownloadPath;
+
+    if (imgPath) {
+      let imageName = imgPath.split("/").pop();
+      const imageUrl = process.env.strapiBaseUrl + imgPath;
+      downloadImage(imageUrl, imageDestination, imageName);
+      data.ontologyLogoUrl = `/${process.env.ontologyName}${imageDownloadPath}${imageName}`;
+    } else {
+      data.ontologyLogoUrl = null;
+    }
+  } catch (error) {
+    return {
+      error: error,
+    };
+  }
+
+  return data;
+}
 async function downloadImage(url, imageDestination, imageName) {
   const response = await axios({
     url,
