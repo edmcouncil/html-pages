@@ -236,6 +236,7 @@ header.website-header {
 
   #logo-fibo {
     width: 140px;
+    height: 40px;
   }
 }
 
