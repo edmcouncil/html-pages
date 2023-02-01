@@ -1,4 +1,5 @@
 import { getPageElementsStrapiData } from "../api/strapi"
+import { getAppConfigurationData } from "../api/strapi"
 
 export default {
   state: () => ({
@@ -26,6 +27,9 @@ export default {
       const pageData = await getPageElementsStrapiData();
       commit('SET_HEADER_DATA', pageData);
       commit('SET_FOOTER_DATA', pageData);
+
+      const configData = await getAppConfigurationData();
+      commit('configuration/SET_CONFIG_DATA', configData);
     }
   },
 };

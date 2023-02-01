@@ -83,9 +83,7 @@
 </template>
 
 <script>
-import helpers from "../store/helpers.js";
 export default {
-  extends: helpers,
   name: 'FooterComponent',
   data() {
     return {

@@ -462,11 +462,11 @@ export default {
       this.ontograph.setControlPanelOpen(this.isControlPanelOpen);
     },
     routingHandler(to) {
-      if (to.startsWith(`https://spec.edmcouncil.org/${this.ontologyName}`)) {
+      if (to.startsWith(this.uriSpace)) {
         // internal ontology
-        to = to.replace(`https://spec.edmcouncil.org/${this.ontologyName}`, "");
+        to = to.replace(this.uriSpace, "");
         this.$router.push({
-          path: to,
+          path: `/ontology/${to}`,
           query: {
             ...(this.$route.query && this.$route.query.version
               ? { version: encodeURI(this.$route.query.version) }
@@ -515,8 +515,11 @@ export default {
     ...mapState({
       graphServer: (state) => state.servers.graphServer,
     }),
+    uriSpace() {
+      return this.$store.state.configuration.uriSpace;
+    },
     ontologyName() {
-      return process.env.ontologyName.toLowerCase();
+      return this.$store.state.configuration.ontpubFamily.toLowerCase();
     },
   },
 };
