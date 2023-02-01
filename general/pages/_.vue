@@ -34,7 +34,6 @@
                   <div class="menu-box__content-text">
                     <multiselect
                       v-model="ontologyVersionsDropdownData.selectedData"
-                      id="ontologyVersionsMultiselect"
                       label="@id"
                       track-by="url"
                       placeholder="Select..."
@@ -60,25 +59,56 @@
                           <span>{{ option.label }}</span>
                         </span>
                       </template>
-                      <!-- <template slot="clear" slot-scope="props">
-                    <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
-                    @mousedown.prevent.stop="clearAll(props.search)"></div>
-                    </template> -->
-                      <template v-slot:noResult>
-                        <span>
-                          Oops! No elements found. Consider changing the search
-                          query.
-                        </span>
-                      </template>
                     </multiselect>
                   </div>
-
                   <div class="menu-box__icons">
                     <div class="menu-box__icons__icon icon-clock"></div>
                   </div>
                 </div>
-                <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
-                <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
+                <transition name="comparedropdown" mode="out-in">
+                  <div v-show="ontologyVersionsDropdownData.isComparing" class="compare-dropdown-wrapper">
+                    <div class="menu-box">
+                      <div class="menu-box__label">
+                        Compare with...
+                      </div>
+                      <div class="menu-box__content-text">
+                        <multiselect
+                          v-model="ontologyVersionsDropdownData.selectedCompareData"
+                          label="@id"
+                          track-by="url"
+                          placeholder="Select..."
+                          tagPlaceholder="Select..."
+                          selectLabel=""
+                          open-direction="bottom"
+                          :options="ontologyVersionsDropdownData.data"
+                          :multiple="false"
+                          :searchable="false"
+                          :loading="ontologyVersionsDropdownData.isLoading"
+                          :internal-search="false"
+                          :clear-on-select="false"
+                          :close-on-select="true"
+                          :max-height="600"
+                          :preserve-search="true"
+                          :show-no-results="false"
+                          :hide-selected="true"
+                          :taggable="true"
+                          @select="ontologyVersions_compareOptionSelected"
+                        >
+                          <template v-slot:tag="{ option }">
+                            <span class="custom__tag">
+                              <span>{{ option.label }}</span>
+                            </span>
+                          </template>
+                        </multiselect>
+                      </div>
+                      <div class="menu-box__icons">
+                        <div class="menu-box__icons__icon icon-clock"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                </transition>
+                <CompareButton @compareToggled="compareButtonHandler" />
               </div>
             </transition>
             <transition name="slowfade">
@@ -1166,13 +1196,16 @@ export default {
         dropdownActive: false,
       },
       ontologyVersionsDropdownData: this.ontologyVersionsDropdownData || {
+        isLoading: false,
         defaultData: {
           "@id": "stable",
           url: "",
         },
-        selectedData: null,
         data: [],
-        isLoading: false,
+        compareData: [],
+        selectedData: null,
+        selectedCompareData: null,
+        isComparing: false,
       },
     };
   },
@@ -1344,6 +1377,18 @@ export default {
           this.ontologyVersionsDropdownData.selectedData =
             this.ontologyVersionsDropdownData.defaultData;
         }
+        if (this.compareVersion !== null) {
+          this.ontologyVersionsDropdownData.selectedCompareData =
+            ontologyVersions.find((val) => {
+              if (val["@id"] === this.compareVersion) {
+                return true;
+              }
+              return false;
+            });
+        } else {
+          this.ontologyVersionsDropdownData.selectedCompareData =
+            this.ontologyVersionsDropdownData.defaultData;
+        }
         this.error.versions = false;
       } catch (err) {
         console.error(err);
@@ -1383,7 +1428,7 @@ export default {
       }
     },
     // vue-multiselect ontologyVersions
-    ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
+    ontologyVersions_optionSelected(selectedOntologyVersion) {
       if (
         selectedOntologyVersion["@id"] ===
         this.ontologyVersionsDropdownData.defaultData["@id"]
@@ -1404,6 +1449,13 @@ export default {
 
       // clear search results after changing version
       this.clearSearchResults();
+    },
+    ontologyVersions_compareOptionSelected(selectedOntologyVersion) {
+      // clear search results after changing version
+      this.clearSearchResults();
+    },
+    compareButtonHandler(isComparing) {
+      this.ontologyVersionsDropdownData.isComparing = isComparing;
     },
     // vue-multiselect
     searchBox_limitText(count) {

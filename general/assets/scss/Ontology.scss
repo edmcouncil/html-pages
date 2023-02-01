@@ -241,6 +241,13 @@
   border-radius: 2px;
   border: none;
 
+  .compare-dropdown-wrapper {
+    height: 110px;
+    .menu-box {
+      margin: 0;
+    }
+  }
+
   .multiselect {
     width: 100%;
     min-height: 30px;
@@ -1742,4 +1749,17 @@
 .slowfade-enter,
 .slowfade-leave-to {
   opacity: 0;
+}
+
+.comparedropdown-enter-active {
+  transition: opacity 0.3s 0.2s ease, height 0.3s ease;
+}
+.comparedropdown-leave-active {
+  transition: opacity 0.3s ease, height 0.3s 0.2s ease;
+}
+.comparedropdown-enter,
+.comparedropdown-leave-to {
+  opacity: 0 !important;
+  height: 0!important;
+  overflow: hidden;
 }
