@@ -1664,7 +1664,19 @@ export default {
       this.data = null;
       this.error.entityNotFound = false;
       this.searchBox.isLoading = false;
-      if (this.$route.fullPath != "/ontology") this.$router.push("/ontology");
+      if (
+        this.$route.path != "/ontology" ||
+        this.$route.query?.query
+      ) {
+        this.$router.push({
+          path: "/ontology",
+          query: {
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null),
+          },
+        });
+      }
 
       this.$nextTick(async function () {
         this.scrollToOntologyViewerTopOfContainer("smooth");
@@ -1721,7 +1733,13 @@ export default {
     },
   },
   beforeRouteUpdate(to, from, next) {
+    let previousVersion = this.version;
     this.updateServers({ route: this.$route, to });
+
+    // version just changed
+    if (this.version != previousVersion)
+      this.fetchModules();
+
     if (to !== from) {
       let queryParam = "";
 
@@ -1760,7 +1778,10 @@ export default {
       this.handleSearchBoxQuery(searchQuery, page);
     }
     this.$nextTick(() => {
-      if (this.$route.fullPath != "/ontology")
+      if (
+        this.$route.path != "/ontology" ||
+        this.$route.query?.query
+      )
         this.scrollToOntologyViewerTopOfContainer();
     });
     next();
