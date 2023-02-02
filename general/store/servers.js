@@ -45,6 +45,7 @@ export default {
     async updateServers({ commit, state, rootState }, { route, to }) {
       let internalRoute = route;
       let ontoviewerDefaultDomain = rootState.configuration.ontoviewerServerUrl;
+      let version = null;
 
       if (to !== undefined) {
         internalRoute = to;
@@ -80,7 +81,6 @@ export default {
       let missingImportsServer = ontoviewerDefaultDomain + state.missingImportsSegment;
       let modulesServer = ontoviewerDefaultDomain + state.modulesSegment;
       let graphServer = ontoviewerDefaultDomain + state.graphSegment;
-      let version = null;
 
       commit("SET_VERSION", { version });
       commit("SET_SEARCH_SERVER", { searchServer });
