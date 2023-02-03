@@ -97,6 +97,9 @@ export default {
   display: flex;
   flex-direction: column;
 
+  min-height: 340px;
+  max-height: 340px;
+
   #carouselController {
     flex: 1;
     display: flex;
@@ -267,6 +270,10 @@ export default {
 }
 
 @media (max-width: 350px) {
+  .carousel-container {
+    min-height: 380px;
+    max-height: 380px;
+  }
   .carousel-item {
     .text-display {
       font-size: 30px;
@@ -286,9 +293,20 @@ export default {
 }
 
 @media (max-width: 991px) {
+  .carousel-container {
+    min-height: 380px;
+    max-height: 380px;
+  }
   .carousel-container .carousel-inner {
     display: flex;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 992px) and (min-width: 700px) {
+  .carousel-container {
+    min-height: 260px;
+    max-height: 260px;
   }
 }
 

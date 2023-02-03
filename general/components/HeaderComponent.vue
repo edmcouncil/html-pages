@@ -7,11 +7,11 @@
             <nav class="navbar navbar-expand navbar-light">
               <a
                 class="navbar-brand"
-                href="https://edmcouncil.org"
+                href="/"
                 target="_blank"
                 v-if="isCustomLogo"
               >
-                <img id="logo-fibo" :src="ontologyLogoUrl" />
+                <img id="ontology-logo" :src="ontologyLogoUrl" />
               </a>
               <a
                 class="navbar-brand"
@@ -19,7 +19,7 @@
                 target="_blank"
                 v-else
               >
-                <img id="logo-fibo" src="@/assets/img/logo.png" />
+                <img id="ontology-logo" src="@/assets/img/logo.png" />
               </a>
 
               <ul class="navbar-nav ml-auto align-items-center">
@@ -210,7 +210,6 @@ header.website-header {
   background-position: center;
   padding: 0;
   min-height: 480px;
-  max-height: 480px;
 
   display: flex;
   flex-direction: column;
@@ -229,13 +228,16 @@ header.website-header {
   padding: 40px 60px;
 }
 
-// edmc logo
+// ontology logo
 .navbar-brand {
   padding: 0;
   margin: 0;
 
-  #logo-fibo {
+  #ontology-logo {
     width: 140px;
+    max-height: 100px;
+    object-fit: contain;
+    object-position: left;
   }
 }
 
@@ -414,13 +416,12 @@ header.website-header {
 @media (max-width: 430px) {
   header.website-header {
     min-height: 520px;
-    max-height: 520px;
   }
 }
 
 @media (max-width: 991px) {
   .navbar-brand {
-    #logo-fibo {
+    #ontology-logo {
       width: 105px;
     }
   }
@@ -460,7 +461,6 @@ header.website-header {
 @media (max-width: 992px) and (min-width: 700px) {
   header.website-header {
     min-height: 400px;
-    max-height: 400px;
   }
 }
 
