@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-12 col-lg-12 px-0 ontology-item">
     <div class="row">
-      <div class="col-md-12 ontology-item__header">
+      <div class="col-md-12 ontology-item__header" v-if="!isComparing">
         <div class="card">
           <div class="card-body">
             <!-- report a problem -->
@@ -9,6 +9,8 @@
               type="button"
               class="btn normal-button btn-report-a-problem"
               v-if="
+                !isComparing &&
+                ontologyRepositoryUrl &&
                 data.iri.startsWith(uriSpace) &&
                 !(this.$route.query && this.$route.query.version)
               "
@@ -148,7 +150,7 @@
       <!-- paths -->
       <div
         class="ontology-item__paths col-md-12"
-        v-if="data.taxonomy && data.taxonomy.value"
+        v-if="data.taxonomy && data.taxonomy.value && !isComparing"
         ref="ontologyPaths"
       >
         <PathsSection :data="data" />
@@ -158,6 +160,7 @@
       <div
         class="col-12 px-0"
         v-if="
+          !isComparing &&
           data.iri.slice(-1) === '/' &&
           data.iri.startsWith(this.uriSpace)
         "
@@ -171,12 +174,13 @@
         v-for="(
           section, sectionName, sectionIndex
         ) in data.properties"
-        :key="sectionName"
+        :key="sectionName + (isComparing ? data.headerLeft.label : data.label)"
       >
         <ResourceSection
           :section="section"
           :sectionName="sectionName"
           :sectionIndex="sectionIndex"
+          :isComparing="isComparing"
         />
       </div>
     </div>
@@ -213,6 +217,7 @@ export default {
   name: 'Resource',
   props: [
     'data',
+    'isComparing'
   ],
   data() {
     return {

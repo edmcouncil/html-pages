@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :class="{'px-0': isComparing}">
     <div class="card-body">
       <h5
         class="card-title section-title"
@@ -8,7 +8,27 @@
       >
         {{ sectionName }}
       </h5>
-      <div class="card-content">
+      <div class="card-content" v-if="isComparing">
+        <dl
+          class="row content-item"
+          v-for="(property, name) in section"
+          :key="name"
+        >
+          <dt class="col-md-2 col-sm-12">
+            <div class="content-item__title sticky-top">{{ name }}</div>
+          </dt>
+          <dd class="col-md-10 col-sm-12 compare-left">
+            <PropertiesListCompare
+              :list="property"
+              :limit="5"
+              :sectionId="
+                'section_' + sectionName + '_' + sectionIndex + '_' + name
+              "
+            />
+          </dd>
+        </dl>
+      </div>
+      <div class="card-content" v-else>
         <dl
           class="row content-item"
           v-for="(property, name) in section"
@@ -44,6 +64,7 @@ export default {
     'section',
     'sectionName',
     'sectionIndex',
+    'isComparing',
   ],
   data() {
     return {
@@ -79,6 +100,7 @@ export default {
     .content-item__title {
       padding-top: 10px;
       padding-bottom: 10px;
+      z-index: 1;
     }
   }
   dd {
@@ -98,7 +120,7 @@ export default {
       margin-top: 0;
     }
 
-    .top-level {
+    .show-more-list .top-level {
       padding: 10px 20px 10px 20px;
       display: block;
       border-bottom: 2px solid white;
@@ -109,6 +131,36 @@ export default {
       &:last-child {
         border-bottom: none;
       }
+
+      &.top-level--list {
+        padding: 10px 20px 10px 44px;
+        background-image: url("@/assets/icons/dot.svg");
+      }
+
+      &.has-list {
+        padding: 10px 20px 10px 44px;
+        background-image: url("@/assets/icons/triangle-down.svg");
+      }
+    }
+
+    .show-more-list-compare .compare-item {
+      border-bottom: 2px solid white;
+
+      .compare-right {
+        border-left: 2px solid white;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .show-more-list-compare .top-level {
+      padding: 10px 20px 10px 20px;
+      display: block;
+      background-repeat: no-repeat;
+      background-size: 24px 24px;
+      background-position: 12px 12px;
 
       &.top-level--list {
         padding: 10px 20px 10px 44px;
@@ -145,6 +197,10 @@ export default {
         ul {
           padding-left: 20px;
           border: none;
+
+          &.string-list {
+            padding-left: 0;
+          }
         }
 
         li {
@@ -152,6 +208,13 @@ export default {
           background: none;
           list-style: disc;
           padding: 0 0 0 5px;
+
+          &.string-item {
+            margin-top: 0!important;
+            background: none;
+            list-style: none;
+            padding: 0;
+          }
 
           &::marker {
             color: rgba(0, 0, 0, 0.8);

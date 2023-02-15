@@ -107,4 +107,3 @@ export default {
       sg: { flag: "cf", name: "Sango" },
       na: { flag: "nr", name: "Nauruan" }
   };
-  

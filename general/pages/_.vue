@@ -610,7 +610,11 @@
             <div class="row">
               <transition name="fade" mode="out-in">
                 <!-- SHOW ITEM -->
-                <Resource v-if="data" :data="data" />
+                <Resource
+                  v-if="data"
+                  :data="isComparing ? mergedData : data"
+                  :isComparing="isComparing"
+                />
 
                 <!-- NO DATA (How to use) -->
                 <HowToUse
@@ -623,29 +627,7 @@
                   :ontologyNameUppercase="ontologyNameUppercase"
                 />
 
-                <div
-                  v-else-if="!loader && error.entityNotFound"
-                  class="not-found"
-                >
-                  <article>
-                    <section class="blank not-found-header">
-                      <p class="big-sign">404</p>
-                      <p class="big muted">Entity not found</p>
-                      <p class="muted">
-                        The entity you are looking for does not exist. Please
-                        try again.
-                      </p>
-                    </section>
-
-                    <section>
-                      <h2>Tips</h2>
-                      <p>
-                        Try using search box or modules tree to find ontology
-                        resources.
-                      </p>
-                    </section>
-                  </article>
-                </div>
+                <EntityNotFound v-else-if="!loader && error.entityNotFound" />
               </transition>
             </div>
           </div>
@@ -665,6 +647,7 @@ import {
   getFindProperties,
 } from "../api/ontology";
 import { prepareDescription } from "../helpers/meta";
+import { mergeData } from "../helpers/compare";
 export default {
   name: "OntologyView",
   props: ["ontology"],
@@ -679,6 +662,7 @@ export default {
       description: "",
       loader: this.loader || false,
       data: this.data || null,
+      mergedData: this.mergedData || null,
       query: this.query || "",
       modulesList: this.modulesList || null,
       error: this.error || {
@@ -721,7 +705,6 @@ export default {
         isCompareExpanded: false,
         compareData: [],
         selectedCompareData: null,
-        mergedData: null,
       }
     };
   },
@@ -813,6 +796,7 @@ export default {
           this.scrollToOntologyViewerTopOfContainer();
         this.loader = true;
         this.data = null;
+        this.mergedData = null;
         try {
           const query = `${this.ontologyServer}?iri=${iri}`;
           const result = await getEntity(query);
@@ -938,6 +922,8 @@ export default {
       if (iri) {
         // this.scrollToOntologyViewerTopOfContainer();
         this.loader = true;
+        this.data = null;
+        this.mergedData = null;
         let data1 = null;
         let data2 = null;
 
@@ -973,7 +959,6 @@ export default {
           }
 
           data1 = body.result;
-          this.data = data1;
         } catch (err) {
           if (err.status === 404) {
             // handle compare resource not found
@@ -1050,12 +1035,12 @@ export default {
         this.error.entityNotFound = false;
 
         // merge data 1 and 2
-        let mergedData = data2;
+        let mergedData = mergeData(data1, data2);
 
-        this.versionCompare.mergedData = mergedData;
-
+        this.mergedData = mergedData;
 
         this.loader = false;
+        this.data = data1;
         this.scrollToOntologyViewerTopOfContainer("smooth");
       }
     },
@@ -1124,7 +1109,7 @@ export default {
 
         this.updateCompareServers({ compareVersion: selectedOntologyVersion["@id"] });
         this.fetchCompareDataAndMerge(this.data?.iri);
-      } else if (this.data == null) {
+      } else {
         this.fetchData(this.query, { noScroll: true })
       }
     },
@@ -1140,7 +1125,7 @@ export default {
           console.log('comparing: ', this.versionCompare.selectedCompareData["@id"], this.ontologyVersionsDropdownData.selectedData["@id"])
         this.fetchCompareDataAndMerge(this.query);
         }
-      else if (this.data == null)
+      else if (!isCompareExpanded && this.data == null)
         this.fetchData(this.query, { noScroll: true })
     },
     // vue-multiselect
@@ -1385,7 +1370,13 @@ export default {
       return this.ontologyVersionsDropdownData.data.length > 1;
     },
     isComparing() {
-      return this.versionCompare.isCompareExpanded && this.versionCompare.mergedData;
+      return (
+        this.versionCompare.isCompareExpanded &&
+        this.mergedData &&
+        this.versionCompare.selectedCompareData &&
+        this.versionCompare.selectedCompareData["@id"]
+        != this.ontologyVersionsDropdownData.selectedData["@id"]
+      );
     },
     ontologyNameUppercase() {
       return this.ontologyName.toUpperCase();
@@ -1413,7 +1404,10 @@ export default {
       }
 
       this.$nextTick(async function () {
-        this.fetchData(this.query);
+        if (this.isComparing)
+          this.fetchCompareDataAndMerge(this.query);
+        else
+          this.fetchData(this.query);
       });
     }
     if (!to.query.search) {
