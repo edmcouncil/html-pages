@@ -74,11 +74,13 @@
                   </div>
                 </div>
                 <transition name="comparedropdown" mode="out-in">
-                  <div v-show="versionCompare.isCompareExpanded" class="compare-dropdown-wrapper">
+                  <div
+                    v-show="versionCompare.isCompareExpanded"
+                    class="compare-dropdown-wrapper"
+                  >
+                    <div class="compare-icon"></div>
                     <div class="menu-box">
-                      <div class="menu-box__label">
-                        Compare with...
-                      </div>
+                      <div class="menu-box__label">Compare with...</div>
                       <div class="menu-box__content-text">
                         <multiselect
                           v-model="versionCompare.selectedCompareData"
@@ -114,7 +116,6 @@
                       </div>
                     </div>
                   </div>
-
                 </transition>
                 <CompareButton @compareToggled="compareButtonHandler" />
               </div>
@@ -585,7 +586,8 @@
           <div
             class="text-center mt-5"
             v-if="
-              !isError && (loader || searchBox.isLoadingResults || (!modulesList && !data))
+              !isError &&
+              (loader || searchBox.isLoadingResults || (!modulesList && !data))
             "
           >
             <div class="spinner-border" role="status">
@@ -614,6 +616,7 @@
                   v-if="data"
                   :data="isComparing ? mergedData : data"
                   :isComparing="isComparing"
+                  :version="version"
                 />
 
                 <!-- NO DATA (How to use) -->
@@ -1100,14 +1103,21 @@ export default {
       this.clearSearchResults();
     },
     ontologyVersions_compareOptionSelected(selectedOntologyVersion) {
-      // clear search results after changing version
       this.clearSearchResults();
       if (selectedOntologyVersion["@id"] &&
         selectedOntologyVersion["@id"]
-        != this.ontologyVersionsDropdownData.selectedData["@id"]) {
-                  console.log('comparing: ', selectedOntologyVersion["@id"], this.ontologyVersionsDropdownData.selectedData["@id"])
-
+        != this.ontologyVersionsDropdownData.selectedData["@id"] &&
+        selectedOntologyVersion["@id"] !==
+        this.ontologyVersionsDropdownData.defaultData["@id"]) {
         this.updateCompareServers({ compareVersion: selectedOntologyVersion["@id"] });
+        this.fetchCompareDataAndMerge(this.data?.iri);
+      }
+      else if (
+        selectedOntologyVersion["@id"] ===
+        this.ontologyVersionsDropdownData.defaultData["@id"]
+      )
+      {
+        this.updateCompareServers({ compareVersion: null });
         this.fetchCompareDataAndMerge(this.data?.iri);
       } else {
         this.fetchData(this.query, { noScroll: true })
@@ -1121,10 +1131,10 @@ export default {
         this.versionCompare.selectedCompareData["@id"]
         != this.ontologyVersionsDropdownData.selectedData["@id"]
       )
-        {
-          console.log('comparing: ', this.versionCompare.selectedCompareData["@id"], this.ontologyVersionsDropdownData.selectedData["@id"])
-        this.fetchCompareDataAndMerge(this.query);
-        }
+      {
+        console.log('comparing: ', this.versionCompare.selectedCompareData["@id"], this.ontologyVersionsDropdownData.selectedData["@id"])
+      this.fetchCompareDataAndMerge(this.query);
+      }
       else if (!isCompareExpanded && this.data == null)
         this.fetchData(this.query, { noScroll: true })
     },

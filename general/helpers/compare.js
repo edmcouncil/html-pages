@@ -63,7 +63,9 @@ export function mergeData(data1, data2) {
           });
         }
       }
+    }
 
+    if (data2.properties?.[property]) {
       for (const title in data2.properties[property]) {
         for (let i = 0; i < data2.properties[property][title].length; i++) {
           const chunk = data2.properties[property][title][i];

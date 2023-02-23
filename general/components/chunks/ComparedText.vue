@@ -1,6 +1,6 @@
 <template>
-  <div v-if="!isShowMore">
-    <div v-html="lines[0]"></div>
+  <div v-if="!isShowMore" :class="{'text-changed': isChanged}">
+    <ComparedDiff :line="lines[0]" />
     <ul
       v-if="processedList.length > 0"
       :class="{ 'string-list': type === 'STRING' }"
@@ -10,19 +10,19 @@
         :key="`${processedTitle}_${item}_${index}`"
         :class="{ 'string-item': type === 'STRING' }"
       >
-        <div v-html="item"></div>
+        <ComparedDiff :line="item" />
       </li>
     </ul>
   </div>
   <div v-else>
-    <div v-html="lines[0]"></div>
+    <ComparedDiff :line="lines[0]" />
     <ul :class="{ 'string-list': type === 'STRING' }">
       <li
         v-for="(item, index) in lines.slice(1, 6)"
         :key="`${processedTitle}_${item}_${index}`"
         :class="{ 'string-item': type === 'STRING' }"
       >
-        <div v-html="item"></div>
+        <ComparedDiff :line="item" />
       </li>
     </ul>
     <b-collapse :id="`${identifier}-collapse`" v-model="isMoreVisible">
@@ -38,7 +38,7 @@
             :key="`${processedTitle}_${item}_${index}`"
             :class="{ 'string-item': type === 'STRING' }"
           >
-            <div v-html="item"></div>
+            <ComparedDiff :line="item" />
           </li>
         </ul>
       </transition>
@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import DiffMatchPatch from 'diff-match-patch';
+
 export default {
   name: "ComparedText",
   props: ["currentItem", "comparedItem", "identifier"],
@@ -63,6 +65,7 @@ export default {
       type: null,
       isShowMore: false,
       isMoreVisible: false,
+      isChanged: false,
     };
   },
   computed: {
@@ -125,7 +128,7 @@ export default {
         return lines;
       }
       else if (item.type === "STRING") {
-        return item.value.split("\n");
+        return [item.value.split("\n").join("<br />")];
       }
       else if (item.type === "DIRECT_SUBCLASSES") {
         return [ item.value.label ];
@@ -145,9 +148,18 @@ export default {
     },
     compareLines(linesOriginal, linesCompared) {
       const n = Math.max(linesOriginal.length, linesCompared.length);
+      const dmp = new DiffMatchPatch();
 
       for (let i = 0; i < n; i++) {
-        this.lines.push(`<div>${linesOriginal[i]}</div>` || "");
+        let diff = dmp.diff_main(linesOriginal[i] || "", linesCompared[i] || "");
+        dmp.diff_cleanupSemantic(diff);
+
+        this.lines.push(diff);
+
+        for (const part of diff) {
+          if (part[0] != 0)
+            this.isChanged = true;
+        }
       }
     }
   },
@@ -157,5 +169,9 @@ export default {
 <style lang="scss" scoped>
 .animated-list {
   overflow: hidden;
+}
+
+.text-changed {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 </style>

@@ -101,7 +101,6 @@
 </template>
 
 <script>
-import COMPARED_TEXT from '../chunks/ComparedText.vue';
 export default {
   components: {
     AXIOM: () => import(/* webpackChunkName: "AXIOM" */ '../chunks/AXIOM'),
@@ -119,6 +118,7 @@ export default {
         /* webpackChunkName: "INSTANCES" */ '../chunks/INSTANCES'
       ),
     ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ '../chunks/ANY_URI'),
+    EMPTY: () => import(/* webpackChunkName: "EMPTY" */ '../chunks/EMPTY'),
   },
   name: 'PropertiesListCompare',
   props: [

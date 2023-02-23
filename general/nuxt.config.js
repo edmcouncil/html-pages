@@ -223,10 +223,10 @@ export default {
       ? process.env.VUE_RESOURCES_BASE_URL.replace(
           "pistoiaalliance",
           "edmcouncil"
-        ) + "master/2022Q1/api"
+        ) + "master/v0.1.0/api"
       : process.env.VUE_BASE_URL +
         process.env.VUE_ONTOLOGY_NAME +
-        "/ontology/master/2022Q1/api",
+        "/ontology/master/v0.1.0/api",
   ],
 
   styleResources: {

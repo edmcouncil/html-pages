@@ -15,9 +15,9 @@
           :key="name"
         >
           <dt class="col-md-2 col-sm-12">
-            <div class="content-item__title sticky-top">{{ name }}</div>
+            <div class="content-item__title sticky-top" :class="{ isComparing }">{{ name }}</div>
           </dt>
-          <dd class="col-md-10 col-sm-12 compare-left">
+          <dd class="col-md-10 col-sm-12">
             <PropertiesListCompare
               :list="property"
               :limit="5"
@@ -35,7 +35,7 @@
           :key="name"
         >
           <dt class="col-md-3 col-sm-12">
-            <div class="content-item__title sticky-top">{{ name }}</div>
+            <div class="content-item__title sticky-top" :class="{ isComparing }">{{ name }}</div>
           </dt>
           <dd class="col-md-9 col-sm-12">
             <PropertiesList
@@ -101,6 +101,10 @@ export default {
       padding-top: 10px;
       padding-bottom: 10px;
       z-index: 1;
+
+      &.isComparing {
+        top: 95px!important;
+      }
     }
   }
   dd {
