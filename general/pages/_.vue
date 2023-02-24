@@ -832,35 +832,18 @@
                           </div>
                           <h6
                             class="card-subtitle data-iri"
-                            v-if="
-                              this.$route.query &&
-                              this.$route.query.version &&
-                              data.iri &&
-                              data.iri.startsWith(uriSpace)
-                            "
+                            v-if="data.versionIri"
                           >
                             {{
-                              this.uriSpace +
-                              this.$route.query.version +
-                              "/" +
-                              data.iri.replace(this.uriSpace, "")
+                              data.versionIri
                             }}
                           </h6>
                           <div
                             class="url-buttons-container"
-                            v-if="
-                              this.$route.query &&
-                              this.$route.query.version &&
-                              data.iri.startsWith(uriSpace)
-                            "
+                            v-if="data.versionIri"
                           >
                             <CopyButton
-                              :copyContent="
-                                this.uriSpace +
-                                this.$route.query.version +
-                                '/' +
-                                data.iri.replace(this.uriSpace, '')
-                              "
+                              :copyContent="data.versionIri"
                               :text="'Copy versioned IRI'"
                               class="btn-copy-iri"
                             />
