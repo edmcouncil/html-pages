@@ -1,20 +1,22 @@
 export function mergeData(data1, data2) {
   let mergedData = {};
 
-  let { label, iri, qName, maturityLevel } = data1;
+  let { label, iri, qName, maturityLevel, versionIri } = data1;
   mergedData.headerLeft = {
     label,
     iri,
     qName,
     maturityLevel,
+    versionIri,
   };
 
-  ({ label, iri, qName, maturityLevel } = data2);
+  ({ label, iri, qName, maturityLevel, versionIri } = data2);
   mergedData.headerRight = {
     label,
     iri,
     qName,
     maturityLevel,
+    versionIri,
   };
 
   mergedData.properties = {};

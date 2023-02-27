@@ -78,7 +78,7 @@
                     v-show="versionCompare.isCompareExpanded"
                     class="compare-dropdown-wrapper"
                   >
-                    <div class="compare-icon"></div>
+                    <div class="compare-icon" @click="swapSelectedVersions()"></div>
                     <div class="menu-box">
                       <div class="menu-box__label">Compare with...</div>
                       <div class="menu-box__content-text">
@@ -613,7 +613,7 @@
               <transition name="fade" mode="out-in">
                 <!-- SHOW ITEM -->
                 <Resource
-                  v-if="data"
+                  v-if="data || (mergedData && isComparing)"
                   :data="isComparing ? mergedData : data"
                   :isComparing="isComparing"
                   :version="version"
@@ -630,7 +630,7 @@
                   :ontologyNameUppercase="ontologyNameUppercase"
                 />
 
-                <EntityNotFound v-else-if="!loader && error.entityNotFound" />
+                <EntityNotFound v-else-if="!loader && !isComparing && error.entityNotFound" />
               </transition>
             </div>
           </div>
@@ -890,6 +890,7 @@ export default {
       }
     },
     async fetchModules() {
+      this.modulesList = null;
       try {
         const result = await getModules(this.modulesServer);
         this.modulesList = await result.json();
@@ -929,6 +930,7 @@ export default {
         this.mergedData = null;
         let data1 = null;
         let data2 = null;
+        let savedData = null;
 
         // get data 1
         try {
@@ -962,23 +964,21 @@ export default {
           }
 
           data1 = body.result;
+          savedData = data1;
+          this.error.entityNotFound = false;
         } catch (err) {
           if (err.status === 404) {
-            // handle compare resource not found
             data1 = {
-              type: "details",
-              result: {
-                label: "Not Found",
-                iri: "Error 404"
-              }
+              label: "Resource not Found",
+              iri: "",
+              maturityLevel: {}
             }
+            this.error.entityNotFound = true;
           } else {
             data1 = {
-              type: "details",
-              result: {
-                label: "Error fetching data",
-                iri: "Error"
-              }
+              label: "Error fetching data",
+              iri: "",
+              maturityLevel: {}
             }
           }
         }
@@ -1017,25 +1017,20 @@ export default {
           if (err.status === 404) {
             // handle compare resource not found
             data2 = {
-              type: "details",
-              result: {
-                label: "Not Found",
-                iri: "Error 404"
-              }
+              label: "Resource not Found",
+              iri: "",
+              maturityLevel: {}
             }
           } else {
             data2 = {
-              type: "details",
-              result: {
-                label: "Error fetching data",
-                iri: "Error"
-              }
+              label: "Error fetching data",
+              iri: "",
+              maturityLevel: {}
             }
           }
         }
 
         this.error.entityData = false;
-        this.error.entityNotFound = false;
 
         // merge data 1 and 2
         let mergedData = mergeData(data1, data2);
@@ -1043,7 +1038,7 @@ export default {
         this.mergedData = mergedData;
 
         this.loader = false;
-        this.data = data1;
+        this.data = savedData;
         this.scrollToOntologyViewerTopOfContainer("smooth");
       }
     },
@@ -1110,7 +1105,7 @@ export default {
         selectedOntologyVersion["@id"] !==
         this.ontologyVersionsDropdownData.defaultData["@id"]) {
         this.updateCompareServers({ compareVersion: selectedOntologyVersion["@id"] });
-        this.fetchCompareDataAndMerge(this.data?.iri);
+        this.fetchCompareDataAndMerge(this.query);
       }
       else if (
         selectedOntologyVersion["@id"] ===
@@ -1118,10 +1113,25 @@ export default {
       )
       {
         this.updateCompareServers({ compareVersion: null });
-        this.fetchCompareDataAndMerge(this.data?.iri);
+        this.fetchCompareDataAndMerge(this.query);
       } else {
+        this.updateCompareServers({ compareVersion: selectedOntologyVersion["@id"] });
         this.fetchData(this.query, { noScroll: true })
       }
+    },
+    swapSelectedVersions() {
+      let version = this.ontologyVersionsDropdownData.selectedData;
+      let versionCompare = this.versionCompare.selectedCompareData;
+
+      this.ontologyVersionsDropdownData.selectedData = versionCompare;
+      this.versionCompare.selectedCompareData = version;
+
+      if (version["@id"] != this.ontologyVersionsDropdownData.defaultData["@id"])
+        this.updateCompareServers({ compareVersion: version["@id"] });
+      else
+        this.updateCompareServers({ compareVersion: null });
+
+      this.ontologyVersions_optionSelected(versionCompare);
     },
     compareButtonHandler(isCompareExpanded) {
       this.versionCompare.isCompareExpanded = isCompareExpanded;
@@ -1327,9 +1337,22 @@ export default {
     },
     howToUseHandler() {
       this.data = null;
+      this.mergedData = null;
       this.error.entityNotFound = false;
       this.searchBox.isLoading = false;
-      if (this.$route.fullPath != "/ontology") this.$router.push("/ontology");
+      if (
+        this.$route.path != "/ontology" ||
+        this.$route.query?.query
+      ) {
+        this.$router.push({
+          path: "/ontology",
+          query: {
+            ...(this.$route.query && this.$route.query.version
+              ? { version: encodeURI(this.$route.query.version) }
+              : null),
+          },
+        });
+      }
 
       this.$nextTick(async function () {
         this.scrollToOntologyViewerTopOfContainer("smooth");
@@ -1382,7 +1405,6 @@ export default {
     isComparing() {
       return (
         this.versionCompare.isCompareExpanded &&
-        this.mergedData &&
         this.versionCompare.selectedCompareData &&
         this.versionCompare.selectedCompareData["@id"]
         != this.ontologyVersionsDropdownData.selectedData["@id"]
@@ -1393,7 +1415,13 @@ export default {
     },
   },
   beforeRouteUpdate(to, from, next) {
+    let previousVersion = this.version;
     this.updateServers({ route: this.$route, to });
+
+    // version just changed
+    if (this.version != previousVersion)
+      this.fetchModules();
+
     if (to !== from) {
       let queryParam = "";
 
@@ -1435,7 +1463,10 @@ export default {
       this.handleSearchBoxQuery(searchQuery, page);
     }
     this.$nextTick(() => {
-      if (this.$route.fullPath != "/ontology")
+      if (
+        this.$route.path != "/ontology" ||
+        this.$route.query?.query
+      )
         this.scrollToOntologyViewerTopOfContainer();
     });
     next();

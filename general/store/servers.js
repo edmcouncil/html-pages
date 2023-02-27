@@ -28,6 +28,9 @@ export default {
     SET_VERSION(state, { version }) {
       state.version = version;
     },
+    SET_COMPARE_VERSION(state, { version }) {
+      state.versionCompare = version;
+    },
     SET_SERVERS(
       state,
       {
@@ -117,6 +120,7 @@ export default {
     },
     async updateCompareServers({ commit, state, rootState }, { compareVersion }) {
       let ontoviewerDefaultDomain = rootState.configuration.ontoviewerServerUrl;
+      let version = null;
 
       if (compareVersion) {
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
@@ -127,6 +131,7 @@ export default {
           "{version}",
           `${compareVersion}`
         );
+        version = compareVersion;
       } else {
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
           "{version}/",
@@ -136,6 +141,7 @@ export default {
           "{version}",
           ""
         );
+        version = null;
       }
 
       let searchServer = ontoviewerDefaultDomain + state.searchSegment;
@@ -146,6 +152,7 @@ export default {
       let modulesServer = ontoviewerDefaultDomain + state.modulesSegment;
       let graphServer = ontoviewerDefaultDomain + state.graphSegment;
 
+      commit("SET_COMPARE_VERSION", { version });
       commit("SET_COMPARE_SERVERS", {
         searchServer,
         ontologyServer,

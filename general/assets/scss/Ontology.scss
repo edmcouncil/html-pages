@@ -242,7 +242,7 @@
   border: none;
 
   .compare-dropdown-wrapper {
-    height: 150px;
+    height: 140px;
     .menu-box {
       margin: 0;
     }
@@ -252,7 +252,19 @@
       margin: auto;
       background-image: url("@/assets/icons/compare.svg");
       background-repeat: no-repeat;
-      background-size: 100%;
+      background-position: center;
+      background-size: 100% 100%;
+      opacity: 0.5;
+      transform: translateY(-15px);
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+
+      &:focus {
+        opacity: 1;
+      }
     }
   }
 
@@ -1405,5 +1417,4 @@
 .comparedropdown-leave-to {
   opacity: 0 !important;
   height: 0!important;
-  overflow: hidden;
 }

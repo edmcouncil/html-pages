@@ -36,6 +36,7 @@ export default {
   line-height: 30px;
   padding: 0;
   user-select: none;
+  margin-left: 15px;
 
   &:hover {
     color: rgba(0, 0, 0, 0.6);

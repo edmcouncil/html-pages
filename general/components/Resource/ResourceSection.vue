@@ -103,7 +103,7 @@ export default {
       z-index: 1;
 
       &.isComparing {
-        top: 95px!important;
+        top: 75px!important;
       }
     }
   }
@@ -147,15 +147,20 @@ export default {
       }
     }
 
-    .show-more-list-compare .compare-item {
-      border-bottom: 2px solid white;
+    .show-more-list-compare {
+      height: 100%;
 
-      .compare-right {
-        border-left: 2px solid white;
-      }
+      .compare-item {
+        border-bottom: 2px solid white;
 
-      &:last-child {
-        border-bottom: none;
+        .compare-right {
+          border-left: 2px solid white;
+        }
+
+        &:last-child {
+          border-bottom: none;
+          height: 100%;
+        }
       }
     }
 

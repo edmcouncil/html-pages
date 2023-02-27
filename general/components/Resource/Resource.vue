@@ -14,7 +14,7 @@
       <!-- paths -->
       <div
         class="ontology-item__paths col-md-12"
-        v-if="data.taxonomy && data.taxonomy.value && !isComparing"
+        v-if="!isComparing && data.taxonomy && data.taxonomy.value"
         ref="ontologyPaths"
       >
         <PathsSection :data="data" />
