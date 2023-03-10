@@ -7,6 +7,7 @@
       :class="{
         'diff-added': part[0] === 1,
         'diff-removed': part[0] === -1,
+        'fullChange': changeType == 'added' || changeType == 'removed'
       }"
       v-html="part[1] "
     ></span>
@@ -16,7 +17,7 @@
 <script>
 export default {
   name: 'ComparedDiff',
-  props: ['line'],
+  props: ['line', 'changeType'],
 };
 </script>
 
@@ -37,6 +38,11 @@ export default {
     background-color: #e4918f62;
     border-radius: 5px;
     padding: 4px;
+  }
+
+  &.fullChange {
+    background-color: transparent;
+    padding: 0;
   }
 }
 </style>

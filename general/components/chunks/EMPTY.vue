@@ -10,6 +10,6 @@ export default {
 
 <style scoped>
   span {
-    color: rgba(0,0,0,0.4);
+    color: rgba(0,0,0,0.2);
   }
 </style>

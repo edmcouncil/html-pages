@@ -583,6 +583,9 @@
             ></a>
           </div>
 
+          <!-- errors -->
+          <Errors :error="error" />
+
           <div
             class="text-center mt-5"
             v-if="
@@ -598,22 +601,19 @@
 
           <!-- search results -->
           <SearchResults
-            v-if="searchBox.selectedData && searchBox.selectedData.isSearch"
+            v-else-if="searchBox.selectedData && searchBox.selectedData.isSearch"
             :searchBox="searchBox"
           />
 
-          <!-- errors -->
-          <Errors :error="error" />
-
           <div
             class="container"
-            v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
+            v-else-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
           >
             <div class="row">
               <transition name="fade" mode="out-in">
                 <!-- SHOW ITEM -->
                 <Resource
-                  v-if="data || (mergedData && isComparing)"
+                  v-if="isComparing ? mergedData : data"
                   :data="isComparing ? mergedData : data"
                   :isComparing="isComparing"
                   :version="version"
@@ -708,6 +708,7 @@ export default {
         isCompareExpanded: false,
         compareData: [],
         selectedCompareData: null,
+        isSwappingVersion: false,
       }
     };
   },
@@ -1098,7 +1099,6 @@ export default {
       this.clearSearchResults();
     },
     ontologyVersions_compareOptionSelected(selectedOntologyVersion) {
-      this.clearSearchResults();
       if (selectedOntologyVersion["@id"] &&
         selectedOntologyVersion["@id"]
         != this.ontologyVersionsDropdownData.selectedData["@id"] &&
@@ -1132,6 +1132,9 @@ export default {
         this.updateCompareServers({ compareVersion: null });
 
       this.ontologyVersions_optionSelected(versionCompare);
+
+      // for scroll behavior management purposes
+      this.versionCompare.isSwappingVersion = true;
     },
     compareButtonHandler(isCompareExpanded) {
       this.versionCompare.isCompareExpanded = isCompareExpanded;
@@ -1142,8 +1145,7 @@ export default {
         != this.ontologyVersionsDropdownData.selectedData["@id"]
       )
       {
-        console.log('comparing: ', this.versionCompare.selectedCompareData["@id"], this.ontologyVersionsDropdownData.selectedData["@id"])
-      this.fetchCompareDataAndMerge(this.query);
+        this.fetchCompareDataAndMerge(this.query);
       }
       else if (!isCompareExpanded && this.data == null)
         this.fetchData(this.query, { noScroll: true })
@@ -1202,6 +1204,7 @@ export default {
     },
     async handleSearchBoxQuery(searchBQuery, page) {
       try {
+        this.scrollToOntologyViewerTopOfContainer();
         this.searchBox.isLoadingResults = true;
         this.error.entityNotFound = false;
         const isHighlighting = this.searchBox.useHighlighting;
@@ -1252,6 +1255,7 @@ export default {
         labelForInternalSearch: searchBQuery,
       };
       this.searchBox.selectedData = tag;
+      this.scrollToOntologyViewerTopOfContainer();
     },
     searchBox_asyncFind(query) {
       this.searchBox.inputValue = query;
@@ -1342,7 +1346,8 @@ export default {
       this.searchBox.isLoading = false;
       if (
         this.$route.path != "/ontology" ||
-        this.$route.query?.query
+        this.$route.query?.query ||
+        this.$route.query?.search
       ) {
         this.$router.push({
           path: "/ontology",
@@ -1464,10 +1469,13 @@ export default {
     }
     this.$nextTick(() => {
       if (
-        this.$route.path != "/ontology" ||
-        this.$route.query?.query
+        (this.$route.path != "/ontology" ||
+        this.$route.query?.query) &&
+        !this.versionCompare.isSwappingVersion
       )
         this.scrollToOntologyViewerTopOfContainer();
+
+      this.versionCompare.isSwappingVersion = false;
     });
     next();
   },

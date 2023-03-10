@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-0 ontology-item__header--compare">
+  <div class="container px-0 ontology-item__header--compare d-none d-lg-block">
     <div class="row">
       <div class="col-2 title-column"></div>
       <div class="col-5 heading-container">
@@ -205,6 +205,26 @@ export default {
       &::before {
         background-image: url("@/assets/icons/production-maturity.svg");
       }
+    }
+  }
+}
+
+@media (max-width: 1254px) {
+  .ontology-item__header--compare {
+    .title-column {
+      font-size: 14px;
+      line-height: 20px;
+
+      padding: 15px 15px;
+
+      word-break: break-all;
+
+      .sticky-top {
+        top: 80px!important;
+      }
+    }
+    .value-column {
+      padding: 15px 15px 20px 15px;
     }
   }
 }

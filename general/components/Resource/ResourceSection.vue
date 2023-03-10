@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="{'px-0': isComparing}">
+  <div class="card" :class="{'px-0 d-none d-lg-block': isComparing}">
     <div class="card-body">
       <h5
         class="card-title section-title"
@@ -268,6 +268,33 @@ export default {
       .see-more-btn-wrapper {
         margin-left: 0;
       }
+
+      .show-more-list .top-level {
+        padding: 5px 20px 5px 40px;
+        display: block;
+        border-bottom: none;
+        background-image: url("@/assets/icons/dot.svg");
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+        background-position: 12px 6px;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &.has-list {
+          background-image: url("@/assets/icons/triangle-down.svg");
+        }
+      }
+
+      .show-more-list .top-level.top-level--list {
+        padding: 5px 20px 5px 40px;
+      }
+
+      .show-more-list .top-level.top-level--single {
+        padding: 5px 20px 5px 40px;
+      }
+
       ul {
         padding-left: 0px;
         padding-bottom: 10px;

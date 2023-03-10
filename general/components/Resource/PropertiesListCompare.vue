@@ -19,8 +19,9 @@
           <ComparedText
             :currentItem="field.left"
             :comparedItem="field.right"
+            :changeType="field.changeType"
             :identifier="sectionId + '1'"
-            :class="{ 'has-list': field.right.hasList }"
+            :class="{ 'has-list': field.right.hasList || field.left.hasList }"
             class="top-level top-level--list compare-right col-6"
           />
         </li>
@@ -51,8 +52,11 @@
               <ComparedText
                 :currentItem="field.left"
                 :comparedItem="field.right"
+                :changeType="field.changeType"
                 :identifier="sectionId + '1'"
-                :class="{ 'has-list': field.right.hasList }"
+                :class="{
+                  'has-list': field.right.hasList || field.left.hasList,
+                }"
                 class="top-level top-level--list compare-right col-6"
               />
             </li>
@@ -73,13 +77,18 @@
       <ComparedText
         :currentItem="field.left"
         :comparedItem="field.right"
+        :changeType="field.changeType"
         :identifier="sectionId + '1'"
-        :class="{ 'has-list': field.right.hasList }"
+        :class="{ 'has-list': field.right.hasList || field.left.hasList }"
         class="top-level top-level--single compare-right col-6"
       />
     </div>
 
-    <div class="see-more-btn-wrapper" v-if="list.length > limit">
+    <div
+      v-if="list.length > limit"
+      :class="{ 'reveal-shadow': !expanded }"
+      class="see-more-btn-wrapper"
+    >
       <div
         v-if="!expanded"
         class="see-more-btn"
@@ -103,39 +112,41 @@
 <script>
 export default {
   components: {
-    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ '../chunks/AXIOM'),
-    STRING: () => import(/* webpackChunkName: "STRING" */ '../chunks/STRING'),
+    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ "../chunks/AXIOM"),
+    STRING: () => import(/* webpackChunkName: "STRING" */ "../chunks/STRING"),
     DIRECT_SUBCLASSES: () =>
       import(
         // eslint-disable-next-line comma-dangle
-        /* webpackChunkName: "DIRECT_SUBCLASSES" */ '../chunks/DIRECT_SUBCLASSES'
+        /* webpackChunkName: "DIRECT_SUBCLASSES" */ "../chunks/DIRECT_SUBCLASSES"
       ),
-    MODULES: () => import(/* webpackChunkName: "MODULES" */ '../chunks/MODULES'),
-    IRI: () => import(/* webpackChunkName: "IRI" */ '../chunks/IRI'),
+    MODULES: () =>
+      import(/* webpackChunkName: "MODULES" */ "../chunks/MODULES"),
+    IRI: () => import(/* webpackChunkName: "IRI" */ "../chunks/IRI"),
     INSTANCES: () =>
       import(
         // eslint-disable-next-line comma-dangle
-        /* webpackChunkName: "INSTANCES" */ '../chunks/INSTANCES'
+        /* webpackChunkName: "INSTANCES" */ "../chunks/INSTANCES"
       ),
-    ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ '../chunks/ANY_URI'),
-    EMPTY: () => import(/* webpackChunkName: "EMPTY" */ '../chunks/EMPTY'),
+    ANY_URI: () =>
+      import(/* webpackChunkName: "ANY_URI" */ "../chunks/ANY_URI"),
+    EMPTY: () => import(/* webpackChunkName: "EMPTY" */ "../chunks/EMPTY"),
   },
-  name: 'PropertiesListCompare',
+  name: "PropertiesListCompare",
   props: [
-    'list',
-    'limit', // specifies how many items can be displayed without collapsing
-    'sectionId',
+    "list",
+    "limit", // specifies how many items can be displayed without collapsing
+    "sectionId",
   ],
   data() {
     return {
       expanded: false,
-    }
+    };
   },
   created() {
-    this.list.forEach(element => {
+    this.list.forEach((element) => {
       this.checkHasList(element.left);
       this.checkHasList(element.right);
-    })
+    });
   },
   methods: {
     toggleExpanded() {
@@ -144,37 +155,47 @@ export default {
 
       if (!this.expanded) {
         this.expanded = !this.expanded;
-      } else if(topOffset < 0) {
+      } else if (topOffset < 0) {
         element.scrollIntoView({
-          behavior: "smooth"
+          behavior: "smooth",
         });
-        setTimeout(()=>{
+        setTimeout(() => {
           this.expanded = !this.expanded;
-        }, 500)
-      }
-      else {
+        }, 500);
+      } else {
         this.expanded = !this.expanded;
       }
     },
     checkHasList(item) {
-      if (item.type === "AXIOM" && item.fullRenderedString?.includes("<br />")) {
-        item.hasList = true;
+      if (item.type === "AXIOM") {
+        if (
+          (Array.isArray(item.value) && item.value && item.value.length > 1) ||
+          item.fullRenderedString?.includes("<br />")
+        )
+          item.hasList = true;
+      } else if (item.type === "STRING") {
+        if (
+          (Array.isArray(item.value) && item.value && item.value.length > 1) ||
+          item.value?.includes("\n")
+        )
+          item.hasList = true;
       }
-      else if (item.type === "STRING" && item.value?.includes("\n")) {
-        item.hasList = true;
-      }
-    }
+    },
   },
   computed: {
     howManyMore() {
       return this.list.length - this.limit;
     },
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .animated-list {
   overflow: hidden;
+}
+
+.see-more-btn-wrapper.reveal-shadow {
+  box-shadow: 0px -20px 20px -20px white;
 }
 </style>

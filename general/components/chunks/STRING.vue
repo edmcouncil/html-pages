@@ -34,7 +34,7 @@ Vue.component("langCodeFlags", langCodeFlags);
 
 export default {
   name: 'STRING',
-   components: {
+  components: {
     langCodeFlags
   },
   props: ['value', "identifier"],
