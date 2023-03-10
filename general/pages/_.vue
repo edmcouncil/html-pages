@@ -649,7 +649,10 @@ import {
   getFindSearch,
   getFindProperties,
 } from "../api/ontology";
-import { prepareDescription } from "../helpers/meta";
+import {
+  generateTitleAndDescription,
+  handleDeprecatedResource,
+} from "../helpers/ontology";
 import { mergeData } from "../helpers/compare";
 export default {
   name: "OntologyView",
@@ -809,27 +812,11 @@ export default {
             console.error(`body.type: ${body.type}, expected: details`);
           }
 
-          this.generateTitleAndDescription(body);
+          let { title, description } = generateTitleAndDescription(body);
+          this.title = title || this.title;
+          this.description = description || this.description;
 
-          // check if resource is deprecated
-          if (
-            body.result.properties["Ontological characteristic"] &&
-            body.result.properties["Ontological characteristic"].deprecated &&
-            body.result.properties["Ontological characteristic"].deprecated[0]
-              .value === "true"
-          ) {
-            body.result.deprecated = true;
-            delete body.result.properties["Ontological characteristic"]
-              .deprecated;
-            if (
-              Object.keys(body.result.properties["Ontological characteristic"])
-                .length === 0
-            ) {
-              delete body.result.properties["Ontological characteristic"];
-            }
-          } else {
-            body.result.deprecated = false;
-          }
+          handleDeprecatedResource(body);
 
           this.data = body.result;
           this.error.entityData = false;
@@ -924,156 +911,107 @@ export default {
       }
     },
     async fetchCompareDataAndMerge(iri) {
-      if (iri) {
-        // this.scrollToOntologyViewerTopOfContainer();
-        this.loader = true;
-        this.data = null;
-        this.mergedData = null;
-        let data1 = null;
-        let data2 = null;
-        let savedData = null;
-
-        // get data 1
-        try {
-          const query = `${this.ontologyServer}?iri=${iri}`;
-          const result = await getEntity(query);
-          const body = await result.json();
-          if (body.type !== "details") {
-            console.error(`body.type: ${body.type}, expected: details`);
-          }
-
-          this.generateTitleAndDescription(body);
-
-          // check if resource is deprecated
-          if (
-            body.result.properties["Ontological characteristic"] &&
-            body.result.properties["Ontological characteristic"].deprecated &&
-            body.result.properties["Ontological characteristic"].deprecated[0]
-              .value === "true"
-          ) {
-            body.result.deprecated = true;
-            delete body.result.properties["Ontological characteristic"]
-              .deprecated;
-            if (
-              Object.keys(body.result.properties["Ontological characteristic"])
-                .length === 0
-            ) {
-              delete body.result.properties["Ontological characteristic"];
-            }
-          } else {
-            body.result.deprecated = false;
-          }
-
-          data1 = body.result;
-          savedData = data1;
-          this.error.entityNotFound = false;
-        } catch (err) {
-          if (err.status === 404) {
-            data1 = {
-              label: "Resource not Found",
-              iri: "",
-              maturityLevel: {}
-            }
-            this.error.entityNotFound = true;
-          } else {
-            data1 = {
-              label: "Error fetching data",
-              iri: "",
-              maturityLevel: {}
-            }
-          }
-        }
-
-        // get data 2
-        try {
-          const query = `${this.ontologyServerCompare}?iri=${iri}`;
-          const result = await getEntity(query);
-          const body = await result.json();
-          if (body.type !== "details") {
-            console.error(`body.type: ${body.type}, expected: details`);
-          }
-
-          // check if resource is deprecated
-          if (
-            body.result.properties["Ontological characteristic"] &&
-            body.result.properties["Ontological characteristic"].deprecated &&
-            body.result.properties["Ontological characteristic"].deprecated[0]
-              .value === "true"
-          ) {
-            body.result.deprecated = true;
-            delete body.result.properties["Ontological characteristic"]
-              .deprecated;
-            if (
-              Object.keys(body.result.properties["Ontological characteristic"])
-                .length === 0
-            ) {
-              delete body.result.properties["Ontological characteristic"];
-            }
-          } else {
-            body.result.deprecated = false;
-          }
-
-          data2 = body.result;
-        } catch (err) {
-          if (err.status === 404) {
-            // handle compare resource not found
-            data2 = {
-              label: "Resource not Found",
-              iri: "",
-              maturityLevel: {}
-            }
-          } else {
-            data2 = {
-              label: "Error fetching data",
-              iri: "",
-              maturityLevel: {}
-            }
-          }
-        }
-
-        this.error.entityData = false;
-
-        // merge data 1 and 2
-        let mergedData = mergeData(data1, data2);
-
-        this.mergedData = mergedData;
-
-        this.loader = false;
-        this.data = savedData;
-        this.scrollToOntologyViewerTopOfContainer("smooth");
+      if (!iri) {
+        return;
       }
-    },
-    generateTitleAndDescription(body) {
-      if (body.result.properties["Glossary"]) {
-        //check is title or label exist and set it to title page
-        if (
-          body.result.properties["Glossary"].title &&
-          body.result.properties["Glossary"].title[0]
-        ) {
-          this.title = body.result.properties["Glossary"].title[0].value;
-        } else if (
-          body.result.properties["Glossary"].label &&
-          body.result.properties["Glossary"].label[0]
-        ) {
-          this.title = body.result.properties["Glossary"].label[0].value;
+
+      this.loader = true;
+      this.data = null;
+      this.mergedData = null;
+      let data1 = null;
+      let data2 = null;
+      let savedData = null;
+
+      const promises = [
+        getEntity(`${this.ontologyServer}?iri=${iri}`),
+        getEntity(`${this.ontologyServerCompare}?iri=${iri}`)
+      ];
+
+      const results = await Promise.allSettled(promises);
+
+      // get data 1
+      try {
+        const result1 = results[0];
+        if (result1.status == `rejected`) {
+          const error = new Error(result1.reason.message);
+          error.status = result1.reason.status;
+          throw error;
         }
-        //check is abstract or definition exist and set it to description
-        if (
-          body.result.properties["Glossary"].abstract &&
-          body.result.properties["Glossary"].abstract[0]
-        ) {
-          this.description = prepareDescription(
-            body.result.properties["Glossary"].abstract[0].value
-          );
-        } else if (
-          body.result.properties["Glossary"].definition &&
-          body.result.properties["Glossary"].definition[0]
-        ) {
-          this.description = prepareDescription(
-            body.result.properties["Glossary"].definition[0].value
-          );
+        const body = await result1.value.json();
+        if (body.type !== "details") {
+          console.error(`body.type: ${body.type}, expected: details`);
+        }
+
+        let { title, description } = generateTitleAndDescription(body);
+        this.title = title || this.title;
+        this.description = description || this.description;
+
+        handleDeprecatedResource(body);
+
+        data1 = body.result;
+        savedData = data1;
+        this.error.entityNotFound = false;
+      } catch (err) {
+        if (err.status === 404) {
+          data1 = {
+            label: "Resource not Found",
+            iri: "",
+            maturityLevel: {}
+          }
+          this.error.entityNotFound = true;
+        } else {
+          data1 = {
+            label: "Error fetching data",
+            iri: "",
+            maturityLevel: {}
+          }
         }
       }
+
+      // get data 2
+      try {
+        const result2 = results[1];
+        if (result2.status == `rejected`) {
+          const error = new Error(result2.reason.message);
+          error.status = result2.reason.status;
+          throw error;
+        }
+        const body = await result2.value.json();
+
+        if (body.type !== "details") {
+          console.error(`body.type: ${body.type}, expected: details`);
+        }
+
+        handleDeprecatedResource(body);
+
+        data2 = body.result;
+      } catch (err) {
+        if (err.status === 404) {
+          // handle compare resource not found
+          data2 = {
+            label: "Resource not Found",
+            iri: "",
+            maturityLevel: {}
+          }
+        } else {
+          data2 = {
+            label: "Error fetching data",
+            iri: "",
+            maturityLevel: {}
+          }
+        }
+      }
+
+      this.error.entityData = false;
+
+      // merge data 1 and 2
+      let mergedData = mergeData(data1, data2);
+
+      this.mergedData = mergedData;
+
+      this.loader = false;
+      this.data = savedData;
+      this.scrollToOntologyViewerTopOfContainer("smooth");
     },
     // vue-multiselect ontologyVersions
     ontologyVersions_optionSelected(selectedOntologyVersion) {
@@ -1120,6 +1058,9 @@ export default {
       }
     },
     swapSelectedVersions() {
+      if (this.loader)
+        return;
+
       let version = this.ontologyVersionsDropdownData.selectedData;
       let versionCompare = this.versionCompare.selectedCompareData;
 
