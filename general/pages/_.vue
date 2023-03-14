@@ -42,7 +42,6 @@
                   <div class="menu-box__content-text">
                     <multiselect
                       v-model="ontologyVersionsDropdownData.selectedData"
-                      id="ontologyVersionsMultiselect"
                       label="@id"
                       track-by="url"
                       placeholder="Select..."
@@ -68,25 +67,57 @@
                           <span>{{ option.label }}</span>
                         </span>
                       </template>
-                      <!-- <template slot="clear" slot-scope="props">
-                    <div class="multiselect__clear" v-if="ontologyVersionsDropdownData.selectedData"
-                    @mousedown.prevent.stop="clearAll(props.search)"></div>
-                    </template> -->
-                      <template v-slot:noResult>
-                        <span>
-                          Oops! No elements found. Consider changing the search
-                          query.
-                        </span>
-                      </template>
                     </multiselect>
                   </div>
-
                   <div class="menu-box__icons">
                     <div class="menu-box__icons__icon icon-clock"></div>
                   </div>
                 </div>
-                <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.selectedData }}</code></pre> -->
-                <!-- <pre class="language-json"><code>{{ ontologyVersionsDropdownData.data }}</code></pre> -->
+                <transition name="comparedropdown" mode="out-in">
+                  <div
+                    v-show="versionCompare.isCompareExpanded"
+                    class="compare-dropdown-wrapper"
+                  >
+                    <div class="compare-icon" @click="swapSelectedVersions()"></div>
+                    <div class="menu-box">
+                      <div class="menu-box__label">Compare with...</div>
+                      <div class="menu-box__content-text">
+                        <multiselect
+                          v-model="versionCompare.selectedCompareData"
+                          label="@id"
+                          track-by="url"
+                          placeholder="Select..."
+                          tagPlaceholder="Select..."
+                          selectLabel=""
+                          open-direction="bottom"
+                          :options="ontologyVersionsDropdownData.data"
+                          :multiple="false"
+                          :searchable="false"
+                          :loading="ontologyVersionsDropdownData.isLoading"
+                          :internal-search="false"
+                          :clear-on-select="false"
+                          :close-on-select="true"
+                          :max-height="600"
+                          :preserve-search="true"
+                          :show-no-results="false"
+                          :hide-selected="true"
+                          :taggable="true"
+                          @select="ontologyVersions_compareOptionSelected"
+                        >
+                          <template v-slot:tag="{ option }">
+                            <span class="custom__tag">
+                              <span>{{ option.label }}</span>
+                            </span>
+                          </template>
+                        </multiselect>
+                      </div>
+                      <div class="menu-box__icons">
+                        <div class="menu-box__icons__icon icon-clock"></div>
+                      </div>
+                    </div>
+                  </div>
+                </transition>
+                <CompareButton @compareToggled="compareButtonHandler" />
               </div>
             </transition>
             <transition name="slowfade">
@@ -115,7 +146,7 @@
             <!-- module tree --->
             <transition name="slowfade">
               <ul v-show="modulesList" class="modules-list list-unstyled">
-                <module-tree
+                <ModuleTree
                   :item="item"
                   v-for="item in modulesList"
                   :location="data"
@@ -552,10 +583,14 @@
             ></a>
           </div>
 
+          <!-- errors -->
+          <Errors :error="error" />
+
           <div
             class="text-center mt-5"
             v-if="
-              !isError && (loader || searchBox.isLoadingResults || !modulesList)
+              !isError &&
+              (loader || searchBox.isLoadingResults || (!modulesList && !data))
             "
           >
             <div class="spinner-border" role="status">
@@ -565,546 +600,37 @@
           </div>
 
           <!-- search results -->
-          <div
-            class="search-section"
-            v-if="searchBox.selectedData && searchBox.selectedData.isSearch"
-          >
-            <div class="search-section__header">
-              <h5>Search results for “{{ searchBox.selectedData.iri }}”</h5>
-              <p v-if="searchBox.totalResultsCount > 0">
-                {{ searchBox.fromCount }} -
-                {{ searchBox.toCount }}
-                of {{ searchBox.totalResultsCount }} total results
-              </p>
-              <p v-else>0 total results</p>
-            </div>
-
-            <div
-              v-if="searchBox.pageResults && searchBox.pageResults.length"
-              class="search-section__items"
-            >
-              <div
-                v-for="(result, index) in searchBox.pageResults"
-                :key="index + searchBox.selectedData.iri"
-                class="search-item"
-              >
-                <div>
-                  <div class="search-item__title">
-                    <!-- <div
-                      class="search-item__icon"
-                      :class="{
-                        'maturity-provisional':
-                          result.maturityLevel.icon === 'dev',
-                        'maturity-release':
-                          result.maturityLevel.icon === 'prod',
-                        'maturity-mixed':
-                          result.maturityLevel.icon === 'prod_and_dev_mixed',
-                      }"
-                    ></div> -->
-                    <customLink
-                      class="custom-link"
-                      :name="result.label"
-                      :query="result.iri"
-                    ></customLink>
-                  </div>
-
-                  <div class="search-item__iri">
-                    <customLink
-                      class="custom-link"
-                      :name="result.iri"
-                      :query="result.iri"
-                    ></customLink>
-                  </div>
-
-                  <div
-                    class="search-item__description-wrapper"
-                    v-if="result.highlights.length > 0"
-                  >
-                    <div
-                      class="search-item__description"
-                      v-for="(highlight, index) in result.highlights"
-                      :key="index + highlight.fieldIdentifier"
-                    >
-                      <span class="search-item__description__label">
-                        {{ getPropertyLabel(highlight.fieldIdentifier) }}
-                      </span>
-                      <span
-                        class="search-item__description__highlight"
-                        v-html="highlight.highlightedText"
-                      >
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div v-else>
-              <article>
-                <section class="blank">
-                  <h2>No results found</h2>
-                  <p class="muted">
-                    Consider adjusting search configuration or try changing
-                    search phrase.
-                  </p>
-                </section>
-              </article>
-            </div>
-
-            <div
-              class="search-section__load-more"
-              v-if="searchBox.totalResultsCount > 0"
-            >
-              <b-pagination
-                pills
-                first-number
-                last-number
-                v-model="searchBox.page"
-                :total-rows="searchBox.totalResultsCount"
-                :per-page="searchBox.perPage"
-                @input="paginationHandler()"
-                v-if="searchBox.totalResultsCount > searchBox.perPage"
-              ></b-pagination>
-
-              <p v-else>There is only one page.</p>
-            </div>
-          </div>
-
-          <!-- errors -->
-          <div class="row" v-if="error.search">
-            <div class="col-12">
-              <div class="ontology-alert red" role="alert">
-                <strong>Error!</strong> We had trouble connecting with our
-                search server, please try later.
-                <div
-                  @click="error.search = false"
-                  class="dismiss-alert-button"
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row" v-if="error.entityData">
-            <div class="col-12">
-              <div class="ontology-alert red" role="alert">
-                <strong>Error!</strong> Cannot fetch data, please try later.
-                <div
-                  @click="error.entityData = false"
-                  class="dismiss-alert-button"
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row" v-if="error.versions">
-            <div class="col-12">
-              <div class="ontology-alert yellow" role="alert">
-                <strong>Warning!</strong> Versions could not be loaded.
-                <div
-                  @click="error.versions = false"
-                  class="dismiss-alert-button"
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row" v-if="error.modules">
-            <div class="col-12">
-              <div class="ontology-alert yellow" role="alert">
-                <strong>Warning!</strong> Modules could not be loaded.
-                <div
-                  @click="error.modules = false"
-                  class="dismiss-alert-button"
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row" v-if="error.properties">
-            <div class="col-12">
-              <div class="ontology-alert yellow" role="alert">
-                <strong>Warning!</strong> Search properties could not be loaded.
-                <div
-                  @click="error.properties = false"
-                  class="dismiss-alert-button"
-                ></div>
-              </div>
-            </div>
-          </div>
+          <SearchResults
+            v-else-if="searchBox.selectedData && searchBox.selectedData.isSearch"
+            :searchBox="searchBox"
+          />
 
           <div
             class="container"
-            v-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
+            v-else-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
           >
             <div class="row">
               <transition name="fade" mode="out-in">
                 <!-- SHOW ITEM -->
-                <div class="col-md-12 col-lg-12 px-0 ontology-item" v-if="data">
-                  <div class="row">
-                    <div class="col-md-12 ontology-item__header">
-                      <div class="card">
-                        <div class="card-body">
-                          <!-- report a problem -->
-                          <button
-                            type="button"
-                            class="btn normal-button btn-report-a-problem"
-                            v-if="
-                              data.iri.startsWith(uriSpace) &&
-                              !(this.$route.query && this.$route.query.version)
-                            "
-                            @click="githubNewIssue()"
-                          >
-                            Report a problem
-                          </button>
-
-                          <!-- maturity alert -->
-                          <div class="ontology-item__header__status">
-                            <div
-                              class="alert alert-error alert-deprecated"
-                              role="alert"
-                              v-if="data.deprecated"
-                            >
-                              This resource is deprecated and may be removed
-                              shortly.
-                            </div>
-                            <div
-                              class="alert alert-primary alert-maturity"
-                              :class="{
-                                informative:
-                                  data.maturityLevel.label === 'Informative',
-                              }"
-                              role="alert"
-                              v-if="
-                                data.maturityLevel.label === 'Informative' ||
-                                data.maturityLevel.label === 'Provisional' ||
-                                data.maturityLevel.label === 'Preliminary'
-                              "
-                            >
-                              This resource has maturity level
-                              {{ this.data.maturityLevel.label.toLowerCase() }}.
-
-                              <customLink
-                                class="custom-link"
-                                :name="'Read more'"
-                                :query="data.maturityLevel.iri"
-                              ></customLink>
-                            </div>
-                          </div>
-
-                          <div
-                            v-if="
-                              data.maturityLevel.label === 'Informative' ||
-                              data.maturityLevel.label === 'Provisional' ||
-                              data.maturityLevel.label === 'Preliminary' ||
-                              data.deprecated
-                            "
-                            class="clearfix"
-                          ></div>
-
-                          <!-- header item title -->
-                          <h5
-                            class="card-title"
-                            :class="{
-                              'maturity-provisional':
-                                this.data.maturityLevel.label ===
-                                  'Provisional' ||
-                                this.data.maturityLevel.label === 'Preliminary',
-                              'maturity-informative':
-                                this.data.maturityLevel.label === 'Informative',
-                              'maturity-production':
-                                this.data.maturityLevel.label === 'Release',
-                              'maturity-mixed':
-                                this.data.maturityLevel.label === 'Mixed',
-                            }"
-                          >
-                            {{ data.label }}
-                          </h5>
-
-                          <div class="clearfix"></div>
-
-                          <h6 class="card-subtitle data-iri" v-if="data.iri">
-                            {{ data.iri }}
-                          </h6>
-                          <div class="url-buttons-container">
-                            <CopyButton
-                              :copyContent="data.iri"
-                              :text="'Copy IRI'"
-                            />
-                          </div>
-                          <h6
-                            class="card-subtitle data-iri"
-                            v-if="data.versionIri"
-                          >
-                            {{
-                              data.versionIri
-                            }}
-                          </h6>
-                          <div
-                            class="url-buttons-container"
-                            v-if="data.versionIri"
-                          >
-                            <CopyButton
-                              :copyContent="data.versionIri"
-                              :text="'Copy versioned IRI'"
-                              class="btn-copy-iri"
-                            />
-                          </div>
-
-                          <h6
-                            class="card-subtitle qname"
-                            v-if="data.qName && data.qName !== ''"
-                          >
-                            {{ data.qName }}
-                          </h6>
-
-                          <div class="url-buttons-container">
-                            <CopyButton
-                              v-if="data.qName && data.qName !== ''"
-                              :copyContent="data.qName.replace('QName: ', '')"
-                              :text="'Copy QName'"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- paths -->
-                    <div
-                      class="ontology-item__paths col-md-12"
-                      v-if="data.taxonomy && data.taxonomy.value"
-                      ref="ontologyPaths"
-                    >
-                      <PathsSection :data="data" />
-                    </div>
-
-                    <!-- ontology download -->
-                    <div
-                      class="col-12 px-0"
-                      v-if="
-                        data.iri.slice(-1) === '/' &&
-                        data.iri.startsWith(this.uriSpace)
-                      "
-                    >
-                      <OntologyDownload :data="data" :version="version" />
-                    </div>
-
-                    <!-- sections -->
-                    <div
-                      class="col-md-12 px-0"
-                      v-for="(
-                        section, sectionName, sectionIndex
-                      ) in data.properties"
-                      :key="sectionName"
-                    >
-                      <ResourceSection
-                        :section="section"
-                        :sectionName="sectionName"
-                        :sectionIndex="sectionIndex"
-                      />
-                    </div>
-                  </div>
-
-                  <!-- DATA GRAPH -->
-                  <div class="row" v-if="hasGraph">
-                    <div class="col-12 px-0">
-                      <div class="card">
-                        <div class="card-body" ref="dataGraph" v-if="hasGraph">
-                          <h5
-                            class="card-title section-title"
-                            @click="
-                              $refs.dataGraph
-                                .querySelector('h5')
-                                .classList.toggle('section-collapse')
-                            "
-                          >
-                            Data model for {{ data.label }}
-                          </h5>
-                          <div class="section-content-wrapper">
-                            <GraphVisualization :data="data" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Resource
+                  v-if="isComparing ? mergedData : data"
+                  :data="isComparing ? mergedData : data"
+                  :isComparing="isComparing"
+                  :version="version"
+                />
 
                 <!-- NO DATA (How to use) -->
-                <div
+                <HowToUse
                   v-else-if="
                     !loader &&
                     !searchBox.isLoadingResults &&
                     !error.entityNotFound
                   "
-                >
-                  <article class="how-to-article">
-                    <section class="header-section">
-                      <h1>How to use {{ ontologyNameUppercase }} Viewer</h1>
-                      <p class="big muted">
-                        To start using {{ ontologyNameUppercase }} Viewer,
-                        search for interesting concepts by walking through the
-                        {{ ontologyNameUppercase }} directory structure on the
-                        left-hand side or use the full-text search function.
-                      </p>
-                    </section>
+                  :hasVersions="hasVersions"
+                  :ontologyNameUppercase="ontologyNameUppercase"
+                />
 
-                    <section v-if="hasVersions" class="blank versions-section">
-                      <img class="article-icon" src="@/assets/img/clock.svg" />
-                      <h2>{{ ontologyNameUppercase }} Versions</h2>
-                      <p class="big muted">
-                        {{ ontologyNameUppercase }} Viewer allows for browsing
-                        the past versions of {{ ontologyNameUppercase }}.
-                      </p>
-                      <p>
-                        It also helps developers to see the changes proposed to
-                        {{ ontologyNameUppercase }} in pull requests before
-                        their approval. To see the content of the past
-                        {{ ontologyNameUppercase }} releases or recent pull
-                        requests, choose them from the drop-down list.
-                      </p>
-                    </section>
-
-                    <section class="blank structure-section">
-                      <img
-                        class="article-icon"
-                        src="@/assets/img/directory.svg"
-                      />
-                      <h2>{{ ontologyNameUppercase }} structure</h2>
-                      <p class="big muted">
-                        {{ ontologyNameUppercase }} is a set of ontologies. It
-                        is organized in a hierarchical directory structure.
-                      </p>
-                      <p>
-                        Top-level directories are called domains; beneath that
-                        may be one or two levels of sub-domain and then modules
-                        and dozens of ontologies at the bottom level.
-                      </p>
-                    </section>
-
-                    <section class="blank maturity-section">
-                      <img
-                        class="article-icon"
-                        src="@/assets/img/maturity.svg"
-                      />
-                      <h2>{{ ontologyNameUppercase }} maturity levels</h2>
-                      <p class="big muted">
-                        Each {{ ontologyNameUppercase }} ontology has one of
-                        three levels of maturity.
-                      </p>
-                      <h3>Release</h3>
-                      <p>
-                        Release ontologies are ones that are considered to be
-                        stable and mature from a development perspective.
-                      </p>
-                      <h3>Provisional</h3>
-                      <p>
-                        Provisional ontologies are ones that are considered to
-                        be under development.
-                      </p>
-                      <h3>Informative</h3>
-                      <p>
-                        Provisional ontologies are ones that are considered
-                        deprecated but included for informational purposes
-                        because they are referenced by some provisional concept.
-                      </p>
-                    </section>
-
-                    <section class="blank colours-section">
-                      <h2>Colours</h2>
-                      <p class="big muted">
-                        {{ ontologyNameUppercase }} Viewer uses colours to
-                        indicate the status of an ontology. Each ontology is
-                        either green or yellow.
-                      </p>
-                      <div class="color-container">
-                        <img
-                          class="article-icon--small"
-                          src="@/assets/icons/production-maturity.svg"
-                        />
-                        <p>
-                          The green square icon indicates that an ontology has a
-                          "release" maturity level. Domains or modules are green
-                          if they contain only green ontologies.
-                        </p>
-                      </div>
-
-                      <div class="color-container">
-                        <img
-                          class="article-icon--small"
-                          src="@/assets/icons/provisional-maturity.svg"
-                        />
-                        <p>
-                          Yellow square icon means that it's provisional.
-                          Domains or modules are yellow if they contain only
-                          yellow ontologies.
-                        </p>
-                      </div>
-
-                      <div class="color-container">
-                        <img
-                          class="article-icon--small"
-                          src="@/assets/icons/informative-maturity.svg"
-                        />
-                        <p>
-                          Orange circle icon means that it's informative.
-                          Domains or modules are yellow if they contain only
-                          orange ontologies.
-                        </p>
-                      </div>
-
-                      <div class="color-container">
-                        <img
-                          class="article-icon--small"
-                          src="@/assets/icons/mixed-maturity.svg"
-                        />
-                        <p>
-                          Mixed, green-yellow-orange icon means domains or
-                          modules include both green, yellow and orange
-                          ontologies.
-                        </p>
-                      </div>
-                    </section>
-
-                    <section class="about-section">
-                      <p class="title muted">
-                        About {{ ontologyNameUppercase }} Viewer
-                      </p>
-                      <div class="spacing-30"></div>
-                      <p class="small">
-                        {{ ontologyNameUppercase }} Viewer is a JAVA application
-                        that is specifically designed to access both the
-                        {{ ontologyNameUppercase }} structure and its content in
-                        the easiest possible way. It can serve both as a web
-                        application and REST API.
-                        {{ ontologyNameUppercase }} Viewer is an open-source
-                        project that EDM Council hosts. See
-                        https://github.com/edmcouncil/onto-viewer for details.
-                      </p>
-                    </section>
-                  </article>
-                </div>
-
-                <div
-                  v-else-if="!loader && error.entityNotFound"
-                  class="not-found"
-                >
-                  <article>
-                    <section class="blank not-found-header">
-                      <p class="big-sign">404</p>
-                      <p class="big muted">Entity not found</p>
-                      <p class="muted">
-                        The entity you are looking for does not exist. Please
-                        try again.
-                      </p>
-                    </section>
-
-                    <section>
-                      <h2>Tips</h2>
-                      <p>
-                        Try using search box or modules tree to find ontology
-                        resources.
-                      </p>
-                    </section>
-                  </article>
-                </div>
+                <EntityNotFound v-else-if="!loader && !isComparing && error.entityNotFound" />
               </transition>
             </div>
           </div>
@@ -1123,7 +649,11 @@ import {
   getFindSearch,
   getFindProperties,
 } from "../api/ontology";
-import { prepareDescription } from "../helpers/meta";
+import {
+  generateTitleAndDescription,
+  handleDeprecatedResource,
+} from "../helpers/ontology";
+import { mergeData } from "../helpers/compare";
 export default {
   name: "OntologyView",
   props: ["ontology"],
@@ -1138,6 +668,7 @@ export default {
       description: "",
       loader: this.loader || false,
       data: this.data || null,
+      mergedData: this.mergedData || null,
       query: this.query || "",
       modulesList: this.modulesList || null,
       error: this.error || {
@@ -1168,14 +699,20 @@ export default {
         dropdownActive: false,
       },
       ontologyVersionsDropdownData: this.ontologyVersionsDropdownData || {
+        isLoading: false,
         defaultData: {
           "@id": "current",
           url: "",
         },
-        selectedData: null,
         data: [],
-        isLoading: false,
+        selectedData: null,
       },
+      versionCompare: this.versionCompare || {
+        isCompareExpanded: false,
+        compareData: [],
+        selectedCompareData: null,
+        isSwappingVersion: false,
+      }
     };
   },
   head() {
@@ -1257,12 +794,16 @@ export default {
   methods: {
     ...mapActions({
       updateServers: "servers/updateServers",
+      updateCompareServers: "servers/updateCompareServers",
     }),
-    async fetchData(iri) {
+    async fetchData(iri, options) {
+      const noScroll = options?.noScroll;
       if (iri) {
-        this.scrollToOntologyViewerTopOfContainer();
+        if (!noScroll)
+          this.scrollToOntologyViewerTopOfContainer();
         this.loader = true;
         this.data = null;
+        this.mergedData = null;
         try {
           const query = `${this.ontologyServer}?iri=${iri}`;
           const result = await getEntity(query);
@@ -1271,56 +812,11 @@ export default {
             console.error(`body.type: ${body.type}, expected: details`);
           }
 
-          if (body.result.properties["Glossary"]) {
-            //check is title or label exist and set it to title page
-            if (
-              body.result.properties["Glossary"].title &&
-              body.result.properties["Glossary"].title[0]
-            ) {
-              this.title = body.result.properties["Glossary"].title[0].value;
-            } else if (
-              body.result.properties["Glossary"].label &&
-              body.result.properties["Glossary"].label[0]
-            ) {
-              this.title = body.result.properties["Glossary"].label[0].value;
-            }
-            //check is abstract or definition exist and set it to description
-            if (
-              body.result.properties["Glossary"].abstract &&
-              body.result.properties["Glossary"].abstract[0]
-            ) {
-              this.description = prepareDescription(
-                body.result.properties["Glossary"].abstract[0].value
-              );
-            } else if (
-              body.result.properties["Glossary"].definition &&
-              body.result.properties["Glossary"].definition[0]
-            ) {
-              this.description = prepareDescription(
-                body.result.properties["Glossary"].definition[0].value
-              );
-            }
-          }
+          let { title, description } = generateTitleAndDescription(body);
+          this.title = title || this.title;
+          this.description = description || this.description;
 
-          // check if resource is deprecated
-          if (
-            body.result.properties["Ontological characteristic"] &&
-            body.result.properties["Ontological characteristic"].deprecated &&
-            body.result.properties["Ontological characteristic"].deprecated[0]
-              .value === "true"
-          ) {
-            body.result.deprecated = true;
-            delete body.result.properties["Ontological characteristic"]
-              .deprecated;
-            if (
-              Object.keys(body.result.properties["Ontological characteristic"])
-                .length === 0
-            ) {
-              delete body.result.properties["Ontological characteristic"];
-            }
-          } else {
-            body.result.deprecated = false;
-          }
+          handleDeprecatedResource(body);
 
           this.data = body.result;
           this.error.entityData = false;
@@ -1337,7 +833,9 @@ export default {
           }
         }
         this.loader = false;
-        this.scrollToOntologyViewerTopOfContainer();
+
+        if (!noScroll)
+          this.scrollToOntologyViewerTopOfContainer();
       }
     },
     async fetchVersions() {
@@ -1361,6 +859,18 @@ export default {
           this.ontologyVersionsDropdownData.selectedData =
             this.ontologyVersionsDropdownData.defaultData;
         }
+        if (this.compareVersion !== null) {
+          this.versionCompare.selectedCompareData =
+            ontologyVersions.find((val) => {
+              if (val["@id"] === this.compareVersion) {
+                return true;
+              }
+              return false;
+            });
+        } else {
+          this.versionCompare.selectedCompareData =
+            this.ontologyVersionsDropdownData.defaultData;
+        }
         this.error.versions = false;
       } catch (err) {
         console.error(err);
@@ -1368,6 +878,7 @@ export default {
       }
     },
     async fetchModules() {
+      this.modulesList = null;
       try {
         const result = await getModules(this.modulesServer);
         this.modulesList = await result.json();
@@ -1399,8 +910,111 @@ export default {
         this.error.properties = true;
       }
     },
+    async fetchCompareDataAndMerge(iri) {
+      if (!iri) {
+        return;
+      }
+
+      this.loader = true;
+      this.data = null;
+      this.mergedData = null;
+      let data1 = null;
+      let data2 = null;
+      let savedData = null;
+
+      const promises = [
+        getEntity(`${this.ontologyServer}?iri=${iri}`),
+        getEntity(`${this.ontologyServerCompare}?iri=${iri}`)
+      ];
+
+      const results = await Promise.allSettled(promises);
+
+      // get data 1
+      try {
+        const result1 = results[0];
+        if (result1.status == `rejected`) {
+          const error = new Error(result1.reason.message);
+          error.status = result1.reason.status;
+          throw error;
+        }
+        const body = await result1.value.json();
+        if (body.type !== "details") {
+          console.error(`body.type: ${body.type}, expected: details`);
+        }
+
+        let { title, description } = generateTitleAndDescription(body);
+        this.title = title || this.title;
+        this.description = description || this.description;
+
+        handleDeprecatedResource(body);
+
+        data1 = body.result;
+        savedData = data1;
+        this.error.entityNotFound = false;
+      } catch (err) {
+        if (err.status === 404) {
+          data1 = {
+            label: "Resource not Found",
+            iri: "",
+            maturityLevel: {}
+          }
+          this.error.entityNotFound = true;
+        } else {
+          data1 = {
+            label: "Error fetching data",
+            iri: "",
+            maturityLevel: {}
+          }
+        }
+      }
+
+      // get data 2
+      try {
+        const result2 = results[1];
+        if (result2.status == `rejected`) {
+          const error = new Error(result2.reason.message);
+          error.status = result2.reason.status;
+          throw error;
+        }
+        const body = await result2.value.json();
+
+        if (body.type !== "details") {
+          console.error(`body.type: ${body.type}, expected: details`);
+        }
+
+        handleDeprecatedResource(body);
+
+        data2 = body.result;
+      } catch (err) {
+        if (err.status === 404) {
+          // handle compare resource not found
+          data2 = {
+            label: "Resource not Found",
+            iri: "",
+            maturityLevel: {}
+          }
+        } else {
+          data2 = {
+            label: "Error fetching data",
+            iri: "",
+            maturityLevel: {}
+          }
+        }
+      }
+
+      this.error.entityData = false;
+
+      // merge data 1 and 2
+      let mergedData = mergeData(data1, data2);
+
+      this.mergedData = mergedData;
+
+      this.loader = false;
+      this.data = savedData;
+      this.scrollToOntologyViewerTopOfContainer("smooth");
+    },
     // vue-multiselect ontologyVersions
-    ontologyVersions_optionSelected(selectedOntologyVersion /* , id */) {
+    ontologyVersions_optionSelected(selectedOntologyVersion) {
       if (
         selectedOntologyVersion["@id"] ===
         this.ontologyVersionsDropdownData.defaultData["@id"]
@@ -1421,6 +1035,61 @@ export default {
 
       // clear search results after changing version
       this.clearSearchResults();
+    },
+    ontologyVersions_compareOptionSelected(selectedOntologyVersion) {
+      if (selectedOntologyVersion["@id"] &&
+        selectedOntologyVersion["@id"]
+        != this.ontologyVersionsDropdownData.selectedData["@id"] &&
+        selectedOntologyVersion["@id"] !==
+        this.ontologyVersionsDropdownData.defaultData["@id"]) {
+        this.updateCompareServers({ compareVersion: selectedOntologyVersion["@id"] });
+        this.fetchCompareDataAndMerge(this.query);
+      }
+      else if (
+        selectedOntologyVersion["@id"] ===
+        this.ontologyVersionsDropdownData.defaultData["@id"]
+      )
+      {
+        this.updateCompareServers({ compareVersion: null });
+        this.fetchCompareDataAndMerge(this.query);
+      } else {
+        this.updateCompareServers({ compareVersion: selectedOntologyVersion["@id"] });
+        this.fetchData(this.query, { noScroll: true })
+      }
+    },
+    swapSelectedVersions() {
+      if (this.loader)
+        return;
+
+      let version = this.ontologyVersionsDropdownData.selectedData;
+      let versionCompare = this.versionCompare.selectedCompareData;
+
+      this.ontologyVersionsDropdownData.selectedData = versionCompare;
+      this.versionCompare.selectedCompareData = version;
+
+      if (version["@id"] != this.ontologyVersionsDropdownData.defaultData["@id"])
+        this.updateCompareServers({ compareVersion: version["@id"] });
+      else
+        this.updateCompareServers({ compareVersion: null });
+
+      this.ontologyVersions_optionSelected(versionCompare);
+
+      // for scroll behavior management purposes
+      this.versionCompare.isSwappingVersion = true;
+    },
+    compareButtonHandler(isCompareExpanded) {
+      this.versionCompare.isCompareExpanded = isCompareExpanded;
+      if (
+        isCompareExpanded &&
+        this.versionCompare.selectedCompareData &&
+        this.versionCompare.selectedCompareData["@id"]
+        != this.ontologyVersionsDropdownData.selectedData["@id"]
+      )
+      {
+        this.fetchCompareDataAndMerge(this.query);
+      }
+      else if (!isCompareExpanded && this.data == null)
+        this.fetchData(this.query, { noScroll: true })
     },
     // vue-multiselect
     searchBox_limitText(count) {
@@ -1476,6 +1145,7 @@ export default {
     },
     async handleSearchBoxQuery(searchBQuery, page) {
       try {
+        this.scrollToOntologyViewerTopOfContainer();
         this.searchBox.isLoadingResults = true;
         this.error.entityNotFound = false;
         const isHighlighting = this.searchBox.useHighlighting;
@@ -1526,18 +1196,7 @@ export default {
         labelForInternalSearch: searchBQuery,
       };
       this.searchBox.selectedData = tag;
-    },
-    paginationHandler() {
-      this.$router.push({
-        path: "/ontology",
-        query: {
-          ...{ search: encodeURI(this.searchBox.lastSearchBQuery) },
-          ...{ page: this.searchBox.page },
-          ...(this.$route.query && this.$route.query.version
-            ? { version: encodeURI(this.$route.query.version) }
-            : null),
-        },
-      });
+      this.scrollToOntologyViewerTopOfContainer();
     },
     searchBox_asyncFind(query) {
       this.searchBox.inputValue = query;
@@ -1611,11 +1270,6 @@ export default {
         perPage: 10,
       };
     },
-    getPropertyLabel(identifier) {
-      return this.searchBox.findPropertiesAll.find(
-        (property) => property.identifier === identifier
-      ).label;
-    },
     onPropertiesChanged() {
       const identifiersArray = this.searchBox.findProperties.map(
         (property) => property.identifier
@@ -1626,30 +1280,15 @@ export default {
         property.selected = this.searchBox.findProperties.includes(property);
       }
     },
-    githubNewIssue() {
-      const ontologyQuery = this.data.iri.replace(this.uriSpace, "");
-      const label = ontologyQuery.substring(0, ontologyQuery.indexOf("/"));
-      const details = {
-        label,
-        title: `Problem with ${this.data.label.toUpperCase()}`,
-        body: `Resource URL:\n${this.data.iri}`,
-      };
-      const url =
-        `${this.ontologyRepositoryUrl}/issues/new` +
-        `?labels=${encodeURI(details.label)}` +
-        `&template=issue.md` +
-        `&title=${encodeURI(details.title)}` +
-        `&body=${encodeURI(details.body)}`;
-
-      window.open(url, "_blank");
-    },
     howToUseHandler() {
       this.data = null;
+      this.mergedData = null;
       this.error.entityNotFound = false;
       this.searchBox.isLoading = false;
       if (
         this.$route.path != "/ontology" ||
-        this.$route.query?.query
+        this.$route.query?.query ||
+        this.$route.query?.search
       ) {
         this.$router.push({
           path: "/ontology",
@@ -1689,6 +1328,7 @@ export default {
       modulesServer: (state) => state.servers.modulesServer,
       statsServer: (state) => state.servers.statsServer,
       missingImportsServer: (state) => state.servers.missingImportsServer,
+      ontologyServerCompare: (state) => state.servers.ontologyServerCompare,
       // configuration
       ontologyName: (state) => state.configuration.ontpubFamily,
       ontologyRepositoryUrl: (state) =>
@@ -1708,8 +1348,13 @@ export default {
     hasVersions() {
       return this.ontologyVersionsDropdownData.data.length > 1;
     },
-    hasGraph() {
-      return this.data?.graph?.nodes?.length > 1;
+    isComparing() {
+      return (
+        this.versionCompare.isCompareExpanded &&
+        this.versionCompare.selectedCompareData &&
+        this.versionCompare.selectedCompareData["@id"]
+        != this.ontologyVersionsDropdownData.selectedData["@id"]
+      );
     },
     ontologyNameUppercase() {
       return this.ontologyName.toUpperCase();
@@ -1743,7 +1388,10 @@ export default {
       }
 
       this.$nextTick(async function () {
-        this.fetchData(this.query);
+        if (this.isComparing)
+          this.fetchCompareDataAndMerge(this.query);
+        else
+          this.fetchData(this.query);
       });
     }
     if (!to.query.search) {
@@ -1762,10 +1410,13 @@ export default {
     }
     this.$nextTick(() => {
       if (
-        this.$route.path != "/ontology" ||
-        this.$route.query?.query
+        (this.$route.path != "/ontology" ||
+        this.$route.query?.query) &&
+        !this.versionCompare.isSwappingVersion
       )
         this.scrollToOntologyViewerTopOfContainer();
+
+      this.versionCompare.isSwappingVersion = false;
     });
     next();
   },

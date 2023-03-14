@@ -241,6 +241,33 @@
   border-radius: 2px;
   border: none;
 
+  .compare-dropdown-wrapper {
+    height: 140px;
+    .menu-box {
+      margin: 0;
+    }
+    .compare-icon {
+      height: 30px;
+      width: 24px;
+      margin: auto;
+      background-image: url("@/assets/icons/compare.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      opacity: 0.5;
+      transform: translateY(-15px);
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+
+      &:active {
+        opacity: 1;
+      }
+    }
+  }
+
   .multiselect {
     width: 100%;
     min-height: 30px;
@@ -250,6 +277,13 @@
       font-size: 18px;
       padding-top: 0px;
       margin-bottom: 0px;
+    }
+
+    .multiselect__tags {
+      .multiselect__single {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 
@@ -921,277 +955,6 @@
   }
 }
 
-.ontology-item {
-  .row {
-    margin: 0;
-    padding: 0;
-  }
-  .card {
-    padding-right: 60px;
-    padding-left: 60px;
-    background: white;
-    border: none;
-    color: black;
-
-    h5 {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 24px;
-      line-height: 36px;
-      padding: 0;
-      margin: 0;
-
-      margin-bottom: 40px;
-    }
-
-    .card-body {
-      padding: 0;
-    }
-
-    .card-content {
-      margin-bottom: 60px;
-      border-radius: 2px;
-    }
-  }
-  a {
-    color: rgba(0, 0, 0, 0.8);
-
-    &:hover {
-      color: $link-hover-color;
-    }
-
-    &:active {
-      color: $link-active-color;
-    }
-  }
-  .section-content-wrapper {
-    margin-bottom: 60px;
-  }
-  .ontology-item__paths {
-    text-decoration: none;
-    padding-right: 60px;
-    padding-left: 60px;
-  }
-  .ontology-item__header {
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
-    margin-bottom: 60px;
-    margin-top: 40px;
-    padding: 0;
-
-    .ontology-item__header__status {
-      float: left;
-      margin-left: -30px;
-      margin-top: 40px;
-    }
-
-    // maturity alert
-    .alert-maturity {
-      color: rgba(0, 0, 0, 0.8);
-
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-
-      letter-spacing: 0.01em;
-
-      background: #feb700;
-      border: none;
-      width: fit-content;
-      block-size: fit-content;
-      border-radius: 2px;
-
-      margin-top: 0px;
-      margin-bottom: 5px;
-      padding: 5px 15px 5px 15px;
-      // margin-right: 85px;
-
-      a {
-        text-decoration: underline;
-      }
-
-      &::before {
-        content: "";
-        display: block;
-        height: 20px;
-        width: 20px;
-        background-color: inherit;
-        border: inherit;
-        position: absolute;
-        bottom: -3px;
-        left: 4px;
-        clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
-        transform: rotate(-45deg);
-        border-radius: 0 0 0 0.25em;
-      }
-
-      &.informative {
-        background: map-get($colors-map, "orange");
-      }
-    }
-
-    // deprecated alert
-    .alert-deprecated {
-      color: rgba(0, 0, 0, 0.8);
-
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-
-      letter-spacing: 0.01em;
-
-      border: none;
-      width: fit-content;
-      block-size: fit-content;
-      border-radius: 2px;
-
-      margin-top: 0px;
-      margin-bottom: 5px;
-      padding: 5px 15px 5px 15px;
-
-      a {
-        text-decoration: underline;
-      }
-
-      &::before {
-        content: "";
-        display: none;
-      }
-    }
-
-    // report a problem
-    .btn-report-a-problem {
-      float: right;
-      margin-top: 40px;
-      margin-left: 10px;
-      border-radius: 2px;
-      padding: 5px 15px;
-      border: none;
-      text-decoration: none;
-      font-family: Inter;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0.01em;
-    }
-
-    h5 {
-      float: left;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 42px;
-      line-height: 50px;
-      margin-right: 30px;
-      margin-top: 35px;
-      position: relative;
-      max-width: 100%;
-      &::before {
-        content: "";
-
-        background-repeat: no-repeat;
-        background-size: 24px 24px;
-
-        display: block;
-        width: 24px;
-        height: 24px;
-
-        left: -30.17px;
-        top: 12.83px;
-
-        position: absolute;
-      }
-      &.maturity-provisional {
-        &::before {
-          background-image: url("@/assets/icons/provisional-maturity.svg");
-        }
-      }
-      &.maturity-informative {
-        &::before {
-          background-image: url("@/assets/icons/informative-maturity.svg");
-        }
-      }
-      &.maturity-mixed {
-        &::before {
-          background-image: url("@/assets/icons/mixed-maturity.svg");
-        }
-      }
-      &.maturity-production {
-        &::before {
-          background-image: url("@/assets/icons/production-maturity.svg");
-        }
-      }
-    }
-    h6 {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-
-      letter-spacing: 0.01em;
-      color: rgba(0, 0, 0, 0.6);
-    }
-    // data iri
-    .data-iri {
-      margin: 0px 0px;
-      padding: 0;
-      word-break: break-all;
-    }
-    // qname
-    .qname {
-      margin: 0px 0px;
-      padding: 0;
-    }
-    // copy url button
-    .btn-copy-url {
-      color: rgba(0, 0, 0, 0.8);
-      margin-top: 15px;
-      margin-bottom: 40px;
-      border: none;
-      background: none;
-      font-size: 18px;
-      line-height: 30px;
-
-      &:hover {
-        color: $link-hover-color;
-      }
-
-      &:active {
-        color: $link-active-color;
-      }
-
-      &::before {
-        content: "";
-        background-image: url("@/assets/icons/copy-url-icon.svg");
-        background-repeat: no-repeat;
-        background-size: 24px;
-        background-position: center;
-
-        display: block;
-        width: 24px;
-        height: 30px;
-        float: left;
-        margin: 0 6px 0 0;
-      }
-
-      &:focus {
-        outline: none;
-        border: none;
-      }
-    }
-    .url-buttons-container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .card {
-      background: none;
-    }
-  }
-}
-
 .search-section {
   word-wrap: break-word;
   .search-section__header {
@@ -1483,99 +1246,6 @@
     }
   }
 
-  .ontology-item {
-    .row {
-      margin: 0;
-      padding: 0;
-    }
-
-    a {
-      color: rgba(0, 0, 0, 0.8);
-    }
-
-    .ontology-item__paths {
-      padding-right: 30px;
-      padding-left: 30px;
-    }
-
-    .card {
-      padding-right: 30px;
-      padding-left: 30px;
-      h5 {
-        font-size: 20px;
-        line-height: 30px;
-      }
-    }
-
-    .ontology-item__header {
-      // maturity alert
-      .ontology-item__header__status {
-        margin-top: 40px;
-        margin-left: 0px;
-      }
-
-      h5 {
-        padding-right: 30px;
-        font-size: 30px;
-        line-height: 36px;
-
-        &.maturity-provisional {
-          margin-left: 34px;
-        }
-        &.maturity-informative {
-          margin-left: 34px;
-        }
-        &.maturity-production {
-          margin-left: 34px;
-        }
-        &.maturity-mixed {
-          margin-left: 34px;
-        }
-        &::before {
-          top: 5.83px;
-        }
-      }
-
-      // data iri
-      .data-iri {
-        margin: 0px 0px;
-        padding: 0;
-      }
-      // qname
-      .qname {
-        margin: 0px 0px;
-        padding: 0;
-      }
-      .url-buttons-container {
-        align-items: flex-end;
-        justify-content: right;
-      }
-      // copy url button
-      .btn-copy-url {
-        font-size: 16px;
-        line-height: 24px;
-        &::before {
-          content: "";
-          background-image: url("@/assets/icons/copy-url-icon.svg");
-          background-repeat: no-repeat;
-          background-size: 24px;
-
-          display: block;
-          width: 24px;
-          height: 24px;
-          float: right;
-          margin-left: 6px;
-        }
-      }
-      .btn-copy-iri {
-        // margin-top: 40px;
-      }
-      .card {
-        background: none;
-      }
-    }
-  }
-
   .search-section {
     margin-top: 45px;
     .search-section__header {
@@ -1742,4 +1412,16 @@
 .slowfade-enter,
 .slowfade-leave-to {
   opacity: 0;
+}
+
+.comparedropdown-enter-active {
+  transition: opacity 0.3s 0.2s ease, height 0.3s ease;
+}
+.comparedropdown-leave-active {
+  transition: opacity 0.3s ease, height 0.3s 0.2s ease;
+}
+.comparedropdown-enter,
+.comparedropdown-leave-to {
+  opacity: 0 !important;
+  height: 0!important;
 }
