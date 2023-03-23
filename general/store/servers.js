@@ -6,6 +6,7 @@ export default {
     statsSegment: `stats`,
     missingImportsSegment: `missingImports`,
     graphSegment: `graph`,
+    describeSegment: `integration/dwDescribe`,
 
     version: null,
     versionCompare: null,
@@ -16,6 +17,7 @@ export default {
     statsServer: null,
     missingImportsServer: null,
     graphServer: null,
+    describeServer: null,
 
     searchServerCompare: null,
     ontologyServerCompare: null,
@@ -40,6 +42,7 @@ export default {
         statsServer,
         missingImportsServer,
         graphServer,
+        describeServer,
       }
     ) {
       state.searchServer = searchServer;
@@ -48,6 +51,7 @@ export default {
       state.statsServer = statsServer;
       state.missingImportsServer = missingImportsServer;
       state.graphServer = graphServer;
+      state.describeServer = describeServer;
     },
     SET_COMPARE_SERVERS(
       state,
@@ -107,6 +111,7 @@ export default {
         ontoviewerDefaultDomain + state.missingImportsSegment;
       let modulesServer = ontoviewerDefaultDomain + state.modulesSegment;
       let graphServer = ontoviewerDefaultDomain + state.graphSegment;
+      let describeServer = ontoviewerDefaultDomain + state.describeSegment;
 
       commit("SET_VERSION", { version });
       commit("SET_SERVERS", {
@@ -116,6 +121,7 @@ export default {
         statsServer,
         missingImportsServer,
         graphServer,
+        describeServer
       });
     },
     async updateCompareServers({ commit, state, rootState }, { compareVersion }) {

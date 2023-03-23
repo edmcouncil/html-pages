@@ -121,6 +121,10 @@
             :text="'Copy QName'"
           />
         </div>
+
+        <div class="url-buttons-container">
+          <DescribeButton :data="data" />
+        </div>
       </div>
     </div>
   </div>
@@ -128,44 +132,41 @@
 
 <script>
 import { mapState } from "vuex";
+import DescribeButton from '../Ontology/DescribeButton.vue';
 
 export default {
-  name: 'ResourceHeader',
-  props: [
-    'data',
-  ],
-  data() {
-    return {
-
-    }
-  },
-  methods: {
-    githubNewIssue() {
-      const ontologyQuery = this.data.iri.replace(this.uriSpace, "");
-      const label = ontologyQuery.substring(0, ontologyQuery.indexOf("/"));
-      const details = {
-        label,
-        title: `Problem with ${this.data.label.toUpperCase()}`,
-        body: `Resource URL:\n${this.data.iri}`,
-      };
-      const url =
-        `${this.ontologyRepositoryUrl}/issues/new` +
-        `?labels=${encodeURI(details.label)}` +
-        `&template=issue.md` +
-        `&title=${encodeURI(details.title)}` +
-        `&body=${encodeURI(details.body)}`;
-
-      window.open(url, "_blank");
+    name: "ResourceHeader",
+    props: [
+        "data",
+    ],
+    data() {
+        return {};
     },
-  },
-  computed: {
-    ...mapState({
-      // configuration
-      ontologyRepositoryUrl: (state) =>
-        state.configuration.ontologyRepositoryUrl,
-      uriSpace: (state) => state.configuration.uriSpace,
-    }),
-  }
+    methods: {
+        githubNewIssue() {
+            const ontologyQuery = this.data.iri.replace(this.uriSpace, "");
+            const label = ontologyQuery.substring(0, ontologyQuery.indexOf("/"));
+            const details = {
+                label,
+                title: `Problem with ${this.data.label.toUpperCase()}`,
+                body: `Resource URL:\n${this.data.iri}`,
+            };
+            const url = `${this.ontologyRepositoryUrl}/issues/new` +
+                `?labels=${encodeURI(details.label)}` +
+                `&template=issue.md` +
+                `&title=${encodeURI(details.title)}` +
+                `&body=${encodeURI(details.body)}`;
+            window.open(url, "_blank");
+        },
+    },
+    computed: {
+        ...mapState({
+            // configuration
+            ontologyRepositoryUrl: (state) => state.configuration.ontologyRepositoryUrl,
+            uriSpace: (state) => state.configuration.uriSpace,
+        }),
+    },
+    components: { DescribeButton }
 };
 </script>
 
