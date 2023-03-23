@@ -6,7 +6,7 @@ RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev l
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /opt/
-COPY ./package.json ./package-lock.json ./
+COPY ./package.json ./
 ENV PATH /opt/node_modules/.bin:$PATH
 RUN npm install
 WORKDIR /opt/app
