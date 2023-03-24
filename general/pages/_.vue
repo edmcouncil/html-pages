@@ -610,7 +610,6 @@
             v-else-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
           >
             <div class="row">
-              <transition name="fade" mode="out-in">
                 <!-- SHOW ITEM -->
                 <Resource
                   v-if="isComparing ? mergedData : data"
@@ -631,7 +630,6 @@
                 />
 
                 <EntityNotFound v-else-if="!loader && !isComparing && error.entityNotFound" />
-              </transition>
             </div>
           </div>
         </div>

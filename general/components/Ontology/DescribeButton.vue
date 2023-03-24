@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="describe-container dropdown-item">
     <b-modal
       id="describe-modal"
       modal-class="describe-modal"
@@ -15,8 +15,9 @@
           data-dismiss="modal"
           aria-label="Close"
           @click="closeModal()"
-        ></div>
-        <h5 class="modal-title">Describe {{ data.label }}</h5>
+        >
+        <h5 class="modal-title">Return</h5>
+      </div>
         <div class="help-icon" v-b-modal.info-modal @click="openInfo()"></div>
       </template>
       <div v-if="error" class="describe-error text-center">
@@ -28,7 +29,7 @@
           <span class="sr-only">Loading...</span>
         </div>
       </div>
-      <div v-else class="code-content">
+      <div v-else class="code-content" ref="codeContent">
         <button
           type="button"
           class="btn-copy-code"
@@ -36,7 +37,7 @@
           @click="pressed()"
         >
           <span v-if="copied" class="copied-text">Copied to clipboard!</span>
-          <span v-else class="content-text">Copy code</span>
+          <span v-else class="content-text">Copy</span>
         </button>
         <pre><code class="hljs xml" v-html="highlightedCode"></code></pre>
       </div>
@@ -68,23 +69,23 @@
       </template>
     </b-modal>
     <button
+      v-if="!error && !loading"
       type="button"
       class="btn-describe"
       :class="{ copied }"
       @click="openModal()"
-      v-if="!error && !loading"
     >
       <span class="content-text">Describe</span>
     </button>
     <button
+      v-else
       type="button"
       class="btn-describe disabled"
       :class="{ copied }"
       @click="openModal()"
-      v-else
       disabled
     >
-      <span class="content-text">Describe</span>
+      <span class="content-text">Describe {{error ? 'unavailable' : null}}</span>
     </button>
   </div>
 </template>
@@ -99,6 +100,7 @@ export default {
   props: [ 'data' ],
   data() {
     return {
+      test: "asd",
       copied: false,
       error: false,
       loading: false,
@@ -158,8 +160,19 @@ export default {
     closeInfo() {
       this.$bvModal.hide("info-modal");
     },
-    pressed() {
-      navigator.clipboard.writeText(this.code);
+    async pressed() {
+      if (window.isSecureContext && navigator.clipboard) {
+        await navigator.clipboard.writeText(this.code);
+      } else {
+        const el = document.createElement('textarea');
+        el.addEventListener('focusin', e => e.stopPropagation());
+        el.value = this.code;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+      }
+
       if (this.copied) {
         return;
       }
@@ -169,6 +182,13 @@ export default {
         this.copied = false;
       }, 1500);
     },
+    clipboardSuccessHandler ({ value, event }) {
+      console.log('success', value)
+    },
+
+    clipboardErrorHandler ({ value, event }) {
+      console.log('error', value)
+    }
   },
   computed: {
     ...mapState({
@@ -180,6 +200,9 @@ export default {
 </script>
 
 <style lang="scss">
+.describe-container {
+  padding: 0!important;
+}
 .describe-loading, .describe-error {
   width: 100%;
   height: 100%;
@@ -201,33 +224,26 @@ export default {
 }
 .btn-describe {
   color: rgba(0, 0, 0, 0.8);
-  margin-top: 15px;
-  margin-bottom: 40px;
   border: none;
   background: none;
   font-size: 18px;
   line-height: 30px;
-
-  &:hover {
-    color: $link-hover-color;
-  }
-
-  &:active {
-    color: $link-active-color;
-  }
+  padding: 15px 30px;
+  width: 100%;
+  text-align: left;
 
   &::before {
     content: "";
     background-image: url("@/assets/icons/describe.svg");
     background-repeat: no-repeat;
-    background-size: 24px;
+    background-size: 20px;
     background-position: center;
 
     display: block;
     width: 24px;
     height: 30px;
     float: left;
-    margin: 0 6px 0 0;
+    margin: 0 10px 0 0;
   }
 
   &:focus {
@@ -299,7 +315,7 @@ export default {
       overflow: visible;
     }
     * {
-      font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace !important;
+      font-family: Roboto Mono, Monaco, Andale Mono, Ubuntu Mono, monospace !important;
     }
   }
 }
@@ -424,13 +440,11 @@ export default {
 
     .close-btn {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: space-around;
       align-items: center;
-      width: 24px;
       height: 30px;
       padding: 0;
-      margin-right: 20px;
 
       &::before {
         content: "";
@@ -439,6 +453,7 @@ export default {
         background-size: 24px 24px;
         width: 24px;
         height: 24px;
+        margin-right: 20px;
       }
     }
 
@@ -466,15 +481,10 @@ export default {
     position: relative;
   }
 }
-.btn-describe {
-  margin-top: 0 !important;
-}
 
 @media (max-width: 991px) {
   .btn-describe {
     color: rgba(0, 0, 0, 0.8);
-    margin-top: 15px;
-    margin-bottom: 40px;
     border: none;
     background: none;
     font-size: 18px;
