@@ -59,5 +59,12 @@ const getMissingImports = function (domain) {
   }).then(parseServerError);
 };
 
+const getDescribeIntegration = function (domain) {
+  return fetch(domain, {
+    method: 'GET',
+    headers: { 'Accept': 'application/rdf+xml' },
+  }).then(parseServerError);
+};
 
-export { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties, getStats, getMissingImports  };
+
+export { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties, getStats, getMissingImports, getDescribeIntegration  };

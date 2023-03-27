@@ -9,6 +9,7 @@ Code highlighting theme
   padding: 0.5em;
   background: transparent;
   color: black;
+  word-break: break-all;
 }
 
 .hljs-comment,
@@ -22,7 +23,11 @@ Code highlighting theme
 .hljs-built_in,
 .hljs-name,
 .hljs-tag {
-  color: #00f;
+  color: rgb(24, 51, 161);
+}
+
+.hljs-name {
+  font-weight: 600;
 }
 
 .hljs-string,
@@ -34,7 +39,7 @@ Code highlighting theme
 .hljs-template-variable,
 .hljs-type,
 .hljs-addition {
-  color: #a31515;
+  color: #FF6000;
 }
 
 .hljs-deletion,
@@ -49,7 +54,7 @@ Code highlighting theme
 }
 
 .hljs-attr {
-  color: #f00;
+  color: #EC241D;
 }
 
 .hljs-symbol,

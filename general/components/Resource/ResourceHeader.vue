@@ -2,104 +2,102 @@
   <div class="col-md-12 ontology-item__header">
     <div class="card">
       <div class="card-body">
-        <!-- report a problem -->
-        <button
-          type="button"
-          class="btn normal-button btn-report-a-problem"
-          v-if="
-            ontologyRepositoryUrl &&
-            data.iri.startsWith(uriSpace) &&
-            !(this.$route.query && this.$route.query.version)
-          "
-          @click="githubNewIssue()"
-        >
-          Report a problem
-        </button>
-
-        <!-- maturity alert -->
-        <div class="ontology-item__header__status">
-          <div
-            class="alert alert-error alert-deprecated"
-            role="alert"
-            v-if="data.deprecated"
-          >
-            This resource is deprecated and may be removed
-            shortly.
+        <div class="ontology-item__header__title-segment">
+          <div class="right">
+            <!-- show more menu -->
+            <div v-if="hasDropdownMenu" class="btn-group resource-more" :class="{centered: !hasStatus}">
+              <button
+                type="button"
+                class="btn dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <img src="@/assets/icons/show-more.svg" alt="Show more" />
+              </button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <DescribeButton
+                  v-if="data.iri.slice(-1) !== '/'"
+                  :data="data"
+                />
+                <button
+                  v-if="
+                    ontologyRepositoryUrl &&
+                    data.iri.startsWith(uriSpace) &&
+                    !(this.$route.query && this.$route.query.version)
+                  "
+                  @click="githubNewIssue()"
+                  type="button"
+                  class="report-a-problem dropdown-item"
+                >
+                  Report a problem
+                </button>
+              </div>
+            </div>
           </div>
-          <div
-            class="alert alert-primary alert-maturity"
-            :class="{
-              informative:
-                data.maturityLevel.label === 'Informative',
-            }"
-            role="alert"
-            v-if="
-              data.maturityLevel.label === 'Informative' ||
-              data.maturityLevel.label === 'Provisional' ||
-              data.maturityLevel.label === 'Preliminary'
-            "
-          >
-            This resource has maturity level
-            {{ this.data.maturityLevel.label.toLowerCase() }}.
 
-            <customLink
-              class="custom-link"
-              :name="'Read more'"
-              :query="data.maturityLevel.iri"
-            ></customLink>
+          <div class="left">
+            <!-- maturity alert -->
+            <div class="ontology-item__header__status">
+              <div
+                class="alert alert-error alert-deprecated"
+                role="alert"
+                v-if="data.deprecated"
+              >
+                This resource is deprecated and may be removed shortly.
+              </div>
+              <div
+                class="alert alert-primary alert-maturity"
+                :class="{
+                  informative: data.maturityLevel.label === 'Informative',
+                }"
+                role="alert"
+                v-if="
+                  data.maturityLevel.label === 'Informative' ||
+                  data.maturityLevel.label === 'Provisional' ||
+                  data.maturityLevel.label === 'Preliminary'
+                "
+              >
+                This resource has maturity level
+                {{ this.data.maturityLevel.label.toLowerCase() }}.
+
+                <customLink
+                  class="custom-link"
+                  :name="'Read more'"
+                  :query="data.maturityLevel.iri"
+                ></customLink>
+              </div>
+            </div>
+
+            <!-- header item title -->
+            <h5
+              class="card-title"
+              :class="{
+                'maturity-provisional':
+                  this.data.maturityLevel.label === 'Provisional' ||
+                  this.data.maturityLevel.label === 'Preliminary',
+                'maturity-informative':
+                  this.data.maturityLevel.label === 'Informative',
+                'maturity-production':
+                  this.data.maturityLevel.label === 'Release',
+                'maturity-mixed': this.data.maturityLevel.label === 'Mixed',
+              }"
+            >
+              {{ data.label }}
+            </h5>
           </div>
         </div>
-
-        <div
-          v-if="
-            data.maturityLevel.label === 'Informative' ||
-            data.maturityLevel.label === 'Provisional' ||
-            data.maturityLevel.label === 'Preliminary' ||
-            data.deprecated
-          "
-          class="clearfix"
-        ></div>
-
-        <!-- header item title -->
-        <h5
-          class="card-title"
-          :class="{
-            'maturity-provisional':
-              this.data.maturityLevel.label ===
-                'Provisional' ||
-              this.data.maturityLevel.label === 'Preliminary',
-            'maturity-informative':
-              this.data.maturityLevel.label === 'Informative',
-            'maturity-production':
-              this.data.maturityLevel.label === 'Release',
-            'maturity-mixed':
-              this.data.maturityLevel.label === 'Mixed',
-          }"
-        >
-          {{ data.label }}
-        </h5>
-
-        <div class="clearfix"></div>
 
         <h6 class="card-subtitle data-iri" v-if="data.iri">
           {{ data.iri }}
         </h6>
         <div class="url-buttons-container">
-          <CopyButton
-            :copyContent="data.iri"
-            :text="'Copy IRI'"
-          />
+          <CopyButton :copyContent="data.iri" :text="'Copy IRI'" />
         </div>
-        <h6
-          class="card-subtitle data-iri"
-          v-if="data.versionIri"
-        >
+        <h6 class="card-subtitle data-iri" v-if="data.versionIri">
           {{ data.versionIri }}
         </h6>
-        <div
-          class="url-buttons-container"
-          v-if="data.versionIri"
-        >
+        <div class="url-buttons-container" v-if="data.versionIri">
           <CopyButton
             :copyContent="data.versionIri"
             :text="'Copy versioned IRI'"
@@ -107,10 +105,7 @@
           />
         </div>
 
-        <h6
-          class="card-subtitle qname"
-          v-if="data.qName && data.qName !== ''"
-        >
+        <h6 class="card-subtitle qname" v-if="data.qName && data.qName !== ''">
           {{ data.qName }}
         </h6>
 
@@ -128,16 +123,13 @@
 
 <script>
 import { mapState } from "vuex";
+import DescribeButton from "../Ontology/DescribeButton.vue";
 
 export default {
-  name: 'ResourceHeader',
-  props: [
-    'data',
-  ],
+  name: "ResourceHeader",
+  props: ["data"],
   data() {
-    return {
-
-    }
+    return {};
   },
   methods: {
     githubNewIssue() {
@@ -154,7 +146,6 @@ export default {
         `&template=issue.md` +
         `&title=${encodeURI(details.title)}` +
         `&body=${encodeURI(details.body)}`;
-
       window.open(url, "_blank");
     },
   },
@@ -165,7 +156,22 @@ export default {
         state.configuration.ontologyRepositoryUrl,
       uriSpace: (state) => state.configuration.uriSpace,
     }),
-  }
+    hasDropdownMenu() {
+      return (
+        (this.ontologyRepositoryUrl &&
+          this.data.iri.startsWith(this.uriSpace) &&
+          !(this.$route.query && this.$route.query.version)) ||
+        this.data.iri.slice(-1) !== "/"
+      );
+    },
+    hasStatus() {
+      return this.data.deprecated ||
+        this.data.maturityLevel.label === 'Informative' ||
+        this.data.maturityLevel.label === 'Provisional' ||
+        this.data.maturityLevel.label === 'Preliminary';
+    }
+  },
+  components: { DescribeButton },
 };
 </script>
 
@@ -177,8 +183,13 @@ export default {
   margin-top: 40px;
   padding: 0;
 
+  .ontology-item__header__title-segment {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
   .ontology-item__header__status {
-    float: left;
     margin-left: -30px;
     margin-top: 40px;
   }
@@ -259,13 +270,12 @@ export default {
     }
   }
 
-  // report a problem
-  .btn-report-a-problem {
-    float: right;
-    margin-top: 40px;
+  // more button
+  .resource-more {
+    margin-top: 32.5px;
     margin-left: 10px;
     border-radius: 2px;
-    padding: 5px 15px;
+    padding: 0;
     border: none;
     text-decoration: none;
     font-family: Inter;
@@ -274,16 +284,105 @@ export default {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.01em;
+
+    &.centered {
+      margin-top: 45px;
+    }
+
+    .btn.dropdown-toggle {
+      outline: none;
+      box-shadow: none;
+      padding: 0;
+
+      img {
+        width: 40px;
+        height: 40px;
+        opacity: 0.8;
+      }
+
+      &:hover img {
+        opacity: 1;
+      }
+    }
+
+    .dropdown-menu {
+      user-select: none;
+      pointer-events: none;
+
+      display: block;
+      padding: 0;
+      width: 320px;
+      max-width: calc(100vw - 75px);
+      border: none;
+      background-color: map-get($colors-map, "white");
+      box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+      border-radius: 0;
+
+      margin-top: 5px;
+      opacity: 0;
+
+      transition: opacity 0.35s ease, margin-top 0.35s ease;
+
+      &.show {
+        user-select: unset;
+        pointer-events: unset;
+
+        margin-top: 15px;
+        opacity: 1;
+      }
+
+      .dropdown-item {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 30px;
+        cursor: pointer;
+
+        color: map-get($colors-map, "black-80");
+
+        margin: 0;
+        padding: 15px 30px;
+
+        &:hover {
+          color: map-get($colors-map, "black-80");
+          background-color: map-get($colors-map, "black-5");
+        }
+        &:focus {
+          color: map-get($colors-map, "black-80");
+          background-color: unset;
+        }
+        &:active {
+          color: map-get($colors-map, "black-80");
+          background-color: map-get($colors-map, "black-20");
+        }
+      }
+
+      .report-a-problem {
+        &::before {
+          content: "";
+          background-image: url("@/assets/icons/flag.svg");
+          background-repeat: no-repeat;
+          background-size: 20px;
+          background-position: center;
+
+          display: block;
+          width: 24px;
+          height: 30px;
+          float: left;
+          margin: 0 10px 0 0;
+        }
+      }
+    }
   }
 
   h5 {
-    float: left;
     font-style: normal;
     font-weight: bold;
     font-size: 42px;
     line-height: 50px;
-    margin-right: 30px;
-    margin-top: 35px;
+    margin-right: 15px;
+    margin-top: 40px;
     position: relative;
     max-width: 100%;
     &::before {
@@ -398,7 +497,6 @@ export default {
     }
 
     h5 {
-      padding-right: 30px;
       font-size: 30px;
       line-height: 36px;
 
