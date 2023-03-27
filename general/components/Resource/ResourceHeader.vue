@@ -272,7 +272,7 @@ export default {
 
   // more button
   .resource-more {
-    margin-top: 40px;
+    margin-top: 32.5px;
     margin-left: 10px;
     border-radius: 2px;
     padding: 0;
@@ -286,7 +286,7 @@ export default {
     letter-spacing: 0.01em;
 
     &.centered {
-      margin-top: 55px;
+      margin-top: 45px;
     }
 
     .btn.dropdown-toggle {
@@ -295,9 +295,13 @@ export default {
       padding: 0;
 
       img {
-        transform: rotate(90deg);
-        width: 24px;
-        height: 24px;
+        width: 40px;
+        height: 40px;
+        opacity: 0.8;
+      }
+
+      &:hover img {
+        opacity: 1;
       }
     }
 
@@ -370,24 +374,6 @@ export default {
         }
       }
     }
-  }
-
-  //report a problem
-  .btn-report-a-problem {
-    display: none;
-    float: right;
-    margin-top: 40px;
-    margin-left: 10px;
-    border-radius: 2px;
-    padding: 5px 15px;
-    border: none;
-    text-decoration: none;
-    font-family: Inter;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.01em;
   }
 
   h5 {

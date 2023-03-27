@@ -490,28 +490,6 @@ export default {
     font-size: 18px;
     line-height: 30px;
 
-    &:hover {
-      color: $link-hover-color;
-    }
-
-    &:active {
-      color: $link-active-color;
-    }
-
-    &::before {
-      content: "";
-      background-image: url("@/assets/icons/describe.svg");
-      background-repeat: no-repeat;
-      background-size: 24px;
-      background-position: center;
-
-      display: block;
-      width: 24px;
-      height: 30px;
-      float: right;
-      margin: 0 0 0 6px;
-    }
-
     &:focus {
       outline: none;
       border: none;
