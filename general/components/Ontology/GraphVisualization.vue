@@ -325,13 +325,6 @@
             <input v-model="distanceValue" type="range" min="20" max="200" step="2" class="custom-slider" @change="handleDistanceUpdate()">
           </div>
         </div>
-        <div class="layouts-container">
-          <div>
-
-          </div>
-        </div>
-
-
       </div>
       <div class="graph-modal-content" ref="graphModalTarget"></div>
     </b-modal>
