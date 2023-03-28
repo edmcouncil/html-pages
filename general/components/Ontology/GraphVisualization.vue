@@ -454,7 +454,18 @@ export default {
       this.ontograph.sort("inherited");
     },
       downloadAsPng(){
-      d3ToPng('svg', `${this.data.label}`);
+      d3ToPng('svg', `${this.data.label}`, { scale: 2,
+        format: 'png',
+        quality: 1,
+        download: false,
+      background: 'white'})
+      .then(fileData => {
+        var download = document.createElement('a');
+        download.href = fileData;
+        download.download = `${this.data.label}.png`;
+        download.click();
+  //do something with the data
+});;
     },
     showModal() {
       this.fullscreen = true;
