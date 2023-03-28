@@ -114,7 +114,7 @@
     </div>
 
     <div class="ontograph-minimal" ref="ontograph"></div>
-    <div class="fullscreen-btn-wrapper">
+    <div class="fullscreen-btn-wrapper row">
       <button
         type="button"
         class="btn normal-button icon-button fullscreen-button"
@@ -122,6 +122,14 @@
       >
         Full screen
         <div class="b-icon"></div>
+      </button>
+      <button
+        type="button"
+        class="btn normal-button icon-button fullscreen-button"
+        v-on:click="downloadAsPng()"
+      >
+        Download as PNG
+        <div class="b-icon download"></div>
       </button>
     </div>
 
@@ -177,6 +185,13 @@
           @click="openGuide('guide-main')"
         >
           User Guide
+        </button>
+        <button
+          class="btn normal-button small icon-button fullscreen-button"
+          v-on:click="downloadAsPng()"
+        >
+          Download as PNG
+          <div class="b-icon download"></div>
         </button>
         <div class="panel-section-title">
           <h3>Connections</h3>
@@ -310,6 +325,13 @@
             <input v-model="distanceValue" type="range" min="20" max="200" step="2" class="custom-slider" @change="handleDistanceUpdate()">
           </div>
         </div>
+        <div class="layouts-container">
+          <div>
+
+          </div>
+        </div>
+
+
       </div>
       <div class="graph-modal-content" ref="graphModalTarget"></div>
     </b-modal>
@@ -321,6 +343,7 @@
 <script>
 import { Ontograph } from "../../helpers/ontograph";
 import { mapState } from "vuex";
+const d3ToPng = require('d3-svg-to-png');
 
 export default {
   name: "GraphVisualization",
@@ -436,6 +459,9 @@ export default {
     },
     sortInherited() {
       this.ontograph.sort("inherited");
+    },
+      downloadAsPng(){
+      d3ToPng('svg', `${this.data.label}`);
     },
     showModal() {
       this.fullscreen = true;
@@ -709,8 +735,13 @@ export default {
 }
 
 .fullscreen-button {
+  bottom: 100px;
+  margin-right: 5px;
   .b-icon {
     background-image: url("../../assets/icons/maximize.svg");
+  }
+  .b-icon.download {
+    background-image: url("../../assets/icons/download.svg");
   }
 }
 
