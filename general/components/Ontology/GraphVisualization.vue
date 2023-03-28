@@ -454,7 +454,7 @@ export default {
       this.ontograph.sort("inherited");
     },
       downloadAsPng(){
-      d3ToPng('svg', `${this.data.label}`, { scale: 2,
+      d3ToPng('svg', `${this.data.label}`, { scale: 1,
         format: 'png',
         quality: 1,
         download: false,
