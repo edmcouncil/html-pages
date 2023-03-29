@@ -10,6 +10,7 @@
       },
     }"
     @click.native="linkClickNative"
+    :class="{'deprecated': isDeprecated === 'true'}"
   >{{ name }}</nuxt-link>
   <nuxt-link
     v-else
@@ -22,12 +23,13 @@
           : null),
       },
     }"
+    :class="{'deprecated': isDeprecated === 'true'}"
   >{{ name }}</nuxt-link>
 </template>
 <script>
 export default {
   name: 'customLink',
-  props: {name: String, query: String, customLinkOnClick: Function},
+  props: {name: String, query: String, isDeprecated: String, customLinkOnClick: Function},
   methods: {
     linkClickNative(event) {
       if(this.customLinkOnClick !== undefined){

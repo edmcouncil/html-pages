@@ -140,7 +140,7 @@ export default {
           const value = this.entityMaping[name];
           htmlResult = htmlResult.replace(
             name,
-            `<customLink name="${value.label}" query="${value.iri}"></customLink>`
+            `<customLink name="${value.label}" query="${value.iri}" isDeprecated="${value.deprecated}"></customLink>`
           );
         });
       }

@@ -590,3 +590,13 @@ article {
 .list-leave-to {
   opacity: 0;
 }
+
+a.deprecated {
+  //text-decoration: line-through !important;
+  //text-decoration: underline line-through !important;
+  //text-decoration-color: red !important;
+  text-decoration-color: #ff6000 !important;
+  //text-decoration-thickness: 15% !important;
+  color: #ff6000 !important;
+  //color: red;
+}
