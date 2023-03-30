@@ -593,10 +593,10 @@ article {
 
 a.deprecated {
   text-decoration: line-through !important;
-  //text-decoration: underline line-through !important;
   text-decoration-color: #EC241D !important;
-  //text-decoration-color: #ff6000 !important;
-  //text-decoration-thickness: 15% !important;
-  //color: #ff6000 !important;
+  color: #EC241D;
+}
+
+a.deprecated:hover {
   color: #EC241D;
 }
