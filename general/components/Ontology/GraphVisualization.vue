@@ -325,7 +325,7 @@
             <input v-model="distanceValue" type="range" min="10" max="300" step="2" class="custom-slider" @input="handleDistanceUpdate()">
           </div>
           <div class="configuration-labels">
-            <p>Keep edge labels</p>
+            <p>Display all edge labels</p>
             <div class="custom-control custom-switch">
               <input
                 type="checkbox"
@@ -657,7 +657,7 @@ export default {
 
     .custom-slider {
       margin-top: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
   }
 
