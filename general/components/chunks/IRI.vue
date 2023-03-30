@@ -15,7 +15,7 @@ export default {
   props: ['value', 'entityMaping'],
   computed: {
     processedHtml() {
-      const html = `<customLink name="${this.value.label}" query="${this.value.iri}"></customLink>`;
+      const html = `<customLink name="${this.value.label}" query="${this.value.iri}" isDeprecated="${this.value.deprecated}"></customLink>`;
       return {
         template: `<div>${html}</div>`,
       };
