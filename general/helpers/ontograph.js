@@ -140,7 +140,7 @@ export class Ontograph {
           newLink
             .append("text")
             .attr("dy", "2px")
-            .attr("font-size", "8px")
+            .attr("font-size", "6px")
             .attr("paint-order", "stroke")
             .attr("stroke", "#f2f2f2")
             .attr("stroke-width", "1px")
@@ -171,7 +171,7 @@ export class Ontograph {
           updatedLink
             .select("text")
             .attr("dy", "2px")
-            .attr("font-size", "8px")
+            .attr("font-size", "6px")
             .attr("paint-order", "stroke")
             .attr("stroke", "#f2f2f2")
             .attr("stroke-width", "1px")
