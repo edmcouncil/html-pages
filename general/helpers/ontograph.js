@@ -5,6 +5,8 @@ export class Ontograph {
   transitionSpeed = 400;
   mouseoverTransitionSpeed = 300;
   distance = 50;
+  keepLabels = false;
+  labelOpacity = 0.8;
   alertId = 0;
   filters = {
     external: true,
@@ -138,13 +140,13 @@ export class Ontograph {
           newLink
             .append("text")
             .attr("dy", "2px")
-            .attr("font-size", "8px")
+            .attr("font-size", "6px")
             .attr("paint-order", "stroke")
             .attr("stroke", "#f2f2f2")
             .attr("stroke-width", "1px")
             .attr("text-anchor", "middle")
             .attr("fill", "#222")
-            .attr("opacity", "0")
+            .attr("opacity", this.keepLabels ? this.labelOpacity : "0")
             .attr("pointer-events", "none")
             .text((d) => d.target.data.pathLabel)
             .each((d, i) => {
@@ -169,13 +171,13 @@ export class Ontograph {
           updatedLink
             .select("text")
             .attr("dy", "2px")
-            .attr("font-size", "8px")
+            .attr("font-size", "6px")
             .attr("paint-order", "stroke")
             .attr("stroke", "#f2f2f2")
             .attr("stroke-width", "1px")
             .attr("text-anchor", "middle")
             .attr("fill", "#222")
-            .attr("opacity", "0")
+            .attr("opacity", this.keepLabels ? this.labelOpacity : "0")
             .attr("pointer-events", "none")
             .text((d) => d.target.data.pathLabel)
             .each((d, i) => {
@@ -292,7 +294,7 @@ export class Ontograph {
                 .transition()
                 .duration(0)
                 .attr("opacity", (l) =>
-                  l == d.data.linkLabelElement ? "1" : "0"
+                  l == d.data.linkLabelElement ? "1" : this.keepLabels ? this.labelOpacity : "0"
                 );
               this.node
                 .transition()
@@ -446,6 +448,15 @@ export class Ontograph {
     else if (this.layout === "force") this.toForce();
   }
 
+  keepLabelsUpdate(value) {
+    this.keepLabels = value;
+
+    this.linkLabels
+      .transition()
+      .duration(this.mouseoverTransitionSpeed)
+      .attr("opacity", this.keepLabels ? this.labelOpacity : "0");
+  }
+
   blurHighlight() {
     this.link
       .transition()
@@ -454,7 +465,7 @@ export class Ontograph {
     this.linkLabels
       .transition()
       .duration(this.mouseoverTransitionSpeed)
-      .attr("opacity", "0");
+      .attr("opacity", this.keepLabels ? this.labelOpacity : "0");
     this.node
       .transition()
       .duration(this.mouseoverTransitionSpeed)

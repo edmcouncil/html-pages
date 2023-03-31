@@ -690,6 +690,12 @@
 
           <h2>2. Node distance</h2>
           <p>Node distance range slider determines how far nodes are placed from each other.</p>
+
+          <h2>3. Keep edge labels</h2>
+          <p>
+            The user can toggle between the edge labels being always visible or
+            if they should hide when user is not hovering over related entity.
+          </p>
         </article>
       </template>
     </GraphGuideModal>

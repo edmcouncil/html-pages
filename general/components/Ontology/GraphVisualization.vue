@@ -319,10 +319,26 @@
             @click="openGuide('guide-configuration')"
           ></div>
         </div>
-        <div>
-          <div>
+        <div class="configuration-container">
+          <div class="configuration-distance">
             <p>Node distance: {{ distanceValue }}</p>
-            <input v-model="distanceValue" type="range" min="20" max="200" step="2" class="custom-slider" @change="handleDistanceUpdate()">
+            <input v-model="distanceValue" type="range" min="10" max="300" step="2" class="custom-slider" @input="handleDistanceUpdate()">
+          </div>
+          <div class="configuration-labels">
+            <p>Display all edge labels</p>
+            <div class="custom-control custom-switch">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="keep-labels-switch"
+                v-model="isKeepLabels"
+                @change="handleKeepLabelsUpdate()"
+              />
+              <label
+                class="custom-control-label"
+                for="keep-labels-switch"
+              ></label>
+            </div>
           </div>
         </div>
       </div>
@@ -362,6 +378,7 @@ export default {
       required: true,
 
       distanceValue: 50,
+      isKeepLabels: false,
 
       alerts: [],
     };
@@ -411,6 +428,9 @@ export default {
     },
     handleDistanceUpdate() {
       this.ontograph.distanceUpdate(this.distanceValue);
+    },
+    handleKeepLabelsUpdate() {
+      this.ontograph.keepLabelsUpdate(this.isKeepLabels);
     },
     filterHandler() {
       this.ontograph.filter({
@@ -629,6 +649,17 @@ export default {
 
 .control-panel {
   padding: 30px;
+
+  .configuration-container {
+    .custom-switch {
+      margin-top: 5px;
+    }
+
+    .custom-slider {
+      margin-top: 10px;
+      margin-bottom: 25px;
+    }
+  }
 
   &.control-panel--minimal {
     .layouts-and-guide-container {
