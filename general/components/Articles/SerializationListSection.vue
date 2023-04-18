@@ -246,6 +246,10 @@ export default {
           `/${this.ontologyName}/ontology/`
         );
         const ontologyVersions = await result.json();
+
+        const first = "master/latest";
+        ontologyVersions.sort((x,y) => { return x['@id'] == first ? -1 : y['@id'] == first ? 1 : 0; });
+
         this.ontologyVersionsDropdownData.data = ontologyVersions;
 
         if (this.version !== null) {
