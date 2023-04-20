@@ -843,6 +843,12 @@ export default {
         );
         const ontologyVersions = await result.json();
         this.ontologyVersionsDropdownData.data = ontologyVersions;
+
+        // apply default branch name from configuration
+        if (this.defaultBranchName) {
+          this.ontologyVersionsDropdownData.defaultData['@id'] = this.defaultBranchName;
+        }
+
         ontologyVersions.unshift(this.ontologyVersionsDropdownData.defaultData); // add default at the beginning
 
         if (this.version !== null) {
@@ -1328,10 +1334,11 @@ export default {
       missingImportsServer: (state) => state.servers.missingImportsServer,
       ontologyServerCompare: (state) => state.servers.ontologyServerCompare,
       // configuration
-      ontologyName: (state) => state.configuration.ontpubFamily,
+      ontologyName: (state) => state.configuration.config.ontpubFamily,
       ontologyRepositoryUrl: (state) =>
-        state.configuration.ontologyRepositoryUrl,
-      uriSpace: (state) => state.configuration.uriSpace,
+        state.configuration.config.ontologyRepositoryUrl,
+      uriSpace: (state) => state.configuration.config.uriSpace,
+      defaultBranchName: (state) => state.configuration.config.defaultBranchName,
     }),
     isError() {
       return (

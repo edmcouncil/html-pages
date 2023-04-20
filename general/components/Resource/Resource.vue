@@ -92,8 +92,8 @@ export default {
   computed: {
     ...mapState({
       // configuration
-      ontologyName: (state) => state.configuration.ontpubFamily,
-      uriSpace: (state) => state.configuration.uriSpace,
+      ontologyName: (state) => state.configuration.config.ontpubFamily,
+      uriSpace: (state) => state.configuration.config.uriSpace,
     }),
     hasGraph() {
       return this.data?.graph?.nodes?.length > 1;

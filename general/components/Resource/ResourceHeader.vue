@@ -153,8 +153,8 @@ export default {
     ...mapState({
       // configuration
       ontologyRepositoryUrl: (state) =>
-        state.configuration.ontologyRepositoryUrl,
-      uriSpace: (state) => state.configuration.uriSpace,
+        state.configuration.config.ontologyRepositoryUrl,
+      uriSpace: (state) => state.configuration.config.uriSpace,
     }),
     hasDropdownMenu() {
       return (

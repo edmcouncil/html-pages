@@ -267,10 +267,10 @@ export default {
   },
   computed: {
     ontologyName() {
-      return this.$store.state.configuration.ontpubFamily.toLowerCase();
+      return this.$store.state.configuration.config.ontpubFamily.toLowerCase();
     },
     ontologyNameUppercase() {
-      return this.$store.state.configuration.ontpubFamily.toUpperCase();
+      return this.$store.state.configuration.config.ontpubFamily.toUpperCase();
     },
     hasVersions() {
       return this.ontologyVersionsDropdownData.data.length > 0;
