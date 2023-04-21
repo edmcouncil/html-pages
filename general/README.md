@@ -27,7 +27,7 @@ Strapi is used as a content managment system. This frontend application(html-pag
  - run strapi with one of the selected commands:
  
  ``` bash
- # run strapi with dev settings(it automaticly refresh panel when changes is detected)
+ # run strapi with dev settings(it automatically refresh panel when changes is detected)
  $ npm run develop
  
  # run strapi with prod settings
@@ -42,6 +42,27 @@ login: edmc-strapi@dev.com
 pwd: devDBonly1
 ```
 
+## Configuring the app in strapi
+
+This step is optional.
+
+Frontend can be configured further using the strapi instance. You can change the logo, ontology repository url, resources URISpace and more.
+
+To edit the configuration log in to your strapi instance that was created before and go to the `Content Manager` tab. There you will find the `Config` single type.
+
+In the `Config` you can see the `ontologyLogo` image field, where you can upload custom logo and the `variables` JSON field. The variables field is filled with default values. Keep in mind that the keys are case sensitive.
+
+The following values can be defined in `variables`:
+
+- `uriSpace` - resources with IRI that start with the provided value will use path based routing, other resources will use the `?query=` routing. DEFAULT: `https://spec.edmcouncil.org/fibo/ontology/`
+
+- `ontpubFamily` - ontology name which is mentioned in certain areas of the website. It should be the same as `ONTPUB_FAMILY` that will be provided through the command line later. DEFAULT: `fibo`
+
+- `defaultBranchName` - name of the default ontology version branch. DEFAULT: `current`
+
+- `ontoviewerServerUrl` - url or relative path to the onto-viewer backend. It should contain `{version}` string in it, which will be replaced with ontology version selected by user. DEFAULT: `/fibo/ontology/{version}/api/`
+
+- `ontologyRepositoryUrl` - url to the ontology's repository. It is used in the "Report a problem" button to create issues. DEFAULT: `https://github.com/edmcouncil/fibo`
 
 ## Build and run frontend
 
