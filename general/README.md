@@ -46,7 +46,7 @@ pwd: devDBonly1
 
 This step is optional.
 
-Frontend can be configured further using the strapi instance. You can change the logo, ontology repository url, resources URISpace and more.
+Frontend can be configured using the strapi instance. You can change the logo, ontology repository url, resources URISpace and more.
 
 To edit the configuration log in to your strapi instance that was created before and go to the `Content Manager` tab. There you will find the `Config` single type.
 
