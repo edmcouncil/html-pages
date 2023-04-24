@@ -131,6 +131,16 @@ export async function getAppConfigurationData() {
     data.uriSpace = response.data.data.attributes.uriSpace;
     data.ontologyRepositoryUrl = response.data.data.attributes.ontologyRepositoryUrl;
 
+    // overwrite with 'variables' data
+    const variables = response.data.data.attributes.variables;
+
+    if (variables) {
+      data = {
+        ...data,
+        ...variables
+      }
+    }
+
     // download logo
     const imgPath = response.data.data.attributes.ontologyLogo?.data?.attributes?.url;
 

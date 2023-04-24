@@ -566,10 +566,10 @@ export default {
       graphServer: (state) => state.servers.graphServer,
     }),
     uriSpace() {
-      return this.$store.state.configuration.uriSpace;
+      return this.$store.state.configuration.config.uriSpace;
     },
     ontologyName() {
-      return this.$store.state.configuration.ontpubFamily.toLowerCase();
+      return this.$store.state.configuration.config.ontpubFamily.toLowerCase();
     },
   },
 };

@@ -188,7 +188,7 @@ export default {
       return this.$store.state.headerData.menuTop;
     },
     ontologyLogoUrl () {
-      return this.$store.state.configuration.ontologyLogoUrl;
+      return this.$store.state.configuration.config.ontologyLogoUrl;
     },
     isCustomLogo() {
       return this.ontologyLogoUrl && this.ontologyLogoUrl.length > 0;

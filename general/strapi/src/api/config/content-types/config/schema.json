@@ -4,34 +4,24 @@
   "info": {
     "singularName": "config",
     "pluralName": "configs",
-    "displayName": "Config"
+    "displayName": "Config",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "ontpubFamily": {
-      "type": "string",
-      "required": true
-    },
     "ontologyLogo": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
-    "uriSpace": {
-      "type": "string",
-      "required": true
-    },
-    "ontoviewerServerUrl": {
-      "type": "string"
-    },
-    "ontologyRepositoryUrl": {
-      "type": "string"
+    "variables": {
+      "type": "json"
     }
   }
 }

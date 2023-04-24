@@ -128,10 +128,10 @@ export default {
   },
   computed: {
     ontologyName() {
-      return this.$store.state.configuration.ontpubFamily.toLowerCase();
+      return this.$store.state.configuration.config.ontpubFamily.toLowerCase();
     },
     ontologyResourcesBaseUri() {
-      return this.$store.state.configuration.uriSpace;
+      return this.$store.state.configuration.config.uriSpace;
     },
   },
 };

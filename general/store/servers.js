@@ -75,7 +75,7 @@ export default {
   actions: {
     async updateServers({ commit, state, rootState }, { route, to }) {
       let internalRoute = route;
-      let ontoviewerDefaultDomain = rootState.configuration.ontoviewerServerUrl;
+      let ontoviewerDefaultDomain = rootState.configuration.config.ontoviewerServerUrl;
       let version = null;
 
       if (to !== undefined) {
@@ -125,7 +125,7 @@ export default {
       });
     },
     async updateCompareServers({ commit, state, rootState }, { compareVersion }) {
-      let ontoviewerDefaultDomain = rootState.configuration.ontoviewerServerUrl;
+      let ontoviewerDefaultDomain = rootState.configuration.config.ontoviewerServerUrl;
       let version = null;
 
       if (compareVersion) {
