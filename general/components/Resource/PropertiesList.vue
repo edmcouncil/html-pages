@@ -15,6 +15,7 @@
             :entityMaping="field.entityMaping"
             v-bind="field"
           />
+          <SubAnnotation v-for="(subannotation, key) in field.subAnnotations" :key="key" :title="key" :subannotation="subannotation" />
         </li>
       </ul>
       <b-collapse :id="`${sectionId}-collapse`" v-model="expanded">
@@ -34,23 +35,24 @@
                 :identifier="sectionId + index"
                 v-bind="field"
               />
+              <SubAnnotation v-for="(subannotation, key) in field.subAnnotations" :key="key" :title="key" :subannotation="subannotation" />
             </li>
           </ul>
         </transition>
       </b-collapse>
     </div>
-
-    <component
-      v-else
-      v-for="field in list"
-      :key="field.id"
-      :is="field.type"
-      :value="field.value"
-      :entityMaping="field.entityMaping"
-      :class="{'has-list': field.hasList}"
-      v-bind="field"
-      class="top-level top-level--single"
-    ></component>
+    <div v-else>
+      <div v-for="field in list" :key="field.id" class="top-level top-level--single">
+        <component
+          :is="field.type"
+          :value="field.value"
+          :entityMaping="field.entityMaping"
+          :class="{'has-list': field.hasList}"
+          v-bind="field"
+        ></component>
+        <SubAnnotation v-for="(subannotation, key) in field.subAnnotations" :key="key" :title="key" :subannotation="subannotation" />
+      </div>
+    </div>
 
     <div class="see-more-btn-wrapper" v-if="list.length > limit">
       <div
