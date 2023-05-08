@@ -1,53 +1,8 @@
 <template>
   <div class="graph-section">
     <div class="control-panel control-panel--minimal">
-      <div class="layouts-and-guide-container">
-        <div ref="layoutsTitle" class="collapsible-section collapsed">
-          <div
-            class="collapsible-section-title"
-            @click="toggleLayoutsCollapsed()"
-          >
-            <h6>Layouts</h6>
-            <div class="collapse-icon"></div>
-          </div>
-
-          <div class="collapsible-section-content">
-            <button class="btn normal-button small" @click="toTree">
-              Tree
-            </button>
-            <button
-              class="btn normal-button small"
-              @click="toClusterTree"
-              :disabled="height < 2"
-            >
-              Cluster Tree
-            </button>
-            <button class="btn normal-button small" @click="toRadial">
-              Radial
-            </button>
-            <button
-              class="btn normal-button small"
-              @click="toClusterRadial"
-              :disabled="height < 2"
-            >
-              Cluster Radial
-            </button>
-            <button class="btn normal-button small" @click="toForce">
-              Force
-            </button>
-          </div>
-        </div>
-        <div class="minimal-user-guide">
-          <button
-            class="btn normal-button small"
-            @click="openGuide('guide-main')"
-          >
-            User Guide
-          </button>
-        </div>
-      </div>
-
-      <div ref="connectionsTitle" class="collapsible-section collapsed">
+      <div class="connections-and-guide-container">
+        <div ref="connectionsTitle" class="collapsible-section collapsed">
         <div
           class="collapsible-section-title"
           @click="toggleConnectionsCollapsed()"
@@ -111,9 +66,33 @@
           </div>
         </div>
       </div>
+        <div class="minimal-menu">
+          <button
+            type="button"
+            class="btn normal-button small icon-button download-png-button"
+            v-on:click="downloadAsPng()"
+          >
+            Download as PNG
+            <div class="b-icon download"></div>
+          </button>
+          <button
+            class="btn normal-button small"
+            @click="openGuide('guide-main')"
+          >
+            User Guide
+          </button>
+        </div>
+      </div>
     </div>
 
-    <div class="ontograph-minimal" ref="ontograph"></div>
+    <div class="scrollPreventedInfo" :class="{visible: scrollPreventedVisible}">
+      <div>
+        Use <kbd>CTRL/⌘</kbd> + <kbd>scroll</kbd> to zoom
+      </div>
+      <div>or open Fullscreen mode</div>
+
+    </div>
+    <div class="ontograph-minimal" ref="ontograph" @wheel="handleScrollOnMinimal()"></div>
     <div class="fullscreen-btn-wrapper row">
       <button
         type="button"
@@ -122,14 +101,6 @@
       >
         Full screen
         <div class="b-icon"></div>
-      </button>
-      <button
-        type="button"
-        class="btn normal-button icon-button fullscreen-button"
-        v-on:click="downloadAsPng()"
-      >
-        Download as PNG
-        <div class="b-icon download"></div>
       </button>
     </div>
 
@@ -155,10 +126,10 @@
       </template>
       <div class="alerts-container">
         <div class="node-alert" v-for="alert in alerts" :key="alert.id">
-          <p v-if="alert.type=='noChildren'">
+          <p v-if="alert.type == 'noChildren'">
             Child nodes not found in "{{ alert.source }}".
           </p>
-          <p v-if="alert.type=='duplicate'">
+          <p v-if="alert.type == 'duplicate'">
             Node "{{ alert.source }}" is already expanded.
           </p>
         </div>
@@ -187,7 +158,7 @@
           User Guide
         </button>
         <button
-          class="btn normal-button small icon-button fullscreen-button"
+          class="btn normal-button small icon-button download-png-button"
           v-on:click="downloadAsPng()"
         >
           Download as PNG
@@ -322,7 +293,15 @@
         <div class="configuration-container">
           <div class="configuration-distance">
             <p>Node distance: {{ distanceValue }}</p>
-            <input v-model="distanceValue" type="range" min="10" max="300" step="2" class="custom-slider" @input="handleDistanceUpdate()">
+            <input
+              v-model="distanceValue"
+              type="range"
+              min="10"
+              max="300"
+              step="2"
+              class="custom-slider"
+              @input="handleDistanceUpdate()"
+            />
           </div>
           <div class="configuration-labels">
             <p>Display all edge labels</p>
@@ -352,7 +331,7 @@
 <script>
 import { Ontograph } from "../../helpers/ontograph";
 import { mapState } from "vuex";
-const d3ToPng = require('d3-svg-to-png');
+const d3ToPng = require("d3-svg-to-png");
 
 export default {
   name: "GraphVisualization",
@@ -377,10 +356,13 @@ export default {
       optional: true,
       required: true,
 
-      distanceValue: 50,
+      distanceValue: 30,
       isKeepLabels: false,
 
       alerts: [],
+
+      scrollPreventedVisible: false, // overlay on graph when scrolling without ctrl
+      scrollPreventedTimeout: null,
     };
   },
   mounted() {
@@ -390,11 +372,21 @@ export default {
       target,
       this.navigationHandler,
       this.alertHandler,
-      this.graphServer
+      this.graphServer,
+      this.onHeightUpdate
     );
     this.height = this.ontograph.getHeight();
     this.layout = this.ontograph.getLayout();
     window.addEventListener("resize", this.onResize);
+
+    if (localStorage.distanceValue) {
+      this.distanceValue = localStorage.distanceValue;
+      this.handleDistanceUpdate();
+    }
+    if (localStorage.isKeepLabels && localStorage.isKeepLabels === "true") {
+      this.isKeepLabels = true;
+      this.handleKeepLabelsUpdate();
+    }
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize);
@@ -455,7 +447,7 @@ export default {
       this.alerts.push({
         type,
         id,
-        source
+        source,
       });
       setTimeout(() => {
         this.alerts.shift();
@@ -473,23 +465,24 @@ export default {
     sortInherited() {
       this.ontograph.sort("inherited");
     },
-      downloadAsPng(){
-      d3ToPng('svg', `${this.data.label}`, { scale: 1,
-        format: 'png',
+    downloadAsPng() {
+      d3ToPng("svg", `${this.data.label}`, {
+        scale: 1,
+        format: "png",
         quality: 1,
         download: false,
-      background: 'white'})
-      .then(fileData => {
-        var download = document.createElement('a');
+        background: "white",
+      }).then((fileData) => {
+        var download = document.createElement("a");
         download.href = fileData;
         download.download = `${this.data.label}.png`;
         download.click();
-  //do something with the data
-});;
+      });
     },
     showModal() {
       this.fullscreen = true;
       this.ontograph.setControlPanelOpen(this.isControlPanelOpen);
+      this.ontograph.setIsFullscreen(this.fullscreen);
     },
     hideModal() {
       const ontograph = this.$refs.ontograph;
@@ -500,6 +493,7 @@ export default {
       this.fullscreen = false;
       this.ontograph.setControlPanelOpen(false);
       this.ontograph.resizeHandler(ontograph);
+      this.ontograph.setIsFullscreen(this.fullscreen);
     },
     toggleConnectionsCollapsed() {
       this.$refs.connectionsTitle.classList.toggle("collapsed");
@@ -560,6 +554,16 @@ export default {
         this.ontograph.resizeHandler(target);
       }, 300);
     },
+    onHeightUpdate() {
+      this.height = this.ontograph.getHeight();
+    },
+    handleScrollOnMinimal() {
+      this.scrollPreventedVisible = true;
+      clearTimeout(this.scrollPreventedTimeout);
+      this.scrollPreventedTimeout = setTimeout(() => {
+        this.scrollPreventedVisible = false;
+      }, 1500);
+    }
   },
   computed: {
     ...mapState({
@@ -572,12 +576,21 @@ export default {
       return this.$store.state.configuration.config.ontpubFamily.toLowerCase();
     },
   },
+  watch: {
+    "distanceValue": (newValue) => {
+      localStorage.distanceValue = newValue;
+    },
+    "isKeepLabels": (newValue) => {
+      localStorage.isKeepLabels = newValue;
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .graph-section {
   background: rgba(0, 0, 0, 0.05);
+  position: relative;
 }
 
 .normal-button.small {
@@ -614,7 +627,7 @@ export default {
   pointer-events: none;
 
   p {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -662,9 +675,14 @@ export default {
   }
 
   &.control-panel--minimal {
-    .layouts-and-guide-container {
+    .connections-and-guide-container {
       display: flex;
       justify-content: space-between;
+    }
+
+    .minimal-menu {
+      display: flex;
+      align-items: flex-start;
     }
   }
 
@@ -737,9 +755,40 @@ export default {
   }
 }
 
+.scrollPreventedInfo {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 700px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: large;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  transition: opacity 0.5s;
+
+  pointer-events: none;
+
+  kbd {
+    margin: 0 5px 0 5px;
+    border: 1px solid white;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &.visible {
+    opacity: 1;
+  }
+}
+
 .ontograph-minimal {
   width: 100%;
-  height: 500px;
+  height: 700px;
   overflow: hidden;
 
   .node text {
@@ -765,8 +814,8 @@ export default {
 
 .fullscreen-btn-wrapper {
   position: absolute;
-  bottom: 100px;
-  left: 100px;
+  bottom: 40px;
+  left: 40px;
 }
 
 .fullscreen-button {
@@ -775,8 +824,13 @@ export default {
   .b-icon {
     background-image: url("../../assets/icons/maximize.svg");
   }
+}
+
+.download-png-button {
   .b-icon.download {
     background-image: url("../../assets/icons/download.svg");
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -797,7 +851,6 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    margin-bottom: 20px;
     .custom-control {
       padding-right: 40px;
       // padding-bottom: 15px;
@@ -886,11 +939,11 @@ export default {
 .node-loader {
   animation: rotate 2s linear infinite;
   stroke: #fff;
-  }
-  .node-loader__circle {
-    stroke: rgba(0, 0, 0, 0.8);
-    stroke-linecap: round;
-    animation: dash 1.5s ease-in-out infinite;
+}
+.node-loader__circle {
+  stroke: rgba(0, 0, 0, 0.8);
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
 }
 
 @keyframes rotate {
@@ -982,16 +1035,21 @@ export default {
     }
   }
 }
+@media (min-width: 1300px) {
+  .minimal-menu {
+    position: absolute;
+    right: 20px;
+  }
+}
 
 @media (max-width: 1300px) {
-  .control-panel--minimal {
-    .layouts-and-guide-container {
+  .control-panel.control-panel--minimal {
+    .connections-and-guide-container {
       flex-direction: column-reverse;
       align-items: stretch;
 
       button {
-        margin: 0 0 45px 0 !important;
-        width: 100%;
+        margin: 0 10px 45px 0 !important;
       }
     }
   }
