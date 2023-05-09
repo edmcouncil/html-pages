@@ -4,7 +4,7 @@ export class Ontograph {
   layout = "force";
   transitionSpeed = 400;
   mouseoverTransitionSpeed = 300;
-  distance = 50;
+  distance = 30;
   keepLabels = false;
   labelOpacity = 0.8;
   alertId = 0;
@@ -14,12 +14,14 @@ export class Ontograph {
     optional: true,
     required: true,
   };
+  isFullscreen = false;
 
-  constructor(data, target, navigationHandler, alertHandler, graphServer) {
+  constructor(data, target, navigationHandler, alertHandler, graphServer, onHeightUpdate) {
     this.target = target;
     this.nav = navigationHandler;
     this.alertHandler = alertHandler;
     this.graphServer = graphServer;
+    this.onHeightUpdate = onHeightUpdate;
 
     this.lastId = data.graph.lastId;
 
@@ -31,8 +33,7 @@ export class Ontograph {
       .parentId((d) => d.from)(this.parsedNodes);
 
     this.root.each((node) => {
-      if (node.children)
-        node._totalChildren = node.children;
+      if (node.children) node._totalChildren = node.children;
     });
 
     this.links = this.root.links();
@@ -52,15 +53,28 @@ export class Ontograph {
     this.initNodes();
     this.toForce();
 
+    // zoom specific functions
+    const that = this;
+    function wheelDelta(event) {
+      return -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002);
+    }
+    function filter(event) {
+      return that.isFullscreen || event.ctrlKey || event.metaKey || event.type === 'mousedown';
+    }
+
     const zoomHandler = (e) => {
       this.svg.select(".links").attr("transform", e.transform);
       this.svg.select(".nodes").attr("transform", e.transform);
     };
 
-    this.zoomController = d3.zoom().on("zoom", zoomHandler);
+    this.zoomController = d3.zoom().on("zoom", zoomHandler).filter(filter).wheelDelta(wheelDelta);
     this.svg.call(this.zoomController).on("dblclick.zoom", null);
 
     target.append(this.svg.node());
+
+    setTimeout(() => {
+      this.center(120);
+    }, 1000);
   }
 
   parseNodes(graphData) {
@@ -238,9 +252,13 @@ export class Ontograph {
           const newNode = enter
             .append("g")
             .attr("class", "node")
+            .attr("id", (d) => `node-id-${d.data.id}`)
             .attr(
               "transform",
-              (d) => `translate(${at ? at.x : d.parent ? d.parent.x : d.x},${at ? at.y : d.parent ? d.parent.y : d.y})`
+              (d) =>
+                `translate(${at ? at.x : d.parent ? d.parent.x : d.x},${
+                  at ? at.y : d.parent ? d.parent.y : d.y
+                })`
             );
 
           newNode
@@ -294,7 +312,11 @@ export class Ontograph {
                 .transition()
                 .duration(0)
                 .attr("opacity", (l) =>
-                  l == d.data.linkLabelElement ? "1" : this.keepLabels ? this.labelOpacity : "0"
+                  l == d.data.linkLabelElement
+                    ? "1"
+                    : this.keepLabels
+                    ? this.labelOpacity
+                    : "0"
                 );
               this.node
                 .transition()
@@ -424,8 +446,8 @@ export class Ontograph {
           .forceManyBody()
           .strength(
             (d) =>
-              (-this.distance * 30 * (d.parent ? 1 : 5)) /
-              (d.children ? 0.5 : 3)
+              (-this.distance * 30 * (d.parent ? 1 : 4)) /
+              (d.children ? 1 : 3)
           )
       )
       .force("center", d3.forceCenter().strength(0.2))
@@ -436,6 +458,10 @@ export class Ontograph {
 
   setControlPanelOpen(isControlPanelOpen) {
     this.isControlPanelOpen = isControlPanelOpen;
+  }
+
+  setIsFullscreen(isFullscreen) {
+    this.isFullscreen = isFullscreen;
   }
 
   distanceUpdate(value) {
@@ -480,22 +506,26 @@ export class Ontograph {
     }, this.transitionSpeed);
 
     if (type === "az") {
-      this.root.each(d => {
+      this.root.each((d) => {
         d._totalChildren?.sort((a, b) =>
           d3.ascending(a.data.nodeLabel, b.data.nodeLabel)
         );
       });
     } else if (type === "height") {
-      this.root.each(d => {
+      this.root.each((d) => {
         d._totalChildren?.sort((a, b) => d3.descending(a.height, b.height));
       });
     } else if (type === "type") {
-      this.root.each(d => {
-        d._totalChildren?.sort((a, b) => d3.descending(a.data.type, b.data.type));
+      this.root.each((d) => {
+        d._totalChildren?.sort((a, b) =>
+          d3.descending(a.data.type, b.data.type)
+        );
       });
     } else if (type === "inherited") {
-      this.root.each(d => {
-        d._totalChildren?.sort((a, b) => d3.descending(a.data.dashes, b.data.dashes));
+      this.root.each((d) => {
+        d._totalChildren?.sort((a, b) =>
+          d3.descending(a.data.dashes, b.data.dashes)
+        );
       });
     }
 
@@ -507,11 +537,9 @@ export class Ontograph {
     let { external, internal, optional, required } = filters;
 
     this.root.each((d) => {
-      if(!d._totalChildren)
-        return;
+      if (!d._totalChildren) return;
 
-      if(d._children)
-        return;
+      if (d._children) return;
 
       let totalChildren = d._totalChildren;
 
@@ -536,7 +564,7 @@ export class Ontograph {
       d._children = null;
       d._filtered = filteredOut;
 
-      if(d.children.length == 0) {
+      if (d.children.length == 0) {
         delete d.children;
       }
     });
@@ -684,8 +712,7 @@ export class Ontograph {
         d.children = childRoot.children;
 
         d.each((node) => {
-          if (node.children)
-            node._totalChildren = node.children;
+          if (node.children) node._totalChildren = node.children;
         });
 
         // update all heights
@@ -734,6 +761,8 @@ export class Ontograph {
         node.y = d.y + (0.5 - Math.random()) * 100;
       });
     }
+
+    this.onHeightUpdate();
   }
 
   changeLayoutTo(to) {
@@ -1014,30 +1043,35 @@ export class Ontograph {
 
     setTimeout(() => {
       this.simulation.alphaTarget(0);
-    }, 150);
+    }, 250);
   }
 
-  center() {
+  center(margin) {
     this.simulation.stop();
     const nodesBBox = this.svg.select(".nodes").node().getBBox();
 
     const midX = nodesBBox.x + nodesBBox.width / 2;
     const midY = nodesBBox.y + nodesBBox.height / 2;
 
-    const margin = 60;
+    const finalMargin = margin ? margin : 60;
     const controlPanelOffset = this.isControlPanelOpen ? 300 : 0;
 
-    const scaleX = (this.width - controlPanelOffset - margin) / nodesBBox.width;
-    const scaleY = (this.height - margin) / nodesBBox.height;
+    const scaleX = (this.width - controlPanelOffset - finalMargin) / nodesBBox.width;
+    const scaleY = (this.height - finalMargin) / nodesBBox.height;
     const scale = d3.min([scaleX, scaleY]);
 
+    this.centerAtAndZoom(midX, midY, scale);
+  }
+
+  centerAtAndZoom(x, y, scale) {
+    const controlPanelOffset = this.isControlPanelOpen ? 300 : 0;
     this.svg
       .transition()
       .duration(this.transitionSpeed)
       .call(
         this.zoomController.transform,
         d3.zoomIdentity
-          .translate(-midX * scale - controlPanelOffset / 2, -midY * scale)
+          .translate(-x * scale - controlPanelOffset / 2, -y * scale)
           .scale(scale)
       );
   }

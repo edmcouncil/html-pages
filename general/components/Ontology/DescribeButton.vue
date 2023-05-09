@@ -182,13 +182,6 @@ export default {
         this.copied = false;
       }, 1500);
     },
-    clipboardSuccessHandler ({ value, event }) {
-      console.log('success', value)
-    },
-
-    clipboardErrorHandler ({ value, event }) {
-      console.log('error', value)
-    }
   },
   computed: {
     ...mapState({
