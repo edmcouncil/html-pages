@@ -11,7 +11,7 @@ For details, go to the appropriate folder and read the README file contained the
 
 ## Run with command line
 
-To run individual pages from the command inia, look at the README files given above.
+To run individual pages from the command line, look at the README files given above.
 
 ## Run with docker
 
@@ -19,7 +19,7 @@ Using docker compose, the pages run without additional user intervention. The sc
 The script prepare and publish on localhost 3 pages: 
 - `home` - templates on `http:localhost:8080`
 - `general` - templates on `http:localhost:8081/fibo`
-- `strapi` - required service for `general` templates with fibo database on `http://localhost:1337/admin`
+- `strapi` - required service for `general` pages with fibo database on `http://localhost:1337/admin`
 
 To start and rebuild all containers use command:
 
