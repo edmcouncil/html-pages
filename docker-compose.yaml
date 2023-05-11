@@ -1,42 +1,20 @@
 version: "3.7"
 services:
   home:
-    profiles: ["home"]
     build:
       context: ./home
-      dockerfile: ../Dockerfile
     ports:
       - 8080:8080
     volumes:
       - ./home:/project
       - /project/node_modules
-  fibo:
-    profiles: ["fibo"]
+  strapi: 
     build:
-      context: ./fibo
-      dockerfile: ../Dockerfile
-    ports:
-      - 8080:8080
-    volumes:
-      - ./fibo:/project
-      - /project/node_modules
-  auto:
-    profiles: ["auto"]
-    build:
-      context: ./auto
-      dockerfile: ../Dockerfile
-    ports:
-      - 8080:8080
-    volumes:
-      - ./auto:/project
-      - /project/node_modules
-  idmp:
-    profiles: ["idmp"]
-    build:
-      context: ./idmp
-      dockerfile: ../Dockerfile
-    ports:
-      - 8080:8080
-    volumes:
-      - ./idmp:/project
-      - /project/node_modules
+      context: ./general/strapi
+    ports: 
+      - 1337:1337
+  general: 
+    build: 
+      context: ./general
+    ports: 
+      - 8081:3000

@@ -2,8 +2,6 @@ FROM node:16-alpine
 
 RUN apk update && \
     apk upgrade && \
-    apk add git g++ gcc libgcc libstdc++ linux-headers make python3 && \
-    apk update && \
     npm install npm@latest -g && \
     yarn global add @vue/cli
 
