@@ -1,7 +1,7 @@
 <template>
   <span v-if="found">
     {{ textBefore }}<!--
-    --><span class="resource-text-tooltip" :id="elementId">{{ textWrapped }}<Tooltip :target="elementId" :text="tooltipText" /></span><!--
+    --><span class="resource-text-tooltip" ref="resourceTextTooltip">{{ textWrapped }}<Tooltip :targetRef="() => $refs['resourceTextTooltip']" :text="tooltipText" /></span><!--
     -->{{ textAfter }}
   </span>
   <span v-else>
@@ -13,7 +13,6 @@
 export default {
   name: 'TooltipText',
   props: [
-    'elementId',
     'tooltipText',
     'content',
     'defining'

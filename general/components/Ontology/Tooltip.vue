@@ -1,5 +1,5 @@
 <template>
-  <b-tooltip :target="target" placement="bottom" :delay="50" :noninteractive="true">
+  <b-tooltip :target="targetRef ? targetRef : target" placement="bottom" :delay="50" :noninteractive="true">
     {{ text }}
   </b-tooltip>
 </template>
@@ -9,6 +9,7 @@ export default {
   name: 'Tooltip',
   props: [
     'target',
+    'targetRef',
     'text'
   ],
 };

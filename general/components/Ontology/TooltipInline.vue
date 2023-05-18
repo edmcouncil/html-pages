@@ -1,6 +1,6 @@
 <template>
-  <div class="resource-inline-tooltip" :id="elementId">
-    <Tooltip :target="elementId" :text="text" />
+  <div class="resource-inline-tooltip" ref="resourceInlineTooltip">
+    <Tooltip :targetRef="() => $refs['resourceInlineTooltip']" :text="text" />
   </div>
 </template>
 
@@ -8,7 +8,6 @@
 export default {
   name: 'TooltipInline',
   props: [
-    'elementId',
     'text'
   ],
 };

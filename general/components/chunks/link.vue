@@ -15,7 +15,6 @@
     name
   }}<TooltipInline
     v-if="isDeprecated === 'true'"
-    :elementId="`inline-tooltip-link-${name}`"
     :text="tooltips['deprecated']"
   /></nuxt-link>
   <nuxt-link
@@ -34,7 +33,6 @@
     name
   }}<TooltipInline
       v-if="isDeprecated === 'true'"
-      :elementId="`inline-tooltip-link-${name}`"
       :text="tooltips['deprecated']"
     /></nuxt-link>
 </template>

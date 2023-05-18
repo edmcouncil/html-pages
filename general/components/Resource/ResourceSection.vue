@@ -22,21 +22,18 @@
             >
               <TooltipText
                 v-if="name == 'generated description'"
-                elementId="inline-tooltip-generated-description"
                 :tooltipText="tooltips['generated description']"
                 :content="name"
                 defining="generated description"
               />
               <TooltipText
                 v-else-if="name.includes('external')"
-                :elementId="`inline-tooltip-external-${name}`"
                 :tooltipText="tooltips['external']"
                 :content="name"
                 defining="external"
               />
               <TooltipText
                 v-else-if="name.includes('internal')"
-                :elementId="`inline-tooltip-internal-${name}`"
                 :tooltipText="tooltips['internal']"
                 :content="name"
                 defining="internal"
@@ -71,21 +68,18 @@
             >
             <TooltipText
                 v-if="name == 'generated description'"
-                elementId="inline-tooltip-generated-description"
                 :tooltipText="tooltips['generated description']"
                 :content="name"
                 defining="generated description"
               />
               <TooltipText
                 v-else-if="name.includes('external')"
-                :elementId="`inline-tooltip-external-${name}`"
                 :tooltipText="tooltips['external']"
                 :content="name"
                 defining="external"
               />
               <TooltipText
                 v-else-if="name.includes('internal')"
-                :elementId="`inline-tooltip-internal-${name}`"
                 :tooltipText="tooltips['internal']"
                 :content="name"
                 defining="internal"
