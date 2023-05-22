@@ -11,7 +11,12 @@
     }"
     @click.native="linkClickNative"
     :class="{'deprecated': isDeprecated === 'true'}"
-  >{{ name }}</nuxt-link>
+  >{{
+    name
+  }}<TooltipInline
+    v-if="isDeprecated === 'true'"
+    :text="tooltips['deprecated']"
+  /></nuxt-link>
   <nuxt-link
     v-else
     :to="{
@@ -24,12 +29,25 @@
       },
     }"
     :class="{'deprecated': isDeprecated === 'true'}"
-  >{{ name }}</nuxt-link>
+  >{{
+    name
+  }}<TooltipInline
+      v-if="isDeprecated === 'true'"
+      :text="tooltips['deprecated']"
+    /></nuxt-link>
 </template>
+
 <script>
+import tooltips from '../../constants/tooltips';
+
 export default {
   name: 'customLink',
   props: {name: String, query: String, isDeprecated: String, customLinkOnClick: Function},
+  data() {
+    return {
+      tooltips,
+    }
+  },
   methods: {
     linkClickNative(event) {
       if(this.customLinkOnClick !== undefined){

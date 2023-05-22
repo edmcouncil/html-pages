@@ -15,7 +15,33 @@
           :key="name"
         >
           <dt class="col-md-2 col-sm-12">
-            <div class="content-item__title sticky-top" :class="{ isComparing }">{{ name }}</div>
+            <div
+              class="content-item__title sticky-top"
+              :class="{ isComparing }"
+              :id="`content-item__title-${name}`"
+            >
+              <TooltipText
+                v-if="name == 'generated description'"
+                :tooltipText="tooltips['generated description']"
+                :content="name"
+                defining="generated description"
+              />
+              <TooltipText
+                v-else-if="name.includes('external')"
+                :tooltipText="tooltips['external']"
+                :content="name"
+                defining="external"
+              />
+              <TooltipText
+                v-else-if="name.includes('internal')"
+                :tooltipText="tooltips['internal']"
+                :content="name"
+                defining="internal"
+              />
+              <span v-else>
+                {{ name }}
+              </span>
+            </div>
           </dt>
           <dd class="col-md-10 col-sm-12">
             <PropertiesListCompare
@@ -35,7 +61,33 @@
           :key="name"
         >
           <dt class="col-md-3 col-sm-12">
-            <div class="content-item__title sticky-top" :class="{ isComparing }">{{ name }}</div>
+            <div
+              class="content-item__title sticky-top"
+              :class="{ isComparing }"
+              :id="`content-item__title-${name}`"
+            >
+            <TooltipText
+                v-if="name == 'generated description'"
+                :tooltipText="tooltips['generated description']"
+                :content="name"
+                defining="generated description"
+              />
+              <TooltipText
+                v-else-if="name.includes('external')"
+                :tooltipText="tooltips['external']"
+                :content="name"
+                defining="external"
+              />
+              <TooltipText
+                v-else-if="name.includes('internal')"
+                :tooltipText="tooltips['internal']"
+                :content="name"
+                defining="internal"
+              />
+              <span v-else>
+                {{ name }}
+              </span>
+            </div>
           </dt>
           <dd class="col-md-9 col-sm-12">
             <PropertiesList
@@ -53,12 +105,9 @@
 </template>
 
 <script>
-import PropertiesList from './PropertiesList';
+import tooltips from '../../constants/tooltips';
 
 export default {
-  components: {
-    PropertiesList
-  },
   name: 'ResourceSection',
   props: [
     'section',
@@ -69,6 +118,7 @@ export default {
   data() {
     return {
       collapsed: false,
+      tooltips,
     }
   },
   methods: {
