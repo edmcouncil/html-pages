@@ -1,0 +1,3 @@
+db/*.db
+db/*.uploads
+node_modules

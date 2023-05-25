@@ -223,10 +223,11 @@ export default {
       ? process.env.VUE_RESOURCES_BASE_URL.replace(
           "pistoiaalliance",
           "edmcouncil"
-        ) + "master/v0.1.0/api"
+        ) + "*/*/api"
       : process.env.VUE_BASE_URL +
         process.env.VUE_ONTOLOGY_NAME +
-        "/ontology/master/v0.1.0/api",
+        "/ontology/*/*/api",
+      ['/'+process.env.VUE_ONTOLOGY_NAME+'/strapi',{target:process.env.STRAPI_URL,pathRewrite:{'^/[^\/]+/strapi':''}}],
   ],
 
   styleResources: {

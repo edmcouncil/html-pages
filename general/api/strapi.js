@@ -13,7 +13,8 @@ export async function getStrapiSingleType(singleTypeName, populateParams) {
   );
 
   let response = await axios.get(
-    `${process.env.strapiBaseUrl}/api/${singleTypeName}?${query}`
+    `/api/${singleTypeName}?${query}`,
+    {baseURL: (typeof window !== 'undefined') ? window.location.origin + `/${process.env.ontologyName}/strapi` : `${process.env.strapiBaseUrl}`}
   );
 
   // save image and edit response to use downloaded image instead of link to strapi resources
@@ -39,7 +40,8 @@ export async function getStrapiElementFromCollection(
   });
 
   let response = await axios.get(
-    `${process.env.strapiBaseUrl}/api/${collectionName}?${query}`
+    `/api/${collectionName}?${query}`,
+    {baseURL: (typeof window !== 'undefined') ? window.location.origin + `/${process.env.ontologyName}/strapi` : `${process.env.strapiBaseUrl}`}
   );
 
   // save image and edit response to use downloaded image instead of link to strapi resources
@@ -62,7 +64,8 @@ export function getStrapiCollection(
   });
   // currently only release notes is processed in this function, so we don't need to download images, they don't have them
   return axios.get(
-    `${process.env.strapiBaseUrl}/api/${collectionName}?${query}`
+    `/api/${collectionName}?${query}`,
+    {baseURL: (typeof window !== 'undefined') ? window.location.origin + `/${process.env.ontologyName}/strapi` : `${process.env.strapiBaseUrl}`}
   );
 }
 

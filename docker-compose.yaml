@@ -1,20 +1,58 @@
-version: "3.7"
 services:
-  home:
-    build:
-      context: ./home
-    ports:
-      - 8080:8080
-    volumes:
-      - ./home:/project
-      - /project/node_modules
-  strapi: 
+  fibo-strapi:
+    environment:
+      - ONTPUB_FAMILY=fibo
+      - PRODUCT=htmlpages
+      - BRANCH_NAME=develop
+      - TAG_NAME=latest
     build:
       context: ./general/strapi
-    ports: 
-      - 1337:1337
-  general: 
-    build: 
+      args:
+        - ONTPUB_FAMILY=fibo
+        - PRODUCT=htmlpages
+        - BRANCH_NAME=develop
+        - TAG_NAME=latest
+    volumes:
+      - ./general/strapi:/strapi
+      - opt:/opt
+  fibo-pages:
+    environment:
+      - ONTPUB_FAMILY=fibo
+      - PRODUCT=htmlpages
+      - BRANCH_NAME=develop
+      - TAG_NAME=latest
+      - STRAPI_URL=http://fibo-strapi:1337
+    build:
       context: ./general
-    ports: 
-      - 8081:3000
+      args:
+        - ONTPUB_FAMILY=fibo
+        - PRODUCT=htmlpages
+        - BRANCH_NAME=develop
+        - TAG_NAME=latest
+        - STRAPI_URL=http://fibo-strapi:1337
+    volumes:
+      - opt:/opt
+    depends_on:
+      - fibo-strapi
+  nginx:
+    environment:
+      - PRODUCT=htmlpages
+      - BRANCH_NAME=develop
+      - TAG_NAME=latest
+    build:
+      context: ./home
+      args:
+        - PRODUCT=htmlpages
+        - BRANCH_NAME=develop
+        - TAG_NAME=latest
+    volumes:
+      - ./general/strapi:/strapi
+      - opt:/opt
+    depends_on:
+      - fibo-strapi
+      - fibo-pages
+    ports:
+      - 8080:80
+
+volumes:
+  opt:

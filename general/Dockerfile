@@ -1,33 +1,37 @@
-FROM node:16-alpine
+FROM	node:18-alpine
 
-# create destination directory
-RUN mkdir -p /usr/src/nuxt-app
-WORKDIR /usr/src/nuxt-app
+ARG	NODE_ENV	development
+ARG	ONTPUB_FAMILY
+ARG	PRODUCT		htmlpages
+ARG	BRANCH_NAME	develop
+ARG	TAG_NAME	latest
 
-# update and install dependency
-RUN apk update && apk upgrade
-RUN apk add git
 
-# copy the app, note .dockerignore
-COPY . /usr/src/nuxt-app/
-RUN npm install
+RUN	apk --no-cache add --upgrade apk-tools bash curl jq rsync xz && apk --no-cache upgrade && \
+	apk --no-cache add --virtual build-dependencies git g++ gcc libgcc libstdc++ linux-headers make && \
+	npm install -g npm@latest && \
+	npm install -g @vue/cli && \
+	apk --no-cache del build-dependencies && \
+	install -dv /opt && install -dv /strapi && \
+	install -dv /project && ln -sf /project/node_modules/.bin /usr/local/sbin
 
-# build necessary, even if no static files are needed,
-# since it builds the server as well
-RUN npm run build
+ENV	ONTPUB_FAMILY	${ONTPUB_FAMILY}
+ENV	PRODUCT		${PRODUCT}
+ENV	BRANCH_NAME	${BRANCH_NAME}
+ENV	TAG_NAME	${TAG_NAME}
 
-# expose 3000 on container
-EXPOSE 3000
+ENV HOST	0.0.0.0
+ENV NODE_PATH	/usr/local/lib/node_modules
+ENV DISABLE_ESLINT_PLUGIN	true
+ENV PUBLIC_URL	0.0.0.0
+ENV NUXT_PORT	80
+ENV NODE_ENV	${NODE_ENV}
 
-# set app serving to permissive / assigned
-ENV PUBLIC_URL=0.0.0.0
+WORKDIR /project
+COPY	.	/project/
+ENV NODE_OPTIONS	--openssl-legacy-provider
+RUN	npm install && npm run build
+#	ln -s ${PRODUCT}/${BRANCH_NAME}/${TAG_NAME}/_nuxt dist/${ONTPUB_FAMILY}/${PRODUCT}/${BRANCH_NAME}/${TAG_NAME}/_nuxt
+CMD	["npm","run","dev"]
 
-# set app port
-ENV NUXT_PORT=3000
-
-ENV ONTPUB_FAMILY=fibo
-
-ENV STRAPI_URL=http://strapi:1337
-
-# start the app
-CMD [ "npm", "run" ,"dev" ]
+HEALTHCHECK --start-period=60s --interval=5s --timeout=1s --retries=60	CMD curl -f http://127.0.0.1/
