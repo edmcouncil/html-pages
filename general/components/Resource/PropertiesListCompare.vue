@@ -12,6 +12,7 @@
             :is="field.left.type"
             :value="field.left.value"
             :entityMaping="field.left.entityMaping"
+            :entityLabel="field.left.entityLabel"
             v-bind="field.left"
             :class="{ 'has-list': field.left.hasList }"
             class="top-level top-level--list compare-left col-6"
@@ -44,6 +45,7 @@
                 :is="field.left.type"
                 :value="field.left.value"
                 :entityMaping="field.left.entityMaping"
+                :entityLabel="field.left.entityLabel"
                 :identifier="sectionId + index"
                 v-bind="field.left"
                 :class="{ 'has-list': field.left.hasList }"
@@ -70,6 +72,7 @@
         :is="field.left.type"
         :value="field.left.value"
         :entityMaping="field.left.entityMaping"
+        :entityLabel="field.left.entityLabel"
         :class="{ 'has-list': field.left.hasList }"
         v-bind="field.left"
         class="top-level top-level--single compare-left col-6"
@@ -130,6 +133,7 @@ export default {
     ANY_URI: () =>
       import(/* webpackChunkName: "ANY_URI" */ "../chunks/ANY_URI"),
     EMPTY: () => import(/* webpackChunkName: "EMPTY" */ "../chunks/EMPTY"),
+    OWL_LABELED_MULTI_AXIOM: () => import(/* webpackChunkName: "OWL_LABELED_MULTI_AXIOM" */ '../chunks/OWL_LABELED_MULTI_AXIOM'),
   },
   name: "PropertiesListCompare",
   props: [
@@ -172,6 +176,9 @@ export default {
           (Array.isArray(item.value) && item.value && item.value.length > 1) ||
           item.fullRenderedString?.includes("<br />")
         )
+          item.hasList = true;
+      } else if (item.type === "OWL_LABELED_MULTI_AXIOM") {
+        if (Array.isArray(item.value) && item.value && item.value.length > 0)
           item.hasList = true;
       } else if (item.type === "STRING") {
         if (

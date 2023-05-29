@@ -10,6 +10,7 @@
         :is="subannotation.type"
         :value="subannotation.value"
         :entityMaping="subannotation.entityMaping"
+        :entityLabel="subannotation.entityLabel"
         v-bind="subannotation"
       ></component>
     </div>
@@ -34,6 +35,7 @@ export default {
         /* webpackChunkName: "INSTANCES" */ '../chunks/INSTANCES'
       ),
     ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ '../chunks/ANY_URI'),
+    OWL_LABELED_MULTI_AXIOM: () => import(/* webpackChunkName: "OWL_LABELED_MULTI_AXIOM" */ '../chunks/OWL_LABELED_MULTI_AXIOM'),
   },
   name: 'SubAnnotation',
   props: ['title', 'subannotation']

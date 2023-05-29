@@ -1,15 +1,21 @@
 import { diff } from 'json-diff';
 import { compareTwoStrings } from 'string-similarity';
 
-const exactMatchTypes = ['AXIOM', 'DIRECT_SUBCLASSES', 'INSTANCES', 'MODULES', 'IRI'];
+const exactMatchTypes = ['AXIOM', 'DIRECT_SUBCLASSES', 'INSTANCES', 'MODULES', 'IRI', 'OWL_LABELED_MULTI_AXIOM'];
 
 function getRenderedList(item) {
   if (item.type === "AXIOM") {
-    const lines = item.fullRenderedString.split("<br />");
+    let lines = item.fullRenderedString.split("<br />");
+    lines = lines.map(item => item.trim());
     for (let i = 0; i < lines.length; i++) {
       if (lines[i].startsWith('- '))
         lines[i] = lines[i].substring(2);
     }
+    return {type: item.type, lines};
+  }
+  else if (item.type === "OWL_LABELED_MULTI_AXIOM") {
+    const linesFromValue = item.value.map(item => item.fullRenderedString);
+    const lines = [item.entityLabel.label, ...linesFromValue];
     return {type: item.type, lines};
   }
   else if (item.type === "STRING") {
@@ -151,8 +157,6 @@ export function mergeData(data1, data2) {
           continue;
         for (let j = 0; j < titleAsLines2.length; j++) {
           const comparedItem = titleAsLines2[j];
-          if (comparedItem.type != currentType)
-            continue;
           if (current.lines[0] == comparedItem.lines[0]) {
             matches.push([current, comparedItem]);
             titleAsLines1.splice(i, 1);
@@ -183,7 +187,7 @@ export function mergeData(data1, data2) {
               '~',
               {
                 lines: linesDiff,
-                type: match[0].type
+                type: match[1].type
               }
             ])
           else
@@ -191,7 +195,7 @@ export function mergeData(data1, data2) {
               ' ',
               {
                 lines: linesDiff,
-                type: match[0].type
+                type: match[1].type
               }
             ])
         }
@@ -246,6 +250,17 @@ export function mergeData(data1, data2) {
           }
           return 0;
         })
+        data2.properties?.[section]?.[title]?.sort((x, y) => {
+          const comparedValue1 = getRenderedList(x).lines[0];
+          const comparedValue2 = getRenderedList(y).lines[0];
+          if (comparedValue1.toLowerCase() < comparedValue2.toLowerCase()) {
+            return -1;
+          }
+          if (comparedValue1.toLowerCase() > comparedValue2.toLowerCase()) {
+            return 1;
+          }
+          return 0;
+        })
       }
       else {
         titleDiff = diff(titleAsLines1, titleAsLines2, { full: true, excludeKeys: 'originalData' });
@@ -264,7 +279,7 @@ export function mergeData(data1, data2) {
           const originalChunk = data1.properties[section][title][i];
 
           if (isChangeItem(itemsFromOriginal[i])) {
-            if (originalChunk.id == i) {
+            if (originalChunk) {
               itemsFromOriginal[i][1].originalData = originalChunk;
             } else {
               itemsFromOriginal[i][1].originalData = {
@@ -273,7 +288,7 @@ export function mergeData(data1, data2) {
               };
             }
           } else {
-            if (originalChunk.id == i) {
+            if (originalChunk) {
               itemsFromOriginal[i].originalData = originalChunk;
             } else {
               itemsFromOriginal[i].originalData = {
