@@ -137,6 +137,9 @@ export default {
       if (item.type === "AXIOM" && item.fullRenderedString?.includes("<br />")) {
         item.hasList = true;
       }
+      else if (item.type === "OWL_LABELED_MULTI_AXIOM" && Array.isArray(item.value) && item.value && item.value.length > 0) {
+        item.hasList = true;
+      }
       else if (item.type === "STRING" && item.value?.includes("\n")) {
         item.hasList = true;
       }
