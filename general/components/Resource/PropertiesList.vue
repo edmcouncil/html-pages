@@ -13,6 +13,7 @@
             :is="field.type"
             :value="field.value"
             :entityMaping="field.entityMaping"
+            :entityLabel="field.entityLabel"
             v-bind="field"
           />
           <SubAnnotation v-for="(subannotation, key) in field.subAnnotations" :key="key" :title="key" :subannotation="subannotation" />
@@ -32,6 +33,7 @@
                 :is="field.type"
                 :value="field.value"
                 :entityMaping="field.entityMaping"
+                :entityLabel="field.entityLabel"
                 :identifier="sectionId + index"
                 v-bind="field"
               />
@@ -47,6 +49,7 @@
           :is="field.type"
           :value="field.value"
           :entityMaping="field.entityMaping"
+          :entityLabel="field.entityLabel"
           :class="{'has-list': field.hasList}"
           v-bind="field"
         ></component>
@@ -93,6 +96,7 @@ export default {
         /* webpackChunkName: "INSTANCES" */ '../chunks/INSTANCES'
       ),
     ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ '../chunks/ANY_URI'),
+    OWL_LABELED_MULTI_AXIOM: () => import(/* webpackChunkName: "OWL_LABELED_MULTI_AXIOM" */ '../chunks/OWL_LABELED_MULTI_AXIOM'),
   },
   name: 'PropertiesList',
   props: [
@@ -131,6 +135,9 @@ export default {
     },
     checkHasList(item) {
       if (item.type === "AXIOM" && item.fullRenderedString?.includes("<br />")) {
+        item.hasList = true;
+      }
+      else if (item.type === "OWL_LABELED_MULTI_AXIOM" && Array.isArray(item.value) && item.value && item.value.length > 0) {
         item.hasList = true;
       }
       else if (item.type === "STRING" && item.value?.includes("\n")) {

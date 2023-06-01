@@ -108,12 +108,18 @@ export default {
       }
     },
     getLinesFromItem(item) {
-      if (item.value && Array.isArray(item.value)) return item.value;
+      if (item.value && Array.isArray(item.value) && item.type !== "OWL_LABELED_MULTI_AXIOM") return item.value;
       if (item.type === "AXIOM") {
-        const lines = item.fullRenderedString.split("<br />");
+        let lines = item.fullRenderedString.split("<br />");
+        lines = lines.map(item => item.trim());
         for (let i = 0; i < lines.length; i++) {
           if (lines[i].startsWith("- ")) lines[i] = lines[i].substring(2);
         }
+        return lines;
+      } else if (item.type === "OWL_LABELED_MULTI_AXIOM") {
+        if (typeof item.value[0] === 'string' || item.value[0] instanceof String) return item.value;
+        const linesFromValue = item.value.map(item => item.fullRenderedString);
+        const lines = [item.entityLabel.label, ...linesFromValue];
         return lines;
       } else if (item.type === "STRING") {
         return item.value.split("\n");

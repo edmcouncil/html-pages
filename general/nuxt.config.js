@@ -18,7 +18,7 @@ process.env.VUE_APP_TAG = process.env.TAG || process.env.TAG_NAME || "latest";
 process.env.VUE_DIST_DIR = `/${process.env.VUE_APP_PRODUCT}/${process.env.VUE_APP_BRANCH}/${process.env.VUE_APP_TAG}`;
 process.env.VUE_ASSETS_DIR = `${process.env.VUE_DIST_DIR}/_nuxt/`;
 
-process.env.VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || "fibo";
+process.env.VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || "idmp";
 process.env.VUE_BASE_URL =
   process.env.BASE_URL ||
   "https://spec." +
