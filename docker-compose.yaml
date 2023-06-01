@@ -2,14 +2,12 @@ services:
   fibo-strapi:
     environment:
       - ONTPUB_FAMILY=fibo
-      - PRODUCT=htmlpages
       - BRANCH_NAME=develop
       - TAG_NAME=latest
     build:
       context: ./general/strapi
       args:
         - ONTPUB_FAMILY=fibo
-        - PRODUCT=htmlpages
         - BRANCH_NAME=develop
         - TAG_NAME=latest
     volumes:
@@ -18,7 +16,7 @@ services:
   fibo-pages:
     environment:
       - ONTPUB_FAMILY=fibo
-      - PRODUCT=htmlpages
+      - PRODUCT=pages
       - BRANCH_NAME=develop
       - TAG_NAME=latest
       - STRAPI_URL=http://fibo-strapi:1337
@@ -26,7 +24,7 @@ services:
       context: ./general
       args:
         - ONTPUB_FAMILY=fibo
-        - PRODUCT=htmlpages
+        - PRODUCT=pages
         - BRANCH_NAME=develop
         - TAG_NAME=latest
         - STRAPI_URL=http://fibo-strapi:1337

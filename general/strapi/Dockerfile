@@ -32,4 +32,4 @@ COPY	.	/project/
 RUN	bash setup.sh
 CMD	["bash","entrypoint.sh"]
 
-HEALTHCHECK --start-period=60s --interval=5s --timeout=1s --retries=60	CMD curl -q http://localhost:1337/admin/project-type | jq -e ".data.features"
+HEALTHCHECK --start-period=60s --interval=15s --timeout=1s --retries=60	CMD curl -q http://localhost:1337/admin/project-type | jq -e ".data.features"

@@ -176,12 +176,13 @@ export default {
   // AUTO - https://spec.edmcouncil.org/auto/ontology/
   // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
   env: {
-    generateDir: `dist/${process.env.VUE_ONTOLOGY_NAME}`,
+    generateDir: `static`,
     ontologyName: process.env.VUE_ONTOLOGY_NAME,
     assetsDir: process.env.VUE_ASSETS_DIR,
     distDir: process.env.VUE_DIST_DIR,
     staticGenerationMode: process.env.NODE_ENV === "production",
     ontologyResourcesBaseUri: process.env.VUE_RESOURCES_BASE_URL,
+    strapiBasePath: "/" + process.env.VUE_ONTOLOGY_NAME + "/strapi",
     strapiBaseUrl: process.env.STRAPI_URL,
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
   },
@@ -223,10 +224,10 @@ export default {
       ? process.env.VUE_RESOURCES_BASE_URL.replace(
           "pistoiaalliance",
           "edmcouncil"
-        ) + "*/*/api"
+        ) + process.env.VUE_APP_BRANCH + "/" + process.env.VUE_APP_TAG + "/api"
       : process.env.VUE_BASE_URL +
         process.env.VUE_ONTOLOGY_NAME +
-        "/ontology/*/*/api",
+        "/ontology/" + process.env.VUE_APP_BRANCH + "/" + process.env.VUE_APP_TAG + "/api",
       ['/'+process.env.VUE_ONTOLOGY_NAME+'/strapi',{target:process.env.STRAPI_URL,pathRewrite:{'^/[^\/]+/strapi':''}}],
   ],
 

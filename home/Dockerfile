@@ -40,4 +40,4 @@ COPY	--from=builder		/html-pages.tar.xz /html-pages.tar.xz
 COPY	./nginx.conf		/etc/nginx/conf.d/default.conf
 COPY	./99-upstream.sh	/docker-entrypoint.d/99-upstream.sh
 RUN	chmod -c a+x /docker-entrypoint.d/99-upstream.sh
-HEALTHCHECK --start-period=60s --interval=5s --timeout=1s --retries=60	CMD curl -f http://127.0.0.1/nginx_status
+HEALTHCHECK --start-period=60s --interval=15s --timeout=1s --retries=60	CMD curl -f http://127.0.0.1/nginx_status

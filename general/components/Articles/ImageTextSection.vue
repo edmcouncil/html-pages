@@ -32,7 +32,7 @@ export default {
   props: ["sectionItem"],
   methods: {
     getImageUrl(item) {
-      const strapiUrl = process.env.strapiBaseUrl;
+      const strapiUrl = process.env.strapiBasePath;
       const location = item?.image?.data?.attributes?.url;
       if (location == undefined) {
         return "undefined";

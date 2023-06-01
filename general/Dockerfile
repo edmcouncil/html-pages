@@ -31,7 +31,6 @@ WORKDIR /project
 COPY	.	/project/
 ENV NODE_OPTIONS	--openssl-legacy-provider
 RUN	npm install && npm run build
-#	ln -s ${PRODUCT}/${BRANCH_NAME}/${TAG_NAME}/_nuxt dist/${ONTPUB_FAMILY}/${PRODUCT}/${BRANCH_NAME}/${TAG_NAME}/_nuxt
 CMD	["npm","run","dev"]
 
-HEALTHCHECK --start-period=60s --interval=5s --timeout=1s --retries=60	CMD curl -f http://127.0.0.1/
+HEALTHCHECK --start-period=60s --interval=15s --timeout=1s --retries=60	CMD curl -f http://127.0.0.1/${ONTPUB_FAMILY}/gtm-custom.js
