@@ -15,42 +15,52 @@ To run individual pages from the command line, look at the README files given ab
 
 ## Run with docker
 
-Using docker compose, the pages run without additional user intervention. The script sets up and copies all the basic files necessary to run on its own.
-The script prepare and publish on localhost 3 pages: 
-- `home` - templates on `http:localhost:8080`
-- `general` - templates on `http:localhost:8081/fibo`
-- `strapi` - required service for `general` pages with fibo database on `http://localhost:1337/admin`
+Requirements:
+- [git](https://git-scm.com/) ([install](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
+- [docker](https://www.docker.com/) - install:
+  * [Docker Desktop](https://docs.docker.com/desktop/) or ...
+  * [Docker Engine](https://docs.docker.com/engine/) with [Docker Compose plugin](https://docs.docker.com/compose/install/linux/)
+- free port **8080/tcp**
 
-To start and rebuild all containers use command:
-
+Clone the [edmcouncil/html-pages](https://github.com/edmcouncil/html-pages) repository to the *html-pages* directory,
+go to the *html-pages* directory (run all subsequent commands inside this directory),
+then create and run the containers:
+```bash
+git clone https://github.com/edmcouncil/html-pages html-pages
+cd html-pages
+docker compose up --build -d
 ```
-$ docker-compose up --build -d
-```
 
-You can see all running containers and their status:
-
+After some time, check the status of running containers - if they work correctly, the following message will appear:
 ```
 $ docker compose ps
-
-NAME                   IMAGE                COMMAND                  SERVICE             CREATED             STATUS              PORTS
-html-pages-general-1   html-pages-general   "docker-entrypoint.s…"   general             20 seconds ago      Up 17 seconds       0.0.0.0:8081->3000/tcp
-html-pages-home-1      html-pages-home      "docker-entrypoint.s…"   home                7 hours ago         Up 4 minutes        0.0.0.0:8080->8080/tcp
-html-pages-strapi-1    html-pages-strapi    "docker-entrypoint.s…"   strapi              4 hours ago         Up 17 seconds       0.0.0.0:1337->1337/tcp
+NAME                       IMAGE                    COMMAND                  SERVICE             CREATED              STATUS                        PORTS
+html-pages-fibo-pages-1    edmcouncil/fibo-pages    "docker-entrypoint.s…"   fibo-pages          About a minute ago   Up About a minute (healthy)
+html-pages-fibo-strapi-1   edmcouncil/fibo-strapi   "docker-entrypoint.s…"   fibo-strapi         About a minute ago   Up About a minute (healthy)
+html-pages-spec-1          edmcouncil/spec          "/docker-entrypoint.…"   spec                About a minute ago   Up About a minute (healthy)   0.0.0.0:8080->80/tcp, :::8080->80/tcp
 ```
 
-If you want to see logs from one container use:
+As the database file in the `fibo-strapi` service, the file *strapi/data.db* is used if it exists.
+If such a file does not exist, but a file named *strapi/data.db.template* exists,
+a copy named *strapi/data.db* is created, which is then used as a database file in the `fibo-strapi` service.
+However, if neither the *strapi/data.db* file nor the *strapi/data.db.template* file exists,
+then the */project/db/fibostrapi/data.db* file located inside the `edmcouncil/fibo-strapi` image is used.
 
-```
-# to view continuous log output
-$ docker logs --follow <container name>
+The services provide endpoints at the following URLs:
+- [http://localhost:8080](http://localhost:8080) :- [html-pages home page](https://github.com/edmcouncil/html-pages/blob/develop/home/README.md)
+- [http://localhost:8080/fibo](http://localhost:8080/fibo) :- [html-pages general template](https://github.com/edmcouncil/html-pages/tree/develop/general) for [FIBO](https://github.com/edmcouncil/fibo) ontology
+- [http://localhost:8080/fibo/strapi/admin](http://localhost:8080/fibo/strapi/admin) :- [Strapi admin panel](https://docs.strapi.io/user-docs/intro#accessing-the-admin-panel) for for [FIBO](https://github.com/edmcouncil/fibo) ontology (Email: *edmc-strapi@dev.com*, Password: *devDBonly1*)
 
-# to view specific amount of logs
-$ docker logs --tail <amount> <container name>
+If you want to see logs from one *<SERVICE>* (`fibo-pages`, `fibo-strapi` or `spec`), use:
+```
+# to view continuous log output for <SERVICE>=fibo-pages
+$ docker compose logs --follow fibo-pages
+
+# to view *100* latest log lines for <SERVICE>=fibo-strapi
+$ docker compose logs --tail 100 fibo-strapi
 ```
 
-Killing containers takes one command: 
-
+Stop the services with the command:
 ```
-$ docker-compose down
+$ docker compose down
 ```
-You could also run docker-compose without detached mode(without -d). If so, you'll just use '^C' to kill all containers.

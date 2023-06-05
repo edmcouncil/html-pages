@@ -1,36 +1,30 @@
-FROM	node:18-alpine
-
 ARG	NODE_ENV	development
-ARG	ONTPUB_FAMILY
-ARG	PRODUCT		htmlpages
-ARG	BRANCH_NAME	develop
-ARG	TAG_NAME	latest
 
-
+FROM	node:18-alpine AS buildnpm
+ARG	NODE_ENV
+ENV	NODE_ENV	${NODE_ENV}
 RUN	apk --no-cache add --upgrade apk-tools bash curl jq rsync xz && apk --no-cache upgrade && \
 	apk --no-cache add --virtual build-dependencies git g++ gcc libgcc libstdc++ linux-headers make && \
 	npm install -g npm@latest && \
 	npm install -g @vue/cli && \
 	apk --no-cache del build-dependencies && \
-	install -dv /opt && install -dv /strapi && \
 	install -dv /project && ln -sf /project/node_modules/.bin /usr/local/sbin
 
-ENV	ONTPUB_FAMILY	${ONTPUB_FAMILY}
-ENV	PRODUCT		${PRODUCT}
-ENV	BRANCH_NAME	${BRANCH_NAME}
-ENV	TAG_NAME	${TAG_NAME}
-
+FROM	buildnpm
+ARG	NODE_ENV
+ENV	NODE_ENV	${NODE_ENV}
 ENV HOST	0.0.0.0
 ENV NODE_PATH	/usr/local/lib/node_modules
 ENV DISABLE_ESLINT_PLUGIN	true
 ENV PUBLIC_URL	0.0.0.0
 ENV NUXT_PORT	80
-ENV NODE_ENV	${NODE_ENV}
-
+ENV NODE_OPTIONS	--openssl-legacy-provider
 WORKDIR /project
 COPY	.	/project/
-ENV NODE_OPTIONS	--openssl-legacy-provider
+ARG	ONTPUB_FAMILY
+ARG	BRANCH_NAME	develop
+ARG	TAG_NAME	latest
+RUN	echo -e "ONTPUB_FAMILY=${ONTPUB_FAMILY}\nBRANCH_NAME=${BRANCH_NAME}\nTAG_NAME=${TAG_NAME}" > .env
 RUN	npm install && npm run build
 CMD	["npm","run","dev"]
-
-HEALTHCHECK --start-period=60s --interval=15s --timeout=1s --retries=60	CMD curl -f http://127.0.0.1/${ONTPUB_FAMILY}/gtm-custom.js
+HEALTHCHECK --start-period=60s --interval=15s --timeout=1s --retries=60	CMD curl -f http://127.0.0.1/$(awk -F= '$1 == "ONTPUB_FAMILY" {print $2}' /project/.env)/gtm-custom.js

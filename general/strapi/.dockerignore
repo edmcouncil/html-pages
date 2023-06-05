@@ -1,3 +1,4 @@
+.env
 db
 !db/*.db.template
 node_modules

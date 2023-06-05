@@ -1,9 +1,6 @@
 services:
   fibo-strapi:
-    environment:
-      - ONTPUB_FAMILY=fibo
-      - BRANCH_NAME=develop
-      - TAG_NAME=latest
+    image: edmcouncil/fibo-strapi
     build:
       context: ./general/strapi
       args:
@@ -11,40 +8,29 @@ services:
         - BRANCH_NAME=develop
         - TAG_NAME=latest
     volumes:
-      - ./general/strapi:/strapi
+      - ./general/strapi/db:/strapi
       - opt:/opt
   fibo-pages:
-    environment:
-      - ONTPUB_FAMILY=fibo
-      - PRODUCT=pages
-      - BRANCH_NAME=develop
-      - TAG_NAME=latest
-      - STRAPI_URL=http://fibo-strapi:1337
+    image: edmcouncil/fibo-pages
     build:
       context: ./general
       args:
         - ONTPUB_FAMILY=fibo
-        - PRODUCT=pages
         - BRANCH_NAME=develop
         - TAG_NAME=latest
-        - STRAPI_URL=http://fibo-strapi:1337
+    environment:
+      - STRAPI_URL=http://fibo-strapi:1337
     volumes:
       - opt:/opt
     depends_on:
       - fibo-strapi
-  nginx:
-    environment:
-      - PRODUCT=htmlpages
-      - BRANCH_NAME=develop
-      - TAG_NAME=latest
+  spec:
+    image: edmcouncil/spec
     build:
       context: ./home
-      args:
-        - PRODUCT=htmlpages
-        - BRANCH_NAME=develop
-        - TAG_NAME=latest
+    environment:
+      - FAMILY_REGEX=fibo
     volumes:
-      - ./general/strapi:/strapi
       - opt:/opt
     depends_on:
       - fibo-strapi

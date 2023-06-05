@@ -3,7 +3,6 @@ process.env.VUE_APP_PRODUCT   = process.env.PRODUCT || process.env.ontology_publ
 process.env.VUE_APP_BRANCH    = (process.env.BRANCH
   || (process.env.BRANCH_NAME === process.env.TAG_NAME ? 'master' : process.env.BRANCH_NAME || 'master')).toLowerCase();
 process.env.VUE_APP_TAG       = process.env.TAG || process.env.TAG_NAME || 'latest';
-process.env.VUE_APP_TIMESTAMP = process.env.TIMESTAMP || '2020Q1';
 
 module.exports = {
   configureWebpack: {

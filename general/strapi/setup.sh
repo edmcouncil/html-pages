@@ -1,6 +1,11 @@
 #!/bin/bash
 
-STRAPI_DIR="db/${ONTPUB_FAMILY:-dev}strapi"
+cd "$(dirname "$(realpath "${0}")")"
+if [ -f .env ]; then
+ set -o allexport; source .env; set +o allexport
+fi
+
+STRAPI_DIR="$(dirname "$(realpath "${0}")")/db/${ONTPUB_FAMILY:-dev}strapi"
 
 install -dv "$(dirname "${STRAPI_DIR}")"
 if [ ! -e "${STRAPI_DIR}" ] ; then
@@ -10,7 +15,8 @@ if [ ! -e "${STRAPI_DIR}" ] ; then
  echo "[INFO] Copy structures."
  rsync -av --no-owner --no-group src/ "${STRAPI_DIR}"/src
  pushd "${STRAPI_DIR}"
+  install -dv .tmp
+  test -s ../"${ONTPUB_FAMILY:-dev}".db.template && rm -rf .tmp/data.db && cp -av ../"${ONTPUB_FAMILY:-dev}".db.template .tmp/data.db
   npm run build
  popd
 fi
-

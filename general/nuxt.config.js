@@ -1,7 +1,7 @@
 import axios from "axios";
 
-process.env.VUE_APP_TIMESTAMP =
-  process.env.TIMESTAMP || process.env.VUE_ONTOLOGY_NAME==='idmp'?"latest":"2022Q3";
+process.env.VUE_APP_ONTOLOGY_VERSION =
+  process.env.ONTOLOGY_VERSION || "master/latest";
 
 process.env.VUE_APP_PRODUCT =
   process.env.PRODUCT ||
@@ -224,10 +224,10 @@ export default {
       ? process.env.VUE_RESOURCES_BASE_URL.replace(
           "pistoiaalliance",
           "edmcouncil"
-        ) + process.env.VUE_APP_BRANCH + "/" + process.env.VUE_APP_TAG + "/api"
+        ) + process.env.VUE_APP_ONTOLOGY_VERSION + "/api"
       : process.env.VUE_BASE_URL +
         process.env.VUE_ONTOLOGY_NAME +
-        "/ontology/" + process.env.VUE_APP_BRANCH + "/" + process.env.VUE_APP_TAG + "/api",
+        "/ontology/" + process.env.VUE_APP_ONTOLOGY_VERSION + "/api",
       ['/'+process.env.VUE_ONTOLOGY_NAME+'/strapi',{target:process.env.STRAPI_URL,pathRewrite:{'^/[^\/]+/strapi':''}}],
   ],
 
