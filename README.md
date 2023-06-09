@@ -43,10 +43,12 @@ docker compose ps
 ```
 
 if they work correctly, the following message will appear:
-> NAME                       IMAGE                    COMMAND                  SERVICE             CREATED              STATUS                        PORTS
-> html-pages-fibo-pages-1    edmcouncil/fibo-pages    "docker-entrypoint.s…"   fibo-pages          About a minute ago   Up About a minute (healthy)
-> html-pages-fibo-strapi-1   edmcouncil/fibo-strapi   "docker-entrypoint.s…"   fibo-strapi         About a minute ago   Up About a minute (healthy)
-> html-pages-spec-1          edmcouncil/spec          "/docker-entrypoint.…"   spec                About a minute ago   Up About a minute (healthy)   0.0.0.0:8080->80/tcp, :::8080->80/tcp
+```
+NAME                       IMAGE                    COMMAND                  SERVICE             CREATED              STATUS                        PORTS
+html-pages-fibo-pages-1    edmcouncil/fibo-pages    "docker-entrypoint.s…"   fibo-pages          About a minute ago   Up About a minute (healthy)
+html-pages-fibo-strapi-1   edmcouncil/fibo-strapi   "docker-entrypoint.s…"   fibo-strapi         About a minute ago   Up About a minute (healthy)
+html-pages-spec-1          edmcouncil/spec          "/docker-entrypoint.…"   spec                About a minute ago   Up About a minute (healthy)   0.0.0.0:8080->80/tcp, :::8080->80/tcp
+```
 
 The STRAPI instance database is inside the `fibo-strapi` container image, so any changes will be lost when stopped.
 If you want a "permanent" database, see [comment](./docker-compose.yaml#) in the `docker-compose.yaml` file
