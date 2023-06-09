@@ -1,7 +1,5 @@
-ARG	NODE_ENV	development
-
 FROM	node:18-alpine AS buildnpm
-ARG	NODE_ENV
+ARG	NODE_ENV	development
 ENV	NODE_ENV	${NODE_ENV}
 RUN	apk --no-cache add --upgrade apk-tools bash curl jq rsync xz && apk --no-cache upgrade && \
 	apk --no-cache add --virtual build-dependencies git g++ gcc libgcc libstdc++ linux-headers make && \
@@ -11,7 +9,7 @@ RUN	apk --no-cache add --upgrade apk-tools bash curl jq rsync xz && apk --no-cac
 	install -dv /project && ln -sf /project/node_modules/.bin /usr/local/sbin
 
 FROM	buildnpm
-ARG	NODE_ENV
+ARG	NODE_ENV	development
 ENV	NODE_ENV	${NODE_ENV}
 ENV HOST	0.0.0.0
 ENV NODE_PATH	/usr/local/lib/node_modules
@@ -26,5 +24,6 @@ ARG	BRANCH_NAME	develop
 ARG	TAG_NAME	latest
 RUN	echo -e "ONTPUB_FAMILY=${ONTPUB_FAMILY}\nBRANCH_NAME=${BRANCH_NAME}\nTAG_NAME=${TAG_NAME}" > .env
 RUN	bash setup.sh
+RUN	rm -rf db/*.db.template db/*.uploads /usr/local/sbin && ln -sf /project/db/${ONTPUB_FAMILY}strapi/node_modules/.bin /usr/local/sbin
 CMD	["bash","entrypoint.sh"]
 HEALTHCHECK --start-period=60s --interval=15s --timeout=1s --retries=60	CMD curl -q http://localhost:1337/admin/project-type | jq -e ".data.features"

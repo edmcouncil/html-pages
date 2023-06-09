@@ -1,5 +1,10 @@
 #!/bin/sh
 
+cd "$(dirname "$(realpath "${0}")")"
+if [ -f .env ]; then
+ set -o allexport; source .env; set +o allexport
+fi
+
 for P in /htmlpages/*/*.tar.xz ; do
  install -dv /opt/html-pages
  rm -rf "/opt/html-pages${P%.tar.xz}"

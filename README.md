@@ -24,27 +24,36 @@ Requirements:
 
 Clone the [edmcouncil/html-pages](https://github.com/edmcouncil/html-pages) repository to the *html-pages* directory,
 go to the *html-pages* directory (run all subsequent commands inside this directory),
-then create and run the containers:
+then build the images (or pull from the registry if available) and run the containers:
 ```bash
 git clone https://github.com/edmcouncil/html-pages html-pages
+
 cd html-pages
-docker compose up --build -d
+
+docker compose build
+# alternatively pull images from registry if available
+#docker compose pull --ignore-pull-failures
+
+docker compose up -d
 ```
 
-After some time, check the status of running containers - if they work correctly, the following message will appear:
+After some time, check the status of running containers:
 ```
-$ docker compose ps
-NAME                       IMAGE                    COMMAND                  SERVICE             CREATED              STATUS                        PORTS
-html-pages-fibo-pages-1    edmcouncil/fibo-pages    "docker-entrypoint.s…"   fibo-pages          About a minute ago   Up About a minute (healthy)
-html-pages-fibo-strapi-1   edmcouncil/fibo-strapi   "docker-entrypoint.s…"   fibo-strapi         About a minute ago   Up About a minute (healthy)
-html-pages-spec-1          edmcouncil/spec          "/docker-entrypoint.…"   spec                About a minute ago   Up About a minute (healthy)   0.0.0.0:8080->80/tcp, :::8080->80/tcp
+docker compose ps
 ```
 
-As the database file in the `fibo-strapi` service, the file *strapi/data.db* is used if it exists.
-If such a file does not exist, but a file named *strapi/data.db.template* exists,
-a copy named *strapi/data.db* is created, which is then used as a database file in the `fibo-strapi` service.
-However, if neither the *strapi/data.db* file nor the *strapi/data.db.template* file exists,
-then the */project/db/fibostrapi/data.db* file located inside the `edmcouncil/fibo-strapi` image is used.
+if they work correctly, the following message will appear:
+> NAME                       IMAGE                    COMMAND                  SERVICE             CREATED              STATUS                        PORTS
+> html-pages-fibo-pages-1    edmcouncil/fibo-pages    "docker-entrypoint.s…"   fibo-pages          About a minute ago   Up About a minute (healthy)
+> html-pages-fibo-strapi-1   edmcouncil/fibo-strapi   "docker-entrypoint.s…"   fibo-strapi         About a minute ago   Up About a minute (healthy)
+> html-pages-spec-1          edmcouncil/spec          "/docker-entrypoint.…"   spec                About a minute ago   Up About a minute (healthy)   0.0.0.0:8080->80/tcp, :::8080->80/tcp
+
+The STRAPI instance database is inside the `fibo-strapi` container image, so any changes will be lost when stopped.
+If you want a "permanent" database, see [comment](./docker-compose.yaml#) in the `docker-compose.yaml` file
+and uncomment the following line in the `.services.fibo-strapi.volumes` section:
+```
+     - ./general/strapi/db:/strapi
+```
 
 The services provide endpoints at the following URLs:
 - [http://localhost:8080](http://localhost:8080) :- [html-pages home page](https://github.com/edmcouncil/html-pages/blob/develop/home/README.md)
@@ -52,15 +61,20 @@ The services provide endpoints at the following URLs:
 - [http://localhost:8080/fibo/strapi/admin](http://localhost:8080/fibo/strapi/admin) :- [Strapi admin panel](https://docs.strapi.io/user-docs/intro#accessing-the-admin-panel) for for [FIBO](https://github.com/edmcouncil/fibo) ontology (Email: *edmc-strapi@dev.com*, Password: *devDBonly1*)
 
 If you want to see logs from one *<SERVICE>* (`fibo-pages`, `fibo-strapi` or `spec`), use:
-```
+```bash
 # to view continuous log output for <SERVICE>=fibo-pages
-$ docker compose logs --follow fibo-pages
+docker compose logs --follow fibo-pages
 
 # to view *100* latest log lines for <SERVICE>=fibo-strapi
-$ docker compose logs --tail 100 fibo-strapi
+docker compose logs --tail 100 fibo-strapi
 ```
 
 Stop the services with the command:
+```bash
+docker compose down
 ```
-$ docker compose down
+
+Remove all images and volumes with the command:
+```bash
+docker compose down --rmi all -v
 ```
