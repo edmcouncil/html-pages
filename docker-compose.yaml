@@ -5,8 +5,7 @@ services:
       context: ./general/strapi
       args:
         - ONTPUB_FAMILY=fibo
-        - BRANCH_NAME=develop
-        - TAG_NAME=latest
+        - BRANCH_NAME=${TAG:-develop}
     volumes:
       # uncomment to use the "permanent" database './general/strapi/db/fibo.db'
       # (if it doesn't exist it will be copied from './general/strapi/db/fibo.db.template')
@@ -19,8 +18,7 @@ services:
       context: ./general
       args:
         - ONTPUB_FAMILY=fibo
-        - BRANCH_NAME=develop
-        - TAG_NAME=latest
+        - BRANCH_NAME=${TAG:-develop}
     environment:
       - STRAPI_URL=http://fibo-strapi:1337
     volumes:
@@ -31,6 +29,8 @@ services:
     image: edmcouncil/spec:${TAG:-latest}
     build:
       context: ./home
+      args:
+        - BRANCH_NAME=${TAG:-develop}
     environment:
       - FAMILY_REGEX=fibo
     volumes:

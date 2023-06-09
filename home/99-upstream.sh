@@ -23,5 +23,5 @@ if [ -n "${FAMILY_REGEX}" ] ; then
  done > /etc/nginx/conf.d/upstream.conf
 fi
 
-test -z "${BRANCH_NAME}" || sed -i "s/\(set\s\+\$html_branch\s\+\)[^\;]\+\(;\)/\1${BRANCH_NAME}\2/g" /etc/nginx/conf.d/default.conf
-test -z "${TAG_NAME}" || sed -i "s/\(set\s\+\$html_tag\s\+\)[^\;]\+\(;\)/\1${TAG_NAME}\2/g" /etc/nginx/conf.d/default.conf
+test -z "${BRANCH_NAME}" || sed -i "s/\(set\s\+\$html_branch\s\+\)develop\s*\(;\)/\1${BRANCH_NAME}\2/g" /etc/nginx/conf.d/default.conf
+test -z "${TAG_NAME}" || sed -i "s/\(set\s\+\$html_tag\s\+\)latest\s*\(;\)/\1${TAG_NAME}\2/g" /etc/nginx/conf.d/default.conf
