@@ -1,42 +1,42 @@
-version: "3.7"
 services:
-  home:
-    profiles: ["home"]
+  fibo-strapi:
+    image: edmcouncil/fibo-strapi
+    build:
+      context: ./general/strapi
+      args:
+        - ONTPUB_FAMILY=fibo
+        - BRANCH_NAME=develop
+        - TAG_NAME=latest
+    volumes:
+      - ./general/strapi/db:/strapi
+      - opt:/opt
+  fibo-pages:
+    image: edmcouncil/fibo-pages
+    build:
+      context: ./general
+      args:
+        - ONTPUB_FAMILY=fibo
+        - BRANCH_NAME=develop
+        - TAG_NAME=latest
+    environment:
+      - STRAPI_URL=http://fibo-strapi:1337
+    volumes:
+      - opt:/opt
+    depends_on:
+      - fibo-strapi
+  spec:
+    image: edmcouncil/spec
     build:
       context: ./home
-      dockerfile: ../Dockerfile
-    ports:
-      - 8080:8080
+    environment:
+      - FAMILY_REGEX=fibo
     volumes:
-      - ./home:/project
-      - /project/node_modules
-  fibo:
-    profiles: ["fibo"]
-    build:
-      context: ./fibo
-      dockerfile: ../Dockerfile
+      - opt:/opt
+    depends_on:
+      - fibo-strapi
+      - fibo-pages
     ports:
-      - 8080:8080
-    volumes:
-      - ./fibo:/project
-      - /project/node_modules
-  auto:
-    profiles: ["auto"]
-    build:
-      context: ./auto
-      dockerfile: ../Dockerfile
-    ports:
-      - 8080:8080
-    volumes:
-      - ./auto:/project
-      - /project/node_modules
-  idmp:
-    profiles: ["idmp"]
-    build:
-      context: ./idmp
-      dockerfile: ../Dockerfile
-    ports:
-      - 8080:8080
-    volumes:
-      - ./idmp:/project
-      - /project/node_modules
+      - 8080:80
+
+volumes:
+  opt:

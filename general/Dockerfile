@@ -25,6 +25,6 @@ ARG	ONTPUB_FAMILY
 ARG	BRANCH_NAME	develop
 ARG	TAG_NAME	latest
 RUN	echo -e "ONTPUB_FAMILY=${ONTPUB_FAMILY}\nBRANCH_NAME=${BRANCH_NAME}\nTAG_NAME=${TAG_NAME}" > .env
-RUN	bash setup.sh
-CMD	["bash","entrypoint.sh"]
-HEALTHCHECK --start-period=60s --interval=15s --timeout=1s --retries=60	CMD curl -q http://localhost:1337/admin/project-type | jq -e ".data.features"
+RUN	npm install && npm run build
+CMD	["npm","run","dev"]
+HEALTHCHECK --start-period=60s --interval=15s --timeout=1s --retries=60	CMD curl -f http://127.0.0.1/$(awk -F= '$1 == "ONTPUB_FAMILY" {print $2}' /project/.env)/gtm-custom.js
