@@ -1,37 +1,40 @@
 services:
   fibo-strapi:
-    image: edmcouncil/fibo-strapi
+    image: edmcouncil/fibo-strapi:${TAG:-latest}
     build:
       context: ./general/strapi
       args:
         - ONTPUB_FAMILY=fibo
-        - BRANCH_NAME=develop
-        - TAG_NAME=latest
+        - BRANCH_NAME=${TAG:-develop}
     volumes:
-      - ./general/strapi/db:/strapi
-      - opt:/opt
+      # uncomment to use the "permanent" database './general/strapi/db/fibo.db'
+      # (if it doesn't exist it will be copied from './general/strapi/db/fibo.db.template')
+      # and the directory "./general/strapi/fibo.uploads" mapped as 'http://fibo-strapi:1337/public/uploads'
+      #- ./general/strapi/db:/strapi
+      - spec_root:/opt/html-pages
   fibo-pages:
-    image: edmcouncil/fibo-pages
+    image: edmcouncil/fibo-pages:${TAG:-latest}
     build:
       context: ./general
       args:
         - ONTPUB_FAMILY=fibo
-        - BRANCH_NAME=develop
-        - TAG_NAME=latest
+        - BRANCH_NAME=${TAG:-develop}
     environment:
       - STRAPI_URL=http://fibo-strapi:1337
     volumes:
-      - opt:/opt
+      - spec_root:/opt/html-pages
     depends_on:
       - fibo-strapi
   spec:
-    image: edmcouncil/spec
+    image: edmcouncil/spec:${TAG:-latest}
     build:
       context: ./home
+      args:
+        - BRANCH_NAME=${TAG:-develop}
     environment:
       - FAMILY_REGEX=fibo
     volumes:
-      - opt:/opt
+      - spec_root:/opt/html-pages
     depends_on:
       - fibo-strapi
       - fibo-pages
@@ -39,4 +42,4 @@ services:
       - 8080:80
 
 volumes:
-  opt:
+  spec_root:
