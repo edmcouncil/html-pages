@@ -41,17 +41,50 @@
                   </div>
                   <div class="menu-box__content-text">
                     <multiselect
-                      v-model="ontologyVersionsDropdownData.selectedData"
+                      v-if="ontologyVersions.isGrouped"
+                      v-model="ontologyVersions.selectedData"
                       label="@id"
                       track-by="url"
                       placeholder="Select..."
                       tagPlaceholder="Select..."
                       selectLabel=""
                       open-direction="bottom"
-                      :options="ontologyVersionsDropdownData.data"
+                      :options="ontologyVersions.data"
                       :multiple="false"
                       :searchable="false"
-                      :loading="ontologyVersionsDropdownData.isLoading"
+                      :loading="ontologyVersions.isLoading"
+                      :internal-search="false"
+                      :clear-on-select="false"
+                      :close-on-select="true"
+                      :max-height="600"
+                      :preserve-search="true"
+                      :show-no-results="false"
+                      :hide-selected="true"
+                      :taggable="true"
+                      group-values="versions"
+                      group-label="group"
+                      :group-select="false"
+                      @select="ontologyVersions_optionSelected"
+                    >
+                      <template v-slot:tag="{ option }">
+                        <span class="custom__tag">
+                          <span>{{ option.label }}</span>
+                        </span>
+                      </template>
+                    </multiselect>
+                    <multiselect
+                      v-else
+                      v-model="ontologyVersions.selectedData"
+                      label="@id"
+                      track-by="url"
+                      placeholder="Select..."
+                      tagPlaceholder="Select..."
+                      selectLabel=""
+                      open-direction="bottom"
+                      :options="ontologyVersions.data"
+                      :multiple="false"
+                      :searchable="false"
+                      :loading="ontologyVersions.isLoading"
                       :internal-search="false"
                       :clear-on-select="false"
                       :close-on-select="true"
@@ -83,6 +116,7 @@
                       <div class="menu-box__label">Compare with...</div>
                       <div class="menu-box__content-text">
                         <multiselect
+                          v-if="ontologyVersions.isGrouped"
                           v-model="versionCompare.selectedCompareData"
                           label="@id"
                           track-by="url"
@@ -90,10 +124,42 @@
                           tagPlaceholder="Select..."
                           selectLabel=""
                           open-direction="bottom"
-                          :options="ontologyVersionsDropdownData.data"
+                          :options="ontologyVersions.data"
                           :multiple="false"
                           :searchable="false"
-                          :loading="ontologyVersionsDropdownData.isLoading"
+                          :loading="ontologyVersions.isLoading"
+                          :internal-search="false"
+                          :clear-on-select="false"
+                          :close-on-select="true"
+                          :max-height="600"
+                          :preserve-search="true"
+                          :show-no-results="false"
+                          :hide-selected="true"
+                          :taggable="true"
+                          group-values="versions"
+                          group-label="group"
+                          :group-select="false"
+                          @select="ontologyVersions_compareOptionSelected"
+                        >
+                          <template v-slot:tag="{ option }">
+                            <span class="custom__tag">
+                              <span>{{ option.label }}</span>
+                            </span>
+                          </template>
+                        </multiselect>
+                        <multiselect
+                          v-else
+                          v-model="versionCompare.selectedCompareData"
+                          label="@id"
+                          track-by="url"
+                          placeholder="Select..."
+                          tagPlaceholder="Select..."
+                          selectLabel=""
+                          open-direction="bottom"
+                          :options="ontologyVersions.data"
+                          :multiple="false"
+                          :searchable="false"
+                          :loading="ontologyVersions.isLoading"
                           :internal-search="false"
                           :clear-on-select="false"
                           :close-on-select="true"
@@ -379,7 +445,8 @@
                   "
                 >
                   <multiselect
-                    v-model="ontologyVersionsDropdownData.selectedData"
+                    v-if="ontologyVersions.isGrouped"
+                    v-model="ontologyVersions.selectedData"
                     id="ontologyVersionsMultiselect2"
                     label="@id"
                     track-by="url"
@@ -387,10 +454,48 @@
                     tagPlaceholder="Search for..."
                     selectLabel=""
                     open-direction="bottom"
-                    :options="ontologyVersionsDropdownData.data"
+                    :options="ontologyVersions.data"
                     :multiple="false"
                     :searchable="false"
-                    :loading="ontologyVersionsDropdownData.isLoading"
+                    :loading="ontologyVersions.isLoading"
+                    :internal-search="false"
+                    :clear-on-select="false"
+                    :close-on-select="true"
+                    :preserve-search="true"
+                    :show-no-results="false"
+                    :hide-selected="true"
+                    :taggable="true"
+                    group-values="versions"
+                    group-label="group"
+                    :group-select="false"
+                    @select="ontologyVersions_optionSelected"
+                  >
+                    <template v-slot:tag="{ option }">
+                      <span class="custom__tag">
+                        <span>{{ option.label }}</span>
+                      </span>
+                    </template>
+                    <template v-slot:noResult>
+                      <span>
+                        Oops! No elements found. Consider changing the search
+                        query.
+                      </span>
+                    </template>
+                  </multiselect>
+                  <multiselect
+                    v-else
+                    v-model="ontologyVersions.selectedData"
+                    id="ontologyVersionsMultiselect2"
+                    label="@id"
+                    track-by="url"
+                    placeholder="Search..."
+                    tagPlaceholder="Search for..."
+                    selectLabel=""
+                    open-direction="bottom"
+                    :options="ontologyVersions.data"
+                    :multiple="false"
+                    :searchable="false"
+                    :loading="ontologyVersions.isLoading"
                     :internal-search="false"
                     :clear-on-select="false"
                     :close-on-select="true"
@@ -646,6 +751,7 @@ import {
   getOntologyVersions,
   getFindSearch,
   getFindProperties,
+  getJenkinsJobs,
 } from "../api/ontology";
 import {
   generateTitleAndDescription,
@@ -696,7 +802,8 @@ export default {
         useHighlighting: true,
         dropdownActive: false,
       },
-      ontologyVersionsDropdownData: this.ontologyVersionsDropdownData || {
+      ontologyVersions: this.ontologyVersions || {
+        isGrouped: false,
         isLoading: false,
         defaultData: {
           "@id": "current",
@@ -846,17 +953,17 @@ export default {
         const first = "master/latest";
         ontologyVersions.sort((x,y) => { return x['@id'] == first ? -1 : y['@id'] == first ? 1 : 0; });
 
-        this.ontologyVersionsDropdownData.data = ontologyVersions;
+        this.ontologyVersions.data = ontologyVersions;
 
         // apply default branch name from configuration
         if (this.defaultBranchName) {
-          this.ontologyVersionsDropdownData.defaultData['@id'] = this.defaultBranchName;
+          this.ontologyVersions.defaultData['@id'] = this.defaultBranchName;
         }
 
-        ontologyVersions.unshift(this.ontologyVersionsDropdownData.defaultData); // add default at the beginning
+        ontologyVersions.unshift(this.ontologyVersions.defaultData); // add default at the beginning
 
         if (this.version !== null) {
-          this.ontologyVersionsDropdownData.selectedData =
+          this.ontologyVersions.selectedData =
             ontologyVersions.find((val) => {
               if (val["@id"] === this.version) {
                 return true;
@@ -864,8 +971,8 @@ export default {
               return false;
             });
         } else {
-          this.ontologyVersionsDropdownData.selectedData =
-            this.ontologyVersionsDropdownData.defaultData;
+          this.ontologyVersions.selectedData =
+            this.ontologyVersions.defaultData;
         }
         if (this.compareVersion !== null) {
           this.versionCompare.selectedCompareData =
@@ -877,13 +984,79 @@ export default {
             });
         } else {
           this.versionCompare.selectedCompareData =
-            this.ontologyVersionsDropdownData.defaultData;
+            this.ontologyVersions.defaultData;
         }
         this.error.versions = false;
       } catch (err) {
         console.error(err);
         this.error.versions = true;
       }
+      if (this.jenkinsJobUrl) {
+        try {
+          let jenkinsJobUrl = this.jenkinsJobUrl;
+
+          if (jenkinsJobUrl.endsWith('/')) {
+            jenkinsJobUrl = jenkinsJobUrl.slice(0, -1);
+          }
+
+          const tagName = process.env.tagName;
+
+          // group versions by tags, pull requests and releases
+          const tagsResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/tags/api/json`);
+          const tagsJson = await tagsResult.json();
+          let tags = tagsJson.jobs.map(item => item.name.toLowerCase());
+
+          const pullRequestsResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/change-requests/api/json`);
+          const pullRequestsJson = await pullRequestsResult.json();
+          let pullRequests = pullRequestsJson.jobs.map(item => item.name.toLowerCase());
+
+          const defaultViewResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/default/api/json`);
+          const defaultViewJson = await defaultViewResult.json();
+          let defaultView = defaultViewJson.jobs.map(item => item.name.toLowerCase());
+
+          // group versions
+          const defaultGroup = [];
+          const pullRequestsGroup = [];
+          const tagsGroup = [];
+          const otherGroup = [];
+
+          for(const version of this.ontologyVersions.data) {
+            let versionToCompare = version['@id'].toLowerCase();
+            if (versionToCompare.endsWith(`/${tagName}`)) {
+              versionToCompare = versionToCompare.replace(`/${tagName}`, '');
+            }
+
+            versionToCompare = versionToCompare.replace('/', '_');
+
+            if (versionToCompare === 'master' || versionToCompare === this.defaultBranchName)
+              otherGroup.push(version);
+            else if (tags.find(item => item == versionToCompare))
+              tagsGroup.push(version);
+            else if (pullRequests.find(item => item == versionToCompare))
+              pullRequestsGroup.push(version);
+            else if (defaultView.find(item => item == versionToCompare))
+              defaultGroup.push(version);
+          }
+
+          const options = [];
+
+          if (otherGroup.length > 0)
+            options.push({group: 'Default', versions: otherGroup});
+          if (tagsGroup.length > 0)
+            options.push({group: 'Releases', versions: tagsGroup});
+          if (pullRequestsGroup.length > 0)
+            options.push({group: 'Pull requests', versions: pullRequestsGroup});
+          if (defaultGroup.length > 0)
+            options.push({group: 'Branches', versions: defaultGroup});
+
+          this.ontologyVersions.isGrouped = true;
+          this.ontologyVersions.data = options;
+        } catch (err) {
+          this.ontologyVersions.isGrouped = false;
+          console.error(err);
+        }
+      }
+
     },
     async fetchModules() {
       this.modulesList = null;
@@ -1025,7 +1198,7 @@ export default {
     ontologyVersions_optionSelected(selectedOntologyVersion) {
       if (
         selectedOntologyVersion["@id"] ===
-        this.ontologyVersionsDropdownData.defaultData["@id"]
+        this.ontologyVersions.defaultData["@id"]
       ) {
         // default selected
         const { version, ...rest } = this.$route.query; // get rid of version
@@ -1047,15 +1220,15 @@ export default {
     ontologyVersions_compareOptionSelected(selectedOntologyVersion) {
       if (selectedOntologyVersion["@id"] &&
         selectedOntologyVersion["@id"]
-        != this.ontologyVersionsDropdownData.selectedData["@id"] &&
+        != this.ontologyVersions.selectedData["@id"] &&
         selectedOntologyVersion["@id"] !==
-        this.ontologyVersionsDropdownData.defaultData["@id"]) {
+        this.ontologyVersions.defaultData["@id"]) {
         this.updateCompareServers({ compareVersion: selectedOntologyVersion["@id"] });
         this.fetchCompareDataAndMerge(this.query);
       }
       else if (
         selectedOntologyVersion["@id"] ===
-        this.ontologyVersionsDropdownData.defaultData["@id"]
+        this.ontologyVersions.defaultData["@id"]
       )
       {
         this.updateCompareServers({ compareVersion: null });
@@ -1069,13 +1242,16 @@ export default {
       if (this.loader)
         return;
 
-      let version = this.ontologyVersionsDropdownData.selectedData;
+      let version = this.ontologyVersions.selectedData;
       let versionCompare = this.versionCompare.selectedCompareData;
 
-      this.ontologyVersionsDropdownData.selectedData = versionCompare;
+      if (!version || !versionCompare)
+        return;
+
+      this.ontologyVersions.selectedData = versionCompare;
       this.versionCompare.selectedCompareData = version;
 
-      if (version["@id"] != this.ontologyVersionsDropdownData.defaultData["@id"])
+      if (version["@id"] != this.ontologyVersions.defaultData["@id"])
         this.updateCompareServers({ compareVersion: version["@id"] });
       else
         this.updateCompareServers({ compareVersion: null });
@@ -1091,7 +1267,7 @@ export default {
         isCompareExpanded &&
         this.versionCompare.selectedCompareData &&
         this.versionCompare.selectedCompareData["@id"]
-        != this.ontologyVersionsDropdownData.selectedData["@id"]
+        != this.ontologyVersions.selectedData["@id"]
       )
       {
         this.fetchCompareDataAndMerge(this.query);
@@ -1343,6 +1519,7 @@ export default {
         state.configuration.config.ontologyRepositoryUrl,
       uriSpace: (state) => state.configuration.config.uriSpace,
       defaultBranchName: (state) => state.configuration.config.defaultBranchName,
+      jenkinsJobUrl: (state) => state.configuration.config.jenkinsJobUrl,
     }),
     isError() {
       return (
@@ -1355,14 +1532,14 @@ export default {
       );
     },
     hasVersions() {
-      return this.ontologyVersionsDropdownData.data.length > 1;
+      return this.ontologyVersions.data.length > 1;
     },
     isComparing() {
       return (
         this.versionCompare.isCompareExpanded &&
         this.versionCompare.selectedCompareData &&
         this.versionCompare.selectedCompareData["@id"]
-        != this.ontologyVersionsDropdownData.selectedData["@id"]
+        != this.ontologyVersions.selectedData["@id"]
       );
     },
     ontologyNameUppercase() {

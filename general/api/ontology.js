@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 function ServerError(message, status) {
   this.message = message;
   this.status = status;
@@ -25,6 +27,13 @@ const getModules = function (domain) {
 };
 
 const getOntologyVersions = function (domain) {
+  return fetch(domain, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  }).then(parseServerError);
+};
+
+const getJenkinsJobs = function (domain) {
   return fetch(domain, {
     method: 'GET',
     headers: { 'Accept': 'application/json' },
@@ -67,4 +76,4 @@ const getDescribeIntegration = function (domain) {
 };
 
 
-export { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties, getStats, getMissingImports, getDescribeIntegration  };
+export { getEntity, getModules, getOntologyVersions, getFindSearch, getFindProperties, getStats, getMissingImports, getDescribeIntegration, getJenkinsJobs  };

@@ -29,7 +29,7 @@ process.env.VUE_BASE_URL =
 
 process.env.VUE_RESOURCES_BASE_URL = process.env.VUE_BASE_URL + process.env.VUE_ONTOLOGY_NAME + "/ontology/";
 
-process.env.STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
+process.env.STRAPI_URL = "http://edmc-fibo-viewer.dc.makolab.pl:1331" || process.env.STRAPI_URL || "http://localhost:1337";
 
 export default {
   // target: 'static' description https://nuxtjs.org/announcements/going-full-static/
@@ -185,6 +185,7 @@ export default {
     strapiBasePath: "/" + process.env.VUE_ONTOLOGY_NAME + "/strapi",
     strapiBaseUrl: process.env.STRAPI_URL,
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
+    tagName: process.env.VUE_APP_TAG || 'latest',
   },
 
   // gtm config
