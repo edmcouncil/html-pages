@@ -64,6 +64,8 @@ The following values can be defined in `variables`:
 
 - `ontologyRepositoryUrl` - url to the ontology's repository. It is used in the "Report a problem" button to create issues. DEFAULT: `https://github.com/edmcouncil/fibo`
 
+- `jenkinsJobUrl` - used to group versions based on Jenkins jobs. DEFAULT: `null`, EXAMPLE: `https://jenkins.edmcouncil.org/job/idmp/`
+
 ## Build and run frontend
 
 - create directory for frontend application instance

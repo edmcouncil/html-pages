@@ -133,6 +133,7 @@ export async function getAppConfigurationData() {
     data.ontoviewerServerUrl = response.data.data.attributes.ontoviewerServerUrl;
     data.uriSpace = response.data.data.attributes.uriSpace;
     data.ontologyRepositoryUrl = response.data.data.attributes.ontologyRepositoryUrl;
+    data.jenkinsJobUrl = response.data.data.attributes.jenkinsJobUrl;
 
     // overwrite with 'variables' data
     const variables = response.data.data.attributes.variables;

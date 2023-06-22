@@ -185,6 +185,7 @@ export default {
     strapiBasePath: "/" + process.env.VUE_ONTOLOGY_NAME + "/strapi",
     strapiBaseUrl: process.env.STRAPI_URL,
     showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER || true,
+    tagName: process.env.VUE_APP_TAG || 'latest',
   },
 
   // gtm config

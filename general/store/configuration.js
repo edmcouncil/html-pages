@@ -13,6 +13,7 @@ export default {
       ontoviewerServerUrl: ontoviewerServerUrlFallback,
       ontologyRepositoryUrl: ontologyRepositoryUrlFallback,
       defaultBranchName: defaultBranchNameFallback,
+      jenkinsJobUrl: null,
     }
   }),
   mutations: {

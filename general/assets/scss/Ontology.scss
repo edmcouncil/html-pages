@@ -40,6 +40,13 @@
         height: 60px;
         min-height: 60px;
       }
+
+      .multiselect__option--group {
+        background: transparent!important;
+        color: rgba(0, 0, 0, 0.8)!important;
+        font-weight: bold!important;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+      }
     }
 
     .multiselect__select {
