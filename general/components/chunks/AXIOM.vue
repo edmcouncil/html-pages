@@ -158,8 +158,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.restriction-inferable {
+<style lang="scss">
+span.restriction-inferable {
   color: rgba(0, 0, 0, 0.6);
 
   a {
