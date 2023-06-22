@@ -13,6 +13,7 @@
             :is="field.type"
             :value="field.value"
             :entityMaping="field.entityMaping"
+            :inferable="field.inferable"
             :entityLabel="field.entityLabel"
             v-bind="field"
           />
@@ -33,6 +34,7 @@
                 :is="field.type"
                 :value="field.value"
                 :entityMaping="field.entityMaping"
+                :inferable="field.inferable"
                 :entityLabel="field.entityLabel"
                 :identifier="sectionId + index"
                 v-bind="field"
@@ -49,6 +51,7 @@
           :is="field.type"
           :value="field.value"
           :entityMaping="field.entityMaping"
+          :inferable="field.inferable"
           :entityLabel="field.entityLabel"
           :class="{'has-list': field.hasList}"
           v-bind="field"

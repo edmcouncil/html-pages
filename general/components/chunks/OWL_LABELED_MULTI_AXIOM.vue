@@ -5,8 +5,9 @@
       <li
         v-for="(item, index) in value"
         :key="`${identifier}_${item.fullRenderedString.replace(' ', '-')}_${index}`"
+        :class="{'list-item-inferable': item.inferable}"
       >
-        <AXIOM :value="item.value" :entityMaping="item.entityMaping" :identifier="`${identifier}-${item.fullRenderedString.replace(' ', '-')}`" />
+        <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(' ', '-')}`" />
       </li>
     </ul>
   </div>
@@ -16,8 +17,9 @@
       <li
         v-for="(item, index) in value.slice(0, 5)"
         :key="`${identifier}_${item.fullRenderedString.replace(' ', '-')}_${index}`"
+        :class="{'list-item-inferable': item.inferable}"
       >
-        <AXIOM :value="item.value" :entityMaping="item.entityMaping" :identifier="`${identifier}-${item.fullRenderedString.replace(' ', '-')}`" />
+        <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(' ', '-')}`" />
       </li>
     </ul>
     <b-collapse :id="`${identifier}-collapse`" v-model="isMoreVisible">
@@ -26,8 +28,9 @@
           <li
             v-for="(item, index) in value.slice(5)"
             :key="`${identifier}_${item.fullRenderedString.replace(' ', '-')}_${index}`"
+            :class="{'list-item-inferable': item.inferable}"
           >
-            <AXIOM :value="item.value" :entityMaping="item.entityMaping" :identifier="`${identifier}-${item.fullRenderedString.replace(' ', '-')}`" />
+            <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(' ', '-')}`" />
           </li>
         </ul>
       </transition>
@@ -94,3 +97,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+li.list-item-inferable::marker {
+  color: rgba(0, 0, 0, 0.6)!important;
+}
+</style>
