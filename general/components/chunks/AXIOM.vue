@@ -4,7 +4,7 @@
       <component :is="processedTitle"></component>
     </span>
 
-    <TooltipInline v-if="inferable" text="This restriction is inferable" />
+    <TooltipInline v-if="inferable" :text="tooltips.inferable" />
     <ul v-if="processedList.length > 0">
       <li
         v-for="(item, index) in processedList"
@@ -19,7 +19,7 @@
       <component :is="processedTitle"></component>
     </span>
 
-    <TooltipInline v-if="inferable" text="This restriction is inferable" />
+    <TooltipInline v-if="inferable" :text="tooltips.inferable" />
     <ul>
       <li
         v-for="(item, index) in processedListSlice"
@@ -58,6 +58,7 @@
 import Vue from "vue";
 import customLink from "./link.vue";
 import langCodeFlags from "./LangCodeFlags.vue";
+import tooltips from '~/constants/tooltips';
 
 Vue.component("customLink", customLink);
 Vue.component("langCodeFlags", langCodeFlags);
@@ -90,6 +91,7 @@ export default {
       lines: lines,
       isShowMore: false,
       isMoreVisible: false,
+      tooltips,
     };
   },
   computed: {
