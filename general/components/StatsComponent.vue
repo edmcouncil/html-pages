@@ -237,6 +237,7 @@ export default {
     .stats-box__content {
       padding-top: 7px;
       padding-bottom: 20px;
+      overflow: hidden;
     }
 
     .stats-box__title {
@@ -338,6 +339,7 @@ export default {
   .stats-box--status {
     .stats-box__content {
       padding-top: 5px;
+      overflow: hidden;
 
       .stats-box__entry {
         background: rgba(0, 0, 0, 0.05);
