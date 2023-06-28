@@ -224,8 +224,7 @@
             <transition name="slowfade">
               <StatsComponent
                 v-if="statsServer && missingImportsServer"
-                :statsServer="statsServer"
-                :missingImportsServer="missingImportsServer"
+                :isComparing="isComparing"
               />
             </transition>
           </div>

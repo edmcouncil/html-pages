@@ -32,12 +32,37 @@
           <transition name="list">
             <div class="stats-box__content" v-if="numbersExpanded">
               <div
+                v-if="isComparing"
+                class="stats-box__entry stats-box__comparing-title"
+              >
+                <div class="stats-box__entry__label">Comparing</div>
+                <div class="stats-box__entry__value">
+                  {{ limitSize(version || defaultBranchName, 24) }}
+                  <div class="stats-box__entry__value__arrow-right"></div>
+                  {{ limitSize(versionCompare || defaultBranchName, 24) }}</div>
+              </div>
+              <div
                 class="stats-box__entry"
                 v-for="stat in stats"
                 :key="stat.label"
               >
                 <div class="stats-box__entry__label">{{ stat.label }}</div>
-                <div class="stats-box__entry__value">{{ stat.value }}</div>
+                <div class="stats-box__entry__value">
+                  {{ stat.value }}
+                  <span
+                    v-if="isComparing"
+                  >
+                    <div class="stats-box__entry__value__arrow-right"></div>
+                    <span
+                      :class="{
+                        'value-decrease': stat.value > stat.compareValue,
+                        'value-increase': stat.value < stat.compareValue
+                      }"
+                    >
+                      {{ stat.compareValue || 0 }}
+                    </span>
+                  </span>
+                </div>
               </div>
             </div>
           </transition>
@@ -109,10 +134,11 @@
 
 <script>
 import { getStats, getMissingImports } from "../api/ontology";
+import { mapState } from 'vuex';
 
 export default {
   name: 'StatsComponent',
-  props: ['statsServer', 'missingImportsServer'],
+  props: ['isComparing'],
   data() {
     return {
       numbersExpanded: false,
@@ -126,27 +152,37 @@ export default {
     this.fetchStats();
     this.fetchMissingImports();
   },
-  watch: {
-    statsServer: function() {
-      this.fetchStats();
-      this.fetchMissingImports();
-    }
-  },
   methods: {
     async fetchStats() {
+      this.stats = await this.getStatsObject(this.statsServer);
+
+      if (this.isComparing) {
+        const compareStats = await this.getStatsObject(this.statsServerCompare);
+
+        for (const key in compareStats) {
+          if (!this.stats[key]) {
+            this.stats[key] = {};
+            this.$set(this.stats[key], 'label', compareStats[key].label);
+            this.$set(this.stats[key], 'value', 0);
+          }
+          this.$set(this.stats[key], 'compareValue', compareStats[key].value);
+        }
+      }
+    },
+    async getStatsObject(server) {
+      const output = {};
       try {
-        const result = await getStats(this.statsServer);
+        const result = await getStats(server);
         const body = await result.json();
         for (const key in body.stats) {
-          if(this.stats[key] == undefined) {
-            this.$set(this.stats, key, {});
-          }
-          this.$set(this.stats[key], 'label', body.labels[key]);
-          this.$set(this.stats[key], 'value', body.stats[key]);
+          output[key] = {};
+          output[key].label = body.labels[key];
+          output[key].value = body.stats[key];
         }
       } catch (err) {
         console.error(err);
       }
+      return output;
     },
     async fetchMissingImports() {
       try {
@@ -156,11 +192,36 @@ export default {
         console.error(err);
       }
     },
+    limitSize(str, maxLength) {
+      return str.length > maxLength ? `${str.substring(0, maxLength)}...` : str;
+    }
+  },
+  watch: {
+    versionsString: function() {
+      if (this.statsServer == this.statsServerCompare)
+        return;
+      this.fetchStats();
+      this.fetchMissingImports();
+    },
   },
   computed: {
+    ...mapState({
+      version: (state) => state.servers.version,
+      versionCompare: (state) => state.servers.versionCompare,
+      // servers
+      statsServer: (state) => state.servers.statsServer,
+      statsServerCompare: (state) => state.servers.statsServerCompare,
+      missingImportsServer: (state) => state.servers.missingImportsServer,
+      missingImportsServerCompare: (state) => state.servers.missingImportsServerCompare,
+      // configuration
+      defaultBranchName: (state) => state.configuration.config.defaultBranchName,
+    }),
     ontologyNameUppercase() {
       return this.$store.state.configuration.config.ontpubFamily.toUpperCase();
     },
+    versionsString() {
+      return this.version + this.versionCompare;
+    }
   }
 };
 </script>
@@ -176,6 +237,7 @@ export default {
     .stats-box__content {
       padding-top: 7px;
       padding-bottom: 20px;
+      overflow: hidden;
     }
 
     .stats-box__title {
@@ -231,10 +293,45 @@ export default {
       .stats-box__entry__label {
         padding-right: 20px;
         color: rgba(0, 0, 0, 0.4);
+        max-width: 70%;
 
         &:first-letter {
           text-transform: uppercase;
         }
+      }
+
+      .stats-box__entry__value {
+        white-space: nowrap;
+        .stats-box__entry__value__arrow-right {
+          display: inline-block;
+          width: 16px;
+          height: 20px;
+          background-image: url("@/assets/icons/arrow-right.svg");
+          background-size: 12px 12px;
+          background-repeat: no-repeat;
+          background-position: center;
+          opacity: 0.4;
+          vertical-align: bottom;
+        }
+        .value-decrease {
+          color: #EC241D;
+        }
+        .value-increase {
+          color: #00b855;
+        }
+      }
+    }
+    .stats-box__comparing-title {
+      margin-top: 5px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+
+      .stats-box__entry__label{
+        color: rgba(0, 0, 0, 0.4);
+      }
+      .stats-box__entry__value {
+        color: rgba(0, 0, 0, 0.8);
+        font-weight: bold;
       }
     }
   }
@@ -242,6 +339,7 @@ export default {
   .stats-box--status {
     .stats-box__content {
       padding-top: 5px;
+      overflow: hidden;
 
       .stats-box__entry {
         background: rgba(0, 0, 0, 0.05);
