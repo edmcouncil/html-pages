@@ -10,6 +10,7 @@
         :is="subannotation.type"
         :value="subannotation.value"
         :entityMaping="subannotation.entityMaping"
+        :inferable="subannotation.inferable"
         :entityLabel="subannotation.entityLabel"
         v-bind="subannotation"
       ></component>

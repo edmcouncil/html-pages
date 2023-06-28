@@ -1,6 +1,10 @@
 <template>
   <div v-if="!isShowMore">
-    <component :is="processedTitle"></component>
+    <span :class="{'restriction-inferable': inferable}">
+      <component :is="processedTitle"></component>
+    </span>
+
+    <TooltipInline v-if="inferable" :text="tooltips.inferable" />
     <ul v-if="processedList.length > 0">
       <li
         v-for="(item, index) in processedList"
@@ -11,7 +15,11 @@
     </ul>
   </div>
   <div v-else>
-    <component :is="processedTitle"></component>
+    <span :class="{'restriction-inferable': inferable}">
+      <component :is="processedTitle"></component>
+    </span>
+
+    <TooltipInline v-if="inferable" :text="tooltips.inferable" />
     <ul>
       <li
         v-for="(item, index) in processedListSlice"
@@ -50,6 +58,7 @@
 import Vue from "vue";
 import customLink from "./link.vue";
 import langCodeFlags from "./LangCodeFlags.vue";
+import tooltips from '~/constants/tooltips';
 
 Vue.component("customLink", customLink);
 Vue.component("langCodeFlags", langCodeFlags);
@@ -60,7 +69,7 @@ export default {
     customLink,
     langCodeFlags,
   },
-  props: ["value", "entityMaping", "identifier"],
+  props: ["value", "entityMaping", "identifier", "inferable"],
   data() {
     const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
     let html = this.value;
@@ -82,26 +91,27 @@ export default {
       lines: lines,
       isShowMore: false,
       isMoreVisible: false,
+      tooltips,
     };
   },
   computed: {
     processedTitle() {
       const html = this.processedHtml(this.lines[0]);
-      return { template: `<div>${html}</div>` };
+      return { template: `<span>${html}</span>` };
     },
     processedList() {
       return this.lines.slice(1).map(item => (
-        { template: `<div>${this.processedHtml(item)}</div>` }
+        { template: `<span>${this.processedHtml(item)}</span>` }
       ));
     },
     processedListSlice() {
       return this.lines.slice(1, 6).map(item => (
-        { template: `<div>${this.processedHtml(item)}</div>` }
+        { template: `<span>${this.processedHtml(item)}</span>` }
       ));
     },
     processedListMore() {
       return this.lines.slice(6).map(item => (
-        { template: `<div>${this.processedHtml(item)}</div>` }
+        { template: `<span>${this.processedHtml(item)}</span>` }
       ));
     },
   },
@@ -150,7 +160,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+span.restriction-inferable {
+  color: rgba(0, 0, 0, 0.6);
+
+  a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
 .animated-list {
   overflow: hidden;
 }
