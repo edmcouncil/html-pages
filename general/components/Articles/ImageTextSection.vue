@@ -28,16 +28,16 @@
 
 <script>
 export default {
-  name: "ImageTextSection",
-  props: ["sectionItem"],
+  name: 'ImageTextSection',
+  props: ['sectionItem'],
   methods: {
     getImageUrl(item) {
       const strapiUrl = process.env.strapiBasePath;
       const location = item?.image?.data?.attributes?.url;
       if (location == undefined) {
-        return "undefined";
+        return 'undefined';
       }
-      if (location.includes("_nuxt") && location.includes("downloads")) {
+      if (location.includes('_nuxt') && location.includes('downloads')) {
         return location;
       }
       return strapiUrl + location;

@@ -17,15 +17,22 @@
               :sectionItem="sectionItem"
             />
             <DownloadSection
-              v-else-if="sectionItem['__component'] == 'sections.download-section'"
+              v-else-if="
+                sectionItem['__component'] == 'sections.download-section'
+              "
               :sectionItem="sectionItem"
             />
             <TableListSection
-              v-else-if="sectionItem['__component'] == 'sections.table-list-section'"
+              v-else-if="
+                sectionItem['__component'] == 'sections.table-list-section'
+              "
               :sectionItem="sectionItem"
             />
             <SerializationListSection
-              v-else-if="sectionItem['__component'] == 'sections.serialization-list-section'"
+              v-else-if="
+                sectionItem['__component'] ==
+                'sections.serialization-list-section'
+              "
               :sectionItem="sectionItem"
             />
           </section>
@@ -36,59 +43,72 @@
 </template>
 
 <script>
-import { prepareDescription } from "../helpers/meta";
-import { getStrapiSingleType } from "../api/strapi";
+import { prepareDescription } from '../helpers/meta';
+import { getStrapiSingleType } from '../api/strapi';
 
 export default {
-  name: "AboutView",
+  name: 'AboutView',
   components: {},
   head() {
     return {
-        title: this.title,
-        meta: [
-            {
-                hid: 'description',
-                name: 'description',
-                content: this.description,
-            },
-            {
-                hid: 'og:title',
-                name: 'og:title',
-                content: this.title,
-            },
-            {
-                hid: 'og:description',
-                property: 'og:description',
-                content: this.description,
-            },
-        ],
-    }
+      title: this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.description,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.title,
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: this.description,
+        },
+      ],
+    };
   },
   async asyncData({ error }) {
-    const singleTypeName = "about";
-    const populateParams = ["sections", "sections.items", "sections.items.image"];
+    const singleTypeName = 'about';
+    const populateParams = [
+      'sections',
+      'sections.items',
+      'sections.items.image',
+    ];
 
     try {
-      const response = await getStrapiSingleType(singleTypeName, populateParams);
-      if(response?.data?.data?.attributes?.sections == null)
-      {
-        console.error(`Page data(sections) is not recognized in the response from the server.
+      const response = await getStrapiSingleType(
+        singleTypeName,
+        populateParams,
+      );
+      if (response?.data?.data?.attributes?.sections == null) {
+        console.error(
+          `Page data(sections) is not recognized in the response from the server.
         Error occurred while rendering page ${singleTypeName}.\n
-        Current server response:\n`, response);
-        error({ statusCode: 503, message: "Service Unavailable" });
+        Current server response:\n`,
+          response,
+        );
+        error({ statusCode: 503, message: 'Service Unavailable' });
       }
 
-      const title = response?.data?.data?.attributes?.sections?.[0]?.title ?? process.env.VUE_ONTOLOGY_NAME;
-      const description = prepareDescription(response?.data?.data?.attributes?.sections?.[0]?.items?.[0]?.text_content ?? "");
+      const title = response?.data?.data?.attributes?.sections?.[0]?.title
+        ?? process.env.VUE_ONTOLOGY_NAME;
+      const description = prepareDescription(
+        response?.data?.data?.attributes?.sections?.[0]?.items?.[0]
+          ?.text_content ?? '',
+      );
 
       return {
         page: response?.data?.data?.attributes?.sections,
-        title: title,
-        description: description
+        title,
+        description,
       };
     } catch (e) {
       console.error(e);
-      error({ statusCode: 503, message: "Service Unavailable" });
+      error({ statusCode: 503, message: 'Service Unavailable' });
     }
   },
 };

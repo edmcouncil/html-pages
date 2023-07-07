@@ -7,11 +7,7 @@
         <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
           <div class="module-tree">
             <div
-              class="
-                secondary-column__how-to-use
-                multiselect-xxl-container multiselect-container
-                container
-              "
+              class="secondary-column__how-to-use multiselect-xxl-container multiselect-container container"
             >
               <div class="row modules-header">
                 <h5 class="fibo-title-modules">
@@ -29,11 +25,7 @@
             <transition name="slowfade">
               <div
                 v-if="hasVersions"
-                class="
-                  secondary-column__versions
-                  multiselect-xxl-container multiselect-container
-                  container
-                "
+                class="secondary-column__versions multiselect-xxl-container multiselect-container container"
               >
                 <div class="menu-box">
                   <div class="menu-box__label">
@@ -111,7 +103,10 @@
                     v-show="versionCompare.isCompareExpanded"
                     class="compare-dropdown-wrapper"
                   >
-                    <div class="compare-icon" @click="swapSelectedVersions()"></div>
+                    <div
+                      class="compare-icon"
+                      @click="swapSelectedVersions()"
+                    ></div>
                     <div class="menu-box">
                       <div class="menu-box__label">Compare with...</div>
                       <div class="menu-box__content-text">
@@ -189,11 +184,7 @@
             <transition name="slowfade">
               <div
                 v-show="modulesList"
-                class="
-                  secondary-column__tree
-                  multiselect-xxl-container multiselect-container
-                  container
-                "
+                class="secondary-column__tree multiselect-xxl-container multiselect-container container"
               >
                 <div class="menu-box">
                   <div class="menu-box__label">
@@ -238,7 +229,7 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="multiselect-xxl-container multiselect-container">
-                    <div class="menu-box">
+                    <div class="menu-box" @click="searchBoxClick()">
                       <div class="menu-box__label">Search</div>
                       <div class="menu-box__content-text">
                         <multiselect
@@ -335,11 +326,7 @@
             </div>
 
             <div
-              class="
-                advanced-search-box advanced-search-box--desktop
-                card
-                d-none d-lg-block
-              "
+              class="advanced-search-box advanced-search-box--desktop card d-none d-lg-block"
               v-if="searchBox.isAdvancedExpanded"
             >
               <div class="row">
@@ -406,12 +393,7 @@
           <!-- mobile multiselects -->
           <div class="secondary-column--mobile container px-0 mb-2 d-lg-none">
             <div
-              class="
-                secondary-column__how-to-use
-                secondary-column__how-to-use--mobile
-                multiselect-container
-                container
-              "
+              class="secondary-column__how-to-use secondary-column__how-to-use--mobile multiselect-container container"
             >
               <div class="row modules-header">
                 <h5 class="fibo-title-modules">
@@ -429,19 +411,13 @@
 
             <MobileMenuBox
               v-if="hasVersions"
-              class="
-                secondary-column__versions secondary-column__versions--mobile
-              "
+              class="secondary-column__versions secondary-column__versions--mobile"
               :icon="'icon-clock'"
             >
               <template v-slot:label> Select version </template>
               <template v-slot:multiselect>
                 <div
-                  class="
-                    multiselect-container
-                    secondary-column__versions
-                    secondary-column__versions--mobile
-                  "
+                  class="multiselect-container secondary-column__versions secondary-column__versions--mobile"
                 >
                   <multiselect
                     v-if="ontologyVersions.isGrouped"
@@ -705,35 +681,41 @@
 
           <!-- search results -->
           <SearchResults
-            v-else-if="searchBox.selectedData && searchBox.selectedData.isSearch"
+            v-else-if="
+              searchBox.selectedData && searchBox.selectedData.isSearch
+            "
             :searchBox="searchBox"
           />
 
           <div
             class="container"
-            v-else-if="!searchBox.selectedData || !searchBox.selectedData.isSearch"
+            v-else-if="
+              !searchBox.selectedData || !searchBox.selectedData.isSearch
+            "
           >
             <div class="row">
-                <!-- SHOW ITEM -->
-                <Resource
-                  v-if="isComparing ? mergedData : data"
-                  :data="isComparing ? mergedData : data"
-                  :isComparing="isComparing"
-                  :version="version"
-                />
+              <!-- SHOW ITEM -->
+              <Resource
+                v-if="isComparing ? mergedData : data"
+                :data="isComparing ? mergedData : data"
+                :isComparing="isComparing"
+                :version="version"
+              />
 
-                <!-- NO DATA (How to use) -->
-                <HowToUse
-                  v-else-if="
-                    !loader &&
-                    !searchBox.isLoadingResults &&
-                    !error.entityNotFound
-                  "
-                  :hasVersions="hasVersions"
-                  :ontologyNameUppercase="ontologyNameUppercase"
-                />
+              <!-- NO DATA (How to use) -->
+              <HowToUse
+                v-else-if="
+                  !loader &&
+                  !searchBox.isLoadingResults &&
+                  !error.entityNotFound
+                "
+                :hasVersions="hasVersions"
+                :ontologyNameUppercase="ontologyNameUppercase"
+              />
 
-                <EntityNotFound v-else-if="!loader && !isComparing && error.entityNotFound" />
+              <EntityNotFound
+                v-else-if="!loader && !isComparing && error.entityNotFound"
+              />
             </div>
           </div>
         </div>
@@ -743,7 +725,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex';
 import {
   getEntity,
   getModules,
@@ -751,28 +733,29 @@ import {
   getFindSearch,
   getFindProperties,
   getJenkinsJobs,
-} from "../api/ontology";
+} from '../api/ontology';
 import {
   generateTitleAndDescription,
   handleDeprecatedResource,
-} from "../helpers/ontology";
-import { mergeData } from "../helpers/compare";
+} from '../helpers/ontology';
+import { mergeData } from '../helpers/compare';
+
 export default {
-  name: "OntologyView",
-  props: ["ontology"],
-  key: "ontology",
+  name: 'OntologyView',
+  props: ['ontology'],
+  key: 'ontology',
   scrollToTop: false,
   async validate({ params }) {
-    return params.pathMatch.startsWith("ontology");
+    return params.pathMatch.startsWith('ontology');
   },
   data() {
     return {
-      title: "Ontology Viewer",
-      description: "",
+      title: 'Ontology Viewer',
+      description: '',
       loader: this.loader || false,
       data: this.data || null,
       mergedData: this.mergedData || null,
-      query: this.query || "",
+      query: this.query || '',
       modulesList: this.modulesList || null,
       error: this.error || {
         versions: false,
@@ -783,7 +766,7 @@ export default {
         entityNotFound: false,
       },
       searchBox: this.searchBox || {
-        inputValue: "",
+        inputValue: '',
         selectedData: null,
         hintsData: [], // search box hints
         totalResultsCount: 0,
@@ -797,7 +780,7 @@ export default {
         perPage: 0,
         findPropertiesAll: [],
         findProperties: [],
-        encodedProperties: "",
+        encodedProperties: '',
         useHighlighting: true,
         dropdownActive: false,
       },
@@ -805,8 +788,8 @@ export default {
         isGrouped: false,
         isLoading: false,
         defaultData: {
-          "@id": "current",
-          url: "",
+          '@id': 'current',
+          url: '',
         },
         data: [],
         selectedData: null,
@@ -816,7 +799,7 @@ export default {
         compareData: [],
         selectedCompareData: null,
         isSwappingVersion: false,
-      }
+      },
     };
   },
   head() {
@@ -824,40 +807,39 @@ export default {
       title: this.title,
       meta: [
         {
-          hid: "description",
-          name: "description",
+          hid: 'description',
+          name: 'description',
           content: this.description,
         },
         {
-          hid: "og:title",
-          name: "og:title",
+          hid: 'og:title',
+          name: 'og:title',
           content: this.title,
         },
         {
-          hid: "og:description",
-          property: "og:description",
+          hid: 'og:description',
+          property: 'og:description',
           content: this.description,
         },
       ],
     };
   },
   mounted() {
-    let queryParam = "";
+    let queryParam = '';
 
-    const pathParams = this.$route.params?.pathMatch?.split("/");
+    const pathParams = this.$route.params?.pathMatch?.split('/');
     if (pathParams && pathParams[1]?.length > 0) {
       const fullPath = window.location.pathname;
 
-      const pathPrefix = "ontology/";
+      const pathPrefix = 'ontology/';
       const index = fullPath.indexOf(pathPrefix);
-      const length = pathPrefix.length;
+      const { length } = pathPrefix;
 
       const ontologyQuery = fullPath.slice(index + length);
       queryParam = `${this.uriSpace}${ontologyQuery}`;
     } else if (this.$route.query && this.$route.query.query) {
-      queryParam =
-        encodeURIComponent(this.$route.query.query) +
-          encodeURIComponent(this.$route.hash) || "";
+      queryParam = encodeURIComponent(this.$route.query.query)
+          + encodeURIComponent(this.$route.hash) || '';
     }
     this.query = queryParam;
 
@@ -869,18 +851,18 @@ export default {
 
     // disable input autocomplete in multiselect
     this.$refs.searchBoxInputMobile.$refs.search.setAttribute(
-      "autocomplete",
-      "off"
+      'autocomplete',
+      'off',
     );
     this.$refs.searchBoxInputDesktop.$refs.search.setAttribute(
-      "autocomplete",
-      "off"
+      'autocomplete',
+      'off',
     );
 
-    const scrollTopElement = this.$refs["article-top-element"];
+    const scrollTopElement = this.$refs['article-top-element'];
     if (!this.query) {
       scrollTopElement.scrollIntoView({
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     } else {
       this.scrollToOntologyViewerTopOfContainer();
@@ -891,20 +873,24 @@ export default {
       this.searchBox.inputValue = searchQuery;
       this.$refs.searchBoxInputDesktop.search = searchQuery;
       this.$refs.searchBoxInputMobile.search = searchQuery;
-      const page = this.$route.query.page;
+      const { page } = this.$route.query;
       this.handleSearchBoxQuery(searchQuery, page);
     }
   },
   methods: {
     ...mapActions({
-      updateServers: "servers/updateServers",
-      updateCompareServers: "servers/updateCompareServers",
+      updateServers: 'servers/updateServers',
+      updateCompareServers: 'servers/updateCompareServers',
     }),
+    searchBoxClick() {
+      console.log(this.$refs.searchBoxInputDesktop);
+      if (!this.$refs.searchBoxInputDesktop.isOpen) this.$refs.searchBoxInputDesktop.activate();
+      else this.$refs.searchBoxInputDesktop.deactivate();
+    },
     async fetchData(iri, options) {
       const noScroll = options?.noScroll;
       if (iri) {
-        if (!noScroll)
-          this.scrollToOntologyViewerTopOfContainer();
+        if (!noScroll) this.scrollToOntologyViewerTopOfContainer();
         this.loader = true;
         this.data = null;
         this.mergedData = null;
@@ -912,11 +898,11 @@ export default {
           const query = `${this.ontologyServer}?iri=${iri}`;
           const result = await getEntity(query);
           const body = await result.json();
-          if (body.type !== "details") {
+          if (body.type !== 'details') {
             console.error(`body.type: ${body.type}, expected: details`);
           }
 
-          let { title, description } = generateTitleAndDescription(body);
+          const { title, description } = generateTitleAndDescription(body);
           this.title = title || this.title;
           this.description = description || this.description;
 
@@ -938,19 +924,18 @@ export default {
         }
         this.loader = false;
 
-        if (!noScroll)
-          this.scrollToOntologyViewerTopOfContainer();
+        if (!noScroll) this.scrollToOntologyViewerTopOfContainer();
       }
     },
     async fetchVersions() {
       try {
         const result = await getOntologyVersions(
-          `/${this.ontologyName}/ontology/api/`
+          `/${this.ontologyName}/ontology/api/`,
         );
         const ontologyVersions = await result.json();
 
-        const first = "master/latest";
-        ontologyVersions.sort((x,y) => { return x['@id'] == first ? -1 : y['@id'] == first ? 1 : 0; });
+        const first = 'master/latest';
+        ontologyVersions.sort((x, y) => (x['@id'] == first ? -1 : y['@id'] == first ? 1 : 0));
 
         this.ontologyVersions.data = ontologyVersions;
 
@@ -962,28 +947,26 @@ export default {
         ontologyVersions.unshift(this.ontologyVersions.defaultData); // add default at the beginning
 
         if (this.version !== null) {
-          this.ontologyVersions.selectedData =
-            ontologyVersions.find((val) => {
-              if (val["@id"] === this.version) {
-                return true;
-              }
-              return false;
-            });
+          this.ontologyVersions.selectedData = ontologyVersions.find((val) => {
+            if (val['@id'] === this.version) {
+              return true;
+            }
+            return false;
+          });
         } else {
-          this.ontologyVersions.selectedData =
-            this.ontologyVersions.defaultData;
+          this.ontologyVersions.selectedData = this.ontologyVersions.defaultData;
         }
         if (this.compareVersion !== null) {
-          this.versionCompare.selectedCompareData =
-            ontologyVersions.find((val) => {
-              if (val["@id"] === this.compareVersion) {
+          this.versionCompare.selectedCompareData = ontologyVersions.find(
+            (val) => {
+              if (val['@id'] === this.compareVersion) {
                 return true;
               }
               return false;
-            });
+            },
+          );
         } else {
-          this.versionCompare.selectedCompareData =
-            this.ontologyVersions.defaultData;
+          this.versionCompare.selectedCompareData = this.ontologyVersions.defaultData;
         }
         this.error.versions = false;
       } catch (err) {
@@ -992,26 +975,32 @@ export default {
       }
       if (this.jenkinsJobUrl) {
         try {
-          let jenkinsJobUrl = this.jenkinsJobUrl;
+          let { jenkinsJobUrl } = this;
 
           if (jenkinsJobUrl.endsWith('/')) {
             jenkinsJobUrl = jenkinsJobUrl.slice(0, -1);
           }
 
-          const tagName = process.env.tagName;
+          const { tagName } = process.env;
 
           // group versions by tags, pull requests and releases
-          const tagsResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/tags/api/json`);
+          const tagsResult = await getJenkinsJobs(
+            `${jenkinsJobUrl}/view/tags/api/json`,
+          );
           const tagsJson = await tagsResult.json();
-          let tags = tagsJson.jobs.map(item => item.name.toLowerCase());
+          const tags = tagsJson.jobs.map((item) => item.name.toLowerCase());
 
-          const pullRequestsResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/change-requests/api/json`);
+          const pullRequestsResult = await getJenkinsJobs(
+            `${jenkinsJobUrl}/view/change-requests/api/json`,
+          );
           const pullRequestsJson = await pullRequestsResult.json();
-          let pullRequests = pullRequestsJson.jobs.map(item => item.name.toLowerCase());
+          const pullRequests = pullRequestsJson.jobs.map((item) => item.name.toLowerCase());
 
-          const defaultViewResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/default/api/json`);
+          const defaultViewResult = await getJenkinsJobs(
+            `${jenkinsJobUrl}/view/default/api/json`,
+          );
           const defaultViewJson = await defaultViewResult.json();
-          let defaultView = defaultViewJson.jobs.map(item => item.name.toLowerCase());
+          const defaultView = defaultViewJson.jobs.map((item) => item.name.toLowerCase());
 
           // group versions
           const defaultGroup = [];
@@ -1019,7 +1008,7 @@ export default {
           const tagsGroup = [];
           const otherGroup = [];
 
-          for(const version of this.ontologyVersions.data) {
+          for (const version of this.ontologyVersions.data) {
             let versionToCompare = version['@id'].toLowerCase();
             if (versionToCompare.endsWith(`/${tagName}`)) {
               versionToCompare = versionToCompare.replace(`/${tagName}`, '');
@@ -1027,26 +1016,26 @@ export default {
 
             versionToCompare = versionToCompare.replace('/', '_');
 
-            if (versionToCompare === 'master' || versionToCompare === this.defaultBranchName)
-              otherGroup.push(version);
-            else if (tags.find(item => item == versionToCompare))
-              tagsGroup.push(version);
-            else if (pullRequests.find(item => item == versionToCompare))
-              pullRequestsGroup.push(version);
-            else if (defaultView.find(item => item == versionToCompare))
-              defaultGroup.push(version);
+            if (
+              versionToCompare === 'master'
+              || versionToCompare === this.defaultBranchName
+            ) otherGroup.push(version);
+            else if (tags.find((item) => item == versionToCompare)) tagsGroup.push(version);
+            else if (pullRequests.find((item) => item == versionToCompare)) pullRequestsGroup.push(version);
+            else if (defaultView.find((item) => item == versionToCompare)) defaultGroup.push(version);
           }
 
           const options = [];
 
-          if (otherGroup.length > 0)
-            options.push({group: 'Default', versions: otherGroup});
-          if (tagsGroup.length > 0)
-            options.push({group: 'Releases', versions: tagsGroup});
-          if (pullRequestsGroup.length > 0)
-            options.push({group: 'Pull requests', versions: pullRequestsGroup});
-          if (defaultGroup.length > 0)
-            options.push({group: 'Branches', versions: defaultGroup});
+          if (otherGroup.length > 0) options.push({ group: 'Default', versions: otherGroup });
+          if (tagsGroup.length > 0) options.push({ group: 'Releases', versions: tagsGroup });
+          if (pullRequestsGroup.length > 0) {
+            options.push({
+              group: 'Pull requests',
+              versions: pullRequestsGroup,
+            });
+          }
+          if (defaultGroup.length > 0) options.push({ group: 'Branches', versions: defaultGroup });
 
           this.ontologyVersions.isGrouped = true;
           this.ontologyVersions.data = options;
@@ -1055,7 +1044,6 @@ export default {
           console.error(err);
         }
       }
-
     },
     async fetchModules() {
       this.modulesList = null;
@@ -1071,15 +1059,15 @@ export default {
     async fetchSearchProperties() {
       try {
         const result = await getFindProperties(
-          this.searchServer + "/properties"
+          `${this.searchServer}/properties`,
         );
         this.searchBox.findPropertiesAll = await result.json();
 
         if (this.searchBox.findPropertiesAll.length > 0) {
           this.searchBox.findProperties.push(
             this.searchBox.findPropertiesAll.find(
-              (property) => property.identifier === "rdfs_label"
-            )
+              (property) => property.identifier === 'rdfs_label',
+            ),
           );
         }
 
@@ -1104,7 +1092,7 @@ export default {
 
       const promises = [
         getEntity(`${this.ontologyServer}?iri=${iri}`),
-        getEntity(`${this.ontologyServerCompare}?iri=${iri}`)
+        getEntity(`${this.ontologyServerCompare}?iri=${iri}`),
       ];
 
       const results = await Promise.allSettled(promises);
@@ -1112,17 +1100,17 @@ export default {
       // get data 1
       try {
         const result1 = results[0];
-        if (result1.status == `rejected`) {
+        if (result1.status == 'rejected') {
           const error = new Error(result1.reason.message);
           error.status = result1.reason.status;
           throw error;
         }
         const body = await result1.value.json();
-        if (body.type !== "details") {
+        if (body.type !== 'details') {
           console.error(`body.type: ${body.type}, expected: details`);
         }
 
-        let { title, description } = generateTitleAndDescription(body);
+        const { title, description } = generateTitleAndDescription(body);
         this.title = title || this.title;
         this.description = description || this.description;
 
@@ -1134,31 +1122,31 @@ export default {
       } catch (err) {
         if (err.status === 404) {
           data1 = {
-            label: "Resource not Found",
-            iri: "",
-            maturityLevel: {}
-          }
+            label: 'Resource not Found',
+            iri: '',
+            maturityLevel: {},
+          };
           this.error.entityNotFound = true;
         } else {
           data1 = {
-            label: "Error fetching data",
-            iri: "",
-            maturityLevel: {}
-          }
+            label: 'Error fetching data',
+            iri: '',
+            maturityLevel: {},
+          };
         }
       }
 
       // get data 2
       try {
         const result2 = results[1];
-        if (result2.status == `rejected`) {
+        if (result2.status == 'rejected') {
           const error = new Error(result2.reason.message);
           error.status = result2.reason.status;
           throw error;
         }
         const body = await result2.value.json();
 
-        if (body.type !== "details") {
+        if (body.type !== 'details') {
           console.error(`body.type: ${body.type}, expected: details`);
         }
 
@@ -1169,35 +1157,35 @@ export default {
         if (err.status === 404) {
           // handle compare resource not found
           data2 = {
-            label: "Resource not Found",
-            iri: "",
-            maturityLevel: {}
-          }
+            label: 'Resource not Found',
+            iri: '',
+            maturityLevel: {},
+          };
         } else {
           data2 = {
-            label: "Error fetching data",
-            iri: "",
-            maturityLevel: {}
-          }
+            label: 'Error fetching data',
+            iri: '',
+            maturityLevel: {},
+          };
         }
       }
 
       this.error.entityData = false;
 
       // merge data 1 and 2
-      let mergedData = mergeData(data1, data2);
+      const mergedData = mergeData(data1, data2);
 
       this.mergedData = mergedData;
 
       this.loader = false;
       this.data = savedData;
-      this.scrollToOntologyViewerTopOfContainer("smooth");
+      this.scrollToOntologyViewerTopOfContainer('smooth');
     },
     // vue-multiselect ontologyVersions
     ontologyVersions_optionSelected(selectedOntologyVersion) {
       if (
-        selectedOntologyVersion["@id"] ===
-        this.ontologyVersions.defaultData["@id"]
+        selectedOntologyVersion['@id']
+        === this.ontologyVersions.defaultData['@id']
       ) {
         // default selected
         const { version, ...rest } = this.$route.query; // get rid of version
@@ -1207,7 +1195,7 @@ export default {
           query: {
             ...this.$route.query,
             ...{
-              version: encodeURI(selectedOntologyVersion["@id"]),
+              version: encodeURI(selectedOntologyVersion['@id']),
             },
           },
         });
@@ -1217,43 +1205,43 @@ export default {
       this.clearSearchResults();
     },
     ontologyVersions_compareOptionSelected(selectedOntologyVersion) {
-      if (selectedOntologyVersion["@id"] &&
-        selectedOntologyVersion["@id"]
-        != this.ontologyVersions.selectedData["@id"] &&
-        selectedOntologyVersion["@id"] !==
-        this.ontologyVersions.defaultData["@id"]) {
-        this.updateCompareServers({ compareVersion: selectedOntologyVersion["@id"] });
+      if (
+        selectedOntologyVersion['@id']
+        && selectedOntologyVersion['@id']
+          != this.ontologyVersions.selectedData['@id']
+        && selectedOntologyVersion['@id']
+          !== this.ontologyVersions.defaultData['@id']
+      ) {
+        this.updateCompareServers({
+          compareVersion: selectedOntologyVersion['@id'],
+        });
         this.fetchCompareDataAndMerge(this.query);
-      }
-      else if (
-        selectedOntologyVersion["@id"] ===
-        this.ontologyVersions.defaultData["@id"]
-      )
-      {
+      } else if (
+        selectedOntologyVersion['@id']
+        === this.ontologyVersions.defaultData['@id']
+      ) {
         this.updateCompareServers({ compareVersion: null });
         this.fetchCompareDataAndMerge(this.query);
       } else {
-        this.updateCompareServers({ compareVersion: selectedOntologyVersion["@id"] });
-        this.fetchData(this.query, { noScroll: true })
+        this.updateCompareServers({
+          compareVersion: selectedOntologyVersion['@id'],
+        });
+        this.fetchData(this.query, { noScroll: true });
       }
     },
     swapSelectedVersions() {
-      if (this.loader)
-        return;
+      if (this.loader) return;
 
-      let version = this.ontologyVersions.selectedData;
-      let versionCompare = this.versionCompare.selectedCompareData;
+      const version = this.ontologyVersions.selectedData;
+      const versionCompare = this.versionCompare.selectedCompareData;
 
-      if (!version || !versionCompare)
-        return;
+      if (!version || !versionCompare) return;
 
       this.ontologyVersions.selectedData = versionCompare;
       this.versionCompare.selectedCompareData = version;
 
-      if (version["@id"] != this.ontologyVersions.defaultData["@id"])
-        this.updateCompareServers({ compareVersion: version["@id"] });
-      else
-        this.updateCompareServers({ compareVersion: null });
+      if (version['@id'] !== this.ontologyVersions.defaultData['@id']) this.updateCompareServers({ compareVersion: version['@id'] });
+      else this.updateCompareServers({ compareVersion: null });
 
       this.ontologyVersions_optionSelected(versionCompare);
 
@@ -1263,28 +1251,24 @@ export default {
     compareButtonHandler(isCompareExpanded) {
       this.versionCompare.isCompareExpanded = isCompareExpanded;
       if (
-        isCompareExpanded &&
-        this.versionCompare.selectedCompareData &&
-        this.versionCompare.selectedCompareData["@id"]
-        != this.ontologyVersions.selectedData["@id"]
-      )
-      {
+        isCompareExpanded
+        && this.versionCompare.selectedCompareData
+        && this.versionCompare.selectedCompareData['@id']
+          != this.ontologyVersions.selectedData['@id']
+      ) {
         this.fetchCompareDataAndMerge(this.query);
-      }
-      else if (!isCompareExpanded && this.data == null)
-        this.fetchData(this.query, { noScroll: true })
+      } else if (!isCompareExpanded && this.data == null) this.fetchData(this.query, { noScroll: true });
     },
     // vue-multiselect
     searchBox_limitText(count) {
       return `and ${count} other results`;
     },
     searchBox_optionSelected(selectedOption /* , id */) {
-      if (this.$refs.mobileSearchbox?.showModal)
-        this.$refs.mobileSearchbox.hideModal();
+      if (this.$refs.mobileSearchbox?.showModal) this.$refs.mobileSearchbox.hideModal();
       let destRoute = selectedOption.iri;
       if (destRoute.startsWith(this.uriSpace)) {
         // internal ontology
-        destRoute = destRoute.replace(this.uriSpace, "");
+        destRoute = destRoute.replace(this.uriSpace, '');
         this.$router.push({
           path: `/ontology/${destRoute}`,
           query: {
@@ -1296,7 +1280,7 @@ export default {
       } else {
         // external ontology
         this.$router.push({
-          path: "/ontology",
+          path: '/ontology',
           query: {
             ...{ query: encodeURI(destRoute) },
             ...(this.$route.query && this.$route.query.version
@@ -1310,12 +1294,11 @@ export default {
       });
     },
     async searchBox_addTag(newTag) {
-      if (newTag != "") {
-        if (this.$refs.mobileSearchbox?.showModal)
-          this.$refs.mobileSearchbox.hideModal();
+      if (newTag !== '') {
+        if (this.$refs.mobileSearchbox?.showModal) this.$refs.mobileSearchbox.hideModal();
 
         this.$router.push({
-          path: "/ontology",
+          path: '/ontology',
           query: {
             ...{ search: encodeURI(newTag) },
             ...{ page: 1 },
@@ -1342,8 +1325,8 @@ export default {
           this.searchBox.page = page;
 
           // eslint-disable-next-line max-len
-          let domain = encodeURI(
-            `${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${this.searchBox.encodedProperties}&page=${page}`
+          const domain = encodeURI(
+            `${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${this.searchBox.encodedProperties}&page=${page}`,
           );
 
           const result = await getFindSearch(domain);
@@ -1397,14 +1380,14 @@ export default {
 
       this.searchBox.debounce = setTimeout(async () => {
         try {
-          // wait for properties to be loaded if they arent
+          // wait for properties to be loaded if they aren't
           while (this.searchBox.findPropertiesAll.length === 0) {
             await new Promise((resolve) => setTimeout(resolve, 100));
           }
 
           // eslint-disable-next-line max-len
-          let domain = encodeURI(
-            `${this.searchServer}?term=${query}&mode=advance&useHighlighting=false&findProperties=${this.searchBox.encodedProperties}`
+          const domain = encodeURI(
+            `${this.searchServer}?term=${query}&mode=advance&useHighlighting=false&findProperties=${this.searchBox.encodedProperties}`,
           );
           const result = await getFindSearch(domain);
           const json = await result.json();
@@ -1426,15 +1409,15 @@ export default {
     },
     clearAll() {
       this.searchBox.selectedData = null;
-      this.searchBox.inputValue = "";
-      this.$refs.searchBoxInputDesktop.search = "";
-      this.$refs.searchBoxInputMobile.search = "";
+      this.searchBox.inputValue = '';
+      this.$refs.searchBoxInputDesktop.search = '';
+      this.$refs.searchBoxInputMobile.search = '';
     },
     loadMoreResults() {
       this.searchBox.displayedResultsCount += this.searchBox.perPage;
       this.searchBox.displayedResults = this.searchBox.totalResults.slice(
         0,
-        this.searchBox.displayedResultsCount
+        this.searchBox.displayedResultsCount,
       );
     },
     clearSearchResults() {
@@ -1455,9 +1438,9 @@ export default {
     },
     onPropertiesChanged() {
       const identifiersArray = this.searchBox.findProperties.map(
-        (property) => property.identifier
+        (property) => property.identifier,
       );
-      this.searchBox.encodedProperties = identifiersArray.join(".");
+      this.searchBox.encodedProperties = identifiersArray.join('.');
 
       for (const property of this.searchBox.findPropertiesAll) {
         property.selected = this.searchBox.findProperties.includes(property);
@@ -1469,12 +1452,12 @@ export default {
       this.error.entityNotFound = false;
       this.searchBox.isLoading = false;
       if (
-        this.$route.path != "/ontology" ||
-        this.$route.query?.query ||
-        this.$route.query?.search
+        this.$route.path !== '/ontology'
+        || this.$route.query?.query
+        || this.$route.query?.search
       ) {
         this.$router.push({
-          path: "/ontology",
+          path: '/ontology',
           query: {
             ...(this.$route.query && this.$route.query.version
               ? { version: encodeURI(this.$route.query.version) }
@@ -1484,22 +1467,21 @@ export default {
       }
 
       this.$nextTick(async function () {
-        this.scrollToOntologyViewerTopOfContainer("smooth");
+        this.scrollToOntologyViewerTopOfContainer('smooth');
       });
     },
     scrollToOntologyViewerTopOfContainer(behavior) {
-      const element = document.getElementById("ontologyViewerTopOfContainer");
+      const element = document.getElementById('ontologyViewerTopOfContainer');
 
       const rect = element.getBoundingClientRect();
-      const scrollTop =
-        rect.top + (window.pageYOffset || document.documentElement.scrollTop);
+      const scrollTop = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
 
-      if (behavior == "smooth")
+      if (behavior === 'smooth') {
         window.scrollTo({
           top: scrollTop,
-          behavior: "smooth",
+          behavior: 'smooth',
         });
-      else window.scrollTo(0, scrollTop);
+      } else window.scrollTo(0, scrollTop);
     },
   },
   computed: {
@@ -1514,20 +1496,19 @@ export default {
       ontologyServerCompare: (state) => state.servers.ontologyServerCompare,
       // configuration
       ontologyName: (state) => state.configuration.config.ontpubFamily,
-      ontologyRepositoryUrl: (state) =>
-        state.configuration.config.ontologyRepositoryUrl,
+      ontologyRepositoryUrl: (state) => state.configuration.config.ontologyRepositoryUrl,
       uriSpace: (state) => state.configuration.config.uriSpace,
       defaultBranchName: (state) => state.configuration.config.defaultBranchName,
       jenkinsJobUrl: (state) => state.configuration.config.jenkinsJobUrl,
     }),
     isError() {
       return (
-        this.error.versions ||
-        this.error.modules ||
-        this.error.properties ||
-        this.error.search ||
-        this.error.entityData ||
-        this.error.entityNotFound
+        this.error.versions
+        || this.error.modules
+        || this.error.properties
+        || this.error.search
+        || this.error.entityData
+        || this.error.entityNotFound
       );
     },
     hasVersions() {
@@ -1535,10 +1516,10 @@ export default {
     },
     isComparing() {
       return (
-        this.versionCompare.isCompareExpanded &&
-        this.versionCompare.selectedCompareData &&
-        this.versionCompare.selectedCompareData["@id"]
-        != this.ontologyVersions.selectedData["@id"]
+        this.versionCompare.isCompareExpanded
+        && this.versionCompare.selectedCompareData
+        && this.versionCompare.selectedCompareData['@id']
+          !== this.ontologyVersions.selectedData['@id']
       );
     },
     ontologyNameUppercase() {
@@ -1546,37 +1527,34 @@ export default {
     },
   },
   beforeRouteUpdate(to, from, next) {
-    let previousVersion = this.version;
+    const previousVersion = this.version;
     this.updateServers({ route: this.$route, to });
 
     // version just changed
-    if (this.version != previousVersion)
-      this.fetchModules();
+    if (this.version !== previousVersion) this.fetchModules();
 
     if (to !== from) {
-      let queryParam = "";
+      let queryParam = '';
 
       if (to.query?.query) {
-        queryParam = to.query.query + to.hash || "";
+        queryParam = to.query.query + to.hash || '';
       } else {
-        let destination = to.path.replace("/ontology/", "");
-        destination = destination.replace("/ontology", "");
+        let destination = to.path.replace('/ontology/', '');
+        destination = destination.replace('/ontology', '');
         queryParam = `${this.uriSpace}${destination}`;
       }
       this.query = queryParam;
 
       if (this.query === this.uriSpace) {
-        this.query = "";
+        this.query = '';
         this.data = null;
       } else {
         this.query = encodeURIComponent(this.query);
       }
 
       this.$nextTick(async function () {
-        if (this.isComparing)
-          this.fetchCompareDataAndMerge(this.query);
-        else
-          this.fetchData(this.query);
+        if (this.isComparing) this.fetchCompareDataAndMerge(this.query);
+        else this.fetchData(this.query);
       });
     }
     if (!to.query.search) {
@@ -1590,16 +1568,14 @@ export default {
       this.searchBox.inputValue = searchQuery;
       this.$refs.searchBoxInputDesktop.search = searchQuery;
       this.$refs.searchBoxInputMobile.search = searchQuery;
-      const page = to.query.page;
+      const { page } = to.query;
       this.handleSearchBoxQuery(searchQuery, page);
     }
     this.$nextTick(() => {
       if (
-        (this.$route.path != "/ontology" ||
-        this.$route.query?.query) &&
-        !this.versionCompare.isSwappingVersion
-      )
-        this.scrollToOntologyViewerTopOfContainer();
+        (this.$route.path !== '/ontology' || this.$route.query?.query)
+        && !this.versionCompare.isSwappingVersion
+      ) this.scrollToOntologyViewerTopOfContainer();
 
       this.versionCompare.isSwappingVersion = false;
     });

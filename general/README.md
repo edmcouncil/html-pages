@@ -2,7 +2,7 @@
 
 # html-pages general template
 
-![image](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white) ![image](https://img.shields.io/badge/nuxt.js-00C58E?style=for-the-badge&logo=nuxtdotjs&logoColor=white) ![image](https://img.shields.io/badge/strapi-2F2E8B?style=for-the-badge&logo=strapi&logoColor=whitee) ![image](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white) ![image](https://img.shields.io/badge/d3.js-F9A03C?style=for-the-badge&logo=d3.js&logoColor=white) ![image](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white) ![image](https://img.shields.io/badge/Babel-F9DC3E?style=for-the-badge&logo=babel&logoColor=white) ![image](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![image](https://img.shields.io/badge/Google%20Analytics-E37400?style=for-the-badge&logo=google%20analytics&logoColor=white) 
+![image](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white) ![image](https://img.shields.io/badge/nuxt.js-00C58E?style=for-the-badge&logo=nuxtdotjs&logoColor=white) ![image](https://img.shields.io/badge/strapi-2F2E8B?style=for-the-badge&logo=strapi&logoColor=whitee) ![image](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white) ![image](https://img.shields.io/badge/d3.js-F9A03C?style=for-the-badge&logo=d3.js&logoColor=white) ![image](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white) ![image](https://img.shields.io/badge/Babel-F9DC3E?style=for-the-badge&logo=babel&logoColor=white) ![image](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![image](https://img.shields.io/badge/Google%20Analytics-E37400?style=for-the-badge&logo=google%20analytics&logoColor=white)
 
 Strapi is used as a content managment system. This frontend application(html-pages/general) use strapi api to fetch data.
 
@@ -14,25 +14,25 @@ Strapi is used as a content managment system. This frontend application(html-pag
 ## Strapi configuration for develop local run
 
 - create directory for strapi instance for run (`strapiDir`)
-- install strapi using quick start with no additional arguments 
-    ```
-    npx create-strapi-app@latest strapi-dashboard --quickstart
-    ```
-    for advanced options see strapi documentation [Strapi quick start](https://docs.strapi.io/developer-docs/latest/getting-started/quick-start.html)
+- install strapi using quick start with no additional arguments
+  ```
+  npx create-strapi-app@latest strapi-dashboard --quickstart
+  ```
+  for advanced options see strapi documentation [Strapi quick start](https://docs.strapi.io/developer-docs/latest/getting-started/quick-start.html)
 - after the installation and first run, close strapi and import the database and structure definition.
-    - database (if you are not using a development database skip this point): 
-        - development database in SQLite is located in directory `html-pages/general/strapi/.tmp/`, it should be copied to `strapiDir/.tmp/`
-    - strapi structure definition: 
-        - definitions is located in directory `html-pages/general/strapi/.src/`, all directories should be copied to `strapiDir/.src/` with replace option if needed
- - run strapi with one of the selected commands:
- 
- ``` bash
- # run strapi with dev settings(it automatically refresh panel when changes is detected)
- $ npm run develop
- 
- # run strapi with prod settings
- $ npm run start
- ```
+  - database (if you are not using a development database skip this point):
+    - development database in SQLite is located in directory `html-pages/general/strapi/.tmp/`, it should be copied to `strapiDir/.tmp/`
+  - strapi structure definition:
+    - definitions is located in directory `html-pages/general/strapi/.src/`, all directories should be copied to `strapiDir/.src/` with replace option if needed
+- run strapi with one of the selected commands:
+
+```bash
+# run strapi with dev settings(it automatically refresh panel when changes is detected)
+$ npm run develop
+
+# run strapi with prod settings
+$ npm run start
+```
 
 Admin pannel run default on: `http://localhost:1337/admin`
 For admin panel with develop database login data is:
@@ -72,7 +72,7 @@ The following values can be defined in `variables`:
 
 - clone code -> go to `general` directory
 
-- install dependencies using: 
+- install dependencies using:
 
 ```bash
 npm install
@@ -117,5 +117,3 @@ Application run default on: `http://localhost:3000`.
 ```bash
 $ set ONTOLOGY_NAME=auto && npm run dev
 ```
-
-

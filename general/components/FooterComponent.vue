@@ -88,13 +88,13 @@ export default {
   data() {
     return {
       showTermsLinkOnFooter: process.env.showTermsLinkOnFooter,
-    }
+    };
   },
   computed: {
-    copyright () {
+    copyright() {
       return this.$store.state.footerData.copyright;
     },
-  }
+  },
 };
 </script>
 

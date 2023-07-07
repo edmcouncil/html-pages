@@ -7,11 +7,7 @@
         </div>
         <div class="col-12 col-md-4 px-0">
           <div
-            class="
-              secondary-column__versions
-              multiselect-xxl-container multiselect-container
-              container
-            "
+            class="secondary-column__versions multiselect-xxl-container multiselect-container container"
             v-if="hasVersions"
           >
             <div class="menu-box">
@@ -57,7 +53,6 @@
         </div>
       </div>
     </div>
-
 
     <div class="table-container">
       <div
@@ -198,19 +193,19 @@
 </template>
 
 <script>
-import { getOntologyVersions } from "../../api/ontology";
+import { getOntologyVersions } from '../../api/ontology';
 
 export default {
-  name: "SerializationListSection",
-  props: ["sectionItem"],
+  name: 'SerializationListSection',
+  props: ['sectionItem'],
   data() {
     return {
-      version: "master/latest",
+      version: 'master/latest',
       serialization: null,
       ontologyVersionsDropdownData: {
         defaultData: {
-          "@id": "master/latest",
-          url: "",
+          '@id': 'master/latest',
+          url: '',
         },
         selectedData: null,
         data: [],
@@ -226,16 +221,15 @@ export default {
     download(name, product) {
       const productName = product || 'ontology';
       const baseUrl = `/${this.ontologyName}/${productName}`;
-      const branch =
-        this.hasVersions ?
-        this.ontologyVersionsDropdownData?.selectedData['@id'] :
-        "master/latest";
+      const branch = this.hasVersions
+        ? this.ontologyVersionsDropdownData?.selectedData['@id']
+        : 'master/latest';
       const link = `${baseUrl}/${branch}/${name}`;
-      const aElement = document.createElement("a");
-      aElement.setAttribute("download", name);
-      aElement.setAttribute("href", link);
-      aElement.setAttribute("target", "_blank");
-      aElement.style.display = "none";
+      const aElement = document.createElement('a');
+      aElement.setAttribute('download', name);
+      aElement.setAttribute('href', link);
+      aElement.setAttribute('target', '_blank');
+      aElement.style.display = 'none';
       document.body.appendChild(aElement);
       aElement.click();
       aElement.remove();
@@ -243,26 +237,24 @@ export default {
     async fetchVersions() {
       try {
         const result = await getOntologyVersions(
-          `/${this.ontologyName}/ontology/`
+          `/${this.ontologyName}/ontology/`,
         );
         const ontologyVersions = await result.json();
 
-        const first = "master/latest";
-        ontologyVersions.sort((x,y) => { return x['@id'] == first ? -1 : y['@id'] == first ? 1 : 0; });
+        const first = 'master/latest';
+        ontologyVersions.sort((x, y) => (x['@id'] == first ? -1 : y['@id'] == first ? 1 : 0));
 
         this.ontologyVersionsDropdownData.data = ontologyVersions;
 
         if (this.version !== null) {
-          this.ontologyVersionsDropdownData.selectedData =
-            ontologyVersions.find((val) => {
-              if (val["@id"] === this.version) {
-                return true;
-              }
-              return false;
-            });
+          this.ontologyVersionsDropdownData.selectedData = ontologyVersions.find((val) => {
+            if (val['@id'] === this.version) {
+              return true;
+            }
+            return false;
+          });
         } else {
-          this.ontologyVersionsDropdownData.selectedData =
-            this.ontologyVersionsDropdownData.defaultData;
+          this.ontologyVersionsDropdownData.selectedData = this.ontologyVersionsDropdownData.defaultData;
         }
       } catch (err) {
         console.error(err);
@@ -278,7 +270,7 @@ export default {
     },
     hasVersions() {
       return this.ontologyVersionsDropdownData.data.length > 0;
-    }
+    },
   },
 };
 </script>

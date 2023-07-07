@@ -10,12 +10,11 @@
       },
     }"
     @click.native="linkClickNative"
-    :class="{'deprecated': isDeprecated === 'true'}"
-  >{{
-    name
-  }}<TooltipInline
-    v-if="isDeprecated === 'true'"
-    :text="tooltips['deprecated']"
+    :class="{ deprecated: isDeprecated === 'true' }"
+    >{{ name
+    }}<TooltipInline
+      v-if="isDeprecated === 'true'"
+      :text="tooltips['deprecated']"
   /></nuxt-link>
   <nuxt-link
     v-else
@@ -28,29 +27,33 @@
           : null),
       },
     }"
-    :class="{'deprecated': isDeprecated === 'true'}"
-  >{{
-    name
-  }}<TooltipInline
+    :class="{ deprecated: isDeprecated === 'true' }"
+    >{{ name
+    }}<TooltipInline
       v-if="isDeprecated === 'true'"
       :text="tooltips['deprecated']"
-    /></nuxt-link>
+  /></nuxt-link>
 </template>
 
 <script>
-import tooltips from '../../constants/tooltips';
+import tooltips from '~/constants/tooltips';
 
 export default {
   name: 'customLink',
-  props: {name: String, query: String, isDeprecated: String, customLinkOnClick: Function},
+  props: {
+    name: String,
+    query: String,
+    isDeprecated: String,
+    customLinkOnClick: Function,
+  },
   data() {
     return {
       tooltips,
-    }
+    };
   },
   methods: {
     linkClickNative(event) {
-      if(this.customLinkOnClick !== undefined){
+      if (this.customLinkOnClick !== undefined) {
         this.customLinkOnClick(event);
       }
     },
@@ -65,6 +68,6 @@ export default {
     uriSpace() {
       return this.$store.state.configuration.config.uriSpace;
     },
-  }
+  },
 };
 </script>

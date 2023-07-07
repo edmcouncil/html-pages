@@ -2,14 +2,8 @@
   <div class="col-md-12 col-lg-12 px-0 ontology-item">
     <CompareBanner v-if="isComparing" />
     <div class="row">
-      <ResourceHeader
-        v-if="!isComparing"
-        :data="data"
-      />
-      <ResourceHeaderCompare
-        v-else
-        :data="data"
-      />
+      <ResourceHeader v-if="!isComparing" :data="data" />
+      <ResourceHeaderCompare v-else :data="data" />
 
       <!-- paths -->
       <div
@@ -35,9 +29,7 @@
       <!-- sections -->
       <div
         class="col-md-12 px-0"
-        v-for="(
-          section, sectionName, sectionIndex
-        ) in data.properties"
+        v-for="(section, sectionName, sectionIndex) in data.properties"
         :key="sectionName + (isComparing ? data.headerLeft.label : data.label)"
       >
         <ResourceSection
@@ -75,19 +67,13 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   name: 'Resource',
-  props: [
-    'version',
-    'data',
-    'isComparing'
-  ],
+  props: ['version', 'data', 'isComparing'],
   data() {
-    return {
-
-    }
+    return {};
   },
   computed: {
     ...mapState({
@@ -98,7 +84,7 @@ export default {
     hasGraph() {
       return this.data?.graph?.nodes?.length > 1;
     },
-  }
+  },
 };
 </script>
 

@@ -684,12 +684,15 @@
             ></b-img>
           </div>
           <p>
-            In the configuration section the user can adjust visualization
-            to his preferences by changing graph variables.
+            In the configuration section the user can adjust visualization to
+            his preferences by changing graph variables.
           </p>
 
           <h2>2. Node distance</h2>
-          <p>Node distance range slider determines how far nodes are placed from each other.</p>
+          <p>
+            Node distance range slider determines how far nodes are placed from
+            each other.
+          </p>
 
           <h2>3. Keep edge labels</h2>
           <p>
@@ -704,7 +707,7 @@
 
 <script>
 export default {
-  name: "GraphGuide",
+  name: 'GraphGuide',
   data() {
     return {
       currentPage: null,

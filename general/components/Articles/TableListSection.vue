@@ -8,14 +8,20 @@
     >
       <div class="table-box">
         <div class="table-box__column title">
-          <h2 v-if="item.title_link"><a :href="item.title_link">{{ item.title }}</a></h2>
+          <h2 v-if="item.title_link">
+            <a :href="item.title_link">{{ item.title }}</a>
+          </h2>
           <h2 v-else>{{ item.title }}</h2>
-          <div class="short-description" v-html="$md.render(item.subtitle || '')">
-          </div>
+          <div
+            class="short-description"
+            v-html="$md.render(item.subtitle || '')"
+          ></div>
         </div>
 
-        <div class="table-box__column long-description" v-html="$md.render(item.description || '')">
-        </div>
+        <div
+          class="table-box__column long-description"
+          v-html="$md.render(item.description || '')"
+        ></div>
         <div class="table-box__column mobile-visit-btn">
           <button
             type="button"
@@ -34,21 +40,20 @@
 <script>
 export default {
   name: 'TableListSection',
-  props: [ 'sectionItem' ],
-  methods: {
-  },
+  props: ['sectionItem'],
+  methods: {},
   computed: {
     visit(url) {
-      const aElement = document.createElement("a");
-      aElement.setAttribute("href", url);
-      aElement.setAttribute("target", "_blank");
-      aElement.style.display = "none";
+      const aElement = document.createElement('a');
+      aElement.setAttribute('href', url);
+      aElement.setAttribute('target', '_blank');
+      aElement.style.display = 'none';
       document.body.appendChild(aElement);
       aElement.click();
       aElement.remove();
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="scss">

@@ -1,6 +1,6 @@
 <template>
   <div v-if="!isShowMore">
-    <span :class="{'restriction-inferable': inferable}">
+    <span :class="{ 'restriction-inferable': inferable }">
       <component :is="processedTitle"></component>
     </span>
 
@@ -15,7 +15,7 @@
     </ul>
   </div>
   <div v-else>
-    <span :class="{'restriction-inferable': inferable}">
+    <span :class="{ 'restriction-inferable': inferable }">
       <component :is="processedTitle"></component>
     </span>
 
@@ -41,11 +41,7 @@
       </transition>
     </b-collapse>
 
-    <div
-      v-if="!isMoreVisible"
-      href="#"
-      @click.prevent="toggleIsMoreVisible()"
-    >
+    <div v-if="!isMoreVisible" href="#" @click.prevent="toggleIsMoreVisible()">
       <div class="see-more-btn">Show {{ lines.length - 6 }} more</div>
     </div>
     <div v-else href="#" @click.prevent="toggleIsMoreVisible()">
@@ -55,40 +51,46 @@
 </template>
 
 <script>
-import Vue from "vue";
-import customLink from "./link.vue";
-import langCodeFlags from "./LangCodeFlags.vue";
+import Vue from 'vue';
+import customLink from './link.vue';
+import langCodeFlags from './LangCodeFlags.vue';
 import tooltips from '~/constants/tooltips';
 
-Vue.component("customLink", customLink);
-Vue.component("langCodeFlags", langCodeFlags);
+Vue.component('customLink', customLink);
+Vue.component('langCodeFlags', langCodeFlags);
 
 export default {
-  name: "AXIOM",
+  name: 'AXIOM',
   components: {
     customLink,
     langCodeFlags,
   },
-  props: ["value", "entityMaping", "identifier", "inferable"],
+  props: ['value', 'entityMaping', 'identifier', 'inferable'],
   data() {
     const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
-    let html = this.value;
+    const html = this.value;
     let lines = html.split(/(?:\r\n|\r|\n)/g);
     if (lines.length == 1) {
-      lines = html.split("<br />");
+      lines = html.split('<br />');
     }
-    lines.forEach(function (part, index) {
-      var regexMatch = part.match(regex);
+    lines.forEach((part, index) => {
+      const regexMatch = part.match(regex);
       if (regexMatch != null) {
-        regexMatch.forEach(function (match, indexMatch) {
-          var replacementLang = match.replace("[", "").replace("]", "").replace("@", "");
-          var rep = part.replace(match, `<langCodeFlags iso="${replacementLang}" />`);
+        regexMatch.forEach((match, indexMatch) => {
+          const replacementLang = match
+            .replace('[', '')
+            .replace(']', '')
+            .replace('@', '');
+          const rep = part.replace(
+            match,
+            `<langCodeFlags iso="${replacementLang}" />`,
+          );
           lines[index] = rep;
         }, regexMatch);
       }
     }, lines);
     return {
-      lines: lines,
+      lines,
       isShowMore: false,
       isMoreVisible: false,
       tooltips,
@@ -100,19 +102,19 @@ export default {
       return { template: `<span>${html}</span>` };
     },
     processedList() {
-      return this.lines.slice(1).map(item => (
-        { template: `<span>${this.processedHtml(item)}</span>` }
-      ));
+      return this.lines.slice(1).map((item) => ({
+        template: `<span>${this.processedHtml(item)}</span>`,
+      }));
     },
     processedListSlice() {
-      return this.lines.slice(1, 6).map(item => (
-        { template: `<span>${this.processedHtml(item)}</span>` }
-      ));
+      return this.lines.slice(1, 6).map((item) => ({
+        template: `<span>${this.processedHtml(item)}</span>`,
+      }));
     },
     processedListMore() {
-      return this.lines.slice(6).map(item => (
-        { template: `<span>${this.processedHtml(item)}</span>` }
-      ));
+      return this.lines.slice(6).map((item) => ({
+        template: `<span>${this.processedHtml(item)}</span>`,
+      }));
     },
   },
   mounted() {
@@ -128,29 +130,27 @@ export default {
 
       if (!this.isMoreVisible) {
         this.isMoreVisible = !this.isMoreVisible;
-      } else if(topOffset < 0) {
+      } else if (topOffset < 0) {
         element.scrollIntoView({
-          behavior: "smooth"
+          behavior: 'smooth',
         });
-        setTimeout(()=>{
+        setTimeout(() => {
           this.isMoreVisible = !this.isMoreVisible;
-        }, 500)
-      }
-      else {
+        }, 500);
+      } else {
         this.isMoreVisible = !this.isMoreVisible;
       }
     },
     processedHtml(htmlInput) {
       let htmlResult = htmlInput;
-      if(htmlResult.startsWith('- '))
-        htmlResult = htmlResult.substring(2);
-      htmlResult = htmlResult.replace("/arg1/", "<b>/arg1/</b>");
+      if (htmlResult.startsWith('- ')) htmlResult = htmlResult.substring(2);
+      htmlResult = htmlResult.replace('/arg1/', '<b>/arg1/</b>');
       if (this.entityMaping) {
         Object.keys(this.entityMaping).forEach((name) => {
           const value = this.entityMaping[name];
           htmlResult = htmlResult.replace(
             name,
-            `<customLink name="${value.label}" query="${value.iri}" isDeprecated="${value.deprecated}"></customLink>`
+            `<customLink name="${value.label}" query="${value.iri}" isDeprecated="${value.deprecated}"></customLink>`,
           );
         });
       }

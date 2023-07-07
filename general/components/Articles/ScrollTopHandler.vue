@@ -12,9 +12,9 @@ export default {
     scrollBackUp() {
       const element = document.getElementById('article-top-element');
       element.scrollIntoView({
-          behavior: "smooth"
+        behavior: 'smooth',
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>

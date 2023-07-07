@@ -118,12 +118,12 @@
 </template>
 
 <script>
-import { Network } from "vis-network";
-import { DataSet, DataView } from "vis-data";
+import { Network } from 'vis-network';
+import { DataSet, DataView } from 'vis-data';
 
 export default {
-  name: "vis-network",
-  props: ["data", "title"],
+  name: 'vis-network',
+  props: ['data', 'title'],
   data() {
     return {
       modalVisible: false,
@@ -141,42 +141,40 @@ export default {
       // console.log(this.data.nodes);
       // console.log(this.data.edges);
 
-      this.data.nodes.forEach(function(part, index) {
+      this.data.nodes.forEach(function (part, index) {
+        this[index].shape = 'box';
+        this[index].shapeProperties = { borderRadius: 40 };
 
-        this[index].shape = "box";
-        this[index].shapeProperties = { borderRadius : 40 };
-
-        if(this[index].id === 1){
-          this[index].color = "#ffffff";
+        if (this[index].id === 1) {
+          this[index].color = '#ffffff';
           this[index].font.size = this[index].font.size + 5;
           this[index].heightConstraint = 25;
         }
-        if(this[index].color === null){
-          this[index].color = "#616161"
-          this[index].font.color = "#ffffff"
+        if (this[index].color === null) {
+          this[index].color = '#616161';
+          this[index].font.color = '#ffffff';
         }
-        if(this[index].color === "#C2FABC"){
-          this[index].color = "#ffffff"
+        if (this[index].color === '#C2FABC') {
+          this[index].color = '#ffffff';
         }
       }, this.data.nodes);
-
 
       const nodes = new DataSet(this.data.nodes);
       const edges = new DataSet(this.data.edges);
 
       const containerElement = this.$refs.ontograph;
 
-      const edgesFilter = (edge) =>
-        this.edgesFilterValues[edge.optional] && this.edgesFilterValues[edge.type];
+      const edgesFilter = (edge) => this.edgesFilterValues[edge.optional]
+        && this.edgesFilterValues[edge.type];
 
       const nodesFilter = (node) => {
-        let connEdges = this.edgesView.get({
-              filter: function (edge) {
-                return edge.to === node.id || edge.from === node.id;
-              },
-            });
+        const connEdges = this.edgesView.get({
+          filter(edge) {
+            return edge.to === node.id || edge.from === node.id;
+          },
+        });
         return connEdges.length > 0 || node.id === 1;
-      }
+      };
 
       this.edgesView = new DataView(edges, { filter: edgesFilter });
       this.nodeView = new DataView(nodes, { filter: nodesFilter });
@@ -188,8 +186,8 @@ export default {
       const options = {
         edges: {
           smooth: {
-            type: "cubicBezier",
-            forceDirection: "none",
+            type: 'cubicBezier',
+            forceDirection: 'none',
             roundness: 0.15,
           },
         },
@@ -201,7 +199,7 @@ export default {
             springConstant: 0.415,
           },
           minVelocity: 0.75,
-          solver: "forceAtlas2Based",
+          solver: 'forceAtlas2Based',
         },
       };
       const network = new Network(containerElement, data, options);
@@ -214,12 +212,11 @@ export default {
         network.fit();
       });
 
-      network.on("doubleClick", (params) => {
-        const versionQueryStringPart =
-          this.$route.query && this.$route.query.version
-            ? `version=${encodeURI(this.$route.query.version)}`
-            : null;
-        params.event = "[original event]";
+      network.on('doubleClick', (params) => {
+        const versionQueryStringPart = this.$route.query && this.$route.query.version
+          ? `version=${encodeURI(this.$route.query.version)}`
+          : null;
+        params.event = '[original event]';
         const selectedNodes = params.nodes;
         const selectedEdges = params.edges;
 
@@ -227,11 +224,11 @@ export default {
           const sNode = selectedNodes[0];
           nodes.forEach((entry) => {
             if (entry.id === sNode) {
-              const regex = new RegExp( this.uriSpace );
+              const regex = new RegExp(this.uriSpace);
               if (entry.iri.match(regex)) {
                 window.location.href = `${entry.iri.replace(
                   this.uriSpace,
-                  ""
+                  '',
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
                 window.location.href = `/${this.ontologyName}/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
@@ -242,11 +239,11 @@ export default {
           const sEgde = selectedEdges[0];
           this.edgesView.forEach((entry) => {
             if (entry.id === sEgde) {
-              const regex = new RegExp( this.uriSpace );
+              const regex = new RegExp(this.uriSpace);
               if (entry.iri.match(regex)) {
                 window.location.href = `${entry.iri.replace(
                   this.uriSpace,
-                  ""
+                  '',
                 )}?${versionQueryStringPart}`; // &scrollToTop=true
               } else {
                 window.location.href = `/${this.ontologyName}/ontology?query=${entry.iri}&${versionQueryStringPart}`; // &scrollToTop=true
@@ -259,11 +256,11 @@ export default {
   },
   methods: {
     swapGraphContent() {
-      const graphModalElement = document.getElementById("graphModalBody");
-      const connectionsMenuElement = document.getElementById("connectionsMenu");
+      const graphModalElement = document.getElementById('graphModalBody');
+      const connectionsMenuElement = document.getElementById('connectionsMenu');
       const ontographElement = this.$refs.ontograph;
 
-      document.body.style.overflowY = "hidden";
+      document.body.style.overflowY = 'hidden';
 
       graphModalElement.appendChild(connectionsMenuElement);
       graphModalElement.appendChild(ontographElement);
@@ -271,8 +268,8 @@ export default {
       const options = {
         edges: {
           smooth: {
-            type: "cubicBezier",
-            forceDirection: "none",
+            type: 'cubicBezier',
+            forceDirection: 'none',
             roundness: 0.15,
           },
         },
@@ -284,7 +281,7 @@ export default {
             springConstant: 0.412,
           },
           minVelocity: 0.75,
-          solver: "forceAtlas2Based",
+          solver: 'forceAtlas2Based',
         },
       };
 
@@ -299,27 +296,30 @@ export default {
         window.network.fit({
           animation: {
             duration: 50,
-          }
+          },
         });
       }, 100);
     },
     hideModal() {
-      document.body.style.overflowY = "scroll";
+      document.body.style.overflowY = 'scroll';
 
       document
-        .getElementById("graphWindowWraper").querySelector('.smallGraphWraper')
+        .getElementById('graphWindowWraper')
+        .querySelector('.smallGraphWraper')
         .insertBefore(
-          document.getElementById("connectionsMenu"),
-          document.getElementById("graphWindowWraper").querySelector('.smallGraphWraper').childNodes[0]
+          document.getElementById('connectionsMenu'),
+          document
+            .getElementById('graphWindowWraper')
+            .querySelector('.smallGraphWraper').childNodes[0],
         );
       document
-        .getElementById("smallGraph")
-        .appendChild(document.getElementById("ontograph"));
+        .getElementById('smallGraph')
+        .appendChild(document.getElementById('ontograph'));
       const options = {
         edges: {
           smooth: {
-            type: "cubicBezier",
-            forceDirection: "none",
+            type: 'cubicBezier',
+            forceDirection: 'none',
             roundness: 0.15,
           },
         },
@@ -331,7 +331,7 @@ export default {
             springConstant: 0.415,
           },
           minVelocity: 0.75,
-          solver: "forceAtlas2Based",
+          solver: 'forceAtlas2Based',
         },
       };
       window.network.setOptions(options);
@@ -344,14 +344,14 @@ export default {
       this.$refs.connectionsElement.classList.toggle('collapsed');
       this.adjustGraphSize();
     },
-    adjustGraphSize(){
-      if(this.modalVisible){
-        const graphModalElement = document.getElementById("graphModalBody");
-        const connectionsMenuElement = document.getElementById("connectionsMenu");
+    adjustGraphSize() {
+      if (this.modalVisible) {
+        const graphModalElement = document.getElementById('graphModalBody');
+        const connectionsMenuElement = document.getElementById('connectionsMenu');
 
-        const adjustedHeight = graphModalElement.clientHeight-connectionsMenuElement.clientHeight;
-        window.network.setSize('100%',`${adjustedHeight}px`);
-      }else{
+        const adjustedHeight = graphModalElement.clientHeight - connectionsMenuElement.clientHeight;
+        window.network.setSize('100%', `${adjustedHeight}px`);
+      } else {
         window.network.setSize('100%', '100%');
       }
       window.network.redraw();
@@ -359,7 +359,7 @@ export default {
     checkboxChangedHandler() {
       this.edgesView.refresh();
       this.nodeView.refresh();
-    }
+    },
   },
   computed: {
     ontologyName() {
@@ -368,7 +368,7 @@ export default {
     uriSpace() {
       return this.$store.state.configuration.config.uriSpace;
     },
-  }
+  },
 };
 </script>
 

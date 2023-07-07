@@ -178,22 +178,21 @@
 <script>
 export default {
   name: 'HeaderComponent',
-  methods: {
-  },
+  methods: {},
   computed: {
-    dropdownMenu () {
+    dropdownMenu() {
       return this.$store.state.headerData.menuDropdown;
     },
-    dropdownTop () {
+    dropdownTop() {
       return this.$store.state.headerData.menuTop;
     },
-    ontologyLogoUrl () {
+    ontologyLogoUrl() {
       return this.$store.state.configuration.config.ontologyLogoUrl;
     },
     isCustomLogo() {
       return this.ontologyLogoUrl && this.ontologyLogoUrl.length > 0;
-    }
-  }
+    },
+  },
 };
 </script>
 

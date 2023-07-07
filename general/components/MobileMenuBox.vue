@@ -41,11 +41,7 @@
       </div>
       <div v-else class="modal-with-multiselect">
         <div
-          class="
-            mobile-multiselect-container
-            multiselect-container
-            inside-modal
-          "
+          class="mobile-multiselect-container multiselect-container inside-modal"
         >
           <div class="menu-box">
             <div class="menu-box__content-text" ref="modalTarget"></div>
@@ -58,48 +54,49 @@
 
 <script>
 export default {
-  name: "MobileModal",
-  props: [ 'icon' ],
+  name: 'MobileModal',
+  props: ['icon'],
   data() {
     return {
       showModal: false,
-    }
+    };
   },
   methods: {
     hideModal() {
-      if (!this.noMultiselect)
-        this.$refs.outsideTarget.appendChild(this.$refs.modalTarget?.firstChild);
+      if (!this.noMultiselect) {
+        this.$refs.outsideTarget.appendChild(
+          this.$refs.modalTarget?.firstChild,
+        );
+      }
 
       this.showModal = false;
     },
     openModal() {
       this.showModal = true;
-      if (this.noMultiselect)
-        return
+      if (this.noMultiselect) return;
 
       this.$nextTick(() => {
-        this.$refs.modalTarget.appendChild(this.$refs.outsideTarget?.firstChild);
+        this.$refs.modalTarget.appendChild(
+          this.$refs.outsideTarget?.firstChild,
+        );
       });
-
     },
     toggleModal() {
-      if (this.showModal)
-        this.hideModal();
-      else
-        this.openModal();
-    }
+      if (this.showModal) this.hideModal();
+      else this.openModal();
+    },
   },
   computed: {
     noMultiselect() {
       return !this.$slots.multiselect;
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss">
 .modal-header.no-shadow {
-  box-shadow: none!important;
+  box-shadow: none !important;
 }
 .outside-modal.mobile-multiselect-container {
   padding: 0 30px !important;
@@ -215,7 +212,6 @@ export default {
     background-image: url("@/assets/icons/search.svg");
   }
 
-
   .multiselect__select {
     display: none;
   }
@@ -235,6 +231,5 @@ export default {
       pointer-events: none;
     }
   }
-
 }
 </style>

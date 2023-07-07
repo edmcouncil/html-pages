@@ -4,13 +4,13 @@ $link-active-color: rgba(0, 0, 0, 0.6);
 // custom controls
 $custom-control-indicator-border-radius: 2px;
 $custom-control-indicator-checked-bg: rgb(51, 51, 51);
-$custom-control-indicator-icon-checked: url('@/assets/icons/checkbox-check.svg');
+$custom-control-indicator-icon-checked: url("@/assets/icons/checkbox-check.svg");
 $custom-control-indicator-indeterminate-bg: #ffffff;
-$custom-control-indicator-indeterminate-box-shadow: 0px 0px 0px 6px rgba(0, 0, 0, 0.4);
-$custom-control-indicator-icon-indeterminate: url('@/assets/icons/checkbox-check.svg');
+$custom-control-indicator-indeterminate-box-shadow: 0px 0px 0px 6px
+  rgba(0, 0, 0, 0.4);
+$custom-control-indicator-icon-indeterminate: url("@/assets/icons/checkbox-check.svg");
 $custom-control-disabled-bg: rgba(0, 0, 0, 0.05);
-$custom-control-disabled-fill: rgb(153,153,153);
-
+$custom-control-disabled-fill: rgb(153, 153, 153);
 
 // button
 $normal-button-default-bg: rgba(0, 0, 0, 0.8);
@@ -99,7 +99,8 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
   .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
     background-color: $custom-control-indicator-indeterminate-bg;
   }
-  .custom-control-input:checked:not(:disabled):active ~ .custom-control-label::before {
+  .custom-control-input:checked:not(:disabled):active
+    ~ .custom-control-label::before {
     background-color: $custom-control-indicator-checked-bg;
   }
 
@@ -258,7 +259,7 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
     background: $normal-button-active-bg;
   }
   &:disabled,
-  &[disabled='disabled'] {
+  &[disabled="disabled"] {
     background: $normal-button-disabled-bg;
   }
 }
@@ -303,11 +304,11 @@ article {
     border-radius: 2px;
 
     *:last-child {
-      margin-bottom: 0 !important
+      margin-bottom: 0 !important;
     }
 
     * > :last-child {
-      margin-bottom: 0 !important
+      margin-bottom: 0 !important;
     }
 
     &.blank {
@@ -382,7 +383,8 @@ article {
     margin: 0px;
   }
 
-  ul, ol {
+  ul,
+  ol {
     padding-left: 30px;
   }
 
@@ -562,11 +564,11 @@ article {
   }
 
   ::-webkit-scrollbar-track {
-    background: map-get($colors-map , "black-40");
+    background: map-get($colors-map, "black-40");
   }
 
   ::-webkit-scrollbar-thumb {
-    background: map-get($colors-map , "black-80");
+    background: map-get($colors-map, "black-80");
   }
 }
 
@@ -575,7 +577,7 @@ article {
 }
 
 .clearfix::after {
-  content: '';
+  content: "";
   clear: both;
   display: table;
 }
@@ -593,10 +595,10 @@ article {
 
 a.deprecated {
   text-decoration: line-through !important;
-  text-decoration-color: #EC241D !important;
-  color: #EC241D;
+  text-decoration-color: #ec241d !important;
+  color: #ec241d;
 }
 
 a.deprecated:hover {
-  color: #EC241D;
+  color: #ec241d;
 }

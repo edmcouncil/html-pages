@@ -15,11 +15,11 @@
 <script>
 export default {
   name: 'LongContentCollapse',
-  props: [ 'expandedText', 'collapsedText' ],
+  props: ['expandedText', 'collapsedText'],
   data() {
     return {
       isExpanded: false,
-    }
+    };
   },
   methods: {
     toggleExpanded() {
@@ -28,8 +28,8 @@ export default {
     expand() {
       this.isExpanded = true;
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="scss">

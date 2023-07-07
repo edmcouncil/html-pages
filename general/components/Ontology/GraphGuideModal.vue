@@ -1,11 +1,5 @@
 <template>
-  <b-modal
-    :id="modalId"
-    modal-class="help"
-    size="lg"
-    centered
-    scrollable
-  >
+  <b-modal :id="modalId" modal-class="help" size="lg" centered scrollable>
     <template v-slot:modal-header>
       <div
         type="button"
@@ -23,10 +17,7 @@
         <slot name="footer-left"></slot>
       </div>
       <div class="right">
-        <button
-          class="btn normal-button small"
-          @click="$emit('closeEvent')"
-        >
+        <button class="btn normal-button small" @click="$emit('closeEvent')">
           Close
         </button>
       </div>
@@ -37,9 +28,9 @@
 
 <script>
 export default {
-  name: "GraphGuideModal",
-  props: ["modalId"],
-}
+  name: 'GraphGuideModal',
+  props: ['modalId'],
+};
 </script>
 
 <style lang="scss" scoped>
@@ -118,7 +109,7 @@ export default {
     justify-content: space-between;
 
     .normal-button.small {
-      margin-bottom: 0!important;
+      margin-bottom: 0 !important;
     }
   }
 }

@@ -16,8 +16,8 @@
           aria-label="Close"
           @click="closeModal()"
         >
-        <h5 class="modal-title">Return</h5>
-      </div>
+          <h5 class="modal-title">Return</h5>
+        </div>
         <div class="help-icon" v-b-modal.info-modal @click="openInfo()"></div>
       </template>
       <div v-if="error" class="describe-error text-center">
@@ -42,12 +42,7 @@
         <pre><code class="hljs xml" v-html="highlightedCode"></code></pre>
       </div>
     </b-modal>
-    <b-modal
-      id="info-modal"
-      modal-class="info-modal"
-      size="md"
-      centered
-    >
+    <b-modal id="info-modal" modal-class="info-modal" size="md" centered>
       <template v-slot:modal-header>
         <div
           type="button"
@@ -58,12 +53,12 @@
         ></div>
         <h5 class="modal-title">About</h5>
       </template>
-      <p>The describe tool is using <a href="https://data.world/">data.world</a> API.</p>
+      <p>
+        The describe tool is using
+        <a href="https://data.world/">data.world</a> API.
+      </p>
       <template v-slot:modal-footer>
-        <button
-          class="btn normal-button small"
-          @click="closeInfo()"
-        >
+        <button class="btn normal-button small" @click="closeInfo()">
           Close
         </button>
       </template>
@@ -85,87 +80,88 @@
       @click="openModal()"
       disabled
     >
-      <span class="content-text">Describe {{error ? 'unavailable' : null}}</span>
+      <span class="content-text"
+        >Describe {{ error ? "unavailable" : null }}</span
+      >
     </button>
   </div>
 </template>
 
 <script>
-import hljs from "highlight.js";
+import hljs from 'highlight.js';
+import { mapState } from 'vuex';
 import { getDescribeIntegration } from '@/api/ontology';
-import { mapState } from "vuex";
 
 export default {
-  name: "DescribeButton",
-  props: [ 'data' ],
+  name: 'DescribeButton',
+  props: ['data'],
   data() {
     return {
-      test: "asd",
+      test: 'asd',
       copied: false,
       error: false,
       loading: false,
-      code: ``,
-      highlightedCode: "",
+      code: '',
+      highlightedCode: '',
     };
   },
   async mounted() {
-    if (this.code && this.highlightedCode)
-        return;
+    if (this.code && this.highlightedCode) return;
 
-      let result = null;
-      try {
-        this.loading = true;
-        const domain = `${this.describeServer}?iri=${this.data.iri}`;
+    let result = null;
+    try {
+      this.loading = true;
+      const domain = `${this.describeServer}?iri=${this.data.iri}`;
 
-        result = await getDescribeIntegration(domain);
+      result = await getDescribeIntegration(domain);
 
-        this.loading = false;
-      } catch(e) {
-        this.loading = false;
+      this.loading = false;
+    } catch (e) {
+      this.loading = false;
+      this.error = true;
+      console.error(e);
+      return;
+    }
+
+    // check if integration is configured and there is no error message
+    try {
+      const data = await result.clone().json();
+
+      if (
+        data?.msg === 'breakdown'
+        || data?.message === 'Integration is not configured'
+      ) {
         this.error = true;
-        console.error(e);
         return;
       }
+    } catch (e) {
+      // if the result is not a valid json then we can proceed
+      this.error = false;
+    }
 
-      // check if integration is configured and there is no error message
-      try {
-        const data = await result.clone().json();
-
-        if (
-          data?.msg === "breakdown"
-          || data?.message==="Integration is not configured"
-        ) {
-          this.error = true;
-          return;
-        }
-      } catch(e) {
-        // if the result is not a valid json then we can proceed
-        this.error = false;
-      }
-
-      // highlight code
-      this.code = await result.text();
-      this.highlightedCode = hljs.highlight(this.code, { language: "xml" }).value;
+    // highlight code
+    this.code = await result.text();
+    this.highlightedCode = hljs.highlight(this.code, { language: 'xml' }).value;
   },
   methods: {
     async openModal() {
-      this.$bvModal.show("describe-modal");
+      this.$bvModal.show('describe-modal');
     },
     openInfo() {
-      this.$bvModal.show("info-modal");
+      this.$bvModal.show('info-modal');
     },
     closeModal() {
-      this.$bvModal.hide("describe-modal");
+      this.$bvModal.hide('describe-modal');
     },
     closeInfo() {
-      this.$bvModal.hide("info-modal");
+      this.$bvModal.hide('info-modal');
     },
     async pressed() {
       if (window.isSecureContext && navigator.clipboard) {
         await navigator.clipboard.writeText(this.code);
       } else {
         const el = document.createElement('textarea');
-        el.addEventListener('focusin', e => e.stopPropagation());
+        el.addEventListener('focusin', (e) => e.stopPropagation());
         el.value = this.code;
         document.body.appendChild(el);
         el.select();
@@ -178,7 +174,7 @@ export default {
       }
 
       this.copied = true;
-      setTimeout(()=>{
+      setTimeout(() => {
         this.copied = false;
       }, 1500);
     },
@@ -194,9 +190,10 @@ export default {
 
 <style lang="scss">
 .describe-container {
-  padding: 0!important;
+  padding: 0 !important;
 }
-.describe-loading, .describe-error {
+.describe-loading,
+.describe-error {
   width: 100%;
   height: 100%;
   display: flex;

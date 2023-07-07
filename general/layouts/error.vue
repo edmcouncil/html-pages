@@ -11,15 +11,17 @@
         <h1 v-if="error.statusCode === 404">404</h1>
         <h1 v-else>Connection Failed</h1>
 
-        <p v-if="error.statusCode === 404" class="muted">
-          Page not found.
-        </p>
+        <p v-if="error.statusCode === 404" class="muted">Page not found.</p>
         <p v-else class="muted">
           Couldn't reach our servers, please try again later.
         </p>
 
-        <NuxtLink v-if="error.statusCode === 404" to="/">Return to homepage</NuxtLink>
-        <a v-else href="https://spec.edmcouncil.org/">Return to spec.edmcouncil.org</a>
+        <NuxtLink v-if="error.statusCode === 404" to="/"
+          >Return to homepage</NuxtLink
+        >
+        <a v-else href="https://spec.edmcouncil.org/"
+          >Return to spec.edmcouncil.org</a
+        >
       </section>
     </article>
   </div>
@@ -29,8 +31,8 @@
 export default {
   name: 'Error',
   props: ['error'],
-  layout: 'empty'
-}
+  layout: 'empty',
+};
 </script>
 
 <style lang="scss" scoped>

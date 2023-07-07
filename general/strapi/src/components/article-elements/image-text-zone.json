@@ -9,22 +9,13 @@
   "attributes": {
     "image_align": {
       "type": "enumeration",
-      "enum": [
-        "left",
-        "right",
-        "center"
-      ]
+      "enum": ["left", "right", "center"]
     },
     "image": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "allowedTypes": ["images", "files", "videos", "audios"]
     },
     "image_description": {
       "type": "string"

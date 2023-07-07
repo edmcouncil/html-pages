@@ -12,19 +12,19 @@
 
 <script>
 export default {
-  name: "CompareButton",
+  name: 'CompareButton',
   data() {
     return {
       open: false,
-    }
+    };
   },
   methods: {
     pressed() {
       this.open = !this.open;
       this.$emit('compareToggled', this.open);
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -72,5 +72,4 @@ export default {
     background-image: url("@/assets/icons/close.svg");
   }
 }
-
 </style>

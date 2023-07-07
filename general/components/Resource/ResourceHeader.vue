@@ -5,7 +5,11 @@
         <div class="ontology-item__header__title-segment">
           <div class="right">
             <!-- show more menu -->
-            <div v-if="hasDropdownMenu" class="btn-group resource-more" :class="{centered: !hasStatus}">
+            <div
+              v-if="hasDropdownMenu"
+              class="btn-group resource-more"
+              :class="{ centered: !hasStatus }"
+            >
               <button
                 type="button"
                 class="btn dropdown-toggle"
@@ -122,54 +126,54 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import DescribeButton from "../Ontology/DescribeButton.vue";
+import { mapState } from 'vuex';
+import DescribeButton from '../Ontology/DescribeButton.vue';
 
 export default {
-  name: "ResourceHeader",
-  props: ["data"],
+  name: 'ResourceHeader',
+  props: ['data'],
   data() {
     return {};
   },
   methods: {
     githubNewIssue() {
-      const ontologyQuery = this.data.iri.replace(this.uriSpace, "");
-      const label = ontologyQuery.substring(0, ontologyQuery.indexOf("/"));
+      const ontologyQuery = this.data.iri.replace(this.uriSpace, '');
+      const label = ontologyQuery.substring(0, ontologyQuery.indexOf('/'));
       const details = {
         label,
         title: `Problem with ${this.data.label.toUpperCase()}`,
         body: `Resource URL:\n${this.data.iri}`,
       };
-      const url =
-        `${this.ontologyRepositoryUrl}/issues/new` +
-        `?labels=${encodeURI(details.label)}` +
-        `&template=issue.md` +
-        `&title=${encodeURI(details.title)}` +
-        `&body=${encodeURI(details.body)}`;
-      window.open(url, "_blank");
+      const url = `${this.ontologyRepositoryUrl}/issues/new`
+        + `?labels=${encodeURI(details.label)}`
+        + '&template=issue.md'
+        + `&title=${encodeURI(details.title)}`
+        + `&body=${encodeURI(details.body)}`;
+      window.open(url, '_blank');
     },
   },
   computed: {
     ...mapState({
       // configuration
-      ontologyRepositoryUrl: (state) =>
-        state.configuration.config.ontologyRepositoryUrl,
+      ontologyRepositoryUrl: (state) => state.configuration.config.ontologyRepositoryUrl,
       uriSpace: (state) => state.configuration.config.uriSpace,
     }),
     hasDropdownMenu() {
       return (
-        (this.ontologyRepositoryUrl &&
-          this.data.iri.startsWith(this.uriSpace) &&
-          !(this.$route.query && this.$route.query.version)) ||
-        this.data.iri.slice(-1) !== "/"
+        (this.ontologyRepositoryUrl
+          && this.data.iri.startsWith(this.uriSpace)
+          && !(this.$route.query && this.$route.query.version))
+        || this.data.iri.slice(-1) !== '/'
       );
     },
     hasStatus() {
-      return this.data.deprecated ||
-        this.data.maturityLevel.label === 'Informative' ||
-        this.data.maturityLevel.label === 'Provisional' ||
-        this.data.maturityLevel.label === 'Preliminary';
-    }
+      return (
+        this.data.deprecated
+        || this.data.maturityLevel.label === 'Informative'
+        || this.data.maturityLevel.label === 'Provisional'
+        || this.data.maturityLevel.label === 'Preliminary'
+      );
+    },
   },
   components: { DescribeButton },
 };

@@ -14,21 +14,20 @@
 <script>
 export default {
   name: 'DownloadSection',
-  props: [ 'sectionItem' ],
+  props: ['sectionItem'],
   methods: {
     visit(url) {
-      const aElement = document.createElement("a");
-      aElement.setAttribute("href", url);
-      aElement.setAttribute("target", "_blank");
-      aElement.style.display = "none";
+      const aElement = document.createElement('a');
+      aElement.setAttribute('href', url);
+      aElement.setAttribute('target', '_blank');
+      aElement.style.display = 'none';
       document.body.appendChild(aElement);
       aElement.click();
       aElement.remove();
     },
   },
-  computed: {
-  }
-}
+  computed: {},
+};
 </script>
 
 <style scoped lang="scss">

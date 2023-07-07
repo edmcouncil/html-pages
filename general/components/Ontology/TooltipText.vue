@@ -1,7 +1,13 @@
 <template>
   <span v-if="found">
-    {{ textBefore }}<!--
-    --><span class="resource-text-tooltip" ref="resourceTextTooltip">{{ textWrapped }}<Tooltip :targetRef="() => $refs['resourceTextTooltip']" :text="tooltipText" /></span><!--
+    {{ textBefore
+    }}<!--
+    --><span class="resource-text-tooltip" ref="resourceTextTooltip"
+      >{{ textWrapped
+      }}<Tooltip
+        :targetRef="() => $refs['resourceTextTooltip']"
+        :text="tooltipText" /></span
+    ><!--
     -->{{ textAfter }}
   </span>
   <span v-else>
@@ -12,22 +18,18 @@
 <script>
 export default {
   name: 'TooltipText',
-  props: [
-    'tooltipText',
-    'content',
-    'defining'
-  ],
+  props: ['tooltipText', 'content', 'defining'],
   data() {
     return {
       textBefore: '',
       textWrapped: '',
       textAfter: '',
       found: false,
-    }
+    };
   },
   mounted() {
-    const content = this.content;
-    const length = this.defining.length;
+    const { content } = this;
+    const { length } = this.defining;
     const index = content.indexOf(this.defining);
 
     if (index !== -1) {
@@ -36,7 +38,7 @@ export default {
       this.textAfter = content.slice(index + length);
       this.textWrapped = this.defining;
     }
-  }
+  },
 };
 </script>
 

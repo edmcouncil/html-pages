@@ -10,8 +10,9 @@
         v-if="this.item.maturityLevel.label !== 'Not Set'"
         class="indicator-container"
         :class="{
-          provisionalIndicator: this.item.maturityLevel.label === 'Provisional' ||
-                                this.item.maturityLevel.label === 'Preliminary',
+          provisionalIndicator:
+            this.item.maturityLevel.label === 'Provisional' ||
+            this.item.maturityLevel.label === 'Preliminary',
           informativeIndicator: this.item.maturityLevel.label === 'Informative',
           releaseIndicator: this.item.maturityLevel.label === 'Release',
           mixedIndicator: this.item.maturityLevel.label === 'Mixed',
@@ -27,7 +28,11 @@
         ></customLink>
       </div>
     </div>
-    <b-collapse v-if="isFolder" v-model="isOpen" @shown="$emit('openingFinished')">
+    <b-collapse
+      v-if="isFolder"
+      v-model="isOpen"
+      @shown="$emit('openingFinished')"
+    >
       <transition name="list">
         <ul class="list-unstyled" v-show="isOpen">
           <module-tree
@@ -45,10 +50,10 @@
 </template>
 
 <script>
-import customLink from "./chunks/link";
+import customLink from './Resource/chunks/link';
 
 export default {
-  name: "module-tree",
+  name: 'module-tree',
   components: {
     customLink,
   },
@@ -70,9 +75,11 @@ export default {
     expandOpened(loc) {
       if (loc && loc.locationInModules) {
         const isLowestLevel = !this.isFolder || loc.locationInModules.at(-1) == this.item.iri;
-        this.isSelected = loc.locationInModules.some((location) => location == this.item.iri);
+        this.isSelected = loc.locationInModules.some(
+          (location) => location == this.item.iri,
+        );
         this.isOpen = this.isSelected && isLowestLevel;
-        if(this.isOpen && !this.isFolder) {
+        if (this.isOpen && !this.isFolder) {
           this.$emit('openingFinished');
         }
       } else {
@@ -90,8 +97,7 @@ export default {
     },
   },
   mounted() {
-    if (!this.isSelected)
-      this.expandOpened(this.location);
+    if (!this.isSelected) this.expandOpened(this.location);
   },
   computed: {
     isFolder() {
@@ -177,7 +183,7 @@ export default {
     line-height: 24px;
     padding-top: 2px;
     word-wrap: break-word;
-    max-width: calc( 100% - 60px );
+    max-width: calc(100% - 60px);
     &.selected {
       text-decoration: underline;
     }

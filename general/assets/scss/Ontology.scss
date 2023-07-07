@@ -42,9 +42,9 @@
       }
 
       .multiselect__option--group {
-        background: transparent!important;
-        color: rgba(0, 0, 0, 0.8)!important;
-        font-weight: bold!important;
+        background: transparent !important;
+        color: rgba(0, 0, 0, 0.8) !important;
+        font-weight: bold !important;
         border-bottom: 2px solid rgba(0, 0, 0, 0.4);
       }
     }
@@ -926,7 +926,7 @@
     }
 
     .not-found-header .big-sign {
-      font-family: 'Inter';
+      font-family: "Inter";
       font-style: normal;
       font-weight: 800;
       font-size: 12em;
@@ -1132,32 +1132,34 @@
       .page-item {
         .page-link {
           font-size: 18px;
-          border-radius: 2px!important;
+          border-radius: 2px !important;
           user-select: none;
-          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+          transition: color 0.15s ease-in-out,
+            background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+            box-shadow 0.15s ease-in-out;
         }
       }
       .page-item .page-link {
         background-color: transparent;
         border: 2px solid transparent;
-        color: rgb(51,51,51);
+        color: rgb(51, 51, 51);
         margin-left: 6px;
       }
       .page-item .page-link:hover {
         background-color: map-get($colors-map, "black-20");
       }
       .page-item .page-link:active {
-        background-color: rgb(153,153,153);
-        border: 2px solid rgb(153,153,153);
-        color: rgb(51,51,51);
+        background-color: rgb(153, 153, 153);
+        border: 2px solid rgb(153, 153, 153);
+        color: rgb(51, 51, 51);
       }
       .page-item .page-link:focus {
         box-shadow: none;
         outline: none;
       }
       .page-item.active .page-link {
-        background-color: rgb(51,51,51);
-        border: 2px solid rgb(51,51,51);
+        background-color: rgb(51, 51, 51);
+        border: 2px solid rgb(51, 51, 51);
         color: map-get($colors-map, "white");
       }
       .page-item.active .page-link:active {
@@ -1171,7 +1173,6 @@
         color: map-get($colors-map, "black-40");
       }
     }
-
 
     p {
       color: rgba(0, 0, 0, 0.6);
@@ -1430,5 +1431,5 @@
 .comparedropdown-enter,
 .comparedropdown-leave-to {
   opacity: 0 !important;
-  height: 0!important;
+  height: 0 !important;
 }

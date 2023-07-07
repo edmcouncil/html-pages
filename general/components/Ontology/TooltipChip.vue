@@ -1,23 +1,23 @@
 <template>
   <div class="resource-tooltip-chip" ref="resourceTooltipChip">
     {{ chipText }}
-    <Tooltip :targetRef="() => $refs['resourceTooltipChip']" :text="tooltipText" />
+    <Tooltip
+      :targetRef="() => $refs['resourceTooltipChip']"
+      :text="tooltipText"
+    />
   </div>
 </template>
 
 <script>
 export default {
   name: 'TooltipChip',
-  props: [
-    'chipText',
-    'tooltipText'
-  ],
+  props: ['chipText', 'tooltipText'],
 };
 </script>
 
 <style lang="scss">
 .resource-tooltip-chip {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 12px;

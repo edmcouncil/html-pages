@@ -3,69 +3,73 @@
     <div class="control-panel control-panel--minimal">
       <div class="connections-and-guide-container">
         <div ref="connectionsTitle" class="collapsible-section collapsed">
-        <div
-          class="collapsible-section-title"
-          @click="toggleConnectionsCollapsed()"
-        >
-          <h6>Connections</h6>
-          <div class="collapse-icon"></div>
-        </div>
+          <div
+            class="collapsible-section-title"
+            @click="toggleConnectionsCollapsed()"
+          >
+            <h6>Connections</h6>
+            <div class="collapse-icon"></div>
+          </div>
 
-        <div class="collapsible-section-content">
-          <div class="custom-control custom-checkbox">
-            <input
-              class="custom-control-input"
-              type="checkbox"
-              name="edgesFilter"
-              id="internal"
-              value="internal"
-              v-model="internal"
-              @change="filterHandler()"
-            />
-            <label class="custom-control-label" for="internal">
-              Class specific
-            </label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input
-              class="custom-control-input"
-              type="checkbox"
-              name="edgesFilter"
-              id="external"
-              value="external"
-              v-model="external"
-              @change="filterHandler()"
-            />
-            <label class="custom-control-label" for="external">Inherited</label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input
-              class="custom-control-input"
-              type="checkbox"
-              name="edgesFilter"
-              id="optional"
-              value="optional"
-              v-model="optional"
-              @change="filterHandler()"
-            />
-            <label class="custom-control-label" for="optional">Optional</label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input
-              class="custom-control-input"
-              type="checkbox"
-              name="edgesFilter"
-              id="non_optional"
-              value="non_optional"
-              v-model="required"
-              @change="filterHandler()"
-            />
-            <label class="custom-control-label" for="non_optional">
-              Required
-            </label>
+          <div class="collapsible-section-content">
+            <div class="custom-control custom-checkbox">
+              <input
+                class="custom-control-input"
+                type="checkbox"
+                name="edgesFilter"
+                id="internal"
+                value="internal"
+                v-model="internal"
+                @change="filterHandler()"
+              />
+              <label class="custom-control-label" for="internal">
+                Class specific
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input
+                class="custom-control-input"
+                type="checkbox"
+                name="edgesFilter"
+                id="external"
+                value="external"
+                v-model="external"
+                @change="filterHandler()"
+              />
+              <label class="custom-control-label" for="external"
+                >Inherited</label
+              >
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input
+                class="custom-control-input"
+                type="checkbox"
+                name="edgesFilter"
+                id="optional"
+                value="optional"
+                v-model="optional"
+                @change="filterHandler()"
+              />
+              <label class="custom-control-label" for="optional"
+                >Optional</label
+              >
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input
+                class="custom-control-input"
+                type="checkbox"
+                name="edgesFilter"
+                id="non_optional"
+                value="non_optional"
+                v-model="required"
+                @change="filterHandler()"
+              />
+              <label class="custom-control-label" for="non_optional">
+                Required
+              </label>
+            </div>
           </div>
         </div>
-      </div>
         <div class="minimal-menu">
           <button
             type="button"
@@ -85,14 +89,18 @@
       </div>
     </div>
 
-    <div class="scrollPreventedInfo" :class="{visible: scrollPreventedVisible}">
-      <div>
-        Use <kbd>CTRL/⌘</kbd> + <kbd>scroll</kbd> to zoom
-      </div>
+    <div
+      class="scrollPreventedInfo"
+      :class="{ visible: scrollPreventedVisible }"
+    >
+      <div>Use <kbd>CTRL/⌘</kbd> + <kbd>scroll</kbd> to zoom</div>
       <div>or open Fullscreen mode</div>
-
     </div>
-    <div class="ontograph-minimal" ref="ontograph" @wheel="handleScrollOnMinimal()"></div>
+    <div
+      class="ontograph-minimal"
+      ref="ontograph"
+      @wheel="handleScrollOnMinimal()"
+    ></div>
     <div class="fullscreen-btn-wrapper row">
       <button
         type="button"
@@ -329,13 +337,14 @@
 </template>
 
 <script>
-import { Ontograph } from "../../helpers/ontograph";
-import { mapState } from "vuex";
-const d3ToPng = require("d3-svg-to-png");
+import { mapState } from 'vuex';
+import { Ontograph } from '../../helpers/ontograph';
+
+const d3ToPng = require('d3-svg-to-png');
 
 export default {
-  name: "GraphVisualization",
-  props: ["data", "title"],
+  name: 'GraphVisualization',
+  props: ['data', 'title'],
   data() {
     return {
       isControlPanelOpen: false,
@@ -373,46 +382,46 @@ export default {
       this.navigationHandler,
       this.alertHandler,
       this.graphServer,
-      this.onHeightUpdate
+      this.onHeightUpdate,
     );
     this.height = this.ontograph.getHeight();
     this.layout = this.ontograph.getLayout();
-    window.addEventListener("resize", this.onResize);
+    window.addEventListener('resize', this.onResize);
 
     if (localStorage.distanceValue) {
       this.distanceValue = localStorage.distanceValue;
       this.handleDistanceUpdate();
     }
-    if (localStorage.isKeepLabels && localStorage.isKeepLabels === "true") {
+    if (localStorage.isKeepLabels && localStorage.isKeepLabels === 'true') {
       this.isKeepLabels = true;
       this.handleKeepLabelsUpdate();
     }
   },
   beforeDestroy() {
-    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener('resize', this.onResize);
   },
   methods: {
     openGuide(id) {
       this.$refs.graphGuide.openGuide(id);
     },
     toTree() {
-      this.ontograph.changeLayoutTo("tree");
+      this.ontograph.changeLayoutTo('tree');
       this.layout = this.ontograph.getLayout();
     },
     toClusterTree() {
-      this.ontograph.changeLayoutTo("clusterTree");
+      this.ontograph.changeLayoutTo('clusterTree');
       this.layout = this.ontograph.getLayout();
     },
     toRadial() {
-      this.ontograph.changeLayoutTo("radial");
+      this.ontograph.changeLayoutTo('radial');
       this.layout = this.ontograph.getLayout();
     },
     toClusterRadial() {
-      this.ontograph.changeLayoutTo("clusterRadial");
+      this.ontograph.changeLayoutTo('clusterRadial');
       this.layout = this.ontograph.getLayout();
     },
     toForce() {
-      this.ontograph.changeLayoutTo("force");
+      this.ontograph.changeLayoutTo('force');
       this.layout = this.ontograph.getLayout();
     },
     center() {
@@ -454,26 +463,26 @@ export default {
       }, 3500);
     },
     sortAZ() {
-      this.ontograph.sort("az");
+      this.ontograph.sort('az');
     },
     sortHeight() {
-      this.ontograph.sort("height");
+      this.ontograph.sort('height');
     },
     sortType() {
-      this.ontograph.sort("type");
+      this.ontograph.sort('type');
     },
     sortInherited() {
-      this.ontograph.sort("inherited");
+      this.ontograph.sort('inherited');
     },
     downloadAsPng() {
-      d3ToPng("svg", `${this.data.label}`, {
+      d3ToPng('svg', `${this.data.label}`, {
         scale: 1,
-        format: "png",
+        format: 'png',
         quality: 1,
         download: false,
-        background: "white",
+        background: 'white',
       }).then((fileData) => {
-        var download = document.createElement("a");
+        const download = document.createElement('a');
         download.href = fileData;
         download.download = `${this.data.label}.png`;
         download.click();
@@ -485,8 +494,8 @@ export default {
       this.ontograph.setIsFullscreen(this.fullscreen);
     },
     hideModal() {
-      const ontograph = this.$refs.ontograph;
-      const modalOntograph = this.$refs.graphModalTarget.querySelector("svg");
+      const { ontograph } = this.$refs;
+      const modalOntograph = this.$refs.graphModalTarget.querySelector('svg');
 
       ontograph.appendChild(modalOntograph);
 
@@ -496,10 +505,10 @@ export default {
       this.ontograph.setIsFullscreen(this.fullscreen);
     },
     toggleConnectionsCollapsed() {
-      this.$refs.connectionsTitle.classList.toggle("collapsed");
+      this.$refs.connectionsTitle.classList.toggle('collapsed');
     },
     toggleLayoutsCollapsed() {
-      this.$refs.layoutsTitle.classList.toggle("collapsed");
+      this.$refs.layoutsTitle.classList.toggle('collapsed');
     },
     toggleControlPanelOpen() {
       this.isControlPanelOpen = !this.isControlPanelOpen;
@@ -508,7 +517,7 @@ export default {
     routingHandler(to) {
       if (to.startsWith(this.uriSpace)) {
         // internal ontology
-        to = to.replace(this.uriSpace, "");
+        to = to.replace(this.uriSpace, '');
         this.$router.push({
           path: `/ontology/${to}`,
           query: {
@@ -520,7 +529,7 @@ export default {
       } else {
         // external ontology
         this.$router.push({
-          path: "/ontology",
+          path: '/ontology',
           query: {
             ...{ query: encodeURI(to) },
             ...(this.$route.query && this.$route.query.version
@@ -531,7 +540,7 @@ export default {
       }
     },
     modalShown() {
-      const ontograph = this.$refs.ontograph.querySelector("svg");
+      const ontograph = this.$refs.ontograph.querySelector('svg');
       const modalOntograph = this.$refs.graphModalTarget;
 
       modalOntograph.appendChild(ontograph);
@@ -563,7 +572,7 @@ export default {
       this.scrollPreventedTimeout = setTimeout(() => {
         this.scrollPreventedVisible = false;
       }, 1500);
-    }
+    },
   },
   computed: {
     ...mapState({
@@ -577,10 +586,10 @@ export default {
     },
   },
   watch: {
-    "distanceValue": (newValue) => {
+    distanceValue: (newValue) => {
       localStorage.distanceValue = newValue;
     },
-    "isKeepLabels": (newValue) => {
+    isKeepLabels: (newValue) => {
       localStorage.isKeepLabels = newValue;
     },
   },

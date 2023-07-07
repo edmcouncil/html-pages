@@ -18,13 +18,13 @@
 <script>
 export default {
   name: 'TreeExpandable',
-  props: [ 'defaultExpanded' ],
+  props: ['defaultExpanded'],
   data() {
     return {
       isExpanded: this.defaultExpanded || false,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style scoped lang="scss">
