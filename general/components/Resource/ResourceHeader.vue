@@ -27,8 +27,8 @@
                 <button
                   v-if="
                     ontologyRepositoryUrl &&
-                    data.iri.startsWith(uriSpace) &&
-                    !(this.$route.query && this.$route.query.version)
+                      data.iri.startsWith(uriSpace) &&
+                      !(this.$route.query && this.$route.query.version)
                   "
                   @click="githubNewIssue()"
                   type="button"
@@ -58,8 +58,8 @@
                 role="alert"
                 v-if="
                   data.maturityLevel.label === 'Informative' ||
-                  data.maturityLevel.label === 'Provisional' ||
-                  data.maturityLevel.label === 'Preliminary'
+                    data.maturityLevel.label === 'Provisional' ||
+                    data.maturityLevel.label === 'Preliminary'
                 "
               >
                 This resource has maturity level

@@ -13,7 +13,7 @@
           <span
             v-if="element.iri.includes('http://org.semanticweb.owlapi/error#')"
             class="error-iri-element"
-            >{{ element.label }}</span
+          >{{ element.label }}</span
           >
           <customLink
             v-else

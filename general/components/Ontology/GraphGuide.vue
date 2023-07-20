@@ -17,7 +17,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
-                >Connections</span
+                @keydown="navigateToPage('guide-connections')"
+              >Connections</span
               >
             </p>
             <p>
@@ -25,7 +26,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
-                >Layouts</span
+                @keydown="navigateToPage('guide-layouts')"
+              >Layouts</span
               >
             </p>
             <p>
@@ -33,7 +35,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
-                >Sorting</span
+                @keydown="navigateToPage('guide-sorting')"
+              >Sorting</span
               >
             </p>
             <p>
@@ -41,7 +44,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
-                >Configuration</span
+                @keydown="navigateToPage('guide-configuration')"
+              >Configuration</span
               >
             </p>
           </div>
@@ -73,13 +77,15 @@
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-layouts')"
-              >layout</span
+              @keydown="navigateToPage('guide-layouts')"
+            >layout</span
             >
             and
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
-              >connections</span
+              @keydown="navigateToPage('guide-connections')"
+            >connections</span
             >
             filters. The graph visualization is fully interactive and the data
             can be explored. The viewport can be panned by dragging with left
@@ -131,7 +137,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
-                >Connections</span
+                @keydown="navigateToPage('guide-connections')"
+              >Connections</span
               >
               section,
             </li>
@@ -142,7 +149,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
-                >Layouts</span
+                @keydown="navigateToPage('guide-layouts')"
+              >Layouts</span
               >
               section,
             </li>
@@ -152,7 +160,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
-                >Sorting</span
+                @keydown="navigateToPage('guide-sorting')"
+              >Sorting</span
               >
               section,
             </li>
@@ -188,7 +197,8 @@
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
-              >Connections</span
+              @keydown="navigateToPage('guide-connections')"
+            >Connections</span
             >
             section.
           </p>
@@ -218,7 +228,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
-                >Overview</span
+                @keydown="navigateToPage('guide-main')"
+              >Overview</span
               >
             </p>
             <p>2. <b>Connections</b></p>
@@ -227,7 +238,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
-                >Layouts</span
+                @keydown="navigateToPage('guide-layouts')"
+              >Layouts</span
               >
             </p>
             <p>
@@ -235,7 +247,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
-                >Sorting</span
+                @keydown="navigateToPage('guide-sorting')"
+              >Sorting</span
               >
             </p>
             <p>
@@ -243,7 +256,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
-                >Configuration</span
+                @keydown="navigateToPage('guide-configuration')"
+              >Configuration</span
               >
             </p>
           </div>
@@ -370,7 +384,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
-                >Overview</span
+                @keydown="navigateToPage('guide-main')"
+              >Overview</span
               >
             </p>
             <p>
@@ -378,7 +393,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
-                >Connections</span
+                @keydown="navigateToPage('guide-connections')"
+              >Connections</span
               >
             </p>
             <p>3. <b>Layouts</b></p>
@@ -387,7 +403,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
-                >Sorting</span
+                @keydown="navigateToPage('guide-sorting')"
+              >Sorting</span
               >
             </p>
             <p>
@@ -395,7 +412,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
-                >Configuration</span
+                @keydown="navigateToPage('guide-configuration')"
+              >Configuration</span
               >
             </p>
           </div>
@@ -506,7 +524,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
-                >Overview</span
+                @keydown="navigateToPage('guide-main')"
+              >Overview</span
               >
             </p>
             <p>
@@ -514,7 +533,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
-                >Connections</span
+                @keydown="navigateToPage('guide-connections')"
+              >Connections</span
               >
             </p>
             <p>
@@ -522,7 +542,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
-                >Layouts</span
+                @keydown="navigateToPage('guide-layouts')"
+              >Layouts</span
               >
             </p>
             <p>4. <b>Sorting</b></p>
@@ -531,7 +552,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
-                >Configuration</span
+                @keydown="navigateToPage('guide-configuration')"
+              >Configuration</span
               >
             </p>
           </div>
@@ -601,7 +623,8 @@
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
-              >Connections</span
+              @keydown="navigateToPage('guide-connections')"
+            >Connections</span
             >
             section.
           </p>
@@ -621,7 +644,8 @@
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
-              >Connections</span
+              @keydown="navigateToPage('guide-connections')"
+            >Connections</span
             >
             section.
           </p>
@@ -644,7 +668,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
-                >Overview</span
+                @keydown="navigateToPage('guide-main')"
+              >Overview</span
               >
             </p>
             <p>
@@ -652,7 +677,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
-                >Connections</span
+                @keydown="navigateToPage('guide-connections')"
+              >Connections</span
               >
             </p>
             <p>
@@ -660,7 +686,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
-                >Layouts</span
+                @keydown="navigateToPage('guide-layouts')"
+              >Layouts</span
               >
             </p>
             <p>
@@ -668,7 +695,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
-                >Sorting</span
+                @keydown="navigateToPage('guide-sorting')"
+              >Sorting</span
               >
             </p>
             <p>5. <b>Configuration</b></p>

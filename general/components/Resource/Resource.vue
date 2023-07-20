@@ -19,8 +19,8 @@
         class="col-12 px-0"
         v-if="
           !isComparing &&
-          data.iri.slice(-1) === '/' &&
-          data.iri.startsWith(this.uriSpace)
+            data.iri.slice(-1) === '/' &&
+            data.iri.startsWith(this.uriSpace)
         "
       >
         <OntologyDownload :data="data" :version="version" />

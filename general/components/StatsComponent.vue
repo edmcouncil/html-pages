@@ -1,6 +1,6 @@
 <template>
   <div
-    class="secondary-column__tree multiselect-xxl-container multiselect-container container"
+    class="secondary-column__tree multiselect-container"
   >
     <div class="menu-box">
       <div class="menu-box__label">Browse logs</div>

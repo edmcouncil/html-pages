@@ -1,6 +1,6 @@
 @media (min-width: 992px) {
   .ontology-container {
-    padding: 0 60px;
+    padding: 60px 60px 0 60px;
   }
   .module-tree .multiselect-container {
     margin-right: 0px;
@@ -11,11 +11,17 @@
 // Multiselect Common
 // --------------------------
 .multiselect-container {
-  &.multiselect-xxl-container {
-    margin-top: 20px;
-    max-width: 100%;
-    .row {
-      margin: 0px;
+  position: relative;
+  margin-bottom: 20px;
+
+  .activators-container {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .multiselect-activator {
+      height: 100%;
     }
   }
 
@@ -50,6 +56,12 @@
     }
 
     .multiselect__select {
+      top: 0;
+      right: 0;
+      width: 90px;
+      height: 100%;
+      padding: 0;
+
       &::before {
         border: none;
       }
@@ -61,7 +73,6 @@
       padding-left: 30px;
       padding-right: 90px;
       padding-top: 0px;
-      margin-top: 20px;
 
       min-height: 30px;
     }
@@ -102,30 +113,27 @@
   background-color: map-get($colors-map, "white");
   border-radius: 2px;
   box-shadow: 0px 5px 20px #07539526;
-  margin-top: 30px;
-  margin-bottom: 30px;
-
-  padding-top: 15px;
-  padding-bottom: 15px;
 
   .menu-box__label {
     position: absolute;
+    top: 15px;
+    left: 30px;
     color: map-get($colors-map, "black-40");
     letter-spacing: 0.01em;
     font-size: 14px;
     line-height: 20px;
     min-height: 20px;
     white-space: nowrap;
-    padding-left: 30px;
+    cursor: default;
+    user-select: none;
+    -webkit-user-drag: none;
   }
   .menu-box__content-text {
+    padding: 35px 0 15px 0;
     display: block;
     font-weight: 700;
     line-height: 30px;
-    // white-space: nowrap;
-    // width: 100%;
-
-    cursor: pointer;
+    cursor: default;
   }
   .menu-box__icons {
     display: flex;
@@ -167,7 +175,7 @@
 // --------------------------
 .secondary-column__how-to-use {
   .modules-header {
-    margin-top: 40px;
+    display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
     align-items: center;
@@ -197,7 +205,8 @@
   }
 }
 .secondary-column__how-to-use--mobile {
-  padding: 0px 45px;
+  padding: 0px 15px;
+  margin-top: 40px;
   margin-bottom: 30px;
   .fibo-title-modules {
     font-weight: 700;
@@ -211,12 +220,10 @@
 // --------------------------
 .multiselect-container.secondary-column__tree {
   margin-top: 85px;
-  padding: 0 15px 0px 15px;
   border-radius: 2px;
   border: none;
   .menu-box {
     box-shadow: none;
-    margin-bottom: 25px;
   }
   .menu-box__content-text {
     margin-left: 30px;
@@ -244,9 +251,27 @@
 // --------------------------
 .multiselect-container.secondary-column__versions {
   margin-top: 60px;
-  padding: 0 15px 0px 15px;
   border-radius: 2px;
   border: none;
+
+  .activators-container .versions-activator {
+    flex: 1;
+    z-index: 40;
+    cursor: pointer;
+  }
+
+  .menu-box {
+    margin-bottom: 30px;
+    cursor: pointer;
+
+    .menu-box__label {
+      cursor: pointer;
+    }
+
+    .menu-box__content-text {
+      cursor: pointer;
+    }
+  }
 
   .compare-dropdown-wrapper {
     height: 140px;
@@ -288,6 +313,7 @@
 
     .multiselect__tags {
       .multiselect__single {
+        user-select: none;
         overflow: hidden;
         text-overflow: ellipsis;
       }
@@ -338,6 +364,7 @@
 .multiselect-container.secondary-column__versions.secondary-column__versions--mobile {
   background-color: transparent;
   margin-top: 0;
+  margin-bottom: 0;
   padding: 0;
   .menu-box {
     margin-top: 0px;
@@ -350,20 +377,21 @@
 // --------------------------
 .search-box {
   background: rgba(0, 0, 0, 0.05);
-  margin-top: 20px;
-  padding: 0 30px 20px 30px;
+  padding: 30px 30px 20px 30px;
   border-radius: 2px;
   border: none;
 
   .menu-box {
     margin-bottom: 30px;
+    cursor: pointer;
 
-    .menu-box__icons {
-      .menu-box__icons__icon {
-        &:hover {
-          cursor: pointer;
-        }
-      }
+    .menu-box__label {
+      cursor: pointer;
+      -webkit-user-drag: none;
+    }
+
+    .menu-box__content-text {
+      cursor: pointer;
     }
   }
 
@@ -380,12 +408,12 @@
       transition: right 0.2s;
       position: absolute;
       right: 90px;
-      top: -6px;
-      height: 24px;
-      width: 24px;
+      top: -35px;
+      height: 80px;
+      width: 32px;
       display: block;
       cursor: pointer;
-      z-index: 101;
+      z-index: 41;
 
       background-image: url("@/assets/icons/clear-search-box.svg");
       background-repeat: no-repeat;
@@ -403,6 +431,7 @@
       height: 30px;
       max-width: 100%;
       overflow: hidden;
+      user-select: none;
     }
     .multiselect__spinner {
       transition: opacity 0.3s;
@@ -433,7 +462,6 @@
     pointer-events: all;
     .menu-box__icons__icon {
       transition: opacity 0.5s;
-      z-index: 102;
     }
   }
   .menu-box__icons--inactive {
@@ -511,7 +539,19 @@
   }
 }
 .search-box--desktop {
-  margin-top: 60px;
+  .activators-container {
+    justify-content: flex-end;
+  }
+  .search-input-activator {
+    cursor: pointer;
+    flex: 1;
+    z-index: 40;
+  }
+  .search-icon-activator {
+    cursor: pointer;
+    width: 96px;
+    z-index: 40;
+  }
 }
 .search-box--mobile {
   background-color: transparent;
@@ -558,7 +598,12 @@
   border: none;
 
   .menu-box {
-    padding-bottom: 15px;
+    cursor: pointer;
+
+    .advanced-input-activator {
+      z-index: 40;
+      flex: 1;
+    }
   }
 
   .custom-switch {
@@ -570,13 +615,6 @@
     .b-icon {
       background-color: white;
       mask-image: url("@/assets/icons/search.svg");
-    }
-  }
-
-  .menu-box {
-    margin-top: 0px;
-    .menu-box__content-text {
-      padding-top: 5px;
     }
   }
 
@@ -594,6 +632,7 @@
       margin-bottom: -5px;
 
       .multiselect__tag {
+        z-index: 41;
         border-radius: 8px;
         margin-bottom: 0px;
         padding: 6px 32px 6px 10px;
@@ -636,14 +675,12 @@
     }
     .multiselect__select {
       transition: right 0.2s, background-color 0.2s;
-      // z-index: 300;
       background-color: white;
       padding: 0px;
       margin-right: 30px;
-      margin-top: -10px;
       width: 40px;
       height: 40px;
-      top: -5px;
+      top: -10px;
       background-image: url("@/assets/icons/triangle-down.svg");
       background-repeat: no-repeat;
       background-size: 24px 24px;
@@ -658,7 +695,6 @@
     }
     .multiselect__spinner {
       transition: opacity 0.3s;
-      // z-index: 301;
       margin-right: 20px;
       margin-top: -15px;
       &::after {
@@ -716,7 +752,6 @@
 }
 .advanced-search-box--mobile {
   background: none;
-  margin-top: 20px;
   padding: 0;
   .multiselect__content-wrapper {
     box-shadow: inset 0px 20px 20px -20px rgba(8, 84, 150, 0.15),
@@ -724,6 +759,7 @@
   }
 }
 .advanced-search-box-wrapper {
+  margin-top: 20px;
   .custom-switch {
     margin-left: 30px;
     padding-bottom: 0px;
@@ -791,7 +827,7 @@
 // Desktop/global elements
 // --------------------------
 .main-column {
-  padding-left: 45px;
+  padding-left: 60px;
   padding-right: 15px;
 
   .ontology-alert {
@@ -943,16 +979,14 @@
 }
 
 .secondary-column {
-  // margin-top: 40px;
-  padding: 0px;
+  padding: 0 0 0 15px;
 
   .module-tree {
     min-width: 285px;
-    padding-top: 40px;
     padding-bottom: 40px;
 
     .modules-list {
-      margin: 20px 0 0 20px;
+      margin: 20px 0 0 0;
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
-  <li class="module container">
-    <div class="row">
+  <li class="module">
+    <div class="module-row">
       <div
         class="icon-arrow"
         :class="{ hidden: !isFolder, down: isOpen }"
@@ -119,7 +119,8 @@ export default {
 .module {
   user-select: none;
 
-  .row {
+  .module-row {
+    display: flex;
     flex-wrap: nowrap;
     padding-top: 5px;
   }

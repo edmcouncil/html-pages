@@ -31,7 +31,7 @@
             <SerializationListSection
               v-else-if="
                 sectionItem['__component'] ==
-                'sections.serialization-list-section'
+                  'sections.serialization-list-section'
               "
               :sectionItem="sectionItem"
             />

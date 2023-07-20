@@ -17,10 +17,10 @@
         </p>
 
         <NuxtLink v-if="error.statusCode === 404" to="/"
-          >Return to homepage</NuxtLink
+        >Return to homepage</NuxtLink
         >
         <a v-else href="https://spec.edmcouncil.org/"
-          >Return to spec.edmcouncil.org</a
+        >Return to spec.edmcouncil.org</a
         >
       </section>
     </article>

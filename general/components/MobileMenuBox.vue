@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-multiselect-container multiselect-container outside-modal">
-    <div class="menu-box" @click="toggleModal()">
+    <div class="menu-box" @click="toggleModal()" @keydown="toggleModal()">
       <div class="menu-box__label">
         <slot name="label"></slot>
       </div>
@@ -30,7 +30,8 @@
           class="close-btn"
           data-dismiss="modal"
           aria-label="Close"
-          v-on:click="hideModal()"
+          @click="hideModal()"
+          @keydown="hideModal()"
         ></div>
         <h5 class="modal-title">
           <slot name="label"></slot>

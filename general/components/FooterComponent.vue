@@ -25,21 +25,23 @@
             href="https://www.youtube.com/user/EDMCouncil"
             class="social-icons"
             target="_blank"
-            ><img src="../assets/icons/social-icons-yt.svg"
-          /></a>
+          >
+            <img src="../assets/icons/social-icons-yt.svg" alt="YouTube"
+            />
+          </a>
           <a
             href="https://twitter.com/edmcouncil"
             class="social-icons"
             target="_blank"
           >
-            <img src="../assets/icons/social-icons-twitter.svg" />
+            <img src="../assets/icons/social-icons-twitter.svg" alt="Twitter" />
           </a>
           <a
             href="https://www.linkedin.com/company/edm-council/"
             class="social-icons"
             target="_blank"
           >
-            <img src="../assets/icons/social-icons-in.svg" />
+            <img src="../assets/icons/social-icons-in.svg" alt="LinkedIn" />
           </a>
         </div>
       </div>

@@ -6,6 +6,7 @@
           <div
             class="collapsible-section-title"
             @click="toggleConnectionsCollapsed()"
+            @keydown="toggleConnectionsCollapsed()"
           >
             <h6>Connections</h6>
             <div class="collapse-icon"></div>
@@ -37,7 +38,7 @@
                 @change="filterHandler()"
               />
               <label class="custom-control-label" for="external"
-                >Inherited</label
+              >Inherited</label
               >
             </div>
             <div class="custom-control custom-checkbox">
@@ -51,7 +52,7 @@
                 @change="filterHandler()"
               />
               <label class="custom-control-label" for="optional"
-                >Optional</label
+              >Optional</label
               >
             </div>
             <div class="custom-control custom-checkbox">
@@ -338,7 +339,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { Ontograph } from '../../helpers/ontograph';
+import Ontograph from '../../helpers/ontograph';
 
 const d3ToPng = require('d3-svg-to-png');
 

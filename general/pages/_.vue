@@ -1,15 +1,15 @@
 <template>
   <div>
+    <div ref="article-top-element"></div>
     <div class="container ontology-container">
-      <div ref="article-top-element"></div>
       <div class="row">
         <!-- secondary column -->
         <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
           <div class="module-tree">
             <div
-              class="secondary-column__how-to-use multiselect-xxl-container multiselect-container container"
+              class="secondary-column__how-to-use multiselect-container"
             >
-              <div class="row modules-header">
+              <div class="modules-header">
                 <h5 class="fibo-title-modules">
                   {{ ontologyNameUppercase }} Viewer
                 </h5>
@@ -25,9 +25,17 @@
             <transition name="slowfade">
               <div
                 v-if="hasVersions"
-                class="secondary-column__versions multiselect-xxl-container multiselect-container container"
+                class="secondary-column__versions multiselect-container"
               >
                 <div class="menu-box">
+                  <div class="activators-container">
+                    <div
+                      class="versions-activator multiselect-activator"
+                      v-if="$refs.versionsSelectDesktop && !$refs.versionsSelectDesktop.isOpen"
+                      @click="$refs.versionsSelectDesktop.activate()"
+                      @keydown="$refs.versionsSelectDesktop.activate()"
+                    ></div>
+                  </div>
                   <div class="menu-box__label">
                     Select {{ ontologyNameUppercase }} version
                   </div>
@@ -35,6 +43,7 @@
                     <multiselect
                       v-if="ontologyVersions.isGrouped"
                       v-model="ontologyVersions.selectedData"
+                      ref="versionsSelectDesktop"
                       label="@id"
                       track-by="url"
                       placeholder="Select..."
@@ -67,6 +76,7 @@
                     <multiselect
                       v-else
                       v-model="ontologyVersions.selectedData"
+                      ref="versionsSelectDesktop"
                       label="@id"
                       track-by="url"
                       placeholder="Select..."
@@ -106,13 +116,23 @@
                     <div
                       class="compare-icon"
                       @click="swapSelectedVersions()"
+                      @keydown="swapSelectedVersions()"
                     ></div>
                     <div class="menu-box">
+                      <div class="activators-container">
+                        <div
+                          class="versions-activator multiselect-activator"
+                          v-if="$refs.compareSelectDesktop && !$refs.compareSelectDesktop.isOpen"
+                          @click="$refs.compareSelectDesktop.activate()"
+                          @keydown="$refs.compareSelectDesktop.activate()"
+                        ></div>
+                      </div>
                       <div class="menu-box__label">Compare with...</div>
                       <div class="menu-box__content-text">
                         <multiselect
                           v-if="ontologyVersions.isGrouped"
                           v-model="versionCompare.selectedCompareData"
+                          ref="compareSelectDesktop"
                           label="@id"
                           track-by="url"
                           placeholder="Select..."
@@ -145,6 +165,7 @@
                         <multiselect
                           v-else
                           v-model="versionCompare.selectedCompareData"
+                          ref="compareSelectDesktop"
                           label="@id"
                           track-by="url"
                           placeholder="Select..."
@@ -184,7 +205,7 @@
             <transition name="slowfade">
               <div
                 v-show="modulesList"
-                class="secondary-column__tree multiselect-xxl-container multiselect-container container"
+                class="secondary-column__tree multiselect-container"
               >
                 <div class="menu-box">
                   <div class="menu-box__label">
@@ -223,13 +244,34 @@
 
         <!-- main col -->
         <div class="col-12 col-lg-8 col-xl-9 main-column">
-          <div class="container px-0">
+          <div class="container px-0 d-none d-lg-block">
             <!-- search box large -->
-            <div class="search-box search-box--desktop card d-none d-lg-block">
+            <div class="search-box search-box--desktop card">
               <div class="row">
                 <div class="col-lg-12">
-                  <div class="multiselect-xxl-container multiselect-container">
-                    <div class="menu-box" @click="searchBoxClick()">
+                  <div class="multiselect-container">
+                    <div class="menu-box">
+                      <div class="activators-container">
+                        <div
+                          class="search-input-activator multiselect-activator"
+                          v-if="$refs.searchBoxInputDesktop && !$refs.searchBoxInputDesktop.isOpen"
+                          @click="$refs.searchBoxInputDesktop.activate()"
+                          @keydown="$refs.searchBoxInputDesktop.activate()"
+                        ></div>
+                        <div
+                          class="search-icon-activator multiselect-activator"
+                          @click="() => {
+                            searchBox.inputValue
+                              ? searchBox_addTag(searchBox.inputValue)
+                              : $refs.searchBoxInputDesktop.activate()
+                          }"
+                          @keydown="() => {
+                            searchBox.inputValue
+                              ? searchBox_addTag(searchBox.inputValue)
+                              : $refs.searchBoxInputDesktop.activate()
+                          }"
+                        ></div>
+                      </div>
                       <div class="menu-box__label">Search</div>
                       <div class="menu-box__content-text">
                         <multiselect
@@ -238,7 +280,7 @@
                           track-by="iri"
                           :placeholder="
                             searchBox.inputValue ||
-                            'Find domains, ontologies, concepts...'
+                              'Find domains, ontologies, concepts...'
                           "
                           tagPlaceholder="Search..."
                           selectLabel="x"
@@ -286,7 +328,7 @@
                             <span>
                               {{
                                 searchBox.inputValue ||
-                                "Find domains, ontologies, concepts..."
+                                  "Find domains, ontologies, concepts..."
                               }}
                             </span>
                           </template>
@@ -302,7 +344,6 @@
                       >
                         <div
                           class="menu-box__icons__icon icon-search"
-                          @click="searchBox_addTag(searchBox.inputValue)"
                         ></div>
                       </div>
                     </div>
@@ -312,6 +353,9 @@
               <div
                 class="expand-advanced-btn"
                 @click="
+                  searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
+                "
+                @keydown="
                   searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
                 "
               >
@@ -326,19 +370,28 @@
             </div>
 
             <div
-              class="advanced-search-box advanced-search-box--desktop card d-none d-lg-block"
-              v-if="searchBox.isAdvancedExpanded"
+              class="advanced-search-box advanced-search-box--desktop card"
+              v-show="searchBox.isAdvancedExpanded"
             >
               <div class="row">
                 <div class="col-lg-12">
-                  <div class="multiselect-xxl-container multiselect-container">
+                  <div class="multiselect-container">
                     <div class="menu-box">
+                      <div class="activators-container">
+                        <div
+                          class="advanced-input-activator multiselect-activator"
+                          v-if="$refs.advancedInputDesktop && !$refs.advancedInputDesktop.isOpen"
+                          @click="$refs.advancedInputDesktop.activate()"
+                          @keydown="$refs.advancedInputDesktop.activate()"
+                        ></div>
+                      </div>
                       <div class="menu-box__label">
                         Select search properties
                       </div>
                       <div class="menu-box__content-text">
                         <multiselect
                           v-model="searchBox.findProperties"
+                          ref="advancedInputDesktop"
                           placeholder="Select properties..."
                           open-direction="bottom"
                           label="label"
@@ -393,9 +446,10 @@
           <!-- mobile multiselects -->
           <div class="secondary-column--mobile container px-0 mb-2 d-lg-none">
             <div
-              class="secondary-column__how-to-use secondary-column__how-to-use--mobile multiselect-container container"
+              class="secondary-column__how-to-use secondary-column__how-to-use--mobile
+                      multiselect-container container"
             >
-              <div class="row modules-header">
+              <div class="modules-header">
                 <h5 class="fibo-title-modules">
                   {{ ontologyNameUppercase }} Viewer
                 </h5>
@@ -417,7 +471,8 @@
               <template v-slot:label> Select version </template>
               <template v-slot:multiselect>
                 <div
-                  class="multiselect-container secondary-column__versions secondary-column__versions--mobile"
+                  class="multiselect-container secondary-column__versions
+                  secondary-column__versions--mobile"
                 >
                   <multiselect
                     v-if="ontologyVersions.isGrouped"
@@ -589,6 +644,7 @@
                     class="mobile-search-icon"
                     v-if="!searchBox.isLoading"
                     @click="searchBox_addTag(searchBox.inputValue)"
+                    @keydown="searchBox_addTag(searchBox.inputValue)"
                   ></div>
                 </div>
               </template>
@@ -597,6 +653,9 @@
             <div
               class="expand-advanced-btn expand-advanced-btn--mobile"
               @click="
+                searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
+              "
+              @keydown="
                 searchBox.isAdvancedExpanded = !searchBox.isAdvancedExpanded
               "
             >
@@ -657,10 +716,10 @@
           </div>
 
           <div class="container px-0">
-            <a
+            <div
               name="ontologyViewerTopOfContainer"
               id="ontologyViewerTopOfContainer"
-            ></a>
+            ></div>
           </div>
 
           <!-- errors -->
@@ -670,7 +729,7 @@
             class="text-center mt-5"
             v-if="
               !isError &&
-              (loader || searchBox.isLoadingResults || (!modulesList && !data))
+                (loader || searchBox.isLoadingResults || (!modulesList && !data))
             "
           >
             <div class="spinner-border" role="status">
@@ -706,8 +765,8 @@
               <HowToUse
                 v-else-if="
                   !loader &&
-                  !searchBox.isLoadingResults &&
-                  !error.entityNotFound
+                    !searchBox.isLoadingResults &&
+                    !error.entityNotFound
                 "
                 :hasVersions="hasVersions"
                 :ontologyNameUppercase="ontologyNameUppercase"
@@ -882,11 +941,6 @@ export default {
       updateServers: 'servers/updateServers',
       updateCompareServers: 'servers/updateCompareServers',
     }),
-    searchBoxClick() {
-      console.log(this.$refs.searchBoxInputDesktop);
-      if (!this.$refs.searchBoxInputDesktop.isOpen) this.$refs.searchBoxInputDesktop.activate();
-      else this.$refs.searchBoxInputDesktop.deactivate();
-    },
     async fetchData(iri, options) {
       const noScroll = options?.noScroll;
       if (iri) {
@@ -946,7 +1000,7 @@ export default {
 
         ontologyVersions.unshift(this.ontologyVersions.defaultData); // add default at the beginning
 
-        if (this.version !== null) {
+        if (this.version != null) {
           this.ontologyVersions.selectedData = ontologyVersions.find((val) => {
             if (val['@id'] === this.version) {
               return true;
@@ -956,7 +1010,7 @@ export default {
         } else {
           this.ontologyVersions.selectedData = this.ontologyVersions.defaultData;
         }
-        if (this.compareVersion !== null) {
+        if (this.compareVersion != null) {
           this.versionCompare.selectedCompareData = ontologyVersions.find(
             (val) => {
               if (val['@id'] === this.compareVersion) {
@@ -1100,7 +1154,7 @@ export default {
       // get data 1
       try {
         const result1 = results[0];
-        if (result1.status == 'rejected') {
+        if (result1.status === 'rejected') {
           const error = new Error(result1.reason.message);
           error.status = result1.reason.status;
           throw error;
@@ -1139,7 +1193,7 @@ export default {
       // get data 2
       try {
         const result2 = results[1];
-        if (result2.status == 'rejected') {
+        if (result2.status === 'rejected') {
           const error = new Error(result2.reason.message);
           error.status = result2.reason.status;
           throw error;
@@ -1208,7 +1262,7 @@ export default {
       if (
         selectedOntologyVersion['@id']
         && selectedOntologyVersion['@id']
-          != this.ontologyVersions.selectedData['@id']
+          !== this.ontologyVersions.selectedData['@id']
         && selectedOntologyVersion['@id']
           !== this.ontologyVersions.defaultData['@id']
       ) {
@@ -1254,7 +1308,7 @@ export default {
         isCompareExpanded
         && this.versionCompare.selectedCompareData
         && this.versionCompare.selectedCompareData['@id']
-          != this.ontologyVersions.selectedData['@id']
+          !== this.ontologyVersions.selectedData['@id']
       ) {
         this.fetchCompareDataAndMerge(this.query);
       } else if (!isCompareExpanded && this.data == null) this.fetchData(this.query, { noScroll: true });
@@ -1294,7 +1348,7 @@ export default {
       });
     },
     async searchBox_addTag(newTag) {
-      if (newTag !== '') {
+      if (newTag != '') {
         if (this.$refs.mobileSearchbox?.showModal) this.$refs.mobileSearchbox.hideModal();
 
         this.$router.push({
@@ -1474,7 +1528,7 @@ export default {
       const element = document.getElementById('ontologyViewerTopOfContainer');
 
       const rect = element.getBoundingClientRect();
-      const scrollTop = rect.top + (window.pageYOffset || document.documentElement.scrollTop);
+      const scrollTop = rect.top + (window.scrollY || document.documentElement.scrollTop);
 
       if (behavior === 'smooth') {
         window.scrollTo({
@@ -1519,7 +1573,7 @@ export default {
         this.versionCompare.isCompareExpanded
         && this.versionCompare.selectedCompareData
         && this.versionCompare.selectedCompareData['@id']
-          !== this.ontologyVersions.selectedData['@id']
+          != this.ontologyVersions.selectedData['@id']
       );
     },
     ontologyNameUppercase() {
@@ -1531,9 +1585,9 @@ export default {
     this.updateServers({ route: this.$route, to });
 
     // version just changed
-    if (this.version !== previousVersion) this.fetchModules();
+    if (this.version != previousVersion) this.fetchModules();
 
-    if (to !== from) {
+    if (to != from) {
       let queryParam = '';
 
       if (to.query?.query) {
@@ -1573,7 +1627,7 @@ export default {
     }
     this.$nextTick(() => {
       if (
-        (this.$route.path !== '/ontology' || this.$route.query?.query)
+        (this.$route.path != '/ontology' || this.$route.query?.query)
         && !this.versionCompare.isSwappingVersion
       ) this.scrollToOntologyViewerTopOfContainer();
 

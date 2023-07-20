@@ -7,16 +7,25 @@
         </div>
         <div class="col-12 col-md-4 px-0">
           <div
-            class="secondary-column__versions multiselect-xxl-container multiselect-container container"
-            v-if="hasVersions"
+            class="secondary-column__versions multiselect-container container"
+            v-show="hasVersions"
           >
             <div class="menu-box">
+              <div class="activators-container">
+                <div
+                  class="versions-activator multiselect-activator"
+                  v-if="$refs.versionsSelectDesktop && !$refs.versionsSelectDesktop.isOpen"
+                  @click="$refs.versionsSelectDesktop.activate()"
+                  @keydown="$refs.versionsSelectDesktop.activate()"
+                ></div>
+              </div>
               <div class="menu-box__label">
                 Select {{ ontologyNameUppercase }} version
               </div>
               <div class="menu-box__content-text">
                 <multiselect
                   v-model="ontologyVersionsDropdownData.selectedData"
+                  ref="versionsSelectDesktop"
                   id="ontologyVersionsMultiselect--products"
                   label="@id"
                   track-by="url"

@@ -11,10 +11,10 @@
     }"
     @click.native="linkClickNative"
     :class="{ deprecated: isDeprecated === 'true' }"
-    >{{ name
-    }}<TooltipInline
-      v-if="isDeprecated === 'true'"
-      :text="tooltips['deprecated']"
+  >{{ name
+  }}<TooltipInline
+    v-if="isDeprecated === 'true'"
+    :text="tooltips['deprecated']"
   /></nuxt-link>
   <nuxt-link
     v-else
@@ -28,10 +28,10 @@
       },
     }"
     :class="{ deprecated: isDeprecated === 'true' }"
-    >{{ name
-    }}<TooltipInline
-      v-if="isDeprecated === 'true'"
-      :text="tooltips['deprecated']"
+  >{{ name
+  }}<TooltipInline
+    v-if="isDeprecated === 'true'"
+    :text="tooltips['deprecated']"
   /></nuxt-link>
 </template>
 

@@ -81,7 +81,7 @@
       disabled
     >
       <span class="content-text"
-        >Describe {{ error ? "unavailable" : null }}</span
+      >Describe {{ error ? "unavailable" : null }}</span
       >
     </button>
   </div>

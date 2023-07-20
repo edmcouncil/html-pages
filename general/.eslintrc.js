@@ -7,6 +7,8 @@ module.exports = {
   extends: ['plugin:vue/essential', '@vue/airbnb'],
   rules: {
     'no-console': ['error', { allow: ['warn', 'error'] }],
+    indent: ['error', 2],
+    'vue/html-indent': ['error', 2],
   },
   parser: 'vue-eslint-parser',
   parserOptions: {

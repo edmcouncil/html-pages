@@ -12,7 +12,7 @@
         }"
       >
         <div v-if="getImageUrl(item) != 'undefined'" class="image-container">
-          <img :src="getImageUrl(item)" class="transparent-image" />
+          <img :src="getImageUrl(item)" class="transparent-image" alt="" />
           <p v-if="item.image_description" class="muted small">
             {{ item.image_description }}
           </p>
@@ -34,7 +34,7 @@ export default {
     getImageUrl(item) {
       const strapiUrl = process.env.strapiBasePath;
       const location = item?.image?.data?.attributes?.url;
-      if (location == undefined) {
+      if (location === undefined) {
         return 'undefined';
       }
       if (location.includes('_nuxt') && location.includes('downloads')) {
