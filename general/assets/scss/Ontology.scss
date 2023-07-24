@@ -204,16 +204,6 @@
     }
   }
 }
-.secondary-column__how-to-use--mobile {
-  padding: 0px 15px;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  .fibo-title-modules {
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 30px;
-  }
-}
 
 // --------------------------
 // Tree modules
@@ -240,6 +230,7 @@
 .multiselect-container.secondary-column__tree.secondary-column__tree--mobile {
   background-color: transparent;
   margin-top: 30px;
+  margin-bottom: 30px;
   padding: 0 30px;
   .menu-box {
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
@@ -991,6 +982,9 @@
   }
 }
 .secondary-column--mobile {
+  margin-top: 30px;
+  margin-bottom: 40px;
+
   .modules-list--mobile {
     padding: 0px 15px;
   }

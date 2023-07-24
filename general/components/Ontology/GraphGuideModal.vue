@@ -1,26 +1,17 @@
 <template>
-  <b-modal :id="modalId" modal-class="help" size="lg" centered scrollable>
+  <b-modal :id="modalId" modal-class="help" size="lg" centered scrollable hide-footer>
     <template v-slot:modal-header>
+      <h5 class="modal-title">
+        <slot name="label"></slot>
+      </h5>
       <div
         type="button"
         class="close-btn"
         data-dismiss="modal"
         aria-label="Close"
-        @click="$emit('returnEvent')"
+        @click="$emit('closeEvent')"
+        @keydown="$emit('closeEvent')"
       ></div>
-      <h5 class="modal-title">
-        <slot name="label"></slot>
-      </h5>
-    </template>
-    <template v-slot:modal-footer>
-      <div class="left">
-        <slot name="footer-left"></slot>
-      </div>
-      <div class="right">
-        <button class="btn normal-button small" @click="$emit('closeEvent')">
-          Close
-        </button>
-      </div>
     </template>
     <slot name="content"></slot>
   </b-modal>
@@ -33,22 +24,47 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.normal-button.small {
-  padding: 5px 10px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  margin: 0px 10px 10px 0px !important;
-}
-
+<style lang="scss">
 .modal.help {
+  article .img-zoom {
+    max-width: 70%;
+    max-height: 250px;
+    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+    margin: 30px 0;
+    overflow: hidden;
+
+    img {
+      transition: transform 0.5s;
+      &:hover {
+        transform: scale(2);
+      }
+    }
+  }
+
+  article {
+    .see-also-box {
+      background: map-get($colors-map, "black-5");
+      margin-bottom: 60px;
+      padding: 30px;
+      border-radius: 2px;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+  }
+
   .modal-header {
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     border: none;
-    padding: 18px 30px;
+    padding: 15px 30px;
 
-    justify-content: start;
+    justify-content: space-between;
 
     .close-btn {
       display: flex;
@@ -58,11 +74,11 @@ export default {
       width: 24px;
       height: 30px;
       padding: 0;
-      margin-right: 20px;
+      margin-left: 20px;
 
       &::before {
         content: "";
-        background-image: url("../../assets/icons/return-arrow.svg");
+        background-image: url("../../assets/icons/close.svg");
         background-repeat: no-repeat;
         background-size: 24px 24px;
         width: 24px;
@@ -72,7 +88,7 @@ export default {
 
     h5.modal-title {
       font-style: normal;
-      font-weight: normal;
+      font-weight: bold;
       font-size: 18px;
       line-height: 30px;
       color: #000000;
@@ -88,7 +104,7 @@ export default {
     background: white;
   }
   .modal-body {
-    padding: 15px 30px;
+    padding: 0px 30px;
     height: 100%;
     position: relative;
 
@@ -104,7 +120,7 @@ export default {
   .modal-footer {
     border: none;
     box-shadow: 0px -5px 20px -5px rgba(8, 84, 150, 0.15);
-    padding: 18px 30px;
+    padding: 15px 30px;
 
     justify-content: space-between;
 

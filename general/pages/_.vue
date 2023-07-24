@@ -444,25 +444,7 @@
           </div>
 
           <!-- mobile multiselects -->
-          <div class="secondary-column--mobile container px-0 mb-2 d-lg-none">
-            <div
-              class="secondary-column__how-to-use secondary-column__how-to-use--mobile
-                      multiselect-container container"
-            >
-              <div class="modules-header">
-                <h5 class="fibo-title-modules">
-                  {{ ontologyNameUppercase }} Viewer
-                </h5>
-                <button
-                  type="button"
-                  class="btn normal-button button-small"
-                  @click="howToUseHandler()"
-                >
-                  How to use
-                </button>
-              </div>
-            </div>
-
+          <div class="secondary-column--mobile container px-0 d-lg-none">
             <MobileMenuBox
               v-if="hasVersions"
               class="secondary-column__versions secondary-column__versions--mobile"

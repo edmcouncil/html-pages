@@ -3,7 +3,6 @@
     <GraphGuideModal
       modalId="guide-main"
       @closeEvent="closeHandler()"
-      @returnEvent="returnHandler()"
     >
       <template v-slot:label> User Guide: Overview </template>
 
@@ -11,7 +10,7 @@
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
-            <p>1. <b>Overview</b></p>
+            <p><b>1. Overview</b></p>
             <p>
               2.
               <span
@@ -216,7 +215,6 @@
     <GraphGuideModal
       modalId="guide-connections"
       @closeEvent="closeHandler()"
-      @returnEvent="returnHandler()"
     >
       <template v-slot:label> User Guide: Connections </template>
       <template v-slot:content>
@@ -232,7 +230,7 @@
               >Overview</span
               >
             </p>
-            <p>2. <b>Connections</b></p>
+            <p><b>2. Connections</b></p>
             <p>
               3.
               <span
@@ -372,7 +370,6 @@
     <GraphGuideModal
       modalId="guide-layouts"
       @closeEvent="closeHandler()"
-      @returnEvent="returnHandler()"
     >
       <template v-slot:label> User Guide: Layouts </template>
       <template v-slot:content>
@@ -397,7 +394,7 @@
               >Connections</span
               >
             </p>
-            <p>3. <b>Layouts</b></p>
+            <p><b>3. Layouts</b></p>
             <p>
               4.
               <span
@@ -512,7 +509,6 @@
     <GraphGuideModal
       modalId="guide-sorting"
       @closeEvent="closeHandler()"
-      @returnEvent="returnHandler()"
     >
       <template v-slot:label> User Guide: Sorting </template>
       <template v-slot:content>
@@ -546,7 +542,7 @@
               >Layouts</span
               >
             </p>
-            <p>4. <b>Sorting</b></p>
+            <p><b>4. Sorting</b></p>
             <p>
               5.
               <span
@@ -656,7 +652,6 @@
     <GraphGuideModal
       modalId="guide-configuration"
       @closeEvent="closeHandler()"
-      @returnEvent="returnHandler()"
     >
       <template v-slot:label> User Guide: Configuration </template>
       <template v-slot:content>
@@ -699,7 +694,7 @@
               >Sorting</span
               >
             </p>
-            <p>5. <b>Configuration</b></p>
+            <p><b>5. Configuration</b></p>
           </div>
           <h1>Configuration</h1>
           <h2>1. Introduction</h2>
@@ -751,9 +746,6 @@ export default {
       this.$bvModal.hide(this.currentPage);
       this.currentPage = null;
     },
-    returnHandler() {
-      this.closeHandler();
-    },
     navigateToPage(id) {
       this.closeHandler();
       this.openGuide(id);
@@ -776,106 +768,6 @@ export default {
   margin: 0px 10px 10px 0px !important;
 }
 
-.modal.help {
-  article .img-zoom {
-    max-width: 70%;
-    max-height: 250px;
-    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
-    margin: 30px auto 30px auto;
-    overflow: hidden;
-
-    img {
-      transition: transform 0.5s;
-      &:hover {
-        transform: scale(2);
-      }
-    }
-  }
-
-  article {
-    .see-also-box {
-      background: map-get($colors-map, "black-5");
-      margin-bottom: 45px;
-      padding: 30px;
-      border-radius: 2px;
-
-      p {
-        margin: 0;
-      }
-    }
-  }
-
-  .modal-header {
-    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
-    border: none;
-    padding: 15px 30px;
-
-    justify-content: start;
-
-    .close-btn {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      width: 24px;
-      height: 30px;
-      padding: 0;
-      margin-right: 20px;
-
-      &::before {
-        content: "";
-        background-image: url("../../assets/icons/return-arrow.svg");
-        background-repeat: no-repeat;
-        background-size: 24px 24px;
-        width: 24px;
-        height: 24px;
-      }
-    }
-
-    h5.modal-title {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 30px;
-      color: #000000;
-
-      padding: 0;
-      margin: 0;
-      position: relative;
-    }
-  }
-  .modal-content {
-    border-radius: 2px;
-    border: none;
-    background: white;
-  }
-  .modal-body {
-    padding: 0px 30px;
-    height: 100%;
-    position: relative;
-
-    .collapsible-section {
-      width: 100%;
-      background: rgb(242, 242, 242);
-      z-index: 1;
-      .collapsible-section-title {
-        padding: 20px 0px;
-      }
-    }
-  }
-  .modal-footer {
-    border: none;
-    box-shadow: 0px -5px 20px -5px rgba(8, 84, 150, 0.15);
-    padding: 15px 30px;
-
-    justify-content: space-between;
-
-    .normal-button.small {
-      margin-bottom: 0 !important;
-    }
-  }
-}
-
 span.guide-navigation {
   color: rgba(0, 0, 0, 0.8);
   text-decoration: underline;
@@ -889,6 +781,17 @@ span.guide-navigation {
     color: $link-active-color;
   }
 }
+
+.modal.help article {
+    .see-also-box {
+      h3 {
+        margin-bottom: 15px;
+      }
+      p {
+        padding: 7px 0;
+      }
+    }
+  }
 
 @media (max-width: 991px) {
   .modal.help article {
