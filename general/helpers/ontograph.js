@@ -3,6 +3,8 @@ import * as d3 from 'd3';
 export default class Ontograph {
   layout = 'force';
 
+  sortType = 'az';
+
   transitionSpeed = 400;
 
   mouseoverTransitionSpeed = 300;
@@ -514,6 +516,8 @@ export default class Ontograph {
       this.isShifting = null;
     }, this.transitionSpeed);
 
+    this.sortType = type;
+
     if (type === 'az') {
       this.root.each((d) => {
         d._totalChildren?.sort((a, b) => d3.ascending(a.data.nodeLabel, b.data.nodeLabel));
@@ -732,6 +736,8 @@ export default class Ontograph {
         .filter((n) => n.data.id == d.data.id)
         .select('.node-loader')
         .remove();
+
+      this.sort(this.sortType);
     }
 
     this.links = this.root.links();

@@ -121,17 +121,234 @@
       @hidden="modalHidden()"
     >
       <template v-slot:modal-header>
-        <div
-          type="button"
-          class="close-btn"
-          data-dismiss="modal"
-          aria-label="Close"
-          @click="hideModal()"
-        ></div>
-        <h5 class="modal-title">
-          Data model for {{ data.label }}
-          <slot name="label"></slot>
-        </h5>
+        <div class="left">
+          <div
+            type="button"
+            class="close-btn"
+            data-dismiss="modal"
+            aria-label="Close"
+            @click="hideModal()"
+            @keydown="hideModal()"
+          ></div>
+          <h3 class="modal-title">
+            Data model for {{ data.label }}
+            <slot name="label"></slot>
+          </h3>
+        </div>
+        <div class="right" :class="{ visible: isControlPanelOpen }">
+          <button
+            class="btn normal-button small icon-button download-png-button"
+            v-on:click="downloadAsPng()"
+          >
+            Download as PNG
+            <div class="b-icon download"></div>
+          </button>
+          <button
+            class="btn normal-button small"
+            @click="openGuide('guide-main')"
+          >
+            User Guide
+          </button>
+          <button
+            class="btn normal-button small"
+            @click="toggleControlPanelOpen()"
+            :disabled="isControlPanelOpen"
+          >
+            View options
+          </button>
+          <div
+            class="control-panel control-panel--fullscreen"
+            :class="{ visible: isControlPanelOpen }"
+          >
+            <div class="control-panel-header">
+              <h3 class="control-panel-title" @click="toggleControlPanelOpen()">View options</h3>
+            </div>
+            <div class="control-panel-content">
+              <div class="panel-section-title">
+                <h3>Connections</h3>
+                <div class="help-icon" @click="openGuide('guide-connections')"></div>
+              </div>
+              <div class="filters-container">
+                <div class="custom-control custom-checkbox">
+                  <input
+                    class="custom-control-input"
+                    type="checkbox"
+                    name="edgesFilter"
+                    id="internal"
+                    value="internal"
+                    v-model="internal"
+                    @change="filterHandler()"
+                  />
+                  <label class="custom-control-label" for="internal">
+                    Class specific
+                  </label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input
+                    class="custom-control-input"
+                    type="checkbox"
+                    name="edgesFilter"
+                    id="external"
+                    value="external"
+                    v-model="external"
+                    @change="filterHandler()"
+                  />
+                  <label class="custom-control-label" for="external">Inherited</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input
+                    class="custom-control-input"
+                    type="checkbox"
+                    name="edgesFilter"
+                    id="optional"
+                    value="optional"
+                    v-model="optional"
+                    @change="filterHandler()"
+                  />
+                  <label class="custom-control-label" for="optional">Optional</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input
+                    class="custom-control-input"
+                    type="checkbox"
+                    name="edgesFilter"
+                    id="non_optional"
+                    value="non_optional"
+                    v-model="required"
+                    @change="filterHandler()"
+                  />
+                  <label class="custom-control-label" for="non_optional">
+                    Required
+                  </label>
+                </div>
+              </div>
+              <div class="panel-section-title">
+                <h3>Layout</h3>
+                <div class="help-icon" @click="openGuide('guide-layouts')"></div>
+              </div>
+              <div class="panel-flex-container layouts-container">
+                <button
+                  class="btn chip-button"
+                  :class="{ selected: layout === 'tree' }"
+                  @click="toTree">
+                  Tree
+                </button>
+                <button
+                  class="btn chip-button"
+                  :class="{ selected: layout === 'clusterTree' }"
+                  @click="toClusterTree"
+                  :disabled="height < 2"
+                >
+                  Cluster Tree
+                </button>
+                <button
+                  class="btn chip-button"
+                  :class="{ selected: layout === 'radial' }"
+                  @click="toRadial">
+                  Radial
+                </button>
+                <button
+                  class="btn chip-button"
+                  :class="{ selected: layout === 'clusterRadial' }"
+                  @click="toClusterRadial"
+                  :disabled="height < 2"
+                >
+                  Cluster Radial
+                </button>
+                <button
+                  class="btn chip-button"
+                  :class="{ selected: layout === 'force' }"
+                  @click="toForce">
+                  Force
+                </button>
+              </div>
+              <div class="panel-section-title">
+                <h3>Sort</h3>
+                <div class="help-icon" @click="openGuide('guide-sorting')"></div>
+              </div>
+              <div class="panel-flex-container layouts-container">
+                <button
+                  class="btn chip-button"
+                  @click="sort('az')"
+                  :class="{ selected: sortType === 'az' && layout !== 'force' }"
+                  :disabled="layout == 'force'"
+                >
+                  A - Z
+                </button>
+                <button
+                  class="btn chip-button"
+                  @click="sort('height')"
+                  :class="{ selected: sortType === 'height' && layout !== 'force' }"
+                  :disabled="height < 2 || layout == 'force'"
+                >
+                  Height
+                </button>
+                <button
+                  class="btn chip-button"
+                  @click="sort('inherited')"
+                  :class="{ selected: sortType === 'inherited' && layout !== 'force' }"
+                  :disabled="layout == 'force'"
+                >
+                  Inherited
+                </button>
+                <button
+                  class="btn chip-button"
+                  @click="sort('type')"
+                  :class="{ selected: sortType === 'type' && layout !== 'force' }"
+                  :disabled="layout == 'force'"
+                >
+                  Optional
+                </button>
+              </div>
+              <div class="panel-section-title">
+                <h3>Configuration</h3>
+                <div
+                  class="help-icon"
+                  @click="openGuide('guide-configuration')"
+                ></div>
+              </div>
+              <div class="configuration-container">
+                <div class="configuration-labels">
+                  <p>Display all edge labels</p>
+                  <div class="custom-control custom-switch">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="keep-labels-switch"
+                      v-model="isKeepLabels"
+                      @change="handleKeepLabelsUpdate()"
+                    />
+                    <label
+                      class="custom-control-label"
+                      for="keep-labels-switch"
+                    ></label>
+                  </div>
+                </div>
+                <div class="configuration-distance">
+                  <p>
+                    Node distance
+                    <button
+                      class="btn chip-button"
+                      disabled
+                    >
+                      {{ distanceValue }}
+                    </button>
+                  </p>
+                  <input
+                    v-model="distanceValue"
+                    type="range"
+                    min="10"
+                    max="300"
+                    step="2"
+                    class="custom-slider"
+                    @input="handleDistanceUpdate()"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </template>
       <div class="alerts-container">
         <div class="node-alert" v-for="alert in alerts" :key="alert.id">
@@ -143,193 +360,8 @@
           </p>
         </div>
       </div>
-      <div class="open-control-panel-text">
-        <button
-          class="btn normal-button small"
-          @click="toggleControlPanelOpen()"
-        >
-          Open Control Panel
-        </button>
-      </div>
-      <div
-        class="control-panel control-panel--fullscreen"
-        :class="{ visible: isControlPanelOpen }"
-      >
-        <h2 @click="toggleControlPanelOpen()">Control Panel</h2>
-        <div class="panel-section-title">
-          <h3>Menu</h3>
-        </div>
-        <button class="btn normal-button small" @click="center">Center</button>
-        <button
-          class="btn normal-button small"
-          @click="openGuide('guide-main')"
-        >
-          User Guide
-        </button>
-        <button
-          class="btn normal-button small icon-button download-png-button"
-          v-on:click="downloadAsPng()"
-        >
-          Download as PNG
-          <div class="b-icon download"></div>
-        </button>
-        <div class="panel-section-title">
-          <h3>Connections</h3>
-          <div class="help-icon" @click="openGuide('guide-connections')"></div>
-        </div>
-        <div class="filters-container">
-          <div class="custom-control custom-checkbox">
-            <input
-              class="custom-control-input"
-              type="checkbox"
-              name="edgesFilter"
-              id="internal"
-              value="internal"
-              v-model="internal"
-              @change="filterHandler()"
-            />
-            <label class="custom-control-label" for="internal">
-              Class specific
-            </label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input
-              class="custom-control-input"
-              type="checkbox"
-              name="edgesFilter"
-              id="external"
-              value="external"
-              v-model="external"
-              @change="filterHandler()"
-            />
-            <label class="custom-control-label" for="external">Inherited</label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input
-              class="custom-control-input"
-              type="checkbox"
-              name="edgesFilter"
-              id="optional"
-              value="optional"
-              v-model="optional"
-              @change="filterHandler()"
-            />
-            <label class="custom-control-label" for="optional">Optional</label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input
-              class="custom-control-input"
-              type="checkbox"
-              name="edgesFilter"
-              id="non_optional"
-              value="non_optional"
-              v-model="required"
-              @change="filterHandler()"
-            />
-            <label class="custom-control-label" for="non_optional">
-              Required
-            </label>
-          </div>
-        </div>
-        <div class="panel-section-title">
-          <h3>Layout</h3>
-          <div class="help-icon" @click="openGuide('guide-layouts')"></div>
-        </div>
-        <div class="layouts-container">
-          <button class="btn normal-button small" @click="toTree">Tree</button>
-          <button
-            class="btn normal-button small"
-            @click="toClusterTree"
-            :disabled="height < 2"
-          >
-            Cluster Tree
-          </button>
-          <button class="btn normal-button small" @click="toRadial">
-            Radial
-          </button>
-          <button
-            class="btn normal-button small"
-            @click="toClusterRadial"
-            :disabled="height < 2"
-          >
-            Cluster Radial
-          </button>
-          <button class="btn normal-button small" @click="toForce">
-            Force
-          </button>
-        </div>
-        <div class="panel-section-title">
-          <h3>Sort</h3>
-          <div class="help-icon" @click="openGuide('guide-sorting')"></div>
-        </div>
-        <div class="layouts-container">
-          <button
-            class="btn normal-button small"
-            @click="sortAZ"
-            :disabled="layout == 'force'"
-          >
-            A - Z
-          </button>
-          <button
-            class="btn normal-button small"
-            @click="sortHeight"
-            :disabled="height < 2 || layout == 'force'"
-          >
-            Height
-          </button>
-          <button
-            class="btn normal-button small"
-            @click="sortType"
-            :disabled="layout == 'force'"
-          >
-            Inherited
-          </button>
-          <button
-            class="btn normal-button small"
-            @click="sortInherited"
-            :disabled="layout == 'force'"
-          >
-            Optional
-          </button>
-        </div>
-        <div class="panel-section-title">
-          <h3>Configuration</h3>
-          <div
-            class="help-icon"
-            @click="openGuide('guide-configuration')"
-          ></div>
-        </div>
-        <div class="configuration-container">
-          <div class="configuration-distance">
-            <p>Node distance: {{ distanceValue }}</p>
-            <input
-              v-model="distanceValue"
-              type="range"
-              min="10"
-              max="300"
-              step="2"
-              class="custom-slider"
-              @input="handleDistanceUpdate()"
-            />
-          </div>
-          <div class="configuration-labels">
-            <p>Display all edge labels</p>
-            <div class="custom-control custom-switch">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="keep-labels-switch"
-                v-model="isKeepLabels"
-                @change="handleKeepLabelsUpdate()"
-              />
-              <label
-                class="custom-control-label"
-                for="keep-labels-switch"
-              ></label>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <button class="btn normal-button small center-btn" @click="center">Center</button>
       <div class="graph-modal-content" ref="graphModalTarget"></div>
     </b-modal>
 
@@ -354,6 +386,7 @@ export default {
       ontograph: null,
       height: null,
       layout: null,
+      sortType: 'az',
 
       // used when modal needs to be closed before navigation
       navigatingOutFlag: false,
@@ -385,6 +418,7 @@ export default {
       this.graphServer,
       this.onHeightUpdate,
     );
+    this.ontograph.sort(this.sortType);
     this.height = this.ontograph.getHeight();
     this.layout = this.ontograph.getLayout();
     window.addEventListener('resize', this.onResize);
@@ -463,17 +497,9 @@ export default {
         this.alerts.shift();
       }, 3500);
     },
-    sortAZ() {
-      this.ontograph.sort('az');
-    },
-    sortHeight() {
-      this.ontograph.sort('height');
-    },
-    sortType() {
-      this.ontograph.sort('type');
-    },
-    sortInherited() {
-      this.ontograph.sort('inherited');
+    sort(type) {
+      this.sortType = type;
+      this.ontograph.sort(type);
     },
     downloadAsPng() {
       d3ToPng('svg', `${this.data.label}`, {
@@ -587,10 +613,10 @@ export default {
     },
   },
   watch: {
-    distanceValue: (newValue) => {
+    distanceValue(newValue) {
       localStorage.distanceValue = newValue;
     },
-    isKeepLabels: (newValue) => {
+    isKeepLabels(newValue) {
       localStorage.isKeepLabels = newValue;
     },
   },
@@ -603,34 +629,10 @@ export default {
   position: relative;
 }
 
-.normal-button.small {
-  padding: 5px 10px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  margin: 0px 10px 10px 0px !important;
-}
-
-.open-control-panel-text {
-  position: absolute;
-  right: 30px;
-  top: 30px;
-  user-select: none;
-  opacity: 0.5;
-
-  .normal-button.small {
-    margin: 0 !important;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
 .alerts-container {
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: 0;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -648,7 +650,7 @@ export default {
     width: max-content;
     border-radius: 2px;
     padding: 5px 15px;
-    margin-top: 10px;
+    margin-bottom: 10px;
 
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
   }
@@ -671,16 +673,18 @@ export default {
 }
 
 .control-panel {
-  padding: 30px;
+  padding: 40px;
 
   .configuration-container {
     .custom-switch {
-      margin-top: 5px;
+      margin-top: 10px;
     }
 
-    .custom-slider {
-      margin-top: 10px;
-      margin-bottom: 25px;
+    .chip-button {
+      width: 40px;
+      margin-left: 10px;
+      padding: 6px 0;
+      text-align: center;
     }
   }
 
@@ -698,33 +702,58 @@ export default {
 
   &.control-panel--fullscreen {
     position: absolute;
-    right: -300px;
+    right: -320px;
     top: 0;
-    width: 300px;
+    width: 320px;
     height: 100%;
     background: white;
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     transition: right 0.3s ease;
+    z-index: 10;
+    padding: 0;
 
-    overflow-y: scroll;
+    .control-panel-header {
+      box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+      padding: 15px 30px;
+    }
+
+    .control-panel-content {
+      padding: 0 30px 40px 30px;
+      height: calc(100% - 60px);
+      overflow-y: scroll;
+
+      .panel-flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .filters-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .custom-checkbox {
+          padding-bottom: 0;
+        }
+      }
+    }
 
     .panel-section-title {
       position: relative;
 
       h3 {
-        margin-top: 30px;
-        margin-bottom: 15px;
+        margin-top: 40px;
+        margin-bottom: 20px;
       }
 
       .help-icon {
         position: absolute;
-
         content: "";
         background-image: url("../../assets/icons/help.svg");
-        opacity: 0.4;
         background-repeat: no-repeat;
         background-position: center;
-        background-size: 16px 16px;
+        background-size: 24px 24px;
         top: 0;
         right: 0;
         width: 30px;
@@ -732,13 +761,12 @@ export default {
 
         &:hover {
           cursor: pointer;
-          opacity: 0.6;
         }
       }
     }
 
-    h2 {
-      margin-bottom: 40px;
+    h3.control-panel-title {
+      padding: 0;
       user-select: none;
       &:hover {
         cursor: pointer;
@@ -752,10 +780,9 @@ export default {
         background-repeat: no-repeat;
         background-position: center;
         background-size: 24px 24px;
-        transform: rotate(180deg);
         right: 30px;
         width: 24px;
-        height: 36px;
+        height: 30px;
       }
     }
 
@@ -855,7 +882,7 @@ export default {
     color: #000000;
   }
   .collapsible-section-title {
-    padding-bottom: 15px;
+    padding-bottom: 40px;
   }
   .collapsible-section-content {
     display: flex;
@@ -863,7 +890,6 @@ export default {
     flex-wrap: nowrap;
     .custom-control {
       padding-right: 40px;
-      // padding-bottom: 15px;
 
       .custom-control-label {
         font-style: normal;
@@ -882,41 +908,61 @@ export default {
   .modal-header {
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     border: none;
-    padding: 18px 30px;
+    padding: 15px 40px;
     z-index: 2;
 
-    justify-content: start;
+    justify-content: space-between;
 
-    .close-btn {
+    .left {
       display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      width: 24px;
-      height: 30px;
-      padding: 0;
-      margin-right: 20px;
+      overflow: hidden;
 
-      &::before {
-        content: "";
-        background-image: url("../../assets/icons/return-arrow.svg");
-        background-repeat: no-repeat;
-        background-size: 24px 24px;
+      .close-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
         width: 24px;
-        height: 24px;
+        height: 30px;
+        padding: 0;
+        margin-right: 20px;
+
+        &::before {
+          content: "";
+          background-image: url("../../assets/icons/return-arrow.svg");
+          background-repeat: no-repeat;
+          background-size: 24px 24px;
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      h3.modal-title {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 30px;
+        color: #000000;
+
+        padding: 0;
+        margin: 0;
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
-    h5.modal-title {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 30px;
-      color: #000000;
+    .right {
+      display: flex;
+      gap: 20px;
+      margin-right: 0;
+      transition: margin-right 0.3s ease;
 
-      padding: 0;
-      margin: 0;
-      position: relative;
+      .normal-button.small {
+        margin: 0 !important;
+        white-space: nowrap;
+      }
     }
   }
   .modal-dialog {
@@ -927,6 +973,12 @@ export default {
     border: none;
     height: 100vh;
     width: 100vw;
+
+    .center-btn {
+      position: absolute;
+      left: 40px;
+      bottom: 40px;
+    }
   }
   .modal-body {
     background: rgba(0, 0, 0, 0.05);
@@ -979,14 +1031,21 @@ export default {
 
 //mobile
 @media (max-width: 768px) {
-  .modal .modal-header {
-    h5.modal-title {
-      font-size: 16px;
-      line-height: 24px;
-      color: rgba(0, 0, 0, 0.6);
-    }
-    .close-btn {
-      height: 24px;
+  .modal.fullscreen .modal-header {
+    padding: 15px 40px 20px 40px;
+    .left {
+      h3.modal-title {
+        color: var(--black-black-100, #000);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 24px;
+        letter-spacing: 0.32px;
+        white-space: normal;
+      }
+      .close-btn {
+        height: 24px;
+      }
     }
   }
 
@@ -1045,10 +1104,33 @@ export default {
     }
   }
 }
+
+@media (max-width: 991px) {
+  .control-panel.control-panel--minimal .minimal-menu {
+    display: none;
+  }
+  .modal-header {
+    flex-wrap: wrap;
+    gap: 15px;
+
+    .right {
+      flex-wrap: wrap;
+    }
+  }
+}
+@media (min-width: 991px) {
+  .modal.fullscreen .modal-header {
+    height: 60px;
+
+    .right.visible {
+      margin-right: 320px;
+    }
+  }
+}
 @media (min-width: 1300px) {
-  .minimal-menu {
+  .control-panel.control-panel--minimal .minimal-menu {
     position: absolute;
-    right: 20px;
+    right: 40px;
   }
 }
 
@@ -1059,7 +1141,7 @@ export default {
       align-items: stretch;
 
       button {
-        margin: 0 10px 45px 0 !important;
+        margin: 0 10px 20px 0 !important;
       }
     }
   }
@@ -1111,8 +1193,8 @@ export default {
 
 @media (max-width: 991px) {
   .fullscreen-btn-wrapper {
-    bottom: 80px;
-    left: 55px;
+    bottom: 40px;
+    left: 20px;
   }
 }
 </style>

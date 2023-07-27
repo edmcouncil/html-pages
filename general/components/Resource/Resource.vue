@@ -53,6 +53,11 @@
                   .querySelector('h5')
                   .classList.toggle('section-collapse')
               "
+              @keydown="
+                $refs.dataGraph
+                  .querySelector('h5')
+                  .classList.toggle('section-collapse')
+              "
             >
               Data model for {{ data.label }}
             </h5>
