@@ -75,13 +75,6 @@
             In the graph section the user has access to
             <span
               class="guide-navigation"
-              @click="navigateToPage('guide-layouts')"
-              @keydown="navigateToPage('guide-layouts')"
-            >layout</span
-            >
-            and
-            <span
-              class="guide-navigation"
               @click="navigateToPage('guide-connections')"
               @keydown="navigateToPage('guide-connections')"
             >connections</span
@@ -103,7 +96,7 @@
               fluid
               center
               alt="Graph general image"
-              style="transform-origin: left"
+              style="transform-origin: top left"
             ></b-img>
           </div>
           <p>
@@ -111,8 +104,8 @@
             screen which translates to more comfortable experience.
           </p>
           <p>
-            The "Open Control Panel" button in top right corner can be used to
-            open the <b>Control Panel</b>.
+            The "View options" button in top right corner can be used to
+            open the <b>View options</b> menu.
           </p>
 
           <div class="img-zoom">
@@ -124,12 +117,8 @@
               style="transform-origin: top right"
             ></b-img>
           </div>
-          <p>The Control Panel is divided into four sections:</p>
+          <p>The view options menu is divided into four sections:</p>
           <ul>
-            <li>
-              <b>Menu</b> - use "Center" to reset zoom and pan, the "User Guide"
-              button opens this guide window,
-            </li>
             <li>
               <b>Connections</b> - filter nodes based on connection type to the
               root element. Read more in the
@@ -164,10 +153,21 @@
               >
               section,
             </li>
+            <li>
+              <b>Configuration</b> - configure node distance and toggle all labels visibility.
+              Read more in the
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-configuration')"
+                @keydown="navigateToPage('guide-configuration')"
+              >Configuration</span
+              >
+              section,
+            </li>
           </ul>
 
           <p>
-            The Control Panel can be closed at any moment with the close "X"
+            The view options menu can be closed at any moment with the close "X"
             icon next to the title.
           </p>
 
@@ -266,7 +266,7 @@
               src="../../assets/img/graph-guide-layouts-0.png"
               fluid
               alt="Graph general image"
-              style="transform-origin: right"
+              style="transform-origin: top right"
             ></b-img>
           </div>
           <p>
@@ -421,13 +421,13 @@
               src="../../assets/img/graph-guide-layouts-0.png"
               fluid
               alt="Graph general image"
-              style="transform-origin: right bottom"
+              style="transform-origin: right"
             ></b-img>
           </div>
           <p>
             The visualization tool offers multiple node layouts. The user can
             select node placement most optimal for his use. The layouts can be
-            selected by pressing corresponding buttons in Layout control panel
+            selected by pressing corresponding buttons in Layout view options
             section.
           </p>
 
@@ -571,7 +571,7 @@
           </p>
           <p>
             The nodes can be sorted by pressing corresponding buttons in the
-            Sort section of Control Panel.
+            Sort section of view options.
           </p>
 
           <h2>2. A - Z</h2>

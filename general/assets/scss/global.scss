@@ -293,6 +293,7 @@
   }
   &:disabled,
   &[disabled="disabled"] {
+    opacity: 1;
     border: 1px solid var(--black-black-40, rgba(0, 0, 0, 0.40));
     background: var(--white-white-80, rgba(255, 255, 255, 0.80));
     color: var(--black-black-40, rgba(0, 0, 0, 0.40));
