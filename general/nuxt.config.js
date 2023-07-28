@@ -176,7 +176,7 @@ export default {
   // AUTO - https://spec.edmcouncil.org/auto/ontology/
   // IDMP - https://spec.pistoiaalliance.org/idmp/ontology/
   env: {
-    generateDir: `static`,
+    generateDir: `dist/${process.env.VUE_ONTOLOGY_NAME}${process.env.VUE_DIST_DIR}`,
     ontologyName: process.env.VUE_ONTOLOGY_NAME,
     assetsDir: process.env.VUE_ASSETS_DIR,
     distDir: process.env.VUE_DIST_DIR,
