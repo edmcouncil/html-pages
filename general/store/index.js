@@ -10,6 +10,10 @@ export default {
     },
     footerData: {
       copyright: null,
+      contacts: null,
+      socials: null,
+      links: null,
+      useCustomFooterData: null,
     },
   }),
   mutations: {
@@ -18,8 +22,15 @@ export default {
       state.headerData.menuTop = menuTop;
       state.headerData.carousel = carousel;
     },
-    SET_FOOTER_DATA (state, { copyright }) {
+    SET_FOOTER_DATA (
+      state,
+      { copyright, footerSocials, footerLinks, footerContacts, useCustomFooterData }
+    ) {
       state.footerData.copyright = copyright;
+      state.footerData.socials = footerSocials;
+      state.footerData.links = footerLinks;
+      state.footerData.contacts = footerContacts;
+      state.footerData.useCustomFooterData = useCustomFooterData;
     },
   },
   actions: {
