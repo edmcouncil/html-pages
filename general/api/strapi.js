@@ -73,11 +73,15 @@ export async function getPageElementsStrapiData() {
   var data = {};
   //footer
   var singleTypeName = "footer";
-  var populateParams = [];
+  var populateParams = ["contacts", "links", "socials"];
 
   try {
     const response = await getStrapiSingleType(singleTypeName, populateParams);
     data.copyright = response.data.data.attributes.copyright;
+    data.footerContacts = response.data.data.attributes.contacts;
+    data.footerLinks = response.data.data.attributes.links;
+    data.footerSocials = response.data.data.attributes.socials;
+    data.useCustomFooterData = response.data.data.attributes.useCustomFooterData;
   } catch (error) {
     return {
       error: error,
