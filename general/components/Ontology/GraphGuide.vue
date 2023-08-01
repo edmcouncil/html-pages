@@ -765,7 +765,6 @@ export default {
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  margin: 0px 10px 10px 0px !important;
 }
 
 span.guide-navigation {

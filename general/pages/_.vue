@@ -1,32 +1,25 @@
 <template>
   <div>
-    <div ref="article-top-element"></div>
     <div class="container ontology-container">
+      <HowToUseTopBanner
+        :ontologyNameUppercase="ontologyNameUppercase"
+        :howToUseHandler="howToUseHandler"
+      />
+      <div ref="article-top-element"></div>
       <div class="row">
         <!-- secondary column -->
         <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
           <div class="module-tree">
-            <div
-              class="secondary-column__how-to-use multiselect-container"
-            >
-              <div class="modules-header">
-                <h5 class="fibo-title-modules">
-                  {{ ontologyNameUppercase }} Viewer
-                </h5>
-                <button
-                  type="button"
-                  class="btn normal-button button-small"
-                  @click="howToUseHandler()"
-                >
-                  How to use
-                </button>
-              </div>
-            </div>
             <transition name="slowfade">
               <div
                 v-if="hasVersions"
                 class="secondary-column__versions multiselect-container"
               >
+                <div
+                  class="secondary-column__versions__header"
+                >
+                  {{ ontologyNameUppercase }} Versions
+                </div>
                 <div class="menu-box">
                   <div class="activators-container">
                     <div
@@ -786,6 +779,7 @@ export default {
   props: ['ontology'],
   key: 'ontology',
   scrollToTop: false,
+  layout: 'minimal',
   async validate({ params }) {
     return params.pathMatch.startsWith('ontology');
   },

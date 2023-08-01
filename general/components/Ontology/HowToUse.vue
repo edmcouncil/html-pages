@@ -11,7 +11,7 @@
     </section>
 
     <section v-if="hasVersions" class="blank versions-section">
-      <img class="article-icon" src="@/assets/img/clock.svg" />
+      <img class="article-icon" alt="" src="@/assets/img/clock.svg" />
       <h2>{{ ontologyNameUppercase }} Versions</h2>
       <p class="big muted">
         {{ ontologyNameUppercase }} Viewer allows for browsing the past versions
@@ -26,7 +26,7 @@
     </section>
 
     <section class="blank structure-section">
-      <img class="article-icon" src="@/assets/img/directory.svg" />
+      <img class="article-icon" alt="" src="@/assets/img/directory.svg" />
       <h2>{{ ontologyNameUppercase }} structure</h2>
       <p class="big muted">
         {{ ontologyNameUppercase }} is a set of ontologies. It is organized in a
@@ -40,7 +40,7 @@
     </section>
 
     <section class="blank maturity-section">
-      <img class="article-icon" src="@/assets/img/maturity.svg" />
+      <img class="article-icon" alt="" src="@/assets/img/maturity.svg" />
       <h2>{{ ontologyNameUppercase }} maturity levels</h2>
       <p class="big muted">
         Each {{ ontologyNameUppercase }} ontology has one of three levels of
@@ -73,6 +73,7 @@
       <div class="color-container">
         <img
           class="article-icon--small"
+          alt="color green"
           src="@/assets/icons/production-maturity.svg"
         />
         <p>
@@ -85,6 +86,7 @@
       <div class="color-container">
         <img
           class="article-icon--small"
+          alt="color yellow"
           src="@/assets/icons/provisional-maturity.svg"
         />
         <p>
@@ -96,6 +98,7 @@
       <div class="color-container">
         <img
           class="article-icon--small"
+          alt="color orange"
           src="@/assets/icons/informative-maturity.svg"
         />
         <p>
@@ -107,6 +110,7 @@
       <div class="color-container">
         <img
           class="article-icon--small"
+          alt="color mixed"
           src="@/assets/icons/mixed-maturity.svg"
         />
         <p>

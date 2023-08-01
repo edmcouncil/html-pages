@@ -171,41 +171,6 @@
 }
 
 // --------------------------
-// How to use
-// --------------------------
-.secondary-column__how-to-use {
-  .modules-header {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    align-items: center;
-
-    .fibo-title-modules {
-      color: map-get($colors-map, "black");
-      text-decoration: none;
-      font-family: Inter;
-      font-weight: 700;
-      font-size: 24px;
-    }
-
-    .button-small {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.14px;
-      line-height: 20px;
-      padding: 5px 15px;
-      border: none;
-      white-space: nowrap;
-    }
-
-    h5 {
-      padding: 0;
-      margin: 0;
-    }
-  }
-}
-
-// --------------------------
 // Tree modules
 // --------------------------
 .multiselect-container.secondary-column__tree {
@@ -241,9 +206,18 @@
 // Version select
 // --------------------------
 .multiselect-container.secondary-column__versions {
-  margin-top: 60px;
   border-radius: 2px;
   border: none;
+
+  .secondary-column__versions__header {
+    margin-bottom: 40px;
+    padding: 0 30px;
+    color: var(--black-100, #000);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+  }
 
   .activators-container .versions-activator {
     flex: 1;

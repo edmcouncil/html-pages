@@ -65,6 +65,7 @@ import { getStrapiCollection } from '../api/strapi';
 
 export default {
   name: 'ReleaseNotes',
+  layout: 'minimal',
   head() {
     return {
       title: 'FIBO Release Notes',

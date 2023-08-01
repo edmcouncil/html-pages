@@ -697,6 +697,7 @@ export default {
     .minimal-menu {
       display: flex;
       align-items: flex-start;
+      gap: 20px;
     }
   }
 
@@ -960,7 +961,6 @@ export default {
       transition: margin-right 0.3s ease;
 
       .normal-button.small {
-        margin: 0 !important;
         white-space: nowrap;
       }
     }
@@ -1035,7 +1035,7 @@ export default {
     padding: 15px 40px 20px 40px;
     .left {
       h3.modal-title {
-        color: var(--black-black-100, #000);
+        color: var(--black-100, #000);
         font-size: 16px;
         font-style: normal;
         font-weight: 700;

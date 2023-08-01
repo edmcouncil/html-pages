@@ -50,6 +50,7 @@ import { getStrapiElementFromCollection } from '../../api/strapi';
 export default {
   name: 'PageView',
   components: {},
+  layout: 'minimal',
   head() {
     return {
       title: this.title,
