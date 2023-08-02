@@ -21,7 +21,7 @@
       :header-class="noMultiselect ? '' : 'no-shadow'"
       no-fade
       v-model="showModal"
-      modal-class="fullscreen"
+      modal-class="fullscreen mobile-menu-box"
       footer-class="mobile-modal-footer"
     >
       <template v-slot:modal-header>
@@ -201,13 +201,14 @@ export default {
     background: transparent;
   }
   .search-box .multiselect .multiselect__clear {
-    top: 3px;
+    top: 0;
+    height: 24px;
   }
   .search-box .mobile-search-icon {
     z-index: 1000;
     position: absolute;
     right: 39px;
-    top: 18px;
+    top: 34px;
     width: 24px;
     height: 24px;
     background-image: url("@/assets/icons/search.svg");
@@ -230,6 +231,49 @@ export default {
     .multiselect__tags {
       user-select: none;
       pointer-events: none;
+    }
+  }
+}
+
+.modal.fullscreen.mobile-menu-box {
+  .modal-header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 18px 30px;
+
+    .close-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+
+      &::before {
+        content: "";
+        background-image: url("../assets/icons/return-arrow.svg");
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    h5.modal-title {
+      color: var(--black-60, rgba(0, 0, 0, 0.60));
+      font-family: Inter;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+
+      padding: 0;
+      margin: 0;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }

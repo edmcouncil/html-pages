@@ -24,7 +24,6 @@ export default {
 .ontology-viewer-header {
   display: flex;
   padding: 60px;
-  margin-bottom: 60px;
   justify-content: space-between;
   align-items: flex-end;
   background: var(--black-5, rgba(0, 0, 0, 0.05));
@@ -33,6 +32,28 @@ export default {
     max-width: 800px;
 
     p {
+      margin-top: 30px;
+    }
+  }
+
+  .btn.normal-button.small {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 991px) {
+  .ontology-viewer-header {
+    margin: 40px 15px 0 15px;
+    padding: 40px 30px;
+    flex-direction: column;
+
+    .ontology-viewer-header__text p {
+        margin-top: 20px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .btn.normal-button.small {
       margin-top: 30px;
     }
   }

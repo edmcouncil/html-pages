@@ -635,11 +635,11 @@
               "
             >
               <div v-if="!searchBox.isAdvancedExpanded">
-                <div class="see-more-btn">search configuration</div>
+                <div class="see-more-btn">Search configuration</div>
               </div>
 
               <div v-else>
-                <div class="see-less-btn">search configuration</div>
+                <div class="see-less-btn">Search configuration</div>
               </div>
             </div>
 
