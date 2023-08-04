@@ -42,8 +42,9 @@
         <pre><code class="hljs xml" v-html="highlightedCode"></code></pre>
       </div>
     </b-modal>
-    <b-modal id="info-modal" modal-class="info-modal" size="md" centered>
+    <b-modal id="info-modal" modal-class="info-modal" size="md" footer-class="d-none" centered>
       <template v-slot:modal-header>
+        <h5 class="modal-title">About</h5>
         <div
           type="button"
           class="close-btn"
@@ -51,17 +52,11 @@
           aria-label="Close"
           @click="closeInfo()"
         ></div>
-        <h5 class="modal-title">About</h5>
       </template>
       <p>
         The describe tool is using
         <a href="https://data.world/">data.world</a> API.
       </p>
-      <template v-slot:modal-footer>
-        <button class="btn normal-button small" @click="closeInfo()">
-          Close
-        </button>
-      </template>
     </b-modal>
     <button
       v-if="!error && !loading"
@@ -320,9 +315,9 @@ export default {
     position: relative;
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     border: none;
-    padding: 18px 60px 18px 30px;
+    padding: 15px 40px;
 
-    justify-content: start;
+    justify-content: space-between;
 
     .close-btn {
       display: flex;
@@ -332,11 +327,11 @@ export default {
       width: 24px;
       height: 30px;
       padding: 0;
-      margin-right: 20px;
+      margin-left: 20px;
 
       &::before {
         content: "";
-        background-image: url("../../assets/icons/return-arrow.svg");
+        background-image: url("../../assets/icons/close.svg");
         background-repeat: no-repeat;
         background-size: 24px 24px;
         width: 24px;
@@ -346,7 +341,7 @@ export default {
 
     h5.modal-title {
       font-style: normal;
-      font-weight: normal;
+      font-weight: bold;
       font-size: 18px;
       line-height: 30px;
       color: #000000;
@@ -412,7 +407,7 @@ export default {
 
       content: "";
       background-image: url("../../assets/icons/help.svg");
-      opacity: 0.4;
+      opacity: 0.8;
       background-repeat: no-repeat;
       background-position: center;
       background-size: 24px 24px;
@@ -420,11 +415,6 @@ export default {
       right: 30px;
       width: 30px;
       height: 100%;
-
-      &:hover {
-        cursor: pointer;
-        opacity: 0.6;
-      }
     }
 
     .close-btn {
@@ -448,7 +438,7 @@ export default {
 
     h5.modal-title {
       font-style: normal;
-      font-weight: normal;
+      font-weight: bold;
       font-size: 18px;
       line-height: 30px;
       color: #000000;

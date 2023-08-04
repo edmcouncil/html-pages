@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="download-section">
     <h1 v-if="sectionItem.title">{{ sectionItem.title }}</h1>
     <div v-html="$md.render(sectionItem.text_content || '')"></div>
     <button
@@ -31,6 +31,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.download-section {
+  max-width: 800px;
+}
 .normal-button {
   margin-top: 30px;
 }

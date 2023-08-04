@@ -7,7 +7,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue . --fix"
+    "lint": "eslint --ext .js,.vue .",
+    "fix": "eslint --ext .js,.vue . --fix"
   },
   "dependencies": {
     "@nuxtjs/google-fonts": "^2.0.0",

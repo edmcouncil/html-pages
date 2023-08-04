@@ -125,7 +125,7 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  overflow: auto;
+  overflow: visible;
   margin-bottom: 10px;
   h2 {
     position: relative;

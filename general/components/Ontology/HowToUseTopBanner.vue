@@ -30,6 +30,7 @@ export default {
 
   .ontology-viewer-header__text {
     max-width: 800px;
+    align-self: flex-start;
 
     p {
       margin-top: 30px;

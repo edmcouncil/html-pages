@@ -12,10 +12,7 @@
             <a :href="item.title_link">{{ item.title }}</a>
           </h2>
           <h2 v-else>{{ item.title }}</h2>
-          <div
-            class="short-description"
-            v-html="$md.render(item.subtitle || '')"
-          ></div>
+          <div class="short-description">{{ item.subtitle }}</div>
         </div>
 
         <div
@@ -41,8 +38,7 @@
 export default {
   name: 'TableListSection',
   props: ['sectionItem'],
-  methods: {},
-  computed: {
+  methods: {
     visit(url) {
       const aElement = document.createElement('a');
       aElement.setAttribute('href', url);
@@ -58,7 +54,8 @@ export default {
 
 <style scoped lang="scss">
 .table-box {
-  min-height: 150px;
+  // min-height: 150px;
+  align-items: flex-start!important;
 }
 
 .table-container .table-box .table-box__column {
@@ -71,20 +68,31 @@ export default {
 
     h2 a {
       text-decoration: none;
+      display: flex;
+      gap: 10px;
+      align-items: center;
 
       &:hover {
         cursor: pointer;
         text-decoration: underline;
       }
+
+      &::after {
+        content: "";
+        display: inline-block;
+        background-image: url("../../assets/icons/arrow-right.svg");
+        background-size: 16px 16px;
+        width: 16px;
+        height: 16px;
+      }
     }
 
     .short-description {
-      p {
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 30px;
-        color: rgba(0, 0, 0, 0.6);
-      }
+      padding-top: 5px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: rgba(0, 0, 0, 0.6);
     }
   }
 
@@ -105,11 +113,9 @@ export default {
       }
       .short-description {
         text-align: center;
-        p {
-          font-weight: 400;
-          font-size: 16px;
-          line-height: 24px;
-        }
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
       }
     }
 

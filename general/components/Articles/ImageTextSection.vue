@@ -48,9 +48,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+h1, h2 {
+  max-width: 800px;
+}
 .image-text-content-container {
   margin-bottom: 60px;
   display: flex;
+
+  .text-content {
+    max-width: 800px;
+  }
 
   .image-container {
     width: 100%;
@@ -78,6 +85,7 @@ export default {
 
   &.right {
     flex-direction: row-reverse;
+    justify-content: flex-end;
 
     .text-content {
       padding-right: 45px;
@@ -87,10 +95,15 @@ export default {
 
   &.center {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 
     .image-container {
-      max-width: 885px;
+      max-width: 800px;
+
+      img {
+        padding: 30px 0;
+        width: 100%;
+      }
     }
     .text-content {
       width: 100%;
