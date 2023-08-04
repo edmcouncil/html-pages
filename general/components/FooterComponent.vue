@@ -73,7 +73,7 @@
           </p>
           <div v-if="showTermsLinkOnFooter" class="footer-links">
             <ul v-if="useCustomFooterData">
-              <li v-for="link of links">
+              <li v-for="link of links" :key="link.value">
                 <a
                   :href="link.value"
                   target="_blank"
@@ -126,18 +126,6 @@ export default {
   computed: {
     copyright() {
       return this.$store.state.footerData.copyright;
-    },
-    contacts() {
-      return this.$store.state.footerData.contacts;
-    },
-    socials() {
-      return this.$store.state.footerData.socials;
-    },
-    links() {
-      return this.$store.state.footerData.links;
-    },
-    useCustomFooterData() {
-      return this.$store.state.footerData.useCustomFooterData;
     },
   },
 };
