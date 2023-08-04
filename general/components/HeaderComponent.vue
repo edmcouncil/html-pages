@@ -235,7 +235,7 @@ header.website-header {
 
   #ontology-logo {
     width: 140px;
-    max-height: 100px;
+    max-height: 60px;
     object-fit: contain;
     object-position: left;
   }

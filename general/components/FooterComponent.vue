@@ -1,7 +1,29 @@
 <template>
   <footer>
     <div class="container">
-      <div class="footer-contact row">
+      <div v-if="useCustomFooterData" class="footer-contact row">
+        <div v-for="contact of contacts" class="footer-contact__col col col-12 col-lg-auto">
+          <span class="footer-contact__title">{{ contact.title }}</span>
+          <div class="footer-contact__content">
+            <a v-if="contact.type === 'phone'" :href="'tel:' + contact.value">{{ contact.value }}</a>
+            <a v-else-if="contact.type === 'mail'" :href="'mailto:' + contact.value">{{ contact.value }}</a>
+            <a v-else :href="contact.value">{{ contact.value }}</a>
+          </div>
+        </div>
+        <div class="col social">
+          <a
+            v-for="social of socials"
+            :href="social.url"
+            class="social-icons"
+            target="_blank"
+          >
+            <img v-if="social.type === 'youtube'" src="../assets/icons/social-icons-yt.svg" />
+            <img v-else-if="social.type === 'twitter'" src="../assets/icons/social-icons-twitter.svg" />
+            <img v-else src="../assets/icons/social-icons-in.svg" />
+          </a>
+        </div>
+      </div>
+      <div v-else class="footer-contact row">
         <div class="footer-contact__col col col-12 col-lg-auto">
           <span class="footer-contact__title">Contact us</span>
           <div class="footer-contact__content">
@@ -26,8 +48,7 @@
             class="social-icons"
             target="_blank"
           >
-            <img src="../assets/icons/social-icons-yt.svg" alt="YouTube"
-            />
+            <img src="../assets/icons/social-icons-yt.svg" />
           </a>
           <a
             href="https://twitter.com/edmcouncil"
@@ -51,7 +72,17 @@
             © {{ new Date().getFullYear() }} {{ copyright }}
           </p>
           <div v-if="showTermsLinkOnFooter" class="footer-links">
-            <ul>
+            <ul v-if="useCustomFooterData">
+              <li v-for="link of links">
+                <a
+                  :href="link.value"
+                  target="_blank"
+                >
+                  {{ link.name }}
+                </a>
+              </li>
+            </ul>
+            <ul v-else>
               <li>
                 <a
                   href="https://cdn.ymaws.com/edmcouncil.org/resource/resmgr/Featured_Documents/Legal/EDMC__Terms_of_Use_032318.pdf"
@@ -95,6 +126,18 @@ export default {
   computed: {
     copyright() {
       return this.$store.state.footerData.copyright;
+    },
+    contacts() {
+      return this.$store.state.footerData.contacts;
+    },
+    socials() {
+      return this.$store.state.footerData.socials;
+    },
+    links() {
+      return this.$store.state.footerData.links;
+    },
+    useCustomFooterData() {
+      return this.$store.state.footerData.useCustomFooterData;
     },
   },
 };

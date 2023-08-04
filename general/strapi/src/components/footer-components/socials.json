@@ -9,11 +9,13 @@
     "url": {
       "type": "string"
     },
-    "icon_url": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": ["images", "files", "videos", "audios"]
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "youtube",
+        "linkedin",
+        "twitter"
+      ]
     }
   }
 }

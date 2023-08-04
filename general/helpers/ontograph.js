@@ -62,8 +62,34 @@ export default class Ontograph {
     this.height = target.clientHeight;
     this.svg = this.getSvg();
 
-    this.svg.append('g').attr('class', 'links');
+    this.svg.append('defs').append('marker')
+      .attr('id', 'arrowhead')
+      .attr('viewBox', '-0 -5 10 10')
+      .attr('refX', 12)
+      .attr('refY', 0)
+      .attr('orient', 'auto')
+      .attr('markerWidth', 6)
+      .attr('markerHeight', 6)
+      .attr('xoverflow', 'visible')
+      .append('svg:path')
+      .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+      .attr('fill', '#bbb')
+      .style('stroke', 'none');
 
+    this.svg.append('defs').append('marker')
+      .attr('id', 'arrowhead')
+      .attr('viewBox', '-0 -5 10 10')
+      .attr('refX', 12)
+      .attr('refY', 0)
+      .attr('orient', 'auto')
+      .attr('markerWidth', 6)
+      .attr('markerHeight', 6)
+      .attr('xoverflow', 'visible')
+      .append('svg:path')
+      .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+      .attr('fill', '#bbb')
+      .style('stroke', 'none');
+    this.svg.append('g').attr('class', 'links');
     this.svg.append('g').attr('class', 'nodes');
 
     this.initLinks();
@@ -153,8 +179,8 @@ export default class Ontograph {
           newLink
             .append('path')
             .attr('id', (d) => `path-id-${d.target.id}`)
-            .attr('stroke-opacity', '0.4')
-            .attr('stroke', (d) => (d.target.data.dashes ? '#777' : '#777'))
+            // .attr("stroke-opacity", "0.4")
+            .attr('stroke', (d) => (d.target.data.dashes ? '#bbb' : '#bbb'))
             .attr('stroke-dasharray', (d) => (d.target.data.dashes ? 5 : null))
             .attr('d', (d) => {
               const x0 = at ? at.x : d.source.x;
@@ -176,6 +202,7 @@ export default class Ontograph {
                 y1,
               ].join(' ');
             })
+            .attr('marker-end', 'url(#arrowhead)')
             .each((d, i) => {
               d.target.data.linkPathElement = d;
             });
@@ -204,9 +231,10 @@ export default class Ontograph {
           updatedLink
             .select('path')
             .attr('id', (d) => `path-id-${d.target.id}`)
-            .attr('stroke-opacity', '0.4')
-            .attr('stroke', (d) => (d.target.data.dashes ? '#777' : '#777'))
+            // .attr("stroke-opacity", "0.4")
+            .attr('stroke', (d) => (d.target.data.dashes ? '#bbb' : '#bbb'))
             .attr('stroke-dasharray', (d) => (d.target.data.dashes ? 5 : null))
+            .attr('marker-end', 'url(#arrowhead)')
             .each((d, i) => {
               d.target.data.linkPathElement = d;
             });

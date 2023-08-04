@@ -24,7 +24,7 @@
                 :defaultExpanded="index == 0 ? true : false"
               >
                 <template #title>
-                  <h2 v-html="releaseTreeGroupKey"></h2>
+                  <p class="title" v-html="releaseTreeGroupKey"></p>
                 </template>
                 <template #content>
                   <ul>

@@ -14,6 +14,24 @@
   "attributes": {
     "copyright": {
       "type": "string"
+    },
+    "contacts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer-components.contact-item"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer-components.footer-link"
+    },
+    "socials": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer-components.socials"
+    },
+    "useCustomFooterData": {
+      "type": "boolean"
     }
   }
 }

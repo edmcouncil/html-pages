@@ -60,12 +60,6 @@ export default {
         transform: rotate(90deg);
       }
     }
-
-    .expandable__title__text {
-      h2 {
-        margin: 0;
-      }
-    }
   }
 }
 </style>
