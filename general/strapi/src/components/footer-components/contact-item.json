@@ -11,6 +11,16 @@
     },
     "value": {
       "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "phone",
+        "mail",
+        "url"
+      ],
+      "default": "mail",
+      "required": true
     }
   }
 }
