@@ -166,8 +166,8 @@ export default class Ontograph {
           newLink
             .append('path')
             .attr('id', (d) => `path-id-${d.target.id}`)
-            // .attr("stroke-opacity", "0.4")
-            .attr('stroke', (d) => (d.target.data.dashes ? '#bbb' : '#bbb'))
+            .attr('stroke-opacity', '0.4')
+            .attr('stroke', (d) => (d.target.data.dashes ? '#777' : '#777'))
             .attr('stroke-dasharray', (d) => (d.target.data.dashes ? 5 : null))
             .attr('d', (d) => {
               const x0 = at ? at.x : d.source.x;
@@ -218,9 +218,10 @@ export default class Ontograph {
           updatedLink
             .select('path')
             .attr('id', (d) => `path-id-${d.target.id}`)
-            .attr('stroke-opacity', '0.4')
-            .attr('stroke', (d) => (d.target.data.dashes ? '#777' : '#777'))
+            // .attr("stroke-opacity", "0.4")
+            .attr('stroke', (d) => (d.target.data.dashes ? '#bbb' : '#bbb'))
             .attr('stroke-dasharray', (d) => (d.target.data.dashes ? 5 : null))
+            .attr('marker-end', 'url(#arrowhead)')
             .each((d, i) => {
               d.target.data.linkPathElement = d;
             });
