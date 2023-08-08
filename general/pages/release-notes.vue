@@ -4,35 +4,68 @@
       <ScrollTopHandler ref="scrollTopHandler" />
       <article class="full-page">
         <section>
-          <h1>FIBO Release Notes</h1>
-
-          <TreeExpandable v-for="(releaseTreeGroupKey, index) in releaseTree.keys()" :key="releaseTreeGroupKey" :defaultExpanded=" index == 0 ? true : false">
-            <template #title>
-              <p class="title" v-html="releaseTreeGroupKey"></p>
-            </template>
-            <template #content>
-              <ul>
-                <li v-for="item in releaseTree.get(releaseTreeGroupKey)" :key="item.title">
-                  <a @click="expandNotes" :href="'release-notes#'+item.tag" v-html="item.title"></a>
-                </li>
-              </ul>
-            </template>
-          </TreeExpandable>
-
+          <span class="text-display">{{ ontologyNameUppercase }} Release Notes</span>
         </section>
 
-        <section :id="topRelease.tag">
-          <h1>{{topRelease.title || ''}}</h1>
-          <div v-html="$md.render(topRelease.content || '')"></div>
-        </section>
+        <div class="release-content">
+          <div class="left">
+            <div class="left-content">
+              <div class="release-tree-title">
+                <div class="release-tree-title__subtitle">
+                  Choose version
+                </div>
+                <div class="release-tree-title__content">
+                  {{ ontologyNameUppercase }} Releases
+                </div>
+              </div>
+              <TreeExpandable
+                v-for="(releaseTreeGroupKey, index) in releaseTree.keys()"
+                :key="releaseTreeGroupKey"
+                :defaultExpanded="index == 0 ? true : false"
+              >
+                <template #title>
+                  <p class="title" v-html="releaseTreeGroupKey"></p>
+                </template>
+                <template #content>
+                  <ul>
+                    <li
+                      v-for="item in releaseTree.get(releaseTreeGroupKey)"
+                      :key="item.title"
+                    >
+                      <a
+                        @click="expandNotes"
+                        :href="'release-notes#' + item.tag"
+                        v-html="item.title"
+                      ></a>
+                    </li>
+                  </ul>
+                </template>
+              </TreeExpandable>
+            </div>
+          </div>
 
-        <LongContentCollapse  :collapsedText="'Show more notes'" ref="longContentCollapse">
-          <section v-for="(item, index) in releaseList" :key="index" :id="item.tag">
-            <h1>{{item.title || ''}}</h1>
-            <div v-html="$md.render(item.content || '')"></div>
-          </section>
-        </LongContentCollapse>
+          <div class="right">
+            <section :id="topRelease.tag" class="blank">
+              <h1>{{ topRelease.title || "" }}</h1>
+              <div v-html="$md.render(topRelease.content || '')"></div>
+            </section>
 
+            <LongContentCollapse
+              :collapsedText="'Show more notes'"
+              ref="longContentCollapse"
+            >
+              <section
+                v-for="(item, index) in releaseList"
+                :key="index"
+                :id="item.tag"
+                class="blank"
+              >
+                <h1>{{ item.title || "" }}</h1>
+                <div v-html="$md.render(item.content || '')"></div>
+              </section>
+            </LongContentCollapse>
+          </div>
+        </div>
       </article>
     </main>
     <button
@@ -45,70 +78,86 @@
 </template>
 
 <script>
-import { getStrapiCollection } from "../api/strapi";
+import { getStrapiCollection } from '../api/strapi';
 
 export default {
-  name: "ReleaseNotes",
-  head(){
+  name: 'ReleaseNotes',
+  layout: 'minimal',
+  head() {
     return {
-      title: "FIBO Release Notes"
-    }
+      title: 'Release Notes',
+    };
   },
   async asyncData({ error }) {
-    const collectionTypeName = "release-notes";
-    const sortParams = ["title:desc"];
+    const collectionTypeName = 'release-notes';
+    const sortParams = ['title:desc'];
 
     try {
-      const response = await getStrapiCollection(collectionTypeName, [], sortParams);
+      const response = await getStrapiCollection(
+        collectionTypeName,
+        [],
+        sortParams,
+      );
 
-      if(response?.data?.data == null)
-      {
-        console.error(`Page data(sections) is not recognized in the response from the server.
+      if (response?.data?.data == null) {
+        console.error(
+          `Page data(sections) is not recognized in the response from the server.
         Error occurred while rendering page ${collectionTypeName}.\n
-        Current server response:\n`, response);
-        error({ statusCode: 503, message: "Service Unavailable" });
+        Current server response:\n`,
+          response,
+        );
+        error({ statusCode: 503, message: 'Service Unavailable' });
       }
 
-      let responseData = response.data.data;
-      let releaseTree = new Map();
-      let releaseList = [];
-      for (const releaseItem of responseData){
-        let itemData = releaseItem.attributes;
+      const responseData = response.data.data;
+      const releaseTree = new Map();
+      const releaseList = [];
+      for (const releaseItem of responseData) {
+        const itemData = releaseItem.attributes;
         const titleSplit = itemData.title.split(' ');
         const releaseYear = titleSplit[0];
         const releaseTag = titleSplit.join('');
 
-        //release tree
-        let treeItem = releaseTree.has(releaseYear) ? releaseTree.get(releaseYear) : [];
-        treeItem.push({title: itemData.title, tag: releaseTag})
+        // release tree
+        const treeItem = releaseTree.has(releaseYear)
+          ? releaseTree.get(releaseYear)
+          : [];
+        treeItem.push({ title: itemData.title, tag: releaseTag });
         releaseTree.set(releaseYear, treeItem);
 
-        //release list
-        let releaseItemList = itemData;
+        // release list
+        const releaseItemList = itemData;
         releaseItemList.tag = releaseTag;
         releaseList.push(releaseItemList);
-
       }
 
       return {
-        releaseTree: releaseTree,
+        releaseTree,
         topRelease: releaseList[0] || {},
-        releaseList: releaseList.slice(1) || []
+        releaseList: releaseList.slice(1) || [],
       };
     } catch (e) {
       console.error(e);
-      error({ statusCode: 503, message: "Service Unavailable" });
+      error({ statusCode: 503, message: 'Service Unavailable' });
+
+      return {};
     }
   },
   mounted() {
     const self = this;
     window.onscroll = function () {
-      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        self.$refs.topButton.style.display = "block";
+      if (
+        document.body.scrollTop > 20
+        || document.documentElement.scrollTop > 20
+      ) {
+        self.$refs.topButton.style.display = 'block';
       } else {
-        self.$refs.topButton.style.display = "none";
+        self.$refs.topButton.style.display = 'none';
       }
     };
+  },
+  destroyed() {
+    window.onscroll = function () {};
   },
   methods: {
     scrollTop() {
@@ -119,7 +168,12 @@ export default {
     },
     expandNotes() {
       this.$refs.longContentCollapse.expand();
-    }
+    },
+  },
+  computed: {
+    ontologyNameUppercase() {
+      return this.$store.state.configuration.config.ontpubFamily.toUpperCase();
+    },
   },
 };
 </script>
@@ -147,7 +201,81 @@ export default {
   font-size: 18px;
 }
 
+.release-content {
+  padding-top: 60px;
+  display: flex;
+  gap: 60px;
+  .left {
+    width: 360px;
+
+    .left-content {
+      position: sticky;
+      top: 30px;
+    }
+  }
+
+  .right {
+    max-width: 800px;
+
+    .long-content-container section:first-child {
+      margin-top: 60px;
+    }
+  }
+}
+
+.release-tree-title {
+  padding-left: 30px;
+  margin-bottom: 40px;
+  cursor: default;
+
+  .release-tree-title__subtitle {
+    color: var(--black-40, rgba(0, 0, 0, 0.40));
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.14px;
+  }
+
+  .release-tree-title__content {
+    color: var(--black-100, #000);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+  }
+}
+
 .top-button:hover {
   background-color: #252525;
+}
+
+@media (max-width: 991px) {
+  .release-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 15px;
+    .left {
+      width: auto;
+      padding: 0 30px;
+
+      .left-content {
+        position: relative;
+        top: 0px;
+      }
+
+      .release-tree-title {
+        padding-left: 30px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .right {
+      max-width:  unset;
+    }
+  }
 }
 </style>

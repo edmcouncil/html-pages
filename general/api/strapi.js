@@ -1,6 +1,7 @@
-const qs = require("qs");
-const fs = require("fs");
-import axios from "axios";
+import axios from 'axios';
+
+const qs = require('qs');
+const fs = require('fs');
 
 export async function getStrapiSingleType(singleTypeName, populateParams) {
   const query = qs.stringify(
@@ -9,13 +10,15 @@ export async function getStrapiSingleType(singleTypeName, populateParams) {
     },
     {
       encodeValuesOnly: true,
-    }
+    },
   );
 
-  let response = await axios.get(
-    `/api/${singleTypeName}?${query}`,
-    {baseURL: (typeof window !== 'undefined') ? window.location.origin + `/${process.env.strapiBasePath}` : `${process.env.strapiBaseUrl}`}
-  );
+  let response = await axios.get(`/api/${singleTypeName}?${query}`, {
+    baseURL:
+      typeof window !== 'undefined'
+        ? `${window.location.origin}/${process.env.strapiBasePath}`
+        : `${process.env.strapiBaseUrl}`,
+  });
 
   // save image and edit response to use downloaded image instead of link to strapi resources
   if (process.env.staticGenerationMode) {
@@ -29,9 +32,9 @@ export async function getStrapiSingleType(singleTypeName, populateParams) {
 export async function getStrapiElementFromCollection(
   collectionName,
   populateParams,
-  collectionItemSlug
+  collectionItemSlug,
 ) {
-  var queryParams = { populate: populateParams };
+  const queryParams = { populate: populateParams };
   if (collectionItemSlug) {
     queryParams.filters = { slug: { $eq: collectionItemSlug } };
   }
@@ -39,10 +42,12 @@ export async function getStrapiElementFromCollection(
     encodeValuesOnly: true,
   });
 
-  let response = await axios.get(
-    `/api/${collectionName}?${query}`,
-    {baseURL: (typeof window !== 'undefined') ? window.location.origin + `${process.env.strapiBasePath}` : `${process.env.strapiBaseUrl}`}
-  );
+  let response = await axios.get(`/api/${collectionName}?${query}`, {
+    baseURL:
+      typeof window !== 'undefined'
+        ? `${window.location.origin}${process.env.strapiBasePath}`
+        : `${process.env.strapiBaseUrl}`,
+  });
 
   // save image and edit response to use downloaded image instead of link to strapi resources
   if (process.env.staticGenerationMode) {
@@ -55,7 +60,7 @@ export function getStrapiCollection(
   populateParams,
   sortParams,
 ) {
-  var queryParams = { populate: populateParams };
+  const queryParams = { populate: populateParams };
   if (sortParams) {
     queryParams.sort = sortParams;
   }
@@ -63,17 +68,19 @@ export function getStrapiCollection(
     encodeValuesOnly: true,
   });
   // currently only release notes is processed in this function, so we don't need to download images, they don't have them
-  return axios.get(
-    `/api/${collectionName}?${query}`,
-    {baseURL: (typeof window !== 'undefined') ? window.location.origin + `/${process.env.strapiBasePath}` : `${process.env.strapiBaseUrl}`}
-  );
+  return axios.get(`/api/${collectionName}?${query}`, {
+    baseURL:
+      typeof window !== 'undefined'
+        ? `${window.location.origin}/${process.env.strapiBasePath}`
+        : `${process.env.strapiBaseUrl}`,
+  });
 }
 
 export async function getPageElementsStrapiData() {
-  var data = {};
-  //footer
-  var singleTypeName = "footer";
-  var populateParams = ["contacts", "links", "socials"];
+  const data = {};
+  // footer
+  let singleTypeName = 'footer';
+  let populateParams = ['contacts', 'links', 'socials'];
 
   try {
     const response = await getStrapiSingleType(singleTypeName, populateParams);
@@ -84,37 +91,37 @@ export async function getPageElementsStrapiData() {
     data.useCustomFooterData = response.data.data.attributes.useCustomFooterData;
   } catch (error) {
     return {
-      error: error,
+      error,
     };
   }
 
-  //carousel
-  singleTypeName = "carousel";
-  populateParams = ["items", "items.link"];
+  // carousel
+  singleTypeName = 'carousel';
+  populateParams = ['items', 'items.link'];
   try {
     const response = await getStrapiSingleType(singleTypeName, populateParams);
     data.carousel = response.data.data.attributes.items;
   } catch (error) {
     return {
-      error: error,
+      error,
     };
   }
 
-  //menu-dropdown
-  singleTypeName = "menu-single";
-  populateParams = ["items", "items.item", "items.submenu"];
+  // menu-dropdown
+  singleTypeName = 'menu-single';
+  populateParams = ['items', 'items.item', 'items.submenu'];
   try {
     const response = await getStrapiSingleType(singleTypeName, populateParams);
     data.menuDropdown = response.data.data.attributes.items;
   } catch (error) {
     return {
-      error: error,
+      error,
     };
   }
 
-  //menu-top
-  singleTypeName = "menu-top";
-  populateParams = ["items", "items.item", "items.submenu"];
+  // menu-top
+  singleTypeName = 'menu-top';
+  populateParams = ['items', 'items.item', 'items.submenu'];
   try {
     const response = await getStrapiSingleType(singleTypeName, populateParams);
     data.menuTop = response.data.data.attributes.items;
@@ -126,11 +133,11 @@ export async function getPageElementsStrapiData() {
 }
 
 export async function getAppConfigurationData() {
-  var data = {};
+  let data = {};
 
-  //config
-  var singleTypeName = "config";
-  var populateParams = ["ontologyLogo"];
+  // config
+  const singleTypeName = 'config';
+  const populateParams = ['ontologyLogo'];
   try {
     const response = await getStrapiSingleType(singleTypeName, populateParams);
     data.ontpubFamily = response.data.data.attributes.ontpubFamily;
@@ -140,34 +147,34 @@ export async function getAppConfigurationData() {
     data.jenkinsJobUrl = response.data.data.attributes.jenkinsJobUrl;
 
     // overwrite with 'variables' data
-    const variables = response.data.data.attributes.variables;
+    const { variables } = response.data.data.attributes;
 
     if (variables) {
       data = {
         ...data,
-        ...variables
-      }
+        ...variables,
+      };
     }
 
     // download logo
     const imgPath = response.data.data.attributes.ontologyLogo?.data?.attributes?.url;
 
-    const imageDownloadPath =
-      process.env.assetsDir +
-      (process.env.assetsDir.endsWith("/") ? "" : "/") +
-      "downloads/";
+    const imageDownloadPath = `${
+      process.env.assetsDir + (process.env.assetsDir.endsWith('/') ? '' : '/')
+    }downloads/`;
     const distDir = process.env.generateDir;
-    const imageDestination =
-      (distDir.endsWith("/") && !imageDownloadPath.startsWith("/")) ||
-      (!distDir.endsWith("/") && imageDownloadPath.startsWith("/"))
-        ? distDir + imageDownloadPath
-        : distDir.endsWith("/") && imageDownloadPath.startsWith("/")
+    const imageDestination = (distDir.endsWith('/') && !imageDownloadPath.startsWith('/'))
+      || (!distDir.endsWith('/') && imageDownloadPath.startsWith('/'))
+      ? distDir + imageDownloadPath
+      : distDir.endsWith('/') && imageDownloadPath.startsWith('/')
         ? distDir + imageDownloadPath.substring(1)
-        : distDir + "/" + imageDownloadPath;
+        : `${distDir}/${imageDownloadPath}`;
 
     if (imgPath) {
-      let imageName = imgPath.split("/").pop();
-      const imageUrl = ((typeof window !== 'undefined') ? window.location.origin + `/${process.env.strapiBasePath}` : process.env.strapiBaseUrl ) + imgPath;
+      const imageName = imgPath.split('/').pop();
+      const imageUrl = (typeof window !== 'undefined'
+        ? `${window.location.origin}/${process.env.strapiBasePath}`
+        : process.env.strapiBaseUrl) + imgPath;
       downloadImage(imageUrl, imageDestination, imageName);
       data.ontologyLogoUrl = `/${process.env.ontologyName}${imageDownloadPath}${imageName}`;
     } else {
@@ -175,7 +182,7 @@ export async function getAppConfigurationData() {
     }
   } catch (error) {
     return {
-      error: error,
+      error,
     };
   }
 
@@ -184,8 +191,8 @@ export async function getAppConfigurationData() {
 async function downloadImage(url, imageDestination, imageName) {
   const response = await axios({
     url,
-    method: "GET",
-    responseType: "stream",
+    method: 'GET',
+    responseType: 'stream',
   });
   if (!fs.existsSync(imageDestination)) {
     fs.mkdirSync(imageDestination, { recursive: true });
@@ -194,41 +201,39 @@ async function downloadImage(url, imageDestination, imageName) {
   return new Promise((resolve, reject) => {
     response.data
       .pipe(fs.createWriteStream(filepath))
-      .on("error", reject)
-      .once("close", () => resolve(filepath));
+      .on('error', reject)
+      .once('close', () => resolve(filepath));
   });
 }
 
 async function downloadImagesFromStrapi(response, elementTypeName) {
   // only 'about' can have images in content from single types element
-  if (elementTypeName === "about" || elementTypeName === "pages") {
-    const imageDownloadPath =
-      process.env.assetsDir +
-      (process.env.assetsDir.endsWith("/") ? "" : "/") +
-      "downloads/";
+  if (elementTypeName === 'about' || elementTypeName === 'pages') {
+    const imageDownloadPath = `${
+      process.env.assetsDir + (process.env.assetsDir.endsWith('/') ? '' : '/')
+    }downloads/`;
     const distDir = process.env.generateDir;
-    const imageDestination =
-      (distDir.endsWith("/") && !imageDownloadPath.startsWith("/")) ||
-      (!distDir.endsWith("/") && imageDownloadPath.startsWith("/"))
-        ? distDir + imageDownloadPath
-        : distDir.endsWith("/") && imageDownloadPath.startsWith("/")
+    const imageDestination = (distDir.endsWith('/') && !imageDownloadPath.startsWith('/'))
+      || (!distDir.endsWith('/') && imageDownloadPath.startsWith('/'))
+      ? distDir + imageDownloadPath
+      : distDir.endsWith('/') && imageDownloadPath.startsWith('/')
         ? distDir + imageDownloadPath.substring(1)
-        : distDir + "/" + imageDownloadPath;
+        : `${distDir}/${imageDownloadPath}`;
     if (response.data.data && response.data.data.attributes) {
       for (var section of response.data.data.attributes.sections) {
         section = await tryToDownloadImages(
           section,
           imageDestination,
-          imageDownloadPath
+          imageDownloadPath,
         );
       }
     } else if (response.data.data[0]) {
-      for (var dataElement of response.data.data) {
+      for (const dataElement of response.data.data) {
         for (var section of dataElement.attributes.sections) {
           section = await tryToDownloadImages(
             section,
             imageDestination,
-            imageDownloadPath
+            imageDownloadPath,
           );
         }
       }
@@ -240,15 +245,17 @@ async function downloadImagesFromStrapi(response, elementTypeName) {
 async function tryToDownloadImages(
   section,
   imageDestination,
-  imageDownloadPath
+  imageDownloadPath,
 ) {
-  if (section.__component == "sections.image-text-section" && section.items) {
+  if (section.__component == 'sections.image-text-section' && section.items) {
     for (const item of section.items) {
       if (item.image) {
         const imageResponseUrl = item?.image?.data?.attributes?.url;
         if (imageResponseUrl != undefined) {
-          let imageName = imageResponseUrl.split("/").pop();
-          const imageUrl = ((typeof window !== 'undefined') ? window.location.origin + `/${process.env.strapiBasePath}` : process.env.strapiBaseUrl ) + imageResponseUrl;
+          const imageName = imageResponseUrl.split('/').pop();
+          const imageUrl = (typeof window !== 'undefined'
+            ? `${window.location.origin}/${process.env.strapiBasePath}`
+            : process.env.strapiBaseUrl) + imageResponseUrl;
           downloadImage(imageUrl, imageDestination, imageName);
           item.image.data.attributes.url = `/${process.env.ontologyName}${imageDownloadPath}${imageName}`;
         }

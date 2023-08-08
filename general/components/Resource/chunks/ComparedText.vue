@@ -65,11 +65,11 @@
 </template>
 
 <script>
-import DiffMatchPatch from "diff-match-patch";
+import DiffMatchPatch from 'diff-match-patch';
 
 export default {
-  name: "ComparedText",
-  props: ["currentItem", "comparedItem", "changeType", "identifier"],
+  name: 'ComparedText',
+  props: ['currentItem', 'comparedItem', 'changeType', 'identifier'],
   data() {
     return {
       lines: [],
@@ -83,7 +83,9 @@ export default {
     const lines2 = this.getLinesFromItem(this.comparedItem);
 
     this.compareLines(lines1, lines2);
-    this.type = this.currentItem.type === "EMPTY" ? this.comparedItem.type : this.currentItem.type;
+    this.type = this.currentItem.type === 'EMPTY'
+      ? this.comparedItem.type
+      : this.currentItem.type;
 
     if (this.lines.length > 6) {
       this.isShowMore = true;
@@ -98,7 +100,7 @@ export default {
         this.isMoreVisible = !this.isMoreVisible;
       } else if (topOffset < 0) {
         element.scrollIntoView({
-          behavior: "smooth",
+          behavior: 'smooth',
         });
         setTimeout(() => {
           this.isMoreVisible = !this.isMoreVisible;
@@ -108,61 +110,69 @@ export default {
       }
     },
     getLinesFromItem(item) {
-      if (item.value && Array.isArray(item.value) && item.type !== "OWL_LABELED_MULTI_AXIOM") return item.value;
-      if (item.type === "AXIOM") {
-        let lines = item.fullRenderedString.split("<br />");
-        lines = lines.map(item => item.trim());
+      if (
+        item.value
+        && Array.isArray(item.value)
+        && item.type !== 'OWL_LABELED_MULTI_AXIOM'
+      ) return item.value;
+      if (item.type === 'AXIOM') {
+        let lines = item.fullRenderedString.split('<br />');
+        lines = lines.map((item) => item.trim());
         for (let i = 0; i < lines.length; i++) {
-          if (lines[i].startsWith("- ")) lines[i] = lines[i].substring(2);
+          if (lines[i].startsWith('- ')) lines[i] = lines[i].substring(2);
         }
         return lines;
-      } else if (item.type === "OWL_LABELED_MULTI_AXIOM") {
-        if (typeof item.value[0] === 'string' || item.value[0] instanceof String) return item.value;
-        const linesFromValue = item.value.map(item => item.fullRenderedString);
+      }
+      if (item.type === 'OWL_LABELED_MULTI_AXIOM') {
+        if (
+          typeof item.value[0] === 'string'
+          || item.value[0] instanceof String
+        ) return item.value;
+        const linesFromValue = item.value.map(
+          (item) => item.fullRenderedString,
+        );
         const lines = [item.entityLabel.label, ...linesFromValue];
         return lines;
-      } else if (item.type === "STRING") {
-        return item.value.split("\n");
-      } else if (item.type === "DIRECT_SUBCLASSES") {
-        return [item.value.label];
-      } else if (item.type === "INSTANCES") {
-        return [item.value.label];
-      } else if (item.type === "IRI") {
-        return [item.value.label];
-      } else if (item.type === "MODULES") {
-        return [item.value.label];
-      } else {
-        return [item.value];
       }
+      if (item.type === 'STRING') {
+        return item.value.split('\n');
+      }
+      if (item.type === 'DIRECT_SUBCLASSES') {
+        return [item.value.label];
+      }
+      if (item.type === 'INSTANCES') {
+        return [item.value.label];
+      }
+      if (item.type === 'IRI') {
+        return [item.value.label];
+      }
+      if (item.type === 'MODULES') {
+        return [item.value.label];
+      }
+      return [item.value];
     },
     compareLines(linesOriginal, linesCompared) {
       const n = Math.max(linesOriginal.length, linesCompared.length);
       const dmp = new DiffMatchPatch();
-      if (this.changeType == "changed") {
+      if (this.changeType == 'changed') {
         for (let i = 0; i < n; i++) {
           let diff = [];
           if (linesCompared[i][0] == ' ') {
             diff = dmp.diff_main(
-              linesCompared[i][1] || "",
-              linesCompared[i][1] || ""
+              linesCompared[i][1] || '',
+              linesCompared[i][1] || '',
             );
           }
           if (linesCompared[i][0] == '-') {
-            diff = dmp.diff_main(
-              linesCompared[i][1] || "",
-              ""
-            );
+            diff = dmp.diff_main(linesCompared[i][1] || '', '');
           }
           if (linesCompared[i][0] == '+') {
-            diff = dmp.diff_main(
-              "",
-              linesCompared[i][1] || "",
-            );
+            diff = dmp.diff_main('', linesCompared[i][1] || '');
           }
           if (linesCompared[i][0] == '~') {
             diff = dmp.diff_main(
-              linesCompared[i][1].__old || "",
-              linesCompared[i][1].__new || "",
+              linesCompared[i][1].__old || '',
+              linesCompared[i][1].__new || '',
             );
           }
           dmp.diff_cleanupSemantic(diff);
@@ -171,9 +181,9 @@ export default {
         }
       } else {
         for (let i = 0; i < n; i++) {
-          let diff = dmp.diff_main(
-            linesOriginal[i] || "",
-            linesCompared[i] || ""
+          const diff = dmp.diff_main(
+            linesOriginal[i] || '',
+            linesCompared[i] || '',
           );
           dmp.diff_cleanupSemantic(diff);
 

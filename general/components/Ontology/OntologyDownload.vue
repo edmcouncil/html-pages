@@ -54,8 +54,8 @@
 
 <script>
 export default {
-  name: "OntologyDownload",
-  props: ["data", "version"],
+  name: 'OntologyDownload',
+  props: ['data', 'version'],
   data() {
     return {
       collapsed: false,
@@ -73,17 +73,19 @@ export default {
     const base = this.ontologyResourcesBaseUri;
     const name = this.ontologyName;
 
-    const iriElements = resourceUrl.split("/");
-    this.filename = iriElements[iriElements.length - 2] + ".rdf";
-    this.filenameWithImports = iriElements[iriElements.length - 2] + "-Merged.rdf";
+    const iriElements = resourceUrl.split('/');
+    this.filename = `${iriElements[iriElements.length - 2]}.rdf`;
+    this.filenameWithImports = `${
+      iriElements[iriElements.length - 2]
+    }-Merged.rdf`;
 
     this.downloadUrl = `/${name}/ontology/${
-      this.version ? this.version + "/" : ""
-    }${resourceUrl.replace(base, "").slice(0, -1)}`;
+      this.version ? `${this.version}/` : ''
+    }${resourceUrl.replace(base, '').slice(0, -1)}`;
 
     this.downloadWithImportsUrl = `/${name}/ontology/${
-      this.version ? this.version + "/" : ""
-    }${resourceUrl.replace(base, "").slice(0, -1)}-Merged`;
+      this.version ? `${this.version}/` : ''
+    }${resourceUrl.replace(base, '').slice(0, -1)}-Merged`;
 
     this.hasImports = await this.checkImportsExist();
   },
@@ -92,14 +94,18 @@ export default {
       this.collapsed = !this.collapsed;
     },
     download() {
-      const link = this.includeImports ? this.downloadWithImportsUrl : this.downloadUrl;
-      const filename = this.includeImports ? this.filenameWithImports : this.filename;
+      const link = this.includeImports
+        ? this.downloadWithImportsUrl
+        : this.downloadUrl;
+      const filename = this.includeImports
+        ? this.filenameWithImports
+        : this.filename;
 
-      const aElement = document.createElement("a");
-      aElement.setAttribute("download", filename);
-      aElement.setAttribute("href", link+".rdf");
-      aElement.setAttribute("target", "_blank");
-      aElement.style.display = "none";
+      const aElement = document.createElement('a');
+      aElement.setAttribute('download', filename);
+      aElement.setAttribute('href', `${link}.rdf`);
+      aElement.setAttribute('target', '_blank');
+      aElement.style.display = 'none';
       document.body.appendChild(aElement);
       aElement.click();
       aElement.remove();
@@ -107,17 +113,15 @@ export default {
     async checkImportsExist() {
       try {
         this.loader = true;
-        return await fetch(this.downloadWithImportsUrl+"/", {
-          method: "HEAD",
-          headers: { Accept: "application/rdf+xml" },
+        return await fetch(`${this.downloadWithImportsUrl}/`, {
+          method: 'HEAD',
+          headers: { Accept: 'application/rdf+xml' },
         }).then((res) => {
-          if (res.status != 200)
-            throw new Error('Bad response from server');
+          if (res.status != 200) throw new Error('Bad response from server');
 
-          const contentType = res.headers.get("content-type");
+          const contentType = res.headers.get('content-type');
 
-          if (contentType.indexOf("application/rdf+xml") != -1)
-            return true;
+          if (contentType.indexOf('application/rdf+xml') != -1) return true;
 
           return false;
         });

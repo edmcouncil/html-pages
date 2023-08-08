@@ -1,12 +1,12 @@
 export default {
   state: () => ({
-    searchSegment: `find`,
-    ontologySegment: `entity`,
-    modulesSegment: `module`,
-    statsSegment: `stats`,
-    missingImportsSegment: `missingImports`,
-    graphSegment: `graph`,
-    describeSegment: `integration/dwDescribe`,
+    searchSegment: 'find',
+    ontologySegment: 'entity',
+    modulesSegment: 'module',
+    statsSegment: 'stats',
+    missingImportsSegment: 'missingImports',
+    graphSegment: 'graph',
+    describeSegment: 'integration/dwDescribe',
 
     version: null,
     versionCompare: null,
@@ -43,7 +43,7 @@ export default {
         missingImportsServer,
         graphServer,
         describeServer,
-      }
+      },
     ) {
       state.searchServer = searchServer;
       state.ontologyServer = ontologyServer;
@@ -62,7 +62,7 @@ export default {
         statsServer,
         missingImportsServer,
         graphServer,
-      }
+      },
     ) {
       state.searchServerCompare = searchServer;
       state.ontologyServerCompare = ontologyServer;
@@ -84,82 +84,83 @@ export default {
 
       if (internalRoute.query?.version) {
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
-          "{version}/",
-          `${internalRoute.query.version}/`
+          '{version}/',
+          `${internalRoute.query.version}/`,
         );
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
-          "{version}",
-          `${internalRoute.query.version}`
+          '{version}',
+          `${internalRoute.query.version}`,
         );
         version = internalRoute.query.version;
       } else {
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
-          "{version}/",
-          ""
+          '{version}/',
+          '',
         );
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
-          "{version}",
-          ""
+          '{version}',
+          '',
         );
         version = null;
       }
 
-      let searchServer = ontoviewerDefaultDomain + state.searchSegment;
-      let ontologyServer = ontoviewerDefaultDomain + state.ontologySegment;
-      let statsServer = ontoviewerDefaultDomain + state.statsSegment;
-      let missingImportsServer =
-        ontoviewerDefaultDomain + state.missingImportsSegment;
-      let modulesServer = ontoviewerDefaultDomain + state.modulesSegment;
-      let graphServer = ontoviewerDefaultDomain + state.graphSegment;
-      let describeServer = ontoviewerDefaultDomain + state.describeSegment;
+      const searchServer = ontoviewerDefaultDomain + state.searchSegment;
+      const ontologyServer = ontoviewerDefaultDomain + state.ontologySegment;
+      const statsServer = ontoviewerDefaultDomain + state.statsSegment;
+      const missingImportsServer = ontoviewerDefaultDomain + state.missingImportsSegment;
+      const modulesServer = ontoviewerDefaultDomain + state.modulesSegment;
+      const graphServer = ontoviewerDefaultDomain + state.graphSegment;
+      const describeServer = ontoviewerDefaultDomain + state.describeSegment;
 
-      commit("SET_VERSION", { version });
-      commit("SET_SERVERS", {
+      commit('SET_VERSION', { version });
+      commit('SET_SERVERS', {
         searchServer,
         ontologyServer,
         modulesServer,
         statsServer,
         missingImportsServer,
         graphServer,
-        describeServer
+        describeServer,
       });
     },
-    async updateCompareServers({ commit, state, rootState }, { compareVersion }) {
+    async updateCompareServers(
+      { commit, state, rootState },
+      { compareVersion },
+    ) {
       let ontoviewerDefaultDomain = rootState.configuration.config.ontoviewerServerUrl;
       let version = null;
 
       if (compareVersion) {
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
-          "{version}/",
-          `${compareVersion}/`
+          '{version}/',
+          `${compareVersion}/`,
         );
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
-          "{version}",
-          `${compareVersion}`
+          '{version}',
+          `${compareVersion}`,
         );
         version = compareVersion;
       } else {
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
-          "{version}/",
-          ""
+          '{version}/',
+          '',
         );
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
-          "{version}",
-          ""
+          '{version}',
+          '',
         );
         version = null;
       }
 
-      let searchServer = ontoviewerDefaultDomain + state.searchSegment;
-      let ontologyServer = ontoviewerDefaultDomain + state.ontologySegment;
-      let statsServer = ontoviewerDefaultDomain + state.statsSegment;
-      let missingImportsServer =
-        ontoviewerDefaultDomain + state.missingImportsSegment;
-      let modulesServer = ontoviewerDefaultDomain + state.modulesSegment;
-      let graphServer = ontoviewerDefaultDomain + state.graphSegment;
+      const searchServer = ontoviewerDefaultDomain + state.searchSegment;
+      const ontologyServer = ontoviewerDefaultDomain + state.ontologySegment;
+      const statsServer = ontoviewerDefaultDomain + state.statsSegment;
+      const missingImportsServer = ontoviewerDefaultDomain + state.missingImportsSegment;
+      const modulesServer = ontoviewerDefaultDomain + state.modulesSegment;
+      const graphServer = ontoviewerDefaultDomain + state.graphSegment;
 
-      commit("SET_COMPARE_VERSION", { version });
-      commit("SET_COMPARE_SERVERS", {
+      commit('SET_COMPARE_VERSION', { version });
+      commit('SET_COMPARE_SERVERS', {
         searchServer,
         ontologyServer,
         modulesServer,

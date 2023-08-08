@@ -7,9 +7,7 @@
 <script>
 export default {
   name: 'TooltipInline',
-  props: [
-    'text'
-  ],
+  props: ['text'],
 };
 </script>
 

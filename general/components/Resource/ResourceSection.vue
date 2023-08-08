@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="{'px-0 d-none d-lg-block': isComparing}">
+  <div class="card" :class="{ 'px-0 d-none d-lg-block': isComparing }">
     <div class="card-body">
       <h5
         class="card-title section-title"
@@ -66,7 +66,7 @@
               :class="{ isComparing }"
               :id="`content-item__title-${name}`"
             >
-            <TooltipText
+              <TooltipText
                 v-if="name == 'generated description'"
                 :tooltipText="tooltips['generated description']"
                 :content="name"
@@ -109,22 +109,17 @@ import tooltips from '../../constants/tooltips';
 
 export default {
   name: 'ResourceSection',
-  props: [
-    'section',
-    'sectionName',
-    'sectionIndex',
-    'isComparing',
-  ],
+  props: ['section', 'sectionName', 'sectionIndex', 'isComparing'],
   data() {
     return {
       collapsed: false,
       tooltips,
-    }
+    };
   },
   methods: {
     toggleCollapsed() {
       this.collapsed = !this.collapsed;
-    }
+    },
   },
 };
 </script>
@@ -153,7 +148,7 @@ export default {
       z-index: 1;
 
       &.isComparing {
-        top: 75px!important;
+        top: 75px !important;
       }
     }
   }
@@ -269,7 +264,7 @@ export default {
           padding: 0 0 0 5px;
 
           &.string-item {
-            margin-top: 0!important;
+            margin-top: 0 !important;
             background: none;
             list-style: none;
             padding: 0;

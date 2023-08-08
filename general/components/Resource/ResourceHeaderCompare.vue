@@ -8,8 +8,7 @@
           class="card-title"
           :class="{
             'maturity-provisional':
-              this.data.headerLeft.maturityLevel.label ===
-                'Provisional' ||
+              this.data.headerLeft.maturityLevel.label === 'Provisional' ||
               this.data.headerLeft.maturityLevel.label === 'Preliminary',
             'maturity-informative':
               this.data.headerLeft.maturityLevel.label === 'Informative',
@@ -32,8 +31,7 @@
           class="card-title"
           :class="{
             'maturity-provisional':
-              this.data.headerRight.maturityLevel.label ===
-                'Provisional' ||
+              this.data.headerRight.maturityLevel.label === 'Provisional' ||
               this.data.headerRight.maturityLevel.label === 'Preliminary',
             'maturity-informative':
               this.data.headerRight.maturityLevel.label === 'Informative',
@@ -90,9 +88,7 @@
 <script>
 export default {
   name: 'ResourceHeader',
-  props: [
-    'data',
-  ],
+  props: ['data'],
 };
 </script>
 
@@ -120,8 +116,8 @@ export default {
     padding: 20px 20px;
 
     .sticky-top {
-      top: 75px!important;
-      z-index: 1!important;
+      top: 75px !important;
+      z-index: 1 !important;
     }
   }
   .value-column {
@@ -220,7 +216,7 @@ export default {
       word-break: break-all;
 
       .sticky-top {
-        top: 80px!important;
+        top: 80px !important;
       }
     }
     .value-column {

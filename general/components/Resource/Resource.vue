@@ -2,14 +2,8 @@
   <div class="col-md-12 col-lg-12 px-0 ontology-item">
     <CompareBanner v-if="isComparing" />
     <div class="row">
-      <ResourceHeader
-        v-if="!isComparing"
-        :data="data"
-      />
-      <ResourceHeaderCompare
-        v-else
-        :data="data"
-      />
+      <ResourceHeader v-if="!isComparing" :data="data" />
+      <ResourceHeaderCompare v-else :data="data" />
 
       <!-- paths -->
       <div
@@ -25,8 +19,8 @@
         class="col-12 px-0"
         v-if="
           !isComparing &&
-          data.iri.slice(-1) === '/' &&
-          data.iri.startsWith(this.uriSpace)
+            data.iri.slice(-1) === '/' &&
+            data.iri.startsWith(this.uriSpace)
         "
       >
         <OntologyDownload :data="data" :version="version" />
@@ -35,9 +29,7 @@
       <!-- sections -->
       <div
         class="col-md-12 px-0"
-        v-for="(
-          section, sectionName, sectionIndex
-        ) in data.properties"
+        v-for="(section, sectionName, sectionIndex) in data.properties"
         :key="sectionName + (isComparing ? data.headerLeft.label : data.label)"
       >
         <ResourceSection
@@ -61,6 +53,11 @@
                   .querySelector('h5')
                   .classList.toggle('section-collapse')
               "
+              @keydown="
+                $refs.dataGraph
+                  .querySelector('h5')
+                  .classList.toggle('section-collapse')
+              "
             >
               Data model for {{ data.label }}
             </h5>
@@ -75,19 +72,13 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   name: 'Resource',
-  props: [
-    'version',
-    'data',
-    'isComparing'
-  ],
+  props: ['version', 'data', 'isComparing'],
   data() {
-    return {
-
-    }
+    return {};
   },
   computed: {
     ...mapState({
@@ -98,7 +89,7 @@ export default {
     hasGraph() {
       return this.data?.graph?.nodes?.length > 1;
     },
-  }
+  },
 };
 </script>
 

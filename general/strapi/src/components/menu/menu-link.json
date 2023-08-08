@@ -9,11 +9,7 @@
   "attributes": {
     "type": {
       "type": "enumeration",
-      "enum": [
-        "link",
-        "router-link",
-        "group"
-      ]
+      "enum": ["link", "router-link", "group"]
     },
     "name": {
       "type": "string"

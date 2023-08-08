@@ -7,14 +7,18 @@
         </div>
         <div class="col-12 col-md-4 px-0">
           <div
-            class="
-              secondary-column__versions
-              multiselect-xxl-container multiselect-container
-              container
-            "
-            v-if="hasVersions"
+            class="secondary-column__versions multiselect-container container"
+            v-show="hasVersions"
           >
             <div class="menu-box">
+              <div class="activators-container">
+                <div
+                  class="versions-activator multiselect-activator"
+                  v-if="$refs.versionsSelectDesktop && !$refs.versionsSelectDesktop.isOpen"
+                  @click="$refs.versionsSelectDesktop.activate()"
+                  @keydown="$refs.versionsSelectDesktop.activate()"
+                ></div>
+              </div>
               <div class="menu-box__label">
                 Select {{ ontologyNameUppercase }} version
               </div>
@@ -22,6 +26,7 @@
                 <multiselect
                   v-if="ontologyVersionsDropdownData.isGrouped"
                   v-model="ontologyVersionsDropdownData.selectedData"
+                  ref="versionsSelectDesktop"
                   label="@id"
                   track-by="url"
                   placeholder="Select..."
@@ -53,6 +58,8 @@
                 <multiselect
                   v-else
                   v-model="ontologyVersionsDropdownData.selectedData"
+                  ref="versionsSelectDesktop"
+                  id="ontologyVersionsMultiselect--products"
                   label="@id"
                   track-by="url"
                   placeholder="Select..."
@@ -88,7 +95,6 @@
         </div>
       </div>
     </div>
-
 
     <div class="table-container">
       <div
@@ -229,20 +235,20 @@
 </template>
 
 <script>
-import { getOntologyVersions, getJenkinsJobs } from "../../api/ontology";
+import { getOntologyVersions, getJenkinsJobs } from '../../api/ontology';
 
 export default {
-  name: "SerializationListSection",
-  props: ["sectionItem"],
+  name: 'SerializationListSection',
+  props: ['sectionItem'],
   data() {
     return {
-      version: "master/latest",
+      version: 'master/latest',
       serialization: null,
       ontologyVersionsDropdownData: {
         isGrouped: false,
         defaultData: {
-          "@id": "master/latest",
-          url: "",
+          '@id': 'master/latest',
+          url: '',
         },
         selectedData: null,
         data: [],
@@ -258,16 +264,15 @@ export default {
     download(name, product) {
       const productName = product || 'ontology';
       const baseUrl = `/${this.ontologyName}/${productName}`;
-      const branch =
-        this.hasVersions ?
-        this.ontologyVersionsDropdownData?.selectedData['@id'] :
-        "master/latest";
+      const branch = this.hasVersions
+        ? this.ontologyVersionsDropdownData?.selectedData['@id']
+        : 'master/latest';
       const link = `${baseUrl}/${branch}/${name}`;
-      const aElement = document.createElement("a");
-      aElement.setAttribute("download", name);
-      aElement.setAttribute("href", link);
-      aElement.setAttribute("target", "_blank");
-      aElement.style.display = "none";
+      const aElement = document.createElement('a');
+      aElement.setAttribute('download', name);
+      aElement.setAttribute('href', link);
+      aElement.setAttribute('target', '_blank');
+      aElement.style.display = 'none';
       document.body.appendChild(aElement);
       aElement.click();
       aElement.remove();
@@ -275,92 +280,82 @@ export default {
     async fetchVersions() {
       try {
         const result = await getOntologyVersions(
-          `/${this.ontologyName}/ontology/api/`
+          `/${this.ontologyName}/ontology/api/`,
         );
         const ontologyVersions = await result.json();
 
-        const first = "master/latest";
-        ontologyVersions.sort((x,y) => { return x['@id'] == first ? -1 : y['@id'] == first ? 1 : 0; });
+        const first = 'master/latest';
+        ontologyVersions.sort((x, y) => (x['@id'] == first ? -1 : y['@id'] == first ? 1 : 0));
 
         this.ontologyVersionsDropdownData.data = ontologyVersions;
 
         if (this.version !== null) {
-          this.ontologyVersionsDropdownData.selectedData =
-            ontologyVersions.find((val) => {
-              if (val["@id"] === this.version) {
-                return true;
-              }
-              return false;
-            });
+          this.ontologyVersionsDropdownData.selectedData = ontologyVersions.find((val) => {
+            if (val['@id'] === this.version) {
+              return true;
+            }
+            return false;
+          });
         } else {
-          this.ontologyVersionsDropdownData.selectedData =
-            this.ontologyVersionsDropdownData.defaultData;
+          this.ontologyVersionsDropdownData.selectedData = this.ontologyVersionsDropdownData.defaultData;
         }
         if (this.jenkinsJobUrl) {
-        try {
-          let jenkinsJobUrl = this.jenkinsJobUrl;
+          try {
+            let { jenkinsJobUrl } = this;
 
-          if (jenkinsJobUrl.endsWith('/')) {
-            jenkinsJobUrl = jenkinsJobUrl.slice(0, -1);
-          }
-
-          const tagName = process.env.tagName;
-
-          // group versions by tags, pull requests and releases
-          const tagsResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/tags/api/json`);
-          const tagsJson = await tagsResult.json();
-          let tags = tagsJson.jobs.map(item => item.name.toLowerCase());
-
-          const pullRequestsResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/change-requests/api/json`);
-          const pullRequestsJson = await pullRequestsResult.json();
-          let pullRequests = pullRequestsJson.jobs.map(item => item.name.toLowerCase());
-
-          const defaultViewResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/default/api/json`);
-          const defaultViewJson = await defaultViewResult.json();
-          let defaultView = defaultViewJson.jobs.map(item => item.name.toLowerCase());
-
-          // group versions
-          const defaultGroup = [];
-          const pullRequestsGroup = [];
-          const tagsGroup = [];
-          const otherGroup = [];
-
-          for(const version of this.ontologyVersionsDropdownData.data) {
-            let versionToCompare = version['@id'].toLowerCase();
-            if (versionToCompare.endsWith(`/${tagName}`)) {
-              versionToCompare = versionToCompare.replace(`/${tagName}`, '');
+            if (jenkinsJobUrl.endsWith('/')) {
+              jenkinsJobUrl = jenkinsJobUrl.slice(0, -1);
             }
 
-            versionToCompare = versionToCompare.replace('/', '_');
+            const { tagName } = process.env;
 
-            if (versionToCompare === 'master' || versionToCompare === this.defaultBranchName)
-              otherGroup.push(version);
-            else if (tags.find(item => item == versionToCompare))
-              tagsGroup.push(version);
-            else if (pullRequests.find(item => item == versionToCompare))
-              pullRequestsGroup.push(version);
-            else if (defaultView.find(item => item == versionToCompare))
-              defaultGroup.push(version);
+            // group versions by tags, pull requests and releases
+            const tagsResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/tags/api/json`);
+            const tagsJson = await tagsResult.json();
+            const tags = tagsJson.jobs.map((item) => item.name.toLowerCase());
+
+            const pullRequestsResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/change-requests/api/json`);
+            const pullRequestsJson = await pullRequestsResult.json();
+            const pullRequests = pullRequestsJson.jobs.map((item) => item.name.toLowerCase());
+
+            const defaultViewResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/default/api/json`);
+            const defaultViewJson = await defaultViewResult.json();
+            const defaultView = defaultViewJson.jobs.map((item) => item.name.toLowerCase());
+
+            // group versions
+            const defaultGroup = [];
+            const pullRequestsGroup = [];
+            const tagsGroup = [];
+            const otherGroup = [];
+
+            for (const version of this.ontologyVersionsDropdownData.data) {
+              let versionToCompare = version['@id'].toLowerCase();
+              if (versionToCompare.endsWith(`/${tagName}`)) {
+                versionToCompare = versionToCompare.replace(`/${tagName}`, '');
+              }
+
+              versionToCompare = versionToCompare.replace('/', '_');
+
+              if (versionToCompare === 'master' || versionToCompare === this.defaultBranchName) otherGroup.push(version);
+              else if (tags.find((item) => item == versionToCompare)) tagsGroup.push(version);
+              else if (pullRequests.find((item) => item == versionToCompare)) pullRequestsGroup.push(version);
+              else if (defaultView.find((item) => item == versionToCompare)) defaultGroup.push(version);
+            }
+
+            const options = [];
+
+            if (otherGroup.length > 0) options.push({ group: 'Default', versions: otherGroup });
+            if (tagsGroup.length > 0) options.push({ group: 'Releases', versions: tagsGroup });
+            if (pullRequestsGroup.length > 0) options.push({ group: 'Pull requests', versions: pullRequestsGroup });
+            if (defaultGroup.length > 0) options.push({ group: 'Branches', versions: defaultGroup });
+
+            this.ontologyVersionsDropdownData.isGrouped = true;
+            this.ontologyVersionsDropdownData.data = options;
+          } catch (err) {
+            this.ontologyVersionsDropdownData.isGrouped = false;
+            console.error(err);
           }
-
-          const options = [];
-
-          if (otherGroup.length > 0)
-            options.push({group: 'Default', versions: otherGroup});
-          if (tagsGroup.length > 0)
-            options.push({group: 'Releases', versions: tagsGroup});
-          if (pullRequestsGroup.length > 0)
-            options.push({group: 'Pull requests', versions: pullRequestsGroup});
-          if (defaultGroup.length > 0)
-            options.push({group: 'Branches', versions: defaultGroup});
-
-          this.ontologyVersionsDropdownData.isGrouped = true;
-          this.ontologyVersionsDropdownData.data = options;
-        } catch (err) {
-          this.ontologyVersionsDropdownData.isGrouped = false;
-          console.error(err);
         }
-      }
       } catch (err) {
         console.error(err);
       }
@@ -379,13 +374,12 @@ export default {
     jenkinsJobUrl() {
       return this.$store.state.configuration.config.jenkinsJobUrl;
     },
-    filteredGroupOptions(){
-      if (!this.ontologyVersionsDropdownData.isGrouped)
-        return null;
+    filteredGroupOptions() {
+      if (!this.ontologyVersionsDropdownData.isGrouped) return null;
       return this.ontologyVersionsDropdownData.data.filter(
-          group => group.versions.some(v => !(this.ontologyVersionsDropdownData.selectedData === v))
-        );
-    }
+        (group) => group.versions.some((v) => !(this.ontologyVersionsDropdownData.selectedData === v)),
+      );
+    },
   },
 };
 </script>

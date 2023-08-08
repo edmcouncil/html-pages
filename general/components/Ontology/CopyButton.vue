@@ -14,12 +14,12 @@
 
 <script>
 export default {
-  name: "CopyButton",
-  props: [ 'copyContent', 'text' ],
+  name: 'CopyButton',
+  props: ['copyContent', 'text'],
   data() {
     return {
       copied: false,
-    }
+    };
   },
   methods: {
     pressed() {
@@ -28,12 +28,12 @@ export default {
       }
 
       this.copied = true;
-      setTimeout(()=>{
+      setTimeout(() => {
         this.copied = false;
       }, 1500);
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -42,7 +42,7 @@ export default {
   transition: opacity 0.3s;
 }
 .copied {
-  color: map-get($colors-map, "black-40")!important;
+  color: map-get($colors-map, "black-40") !important;
 
   .copied-text {
     transition: opacity 0.3s 1.2s;

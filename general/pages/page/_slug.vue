@@ -18,15 +18,22 @@
               :sectionItem="sectionItem"
             />
             <DownloadSection
-              v-else-if="sectionItem['__component'] == 'sections.download-section'"
+              v-else-if="
+                sectionItem['__component'] == 'sections.download-section'
+              "
               :sectionItem="sectionItem"
             />
             <TableListSection
-              v-else-if="sectionItem['__component'] == 'sections.table-list-section'"
+              v-else-if="
+                sectionItem['__component'] == 'sections.table-list-section'
+              "
               :sectionItem="sectionItem"
             />
             <SerializationListSection
-              v-else-if="sectionItem['__component'] == 'sections.serialization-list-section'"
+              v-else-if="
+                sectionItem['__component'] ==
+                  'sections.serialization-list-section'
+              "
               :sectionItem="sectionItem"
             />
           </section>
@@ -37,70 +44,80 @@
 </template>
 
 <script>
-import { prepareDescription } from "../../helpers/meta";
-import { getStrapiElementFromCollection } from "../../api/strapi";
+import { prepareDescription } from '../../helpers/meta';
+import { getStrapiElementFromCollection } from '../../api/strapi';
 
 export default {
-  name: "PageView",
+  name: 'PageView',
   components: {},
-    head() {
+  layout: 'minimal',
+  head() {
     return {
-        title: this.title,
-        meta: [
-            {
-                hid: 'description',
-                name: 'description',
-                content: this.description,
-            },
-            {
-                hid: 'og:title',
-                name: 'og:title',
-                content: this.title,
-            },
-            {
-                hid: 'og:description',
-                property: 'og:description',
-                content: this.description,
-            },
-        ],
-    }
+      title: this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.description,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.title,
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: this.description,
+        },
+      ],
+    };
   },
   scrollToTop: false,
   mounted() {
-    const scrollTopElement = this.$refs["article-top-element"];
+    const scrollTopElement = this.$refs['article-top-element'];
     scrollTopElement.scrollIntoView({
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   },
   async asyncData({ params, error }) {
     const slugName = params.slug.toLowerCase();
-    const populateParams = ["sections", "sections.items", "sections.items.image"];
+    const populateParams = [
+      'sections',
+      'sections.items',
+      'sections.items.image',
+    ];
 
     try {
       const response = await getStrapiElementFromCollection(
-        "pages",
+        'pages',
         populateParams,
-        slugName
+        slugName,
       );
 
-      if(response?.data?.data?.[0]?.attributes?.sections == null)
-      {
-        console.error(`Page data(sections) is not recognized in the response from the server.
+      if (response?.data?.data?.[0]?.attributes?.sections == null) {
+        console.error(
+          `Page data(sections) is not recognized in the response from the server.
         Error occurred while rendering page ${slugName}.\n
-        Current server response:\n`, response);
-        error({ statusCode: 503, message: "Service Unavailable" });
+        Current server response:\n`,
+          response,
+        );
+        error({ statusCode: 503, message: 'Service Unavailable' });
       }
 
-      const title = response?.data?.data?.[0]?.attributes?.title || process.env.VUE_ONTOLOGY_NAME;
-      const description = prepareDescription(response?.data?.data?.[0]?.attributes?.sections?.[0]?.text_content ?? "");
+      const title = response?.data?.data?.[0]?.attributes?.title
+        || process.env.VUE_ONTOLOGY_NAME;
+      const description = prepareDescription(
+        response?.data?.data?.[0]?.attributes?.sections?.[0]?.text_content ?? '',
+      );
       return {
         page: response?.data?.data?.[0]?.attributes?.sections,
-        title: title,
-        description: description
+        title,
+        description,
       };
     } catch (e) {
       console.error(e);
-      error({ statusCode: 503, message: "Service Unavailable" });
+      error({ statusCode: 503, message: 'Service Unavailable' });
     }
   },
 };
@@ -108,7 +125,7 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  overflow: auto;
+  overflow: visible;
   margin-bottom: 10px;
   h2 {
     position: relative;

@@ -7,16 +7,18 @@
     <div class="row d-none d-lg-flex">
       <div class="col-2 title">Comparing</div>
       <div class="col-5 version-name left">{{ version || "current" }}</div>
-      <div class="col-5 version-name right">{{ versionCompare || "current" }}</div>
+      <div class="col-5 version-name right">
+        {{ versionCompare || "current" }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-  name: "CompareBanner",
+  name: 'CompareBanner',
   computed: {
     ...mapState({
       version: (state) => state.servers.version,

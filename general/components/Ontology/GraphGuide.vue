@@ -3,7 +3,6 @@
     <GraphGuideModal
       modalId="guide-main"
       @closeEvent="closeHandler()"
-      @returnEvent="returnHandler()"
     >
       <template v-slot:label> User Guide: Overview </template>
 
@@ -11,13 +10,14 @@
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
-            <p>1. <b>Overview</b></p>
+            <p><b>1. Overview</b></p>
             <p>
               2.
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
-                >Connections</span
+                @keydown="navigateToPage('guide-connections')"
+              >Connections</span
               >
             </p>
             <p>
@@ -25,7 +25,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
-                >Layouts</span
+                @keydown="navigateToPage('guide-layouts')"
+              >Layouts</span
               >
             </p>
             <p>
@@ -33,7 +34,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
-                >Sorting</span
+                @keydown="navigateToPage('guide-sorting')"
+              >Sorting</span
               >
             </p>
             <p>
@@ -41,7 +43,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
-                >Configuration</span
+                @keydown="navigateToPage('guide-configuration')"
+              >Configuration</span
               >
             </p>
           </div>
@@ -72,14 +75,9 @@
             In the graph section the user has access to
             <span
               class="guide-navigation"
-              @click="navigateToPage('guide-layouts')"
-              >layout</span
-            >
-            and
-            <span
-              class="guide-navigation"
               @click="navigateToPage('guide-connections')"
-              >connections</span
+              @keydown="navigateToPage('guide-connections')"
+            >connections</span
             >
             filters. The graph visualization is fully interactive and the data
             can be explored. The viewport can be panned by dragging with left
@@ -98,7 +96,7 @@
               fluid
               center
               alt="Graph general image"
-              style="transform-origin: left"
+              style="transform-origin: top left"
             ></b-img>
           </div>
           <p>
@@ -106,8 +104,8 @@
             screen which translates to more comfortable experience.
           </p>
           <p>
-            The "Open Control Panel" button in top right corner can be used to
-            open the <b>Control Panel</b>.
+            The "View options" button in top right corner can be used to
+            open the <b>View options</b> menu.
           </p>
 
           <div class="img-zoom">
@@ -119,19 +117,16 @@
               style="transform-origin: top right"
             ></b-img>
           </div>
-          <p>The Control Panel is divided into four sections:</p>
+          <p>The view options menu is divided into four sections:</p>
           <ul>
-            <li>
-              <b>Menu</b> - use "Center" to reset zoom and pan, the "User Guide"
-              button opens this guide window,
-            </li>
             <li>
               <b>Connections</b> - filter nodes based on connection type to the
               root element. Read more in the
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
-                >Connections</span
+                @keydown="navigateToPage('guide-connections')"
+              >Connections</span
               >
               section,
             </li>
@@ -142,7 +137,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
-                >Layouts</span
+                @keydown="navigateToPage('guide-layouts')"
+              >Layouts</span
               >
               section,
             </li>
@@ -152,14 +148,26 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
-                >Sorting</span
+                @keydown="navigateToPage('guide-sorting')"
+              >Sorting</span
+              >
+              section,
+            </li>
+            <li>
+              <b>Configuration</b> - configure node distance and toggle all labels visibility.
+              Read more in the
+              <span
+                class="guide-navigation"
+                @click="navigateToPage('guide-configuration')"
+                @keydown="navigateToPage('guide-configuration')"
+              >Configuration</span
               >
               section,
             </li>
           </ul>
 
           <p>
-            The Control Panel can be closed at any moment with the close "X"
+            The view options menu can be closed at any moment with the close "X"
             icon next to the title.
           </p>
 
@@ -188,7 +196,8 @@
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
-              >Connections</span
+              @keydown="navigateToPage('guide-connections')"
+            >Connections</span
             >
             section.
           </p>
@@ -206,7 +215,6 @@
     <GraphGuideModal
       modalId="guide-connections"
       @closeEvent="closeHandler()"
-      @returnEvent="returnHandler()"
     >
       <template v-slot:label> User Guide: Connections </template>
       <template v-slot:content>
@@ -218,16 +226,18 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
-                >Overview</span
+                @keydown="navigateToPage('guide-main')"
+              >Overview</span
               >
             </p>
-            <p>2. <b>Connections</b></p>
+            <p><b>2. Connections</b></p>
             <p>
               3.
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
-                >Layouts</span
+                @keydown="navigateToPage('guide-layouts')"
+              >Layouts</span
               >
             </p>
             <p>
@@ -235,7 +245,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
-                >Sorting</span
+                @keydown="navigateToPage('guide-sorting')"
+              >Sorting</span
               >
             </p>
             <p>
@@ -243,7 +254,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
-                >Configuration</span
+                @keydown="navigateToPage('guide-configuration')"
+              >Configuration</span
               >
             </p>
           </div>
@@ -254,7 +266,7 @@
               src="../../assets/img/graph-guide-layouts-0.png"
               fluid
               alt="Graph general image"
-              style="transform-origin: right"
+              style="transform-origin: top right"
             ></b-img>
           </div>
           <p>
@@ -358,7 +370,6 @@
     <GraphGuideModal
       modalId="guide-layouts"
       @closeEvent="closeHandler()"
-      @returnEvent="returnHandler()"
     >
       <template v-slot:label> User Guide: Layouts </template>
       <template v-slot:content>
@@ -370,7 +381,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
-                >Overview</span
+                @keydown="navigateToPage('guide-main')"
+              >Overview</span
               >
             </p>
             <p>
@@ -378,16 +390,18 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
-                >Connections</span
+                @keydown="navigateToPage('guide-connections')"
+              >Connections</span
               >
             </p>
-            <p>3. <b>Layouts</b></p>
+            <p><b>3. Layouts</b></p>
             <p>
               4.
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
-                >Sorting</span
+                @keydown="navigateToPage('guide-sorting')"
+              >Sorting</span
               >
             </p>
             <p>
@@ -395,7 +409,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
-                >Configuration</span
+                @keydown="navigateToPage('guide-configuration')"
+              >Configuration</span
               >
             </p>
           </div>
@@ -406,13 +421,13 @@
               src="../../assets/img/graph-guide-layouts-0.png"
               fluid
               alt="Graph general image"
-              style="transform-origin: right bottom"
+              style="transform-origin: right"
             ></b-img>
           </div>
           <p>
             The visualization tool offers multiple node layouts. The user can
             select node placement most optimal for his use. The layouts can be
-            selected by pressing corresponding buttons in Layout control panel
+            selected by pressing corresponding buttons in Layout view options
             section.
           </p>
 
@@ -494,7 +509,6 @@
     <GraphGuideModal
       modalId="guide-sorting"
       @closeEvent="closeHandler()"
-      @returnEvent="returnHandler()"
     >
       <template v-slot:label> User Guide: Sorting </template>
       <template v-slot:content>
@@ -506,7 +520,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
-                >Overview</span
+                @keydown="navigateToPage('guide-main')"
+              >Overview</span
               >
             </p>
             <p>
@@ -514,7 +529,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
-                >Connections</span
+                @keydown="navigateToPage('guide-connections')"
+              >Connections</span
               >
             </p>
             <p>
@@ -522,16 +538,18 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
-                >Layouts</span
+                @keydown="navigateToPage('guide-layouts')"
+              >Layouts</span
               >
             </p>
-            <p>4. <b>Sorting</b></p>
+            <p><b>4. Sorting</b></p>
             <p>
               5.
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
-                >Configuration</span
+                @keydown="navigateToPage('guide-configuration')"
+              >Configuration</span
               >
             </p>
           </div>
@@ -553,7 +571,7 @@
           </p>
           <p>
             The nodes can be sorted by pressing corresponding buttons in the
-            Sort section of Control Panel.
+            Sort section of view options.
           </p>
 
           <h2>2. A - Z</h2>
@@ -601,7 +619,8 @@
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
-              >Connections</span
+              @keydown="navigateToPage('guide-connections')"
+            >Connections</span
             >
             section.
           </p>
@@ -621,7 +640,8 @@
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
-              >Connections</span
+              @keydown="navigateToPage('guide-connections')"
+            >Connections</span
             >
             section.
           </p>
@@ -632,7 +652,6 @@
     <GraphGuideModal
       modalId="guide-configuration"
       @closeEvent="closeHandler()"
-      @returnEvent="returnHandler()"
     >
       <template v-slot:label> User Guide: Configuration </template>
       <template v-slot:content>
@@ -644,7 +663,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
-                >Overview</span
+                @keydown="navigateToPage('guide-main')"
+              >Overview</span
               >
             </p>
             <p>
@@ -652,7 +672,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
-                >Connections</span
+                @keydown="navigateToPage('guide-connections')"
+              >Connections</span
               >
             </p>
             <p>
@@ -660,7 +681,8 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
-                >Layouts</span
+                @keydown="navigateToPage('guide-layouts')"
+              >Layouts</span
               >
             </p>
             <p>
@@ -668,10 +690,11 @@
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
-                >Sorting</span
+                @keydown="navigateToPage('guide-sorting')"
+              >Sorting</span
               >
             </p>
-            <p>5. <b>Configuration</b></p>
+            <p><b>5. Configuration</b></p>
           </div>
           <h1>Configuration</h1>
           <h2>1. Introduction</h2>
@@ -684,12 +707,15 @@
             ></b-img>
           </div>
           <p>
-            In the configuration section the user can adjust visualization
-            to his preferences by changing graph variables.
+            In the configuration section the user can adjust visualization to
+            his preferences by changing graph variables.
           </p>
 
           <h2>2. Node distance</h2>
-          <p>Node distance range slider determines how far nodes are placed from each other.</p>
+          <p>
+            Node distance range slider determines how far nodes are placed from
+            each other.
+          </p>
 
           <h2>3. Keep edge labels</h2>
           <p>
@@ -704,7 +730,7 @@
 
 <script>
 export default {
-  name: "GraphGuide",
+  name: 'GraphGuide',
   data() {
     return {
       currentPage: null,
@@ -719,9 +745,6 @@ export default {
     closeHandler() {
       this.$bvModal.hide(this.currentPage);
       this.currentPage = null;
-    },
-    returnHandler() {
-      this.closeHandler();
     },
     navigateToPage(id) {
       this.closeHandler();
@@ -742,107 +765,6 @@ export default {
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  margin: 0px 10px 10px 0px !important;
-}
-
-.modal.help {
-  article .img-zoom {
-    max-width: 70%;
-    max-height: 250px;
-    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
-    margin: 30px auto 30px auto;
-    overflow: hidden;
-
-    img {
-      transition: transform 0.5s;
-      &:hover {
-        transform: scale(2);
-      }
-    }
-  }
-
-  article {
-    .see-also-box {
-      background: map-get($colors-map, "black-5");
-      margin-bottom: 45px;
-      padding: 30px;
-      border-radius: 2px;
-
-      p {
-        margin: 0;
-      }
-    }
-  }
-
-  .modal-header {
-    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
-    border: none;
-    padding: 15px 30px;
-
-    justify-content: start;
-
-    .close-btn {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      width: 24px;
-      height: 30px;
-      padding: 0;
-      margin-right: 20px;
-
-      &::before {
-        content: "";
-        background-image: url("../../assets/icons/return-arrow.svg");
-        background-repeat: no-repeat;
-        background-size: 24px 24px;
-        width: 24px;
-        height: 24px;
-      }
-    }
-
-    h5.modal-title {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 30px;
-      color: #000000;
-
-      padding: 0;
-      margin: 0;
-      position: relative;
-    }
-  }
-  .modal-content {
-    border-radius: 2px;
-    border: none;
-    background: white;
-  }
-  .modal-body {
-    padding: 0px 30px;
-    height: 100%;
-    position: relative;
-
-    .collapsible-section {
-      width: 100%;
-      background: rgb(242, 242, 242);
-      z-index: 1;
-      .collapsible-section-title {
-        padding: 20px 0px;
-      }
-    }
-  }
-  .modal-footer {
-    border: none;
-    box-shadow: 0px -5px 20px -5px rgba(8, 84, 150, 0.15);
-    padding: 15px 30px;
-
-    justify-content: space-between;
-
-    .normal-button.small {
-      margin-bottom: 0 !important;
-    }
-  }
 }
 
 span.guide-navigation {
@@ -858,6 +780,17 @@ span.guide-navigation {
     color: $link-active-color;
   }
 }
+
+.modal.help article {
+    .see-also-box {
+      h3 {
+        margin-bottom: 15px;
+      }
+      p {
+        padding: 7px 0;
+      }
+    }
+  }
 
 @media (max-width: 991px) {
   .modal.help article {

@@ -12,34 +12,33 @@
 
 <script>
 export default {
-  name: "CompareButton",
+  name: 'CompareButton',
   data() {
     return {
       open: false,
-    }
+    };
   },
   methods: {
     pressed() {
       this.open = !this.open;
       this.$emit('compareToggled', this.open);
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .btn-compare-versions {
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(0, 0, 0, 0.8);
   border: none;
   background: none;
   font-size: 18px;
   line-height: 30px;
   padding: 0;
   user-select: none;
-  margin-left: 15px;
 
   &:hover {
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 1);
   }
 
   &:active {
@@ -58,8 +57,6 @@ export default {
     height: 30px;
     float: left;
     margin: 0 6px 0 0;
-
-    opacity: 0.4;
   }
 
   &:focus {
@@ -72,5 +69,4 @@ export default {
     background-image: url("@/assets/icons/close.svg");
   }
 }
-
 </style>

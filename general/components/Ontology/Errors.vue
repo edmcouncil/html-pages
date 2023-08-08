@@ -63,12 +63,8 @@
 <script>
 export default {
   name: 'Errors',
-  props: [
-    'error',
-  ],
-  methods: {
-  },
-  computed: {
-  }
+  props: ['error'],
+  methods: {},
+  computed: {},
 };
 </script>

@@ -1,10 +1,6 @@
 <template>
   <div
-    class="
-      secondary-column__tree
-      multiselect-xxl-container multiselect-container
-      container
-    "
+    class="secondary-column__tree multiselect-container"
   >
     <div class="menu-box">
       <div class="menu-box__label">Browse logs</div>
@@ -39,7 +35,8 @@
                 <div class="stats-box__entry__value">
                   {{ limitSize(version || defaultBranchName, 24) }}
                   <div class="stats-box__entry__value__arrow-right"></div>
-                  {{ limitSize(versionCompare || defaultBranchName, 24) }}</div>
+                  {{ limitSize(versionCompare || defaultBranchName, 24) }}
+                </div>
               </div>
               <div
                 class="stats-box__entry"
@@ -49,14 +46,12 @@
                 <div class="stats-box__entry__label">{{ stat.label }}</div>
                 <div class="stats-box__entry__value">
                   {{ stat.value }}
-                  <span
-                    v-if="isComparing"
-                  >
+                  <span v-if="isComparing">
                     <div class="stats-box__entry__value__arrow-right"></div>
                     <span
                       :class="{
                         'value-decrease': stat.value > stat.compareValue,
-                        'value-increase': stat.value < stat.compareValue
+                        'value-increase': stat.value < stat.compareValue,
                       }"
                     >
                       {{ stat.compareValue || 0 }}
@@ -133,8 +128,8 @@
 </template>
 
 <script>
-import { getStats, getMissingImports } from "../api/ontology";
 import { mapState } from 'vuex';
+import { getStats, getMissingImports } from '../api/ontology';
 
 export default {
   name: 'StatsComponent',
@@ -194,12 +189,11 @@ export default {
     },
     limitSize(str, maxLength) {
       return str.length > maxLength ? `${str.substring(0, maxLength)}...` : str;
-    }
+    },
   },
   watch: {
-    versionsString: function() {
-      if (this.statsServer == this.statsServerCompare)
-        return;
+    versionsString() {
+      if (this.statsServer == this.statsServerCompare) return;
       this.fetchStats();
       this.fetchMissingImports();
     },
@@ -221,8 +215,8 @@ export default {
     },
     versionsString() {
       return this.version + this.versionCompare;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -314,7 +308,7 @@ export default {
           vertical-align: bottom;
         }
         .value-decrease {
-          color: #EC241D;
+          color: #ec241d;
         }
         .value-increase {
           color: #00b855;
@@ -326,7 +320,7 @@ export default {
       margin-bottom: 10px;
       flex-wrap: wrap;
 
-      .stats-box__entry__label{
+      .stats-box__entry__label {
         color: rgba(0, 0, 0, 0.4);
       }
       .stats-box__entry__value {
