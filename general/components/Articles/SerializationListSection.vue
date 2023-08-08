@@ -20,8 +20,39 @@
               </div>
               <div class="menu-box__content-text">
                 <multiselect
+                  v-if="ontologyVersionsDropdownData.isGrouped"
                   v-model="ontologyVersionsDropdownData.selectedData"
-                  id="ontologyVersionsMultiselect--products"
+                  label="@id"
+                  track-by="url"
+                  placeholder="Select..."
+                  tagPlaceholder="Select..."
+                  selectLabel=""
+                  open-direction="bottom"
+                  :options="filteredGroupOptions"
+                  :multiple="false"
+                  :searchable="false"
+                  :loading="ontologyVersionsDropdownData.isLoading"
+                  :internal-search="false"
+                  :clear-on-select="false"
+                  :close-on-select="true"
+                  :max-height="600"
+                  :preserve-search="true"
+                  :show-no-results="false"
+                  :hide-selected="true"
+                  :taggable="true"
+                  group-values="versions"
+                  group-label="group"
+                  :group-select="false"
+                >
+                  <template v-slot:tag="{ option }">
+                    <span class="custom__tag">
+                      <span>{{ option.label }}</span>
+                    </span>
+                  </template>
+                </multiselect>
+                <multiselect
+                  v-else
+                  v-model="ontologyVersionsDropdownData.selectedData"
                   label="@id"
                   track-by="url"
                   placeholder="Select..."
@@ -198,7 +229,7 @@
 </template>
 
 <script>
-import { getOntologyVersions } from "../../api/ontology";
+import { getOntologyVersions, getJenkinsJobs } from "../../api/ontology";
 
 export default {
   name: "SerializationListSection",
@@ -208,6 +239,7 @@ export default {
       version: "master/latest",
       serialization: null,
       ontologyVersionsDropdownData: {
+        isGrouped: false,
         defaultData: {
           "@id": "master/latest",
           url: "",
@@ -243,7 +275,7 @@ export default {
     async fetchVersions() {
       try {
         const result = await getOntologyVersions(
-          `/${this.ontologyName}/ontology/`
+          `/${this.ontologyName}/ontology/api/`
         );
         const ontologyVersions = await result.json();
 
@@ -264,6 +296,71 @@ export default {
           this.ontologyVersionsDropdownData.selectedData =
             this.ontologyVersionsDropdownData.defaultData;
         }
+        if (this.jenkinsJobUrl) {
+        try {
+          let jenkinsJobUrl = this.jenkinsJobUrl;
+
+          if (jenkinsJobUrl.endsWith('/')) {
+            jenkinsJobUrl = jenkinsJobUrl.slice(0, -1);
+          }
+
+          const tagName = process.env.tagName;
+
+          // group versions by tags, pull requests and releases
+          const tagsResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/tags/api/json`);
+          const tagsJson = await tagsResult.json();
+          let tags = tagsJson.jobs.map(item => item.name.toLowerCase());
+
+          const pullRequestsResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/change-requests/api/json`);
+          const pullRequestsJson = await pullRequestsResult.json();
+          let pullRequests = pullRequestsJson.jobs.map(item => item.name.toLowerCase());
+
+          const defaultViewResult = await getJenkinsJobs(`${jenkinsJobUrl}/view/default/api/json`);
+          const defaultViewJson = await defaultViewResult.json();
+          let defaultView = defaultViewJson.jobs.map(item => item.name.toLowerCase());
+
+          // group versions
+          const defaultGroup = [];
+          const pullRequestsGroup = [];
+          const tagsGroup = [];
+          const otherGroup = [];
+
+          for(const version of this.ontologyVersionsDropdownData.data) {
+            let versionToCompare = version['@id'].toLowerCase();
+            if (versionToCompare.endsWith(`/${tagName}`)) {
+              versionToCompare = versionToCompare.replace(`/${tagName}`, '');
+            }
+
+            versionToCompare = versionToCompare.replace('/', '_');
+
+            if (versionToCompare === 'master' || versionToCompare === this.defaultBranchName)
+              otherGroup.push(version);
+            else if (tags.find(item => item == versionToCompare))
+              tagsGroup.push(version);
+            else if (pullRequests.find(item => item == versionToCompare))
+              pullRequestsGroup.push(version);
+            else if (defaultView.find(item => item == versionToCompare))
+              defaultGroup.push(version);
+          }
+
+          const options = [];
+
+          if (otherGroup.length > 0)
+            options.push({group: 'Default', versions: otherGroup});
+          if (tagsGroup.length > 0)
+            options.push({group: 'Releases', versions: tagsGroup});
+          if (pullRequestsGroup.length > 0)
+            options.push({group: 'Pull requests', versions: pullRequestsGroup});
+          if (defaultGroup.length > 0)
+            options.push({group: 'Branches', versions: defaultGroup});
+
+          this.ontologyVersionsDropdownData.isGrouped = true;
+          this.ontologyVersionsDropdownData.data = options;
+        } catch (err) {
+          this.ontologyVersionsDropdownData.isGrouped = false;
+          console.error(err);
+        }
+      }
       } catch (err) {
         console.error(err);
       }
@@ -278,6 +375,16 @@ export default {
     },
     hasVersions() {
       return this.ontologyVersionsDropdownData.data.length > 0;
+    },
+    jenkinsJobUrl() {
+      return this.$store.state.configuration.config.jenkinsJobUrl;
+    },
+    filteredGroupOptions(){
+      if (!this.ontologyVersionsDropdownData.isGrouped)
+        return null;
+      return this.ontologyVersionsDropdownData.data.filter(
+          group => group.versions.some(v => !(this.ontologyVersionsDropdownData.selectedData === v))
+        );
     }
   },
 };
