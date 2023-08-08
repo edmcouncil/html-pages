@@ -1,6 +1,6 @@
 /* Display / Desktop */
 .text-display {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 800;
   font-size: 50px;
@@ -9,13 +9,15 @@
   letter-spacing: 0.01em;
 }
 
-h1, h2, h3 {
-    margin: 0;
+h1,
+h2,
+h3 {
+  margin: 0;
 }
 
 /* Heading / Desktop */
 h1 {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 700;
   font-size: 42px;
@@ -24,7 +26,7 @@ h1 {
 
 /* Subheading / Desktop */
 h2 {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
@@ -33,7 +35,7 @@ h2 {
 
 /* Title / Desktop */
 h3 {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
@@ -42,7 +44,7 @@ h3 {
 
 /* Paragraph Regular / Desktop */
 p {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -54,7 +56,7 @@ p {
 
 /* Paragraph Bold / Desktop */
 p.bold {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
@@ -63,7 +65,7 @@ p.bold {
 
 /* Paragraph Big / Desktop */
 p.big {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
@@ -72,7 +74,7 @@ p.big {
 
 /* Paragraph Small */
 p.small {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -80,7 +82,6 @@ p.small {
 
   letter-spacing: 0.01em;
 }
-
 
 /* Mobile */
 @media (max-width: 991px) {

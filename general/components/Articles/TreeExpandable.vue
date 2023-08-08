@@ -1,6 +1,10 @@
 <template>
   <div class="expandable">
-    <div class="expandable__title" @click="isExpanded = !isExpanded">
+    <div
+      class="expandable__title"
+      @click="isExpanded = !isExpanded"
+      @keydown="isExpanded = !isExpanded"
+    >
       <div
         class="expandable__title__icon"
         :class="{ expanded: isExpanded }"
@@ -18,13 +22,13 @@
 <script>
 export default {
   name: 'TreeExpandable',
-  props: [ 'defaultExpanded' ],
+  props: ['defaultExpanded'],
   data() {
     return {
       isExpanded: this.defaultExpanded || false,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -55,13 +59,6 @@ export default {
       &.expanded {
         transform: rotate(90deg);
       }
-    }
-
-    .expandable__title__text {
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 30px;
-      color: rgba(0, 0, 0, 0.8);
     }
   }
 }

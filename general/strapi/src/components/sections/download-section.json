@@ -19,10 +19,7 @@
     },
     "background": {
       "type": "enumeration",
-      "enum": [
-        "normal",
-        "blank"
-      ],
+      "enum": ["normal", "blank"],
       "default": "normal"
     },
     "text_content": {

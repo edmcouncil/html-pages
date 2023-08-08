@@ -69,25 +69,27 @@
       </b-collapse>
     </div>
 
-    <div class="compare-item row" v-else v-for="field in list" :key="field.id">
-      <component
-        :is="field.left.type"
-        :value="field.left.value"
-        :entityMaping="field.left.entityMaping"
-        :inferable="field.left.inferable"
-        :entityLabel="field.left.entityLabel"
-        :class="{ 'has-list': field.left.hasList }"
-        v-bind="field.left"
-        class="top-level top-level--single compare-left col-6"
-      />
-      <ComparedText
-        :currentItem="field.left"
-        :comparedItem="field.right"
-        :changeType="field.changeType"
-        :identifier="sectionId + '1'"
-        :class="{ 'has-list': field.right.hasList || field.left.hasList }"
-        class="top-level top-level--single compare-right col-6"
-      />
+    <div v-else>
+      <div class="compare-item row" v-for="field in list" :key="field.id">
+        <component
+          :is="field.left.type"
+          :value="field.left.value"
+          :entityMaping="field.left.entityMaping"
+          :inferable="field.left.inferable"
+          :entityLabel="field.left.entityLabel"
+          :class="{ 'has-list': field.left.hasList }"
+          v-bind="field.left"
+          class="top-level top-level--single compare-left col-6"
+        />
+        <ComparedText
+          :currentItem="field.left"
+          :comparedItem="field.right"
+          :changeType="field.changeType"
+          :identifier="sectionId + '1'"
+          :class="{ 'has-list': field.right.hasList || field.left.hasList }"
+          class="top-level top-level--single compare-right col-6"
+        />
+      </div>
     </div>
 
     <div
@@ -118,31 +120,29 @@
 <script>
 export default {
   components: {
-    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ "../chunks/AXIOM"),
-    STRING: () => import(/* webpackChunkName: "STRING" */ "../chunks/STRING"),
-    DIRECT_SUBCLASSES: () =>
-      import(
-        // eslint-disable-next-line comma-dangle
-        /* webpackChunkName: "DIRECT_SUBCLASSES" */ "../chunks/DIRECT_SUBCLASSES"
-      ),
-    MODULES: () =>
-      import(/* webpackChunkName: "MODULES" */ "../chunks/MODULES"),
-    IRI: () => import(/* webpackChunkName: "IRI" */ "../chunks/IRI"),
-    INSTANCES: () =>
-      import(
-        // eslint-disable-next-line comma-dangle
-        /* webpackChunkName: "INSTANCES" */ "../chunks/INSTANCES"
-      ),
-    ANY_URI: () =>
-      import(/* webpackChunkName: "ANY_URI" */ "../chunks/ANY_URI"),
-    EMPTY: () => import(/* webpackChunkName: "EMPTY" */ "../chunks/EMPTY"),
-    OWL_LABELED_MULTI_AXIOM: () => import(/* webpackChunkName: "OWL_LABELED_MULTI_AXIOM" */ '../chunks/OWL_LABELED_MULTI_AXIOM'),
+    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ './chunks/AXIOM'),
+    STRING: () => import(/* webpackChunkName: "STRING" */ './chunks/STRING'),
+    DIRECT_SUBCLASSES: () => import(
+      // eslint-disable-next-line comma-dangle
+      /* webpackChunkName: "DIRECT_SUBCLASSES" */ './chunks/DIRECT_SUBCLASSES'
+    ),
+    MODULES: () => import(/* webpackChunkName: "MODULES" */ './chunks/MODULES'),
+    IRI: () => import(/* webpackChunkName: "IRI" */ './chunks/IRI'),
+    INSTANCES: () => import(
+      // eslint-disable-next-line comma-dangle
+      /* webpackChunkName: "INSTANCES" */ './chunks/INSTANCES'
+    ),
+    ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ './chunks/ANY_URI'),
+    EMPTY: () => import(/* webpackChunkName: "EMPTY" */ './chunks/EMPTY'),
+    OWL_LABELED_MULTI_AXIOM: () => import(
+      /* webpackChunkName: "OWL_LABELED_MULTI_AXIOM" */ './chunks/OWL_LABELED_MULTI_AXIOM'
+    ),
   },
-  name: "PropertiesListCompare",
+  name: 'PropertiesListCompare',
   props: [
-    "list",
-    "limit", // specifies how many items can be displayed without collapsing
-    "sectionId",
+    'list',
+    'limit', // specifies how many items can be displayed without collapsing
+    'sectionId',
   ],
   data() {
     return {
@@ -164,7 +164,7 @@ export default {
         this.expanded = !this.expanded;
       } else if (topOffset < 0) {
         element.scrollIntoView({
-          behavior: "smooth",
+          behavior: 'smooth',
         });
         setTimeout(() => {
           this.expanded = !this.expanded;
@@ -174,21 +174,18 @@ export default {
       }
     },
     checkHasList(item) {
-      if (item.type === "AXIOM") {
+      if (item.type === 'AXIOM') {
         if (
-          (Array.isArray(item.value) && item.value && item.value.length > 1) ||
-          item.fullRenderedString?.includes("<br />")
-        )
-          item.hasList = true;
-      } else if (item.type === "OWL_LABELED_MULTI_AXIOM") {
-        if (Array.isArray(item.value) && item.value && item.value.length > 0)
-          item.hasList = true;
-      } else if (item.type === "STRING") {
+          (Array.isArray(item.value) && item.value && item.value.length > 1)
+          || item.fullRenderedString?.includes('<br />')
+        ) item.hasList = true;
+      } else if (item.type === 'OWL_LABELED_MULTI_AXIOM') {
+        if (Array.isArray(item.value) && item.value && item.value.length > 0) item.hasList = true;
+      } else if (item.type === 'STRING') {
         if (
-          (Array.isArray(item.value) && item.value && item.value.length > 1) ||
-          item.value?.includes("\n")
-        )
-          item.hasList = true;
+          (Array.isArray(item.value) && item.value && item.value.length > 1)
+          || item.value?.includes('\n')
+        ) item.hasList = true;
       }
     },
   },

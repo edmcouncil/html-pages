@@ -79,18 +79,18 @@
 
 <script>
 export default {
-  name: "PathsSection",
-  props: [ "data" ],
+  name: 'PathsSection',
+  props: ['data'],
   data() {
     return {
       sectionCollapsed: false,
       treeView: [],
       isTreeView: false,
       isPathsMoreVisible: false,
-    }
+    };
   },
   created() {
-    if (localStorage.isTreeView && localStorage.isTreeView === "true") {
+    if (localStorage.isTreeView && localStorage.isTreeView === 'true') {
       this.isTreeView = true;
     }
     this.initializeTree();
@@ -105,9 +105,9 @@ export default {
 
       if (this.isPathsMoreVisible && topOffset < 0) {
         this.$refs.scrollTarget.scrollIntoView({
-          behavior: "smooth"
+          behavior: 'smooth',
         });
-        setTimeout(()=>{
+        setTimeout(() => {
           this.isPathsMoreVisible = false;
         }, 500);
       } else {
@@ -115,16 +115,16 @@ export default {
       }
 
       this.$nextTick(() => {
-        this.$refs.collapseList.forEach(element => {
+        this.$refs.collapseList.forEach((element) => {
           element.checkOverflow();
-        })
+        });
       });
     },
     initializeTree() {
       if (this.data.taxonomy?.value) {
         this.treeView = [];
-        let tempTaxonomy = JSON.parse(
-          JSON.stringify(this.data.taxonomy.value)
+        const tempTaxonomy = JSON.parse(
+          JSON.stringify(this.data.taxonomy.value),
         );
         tempTaxonomy.forEach((element) => {
           this.getTreeFromList(element, this.treeView);
@@ -140,23 +140,23 @@ export default {
         if (parts[0].label === treeNode[i].value.label) {
           this.getTreeFromList(
             parts.splice(1, parts.length),
-            treeNode[i].children
+            treeNode[i].children,
           );
           return;
         }
       }
 
-      let newNode = { value: parts[0], children: [] };
+      const newNode = { value: parts[0], children: [] };
       treeNode.push(newNode);
       this.getTreeFromList(parts.splice(1, parts.length), newNode.children);
     },
   },
   watch: {
-    "isTreeView": (newValue) => {
+    isTreeView: (newValue) => {
       localStorage.isTreeView = newValue;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

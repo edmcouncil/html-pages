@@ -76,7 +76,6 @@ export default {
     onSlideStart(slideIndex) {
       this.currentSlide = slideIndex;
     },
-
   },
   computed: {
     slideCount() {
@@ -312,7 +311,7 @@ export default {
 
 @media (min-width: 1439px) {
   .carousel-item {
-    width: calc( 100% - 320px );
+    width: calc(100% - 320px);
   }
 }
 

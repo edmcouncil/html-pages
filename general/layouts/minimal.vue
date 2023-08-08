@@ -3,7 +3,7 @@
     <!-- Google Tag Manager (noscript) -->
     <noscript v-html="noscriptContent"></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <HeaderComponent></HeaderComponent>
+    <MinimalHeaderComponent></MinimalHeaderComponent>
     <Nuxt></Nuxt>
     <FooterComponent></FooterComponent>
   </div>

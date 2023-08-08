@@ -10,8 +10,16 @@
           v-for="(element, index) in itemData"
           :key="'taxonomyEl' + index + element.iri"
         >
-          <span v-if="element.iri.includes('http://org.semanticweb.owlapi/error#')" class="error-iri-element">{{element.label}}</span>
-          <customLink v-else :name="element.label" :query="element.iri"></customLink>
+          <span
+            v-if="element.iri.includes('http://org.semanticweb.owlapi/error#')"
+            class="error-iri-element"
+          >{{ element.label }}</span
+          >
+          <customLink
+            v-else
+            :name="element.label"
+            :query="element.iri"
+          ></customLink>
           <span
             class="card-subtitle taxonomy-separator"
             v-if="index != Object.keys(itemData).length - 1"
@@ -35,21 +43,21 @@
 
 <script>
 export default {
-  name: "PathsListItem",
-  props: [ "itemData" ],
+  name: 'PathsListItem',
+  props: ['itemData'],
   data() {
     return {
       isFullPathVisible: false,
       hasOverflow: false,
       resizeDebounce: null,
-    }
+    };
   },
   mounted() {
     this.checkOverflow();
-    window.addEventListener("resize", this.onResize);
+    window.addEventListener('resize', this.onResize);
   },
   beforeDestroy() {
-    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener('resize', this.onResize);
   },
   methods: {
     toggleFullPathVisible() {
@@ -59,25 +67,24 @@ export default {
       const wrapper = this.$refs.listItemContainer;
       const element = this.$refs.listItemContainer.firstChild;
 
-      wrapper.style.overflow = "hidden";
-      element.style.height = "1em";
-      element.style.whiteSpace = "nowrap";
+      wrapper.style.overflow = 'hidden';
+      element.style.height = '1em';
+      element.style.whiteSpace = 'nowrap';
 
-      const isOverflowing =
-            element.clientWidth < element.scrollWidth;
+      const isOverflowing = element.clientWidth < element.scrollWidth;
 
-      wrapper.style.removeProperty("overflow");
-      element.style.removeProperty("height");
-      element.style.removeProperty("white-space");
+      wrapper.style.removeProperty('overflow');
+      element.style.removeProperty('height');
+      element.style.removeProperty('white-space');
 
       this.hasOverflow = isOverflowing;
     },
     onResize() {
       clearTimeout(this.resizeDebounce);
       this.resizeDebounce = setTimeout(this.checkOverflow, 300);
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-multiselect-container multiselect-container outside-modal">
-    <div class="menu-box" @click="toggleModal()">
+    <div class="menu-box" @click="toggleModal()" @keydown="toggleModal()">
       <div class="menu-box__label">
         <slot name="label"></slot>
       </div>
@@ -21,7 +21,7 @@
       :header-class="noMultiselect ? '' : 'no-shadow'"
       no-fade
       v-model="showModal"
-      modal-class="fullscreen"
+      modal-class="fullscreen mobile-menu-box"
       footer-class="mobile-modal-footer"
     >
       <template v-slot:modal-header>
@@ -30,7 +30,8 @@
           class="close-btn"
           data-dismiss="modal"
           aria-label="Close"
-          v-on:click="hideModal()"
+          @click="hideModal()"
+          @keydown="hideModal()"
         ></div>
         <h5 class="modal-title">
           <slot name="label"></slot>
@@ -41,11 +42,7 @@
       </div>
       <div v-else class="modal-with-multiselect">
         <div
-          class="
-            mobile-multiselect-container
-            multiselect-container
-            inside-modal
-          "
+          class="mobile-multiselect-container multiselect-container inside-modal"
         >
           <div class="menu-box">
             <div class="menu-box__content-text" ref="modalTarget"></div>
@@ -58,48 +55,49 @@
 
 <script>
 export default {
-  name: "MobileModal",
-  props: [ 'icon' ],
+  name: 'MobileModal',
+  props: ['icon'],
   data() {
     return {
       showModal: false,
-    }
+    };
   },
   methods: {
     hideModal() {
-      if (!this.noMultiselect)
-        this.$refs.outsideTarget.appendChild(this.$refs.modalTarget?.firstChild);
+      if (!this.noMultiselect) {
+        this.$refs.outsideTarget.appendChild(
+          this.$refs.modalTarget?.firstChild,
+        );
+      }
 
       this.showModal = false;
     },
     openModal() {
       this.showModal = true;
-      if (this.noMultiselect)
-        return
+      if (this.noMultiselect) return;
 
       this.$nextTick(() => {
-        this.$refs.modalTarget.appendChild(this.$refs.outsideTarget?.firstChild);
+        this.$refs.modalTarget.appendChild(
+          this.$refs.outsideTarget?.firstChild,
+        );
       });
-
     },
     toggleModal() {
-      if (this.showModal)
-        this.hideModal();
-      else
-        this.openModal();
-    }
+      if (this.showModal) this.hideModal();
+      else this.openModal();
+    },
   },
   computed: {
     noMultiselect() {
       return !this.$slots.multiselect;
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss">
 .modal-header.no-shadow {
-  box-shadow: none!important;
+  box-shadow: none !important;
 }
 .outside-modal.mobile-multiselect-container {
   padding: 0 30px !important;
@@ -203,18 +201,18 @@ export default {
     background: transparent;
   }
   .search-box .multiselect .multiselect__clear {
-    top: 3px;
+    top: 0;
+    height: 24px;
   }
   .search-box .mobile-search-icon {
     z-index: 1000;
     position: absolute;
     right: 39px;
-    top: 18px;
+    top: 34px;
     width: 24px;
     height: 24px;
     background-image: url("@/assets/icons/search.svg");
   }
-
 
   .multiselect__select {
     display: none;
@@ -235,6 +233,48 @@ export default {
       pointer-events: none;
     }
   }
+}
 
+.modal.fullscreen.mobile-menu-box {
+  .modal-header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 18px 30px;
+
+    .close-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+
+      &::before {
+        content: "";
+        background-image: url("../assets/icons/return-arrow.svg");
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    h5.modal-title {
+      color: var(--black-60, rgba(0, 0, 0, 0.60));
+      font-family: Inter;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+
+      padding: 0;
+      margin: 0;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 }
 </style>

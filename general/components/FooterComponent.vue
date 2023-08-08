@@ -55,14 +55,14 @@
             class="social-icons"
             target="_blank"
           >
-            <img src="../assets/icons/social-icons-twitter.svg" />
+            <img src="../assets/icons/social-icons-twitter.svg" alt="Twitter" />
           </a>
           <a
             href="https://www.linkedin.com/company/edm-council/"
             class="social-icons"
             target="_blank"
           >
-            <img src="../assets/icons/social-icons-in.svg" />
+            <img src="../assets/icons/social-icons-in.svg" alt="LinkedIn" />
           </a>
         </div>
       </div>
@@ -121,25 +121,25 @@ export default {
   data() {
     return {
       showTermsLinkOnFooter: process.env.showTermsLinkOnFooter,
-    }
+    };
   },
   computed: {
-    copyright () {
+    copyright() {
       return this.$store.state.footerData.copyright;
     },
-    contacts () {
+    contacts() {
       return this.$store.state.footerData.contacts;
     },
-    socials () {
+    socials() {
       return this.$store.state.footerData.socials;
     },
-    links () {
+    links() {
       return this.$store.state.footerData.links;
     },
-    useCustomFooterData () {
+    useCustomFooterData() {
       return this.$store.state.footerData.useCustomFooterData;
     },
-  }
+  },
 };
 </script>
 

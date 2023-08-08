@@ -27,7 +27,7 @@
                 <li class="nav-item d-none d-lg-block">
                   <a
                     class="nav-link"
-                    href="https://edmcouncil.org/Login.aspx"
+                    href="https://edmcouncil.org"
                     target="_blank"
                   >
                     EDMConnect
@@ -36,7 +36,7 @@
                 <li class="nav-item d-none d-lg-block">
                   <a
                     class="nav-link"
-                    href="https://edmcouncil.org/login.aspx"
+                    href="https://edmcouncil.org"
                     target="_blank"
                   >
                     Sign in / Register

@@ -14,14 +14,14 @@ export default {
       ontologyRepositoryUrl: ontologyRepositoryUrlFallback,
       defaultBranchName: defaultBranchNameFallback,
       jenkinsJobUrl: null,
-    }
+    },
   }),
   mutations: {
-    SET_CONFIG_DATA (state, data) {
+    SET_CONFIG_DATA(state, data) {
       state.config = {
         ...state.config,
-        ...data
-      }
+        ...data,
+      };
     },
   },
 };

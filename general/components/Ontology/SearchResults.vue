@@ -77,8 +77,8 @@
         <section class="blank">
           <h2>No results found</h2>
           <p class="muted">
-            Consider adjusting search configuration or try changing
-            search phrase.
+            Consider adjusting search configuration or try changing search
+            phrase.
           </p>
         </section>
       </article>
@@ -107,13 +107,11 @@
 <script>
 export default {
   name: 'SearchResults',
-  props: [
-    'searchBox',
-  ],
+  props: ['searchBox'],
   methods: {
     paginationHandler() {
       this.$router.push({
-        path: "/ontology",
+        path: '/ontology',
         query: {
           ...{ search: encodeURI(this.searchBox.lastSearchBQuery) },
           ...{ page: this.searchBox.page },
@@ -125,9 +123,9 @@ export default {
     },
     getPropertyLabel(identifier) {
       return this.searchBox.findPropertiesAll.find(
-        (property) => property.identifier === identifier
+        (property) => property.identifier === identifier,
       ).label;
     },
-  }
+  },
 };
 </script>

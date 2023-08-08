@@ -12,7 +12,7 @@
         }"
       >
         <div v-if="getImageUrl(item) != 'undefined'" class="image-container">
-          <img :src="getImageUrl(item)" class="transparent-image" />
+          <img :src="getImageUrl(item)" class="transparent-image" alt="" />
           <p v-if="item.image_description" class="muted small">
             {{ item.image_description }}
           </p>
@@ -28,16 +28,16 @@
 
 <script>
 export default {
-  name: "ImageTextSection",
-  props: ["sectionItem"],
+  name: 'ImageTextSection',
+  props: ['sectionItem'],
   methods: {
     getImageUrl(item) {
       const strapiUrl = process.env.strapiBasePath;
       const location = item?.image?.data?.attributes?.url;
-      if (location == undefined) {
-        return "undefined";
+      if (location === undefined) {
+        return 'undefined';
       }
-      if (location.includes("_nuxt") && location.includes("downloads")) {
+      if (location.includes('_nuxt') && location.includes('downloads')) {
         return location;
       }
       return strapiUrl + location;
@@ -48,9 +48,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+h1, h2 {
+  max-width: 800px;
+}
 .image-text-content-container {
   margin-bottom: 60px;
   display: flex;
+
+  .text-content {
+    max-width: 800px;
+  }
 
   .image-container {
     width: 100%;
@@ -78,6 +85,7 @@ export default {
 
   &.right {
     flex-direction: row-reverse;
+    justify-content: flex-end;
 
     .text-content {
       padding-right: 45px;
@@ -87,10 +95,15 @@ export default {
 
   &.center {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 
     .image-container {
-      max-width: 885px;
+      max-width: 800px;
+
+      img {
+        padding: 30px 0;
+        width: 100%;
+      }
     }
     .text-content {
       width: 100%;

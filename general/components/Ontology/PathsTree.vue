@@ -32,18 +32,18 @@
 </template>
 
 <script>
-import Vue from "vue";
-import customLink from "../chunks/link";
+import Vue from 'vue';
+import customLink from '../Resource/chunks/link';
 
-Vue.component("customLink", customLink);
+Vue.component('customLink', customLink);
 
 export default {
-  name: "paths-tree",
+  name: 'paths-tree',
   props: {
     item: Object,
     isLast: Boolean,
     isOnly: Boolean,
-    isRoot: Boolean
+    isRoot: Boolean,
   },
   data() {
     return {
@@ -53,14 +53,14 @@ export default {
   methods: {
     toggleOpen() {
       this.isOpen = !this.isOpen;
-    }
+    },
   },
   computed: {
     isFolder() {
       return this.item.children && this.item.children.length;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
