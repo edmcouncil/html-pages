@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - "develop"
-      - "docker_image_publication"
 
 jobs:
   build:
