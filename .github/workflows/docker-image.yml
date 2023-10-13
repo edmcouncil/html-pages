@@ -29,11 +29,35 @@ jobs:
         with:
           images: edmcouncil/html-pages
       -
-        name: Build and push
+        name: Build and push edmcouncil/fibo-strapi:{{branch}}
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./general/strapi
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: edmcouncil/fibo-strapi:{{branch}}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            ONTPUB_FAMILY=fibo
+            BRANCH_NAME={{branch}}
+      -
+        name: Build and push edmcouncil/fibo-pages:{{branch}}
+        uses: docker/build-push-action@v5
+        with:
+          context: ./general
+          file: ./Dockerfile
+          push: true
+          tags: edmcouncil/fibo-pages:{{branch}}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            ONTPUB_FAMILY=fibo
+            BRANCH_NAME={{branch}}
+      -
+        name: Build and push edmcouncil/spec:{{branch}}
+        uses: docker/build-push-action@v5
+        with:
+          context: ./home
+          file: ./Dockerfile
+          push: true
+          tags: edmcouncil/spec:{{branch}}
           labels: ${{ steps.meta.outputs.labels }}
