@@ -10,6 +10,9 @@ module.exports = {
     'vue/html-indent': ['error', 2],
     'max-len': ['error', { code: 130 }],
     indent: ['error', 2],
+    'no-nested-ternary': 'off',
+    'no-param-reassign': 'off',
+    'no-underscore-dangle': 'off',
   },
   parser: 'vue-eslint-parser',
   parserOptions: {

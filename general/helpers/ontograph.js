@@ -42,7 +42,7 @@ export default class Ontograph {
 
     this.lastId = data.graph.lastId;
 
-    this.parsedNodes = this.parseNodes(data.graph);
+    this.parsedNodes = Ontograph.parseNodes(data.graph);
 
     this.root = d3
       .stratify()
@@ -119,7 +119,7 @@ export default class Ontograph {
     }, 1000);
   }
 
-  parseNodes(graphData) {
+  static parseNodes(graphData) {
     const { edges } = graphData;
     const { nodes } = graphData;
 
@@ -190,7 +190,7 @@ export default class Ontograph {
               ].join(' ');
             })
             .attr('marker-end', 'url(#arrowhead)')
-            .each((d, i) => {
+            .each((d) => {
               d.target.data.linkPathElement = d;
             });
 
@@ -206,7 +206,7 @@ export default class Ontograph {
             .attr('opacity', this.keepLabels ? this.labelOpacity : '0')
             .attr('pointer-events', 'none')
             .text((d) => d.target.data.pathLabel)
-            .each((d, i) => {
+            .each((d) => {
               d.target.data.linkLabelElement = d;
             });
 
@@ -222,7 +222,7 @@ export default class Ontograph {
             .attr('stroke', (d) => (d.target.data.dashes ? '#bbb' : '#bbb'))
             .attr('stroke-dasharray', (d) => (d.target.data.dashes ? 5 : null))
             .attr('marker-end', 'url(#arrowhead)')
-            .each((d, i) => {
+            .each((d) => {
               d.target.data.linkPathElement = d;
             });
 
@@ -238,7 +238,7 @@ export default class Ontograph {
             .attr('opacity', this.keepLabels ? this.labelOpacity : '0')
             .attr('pointer-events', 'none')
             .text((d) => d.target.data.pathLabel)
-            .each((d, i) => {
+            .each((d) => {
               d.target.data.linkLabelElement = d;
             });
 
@@ -345,12 +345,12 @@ export default class Ontograph {
               this.link
                 .transition()
                 .duration(0)
-                .attr('opacity', (l) => (l.target.id == d.id ? '1' : '0.2'))
+                .attr('opacity', (l) => (l.target.id === d.id ? '1' : '0.2'))
                 .select('path');
               this.linkLabels
                 .transition()
                 .duration(0)
-                .attr('opacity', (l) => (l == d.data.linkLabelElement
+                .attr('opacity', (l) => (l === d.data.linkLabelElement
                   ? '1'
                   : this.keepLabels
                     ? this.labelOpacity
@@ -358,10 +358,10 @@ export default class Ontograph {
               this.node
                 .transition()
                 .duration(0)
-                .attr('opacity', (n) => (n.id == d.id || n.id == d.parent?.id ? '1' : '0.2'))
-                .attr('font-weight', (n) => (n.id == d.id || n.id == d.parent?.id ? 'bold' : 'normal'));
+                .attr('opacity', (n) => (n.id === d.id || n.id === d.parent?.id ? '1' : '0.2'))
+                .attr('font-weight', (n) => (n.id === d.id || n.id === d.parent?.id ? 'bold' : 'normal'));
             })
-            .on('mouseout', (e, d) => {
+            .on('mouseout', () => {
               if (this.isShifting != null) return;
 
               this.blurHighlight();
@@ -421,7 +421,7 @@ export default class Ontograph {
       .alphaDecay(0.055);
 
     newSimulation.on('tick', () => {
-      if (this.layout != 'force') return;
+      if (this.layout !== 'force') return;
 
       this.linkPaths.attr('d', (d) => {
         const x0 = d.source.x;
@@ -574,8 +574,8 @@ export default class Ontograph {
         if (
           (child.data.dashes && !optional)
           || (!child.data.dashes && !required)
-          || (child.data.type == 'EXTERNAL' && !external)
-          || (child.data.type == 'INTERNAL' && !internal)
+          || (child.data.type === 'EXTERNAL' && !external)
+          || (child.data.type === 'INTERNAL' && !internal)
         ) {
           filteredOut.push(child);
           return;
@@ -588,7 +588,7 @@ export default class Ontograph {
       d._children = null;
       d._filtered = filteredOut;
 
-      if (d.children.length == 0) {
+      if (d.children.length === 0) {
         delete d.children;
       }
     });
@@ -620,13 +620,12 @@ export default class Ontograph {
     this.isShifting = true;
     this.simulation.alphaTarget(0);
 
-    // if node contains already collapsed children then expand them
     if (d._children) {
+      // if node contains already collapsed children then expand them
       d.children = d._children;
       d._children = null;
-    }
-    // if node contains expanded children hide them
-    else if (d.children) {
+    } else if (d.children) {
+      // if node contains expanded children hide them
       // disable collapsing for root node
       if (!d.parent) {
         this.blurHighlight();
@@ -636,9 +635,8 @@ export default class Ontograph {
 
       d._children = d.children;
       d.children = null;
-    }
-    // if node has no saved children and height equal to 0 then fetch nodes
-    else if (!d.height || d.height == 0) {
+    } else if (!d.height || d.height === 0) {
+      // if node has no saved children and height equal to 0 then fetch nodes
       // check if node is a duplicate to avoid infinite loops
       let tmp = d;
       while (tmp.parent) {
@@ -661,7 +659,7 @@ export default class Ontograph {
           .select('.nodes')
           .selectAll('g')
           .data(this.nodes, (n) => n.data.id)
-          .filter((n) => n.data.id == d.data.id)
+          .filter((n) => n.data.id === d.data.id)
           .append('g')
           .attr('class', 'node-loader')
           .append('circle')
@@ -689,21 +687,21 @@ export default class Ontograph {
             .select('.nodes')
             .selectAll('g')
             .data(this.nodes, (n) => n.data.id)
-            .filter((n) => n.data.id == d.data.id)
+            .filter((n) => n.data.id === d.data.id)
             .select('.node-loader')
             .remove();
           this.blurHighlight();
           return;
         }
 
-        if (body.nodes.length == 1) {
+        if (body.nodes.length === 1) {
           this.pushAlert('noChildren', d.data.nodeLabel);
           this.isShifting = null;
           this.svg
             .select('.nodes')
             .selectAll('g')
             .data(this.nodes, (n) => n.data.id)
-            .filter((n) => n.data.id == d.data.id)
+            .filter((n) => n.data.id === d.data.id)
             .select('.node-loader')
             .remove();
           this.blurHighlight();
@@ -712,8 +710,8 @@ export default class Ontograph {
 
         this.lastId = body.lastId;
 
-        const newNodes = this.parseNodes(body);
-        this.parsedNodes.push(...newNodes.filter((n) => n.id != d.id));
+        const newNodes = Ontograph.parseNodes(body);
+        this.parsedNodes.push(...newNodes.filter((n) => n.id !== d.id));
 
         const childRoot = d3
           .stratify()
@@ -734,10 +732,10 @@ export default class Ontograph {
         });
 
         // update all heights
-        let tmp = d;
-        while (tmp.parent?.height < tmp.height + 1) {
-          tmp.parent.height = tmp.height + 1;
-          tmp = tmp.parent;
+        let node = d;
+        while (node.parent?.height < node.height + 1) {
+          node.parent.height = node.height + 1;
+          node = node.parent;
         }
       } catch (err) {
         this.pushAlert('noChildren');
@@ -748,7 +746,7 @@ export default class Ontograph {
         .select('.nodes')
         .selectAll('g')
         .data(this.nodes, (n) => n.data.id)
-        .filter((n) => n.data.id == d.data.id)
+        .filter((n) => n.data.id === d.data.id)
         .select('.node-loader')
         .remove();
 
@@ -784,7 +782,7 @@ export default class Ontograph {
   }
 
   changeLayoutTo(to) {
-    if (this.layout == to) return;
+    if (this.layout === to) return;
 
     if (this.isShifting != null) return;
 
@@ -923,7 +921,7 @@ export default class Ontograph {
     const radialLayout = d3
       .tree()
       .size([2 * Math.PI, radius])
-      .separation((a, b) => (a.parent == b.parent ? 4 : 8))(this.root);
+      .separation((a, b) => (a.parent === b.parent ? 4 : 8))(this.root);
 
     this.nodes = radialLayout.descendants(this.root);
     this.links = radialLayout.links(this.nodes);
@@ -989,7 +987,7 @@ export default class Ontograph {
     const radialLayout = d3
       .cluster()
       .size([2 * Math.PI, radius])
-      .separation((a, b) => (a.parent == b.parent ? 4 : 8))(this.root);
+      .separation((a, b) => (a.parent === b.parent ? 4 : 8))(this.root);
 
     this.nodes = radialLayout.descendants(this.root);
     this.links = radialLayout.links(this.nodes);
@@ -1072,7 +1070,7 @@ export default class Ontograph {
 
     const scaleX = (this.width - controlPanelOffset - finalMargin) / nodesBBox.width;
     const scaleY = (this.height - finalMargin) / nodesBBox.height;
-    const scale = d3.min([scaleX, scaleY]);
+    const scale = Math.min(d3.min([scaleX, scaleY]), 2.5);
 
     this.centerAtAndZoom(midX, midY, scale);
   }
@@ -1115,7 +1113,7 @@ export default class Ontograph {
   }
 
   pushAlert(type, source) {
-    this.alertId++;
+    this.alertId += 1;
     this.alertHandler(type, this.alertId, source);
   }
 }
