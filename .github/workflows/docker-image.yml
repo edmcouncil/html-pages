@@ -33,7 +33,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./general/strapi
-          file: ./Dockerfile
           push: true
           tags: edmcouncil/fibo-strapi:${{ steps.meta.outputs.version }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -45,7 +44,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./general
-          file: ./Dockerfile
           push: true
           tags: edmcouncil/fibo-pages:${{ steps.meta.outputs.version }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -57,7 +55,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./home
-          file: ./Dockerfile
           push: true
           tags: edmcouncil/spec:${{ steps.meta.outputs.version }}
           labels: ${{ steps.meta.outputs.labels }}
