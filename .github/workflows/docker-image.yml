@@ -29,35 +29,35 @@ jobs:
         with:
           images: edmcouncil/html-pages
       -
-        name: Build and push edmcouncil/fibo-strapi:{{branch}}
+        name: Build and push edmcouncil/fibo-strapi:${{ steps.meta.outputs.version }}
         uses: docker/build-push-action@v5
         with:
           context: ./general/strapi
           file: ./Dockerfile
           push: true
-          tags: edmcouncil/fibo-strapi:{{branch}}
+          tags: edmcouncil/fibo-strapi:${{ steps.meta.outputs.version }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             ONTPUB_FAMILY=fibo
-            BRANCH_NAME={{branch}}
+            BRANCH_NAME=${{ steps.meta.outputs.version }}
       -
-        name: Build and push edmcouncil/fibo-pages:{{branch}}
+        name: Build and push edmcouncil/fibo-pages:${{ steps.meta.outputs.version }}
         uses: docker/build-push-action@v5
         with:
           context: ./general
           file: ./Dockerfile
           push: true
-          tags: edmcouncil/fibo-pages:{{branch}}
+          tags: edmcouncil/fibo-pages:${{ steps.meta.outputs.version }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             ONTPUB_FAMILY=fibo
-            BRANCH_NAME={{branch}}
+            BRANCH_NAME=${{ steps.meta.outputs.version }}
       -
-        name: Build and push edmcouncil/spec:{{branch}}
+        name: Build and push edmcouncil/spec:${{ steps.meta.outputs.version }}
         uses: docker/build-push-action@v5
         with:
           context: ./home
           file: ./Dockerfile
           push: true
-          tags: edmcouncil/spec:{{branch}}
+          tags: edmcouncil/spec:${{ steps.meta.outputs.version }}
           labels: ${{ steps.meta.outputs.labels }}
