@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_text_sections",
+  "info": {
+    "displayName": "Text section",
+    "icon": "align-justify",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "background": {
+      "type": "enumeration",
+      "enum": ["normal", "blank"],
+      "default": "normal"
+    },
+    "text_content": {
+      "type": "richtext"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}
