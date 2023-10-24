@@ -177,6 +177,10 @@
   margin-top: 85px;
   border-radius: 2px;
   border: none;
+
+  &:first-child {
+    margin-top: 0;
+  }
   .menu-box {
     box-shadow: none;
   }
@@ -880,6 +884,9 @@
   }
 
   .how-to-article {
+    padding-left: 0;
+    padding-right: 0;
+    
     h2,
     h3 {
       margin-bottom: 10px;
@@ -1128,54 +1135,6 @@
     border-radius: 2px;
     margin-top: 60px;
 
-    .b-pagination-pills {
-      justify-content: center;
-
-      .page-item {
-        .page-link {
-          font-size: 18px;
-          border-radius: 2px !important;
-          user-select: none;
-          transition: color 0.15s ease-in-out,
-            background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-            box-shadow 0.15s ease-in-out;
-        }
-      }
-      .page-item .page-link {
-        background-color: transparent;
-        border: 2px solid transparent;
-        color: rgb(51, 51, 51);
-        margin-left: 6px;
-      }
-      .page-item .page-link:hover {
-        background-color: map-get($colors-map, "black-20");
-      }
-      .page-item .page-link:active {
-        background-color: rgb(153, 153, 153);
-        border: 2px solid rgb(153, 153, 153);
-        color: rgb(51, 51, 51);
-      }
-      .page-item .page-link:focus {
-        box-shadow: none;
-        outline: none;
-      }
-      .page-item.active .page-link {
-        background-color: rgb(51, 51, 51);
-        border: 2px solid rgb(51, 51, 51);
-        color: map-get($colors-map, "white");
-      }
-      .page-item.active .page-link:active {
-        background-color: map-get($colors-map, "black");
-        border: 2px solid map-get($colors-map, "black");
-        color: map-get($colors-map, "white");
-      }
-      .page-item.disabled .page-link {
-        background-color: transparent;
-        border: 2px solid transparent;
-        color: map-get($colors-map, "black-40");
-      }
-    }
-
     p {
       color: rgba(0, 0, 0, 0.6);
       font-weight: normal;
@@ -1396,8 +1355,8 @@
     }
   }
 
-  .custom-checkbox {
-    .custom-control-label {
+  .form-check {
+    .form-check-label {
       font-size: 16px;
     }
   }
@@ -1432,6 +1391,7 @@
   transition: opacity 0.3s ease, height 0.3s 0.2s ease;
 }
 .comparedropdown-enter,
+.comparedropdown-enter-from,
 .comparedropdown-leave-to {
   opacity: 0 !important;
   height: 0 !important;

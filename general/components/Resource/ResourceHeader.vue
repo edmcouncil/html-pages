@@ -7,19 +7,19 @@
             <!-- show more menu -->
             <div
               v-if="hasDropdownMenu"
-              class="btn-group resource-more"
+              class="dropdown resource-more"
               :class="{ centered: !hasStatus }"
             >
               <button
                 type="button"
                 class="btn dropdown-toggle"
-                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
                 <img src="@/assets/icons/show-more.svg" alt="Show more" />
               </button>
-              <div class="dropdown-menu dropdown-menu-right">
+              <div class="dropdown-menu dropdown-menu-end">
                 <DescribeButton
                   v-if="data.iri.slice(-1) !== '/'"
                   :data="data"
@@ -74,7 +74,7 @@
             </div>
 
             <!-- header item title -->
-            <h5
+            <h2
               class="card-title"
               :class="{
                 'maturity-provisional':
@@ -88,7 +88,7 @@
               }"
             >
               {{ data.label }}
-            </h5>
+            </h2>
           </div>
         </div>
 
@@ -126,8 +126,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import DescribeButton from '../Ontology/DescribeButton.vue';
+import { mapState } from 'pinia';
+import { useConfigurationStore } from '@/stores/configuration';
 
 export default {
   name: 'ResourceHeader',
@@ -153,10 +153,10 @@ export default {
     },
   },
   computed: {
-    ...mapState({
+    ...mapState(useConfigurationStore, {
       // configuration
-      ontologyRepositoryUrl: (state) => state.configuration.config.ontologyRepositoryUrl,
-      uriSpace: (state) => state.configuration.config.uriSpace,
+      ontologyRepositoryUrl: store => store.config.ontologyRepositoryUrl,
+      uriSpace: store => store.config.uriSpace,
     }),
     hasDropdownMenu() {
       return (
@@ -175,7 +175,6 @@ export default {
       );
     },
   },
-  components: { DescribeButton },
 };
 </script>
 
@@ -294,9 +293,14 @@ export default {
     }
 
     .btn.dropdown-toggle {
+      border: none;
       outline: none;
       box-shadow: none;
       padding: 0;
+
+      &::after {
+        display: none;
+      }
 
       img {
         width: 40px;
@@ -306,6 +310,10 @@ export default {
 
       &:hover img {
         opacity: 1;
+      }
+
+      &::after {
+        display: none;
       }
     }
 
@@ -321,17 +329,19 @@ export default {
       background-color: map-get($colors-map, "white");
       box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
       border-radius: 0;
-
-      margin-top: 5px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      inset: 0px 0px auto auto;
       opacity: 0;
+      transform: translate3d(0px, 35px, 0px);
 
-      transition: opacity 0.35s ease, margin-top 0.35s ease;
+      transition: opacity 0.35s ease, margin-top 0.35s ease, transform 0.35s;
 
       &.show {
         user-select: unset;
         pointer-events: unset;
 
-        margin-top: 15px;
         opacity: 1;
       }
 
@@ -380,13 +390,14 @@ export default {
     }
   }
 
-  h5 {
+  h2 {
     font-style: normal;
     font-weight: bold;
     font-size: 42px;
     line-height: 50px;
     margin-right: 15px;
     margin-top: 40px;
+    margin-bottom: 40px;
     position: relative;
     max-width: 100%;
     &::before {
@@ -500,7 +511,7 @@ export default {
       margin-left: 0px;
     }
 
-    h5 {
+    h2 {
       font-size: 30px;
       line-height: 36px;
 
@@ -551,9 +562,6 @@ export default {
         float: right;
         margin-left: 6px;
       }
-    }
-    .btn-copy-iri {
-      // margin-top: 40px;
     }
     .card {
       background: none;

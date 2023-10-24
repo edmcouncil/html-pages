@@ -24,7 +24,7 @@
             :class="{ expanded: numbersExpanded }"
           ></div>
         </div>
-        <b-collapse v-model="numbersExpanded">
+        <bs-collapse :open="numbersExpanded">
           <transition name="list">
             <div class="stats-box__content" v-if="numbersExpanded">
               <div
@@ -61,7 +61,7 @@
               </div>
             </div>
           </transition>
-        </b-collapse>
+        </bs-collapse>
       </div>
 
       <div class="stats-box stats-box--status">
@@ -77,7 +77,7 @@
             :class="{ expanded: statusExpanded }"
           ></div>
         </div>
-        <b-collapse v-model="statusExpanded">
+        <bs-collapse :open="statusExpanded">
           <transition name="list">
             <div class="stats-box__content" v-if="statusExpanded">
               <div
@@ -97,7 +97,7 @@
                       :class="{ expanded: importsExpanded }"
                     ></div>
                   </div>
-                  <b-collapse v-model="importsExpanded">
+                  <bs-collapse :open="importsExpanded">
                     <transition name="list">
                       <div class="stats-box__content" v-if="importsExpanded">
                         <div class="stats-box__content__wrapper">
@@ -113,7 +113,7 @@
                         </div>
                       </div>
                     </transition>
-                  </b-collapse>
+                  </bs-collapse>
                 </div>
               </div>
               <div class="stats-box__content__no-missing-import" v-else>
@@ -121,14 +121,16 @@
               </div>
             </div>
           </transition>
-        </b-collapse>
+        </bs-collapse>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'pinia';
+import { useConfigurationStore } from '@/stores/configuration';
+import { useServersStore } from '@/stores/servers';
 import { getStats, getMissingImports } from '../api/ontology';
 
 export default {
@@ -199,19 +201,23 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      version: (state) => state.servers.version,
-      versionCompare: (state) => state.servers.versionCompare,
-      // servers
-      statsServer: (state) => state.servers.statsServer,
-      statsServerCompare: (state) => state.servers.statsServerCompare,
-      missingImportsServer: (state) => state.servers.missingImportsServer,
-      missingImportsServerCompare: (state) => state.servers.missingImportsServerCompare,
-      // configuration
-      defaultBranchName: (state) => state.configuration.config.defaultBranchName,
-    }),
+    ...mapState(
+      useConfigurationStore,
+      ['defaultBranchName', 'ontpubFamily']
+    ),
+    ...mapState(
+      useServersStore,
+      [
+        'version',
+        'versionCompare',
+        'statsServer',
+        'statsServerCompare',
+        'missingImportsServer',
+        'missingImportsServerCompare'
+      ]
+    ),
     ontologyNameUppercase() {
-      return this.$store.state.configuration.config.ontpubFamily.toUpperCase();
+      return this.ontpubFamily?.toUpperCase();
     },
     versionsString() {
       return this.version + this.versionCompare;

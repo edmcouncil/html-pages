@@ -1,11 +1,9 @@
 <template>
-  <div class="resource-tooltip-chip" ref="resourceTooltipChip">
-    {{ chipText }}
-    <Tooltip
-      :targetRef="() => $refs['resourceTooltipChip']"
-      :text="tooltipText"
-    />
-  </div>
+  <bs-tooltip :text="tooltipText">
+    <div class="resource-tooltip-chip">
+      {{ chipText }}
+    </div>
+  </bs-tooltip>
 </template>
 
 <script>

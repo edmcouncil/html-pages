@@ -17,12 +17,12 @@
       </div>
     </div>
 
-    <b-modal
-      :header-class="noMultiselect ? '' : 'no-shadow'"
-      no-fade
-      v-model="showModal"
-      modal-class="fullscreen mobile-menu-box"
-      footer-class="mobile-modal-footer"
+    <bs-modal
+      :open="showModal"
+      :headerClass="noMultiselect ? '' : 'no-shadow'"
+      :noFade="true"
+      modalClass="fullscreen mobile-menu-box"
+      footerClass="mobile-modal-footer"
     >
       <template v-slot:modal-header>
         <div
@@ -49,7 +49,7 @@
           </div>
         </div>
       </div>
-    </b-modal>
+    </bs-modal>
   </div>
 </template>
 

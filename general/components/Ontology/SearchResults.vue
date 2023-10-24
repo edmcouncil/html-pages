@@ -88,16 +88,13 @@
       class="search-section__load-more"
       v-if="searchBox.totalResultsCount > 0"
     >
-      <b-pagination
-        pills
-        first-number
-        last-number
+      <bs-pagination
         v-model="searchBox.page"
-        :total-rows="searchBox.totalResultsCount"
-        :per-page="searchBox.perPage"
-        @input="paginationHandler()"
+        :totalResults="searchBox.totalResultsCount"
+        :perPage="searchBox.perPage"
+        @pageSelected="paginationHandler()"
         v-if="searchBox.totalResultsCount > searchBox.perPage"
-      ></b-pagination>
+      ></bs-pagination> 
 
       <p v-else>There is only one page.</p>
     </div>

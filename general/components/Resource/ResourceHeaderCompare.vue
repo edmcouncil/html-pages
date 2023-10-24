@@ -87,7 +87,7 @@
 
 <script>
 export default {
-  name: 'ResourceHeader',
+  name: 'ResourceHeaderCompare',
   props: ['data'],
 };
 </script>

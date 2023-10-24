@@ -32,11 +32,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import customLink from '../Resource/chunks/link';
-
-Vue.component('customLink', customLink);
-
 export default {
   name: 'paths-tree',
   props: {

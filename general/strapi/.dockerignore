@@ -1,5 +1,0 @@
-.env
-db
-!db/*.db.template
-!db/*.uploads
-node_modules

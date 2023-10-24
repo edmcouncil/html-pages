@@ -42,76 +42,23 @@
   </div>
 </template>
 
-<script>
-import { prepareDescription } from '../helpers/meta';
-import { getStrapiSingleType } from '../api/strapi';
+<script setup>
+  import { prepareDescription } from '../helpers/meta';
+  import { getStrapiSingleType } from '../api/strapi';
 
-export default {
-  name: 'AboutView',
-  components: {},
-  head() {
-    return {
-      title: this.title,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.description,
-        },
-        {
-          hid: 'og:title',
-          name: 'og:title',
-          content: this.title,
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: this.description,
-        },
-      ],
-    };
-  },
-  async asyncData({ error }) {
-    const singleTypeName = 'about';
-    const populateParams = [
-      'sections',
-      'sections.items',
-      'sections.items.image',
-    ];
+  const singleTypeName = 'about';
+  const populateParams = [
+    'sections',
+    'sections.items',
+    'sections.items.image',
+  ];
 
-    try {
-      const response = await getStrapiSingleType(
-        singleTypeName,
-        populateParams,
-      );
-      if (response?.data?.data?.attributes?.sections == null) {
-        console.error(
-          `Page data(sections) is not recognized in the response from the server.
-        Error occurred while rendering page ${singleTypeName}.\n
-        Current server response:\n`,
-          response,
-        );
-        error({ statusCode: 503, message: 'Service Unavailable' });
-      }
+  const runtimeConfig = useRuntimeConfig();
 
-      const title = response?.data?.data?.attributes?.sections?.[0]?.title
-        ?? process.env.VUE_ONTOLOGY_NAME;
-      const description = prepareDescription(
-        response?.data?.data?.attributes?.sections?.[0]?.items?.[0]
-          ?.text_content ?? '',
-      );
-
-      return {
-        page: response?.data?.data?.attributes?.sections,
-        title,
-        description,
-      };
-    } catch (e) {
-      console.error(e);
-      error({ statusCode: 503, message: 'Service Unavailable' });
-    }
-  },
-};
+  const { data } = await useAsyncData('getAbout', () => {
+    return getStrapiSingleType(singleTypeName, populateParams, runtimeConfig);
+  });
+  const page = data?.value?.data?.attributes?.sections;
 </script>
 
 <style lang="scss" scoped>

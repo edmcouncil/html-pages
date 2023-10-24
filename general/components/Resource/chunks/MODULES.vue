@@ -2,10 +2,7 @@
   <component v-bind:is="processedHtml"></component>
 </template>
 <script>
-import Vue from 'vue';
-import customLink from './link';
-
-Vue.component('customLink', customLink);
+import customLink from './customLink';
 
 export default {
   name: 'MODULES',
