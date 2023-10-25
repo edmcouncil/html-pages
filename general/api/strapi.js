@@ -158,12 +158,7 @@ export async function getAppConfigurationData(runtimeConfig) {
 
     const imageDownloadPath = '/_nuxt/downloads/';
     const distDir = runtimeConfig.public.generateDir;
-    const imageDestination = (distDir.endsWith('/') && !imageDownloadPath.startsWith('/'))
-      || (!distDir.endsWith('/') && imageDownloadPath.startsWith('/'))
-      ? distDir + imageDownloadPath
-      : distDir.endsWith('/') && imageDownloadPath.startsWith('/')
-        ? distDir + imageDownloadPath.substring(1)
-        : `${distDir}/${imageDownloadPath}`;
+    const imageDestination = distDir + imageDownloadPath;
 
     if (imgPath && runtimeConfig.public.staticGenerationMode) {
       const imageName = imgPath.split('/').pop();
@@ -171,7 +166,7 @@ export async function getAppConfigurationData(runtimeConfig) {
         ? `${window.location.origin}/${runtimeConfig.public.strapiBasePath}`
         : runtimeConfig.public.strapiBaseUrl) + imgPath;
       downloadImage(imageUrl, imageDestination, imageName);
-      data.ontologyLogoUrl = `/${runtimeConfig.public.ontologyName}${imageDownloadPath}${imageName}`;
+      data.ontologyLogoUrl = `/${runtimeConfig.public.ontologyName}${runtimeConfig.public.assetsDir}downloads/${imageName}`;
     } else {
       data.ontologyLogoUrl = null;
     }
@@ -205,18 +200,12 @@ async function downloadImagesFromStrapi(response, elementTypeName, runtimeConfig
   if (elementTypeName === 'about' || elementTypeName === 'pages') {
     const imageDownloadPath = '/_nuxt/downloads/';
     const distDir = runtimeConfig.public.generateDir;
-    const imageDestination = (distDir.endsWith('/') && !imageDownloadPath.startsWith('/'))
-      || (!distDir.endsWith('/') && imageDownloadPath.startsWith('/'))
-      ? distDir + imageDownloadPath
-      : distDir.endsWith('/') && imageDownloadPath.startsWith('/')
-        ? distDir + imageDownloadPath.substring(1)
-        : `${distDir}/${imageDownloadPath}`;
+    const imageDestination = distDir + imageDownloadPath;
     if (response.data.data && response.data.data.attributes) {
       for (var section of response.data.data.attributes.sections) {
         section = await tryToDownloadImages(
           section,
           imageDestination,
-          imageDownloadPath,
           runtimeConfig
         );
       }
@@ -226,7 +215,6 @@ async function downloadImagesFromStrapi(response, elementTypeName, runtimeConfig
           section = await tryToDownloadImages(
             section,
             imageDestination,
-            imageDownloadPath,
             runtimeConfig
           );
         }
@@ -239,7 +227,6 @@ async function downloadImagesFromStrapi(response, elementTypeName, runtimeConfig
 async function tryToDownloadImages(
   section,
   imageDestination,
-  imageDownloadPath,
   runtimeConfig
 ) {
   if (section.__component == 'sections.image-text-section' && section.items) {
@@ -252,7 +239,7 @@ async function tryToDownloadImages(
             ? `${window.location.origin}/${runtimeConfig.public.strapiBasePath}`
             : runtimeConfig.public.strapiBaseUrl) + imageResponseUrl;
           downloadImage(imageUrl, imageDestination, imageName);
-          item.image.data.attributes.url = `/${runtimeConfig.public.ontologyName}${imageDownloadPath}${imageName}`;
+          item.image.data.attributes.url = `/${runtimeConfig.public.ontologyName}${runtimeConfig.public.assetsDir}downloads/${imageName}`;
         }
       }
     }
