@@ -26,6 +26,9 @@ const DEV_BASE_URL = VUE_BASE_URL.replace(
 );
 
 export default defineNuxtConfig({
+  experimental: {
+    payloadExtraction: false,
+  },
   vue: {
     runtimeCompiler: true,
   },
@@ -62,7 +65,6 @@ export default defineNuxtConfig({
       },
       generateDir: `dist/${VUE_ONTOLOGY_NAME}${VUE_DIST_DIR}`,
       assetsDir: VUE_ASSETS_DIR,
-      distDir: process.env.VUE_DIST_DIR,
       staticGenerationMode: process.env.NODE_ENV === 'production',
       strapiBasePath: `/${VUE_ONTOLOGY_NAME}/strapi`,
       strapiBaseUrl: STRAPI_URL,
