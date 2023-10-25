@@ -31,7 +31,7 @@ export async function getStrapiElementFromCollection(
   collectionItemSlug,
 ) {
   const runtimeConfig = useRuntimeConfig();
-  
+
   const queryParams = { populate: populateParams };
   if (collectionItemSlug) {
     queryParams.filters = { slug: { $eq: collectionItemSlug } };
@@ -156,9 +156,7 @@ export async function getAppConfigurationData(runtimeConfig) {
     // download logo
     const imgPath = response.data.attributes.ontologyLogo?.data?.attributes?.url;
 
-    const imageDownloadPath = `${
-      runtimeConfig.public.assetsDir + (runtimeConfig.public.assetsDir.endsWith('/') ? '' : '/')
-    }downloads/`;
+    const imageDownloadPath = '/_nuxt/downloads/';
     const distDir = runtimeConfig.public.generateDir;
     const imageDestination = (distDir.endsWith('/') && !imageDownloadPath.startsWith('/'))
       || (!distDir.endsWith('/') && imageDownloadPath.startsWith('/'))
@@ -205,9 +203,7 @@ async function downloadImage(url, imageDestination, imageName) {
 async function downloadImagesFromStrapi(response, elementTypeName, runtimeConfig) {
   // only 'about' can have images in content from single types element
   if (elementTypeName === 'about' || elementTypeName === 'pages') {
-    const imageDownloadPath = `${
-      runtimeConfig.public.assetsDir + (runtimeConfig.public.assetsDir.endsWith('/') ? '' : '/')
-    }downloads/`;
+    const imageDownloadPath = '/_nuxt/downloads/';
     const distDir = runtimeConfig.public.generateDir;
     const imageDestination = (distDir.endsWith('/') && !imageDownloadPath.startsWith('/'))
       || (!distDir.endsWith('/') && imageDownloadPath.startsWith('/'))
