@@ -142,7 +142,7 @@ export default defineNuxtConfig({
     async 'nitro:config'(nitroConfig: any) {
       if (nitroConfig.dev)
         return;
-
+      console.log(`getting page routes from ${STRAPI_URL}/api/pages ...`);
       const pages = await axios
         .get(`${STRAPI_URL}/api/pages`)
         .then((res) => res.data.data.map((page: any) => {
