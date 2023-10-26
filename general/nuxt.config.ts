@@ -26,9 +26,6 @@ const DEV_BASE_URL = VUE_BASE_URL.replace(
 );
 
 export default defineNuxtConfig({
-  experimental: {
-    payloadExtraction: false,
-  },
   vue: {
     runtimeCompiler: true,
   },

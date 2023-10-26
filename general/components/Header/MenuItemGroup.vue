@@ -15,7 +15,6 @@
         v-if="subitem.type === 'router-link'"
         class="nav-link dropdown-item sub-nav-item"
         :to="{ path: subitem.link }"
-        :external="true"
       >
         {{ subitem.name }}</nuxt-link
       >

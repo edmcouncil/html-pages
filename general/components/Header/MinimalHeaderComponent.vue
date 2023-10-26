@@ -32,7 +32,6 @@
                     v-if="item.item.type === 'router-link'"
                     class="nav-link"
                     :to="{ path: item.item.link }"
-                    :external="true"
                   >
                     {{ item.item.name }}
                   </nuxt-link>
@@ -76,7 +75,6 @@
                         v-if="item.item.type === 'router-link'"
                         class="nav-link dropdown-item d-lg-none"
                         :to="{ path: item.item.link }"
-                        :external="true"
                       >
                         {{ item.item.name }}
                       </nuxt-link>
@@ -105,7 +103,6 @@
                         class="nav-link dropdown-item"
                         :to="{ path: item.item.link }"
                         :key="item.id"
-                        :external="true"
                       >
                         {{ item.item.name }}
                       </nuxt-link>
