@@ -1,4 +1,6 @@
 const path = require('path');
+import axios from "axios";
+
 const VUE_APP_PRODUCT = process.env.PRODUCT
   || process.env.ontology_publisher_current_product
   || 'pages';
@@ -131,6 +133,23 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
     output: {
       publicDir: path.join(__dirname, `dist/${VUE_ONTOLOGY_NAME}${VUE_DIST_DIR}`)
+    },
+    prerender: {
+      crawlLinks: false,
+    }
+  },
+  hooks: {
+    async 'nitro:config'(nitroConfig: any) {
+      if (nitroConfig.dev)
+        return;
+
+      const pages = await axios
+        .get(`${STRAPI_URL}/api/pages`)
+        .then((res) => res.data.data.map((page: any) => {
+          const { slug } = page.attributes;
+          return `/page/${slug}`;
+        }));
+      nitroConfig.prerender.routes.push(...pages, '/ontology', '/release-notes');
     }
   },
   css: [

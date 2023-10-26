@@ -81,8 +81,6 @@
           slugName,
         );
     });
-  // PLACEHOLDER
-  console.log('data value: ', data);
   const page = data?.value?.data?.[0]?.attributes?.sections;
   const title = data?.value?.data?.[0]?.attributes?.title || configurationStore.config.ontpubFamily;
   const description = prepareDescription(
