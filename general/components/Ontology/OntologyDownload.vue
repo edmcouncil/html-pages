@@ -53,6 +53,9 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+import { useConfigurationStore } from '@/stores/configuration';
+
 export default {
   name: 'OntologyDownload',
   props: ['data', 'version'],
@@ -131,12 +134,10 @@ export default {
     },
   },
   computed: {
-    ontologyName() {
-      return this.$store.state.configuration.config.ontpubFamily.toLowerCase();
-    },
-    ontologyResourcesBaseUri() {
-      return this.$store.state.configuration.config.uriSpace;
-    },
+    ...mapState(useConfigurationStore, {
+      ontologyName: store => store.config.ontpubFamily,
+      ontologyResourcesBaseUri: store => store.config.uriSpace,
+    }),
   },
 };
 </script>

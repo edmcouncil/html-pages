@@ -16,6 +16,24 @@ a {
   }
 }
 
+// Modal
+
+.modal.show:nth-of-type(even) {
+  z-index: 1062 !important;
+
+  &.fullscreen {
+    z-index: 1055 !important;
+  }
+}
+
+.modal.show:nth-of-type(odd) {
+  z-index: 1062 !important;
+
+  &.fullscreen {
+    z-index: 1055 !important;
+  }
+}
+
 // Common elements
 
 .form-check {

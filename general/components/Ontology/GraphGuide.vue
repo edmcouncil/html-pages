@@ -2,6 +2,7 @@
   <div>
     <GraphGuideModal
       modalId="guide-main"
+      :open="currentPage=='guide-main'"
       @closeEvent="closeHandler()"
     >
       <template v-slot:label> User Guide: Overview </template>
@@ -214,6 +215,7 @@
 
     <GraphGuideModal
       modalId="guide-connections"
+      :open="currentPage=='guide-connections'"
       @closeEvent="closeHandler()"
     >
       <template v-slot:label> User Guide: Connections </template>
@@ -369,6 +371,7 @@
 
     <GraphGuideModal
       modalId="guide-layouts"
+      :open="currentPage=='guide-layouts'"
       @closeEvent="closeHandler()"
     >
       <template v-slot:label> User Guide: Layouts </template>
@@ -508,6 +511,7 @@
 
     <GraphGuideModal
       modalId="guide-sorting"
+      :open="currentPage=='guide-sorting'"
       @closeEvent="closeHandler()"
     >
       <template v-slot:label> User Guide: Sorting </template>
@@ -651,6 +655,7 @@
 
     <GraphGuideModal
       modalId="guide-configuration"
+      :open="currentPage=='guide-configuration'"
       @closeEvent="closeHandler()"
     >
       <template v-slot:label> User Guide: Configuration </template>
@@ -729,6 +734,9 @@
 </template>
 
 <script>
+import { useConfigurationStore } from '~/stores/configuration';
+import { mapState } from 'pinia';
+
 export default {
   name: 'GraphGuide',
   data() {
@@ -740,10 +748,8 @@ export default {
   methods: {
     openGuide(id) {
       this.currentPage = id;
-      this.$bvModal.show(id);
     },
     closeHandler() {
-      this.$bvModal.hide(this.currentPage);
       this.currentPage = null;
     },
     navigateToPage(id) {
@@ -752,9 +758,9 @@ export default {
     },
   },
   computed: {
-    ontologyName() {
-      return this.$store.state.configuration.ontpubFamily.toLowerCase();
-    },
+    ...mapState(useConfigurationStore, {
+      ontologyName: store => store.config.ontpubFamily.toLowerCase(),
+    }),
   },
 };
 </script>

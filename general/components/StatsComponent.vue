@@ -159,10 +159,10 @@ export default {
         for (const key in compareStats) {
           if (!this.stats[key]) {
             this.stats[key] = {};
-            this.$set(this.stats[key], 'label', compareStats[key].label);
-            this.$set(this.stats[key], 'value', 0);
+            this.stats[key].label = compareStats[key].label;
+            this.stats[key].value = 0;
           }
-          this.$set(this.stats[key], 'compareValue', compareStats[key].value);
+          this.stats[key].compareValue = compareStats[key].value;
         }
       }
     },

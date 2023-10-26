@@ -796,9 +796,6 @@ export default {
       keepalive: true,
       key: 'ontology',
       layout: 'minimal',
-      validate: async (route) => {
-        return route.params.ontology?.[0] === 'ontology';
-      }
     });
   },
   data() {
@@ -862,7 +859,10 @@ export default {
   mounted() {
     let queryParam = '';
 
-    const pathParams = this.$route.params?.ontology;
+    // PLACEHOLDER
+    console.log('mounted', this.$route);
+
+    const pathParams = this.$route.params?.resource;
     if (pathParams && pathParams[1]?.length > 0) {
       const fullPath = window.location.pathname;
 
@@ -877,6 +877,9 @@ export default {
           + encodeURIComponent(this.$route.hash) || '';
     }
     this.query = queryParam;
+
+    // PLACEHOLDER
+    console.log('this.query',this.query);
 
     this.updateServers(this.$route);
     this.fetchData(this.query);
