@@ -792,11 +792,19 @@ export default {
     Multiselect
   },
   setup() {
+    defineRouteRules({
+      prerender: false
+    })
     definePageMeta({
       keepalive: true,
       key: 'ontology',
       layout: 'minimal',
+      redirect: false
     });
+  },
+  beforeRouteEnter(to, from) {
+    console.log('beforeRouteEnter')
+    console.log('beforeRouteEnter to', to)
   },
   data() {
     return {

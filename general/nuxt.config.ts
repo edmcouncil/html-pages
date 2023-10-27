@@ -27,6 +27,9 @@ const DEV_BASE_URL = VUE_BASE_URL.replace(
 );
 
 export default defineNuxtConfig({
+  experimental: {
+    inlineRouteRules: true,
+  },
   vue: {
     runtimeCompiler: true,
   },
@@ -133,6 +136,9 @@ export default defineNuxtConfig({
     output: {
       publicDir: path.join(__dirname, `dist/${VUE_ONTOLOGY_NAME}${VUE_DIST_DIR}`)
     },
+    prerender: {
+      crawlLinks: true,
+    }
   },
   css: [
     '@/assets/scss/global.scss',
