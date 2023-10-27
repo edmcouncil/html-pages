@@ -138,6 +138,7 @@ export default defineNuxtConfig({
     },
     prerender: {
       crawlLinks: true,
+      ignore: [`/${VUE_ONTOLOGY_NAME}/ontology`, '/ontology']
     }
   },
   css: [
