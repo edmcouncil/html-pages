@@ -784,7 +784,6 @@ import {
   handleDeprecatedResource,
 } from '../helpers/ontology';
 import { mergeData } from '../helpers/compare';
-import { time } from 'console';
 
 export default {
   name: 'OntologyView',
@@ -802,15 +801,15 @@ export default {
         console.log('to', to);
         console.log('from', from);
 
-        if (from.params.resource.length > 0 && to.fullPath === '/ontology') {
+        if (
+          from.fullPath.startsWith('/ontology')
+          && from.params?.resource?.length > 0
+          && to.fullPath === '/ontology'
+        ) {
           return navigateTo(from.fullPath);
         }
       }),
     });
-  },
-  beforeRouteEnter(to, from) {
-    console.log('beforeRouteEnter')
-    console.log('beforeRouteEnter to', to)
   },
   data() {
     return {
