@@ -299,11 +299,12 @@ export default {
   cursor: text;
   overflow: visible;
   pre {
-    padding: 15px;
+    padding: 30px;
     height: 100%;
     overflow: visible;
     white-space: pre-wrap;
     code {
+      padding: 0;
       overflow: visible;
     }
     * {
@@ -394,7 +395,7 @@ export default {
     }
   }
 }
-.modal.describe-modal {
+.modal.fullscreen.describe-modal {
   .modal-dialog {
     margin: 0;
     min-height: 100vh;
@@ -463,7 +464,7 @@ export default {
     height: 100%;
   }
   .modal-body {
-    padding: 15px 15px;
+    padding: 0;
     height: 100%;
     position: relative;
   }

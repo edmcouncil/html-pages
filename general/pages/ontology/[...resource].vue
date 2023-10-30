@@ -1480,6 +1480,7 @@ export default {
       this.mergedData = null;
       this.error.entityNotFound = false;
       this.searchBox.isLoading = false;
+      this.$route.params.resource = [];
       if (
         this.$route.path !== '/ontology'
         || this.$route.query?.query

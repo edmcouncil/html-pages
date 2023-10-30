@@ -116,7 +116,7 @@
     <bs-modal
       :open="fullscreen"
       footerClass="d-none"
-      modalClass="fullscreen"
+      modalClass="fullscreen graph-visualization"
       @shown="modalShown()"
       @hidden="modalHidden()"
     >
@@ -902,7 +902,7 @@ export default {
   }
 }
 
-.modal.fullscreen {
+.modal.graph-visualization.fullscreen {
   .modal-header {
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     border: none;
