@@ -137,6 +137,9 @@ export default defineNuxtConfig({
       crawlLinks: true,
     }
   },
+  routeRules: {
+    '/ontology/**': { ssr: false, prerender: true },
+  },
   css: [
     '@/assets/scss/global.scss',
     '@/assets/scss/Ontology.scss',
