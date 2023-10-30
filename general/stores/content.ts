@@ -31,8 +31,7 @@ export const useContentStore = defineStore({
       this.footerData.contacts = data.footerContacts;
       this.footerData.useCustomFooterData = data.useCustomFooterData;
     },
-    async initialize() {
-      const runtimeConfig = useRuntimeConfig();
+    async initialize(runtimeConfig: any) {
       const pageData = await getPageElementsStrapiData(runtimeConfig);
       this.setContentData(pageData);
     }

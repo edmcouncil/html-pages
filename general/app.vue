@@ -13,7 +13,10 @@
 
   const configurationStore = useConfigurationStore();
   const contentStore = useContentStore();
+  const runtimeConfig = useRuntimeConfig();
 
-  await useAsyncData('configuration', () => configurationStore.initialize());
-  await useAsyncData('content', () => contentStore.initialize());
+  onServerPrefetch(async () => {
+    await configurationStore.initialize(runtimeConfig);
+    await contentStore.initialize(runtimeConfig);
+  })
 </script>

@@ -23,9 +23,7 @@ export const useConfigurationStore = defineStore({
         ...data,
       };
     },
-    async initialize() {
-      const runtimeConfig = useRuntimeConfig();
-
+    async initialize(runtimeConfig: any) {
       this.config.ontpubFamily = runtimeConfig.public.ontologyName?.toLowerCase() || 'fibo';
       this.config.ontologyLogoUrl = null;
       this.config.uriSpace = runtimeConfig.public.ontologyResourcesBaseUri;

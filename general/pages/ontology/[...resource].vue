@@ -792,16 +792,10 @@ export default {
     Multiselect
   },
   setup() {
-    defineRouteRules({
-      ssr: false,
-      prerender: false,
-      redirect: false,
-    })
     definePageMeta({
       keepalive: true,
       key: 'ontology',
       layout: 'minimal',
-      redirect: false,
       middleware: defineNuxtRouteMiddleware((to, from) => {
         console.log('definePageMeta middleware');
         console.log('to', to);
