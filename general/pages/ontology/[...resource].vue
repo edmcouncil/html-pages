@@ -784,6 +784,7 @@ import {
   handleDeprecatedResource,
 } from '../helpers/ontology';
 import { mergeData } from '../helpers/compare';
+import { time } from 'console';
 
 export default {
   name: 'OntologyView',
@@ -800,6 +801,10 @@ export default {
         console.log('definePageMeta middleware');
         console.log('to', to);
         console.log('from', from);
+
+        if (from.params.resource.length > 0 && to.fullPath === '/ontology') {
+          return navigateTo(from.fullPath);
+        }
       }),
     });
   },
