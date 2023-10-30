@@ -1523,6 +1523,7 @@ export default {
   computed: {
     ...mapState(useConfigurationStore, {
       ontologyName: store => store.config.ontpubFamily,
+      ontologyNameUppercase: store => store.config.ontpubFamily?.toUpperCase(),
       ontologyRepositoryUrl: store => store.config.ontologyRepositoryUrl,
       uriSpace: store => store.config.uriSpace,
       defaultBranchName: store => store.config.defaultBranchName,
@@ -1565,9 +1566,6 @@ export default {
         && this.versionCompare.selectedCompareData['@id']
           != this.ontologyVersions.selectedData['@id']
       );
-    },
-    ontologyNameUppercase() {
-      return this.ontologyName.toUpperCase();
     },
   },
   beforeRouteUpdate(to, from, next) {
