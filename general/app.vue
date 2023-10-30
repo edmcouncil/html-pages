@@ -15,8 +15,6 @@
   const contentStore = useContentStore();
   const runtimeConfig = useRuntimeConfig();
 
-  onServerPrefetch(async () => {
-    await configurationStore.initialize(runtimeConfig);
-    await contentStore.initialize(runtimeConfig);
-  })
+  await useAsyncData('config', () => configurationStore.initialize(runtimeConfig));
+  await useAsyncData('content', () => contentStore.initialize(runtimeConfig));
 </script>
