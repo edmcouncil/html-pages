@@ -201,21 +201,18 @@ export default {
     },
   },
   computed: {
-    ...mapState(
-      useConfigurationStore,
-      ['defaultBranchName', 'ontpubFamily']
-    ),
-    ...mapState(
-      useServersStore,
-      [
-        'version',
-        'versionCompare',
-        'statsServer',
-        'statsServerCompare',
-        'missingImportsServer',
-        'missingImportsServerCompare'
-      ]
-    ),
+    ...mapState(useConfigurationStore, {
+      ontpubFamily: store => store.config.ontpubFamily,
+      defaultBranchName: store => store.config.defaultBranchName,
+    }),
+    ...mapState(useServersStore, {
+      version: store => store.version,
+      versionCompare: store => store.versionCompare,
+      statsServer: store => store.statsServer,
+      statsServerCompare: store => store.statsServerCompare,
+      missingImportsServer: store => store.missingImportsServer,
+      missingImportsServerCompare: store => store.missingImportsServerCompare,
+    }),
     ontologyNameUppercase() {
       return this.ontpubFamily?.toUpperCase();
     },

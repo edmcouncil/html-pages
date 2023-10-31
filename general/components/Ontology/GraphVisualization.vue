@@ -433,7 +433,7 @@ export default {
       this.handleKeepLabelsUpdate();
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('resize', this.onResize);
   },
   methods: {

@@ -33,6 +33,7 @@ export default {
 <style lang="scss">
 .bs-tooltip {
   display: inline-block;
+  max-width: 100%;
 }
 .tooltip {
   --bs-tooltip-padding-x: 5px;

@@ -808,7 +808,7 @@ export default {
         if (
           from.fullPath.startsWith('/ontology')
           && from.params?.resource?.length > 0
-          && to.fullPath === '/ontology'
+          && (to.fullPath === '/ontology' || to.fullPath.startsWith('/ontology?version'))
         ) {
           console.log('middleware - bug prevented')
           return abortNavigation();
@@ -900,6 +900,7 @@ export default {
     console.log('this.query',this.query);
 
     this.updateServers(this.$route);
+    this.updateCompareServers(null);
     this.fetchData(this.query);
     this.fetchModules();
     this.fetchVersions();
