@@ -803,8 +803,9 @@ export default {
     ) {
       console.log('beforeRouteEnter - bug prevented')
       next(from.fullPath);
+    } else {
+      next();
     }
-    next();
   },
   setup() {
     definePageMeta({
