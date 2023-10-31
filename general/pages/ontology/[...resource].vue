@@ -791,46 +791,28 @@ export default {
   components: {
     Multiselect
   },
-  beforeRouteEnter(to, from, next) {
-    console.log('##########################')
-    console.log('beforeRouteEnter')
-    console.log('to', to)
-    console.log('from', from)
-    if (
-      from.fullPath.startsWith('/ontology')
-      && from.params?.resource?.length > 0
-      && to.fullPath === '/ontology'
-    ) {
-      console.log('beforeRouteEnter - bug prevented')
-      next(from.fullPath);
-    } else {
-      next();
-    }
-  },
-  beforeRouteUpdate(to, from, next) {
-    console.log('beforeRouteUpdate')
-    console.log('to', to)
-    console.log('from', from)
-    next();
-  },
   setup() {
     definePageMeta({
       keepalive: true,
       key: 'ontology',
       layout: 'minimal',
       middleware: defineNuxtRouteMiddleware((to, from) => {
-        // console.log('definePageMeta middleware');
-        // console.log('to', to);
-        // console.log('from', from);
+        console.log('definePageMeta middleware');
+        console.log('to', to);
+        console.log('from', from);
+        // This middleware prevents navigation bug in full static mode.
+        // SPA mode in this route is an option, but then the app doesn't have
+        // stores populated (initializeStores.server.ts).
 
-        // if (
-        //   from.fullPath.startsWith('/ontology')
-        //   && from.params?.resource?.length > 0
-        //   && to.fullPath === '/ontology'
-        // ) {
-        //   console.log('middleware - bug prevented')
-        //   return abortNavigation();
-        // }
+        // This solution is required unless a better one is found.
+        if (
+          from.fullPath.startsWith('/ontology')
+          && from.params?.resource?.length > 0
+          && to.fullPath === '/ontology'
+        ) {
+          console.log('middleware - bug prevented')
+          return abortNavigation();
+        }
       }),
     });
   },
