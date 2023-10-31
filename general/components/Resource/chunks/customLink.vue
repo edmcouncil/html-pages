@@ -1,6 +1,7 @@
 <template>
   <nuxt-link
     v-if="query.startsWith(this.uriSpace)"
+    :prefetch="false"
     :to="{
       path: `/ontology/${query.replace(this.uriSpace, '')}`,
       query: {
@@ -18,6 +19,7 @@
   /></nuxt-link>
   <nuxt-link
     v-else
+    :prefetch="false"
     :to="{
       path: '/ontology',
       query: {

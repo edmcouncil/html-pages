@@ -16,9 +16,8 @@
           Couldn't reach our servers, please try again later.
         </p>
 
-        <NuxtLink v-if="error.statusCode === 404" to="/"
-        >Return to homepage</NuxtLink
-        >
+        <nuxt-link v-if="error.statusCode === 404" to="/"
+        >Return to homepage</nuxt-link>
         <a v-else href="https://spec.edmcouncil.org/"
         >Return to spec.edmcouncil.org</a
         >
