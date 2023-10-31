@@ -807,6 +807,12 @@ export default {
       next();
     }
   },
+  beforeRouteUpdate(to, from, next) {
+    console.log('beforeRouteUpdate')
+    console.log('to', to)
+    console.log('from', from)
+    next();
+  },
   setup() {
     definePageMeta({
       keepalive: true,
