@@ -21,7 +21,8 @@
       :open="showModal"
       :headerClass="noMultiselect ? '' : 'no-shadow'"
       :noFade="true"
-      modalClass="fullscreen mobile-menu-box"
+      fullscreen
+      modalClass="mobile-menu-box"
       footerClass="mobile-modal-footer"
     >
       <template v-slot:modal-header>
@@ -236,6 +237,25 @@ export default {
 }
 
 .modal.fullscreen.mobile-menu-box {
+  --bs-modal-border-radius: 0;
+
+  .modal-dialog {
+    max-width: unset;
+    margin: 0;
+  }
+  .modal-content {
+    border-radius: 0;
+    border: none;
+    height: 100vh;
+    width: 100vw;
+
+    .center-btn {
+      position: absolute;
+      left: 40px;
+      bottom: 40px;
+    }
+  }
+
   .modal-header {
     display: flex;
     justify-content: flex-start;
@@ -274,6 +294,23 @@ export default {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+  }
+
+  .modal-body {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    .collapsible-section {
+      width: 100%;
+      background: rgb(242, 242, 242);
+      z-index: 1;
+      .collapsible-section-title {
+        padding: 20px 0px;
+      }
     }
   }
 }

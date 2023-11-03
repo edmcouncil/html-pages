@@ -166,7 +166,7 @@ article {
   }
 }
 
-.custom-switch {
+.form-switch {
   padding-bottom: 0;
   padding-top: 15px;
 }

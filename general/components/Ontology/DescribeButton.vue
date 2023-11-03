@@ -6,9 +6,8 @@
       modalClass="describe-modal"
       footerClass="d-none"
       size="lg"
-      centered
-      :scrollable="true"
-      :fullscreen="true"
+      scrollable
+      fullscreen
     >
       <template v-slot:modal-header>
         <div
@@ -21,7 +20,7 @@
           <h5 class="modal-title">Return</h5>
         </div>
         <div class="help-icon" @click="openInfo()"></div>
-        <bs-modal :open="isInfoOpen" id="info-modal" modalClass="info-modal" size="md" footerClass="d-none" centered>
+        <bs-modal :open="isInfoOpen" id="info-modal" modalClass="info-modal" size="md" footerClass="d-none" centered secondLevel>
           <template v-slot:modal-header>
             <h5 class="modal-title">About</h5>
             <div

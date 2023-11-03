@@ -1,5 +1,5 @@
 <template>
-  <bs-modal :id="modalId" modal-class="help" size="lg" centered scrollable hide-footer>
+  <bs-modal :id="modalId" modalClass="help modal-lg" footerClass="d-none" scrollable secondLevel>
     <template v-slot:modal-header>
       <h5 class="modal-title">
         <slot name="label"></slot>

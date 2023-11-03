@@ -29,21 +29,37 @@ a {
 
 // Modal
 
-.modal.show:nth-of-type(even) {
+body.modal-open {
+  padding-right: 8px;
+  overflow: hidden;
+}
+
+.modal {
   z-index: 1062 !important;
 
   &.fullscreen {
     z-index: 1055 !important;
   }
 }
-
-.modal.show:nth-of-type(odd) {
-  z-index: 1062 !important;
-
-  &.fullscreen {
-    z-index: 1055 !important;
-  }
+.modal-backdrop.show:nth-of-type(even) {
+  z-index: 1061 !important;
 }
+
+// .modal.show:nth-of-type(even) {
+//   z-index: 1062 !important;
+
+//   &.fullscreen {
+//     z-index: 1055 !important;
+//   }
+// }
+
+// .modal.show:nth-of-type(odd) {
+//   z-index: 1062 !important;
+
+//   &.fullscreen {
+//     z-index: 1055 !important;
+//   }
+// }
 
 // Common elements
 

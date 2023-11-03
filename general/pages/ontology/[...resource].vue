@@ -797,9 +797,6 @@ export default {
       key: 'ontology',
       layout: 'minimal',
       middleware: defineNuxtRouteMiddleware((to, from) => {
-        console.log('definePageMeta middleware');
-        console.log('to', to);
-        console.log('from', from);
         // This middleware prevents navigation bug in full static mode.
         // SPA mode in this route is an option, but then the app doesn't have
         // stores populated (initializeStores.server.ts).
@@ -810,7 +807,6 @@ export default {
           && from.params?.resource?.length > 0
           && (to.fullPath === '/ontology' || to.fullPath.startsWith('/ontology?version'))
         ) {
-          console.log('middleware - bug prevented')
           return abortNavigation();
         }
       }),
@@ -877,9 +873,6 @@ export default {
   mounted() {
     let queryParam = '';
 
-    // PLACEHOLDER
-    console.log('mounted', this.$route);
-
     const pathParams = this.$route.params?.resource;
     if (pathParams && pathParams[1]?.length > 0) {
       const fullPath = window.location.pathname;
@@ -895,9 +888,6 @@ export default {
           + encodeURIComponent(this.$route.hash) || '';
     }
     this.query = queryParam;
-
-    // PLACEHOLDER
-    console.log('this.query',this.query);
 
     this.updateServers(this.$route);
     this.updateCompareServers(null);

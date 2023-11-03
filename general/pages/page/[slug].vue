@@ -61,15 +61,12 @@
 
   definePageMeta({
     key: route => {
-      console.log('page key: ', `page-${route.params.slug}`)
       return `page-${route.params.slug}`
     },
     layout: 'minimal',
   });
 
   const { data } = await useAsyncData(`get${slugName}`, () => {
-      // PLACEHOLDER
-      console.log('asyncData in [slug] is running...');
       const populateParams = [
         'sections',
         'sections.items',

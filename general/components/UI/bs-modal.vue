@@ -45,6 +45,7 @@ export default {
     noFade: Boolean,
     scrollable: Boolean,
     fullscreen: Boolean,
+    secondLevel: Boolean,
   },
   data() {
     return {
@@ -57,24 +58,45 @@ export default {
       this.$emit('shown');
       if (this.open) {
         this.instance.show();
-      } 
+      }
       else {
         this.instance.hide();
       }
+
+      // Associate modal with it's modal-backdrop
+      const allBackdrops = document.querySelectorAll('.modal-backdrop');
+      allBackdrops.forEach(element => {
+        if (!element.id) {
+          element.id = `backdrop-${this.correctId}`;
+        }
+      });
     },
     onHidden() {
       this.$emit('hidden');
       if (this.open) {
         this.instance.show();
-      } 
+      }
       else {
         this.instance.hide();
+      }
+
+      if (this.secondLevel) {
+        // In Bootstrap 5 multiple modals are not supported by default
+
+        const bodyElement = window.document.body;
+        bodyElement.classList.add('modal-open');
       }
     },
     destroyModal() {
       this.instance.dispose();
-      window.document.body.classList.remove('modal-open');
-      window.document.getElementsByClassName('modal-backdrop').remove();
+      const bodyElement = window.document.body;
+
+      document.getElementById(`backdrop-${this.correctId}`)?.remove();
+      const allBackdrops = bodyElement.querySelectorAll('.modal-backdrop');
+
+      if (allBackdrops.length === 0) {
+        bodyElement.classList.remove('modal-open');
+      }
     }
   },
   mounted() {
@@ -91,10 +113,16 @@ export default {
   },
   beforeUnmount() {
     this.instance.dispose();
-    if (window) {
-      window.document.body.classList.remove('modal-open');
-      window.document.body.style = '';
+    const bodyElement = window?.document?.body;
+    if (bodyElement) {
+      document.getElementById(`backdrop-${this.correctId}`)?.remove();
+      const allBackdrops = bodyElement.querySelectorAll('.modal-backdrop');
+
+      if (allBackdrops.length === 0) {
+        bodyElement.classList.remove('modal-open');
+      }
     }
+
     const element = this.$refs.modalElement;
     element.removeEventListener('shown.bs.modal', this.onShown);
     element.removeEventListener('hidden.bs.modal', this.onHidden);
@@ -104,7 +132,7 @@ export default {
       if (newValue) {
         await nextTick();
         this.instance.show();
-      } 
+      }
       else {
         this.instance.hide();
       }
@@ -124,11 +152,5 @@ export default {
 <style lang="scss">
 .modal .modal-dialog-scrollable .modal-body {
   overflow-y: scroll!important;
-}
-.modal:nth-of-type(even) {
-    z-index: 1062 !important;
-}
-.modal-backdrop.show:nth-of-type(even) {
-    z-index: 1061 !important;
 }
 </style>
