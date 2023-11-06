@@ -1,0 +1,45 @@
+services:
+  dev-strapi:
+    image: edmcouncil/dev-strapi:${BRANCH_NAME:-develop}
+    build:
+      context: ./general/strapi
+      args:
+        - ONTPUB_FAMILY=dev
+        - BRANCH_NAME=${BRANCH_NAME:-develop}
+    volumes:
+      # If you want to overwrite the default data when starting a STRAPI instance, create an export file "<SOME_PATH>/export.tar.gz":
+      #		npm run strapi export -- --file <SOME_PATH>/export --no-encrypt
+      # and place it in the location "./general/strapi/db/export.tar.gz"
+      - ./general/strapi/db:/strapi
+      - spec_root:/opt/html-pages
+  dev-pages:
+    image: edmcouncil/dev-pages:${BRANCH_NAME:-develop}
+    build:
+      context: ./general
+      args:
+        - ONTPUB_FAMILY=dev
+        - BRANCH_NAME=${BRANCH_NAME:-develop}
+    environment:
+      - STRAPI_URL=http://dev-strapi:1337
+    volumes:
+      - spec_root:/opt/html-pages
+    depends_on:
+      - dev-strapi
+  spec:
+    image: edmcouncil/spec:${BRANCH_NAME:-develop}
+    build:
+      context: ./home
+      args:
+        - BRANCH_NAME=${BRANCH_NAME:-develop}
+    environment:
+      - FAMILY_REGEX=dev
+    volumes:
+      - spec_root:/opt/html-pages
+    depends_on:
+      - dev-strapi
+      - dev-pages
+    ports:
+      - 8080:80
+
+volumes:
+  spec_root:
