@@ -83,7 +83,8 @@ export default {
         this.instance.hide();
       }
 
-      if (this.secondLevel) {
+      const allBackdrops = document.querySelectorAll('.modal-backdrop');
+      if (this.secondLevel && allBackdrops.length > 0) {
         // In Bootstrap 5 multiple modals are not supported by default
 
         const bodyElement = window.document.body;
