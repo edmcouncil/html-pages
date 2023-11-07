@@ -7,7 +7,9 @@
 
       <div class="menu-box__content-text">
         <div ref="outsideTarget">
-          <slot name="multiselect"></slot>
+          <div>
+            <slot name="multiselect"></slot>
+          </div>
         </div>
         <slot name="textOnly"></slot>
       </div>
@@ -24,6 +26,7 @@
       fullscreen
       modalClass="mobile-menu-box"
       footerClass="mobile-modal-footer"
+      @shown="onModalShown()"
     >
       <template v-slot:modal-header>
         <div
@@ -65,23 +68,20 @@ export default {
   },
   methods: {
     hideModal() {
-      if (!this.noMultiselect) {
+      if (this.$refs.modalTarget)
         this.$refs.outsideTarget.appendChild(
-          this.$refs.modalTarget?.firstChild,
+          this.$refs.modalTarget.firstChild,
         );
-      }
-
       this.showModal = false;
     },
     openModal() {
       this.showModal = true;
       if (this.noMultiselect) return;
-
-      this.$nextTick(() => {
-        this.$refs.modalTarget.appendChild(
-          this.$refs.outsideTarget?.firstChild,
-        );
-      });
+    },
+    onModalShown() {
+      this.$refs.modalTarget?.appendChild(
+        this.$refs.outsideTarget.firstChild,
+      );
     },
     toggleModal() {
       if (this.showModal) this.hideModal();

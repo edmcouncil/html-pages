@@ -37,12 +37,16 @@ body.modal-open {
 .modal {
   z-index: 1062 !important;
 
-  &.fullscreen {
-    z-index: 1055 !important;
+  &.second-level {
+    z-index: 1064 !important;
   }
 }
-.modal-backdrop.show:nth-of-type(even) {
+.modal-backdrop {
   z-index: 1061 !important;
+
+  &.second-level {
+    z-index: 1063 !important;
+  }
 }
 
 // .modal.show:nth-of-type(even) {

@@ -6,7 +6,8 @@
       [
         modalClass, {
           fade: !noFade,
-          'fullscreen': fullscreen
+          fullscreen,
+          'second-level': secondLevel
         }]
       "
       :id="correctId"
@@ -68,6 +69,8 @@ export default {
       allBackdrops.forEach(element => {
         if (!element.id) {
           element.id = `backdrop-${this.correctId}`;
+          if (this.secondLevel)
+            element.classList.add('second-level');
         }
       });
     },

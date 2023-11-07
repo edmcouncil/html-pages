@@ -8,6 +8,7 @@
         :ontologyNameUppercase="ontologyNameUppercase"
         :howToUseHandler="howToUseHandler"
       />
+      <div ref="article-top-element"></div>
       <div class="row">
         <!-- secondary column -->
         <div class="col-lg-4 col-xl-3 d-none d-lg-block secondary-column">
@@ -411,12 +412,13 @@
                               <input
                                 class="form-check-input"
                                 type="checkbox"
-                                :name="props.option.identifier"
+                                :id="props.option.identifier"
                                 :checked="props.option.selected"
                               />
                               <label
                                 class="form-check-label"
                                 :for="props.option.identifier"
+                                @click.prevent
                               >
                                 {{ props.option.label }}
                               </label>
@@ -691,10 +693,10 @@
                   <input
                     type="checkbox"
                     class="form-check-input"
-                    id="useHighlight"
+                    id="useHighlightMobile"
                     v-model="searchBox.useHighlighting"
                   />
-                  <label class="form-check-label" for="useHighlight">
+                  <label class="form-check-label" for="useHighlightMobile">
                     Use highlighting
                   </label>
                 </div>
@@ -906,6 +908,14 @@ export default {
       'off',
     );
 
+    const scrollTopElement = this.$refs['article-top-element'];
+    if (!this.query) {
+      scrollTopElement.scrollIntoView({
+        behavior: 'smooth',
+      });
+    } else {
+      this.scrollToOntologyViewerTopOfContainer();
+    }
     if (this.$route.query.search) {
       this.clearSearchResults();
       const searchQuery = decodeURI(this.$route.query.search);
@@ -1548,7 +1558,7 @@ export default {
                 (
                   this.loader
                   || this.searchBox.isLoadingResults
-                  || ((this.$route.path !== '/ontology' && this.$route.path !== '/ontology/') && !this.data)
+                  || ((this.$route.fullPath !== '/ontology' && this.$route.fullPath !== '/ontology/') && !this.data)
                 );
     },
     hasVersions() {
