@@ -1558,7 +1558,7 @@ export default {
                 (
                   this.loader
                   || this.searchBox.isLoadingResults
-                  || ((this.$route.fullPath !== '/ontology' && this.$route.fullPath !== '/ontology/') && !this.data)
+                  || ((this.$route.path !== '/ontology' && this.$route.path !== '/ontology/') && !this.data)
                 );
     },
     hasVersions() {
