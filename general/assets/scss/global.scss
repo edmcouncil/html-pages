@@ -1,16 +1,161 @@
+@import "bootstrap/scss/bootstrap";
+@import "typography";
+@import "highlight";
+
 * {
   box-sizing: border-box;
   font-family: Inter;
   text-underline-position: auto;
 }
 
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Bootstrap
+
+.container, .container-fluid, .container-xxl, .container-xl, .container-lg,
+.container-md, .container-sm {
+  --bs-gutter-x: 30px;
+}
+
+.row {
+  --bs-gutter-x: 30px;
+}
+
+// Modal
+
+body.modal-open {
+  padding-right: 8px;
+  overflow: hidden;
+}
+
+.modal {
+  z-index: 1062 !important;
+
+  &.second-level {
+    z-index: 1064 !important;
+  }
+}
+.modal-backdrop {
+  z-index: 1061 !important;
+
+  &.second-level {
+    z-index: 1063 !important;
+  }
+}
+
+// .modal.show:nth-of-type(even) {
+//   z-index: 1062 !important;
+
+//   &.fullscreen {
+//     z-index: 1055 !important;
+//   }
+// }
+
+// .modal.show:nth-of-type(odd) {
+//   z-index: 1062 !important;
+
+//   &.fullscreen {
+//     z-index: 1055 !important;
+//   }
+// }
+
 // Common elements
 
-.custom-switch {
-  padding-left: 60px;
+.form-check {
+  padding-left: 30px;
+  padding-bottom: 20px;
+  margin-bottom: 0;
+
+  .form-check-input {
+    cursor: pointer;
+    margin-top: 0;
+    margin-left: -30px;
+    float: none;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 2px;
+    border: 2px solid $form-checked-color;
+
+    &:focus {
+      box-shadow: $form-focus-shadow;
+    }
+
+    &:active {
+      filter: none;
+      box-shadow: none;
+    }
+  }
+
+  .form-check-input:checked {
+    background-color: $form-checked-color;
+    border-color: $form-checked-color;
+  }
+
+  .form-check-input:checked[type=checkbox] {
+    --bs-form-check-bg-image: url("@/assets/icons/checkbox-check.svg");
+    background-size: 24px;
+  }
+
+  .form-check-label {
+    margin-left: 10px;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: normal;
+    user-select: none;
+    font-size: 18px;
+    line-height: 30px;
+    color: $form-checked-color;
+  }
+}
+
+.form-switch {
+  padding-left: 0;
   padding-bottom: 30px;
 
-  .custom-control-label-prev {
+  .form-check-input {
+    float: none;
+    margin-left: 0;
+    margin-top: 0;
+    width: 60px;
+    height: 30px;
+    border: 2px solid $form-checked-color;
+    border-radius: 30px;
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.8)'/%3e%3c/svg%3e");
+
+    &:focus {
+      box-shadow: $form-focus-shadow;
+      --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.8)'/%3e%3c/svg%3e");
+    }
+
+    &:checked {
+      background-color: $form-checked-color;
+      --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+    }
+
+    &:focus:checked {
+      --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+    }
+  }
+
+  .form-check-label {
+    cursor: pointer;
+    font-style: normal;
+    font-weight: normal;
+    user-select: none;
+    font-size: 18px;
+    line-height: 30px;
+    color: rgba(0, 0, 0, 0.8);
+    margin-left: 10px;
+  }
+
+  .form-check-label-prev {
     position: relative;
     margin-bottom: 0;
     vertical-align: top;
@@ -24,164 +169,7 @@
     font-size: 18px;
     line-height: 30px;
     color: rgba(0, 0, 0, 0.8);
-    left: -60px;
     margin-right: 10px;
-  }
-
-  .custom-control-label {
-    cursor: pointer;
-    font-style: normal;
-    font-weight: normal;
-    user-select: none;
-    font-size: 18px;
-    line-height: 30px;
-    color: rgba(0, 0, 0, 0.8);
-    margin-left: 10px;
-  }
-
-  .custom-control-label::before {
-    border: 2px solid $custom-control-indicator-checked-bg;
-    top: 0px;
-    left: -70px;
-    width: 60px;
-    height: 30px;
-    border-radius: 60px;
-  }
-  .custom-control-label::after {
-    top: 6px;
-    left: -64px;
-    width: 18px;
-    height: 18px;
-    background-color: rgb(51, 51, 51);
-    border-radius: 60px;
-  }
-
-  .custom-control-input:checked ~ .custom-control-label {
-    &::before {
-      background: $custom-control-indicator-checked-bg;
-      border: none;
-    }
-    &::after {
-      border: 2px solid $custom-control-indicator-indeterminate-bg;
-      background-color: $custom-control-indicator-indeterminate-bg;
-      left: -46px;
-    }
-  }
-
-  .custom-control-input:focus ~ .custom-control-label::before {
-    box-shadow: $custom-control-indicator-indeterminate-box-shadow !important;
-    border: 2px solid $custom-control-indicator-checked-bg;
-  }
-  .custom-control-input:active ~ .custom-control-label::before {
-    box-shadow: $custom-control-indicator-indeterminate-box-shadow !important;
-    border: 2px solid $custom-control-indicator-checked-bg;
-  }
-  .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
-    background-color: $custom-control-indicator-indeterminate-bg;
-  }
-  .custom-control-input:checked:not(:disabled):active
-    ~ .custom-control-label::before {
-    background-color: $custom-control-indicator-checked-bg;
-  }
-
-  .custom-control-input:indeterminate ~ .custom-control-label {
-    &::before {
-      box-shadow: ($custom-control-indicator-indeterminate-box-shadow);
-    }
-  }
-
-  .custom-control-input:disabled {
-    &:checked ~ .custom-control-label::before {
-      background-color: $custom-control-disabled-bg;
-    }
-    & ~ .custom-control-label {
-      color: $custom-control-disabled-fill;
-    }
-    & ~ .custom-control-label::before {
-      border: 2px solid $custom-control-disabled-fill;
-    }
-    & ~ .custom-control-label::after {
-      background-color: $custom-control-disabled-fill;
-    }
-    &:indeterminate ~ .custom-control-label::before {
-      background-color: $custom-control-disabled-bg;
-    }
-  }
-}
-
-.custom-checkbox {
-  padding-left: 40px;
-  padding-bottom: 20px;
-
-  .custom-control-label {
-    cursor: pointer;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 30px;
-    color: rgba(0, 0, 0, 0.8);
-  }
-
-  .custom-control-label::before {
-    border-radius: ($custom-control-indicator-border-radius);
-    border: 2px solid $custom-control-indicator-checked-bg;
-    width: 30px;
-    height: 30px;
-
-    top: 0px;
-    left: -40px;
-  }
-  .custom-control-label::after {
-    width: 30px;
-    height: 30px;
-
-    top: 0px;
-    left: -40px;
-
-    background-size: 24px 24px;
-
-    transition: background 0.15s;
-  }
-
-  .custom-control-input:checked ~ .custom-control-label {
-    &::before {
-      background: $custom-control-indicator-checked-bg;
-      border: none;
-    }
-    &::after {
-      background-image: $custom-control-indicator-icon-checked;
-      background-size: 24px 24px;
-    }
-  }
-
-  .custom-control-input:focus ~ .custom-control-label::before {
-    box-shadow: $custom-control-indicator-indeterminate-box-shadow !important;
-    border: 2px solid $custom-control-indicator-checked-bg;
-  }
-  .custom-control-input:active ~ .custom-control-label::before {
-    background-color: $custom-control-indicator-indeterminate-bg;
-    box-shadow: $custom-control-indicator-indeterminate-box-shadow !important;
-    border: 2px solid $custom-control-indicator-checked-bg;
-  }
-
-  .custom-control-input:indeterminate ~ .custom-control-label {
-    &::before {
-      background-image: ($custom-control-indicator-indeterminate-bg);
-      background-size: 30px 30px;
-      box-shadow: ($custom-control-indicator-indeterminate-box-shadow);
-    }
-    &::after {
-      background-image: $custom-control-indicator-icon-indeterminate;
-    }
-  }
-
-  .custom-control-input:disabled {
-    &:checked ~ .custom-control-label::before {
-      background-color: $custom-control-disabled-bg;
-    }
-    &:indeterminate ~ .custom-control-label::before {
-      background-color: $custom-control-disabled-bg;
-    }
   }
 }
 
@@ -195,12 +183,12 @@
   border-radius: 15px;
   margin: 19px 0;
   &:active::-webkit-slider-thumb {
-    box-shadow: $custom-control-indicator-indeterminate-box-shadow !important;
-    border: 2px solid $custom-control-indicator-checked-bg;
+    box-shadow: $form-focus-shadow !important;
+    border: 2px solid $form-checked-color;
   }
   &:focus::-webkit-slider-thumb {
-    box-shadow: $custom-control-indicator-indeterminate-box-shadow !important;
-    border: 2px solid $custom-control-indicator-checked-bg;
+    box-shadow: $form-focus-shadow !important;
+    border: 2px solid $form-checked-color;
   }
 }
 
@@ -225,6 +213,7 @@
 .normal-button {
   background: $normal-button-default-bg;
   border-radius: 2px;
+  border: none;
 
   font-style: normal;
   font-weight: normal;
@@ -244,11 +233,16 @@
     box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 0px 4px;
   }
   &:active {
+    --bs-btn-active-bg: rgba(0, 0, 0, 1);
+    --bs-btn-active-color: rgba(255, 255, 255, 0.9);
+    --bs-btn-active-border-color: none;
     background: $normal-button-active-bg;
   }
   &:disabled,
   &[disabled="disabled"] {
+    color: rgba(255, 255, 255, 0.9);
     background: $normal-button-disabled-bg;
+    border: none;
   }
 }
 
@@ -290,6 +284,7 @@
 
   &:hover {
     background: none;
+    border: 1px solid var(--black-80, rgba(0, 0, 0, 0.80));
   }
   &:focus {
     background: none;
@@ -645,9 +640,9 @@ article {
 a.deprecated {
   text-decoration: line-through !important;
   text-decoration-color: #ec241d !important;
-  color: #ec241d;
+  color: #ec241d !important;
 }
 
 a.deprecated:hover {
-  color: #ec241d;
+  color: #ec241d !important;
 }

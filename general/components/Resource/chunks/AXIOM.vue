@@ -1,7 +1,7 @@
 <template>
   <div v-if="!isShowMore">
     <span :class="{ 'restriction-inferable': inferable }">
-      <component :is="processedTitle"></component>
+      <VRuntimeTemplate :template="processedTitle"></VRuntimeTemplate>
     </span>
 
     <TooltipInline v-if="inferable" :text="tooltips.inferable" />
@@ -10,13 +10,13 @@
         v-for="(item, index) in processedList"
         :key="`${processedTitle}_${item}_${index}`"
       >
-        <component :is="item"></component>
+        <VRuntimeTemplate :template="item"></VRuntimeTemplate>
       </li>
     </ul>
   </div>
   <div v-else>
     <span :class="{ 'restriction-inferable': inferable }">
-      <component :is="processedTitle"></component>
+      <VRuntimeTemplate :template="processedTitle"></VRuntimeTemplate>
     </span>
 
     <TooltipInline v-if="inferable" :text="tooltips.inferable" />
@@ -25,21 +25,21 @@
         v-for="(item, index) in processedListSlice"
         :key="`${processedTitle}_${item}_${index}`"
       >
-        <component :is="item"></component>
+        <VRuntimeTemplate :template="item"></VRuntimeTemplate>
       </li>
     </ul>
-    <b-collapse :id="`${identifier}-collapse`" v-model="isMoreVisible">
+    <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
         <ul class="animated-list" v-show="isMoreVisible" ref="scrollTarget">
           <li
             v-for="(item, index) in processedListMore"
             :key="`${processedTitle}_${item}_${index}`"
           >
-            <component :is="item"></component>
+            <VRuntimeTemplate :template="item"></VRuntimeTemplate>
           </li>
         </ul>
       </transition>
-    </b-collapse>
+    </bs-collapse>
 
     <div v-if="!isMoreVisible" href="#" @click.prevent="toggleIsMoreVisible()">
       <div class="see-more-btn">Show {{ lines.length - 6 }} more</div>
@@ -51,20 +51,10 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import customLink from './link.vue';
-import langCodeFlags from './LangCodeFlags.vue';
 import tooltips from '~/constants/tooltips';
-
-Vue.component('customLink', customLink);
-Vue.component('langCodeFlags', langCodeFlags);
 
 export default {
   name: 'AXIOM',
-  components: {
-    customLink,
-    langCodeFlags,
-  },
   props: ['value', 'entityMaping', 'identifier', 'inferable'],
   data() {
     const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
@@ -99,22 +89,16 @@ export default {
   computed: {
     processedTitle() {
       const html = this.processedHtml(this.lines[0]);
-      return { template: `<span>${html}</span>` };
+      return `<span>${html}</span>`;
     },
     processedList() {
-      return this.lines.slice(1).map((item) => ({
-        template: `<span>${this.processedHtml(item)}</span>`,
-      }));
+      return this.lines.slice(1).map((item) => (`<span>${this.processedHtml(item)}</span>`));
     },
     processedListSlice() {
-      return this.lines.slice(1, 6).map((item) => ({
-        template: `<span>${this.processedHtml(item)}</span>`,
-      }));
+      return this.lines.slice(1, 6).map((item) => (`<span>${this.processedHtml(item)}</span>`));
     },
     processedListMore() {
-      return this.lines.slice(6).map((item) => ({
-        template: `<span>${this.processedHtml(item)}</span>`,
-      }));
+      return this.lines.slice(6).map((item) => (`<span>${this.processedHtml(item)}</span>`));
     },
   },
   mounted() {

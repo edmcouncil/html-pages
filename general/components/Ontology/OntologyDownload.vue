@@ -15,16 +15,16 @@
               <div class="table-box">
                 <div class="table-box__column title-column">
                   <h3>{{ data.label }}</h3>
-                  <div class="custom-control custom-switch">
+                  <div class="form-check form-switch">
                     <input
                       type="checkbox"
-                      class="custom-control-input"
+                      class="form-check-input"
                       id="download-imports-switch"
                       v-model="includeImports"
                       :disabled="!hasImports"
                     />
                     <label
-                      class="custom-control-label"
+                      class="form-check-label"
                       for="download-imports-switch"
                     >
                       Include imports
@@ -53,6 +53,9 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+import { useConfigurationStore } from '@/stores/configuration';
+
 export default {
   name: 'OntologyDownload',
   props: ['data', 'version'],
@@ -131,12 +134,10 @@ export default {
     },
   },
   computed: {
-    ontologyName() {
-      return this.$store.state.configuration.config.ontpubFamily.toLowerCase();
-    },
-    ontologyResourcesBaseUri() {
-      return this.$store.state.configuration.config.uriSpace;
-    },
+    ...mapState(useConfigurationStore, {
+      ontologyName: store => store.config.ontpubFamily,
+      ontologyResourcesBaseUri: store => store.config.uriSpace,
+    }),
   },
 };
 </script>
@@ -165,7 +166,7 @@ article {
   }
 }
 
-.custom-switch {
+.form-switch {
   padding-bottom: 0;
   padding-top: 15px;
 }

@@ -2,6 +2,7 @@
   <div>
     <GraphGuideModal
       modalId="guide-main"
+      :open="currentPage=='guide-main'"
       @closeEvent="closeHandler()"
     >
       <template v-slot:label> User Guide: Overview </template>
@@ -63,13 +64,12 @@
 
           <h2>2. Graph section</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-basics-0.png"
-              fluid
-              center
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: top left"
-            ></b-img>
+            />
           </div>
           <p>
             In the graph section the user has access to
@@ -91,13 +91,12 @@
 
           <h2>3. Full screen view</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-basics-1.png"
-              fluid
-              center
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: top left"
-            ></b-img>
+            />
           </div>
           <p>
             In the full screen view the graph is expanded to fit the whole
@@ -109,13 +108,12 @@
           </p>
 
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-basics-3.png"
-              fluid
-              center
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: top right"
-            ></b-img>
+            />
           </div>
           <p>The view options menu is divided into four sections:</p>
           <ul>
@@ -173,13 +171,12 @@
 
           <h2>4. Nodes</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-basics-2.png"
-              fluid
-              center
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: center"
-            ></b-img>
+            />
           </div>
 
           <p>
@@ -214,6 +211,7 @@
 
     <GraphGuideModal
       modalId="guide-connections"
+      :open="currentPage=='guide-connections'"
       @closeEvent="closeHandler()"
     >
       <template v-slot:label> User Guide: Connections </template>
@@ -262,12 +260,12 @@
           <h1>Connections</h1>
           <h2>1. Introduction</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-layouts-0.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: top right"
-            ></b-img>
+            />
           </div>
           <p>
             The graph is a visual representation of class restrictions.
@@ -277,12 +275,12 @@
 
           <h2>2. Class Specific</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-connections-class-specific.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: 90% 30%"
-            ></b-img>
+            />
           </div>
           <p>
             The node is Class Specific when it's listed in the
@@ -299,12 +297,12 @@
 
           <h2>3. Inherited</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-connections-inherited.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: 90% 30%"
-            ></b-img>
+            />
           </div>
           <p>
             The node is Inherited when it's listed in the
@@ -322,12 +320,12 @@
 
           <h2>4. Optional</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-connections-optional.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: 60% 50%"
-            ></b-img>
+            />
           </div>
           <p>
             The node is Optional when the restrictions describes a relation
@@ -344,12 +342,12 @@
 
           <h2>5. Required</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-connections-required.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: 60% 50%"
-            ></b-img>
+            />
           </div>
           <p>
             The node is Required when the restrictions describes a relation
@@ -369,6 +367,7 @@
 
     <GraphGuideModal
       modalId="guide-layouts"
+      :open="currentPage=='guide-layouts'"
       @closeEvent="closeHandler()"
     >
       <template v-slot:label> User Guide: Layouts </template>
@@ -417,12 +416,12 @@
           <h1>Layouts</h1>
           <h2>1. Introduction</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-layouts-0.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: right"
-            ></b-img>
+            />
           </div>
           <p>
             The visualization tool offers multiple node layouts. The user can
@@ -433,12 +432,12 @@
 
           <h2>2. Tree layout</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-layouts-tree.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: left 60%"
-            ></b-img>
+            />
           </div>
           <p>
             The tree layout places nodes in a hierarchical tree shape. The nodes
@@ -447,12 +446,12 @@
 
           <h2>3. Cluster Tree layout</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-layouts-tree-cluster.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: left 65%"
-            ></b-img>
+            />
           </div>
           <p>
             The Cluster Tree layout renders a hierarchical tree diagram with all
@@ -462,12 +461,12 @@
 
           <h2>4. Radial layout</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-layouts-radial.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: 50% 90%"
-            ></b-img>
+            />
           </div>
           <p>
             The Radial layout places nodes on a circular shape with the same
@@ -476,12 +475,12 @@
 
           <h2>5. Cluster Radial layout</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-layouts-radial-cluster.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: center 70%"
-            ></b-img>
+            />
           </div>
           <p>
             The Cluster Radial layout places nodes similarly to Radial layout
@@ -490,12 +489,12 @@
 
           <h2>6. Force layout</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-layouts-force.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: 40% 85%"
-            ></b-img>
+            />
           </div>
           <p>
             The Force layout places nodes based on physical force simulation
@@ -508,6 +507,7 @@
 
     <GraphGuideModal
       modalId="guide-sorting"
+      :open="currentPage=='guide-sorting'"
       @closeEvent="closeHandler()"
     >
       <template v-slot:label> User Guide: Sorting </template>
@@ -556,12 +556,12 @@
           <h1>Sorting</h1>
           <h2>1. Introduction</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-sort-0.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: right bottom"
-            ></b-img>
+            />
           </div>
           <p>
             Sorting allows user to select order in which nodes appear in a
@@ -576,23 +576,23 @@
 
           <h2>2. A - Z</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-sort-1.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: right 50%"
-            ></b-img>
+            />
           </div>
           <p>This is basic alphabetical order sorting.</p>
 
           <h2>3. Height</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-layouts-tree-cluster.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: 70% top"
-            ></b-img>
+            />
           </div>
           <p>
             Nodes get sorted based on height - maximum distance from any child
@@ -606,12 +606,12 @@
 
           <h2>4. Inherited</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-sort-1.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: right 50%"
-            ></b-img>
+            />
           </div>
           <p>
             When sorting based on inheritance the Class Specific nodes will
@@ -627,12 +627,12 @@
 
           <h2>5. Optional</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-sort-2.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: right 50%"
-            ></b-img>
+            />
           </div>
           <p>
             In Optional sorting the optional nodes will appear first. You can
@@ -651,6 +651,7 @@
 
     <GraphGuideModal
       modalId="guide-configuration"
+      :open="currentPage=='guide-configuration'"
       @closeEvent="closeHandler()"
     >
       <template v-slot:label> User Guide: Configuration </template>
@@ -699,12 +700,12 @@
           <h1>Configuration</h1>
           <h2>1. Introduction</h2>
           <div class="img-zoom">
-            <b-img
+            <img
               src="../../assets/img/graph-guide-configuration-0.png"
-              fluid
+              class="img-fluid"
               alt="Graph general image"
               style="transform-origin: right bottom"
-            ></b-img>
+            />
           </div>
           <p>
             In the configuration section the user can adjust visualization to
@@ -729,6 +730,9 @@
 </template>
 
 <script>
+import { useConfigurationStore } from '~/stores/configuration';
+import { mapState } from 'pinia';
+
 export default {
   name: 'GraphGuide',
   data() {
@@ -740,10 +744,8 @@ export default {
   methods: {
     openGuide(id) {
       this.currentPage = id;
-      this.$bvModal.show(id);
     },
     closeHandler() {
-      this.$bvModal.hide(this.currentPage);
       this.currentPage = null;
     },
     navigateToPage(id) {
@@ -752,9 +754,9 @@ export default {
     },
   },
   computed: {
-    ontologyName() {
-      return this.$store.state.configuration.ontpubFamily.toLowerCase();
-    },
+    ...mapState(useConfigurationStore, {
+      ontologyName: store => store.config.ontpubFamily.toLowerCase(),
+    }),
   },
 };
 </script>

@@ -9,17 +9,17 @@
       Path(s)
     </h5>
     <div class="section-content-wrapper">
-      <div class="custom-control custom-switch">
+      <div class="form-check form-switch">
+        <label class="form-check-label-prev" for="paths-switch">
+          List
+        </label>
         <input
           type="checkbox"
-          class="custom-control-input"
+          class="form-check-input"
           id="paths-switch"
           v-model="isTreeView"
         />
-        <label class="custom-control-label-prev" for="paths-switch">
-          List
-        </label>
-        <label class="custom-control-label" for="paths-switch"> Tree </label>
+        <label class="form-check-label" for="paths-switch"> Tree </label>
       </div>
 
       <transition name="fade" mode="out-in">
@@ -35,7 +35,7 @@
           />
 
           <div v-if="data.taxonomy.value.length > 2">
-            <b-collapse v-model="isPathsMoreVisible">
+            <bs-collapse :open="isPathsMoreVisible">
               <transition name="list">
                 <div v-show="isPathsMoreVisible">
                   <PathsListItem
@@ -46,7 +46,7 @@
                   />
                 </div>
               </transition>
-            </b-collapse>
+            </bs-collapse>
 
             <div v-show="!isPathsMoreVisible" @click="togglePathsMoreVisible()">
               <div class="see-more-btn">

@@ -116,29 +116,27 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+import { useContentStore } from '../stores/content';
+import { useRuntimeConfig } from 'nuxt/app';
+
 export default {
   name: 'FooterComponent',
   data() {
+    const runtimeConfig = useRuntimeConfig();
+
     return {
-      showTermsLinkOnFooter: process.env.showTermsLinkOnFooter,
+      showTermsLinkOnFooter: runtimeConfig.public.showTermsLinkOnFooter,
     };
   },
   computed: {
-    copyright() {
-      return this.$store.state.footerData.copyright;
-    },
-    contacts() {
-      return this.$store.state.footerData.contacts;
-    },
-    socials() {
-      return this.$store.state.footerData.socials;
-    },
-    links() {
-      return this.$store.state.footerData.links;
-    },
-    useCustomFooterData() {
-      return this.$store.state.footerData.useCustomFooterData;
-    },
+    ...mapState(useContentStore, {
+      copyright: store => store.footerData.copyright,
+      contacts: store => store.footerData.contacts,
+      socials: store => store.footerData.socials,
+      links: store => store.footerData.links,
+      useCustomFooterData: store => store.footerData.useCustomFooterData,
+    }),
   },
 };
 </script>

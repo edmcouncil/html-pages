@@ -4,7 +4,7 @@
     <noscript v-html="noscriptContent"></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <HeaderComponent></HeaderComponent>
-    <Nuxt></Nuxt>
+    <slot></slot>
     <FooterComponent></FooterComponent>
   </div>
 </template>

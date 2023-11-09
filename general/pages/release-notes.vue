@@ -1,4 +1,7 @@
 <template>
+  <Head>
+    <Title>Release Notes</Title>
+  </Head>
   <div class="container px-0">
     <main>
       <ScrollTopHandler ref="scrollTopHandler" />
@@ -78,38 +81,43 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+import { useConfigurationStore } from '@/stores/configuration';
 import { getStrapiCollection } from '../api/strapi';
 
 export default {
   name: 'ReleaseNotes',
-  layout: 'minimal',
-  head() {
-    return {
-      title: 'Release Notes',
-    };
-  },
-  async asyncData({ error }) {
+  async setup() {
+    definePageMeta({
+      layout: 'minimal',
+    });
+
     const collectionTypeName = 'release-notes';
     const sortParams = ['title:desc'];
 
     try {
-      const response = await getStrapiCollection(
-        collectionTypeName,
-        [],
-        sortParams,
-      );
+      const runtimeConfig = useRuntimeConfig();
 
-      if (response?.data?.data == null) {
+      const response = await useAsyncData(`getReleaseNotes`, () => {
+        return getStrapiCollection(
+          collectionTypeName,
+          [],
+          sortParams,
+          runtimeConfig
+        );
+      });
+
+      if (response?.data?.value?.data == null) {
         console.error(
           `Page data(sections) is not recognized in the response from the server.
         Error occurred while rendering page ${collectionTypeName}.\n
         Current server response:\n`,
           response,
         );
-        error({ statusCode: 503, message: 'Service Unavailable' });
+        // error({ statusCode: 503, message: 'Service Unavailable' });
       }
 
-      const responseData = response.data.data;
+      const responseData = response.data.value.data;
       const releaseTree = new Map();
       const releaseList = [];
       for (const releaseItem of responseData) {
@@ -138,7 +146,7 @@ export default {
       };
     } catch (e) {
       console.error(e);
-      error({ statusCode: 503, message: 'Service Unavailable' });
+      // error({ statusCode: 503, message: 'Service Unavailable' });
 
       return {};
     }
@@ -156,7 +164,7 @@ export default {
       }
     };
   },
-  destroyed() {
+  unmounted() {
     window.onscroll = function () {};
   },
   methods: {
@@ -171,18 +179,20 @@ export default {
     },
   },
   computed: {
-    ontologyNameUppercase() {
-      return this.$store.state.configuration.config.ontpubFamily.toUpperCase();
-    },
+    ...mapState(useConfigurationStore, {
+      ontologyNameUppercase: store => store.config.ontpubFamily.toUpperCase(),
+    }),
   },
 };
 </script>
 
 <style lang="scss" scoped>
+article {
+  word-wrap: break-word;
+}
 .top-button {
   &:after {
-    content: "\f077";
-    font-family: "Font Awesome 5 Solid";
+    content: "↑";
   }
   display: none;
   position: fixed;

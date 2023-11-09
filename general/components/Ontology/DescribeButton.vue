@@ -1,12 +1,13 @@
 <template>
   <div class="describe-container dropdown-item">
-    <b-modal
+    <bs-modal
+      :open="isOpen"
       id="describe-modal"
-      modal-class="describe-modal"
-      footer-class="d-none"
+      modalClass="describe-modal"
+      footerClass="d-none"
       size="lg"
-      centered
       scrollable
+      fullscreen
     >
       <template v-slot:modal-header>
         <div
@@ -18,7 +19,23 @@
         >
           <h5 class="modal-title">Return</h5>
         </div>
-        <div class="help-icon" v-b-modal.info-modal @click="openInfo()"></div>
+        <div class="help-icon" @click="openInfo()"></div>
+        <bs-modal :open="isInfoOpen" id="info-modal" modalClass="info-modal" size="md" footerClass="d-none" centered secondLevel>
+          <template v-slot:modal-header>
+            <h5 class="modal-title">About</h5>
+            <div
+              type="button"
+              class="close-btn"
+              data-dismiss="modal"
+              aria-label="Close"
+              @click="closeInfo()"
+            ></div>
+          </template>
+          <p>
+            The describe tool is using
+            <a href="https://data.world/">data.world</a> API.
+          </p>
+        </bs-modal>
       </template>
       <div v-if="error" class="describe-error text-center">
         <img src="@/assets/icons/warning.svg" alt="Warning image" />
@@ -41,23 +58,7 @@
         </button>
         <pre><code class="hljs xml" v-html="highlightedCode"></code></pre>
       </div>
-    </b-modal>
-    <b-modal id="info-modal" modal-class="info-modal" size="md" footer-class="d-none" centered>
-      <template v-slot:modal-header>
-        <h5 class="modal-title">About</h5>
-        <div
-          type="button"
-          class="close-btn"
-          data-dismiss="modal"
-          aria-label="Close"
-          @click="closeInfo()"
-        ></div>
-      </template>
-      <p>
-        The describe tool is using
-        <a href="https://data.world/">data.world</a> API.
-      </p>
-    </b-modal>
+    </bs-modal>
     <button
       v-if="!error && !loading"
       type="button"
@@ -84,7 +85,8 @@
 
 <script>
 import hljs from 'highlight.js';
-import { mapState } from 'vuex';
+import { mapState } from 'pinia';
+import { useServersStore } from '@/stores/servers';
 import { getDescribeIntegration } from '@/api/ontology';
 
 export default {
@@ -92,12 +94,13 @@ export default {
   props: ['data'],
   data() {
     return {
-      test: 'asd',
       copied: false,
       error: false,
       loading: false,
       code: '',
       highlightedCode: '',
+      isOpen: false,
+      isInfoOpen: false,
     };
   },
   async mounted() {
@@ -140,16 +143,17 @@ export default {
   },
   methods: {
     async openModal() {
-      this.$bvModal.show('describe-modal');
+      this.isOpen = true;
     },
     openInfo() {
-      this.$bvModal.show('info-modal');
+      this.isInfoOpen = true;
     },
     closeModal() {
-      this.$bvModal.hide('describe-modal');
+      this.isOpen = false;
+      this.isInfoOpen = false;
     },
     closeInfo() {
-      this.$bvModal.hide('info-modal');
+      this.isInfoOpen = false;
     },
     async pressed() {
       if (window.isSecureContext && navigator.clipboard) {
@@ -175,10 +179,11 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      // servers
-      describeServer: (state) => state.servers.describeServer,
-    }),
+    ...mapState(
+      useServersStore, {
+        describeServer: store => store.describeServer,
+      }
+    ),
   },
 };
 </script>
@@ -293,10 +298,12 @@ export default {
   cursor: text;
   overflow: visible;
   pre {
+    padding: 30px;
     height: 100%;
     overflow: visible;
     white-space: pre-wrap;
     code {
+      padding: 0;
       overflow: visible;
     }
     * {
@@ -387,7 +394,7 @@ export default {
     }
   }
 }
-.modal.describe-modal {
+.modal.fullscreen.describe-modal {
   .modal-dialog {
     margin: 0;
     min-height: 100vh;
@@ -404,6 +411,7 @@ export default {
 
     .help-icon {
       position: absolute;
+      cursor: pointer;
 
       content: "";
       background-image: url("../../assets/icons/help.svg");
@@ -455,7 +463,7 @@ export default {
     height: 100%;
   }
   .modal-body {
-    padding: 15px 15px;
+    padding: 0;
     height: 100%;
     position: relative;
   }

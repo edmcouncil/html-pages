@@ -9,7 +9,7 @@
           class="compare-item row"
         >
           <component
-            :is="field.left.type"
+            :is="resolved(field.left.type)"
             :value="field.left.value"
             :entityMaping="field.left.entityMaping"
             :inferable="field.left.inferable"
@@ -28,7 +28,7 @@
           />
         </li>
       </ul>
-      <b-collapse :id="`${sectionId}-collapse`" v-model="expanded">
+      <bs-collapse :id="sectionId" :open="expanded">
         <transition name="list">
           <ul
             class="animated-list"
@@ -43,7 +43,7 @@
               ref="collapsedList"
             >
               <component
-                :is="field.left.type"
+                :is="resolved(field.left.type)"
                 :value="field.left.value"
                 :entityMaping="field.left.entityMaping"
                 :inferable="field.left.inferable"
@@ -66,13 +66,13 @@
             </li>
           </ul>
         </transition>
-      </b-collapse>
+      </bs-collapse>
     </div>
 
     <div v-else>
       <div class="compare-item row" v-for="field in list" :key="field.id">
         <component
-          :is="field.left.type"
+          :is="resolved(field.left.type)"
           :value="field.left.value"
           :entityMaping="field.left.entityMaping"
           :inferable="field.left.inferable"
@@ -119,25 +119,6 @@
 
 <script>
 export default {
-  components: {
-    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ './chunks/AXIOM'),
-    STRING: () => import(/* webpackChunkName: "STRING" */ './chunks/STRING'),
-    DIRECT_SUBCLASSES: () => import(
-      // eslint-disable-next-line comma-dangle
-      /* webpackChunkName: "DIRECT_SUBCLASSES" */ './chunks/DIRECT_SUBCLASSES'
-    ),
-    MODULES: () => import(/* webpackChunkName: "MODULES" */ './chunks/MODULES'),
-    IRI: () => import(/* webpackChunkName: "IRI" */ './chunks/IRI'),
-    INSTANCES: () => import(
-      // eslint-disable-next-line comma-dangle
-      /* webpackChunkName: "INSTANCES" */ './chunks/INSTANCES'
-    ),
-    ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ './chunks/ANY_URI'),
-    EMPTY: () => import(/* webpackChunkName: "EMPTY" */ './chunks/EMPTY'),
-    OWL_LABELED_MULTI_AXIOM: () => import(
-      /* webpackChunkName: "OWL_LABELED_MULTI_AXIOM" */ './chunks/OWL_LABELED_MULTI_AXIOM'
-    ),
-  },
   name: 'PropertiesListCompare',
   props: [
     'list',
@@ -188,6 +169,9 @@ export default {
         ) item.hasList = true;
       }
     },
+    resolved(name) {
+      return resolveComponent(name.replaceAll('_', ''));
+    }
   },
   computed: {
     howManyMore() {

@@ -1,15 +1,11 @@
 <template>
-  <span v-if="found">
-    {{ textBefore
-    }}<!--
-    --><span class="resource-text-tooltip" ref="resourceTextTooltip"
-      >{{ textWrapped
-      }}<Tooltip
-        :targetRef="() => $refs['resourceTextTooltip']"
-        :text="tooltipText" /></span
-    ><!--
-    -->{{ textAfter }}
-  </span>
+  <span v-if="found"><!--
+  -->{{ textBefore}}<!--
+    --><bs-tooltip :text="tooltipText"><!--
+      --><span class="resource-text-tooltip">{{ textWrapped }}</span><!--
+    --></bs-tooltip><!--
+    -->{{ textAfter }}<!--
+  --></span>
   <span v-else>
     {{ content }}
   </span>

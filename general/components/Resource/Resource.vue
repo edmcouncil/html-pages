@@ -72,19 +72,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'pinia';
+import { useConfigurationStore } from '@/stores/configuration';
 
 export default {
   name: 'Resource',
   props: ['version', 'data', 'isComparing'],
-  data() {
-    return {};
-  },
   computed: {
-    ...mapState({
-      // configuration
-      ontologyName: (state) => state.configuration.config.ontpubFamily,
-      uriSpace: (state) => state.configuration.config.uriSpace,
+    ...mapState(useConfigurationStore, {
+      ontologyName: store => store.config.ontpubFamily,
+      uriSpace: store => store.config.uriSpace,
     }),
     hasGraph() {
       return this.data?.graph?.nodes?.length > 1;

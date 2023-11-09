@@ -1,16 +1,16 @@
 <template>
   <div v-if="!isShowMore">
-    <component v-bind:is="fullProcessedHtml"></component>
+    <VRuntimeTemplate :template="fullProcessedHtml"></VRuntimeTemplate>
   </div>
   <div v-else>
-    <component v-bind:is="sliceProcessedHtml"></component>
-    <b-collapse :id="`${identifier}-collapse`" v-model="isMoreVisible">
+    <VRuntimeTemplate :template="sliceProcessedHtml"></VRuntimeTemplate>
+    <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
         <div class="animated-list" v-show="isMoreVisible" ref="scrollTarget">
-          <component v-bind:is="moreProcessedHtml"></component>
+          <VRuntimeTemplate :template="moreProcessedHtml"></VRuntimeTemplate>
         </div>
       </transition>
-    </b-collapse>
+    </bs-collapse>
 
     <div v-if="!isMoreVisible" href="#" @click.prevent="toggleIsMoreVisible()">
       <div class="see-more-btn">Show {{ lines.length - 6 }} more</div>
@@ -22,17 +22,10 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import linkifyHtml from 'linkify-html';
-import langCodeFlags from './LangCodeFlags.vue';
-
-Vue.component('langCodeFlags', langCodeFlags);
 
 export default {
   name: 'STRING',
-  components: {
-    langCodeFlags,
-  },
   props: ['value', 'identifier'],
   data() {
     const linkifyOptions = {
@@ -89,21 +82,15 @@ export default {
   computed: {
     fullProcessedHtml() {
       const html = this.lines.join('<br />');
-      return {
-        template: `<div>${html}</div>`,
-      };
+      return `<div>${html}</div>`;
     },
     sliceProcessedHtml() {
       const html = this.lines.slice(0, 6).join('<br />');
-      return {
-        template: `<div>${html}</div>`,
-      };
+      return `<div>${html}</div>`;
     },
     moreProcessedHtml() {
       const html = this.lines.slice(6).join('<br />');
-      return {
-        template: `<div>${html}</div>`,
-      };
+      return `<div>${html}</div>`;
     },
   },
 

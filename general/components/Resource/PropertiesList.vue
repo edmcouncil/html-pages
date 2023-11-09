@@ -10,7 +10,7 @@
           class="top-level top-level--list"
         >
           <component
-            :is="field.type"
+            :is="resolved(field.type)"
             :value="field.value"
             :entityMaping="field.entityMaping"
             :inferable="field.inferable"
@@ -25,40 +25,37 @@
           />
         </li>
       </ul>
-      <b-collapse :id="`${sectionId}-collapse`" v-model="expanded">
-        <transition name="list">
-          <ul
-            class="animated-list"
-            :id="sectionId"
-            v-show="expanded"
-            :class="{ 'is-show-more': list.length > limit }"
+      <bs-collapse :id="sectionId" :open="expanded">
+        <ul
+          class="animated-list"
+          :id="sectionId"
+          :class="{ 'is-show-more': list.length > limit }"
+        >
+          <li
+            v-for="(field, index) in list.slice(limit)"
+            :key="field.id"
+            :class="{ 'has-list': field.hasList }"
+            class="list-item top-level top-level--list"
+            ref="collapsedList"
           >
-            <li
-              v-for="(field, index) in list.slice(limit)"
-              :key="field.id"
-              :class="{ 'has-list': field.hasList }"
-              class="list-item top-level top-level--list"
-              ref="collapsedList"
-            >
-              <component
-                :is="field.type"
-                :value="field.value"
-                :entityMaping="field.entityMaping"
-                :inferable="field.inferable"
-                :entityLabel="field.entityLabel"
-                :identifier="sectionId + index"
-                v-bind="field"
-              />
-              <SubAnnotation
-                v-for="(subannotation, key) in field.subAnnotations"
-                :key="key"
-                :title="key"
-                :subannotation="subannotation"
-              />
-            </li>
-          </ul>
-        </transition>
-      </b-collapse>
+            <component
+              :is="resolved(field.type)"
+              :value="field.value"
+              :entityMaping="field.entityMaping"
+              :inferable="field.inferable"
+              :entityLabel="field.entityLabel"
+              :identifier="sectionId + index"
+              v-bind="field"
+            />
+            <SubAnnotation
+              v-for="(subannotation, key) in field.subAnnotations"
+              :key="key"
+              :title="key"
+              :subannotation="subannotation"
+            />
+          </li>
+        </ul>
+      </bs-collapse>
     </div>
     <div v-else>
       <div
@@ -67,7 +64,7 @@
         class="top-level top-level--single"
       >
         <component
-          :is="field.type"
+          :is="resolved(field.type)"
           :value="field.value"
           :entityMaping="field.entityMaping"
           :inferable="field.inferable"
@@ -107,24 +104,6 @@
 
 <script>
 export default {
-  components: {
-    AXIOM: () => import(/* webpackChunkName: "AXIOM" */ './chunks/AXIOM'),
-    STRING: () => import(/* webpackChunkName: "STRING" */ './chunks/STRING'),
-    DIRECT_SUBCLASSES: () => import(
-      // eslint-disable-next-line comma-dangle
-      /* webpackChunkName: "DIRECT_SUBCLASSES" */ './chunks/DIRECT_SUBCLASSES'
-    ),
-    MODULES: () => import(/* webpackChunkName: "MODULES" */ './chunks/MODULES'),
-    IRI: () => import(/* webpackChunkName: "IRI" */ './chunks/IRI'),
-    INSTANCES: () => import(
-      // eslint-disable-next-line comma-dangle
-      /* webpackChunkName: "INSTANCES" */ './chunks/INSTANCES'
-    ),
-    ANY_URI: () => import(/* webpackChunkName: "ANY_URI" */ './chunks/ANY_URI'),
-    OWL_LABELED_MULTI_AXIOM: () => import(
-      /* webpackChunkName: "OWL_LABELED_MULTI_AXIOM" */ './chunks/OWL_LABELED_MULTI_AXIOM'
-    ),
-  },
   name: 'PropertiesList',
   props: [
     'list',
@@ -176,6 +155,9 @@ export default {
         item.hasList = true;
       }
     },
+    resolved(name) {
+      return resolveComponent(name.replaceAll('_', ''));
+    }
   },
   computed: {
     howManyMore() {
