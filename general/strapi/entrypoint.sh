@@ -17,20 +17,11 @@ if [ -n "${BUILD_DIR}" ] ; then
  rsync -a --no-owner --no-group build/ "${BUILD_DIR}"
 fi
 
-if (	test -s "/strapi/${ONTPUB_FAMILY:-dev}.db" && \
-	echo "[INFO] Use database: \"/strapi/${ONTPUB_FAMILY:-dev}.db\"" \
-   ) || (
-	test -s "/strapi/${ONTPUB_FAMILY:-dev}.db.template" && \
-	echo "[WARN] New database: \"/strapi/${ONTPUB_FAMILY:-dev}.db.template\" -> \"/strapi/${ONTPUB_FAMILY:-dev}.db\"" && \
-	cp -av "/strapi/${ONTPUB_FAMILY:-dev}.db.template" "/strapi/${ONTPUB_FAMILY:-dev}.db" \
-   ) ; then
- # use custom db in "/strapi/" directory
- rm -rf .tmp/data.db ; ln -s /strapi/${ONTPUB_FAMILY:-dev}.db .tmp/data.db
- test -d "/strapi/${ONTPUB_FAMILY:-dev}.uploads" && \
-	echo "[INFO] use custom uploads: \"/strapi/${ONTPUB_FAMILY:-dev}.uploads\"" && \
-	rm -rf public/uploads && ln -s "/strapi/${ONTPUB_FAMILY:-dev}.uploads" public/uploads
+if [ -s "/strapi/export.tar.gz" ] ; then
+ echo "[INFO] npm run strapi import -- -f /strapi/export.tar.gz --force"
+ npm run strapi import -- -f /strapi/export.tar.gz --force
 else
- echo "[INFO] Use default database from image: \"${STRAPI_DIR}/.tmp/data.db\""
+ echo "[INFO] Use default data from image"
 fi
 
 echo "[INFO] Starting strapi."

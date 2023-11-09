@@ -91,5 +91,5 @@ sw.*
 *.swp
 
 # STRAPI
-strapi/db/*.db
+strapi/db/export.tar.gz
 strapi/db/*strapi/

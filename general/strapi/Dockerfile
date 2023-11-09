@@ -24,6 +24,7 @@ WORKDIR /project
 COPY	.	/project/
 RUN	echo -e "ONTPUB_FAMILY=${ONTPUB_FAMILY}\nBRANCH_NAME=${BRANCH_NAME}\nTAG_NAME=${TAG_NAME}" > .env && \
 	bash setup.sh && \
-	rm -rf db/*.db.template db/*.uploads /usr/local/sbin /usr/local/share/.cache && ln -sf /project/db/${ONTPUB_FAMILY}strapi/node_modules/.bin /usr/local/sbin
-CMD	["bash","entrypoint.sh"]
+	rm -rf db/*.tar.gz /usr/local/sbin /usr/local/share/.cache && ln -sf /project/db/${ONTPUB_FAMILY}strapi/node_modules/.bin /usr/local/sbin
+WORKDIR /project/db/${ONTPUB_FAMILY}strapi
+CMD	["bash","/project/entrypoint.sh"]
 HEALTHCHECK --start-period=60s --interval=15s --timeout=1s --retries=60	CMD curl -q http://localhost:1337/admin/project-type | jq -e ".data.features"
