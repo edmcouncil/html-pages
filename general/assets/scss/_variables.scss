@@ -1,107 +1,3 @@
-@font-face {
-  font-family: "Font Awesome 5 Brands";
-  font-style: normal;
-  font-weight: normal;
-  src: url("~@/assets/webfonts/fa-brands-400.eot") format("eot"),
-    url("~@/assets/webfonts/fa-brands-400.woff") format("woff"),
-    url("~@/assets/webfonts/fa-brands-400.ttf") format("truetype"),
-    url("~@/assets/webfonts/fa-brands-400.svg#Peugeot") format("svg");
-}
-
-@font-face {
-  font-family: "Font Awesome 5 Solid";
-  font-style: normal;
-  font-weight: normal;
-  src: url("~@/assets/webfonts/fa-solid-900.eot") format("eot"),
-    url("~@/assets/webfonts/fa-solid-900.woff") format("woff"),
-    url("~@/assets/webfonts/fa-solid-900.ttf") format("truetype"),
-    url("~@/assets/webfonts/fa-solid-900.svg#Peugeot-Bold") format("svg");
-}
-
-@font-face {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 200;
-  src: url("~@/assets/fonts/font-roboto/Roboto-Thin.eot") format("eot"),
-    url("~@/assets/fonts/font-roboto/Roboto-Thin.woff") format("woff"),
-    url("~@/assets/fonts/font-roboto/Roboto-Thin.ttf") format("truetype"),
-    url("~@/assets/fonts/font-roboto/Roboto-Thin.svg#Peugeot-Bold")
-      format("svg");
-}
-
-@font-face {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 300;
-  src: url("~@/assets/fonts/font-roboto/Roboto-Light.eot") format("eot"),
-    url("~@/assets/fonts/font-roboto/Roboto-Light.woff") format("woff"),
-    url("~@/assets/fonts/font-roboto/Roboto-Light.ttf") format("truetype"),
-    url("~@/assets/fonts/font-roboto/Roboto-Light.svg#Peugeot-Bold")
-      format("svg");
-}
-@font-face {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  src: url("~@/assets/fonts/font-roboto/Roboto-Regular.eot") format("eot"),
-    url("~@/assets/fonts/font-roboto/Roboto-Regular.woff") format("woff"),
-    url("~@/assets/fonts/font-roboto/Roboto-Regular.ttf") format("truetype"),
-    url("~@/assets/fonts/font-roboto/Roboto-Regular.svg#Peugeot-Bold")
-      format("svg");
-}
-@font-face {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 500;
-  src: url("~@/assets/fonts/font-roboto/Roboto-Medium.eot") format("eot"),
-    url("~@/assets/fonts/font-roboto/Roboto-Medium.woff") format("woff"),
-    url("~@/assets/fonts/font-roboto/Roboto-Medium.ttf") format("truetype"),
-    url("~@/assets/fonts/font-roboto/Roboto-Medium.svg#Peugeot-Bold")
-      format("svg");
-}
-@font-face {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 600;
-  src: url("~@/assets/fonts/font-roboto/Roboto-Bold.eot") format("eot"),
-    url("~@/assets/fonts/font-roboto/Roboto-Bold.woff") format("woff"),
-    url("~@/assets/fonts/font-roboto/Roboto-Bold.ttf") format("truetype"),
-    url("~@/assets/fonts/font-roboto/Roboto-Bold.svg#Peugeot-Bold")
-      format("svg");
-}
-
-@font-face {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  src: url("~@/assets/fonts/font-roboto/Roboto-Black.eot") format("eot"),
-    url("~@/assets/fonts/font-roboto/Roboto-Black.woff") format("woff"),
-    url("~@/assets/fonts/font-roboto/Roboto-Black.ttf") format("truetype"),
-    url("~@/assets/fonts/font-roboto/Roboto-Black.svg#Peugeot-Bold")
-      format("svg");
-}
-
-@font-face {
-  font-family: "Roboto Mono";
-  font-style: normal;
-  font-weight: 400;
-  src: url("~@/assets/fonts/font-roboto-mono/RobotoMono-Regular.ttf")
-    format("truetype");
-}
-
-@font-face {
-  font-family: "Roboto Mono";
-  font-style: normal;
-  font-weight: 700;
-  src: url("~@/assets/fonts/font-roboto-mono/RobotoMono-Bold.ttf")
-    format("truetype");
-}
-
-$font-family-awsome-brands: "Font Awesome 5 Brands";
-$font-family-awsome-solid: "Font Awesome 5 Solid";
-
-$white: #fff;
-
 $colors-map: (
   "green": #00b855,
   "orange": #ff6000,
@@ -127,18 +23,13 @@ $link-hover-color: rgba(0, 0, 0, 1);
 $link-active-color: rgba(0, 0, 0, 0.6);
 
 // custom controls
-$custom-control-indicator-border-radius: 2px;
-$custom-control-indicator-checked-bg: rgb(51, 51, 51);
-$custom-control-indicator-icon-checked: url("@/assets/icons/checkbox-check.svg");
-$custom-control-indicator-indeterminate-bg: #ffffff;
-$custom-control-indicator-indeterminate-box-shadow: 0px 0px 0px 6px
-  rgba(0, 0, 0, 0.4);
-$custom-control-indicator-icon-indeterminate: url("@/assets/icons/checkbox-check.svg");
-$custom-control-disabled-bg: rgba(0, 0, 0, 0.05);
-$custom-control-disabled-fill: rgb(153, 153, 153);
+$form-focus-shadow: 0px 0px 0px 6px
+rgba(0, 0, 0, 0.4);
+$form-checked-color: rgb(51, 51, 51);
+$form-disabled-color: rgb(153, 153, 153);
 
 // button
 $normal-button-default-bg: rgba(0, 0, 0, 0.8);
 $normal-button-focus-bg: rgba(0, 0, 0, 0.8);
-$normal-button-active-bg: #000000;
+$normal-button-active-bg: rgba(0, 0, 0, 0.8);
 $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);

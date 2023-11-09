@@ -24,33 +24,32 @@
           class="custom-link"
           :name="item.label"
           :query="item.iri"
-          :customLinkOnClick="this.ontologyClicked"
         ></customLink>
       </div>
     </div>
-    <b-collapse
+    <bs-collapse
       v-if="isFolder"
-      v-model="isOpen"
-      @shown="$emit('openingFinished')"
+      :open="isOpen"
+      @shown="onShown()"
     >
       <transition name="list">
         <ul class="list-unstyled" v-show="isOpen">
           <module-tree
-            ref="childNodes"
-            :item="subItem"
             v-for="subItem in item.subModule"
+            :item="subItem"
             :location="location"
             :key="subItem.label"
-            @openingFinished="openFolder()"
+            @treeOpeningFinished="openFolder()"
+            ref="childNodes"
           />
         </ul>
       </transition>
-    </b-collapse>
+    </bs-collapse>
   </li>
 </template>
 
 <script>
-import customLink from './Resource/chunks/link';
+import customLink from './Resource/chunks/customLink';
 
 export default {
   name: 'module-tree',
@@ -71,7 +70,6 @@ export default {
     toggle() {
       this.isOpen = !this.isOpen;
     },
-    ontologyClicked(event) {},
     expandOpened(loc) {
       if (loc && loc.locationInModules) {
         const isLowestLevel = !this.isFolder || loc.locationInModules.at(-1) == this.item.iri;
@@ -80,7 +78,7 @@ export default {
         );
         this.isOpen = this.isSelected && isLowestLevel;
         if (this.isOpen && !this.isFolder) {
-          this.$emit('openingFinished');
+          this.$emit('treeOpeningFinished');
         }
       } else {
         this.isSelected = false;
@@ -95,13 +93,18 @@ export default {
       this.isOpen = true;
       this.isSelected = true;
     },
+    onShown() {
+      if (this.isOpen) {
+        this.$emit('treeOpeningFinished');
+      }
+    }
   },
   mounted() {
     if (!this.isSelected) this.expandOpened(this.location);
   },
   computed: {
     isFolder() {
-      return this.item.subModule && this.item.subModule.length;
+      return this.item?.subModule?.length && this.item.subModule.length > 0;
     },
   },
   watch: {
@@ -185,7 +188,12 @@ export default {
     padding-top: 2px;
     word-wrap: break-word;
     max-width: calc(100% - 60px);
-    &.selected {
+    
+    a {
+      text-decoration: none;
+    }
+
+    &.selected a, a:hover {
       text-decoration: underline;
     }
     .custom-link {

@@ -36,7 +36,7 @@
         <ComparedDiff :line="item" :changeType="changeType" />
       </li>
     </ul>
-    <b-collapse :id="`${identifier}-collapse`" v-model="isMoreVisible">
+    <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
         <ul
           class="animated-list"
@@ -53,7 +53,7 @@
           </li>
         </ul>
       </transition>
-    </b-collapse>
+    </bs-collapse>
 
     <div v-if="!isMoreVisible" href="#" @click.prevent="toggleIsMoreVisible()">
       <div class="see-more-btn">Show {{ lines.length - 6 }} more</div>

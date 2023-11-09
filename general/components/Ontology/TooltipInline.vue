@@ -1,7 +1,7 @@
 <template>
-  <div class="resource-inline-tooltip" ref="resourceInlineTooltip">
-    <Tooltip :targetRef="() => $refs['resourceInlineTooltip']" :text="text" />
-  </div>
+  <bs-tooltip :text="text">
+    <div class="resource-inline-tooltip" ref="resourceInlineTooltip"></div>
+  </bs-tooltip>
 </template>
 
 <script>

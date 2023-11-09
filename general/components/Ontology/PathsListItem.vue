@@ -56,7 +56,7 @@ export default {
     this.checkOverflow();
     window.addEventListener('resize', this.onResize);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('resize', this.onResize);
   },
   methods: {

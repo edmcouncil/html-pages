@@ -13,9 +13,9 @@
           </div>
 
           <div class="collapsible-section-content">
-            <div class="custom-control custom-checkbox">
+            <div class="form-check">
               <input
-                class="custom-control-input"
+                class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
                 id="internal"
@@ -23,13 +23,13 @@
                 v-model="internal"
                 @change="filterHandler()"
               />
-              <label class="custom-control-label" for="internal">
+              <label class="form-check-label" for="internal">
                 Class specific
               </label>
             </div>
-            <div class="custom-control custom-checkbox">
+            <div class="form-check">
               <input
-                class="custom-control-input"
+                class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
                 id="external"
@@ -37,13 +37,13 @@
                 v-model="external"
                 @change="filterHandler()"
               />
-              <label class="custom-control-label" for="external"
+              <label class="form-check-label" for="external"
               >Inherited</label
               >
             </div>
-            <div class="custom-control custom-checkbox">
+            <div class="form-check">
               <input
-                class="custom-control-input"
+                class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
                 id="optional"
@@ -51,13 +51,13 @@
                 v-model="optional"
                 @change="filterHandler()"
               />
-              <label class="custom-control-label" for="optional"
+              <label class="form-check-label" for="optional"
               >Optional</label
               >
             </div>
-            <div class="custom-control custom-checkbox">
+            <div class="form-check">
               <input
-                class="custom-control-input"
+                class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
                 id="non_optional"
@@ -65,7 +65,7 @@
                 v-model="required"
                 @change="filterHandler()"
               />
-              <label class="custom-control-label" for="non_optional">
+              <label class="form-check-label" for="non_optional">
                 Required
               </label>
             </div>
@@ -113,10 +113,10 @@
       </button>
     </div>
 
-    <b-modal
-      v-model="fullscreen"
-      footer-class="d-none"
-      modal-class="fullscreen"
+    <bs-modal
+      :open="fullscreen"
+      footerClass="d-none"
+      modalClass="fullscreen graph-visualization"
       @shown="modalShown()"
       @hidden="modalHidden()"
     >
@@ -169,9 +169,9 @@
                 <div class="help-icon" @click="openGuide('guide-connections')"></div>
               </div>
               <div class="filters-container">
-                <div class="custom-control custom-checkbox">
+                <div class="form-check">
                   <input
-                    class="custom-control-input"
+                    class="form-check-input"
                     type="checkbox"
                     name="edgesFilter"
                     id="internal"
@@ -179,13 +179,13 @@
                     v-model="internal"
                     @change="filterHandler()"
                   />
-                  <label class="custom-control-label" for="internal">
+                  <label class="form-check-label" for="internal">
                     Class specific
                   </label>
                 </div>
-                <div class="custom-control custom-checkbox">
+                <div class="form-check">
                   <input
-                    class="custom-control-input"
+                    class="form-check-input"
                     type="checkbox"
                     name="edgesFilter"
                     id="external"
@@ -193,11 +193,11 @@
                     v-model="external"
                     @change="filterHandler()"
                   />
-                  <label class="custom-control-label" for="external">Inherited</label>
+                  <label class="form-check-label" for="external">Inherited</label>
                 </div>
-                <div class="custom-control custom-checkbox">
+                <div class="form-check">
                   <input
-                    class="custom-control-input"
+                    class="form-check-input"
                     type="checkbox"
                     name="edgesFilter"
                     id="optional"
@@ -205,11 +205,11 @@
                     v-model="optional"
                     @change="filterHandler()"
                   />
-                  <label class="custom-control-label" for="optional">Optional</label>
+                  <label class="form-check-label" for="optional">Optional</label>
                 </div>
-                <div class="custom-control custom-checkbox">
+                <div class="form-check">
                   <input
-                    class="custom-control-input"
+                    class="form-check-input"
                     type="checkbox"
                     name="edgesFilter"
                     id="non_optional"
@@ -217,7 +217,7 @@
                     v-model="required"
                     @change="filterHandler()"
                   />
-                  <label class="custom-control-label" for="non_optional">
+                  <label class="form-check-label" for="non_optional">
                     Required
                   </label>
                 </div>
@@ -310,16 +310,16 @@
               <div class="configuration-container">
                 <div class="configuration-labels">
                   <p>Display all edge labels</p>
-                  <div class="custom-control custom-switch">
+                  <div class="form-check form-switch">
                     <input
                       type="checkbox"
-                      class="custom-control-input"
+                      class="form-check-input"
                       id="keep-labels-switch"
                       v-model="isKeepLabels"
                       @change="handleKeepLabelsUpdate()"
                     />
                     <label
-                      class="custom-control-label"
+                      class="form-check-label"
                       for="keep-labels-switch"
                     ></label>
                   </div>
@@ -363,17 +363,18 @@
 
       <button class="btn normal-button small center-btn" @click="center">Center</button>
       <div class="graph-modal-content" ref="graphModalTarget"></div>
-    </b-modal>
+    </bs-modal>
 
     <GraphGuide ref="graphGuide" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'pinia';
+import { useServersStore } from '@/stores/servers';
+import { useConfigurationStore } from '@/stores/configuration';
+import d3ToPng from 'd3-svg-to-png';
 import Ontograph from '../../helpers/ontograph';
-
-const d3ToPng = require('d3-svg-to-png');
 
 export default {
   name: 'GraphVisualization',
@@ -432,7 +433,7 @@ export default {
       this.handleKeepLabelsUpdate();
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('resize', this.onResize);
   },
   methods: {
@@ -602,15 +603,13 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      graphServer: (state) => state.servers.graphServer,
+    ...mapState(useServersStore, {
+      graphServer: store => store.graphServer,
     }),
-    uriSpace() {
-      return this.$store.state.configuration.config.uriSpace;
-    },
-    ontologyName() {
-      return this.$store.state.configuration.config.ontpubFamily.toLowerCase();
-    },
+    ...mapState(useConfigurationStore, {
+      uriSpace: store => store.config.uriSpace,
+      ontologyName: store => store.config.ontpubFamily.toLowerCase(),
+    }),
   },
   watch: {
     distanceValue(newValue) {
@@ -734,7 +733,7 @@ export default {
         flex-direction: column;
         gap: 15px;
 
-        .custom-checkbox {
+        .form-check {
           padding-bottom: 0;
         }
       }
@@ -889,10 +888,10 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    .custom-control {
+    .form-check {
       padding-right: 40px;
 
-      .custom-control-label {
+      .form-check-label {
         font-style: normal;
         font-weight: normal;
         font-size: 18px;
@@ -903,9 +902,7 @@ export default {
   }
 }
 
-.modal.fullscreen {
-  display: block;
-
+.modal.graph-visualization.fullscreen {
   .modal-header {
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     border: none;
@@ -966,6 +963,7 @@ export default {
     }
   }
   .modal-dialog {
+    max-width: unset;
     margin: 0;
   }
   .modal-content {
@@ -1077,11 +1075,11 @@ export default {
     .collapsible-section-content {
       flex-direction: column;
 
-      .custom-control {
+      .form-check {
         padding-right: 0px;
         padding-bottom: 20px;
 
-        .custom-control-label {
+        .form-check-label {
           padding-top: 3px;
           padding-bottom: 3px;
           font-style: normal;
@@ -1168,11 +1166,11 @@ export default {
       .collapsible-section-content {
         flex-direction: column;
 
-        .custom-control {
+        .form-check {
           padding-right: 0px;
           padding-bottom: 20px;
 
-          .custom-control-label {
+          .form-check-label {
             color: rgba(0, 0, 0, 0.8);
           }
         }

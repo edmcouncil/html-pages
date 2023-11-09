@@ -15,14 +15,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'pinia';
+import { useServersStore } from '@/stores/servers';
 
 export default {
   name: 'CompareBanner',
   computed: {
-    ...mapState({
-      version: (state) => state.servers.version,
-      versionCompare: (state) => state.servers.versionCompare,
+    ...mapState(useServersStore, {
+      version: store => store.version,
+      versionCompare: store => store.versionCompare,
     }),
   },
 };

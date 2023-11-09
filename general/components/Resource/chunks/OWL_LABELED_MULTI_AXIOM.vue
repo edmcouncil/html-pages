@@ -52,7 +52,7 @@
         />
       </li>
     </ul>
-    <b-collapse :id="`${identifier}-collapse`" v-model="isMoreVisible">
+    <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
         <ul v-if="value.length > 0" ref="scrollTarget">
           <li
@@ -75,7 +75,7 @@
           </li>
         </ul>
       </transition>
-    </b-collapse>
+    </bs-collapse>
 
     <div v-if="!isMoreVisible" href="#" @click.prevent="toggleIsMoreVisible()">
       <div class="see-more-btn">Show {{ value.length - 5 }} more</div>
@@ -87,19 +87,8 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import customLink from './link.vue';
-import langCodeFlags from './LangCodeFlags.vue';
-
-Vue.component('customLink', customLink);
-Vue.component('langCodeFlags', langCodeFlags);
-
 export default {
   name: 'OWL_LABELED_MULTI_AXIOM',
-  components: {
-    customLink,
-    langCodeFlags,
-  },
   props: ['value', 'entityMaping', 'entityLabel', 'identifier'],
   data() {
     return {
