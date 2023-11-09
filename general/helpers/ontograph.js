@@ -541,13 +541,13 @@ export default class Ontograph {
       this.root.each((d) => {
         d._totalChildren?.sort((a, b) => d3.descending(a.height, b.height));
       });
-    } else if (type === 'type') {
+    } else if (type === 'optional') {
       this.root.each((d) => {
-        d._totalChildren?.sort((a, b) => d3.descending(a.data.type, b.data.type));
+        d._totalChildren?.sort((a, b) => d3.descending(a.data.dashes, b.data.dashes));
       });
     } else if (type === 'inherited') {
       this.root.each((d) => {
-        d._totalChildren?.sort((a, b) => d3.descending(a.data.dashes, b.data.dashes));
+        d._totalChildren?.sort((a, b) => d3.descending(a.data.type, b.data.type));
       });
     }
 
