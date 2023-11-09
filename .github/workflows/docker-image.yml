@@ -50,6 +50,28 @@ jobs:
             ONTPUB_FAMILY=fibo
             BRANCH_NAME=${{ steps.meta.outputs.version }}
       -
+        name: Build and push edmcouncil/dev-strapi:${{ steps.meta.outputs.version }}
+        uses: docker/build-push-action@v5
+        with:
+          context: ./general/strapi
+          push: true
+          tags: edmcouncil/dev-strapi:${{ steps.meta.outputs.version }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            ONTPUB_FAMILY=dev
+            BRANCH_NAME=${{ steps.meta.outputs.version }}
+      -
+        name: Build and push edmcouncil/dev-pages:${{ steps.meta.outputs.version }}
+        uses: docker/build-push-action@v5
+        with:
+          context: ./general
+          push: true
+          tags: edmcouncil/dev-pages:${{ steps.meta.outputs.version }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            ONTPUB_FAMILY=dev
+            BRANCH_NAME=${{ steps.meta.outputs.version }}
+      -
         name: Build and push edmcouncil/spec:${{ steps.meta.outputs.version }}
         uses: docker/build-push-action@v5
         with:
