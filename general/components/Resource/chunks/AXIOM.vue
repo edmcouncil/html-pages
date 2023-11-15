@@ -128,7 +128,6 @@ export default {
     processedHtml(htmlInput) {
       let htmlResult = htmlInput;
       if (htmlResult.startsWith('- ')) htmlResult = htmlResult.substring(2);
-      htmlResult = htmlResult.replace('/arg1/', '<b>/arg1/</b>');
       if (this.entityMaping) {
         Object.keys(this.entityMaping).forEach((name) => {
           const value = this.entityMaping[name];
