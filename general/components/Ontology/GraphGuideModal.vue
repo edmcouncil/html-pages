@@ -21,6 +21,7 @@
 export default {
   name: 'GraphGuideModal',
   props: ['modalId'],
+  emits: ['closeEvent'],
 };
 </script>
 

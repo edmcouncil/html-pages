@@ -350,11 +350,13 @@ export default class Ontograph {
               this.linkLabels
                 .transition()
                 .duration(0)
-                .attr('opacity', (l) => (l === d.data.linkLabelElement
-                  ? '1'
-                  : this.keepLabels
-                    ? this.labelOpacity
-                    : '0'));
+                .attr('opacity', (l) => {
+                  if (parseInt(l.target.id) === d.data.id)
+                    return '1';
+                  else {
+                    return this.keepLabels ? this.labelOpacity : '0';
+                  }
+                });
               this.node
                 .transition()
                 .duration(0)

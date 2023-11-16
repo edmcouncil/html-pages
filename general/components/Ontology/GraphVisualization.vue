@@ -18,12 +18,12 @@
                 class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
-                id="internal"
+                id="internal-minimal"
                 value="internal"
                 v-model="internal"
                 @change="filterHandler()"
               />
-              <label class="form-check-label" for="internal">
+              <label class="form-check-label" for="internal-minimal">
                 Class specific
               </label>
             </div>
@@ -32,12 +32,12 @@
                 class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
-                id="external"
+                id="external-minimal"
                 value="external"
                 v-model="external"
                 @change="filterHandler()"
               />
-              <label class="form-check-label" for="external"
+              <label class="form-check-label" for="external-minimal"
               >Inherited</label
               >
             </div>
@@ -46,12 +46,12 @@
                 class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
-                id="optional"
+                id="optional-minimal"
                 value="optional"
                 v-model="optional"
                 @change="filterHandler()"
               />
-              <label class="form-check-label" for="optional"
+              <label class="form-check-label" for="optional-minimal"
               >Optional</label
               >
             </div>
@@ -60,12 +60,12 @@
                 class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
-                id="non_optional"
+                id="non_optional-minimal"
                 value="non_optional"
                 v-model="required"
                 @change="filterHandler()"
               />
-              <label class="form-check-label" for="non_optional">
+              <label class="form-check-label" for="non_optional-minimal">
                 Required
               </label>
             </div>
