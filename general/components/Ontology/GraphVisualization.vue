@@ -293,8 +293,8 @@
                 </button>
                 <button
                   class="btn chip-button"
-                  @click="sort('type')"
-                  :class="{ selected: sortType === 'type' && layout !== 'force' }"
+                  @click="sort('optional')"
+                  :class="{ selected: sortType === 'optional' && layout !== 'force' }"
                   :disabled="layout == 'force'"
                 >
                   Optional

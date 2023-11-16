@@ -63,16 +63,6 @@ export default {
       else {
         this.instance.hide();
       }
-
-      // Associate modal with it's modal-backdrop
-      const allBackdrops = document.querySelectorAll('.modal-backdrop');
-      allBackdrops.forEach(element => {
-        if (!element.id) {
-          element.id = `backdrop-${this.correctId}`;
-          if (this.secondLevel)
-            element.classList.add('second-level');
-        }
-      });
     },
     onHidden() {
       this.$emit('hidden');
@@ -136,6 +126,16 @@ export default {
       if (newValue) {
         await nextTick();
         this.instance.show();
+
+        // Associate modal with it's modal-backdrop
+        const allBackdrops = document.querySelectorAll('.modal-backdrop');
+        allBackdrops.forEach(element => {
+          if (!element.id) {
+            element.id = `backdrop-${this.correctId}`;
+            if (this.secondLevel)
+              element.classList.add('second-level');
+          }
+        });
       }
       else {
         this.instance.hide();
