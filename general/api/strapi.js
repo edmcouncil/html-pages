@@ -88,7 +88,6 @@ export async function getPageElementsStrapiData(runtimeConfig) {
     data.footerSocials = response.data.attributes.socials;
     data.useCustomFooterData = response.data.attributes.useCustomFooterData;
   } catch (error) {
-    console.error(error);
     return {};
   }
 
@@ -99,7 +98,6 @@ export async function getPageElementsStrapiData(runtimeConfig) {
     const response = await getStrapiSingleType(singleTypeName, populateParams, runtimeConfig);
     data.carousel = response.data.attributes.items;
   } catch (error) {
-    console.error(error);
     return {};
   }
 
@@ -110,7 +108,6 @@ export async function getPageElementsStrapiData(runtimeConfig) {
     const response = await getStrapiSingleType(singleTypeName, populateParams, runtimeConfig);
     data.menuDropdown = response.data.attributes.items;
   } catch (error) {
-    console.error(error);
     return {};
   }
 
@@ -121,7 +118,6 @@ export async function getPageElementsStrapiData(runtimeConfig) {
     const response = await getStrapiSingleType(singleTypeName, populateParams, runtimeConfig);
     data.menuTop = response.data.attributes.items;
   } catch (error) {
-    console.error(error);
     data.menuTop = [];
   }
 
@@ -171,7 +167,6 @@ export async function getAppConfigurationData(runtimeConfig) {
       data.ontologyLogoUrl = null;
     }
   } catch (error) {
-    console.error(error);
     return {};
   }
 

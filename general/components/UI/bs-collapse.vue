@@ -15,6 +15,7 @@ export default {
     open: Boolean,
     id: String,
   },
+  emits: ['shown', 'hidden'],
   data() {
     return {
       instance: null
@@ -25,7 +26,7 @@ export default {
       this.$emit('shown');
       if (this.open) {
         this.instance.show();
-      } 
+      }
       else {
         this.instance.hide();
       }
@@ -34,7 +35,7 @@ export default {
       this.$emit('hidden');
       if (this.open) {
         this.instance.show();
-      } 
+      }
       else {
         this.instance.hide();
       }
@@ -62,7 +63,7 @@ export default {
       if (newValue) {
         await nextTick();
         this.instance.show();
-      } 
+      }
       else {
         this.instance.hide();
       }

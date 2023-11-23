@@ -48,6 +48,7 @@ export default {
     fullscreen: Boolean,
     secondLevel: Boolean,
   },
+  emits: ['shown', 'hidden'],
   data() {
     return {
       instance: null,
