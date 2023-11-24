@@ -25,7 +25,7 @@
     "linkifyjs": "^4.1.1",
     "pinia": "^2.1.6",
     "qs": "^6.11.2",
-    "string-similarity": "^4.0.4",
+    "string-comparison": "^1.2.0",
     "vue-multiselect": "^3.0.0-beta.2",
     "vue3-runtime-template": "^1.0.2"
   },

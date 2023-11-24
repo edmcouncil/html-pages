@@ -1,5 +1,5 @@
 import { diff } from './customJsonDiff.js';
-import { compareTwoStrings } from 'string-similarity';
+import stringComparison from 'string-comparison';
 
 const exactMatchTypes = [
   'AXIOM',
@@ -53,7 +53,7 @@ function isChangeItem(item) {
 }
 
 function isStringSimilar(string1, string2) {
-  return compareTwoStrings(string1, string2) > 0.6;
+  return stringComparison.diceCoefficient.similarity(string1, string2) > 0.6;
 }
 
 // handle line comparison of modified elements
