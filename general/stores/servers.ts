@@ -13,8 +13,8 @@ export const useServersStore = defineStore({
       graphSegment: 'graph',
       describeSegment: 'integration/dwDescribe',
 
-      version: null as any,
-      versionCompare: null as any,
+      version: null as string | null,
+      versionCompare: null as string | null,
 
       searchServer: '',
       ontologyServer: '',
@@ -33,7 +33,7 @@ export const useServersStore = defineStore({
     }
   },
   actions: {
-    async updateServers(route: any, to: any) {
+    updateServers(route: any, to: any): void {
       const configurationStore = useConfigurationStore();
       let internalRoute = route;
       let ontoviewerDefaultDomain = configurationStore.config.ontoviewerServerUrl;
@@ -82,7 +82,7 @@ export const useServersStore = defineStore({
       this.graphServer = graphServer;
       this.describeServer = describeServer;
     },
-    async updateCompareServers(compareVersion: any) {
+    updateCompareServers(compareVersion: string | null): void {
       const configurationStore = useConfigurationStore();
       let ontoviewerDefaultDomain = configurationStore.config.ontoviewerServerUrl;
       let version = null;
@@ -125,5 +125,30 @@ export const useServersStore = defineStore({
       this.missingImportsServerCompare = missingImportsServer;
       this.graphServerCompare = graphServer;
     },
+    getVersionedOntologyServer(version: string | null): string {
+      return this.getVersionedServer(this.ontologySegment, version);
+    },
+    getVersionedServer(segment: string, version: string | null): string {
+      const configurationStore = useConfigurationStore();
+      let result = configurationStore.config.ontoviewerServerUrl;
+
+      if (version !== null) {
+        result = result.replace(
+          '{version}',
+          version,
+        );
+      } else {
+        result = result.replace(
+          '{version}/',
+          '',
+        );
+        result = result.replace(
+          '{version}',
+          '',
+        );
+      }
+
+      return result + segment;
+    }
   },
 })

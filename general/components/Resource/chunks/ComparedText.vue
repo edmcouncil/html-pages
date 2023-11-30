@@ -1,54 +1,31 @@
 <template>
-  <div
-    v-if="!isShowMore"
-    :class="{
-      'text-changed': changeType == 'changed',
-      'text-added': changeType == 'added',
-      'text-removed': changeType == 'removed',
-    }"
-  >
+  <div v-if="!isShowMore" :class="{
+    'text-changed': changeType == 'changed',
+    'text-added': changeType == 'added',
+    'text-removed': changeType == 'removed',
+  }">
     <ComparedDiff :line="lines[0]" :changeType="changeType" />
     <ul :class="{ 'string-list': type === 'STRING' }">
-      <li
-        v-for="(item, index) in lines.slice(1)"
-        :key="`${item}_${index}`"
-        :class="{ 'string-item': type === 'STRING' }"
-      >
+      <li v-for="(item, index) in lines.slice(1)" :key="`${item}_${index}`" :class="{ 'string-item': type === 'STRING' }">
         <ComparedDiff :line="item" :changeType="changeType" />
       </li>
     </ul>
   </div>
-  <div
-    v-else
-    :class="{
-      'text-changed': changeType == 'changed',
-      'text-added': changeType == 'added',
-      'text-removed': changeType == 'removed',
-    }"
-  >
+  <div v-else :class="{
+    'text-changed': changeType == 'changed',
+    'text-added': changeType == 'added',
+    'text-removed': changeType == 'removed',
+  }">
     <ComparedDiff :line="lines[0]" :changeType="changeType" />
     <ul :class="{ 'string-list': type === 'STRING' }">
-      <li
-        v-for="(item, index) in lines.slice(1, 6)"
-        :key="`${item}_${index}`"
-        :class="{ 'string-item': type === 'STRING' }"
-      >
+      <li v-for="(item, index) in lines.slice(1, 6)" :key="`${item}_${index}`" :class="{ 'string-item': type === 'STRING' }">
         <ComparedDiff :line="item" :changeType="changeType" />
       </li>
     </ul>
     <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
-        <ul
-          class="animated-list"
-          :class="{ 'string-list': type === 'STRING' }"
-          v-show="isMoreVisible"
-          ref="scrollTarget"
-        >
-          <li
-            v-for="(item, index) in lines.slice(6)"
-            :key="`${item}_${index}`"
-            :class="{ 'string-item': type === 'STRING' }"
-          >
+        <ul class="animated-list" :class="{ 'string-list': type === 'STRING' }" v-show="isMoreVisible" ref="scrollTarget">
+          <li v-for="(item, index) in lines.slice(6)" :key="`${item}_${index}`" :class="{ 'string-item': type === 'STRING' }">
             <ComparedDiff :line="item" :changeType="changeType" />
           </li>
         </ul>
@@ -110,85 +87,90 @@ export default {
       }
     },
     getLinesFromItem(item) {
-      if (
-        item.value
-        && Array.isArray(item.value)
-        && item.type !== 'OWL_LABELED_MULTI_AXIOM'
-      ) return item.value;
+      if (!item || !item.value) return [];
+
+      if (Array.isArray(item.value) && item.type !== 'OWL_LABELED_MULTI_AXIOM') {
+        return item.value;
+      }
+
       if (item.type === 'AXIOM') {
-        let lines = item.fullRenderedString.split('<br />');
-        lines = lines.map((item) => item.trim());
-        for (let i = 0; i < lines.length; i++) {
-          if (lines[i].startsWith('- ')) lines[i] = lines[i].substring(2);
-        }
+        let lines = item.fullRenderedString ? item.fullRenderedString.split('<br />') : [];
+        lines = lines.map(line => line.trim());
+        lines = lines.map(line => line.startsWith('- ') ? line.substring(2) : line);
         return lines;
       }
+
       if (item.type === 'OWL_LABELED_MULTI_AXIOM') {
-        if (
-          typeof item.value[0] === 'string'
-          || item.value[0] instanceof String
-        ) return item.value;
-        const linesFromValue = item.value.map(
-          (item) => item.fullRenderedString,
-        );
-        const lines = [item.entityLabel.label, ...linesFromValue];
-        return lines;
+        if (Array.isArray(item.value[0])) {
+          return item.value.map(tuple => {
+            const changeType = tuple[0];
+            const content = tuple[1];
+
+            switch (changeType) {
+              case ' ':
+                return [' ', content];
+              case '~':
+                return ['~', content];
+              case '-':
+                return [' ', content];
+              case '+':
+                return ['+', content];
+              default:
+                return '';
+            }
+          });
+        }
+
+        if (typeof item.value[0] === 'string' || item.value[0] instanceof String) {
+          return item.value;
+        }
+
+        const entityLabel = item.entityLabel && item.entityLabel.label ? item.entityLabel.label : '';
+        const linesFromValue = item.value.map(val => val.fullRenderedString || '');
+        return [entityLabel, ...linesFromValue];
       }
+
       if (item.type === 'STRING') {
         return item.value.split('\n');
       }
-      if (item.type === 'DIRECT_SUBCLASSES') {
-        return [item.value.label];
+
+      if (['DIRECT_SUBCLASSES', 'INSTANCES', 'IRI', 'MODULES'].includes(item.type)) {
+        return [item.value.label || ''];
       }
-      if (item.type === 'INSTANCES') {
-        return [item.value.label];
-      }
-      if (item.type === 'IRI') {
-        return [item.value.label];
-      }
-      if (item.type === 'MODULES') {
-        return [item.value.label];
-      }
-      return [item.value];
+
+      return [item.value || ''];
     },
     compareLines(linesOriginal, linesCompared) {
       const n = Math.max(linesOriginal.length, linesCompared.length);
       const dmp = new DiffMatchPatch();
-      if (this.changeType == 'changed') {
-        for (let i = 0; i < n; i++) {
-          let diff = [];
-          if (linesCompared[i][0] == ' ') {
-            diff = dmp.diff_main(
-              linesCompared[i][1] || '',
-              linesCompared[i][1] || '',
-            );
-          }
-          if (linesCompared[i][0] == '-') {
-            diff = dmp.diff_main(linesCompared[i][1] || '', '');
-          }
-          if (linesCompared[i][0] == '+') {
-            diff = dmp.diff_main('', linesCompared[i][1] || '');
-          }
-          if (linesCompared[i][0] == '~') {
-            diff = dmp.diff_main(
-              linesCompared[i][1].__old || '',
-              linesCompared[i][1].__new || '',
-            );
-          }
-          dmp.diff_cleanupSemantic(diff);
 
-          this.lines.push(diff);
-        }
-      } else {
-        for (let i = 0; i < n; i++) {
-          const diff = dmp.diff_main(
-            linesOriginal[i] || '',
-            linesCompared[i] || '',
-          );
-          dmp.diff_cleanupSemantic(diff);
+      for (let i = 0; i < n; i++) {
+        let diff = [];
 
-          this.lines.push(diff);
+        const originalLine = linesOriginal[i] || '';
+        const comparedLine = linesCompared[i] || '';
+
+        if (this.changeType === 'changed') {
+          const lineType = linesCompared[i] ? linesCompared[i][0] : ' ';
+          const lineContent = linesCompared[i] ? linesCompared[i][1] || '' : '';
+
+          if (lineType === ' ') {
+            diff = dmp.diff_main(lineContent, lineContent);
+          } else if (lineType === '-') {
+            diff = dmp.diff_main(lineContent, '');
+          } else if (lineType === '+') {
+            diff = dmp.diff_main('', lineContent);
+          } else if (lineType === '~') {
+            const oldContent = lineContent.__old || '';
+            const newContent = lineContent.__new || '';
+            diff = dmp.diff_main(oldContent, newContent);
+          }
+        } else {
+          diff = dmp.diff_main(originalLine, comparedLine);
         }
+
+        dmp.diff_cleanupSemantic(diff);
+        this.lines.push(diff);
       }
     },
   },

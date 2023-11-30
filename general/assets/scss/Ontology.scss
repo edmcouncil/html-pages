@@ -1375,12 +1375,13 @@
   opacity: 0;
 }
 
-.slowfade-enter-active,
-.slowfade-leave-active {
-  transition: opacity 0.5s;
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s ease;
 }
-.slowfade-enter,
-.slowfade-leave-to {
+
+.v-enter-from,
+.v-leave-to {
   opacity: 0;
 }
 

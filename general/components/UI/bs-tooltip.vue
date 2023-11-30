@@ -1,9 +1,10 @@
 <template>
   <div
     :data-bs-title="text"
+    :data-bs-placement="placement? placement : 'bottom'"
+    :data-bs-offset="offset ? offset : '0,0'"
     class="bs-tooltip"
     data-bs-toggle="tooltip"
-    data-bs-placement="bottom"
     ref="tooltipElement"
   >
     <slot></slot>
@@ -13,7 +14,7 @@
 <script>
 export default {
   name: 'bs-tooltip',
-  props: ['text'],
+  props: ['text', 'placement', 'offset'],
   data() {
     return {
       instance: null,

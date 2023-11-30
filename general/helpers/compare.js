@@ -1,4 +1,4 @@
-import { diff } from './customJsonDiff.js';
+import { diff } from './custom-json-diff.js';
 import { compareTwoStrings } from 'string-similarity';
 
 const exactMatchTypes = [
