@@ -9,7 +9,8 @@ export const useOntologyStore = defineStore({
     return {
       iri: '' as string,
       entityData: {} as Record<string, any>,
-      releases: [] as (string | null)[],
+      releases: [] as Array<string | null>,
+      errorFlags: {} as Record<string, boolean>,
     }
   },
   actions: {
@@ -27,28 +28,36 @@ export const useOntologyStore = defineStore({
       ) {
         return this.entityData[versionIdentifier];
       } else {
-        const data = await this.fetchData(version, iri);
+        const data = await this.fetchEntityData(versionIdentifier, iri);
         this.entityData[versionIdentifier] = data;
         return this.entityData[versionIdentifier];
       }
-
     },
-    async fetchData(version: string | null, iri: string): Promise<any> {
+    async fetchEntityData(versionIdentifier: string, iri: string): Promise<any> {
       const servers = useServersStore();
       const configuration = useConfigurationStore();
       try {
-        const versionIdentifier = version === configuration.config.defaultBranchName ? null : version;
-        const domain = `${servers.getVersionedOntologyServer(versionIdentifier)}?iri=${iri}`;
+        const version = versionIdentifier === configuration.config.defaultBranchName ? null : versionIdentifier;
+        const domain = `${servers.getVersionedOntologyServer(version)}?iri=${iri}`;
         const response = await getEntity(domain);
 
         if (response.ok) {
+          this.errorFlags[versionIdentifier] = false;
           return await response.json();
         } else {
+          this.errorFlags[versionIdentifier] = true;
           return null;
         }
-      } catch (error) {
-        // Resource doesn't exist in this version
-        return null;
+      } catch (error: any) {
+        if (error.status == 404) {
+          // Resource doesn't exist in this version
+          this.errorFlags[versionIdentifier] = false;
+          return null;
+        } else if (error.status == 503) {
+          // Server error
+          this.errorFlags[versionIdentifier] = true;
+          return null;
+        }
       }
     },
     async preloadEntityData(iri: string): Promise<void> {
@@ -57,15 +66,18 @@ export const useOntologyStore = defineStore({
     },
     async initialEntityLoad(version: string | null, iri: string): Promise<any> {
       if (this.releases.length)
-        this.preloadEntityData(iri);
+        await this.preloadEntityData(iri);
 
       return await this.getEntityData(version, iri);
     },
-    setReleases(releases: (string | null)[]) {
-      this.releases = releases;
-    },
     clearData(): void {
       this.entityData = {};
+    },
+    setReleases(releases: Array<string | null>) {
+      this.releases = releases;
+    },
+    getErrorFlags(): Record<string, boolean> {
+      return this.errorFlags;
     }
   },
 })

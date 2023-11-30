@@ -14,7 +14,7 @@
               exists: release && release.maturityLevel && release.maturityLevel.label,
               selected: release.version == (version || defaultBranchName)
             }">
-              <BsTooltip text="Resource doesn't exist in this version" placement="top" offset="0,20">
+              <BsTooltip :text="getTooltip(release)" placement="top" offset="[0,10]">
                 <div class="circle" :class="getCircleClass(release)"></div>
               </BsTooltip>
               <div class="value">{{ release.version }}</div>
@@ -64,6 +64,9 @@ export default {
       this.isLoading = false;
     },
     handleVersionClick(release) {
+      if (!release?.maturityLevel?.label)
+        return;
+
       const version = { '@id': release.version };
       this.$emit('versionChanged', version);
     },
@@ -72,6 +75,10 @@ export default {
       let isDown = false;
       let startX;
       let scrollLeft;
+
+      if (slider.scrollWidth > slider.clientWidth) {
+        slider.classList.add('scrolls');
+      }
 
       slider.addEventListener('mousedown', (e) => {
         isDown = true;
@@ -91,10 +98,10 @@ export default {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2;
+        const walk = (x - startX) * 4;
         slider.scrollLeft = scrollLeft - walk;
       });
-      slider.scrollLeft = slider.scrollWidth
+      slider.scrollLeft = slider.scrollWidth;
     },
     getCircleClass(release) {
       if (!release || !release.maturityLevel) return '';
@@ -111,6 +118,14 @@ export default {
           return 'maturity maturity-mixed';
       }
       return '';
+    },
+    getTooltip(release) {
+      if (!release || !release.maturityLevel || !release.maturityLevel.label) {
+        return `Resource doesn't exist in this version`;
+      } else if (release.maturityLevel.label === 'Not Set') {
+        return `Maturity not set`;
+      }
+      return `${release.maturityLevel.label} maturity`;
     },
   },
   computed: {
@@ -142,37 +157,7 @@ export default {
   }
 }
 
-.overlay-left {
-  overflow: hidden;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 20%;
-  width: 100px;
-  height: 172px;
-  z-index: 50;
-  background-image: linear-gradient(90deg,
-      rgba(242, 242, 242, 1) 15%, rgba(0, 0, 0, 0) 100%);
-}
-
-.overlay-right {
-  overflow: hidden;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  max-width: 20%;
-  width: 100px;
-  height: 172px;
-  z-index: 50;
-  background-image: linear-gradient(270deg,
-      rgba(242, 242, 242, 1) 15%, rgba(0, 0, 0, 0) 100%);
-}
-
 .history-banner {
-  // margin-top: 30px;
-  // padding: 40px;
   font-style: normal;
   font-size: 18px;
   line-height: 30px;
@@ -181,38 +166,22 @@ export default {
   background-color: rgba(242, 242, 242, 1);
   overflow-x: scroll;
   user-select: none;
-  cursor: grab;
+
 
   &::-webkit-scrollbar {
     display: none;
   }
 
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
+  &.scrolls {
+    cursor: grab;
 
-  &::-webkit-scrollbar-thumb {
-    background: map-get($colors-map, "black-20");
-    border-radius: 4px;
-
-    &:hover {
-      background: map-get($colors-map, "black-40");
-      cursor: default;
+    &.active {
+      cursor: grabbing;
     }
   }
 
-  &.active {
-    cursor: grabbing;
-
-    .timeline {
-      pointer-events: none;
-    }
-  }
-
-  .title {
-    color: rgba(0, 0, 0, 0.8);
-    font-size: 18px;
-    font-weight: 700;
+  &.active .timeline {
+    pointer-events: none;
   }
 
   .timeline {
@@ -227,7 +196,7 @@ export default {
       margin-top: 20px;
       margin-bottom: 90px;
       height: 2px;
-      width: 100px;
+      width: 150px;
       background-color: rgba(0, 0, 0, 0.4);
 
       &.start-line {
@@ -235,13 +204,42 @@ export default {
         min-width: 150px;
         border-bottom: 2px dashed rgba(0, 0, 0, 0.4);
         background: transparent;
+
+        &::after {
+          content: '';
+          overflow: hidden;
+          pointer-events: none;
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: 2px;
+          z-index: 50;
+          background-image: linear-gradient(90deg,
+          rgba(242, 242, 242, 1) 15%, rgba(0, 0, 0, 0) 100%);
+        }
       }
 
       &:last-child {
         flex: 1;
-        min-width: 180px;
+        min-width: 250px;
         border-bottom: 2px dashed rgba(0, 0, 0, 0.4);
         background: transparent;
+        position: relative;
+
+        &::after {
+          content: '';
+          overflow: hidden;
+          pointer-events: none;
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: 2px;
+          z-index: 50;
+          background-image: linear-gradient(270deg,
+              rgba(242, 242, 242, 1) 15%, rgba(0, 0, 0, 0) 100%);
+        }
       }
 
       .version {
@@ -252,6 +250,14 @@ export default {
         top: -6px;
         left: -6px;
         pointer-events: all;
+
+        .bs-tooltip {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
 
         .circle {
           position: absolute;
@@ -268,13 +274,19 @@ export default {
         .value {
           user-select: none;
           position: absolute;
-          font-size: 16px;
+          font-size: 18px;
+          line-height: 30px;
           top: -2px;
           left: 18px;
           padding-left: 15px;
           transform-origin: top left;
-          transform: rotate(35deg);
+          transform: rotate(25deg);
           color: map-get($colors-map, "black-40");
+
+          max-width: 200px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         &.exists {
@@ -324,14 +336,6 @@ export default {
           }
 
           .value {
-            user-select: none;
-            position: absolute;
-            font-size: 16px;
-            top: -2px;
-            left: 18px;
-            padding-left: 15px;
-            transform-origin: top left;
-            transform: rotate(35deg);
             color: map-get($colors-map, "black-80");
           }
         }
@@ -344,47 +348,22 @@ export default {
       }
     }
   }
-
-  .version-name {
-    padding: 25px 20px;
-    text-align: center;
-    font-weight: bold;
-    color: rgba(0, 0, 0, 0.8);
-    background: rgb(255, 255, 255);
-
-    &.right {
-      border-left: 2px solid rgba(0, 0, 0, 0.05);
-    }
-  }
 }
 
-// @media (max-width: 991px) {
-//   .history-banner {
-//     margin: 60px 30px;
-//   }
-// }
+@media (max-width: 991px) {
+  .history-banner .timeline .line .version .value {
+    font-size: 16px;
+    line-height: 24px;
+  }
 
-// @media (max-width: 1254px) {
-//   .history-banner {
-//     .title {
-//       color: rgba(0, 0, 0, 0.6);
-//       font-size: 14px;
-//       background: rgb(255, 255, 255);
-//       border-right: 2px solid rgba(0, 0, 0, 0.05);
-//       text-overflow: ellipsis;
-//       overflow: hidden;
-//     }
+  .history-banner .timeline .line {
+    &.start-line {
+        min-width: 100px;
+      }
 
-//     .version-name {
-//       text-align: center;
-//       font-weight: bold;
-//       font-size: 14px;
-//       color: rgba(0, 0, 0, 0.8);
-//       background: rgb(255, 255, 255);
-
-//       text-overflow: ellipsis;
-//       overflow: hidden;
-//     }
-//   }
-// }
+      &:last-child {
+        min-width: 150px;
+      }
+  }
+}
 </style>

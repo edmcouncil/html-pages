@@ -226,7 +226,7 @@
 
             <!-- module tree --->
             <transition>
-              <ul v-show="modulesList" class="modules-list list-unstyled">
+              <ul v-if="modulesList" class="modules-list list-unstyled">
                 <ModuleTree
                   v-for="item in modulesList"
                   :item="item"
@@ -891,12 +891,21 @@ export default {
     }
     this.query = queryParam;
 
+    const scrollTopElement = this.$refs['article-top-element'];
+    if (!this.query) {
+      scrollTopElement.scrollIntoView({
+        behavior: 'smooth',
+      });
+    } else {
+      this.scrollToOntologyViewerTopOfContainer();
+    }
+
     this.updateServers(this.$route);
     this.updateCompareServers(null);
     this.fetchModules();
     this.fetchSearchProperties();
     await this.fetchVersions();
-    this.fetchData(this.query);
+    this.fetchData(this.query, { noScroll: true });
 
     // disable input autocomplete in multiselect
     this.$refs.searchBoxInputMobile.$refs.search.setAttribute(
@@ -908,14 +917,6 @@ export default {
       'off',
     );
 
-    const scrollTopElement = this.$refs['article-top-element'];
-    if (!this.query) {
-      scrollTopElement.scrollIntoView({
-        behavior: 'smooth',
-      });
-    } else {
-      this.scrollToOntologyViewerTopOfContainer();
-    }
     if (this.$route.query.search) {
       this.clearSearchResults();
       const searchQuery = decodeURI(this.$route.query.search);
@@ -928,7 +929,7 @@ export default {
   },
   methods: {
     ...mapActions(useServersStore, ['updateServers', 'updateCompareServers']),
-    ...mapActions(useOntologyStore, ['getEntityData', 'initialEntityLoad', 'setReleases']),
+    ...mapActions(useOntologyStore, ['getEntityData', 'initialEntityLoad', 'setReleases', 'getErrorFlags']),
     async fetchData(iri, options) {
       const noScroll = options?.noScroll;
       if (iri) {
@@ -936,41 +937,36 @@ export default {
         this.loader = true;
         this.data = null;
         this.mergedData = null;
-        try {
-          const body = await this.initialEntityLoad(this.version, iri);
 
-          if (!body) {
-            this.error.entityNotFound = true;
-            this.error.entityData = false;
-            this.data = null;
-            this.loader = false;
-            return;
-          }
+        const body = await this.initialEntityLoad(this.version, iri);
 
-          if (body.type !== 'details') {
-            console.error(`body.type: ${body.type}, expected: details`);
-          }
+        const errors = this.getErrorFlags();
 
-          const { title, description } = generateTitleAndDescription(body);
-          this.title = title || this.title;
-          this.description = description || this.description;
-
-          handleDeprecatedResource(body);
-
-          this.data = body.result;
-          this.error.entityData = false;
+        if (errors[this.version]) {
           this.error.entityNotFound = false;
-        } catch (err) {
-          console.error(err.message);
-          this.data = null;
-          if (err.status === 404) {
-            this.error.entityNotFound = true;
-            this.error.entityData = false;
-          } else {
-            this.error.entityNotFound = false;
-            this.error.entityData = true;
-          }
+          this.error.entityData = true;
+          this.loader = false;
+          return;
+        } else if (!body) {
+          this.error.entityNotFound = true;
+          this.error.entityData = false;
+          this.loader = false;
+          return;
         }
+
+        if (body.type !== 'details') {
+          console.error(`body.type: ${body.type}, expected: details`);
+        }
+
+        const { title, description } = generateTitleAndDescription(body);
+        this.title = title || this.title;
+        this.description = description || this.description;
+
+        handleDeprecatedResource(body);
+
+        this.data = body.result;
+        this.error.entityData = false;
+        this.error.entityNotFound = false;
         this.loader = false;
       }
     },
@@ -1084,7 +1080,7 @@ export default {
             releases.push(null);
             this.setReleases(releases);
           }
-          if (pullRequestsGroup.length0) {
+          if (pullRequestsGroup.length) {
             options.push({
               group: 'Pull requests',
               versions: pullRequestsGroup,
@@ -1101,7 +1097,6 @@ export default {
       }
     },
     async fetchModules() {
-      // this.modulesList = null;
       try {
         const result = await getModules(this.modulesServer);
         this.modulesList = await result.json();
@@ -1238,6 +1233,9 @@ export default {
     handleVersionChangedFromHistory(version) {
       const selectedVersion = this.ontologyVersions.selectedData;
       const isGrouped = this.ontologyVersions.isGrouped;
+
+      this.scrollToOntologyViewerTopOfContainer();
+      this.data = null;
 
       if (selectedVersion['@id'] !== version['@id'] && isGrouped) {
         const flattenedVersions = this.ontologyVersions.data.flatMap(item => item.versions || []);
