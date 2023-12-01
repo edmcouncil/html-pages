@@ -5,6 +5,16 @@
       <ResourceHeader v-if="!isComparing" :data="data" />
       <ResourceHeaderCompare v-else :data="data" />
 
+      <!-- history -->
+      <div class="col-md-12 px-0">
+        <ResourceHistory
+          v-if="!isComparing && ontologyVersions.isGrouped"
+          :ontologyVersions="ontologyVersions"
+          :data="data"
+          @versionChanged="handleVersionChanged"
+        />
+      </div>
+
       <!-- paths -->
       <div
         class="ontology-item__paths col-md-12"
@@ -77,7 +87,13 @@ import { useConfigurationStore } from '@/stores/configuration';
 
 export default {
   name: 'Resource',
-  props: ['version', 'data', 'isComparing'],
+  props: ['version', 'data', 'isComparing', 'ontologyVersions'],
+  emits: ['versionChanged'],
+  methods: {
+    handleVersionChanged(version) {
+      this.$emit('versionChanged', version);
+    }
+  },
   computed: {
     ...mapState(useConfigurationStore, {
       ontologyName: store => store.config.ontpubFamily,

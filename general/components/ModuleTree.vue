@@ -188,7 +188,7 @@ export default {
     padding-top: 2px;
     word-wrap: break-word;
     max-width: calc(100% - 60px);
-    
+
     a {
       text-decoration: none;
     }
