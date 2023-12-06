@@ -1,13 +1,14 @@
 <template>
   <div v-if="!isShowMore">
-    <VRuntimeTemplate :template="fullProcessedHtml"></VRuntimeTemplate>
+    <component :is="fullProcessedHtml" />
   </div>
   <div v-else>
-    <VRuntimeTemplate :template="sliceProcessedHtml"></VRuntimeTemplate>
+    <component :is="sliceProcessedHtml" />
+
     <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
         <div class="animated-list" v-show="isMoreVisible" ref="scrollTarget">
-          <VRuntimeTemplate :template="moreProcessedHtml"></VRuntimeTemplate>
+          <component :is="moreProcessedHtml" />
         </div>
       </transition>
     </bs-collapse>
@@ -82,15 +83,21 @@ export default {
   computed: {
     fullProcessedHtml() {
       const html = this.lines.join('<br />');
-      return `<div>${html}</div>`;
+      return {
+        template: `<div>${html}</div>`,
+      };
     },
     sliceProcessedHtml() {
       const html = this.lines.slice(0, 6).join('<br />');
-      return `<div>${html}</div>`;
+      return {
+        template: `<div>${html}</div>`,
+      };
     },
     moreProcessedHtml() {
       const html = this.lines.slice(6).join('<br />');
-      return `<div>${html}</div>`;
+      return {
+        template: `<div>${html}</div>`,
+      };
     },
   },
 

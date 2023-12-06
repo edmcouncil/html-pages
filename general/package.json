@@ -26,8 +26,7 @@
     "pinia": "^2.1.6",
     "qs": "^6.11.2",
     "string-comparison": "^1.2.0",
-    "vue-multiselect": "^3.0.0-beta.2",
-    "vue3-runtime-template": "^1.0.2"
+    "vue-multiselect": "^3.0.0-beta.2"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.0.0",

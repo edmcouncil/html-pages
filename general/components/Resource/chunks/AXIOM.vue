@@ -1,41 +1,32 @@
 <template>
   <div v-if="!isShowMore">
     <span :class="{ 'restriction-inferable': inferable }">
-      <VRuntimeTemplate :template="processedTitle"></VRuntimeTemplate>
+      <component :is="processedTitle"></component>
     </span>
 
     <TooltipInline v-if="inferable" :text="tooltips.inferable" />
     <ul v-if="processedList.length > 0">
-      <li
-        v-for="(item, index) in processedList"
-        :key="`${processedTitle}_${item}_${index}`"
-      >
-        <VRuntimeTemplate :template="item"></VRuntimeTemplate>
+      <li v-for="(item, index) in processedList" :key="`${processedTitle}_${item}_${index}`">
+        <component :is="item"></component>
       </li>
     </ul>
   </div>
   <div v-else>
     <span :class="{ 'restriction-inferable': inferable }">
-      <VRuntimeTemplate :template="processedTitle"></VRuntimeTemplate>
+      <component :is="processedTitle"></component>
     </span>
 
     <TooltipInline v-if="inferable" :text="tooltips.inferable" />
     <ul>
-      <li
-        v-for="(item, index) in processedListSlice"
-        :key="`${processedTitle}_${item}_${index}`"
-      >
-        <VRuntimeTemplate :template="item"></VRuntimeTemplate>
+      <li v-for="(item, index) in processedListSlice" :key="`${processedTitle}_${item}_${index}`">
+        <component :is="item"></component>
       </li>
     </ul>
     <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
         <ul class="animated-list" v-show="isMoreVisible" ref="scrollTarget">
-          <li
-            v-for="(item, index) in processedListMore"
-            :key="`${processedTitle}_${item}_${index}`"
-          >
-            <VRuntimeTemplate :template="item"></VRuntimeTemplate>
+          <li v-for="(item, index) in processedListMore" :key="`${processedTitle}_${item}_${index}`">
+            <component :is="item"></component>
           </li>
         </ul>
       </transition>
@@ -89,16 +80,25 @@ export default {
   computed: {
     processedTitle() {
       const html = this.processedHtml(this.lines[0]);
-      return `<span>${html}</span>`;
+      return {
+        template:
+          `<span>${html}</span>`
+      };
     },
     processedList() {
-      return this.lines.slice(1).map((item) => (`<span>${this.processedHtml(item)}</span>`));
+      return this.lines.slice(1).map((item) =>
+        ({ template: `<span>${this.processedHtml(item)}</span>` })
+      );
     },
     processedListSlice() {
-      return this.lines.slice(1, 6).map((item) => (`<span>${this.processedHtml(item)}</span>`));
+      return this.lines.slice(1, 6).map((item) =>
+        ({ template: `<span>${this.processedHtml(item)}</span>` })
+      );
     },
     processedListMore() {
-      return this.lines.slice(6).map((item) => (`<span>${this.processedHtml(item)}</span>`));
+      return this.lines.slice(6).map((item) =>
+        ({ template: `<span>${this.processedHtml(item)}</span>` })
+      );
     },
   },
   mounted() {
@@ -151,6 +151,7 @@ span.restriction-inferable {
     color: rgba(0, 0, 0, 0.6);
   }
 }
+
 .animated-list {
   overflow: hidden;
 }

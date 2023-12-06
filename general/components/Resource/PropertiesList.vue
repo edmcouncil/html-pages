@@ -9,14 +9,7 @@
           ref="sliceList"
           class="top-level top-level--list"
         >
-          <component
-            :is="resolved(field.type)"
-            :value="field.value"
-            :entityMaping="field.entityMaping"
-            :inferable="field.inferable"
-            :entityLabel="field.entityLabel"
-            v-bind="field"
-          />
+          <ChunkResolver :value="field" />
           <SubAnnotation
             v-for="(subannotation, key) in field.subAnnotations"
             :key="key"
@@ -38,15 +31,7 @@
             class="list-item top-level top-level--list"
             ref="collapsedList"
           >
-            <component
-              :is="resolved(field.type)"
-              :value="field.value"
-              :entityMaping="field.entityMaping"
-              :inferable="field.inferable"
-              :entityLabel="field.entityLabel"
-              :identifier="sectionId + index"
-              v-bind="field"
-            />
+            <ChunkResolver :value="field" />
             <SubAnnotation
               v-for="(subannotation, key) in field.subAnnotations"
               :key="key"
@@ -62,16 +47,9 @@
         v-for="field in list"
         :key="field.id"
         class="top-level top-level--single"
+        :class="{ 'has-list': field.hasList }"
       >
-        <component
-          :is="resolved(field.type)"
-          :value="field.value"
-          :entityMaping="field.entityMaping"
-          :inferable="field.inferable"
-          :entityLabel="field.entityLabel"
-          :class="{ 'has-list': field.hasList }"
-          v-bind="field"
-        ></component>
+        <ChunkResolver :value="field" />
         <SubAnnotation
           v-for="(subannotation, key) in field.subAnnotations"
           :key="key"
@@ -155,9 +133,6 @@ export default {
         item.hasList = true;
       }
     },
-    resolved(name) {
-      return resolveComponent(name.replaceAll('_', ''));
-    }
   },
   computed: {
     howManyMore() {

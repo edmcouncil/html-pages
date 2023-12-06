@@ -8,16 +8,7 @@
           ref="sliceList"
           class="compare-item row"
         >
-          <component
-            :is="resolved(field.left.type)"
-            :value="field.left.value"
-            :entityMaping="field.left.entityMaping"
-            :inferable="field.left.inferable"
-            :entityLabel="field.left.entityLabel"
-            v-bind="field.left"
-            :class="{ 'has-list': field.left.hasList }"
-            class="top-level top-level--list compare-left col-6"
-          />
+          <ChunkResolver :value="field.left" :class="{ 'has-list': field.left.hasList }" class="top-level top-level--list compare-left col-6" />
           <ComparedText
             :currentItem="field.left"
             :comparedItem="field.right"
@@ -42,17 +33,7 @@
               class="compare-item row"
               ref="collapsedList"
             >
-              <component
-                :is="resolved(field.left.type)"
-                :value="field.left.value"
-                :entityMaping="field.left.entityMaping"
-                :inferable="field.left.inferable"
-                :entityLabel="field.left.entityLabel"
-                :identifier="sectionId + index"
-                v-bind="field.left"
-                :class="{ 'has-list': field.left.hasList }"
-                class="top-level top-level--list compare-left col-6"
-              />
+              <ChunkResolver :value="field.left" :class="{ 'has-list': field.left.hasList }" class="top-level top-level--list compare-left col-6" />
               <ComparedText
                 :currentItem="field.left"
                 :comparedItem="field.right"
@@ -69,18 +50,9 @@
       </bs-collapse>
     </div>
 
-    <div v-else>
+    <div class="show-more-list-compare__short" v-else>
       <div class="compare-item row" v-for="field in list" :key="field.id">
-        <component
-          :is="resolved(field.left.type)"
-          :value="field.left.value"
-          :entityMaping="field.left.entityMaping"
-          :inferable="field.left.inferable"
-          :entityLabel="field.left.entityLabel"
-          :class="{ 'has-list': field.left.hasList }"
-          v-bind="field.left"
-          class="top-level top-level--single compare-left col-6"
-        />
+        <ChunkResolver :value="field.left" :class="{ 'has-list': field.left.hasList }" class="top-level top-level--single compare-left col-6" />
         <ComparedText
           :currentItem="field.left"
           :comparedItem="field.right"

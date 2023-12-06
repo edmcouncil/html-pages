@@ -195,6 +195,10 @@ export default {
     .show-more-list-compare {
       height: 100%;
 
+      .show-more-list-compare__short {
+        height: 100%;
+      }
+
       .compare-item {
         border-bottom: 2px solid white;
 
