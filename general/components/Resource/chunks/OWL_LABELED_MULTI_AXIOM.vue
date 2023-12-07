@@ -1,77 +1,51 @@
 <template>
   <div v-if="value.length < 6">
-    <customLink
-      :isDeprecated="`${entityLabel.deprecated}`"
-      :name="entityLabel.label"
-      :query="entityLabel.iri"
-    />
-    <ul v-if="value.length > 0">
-      <li
-        v-for="(item, index) in value"
-        :key="`${identifier}_${item.fullRenderedString.replace(
-          ' ',
-          '-'
-        )}_${index}`"
-        :class="{ 'list-item-inferable': item.inferable }"
-      >
-        <AXIOM
-          :value="item.value"
-          :entityMaping="item.entityMaping"
-          :inferable="item.inferable"
-          :identifier="`${identifier}-${item.fullRenderedString.replace(
+    <customLink :isDeprecated="`${entityLabel.deprecated}`" :name="entityLabel.label" :query="entityLabel.iri" />
+    <ul>
+      <li>
+        <ul v-if="value.length > 0">
+          <li v-for="(item, index) in value" :key="`${identifier}_${item.fullRenderedString.replace(
             ' ',
             '-'
-          )}`"
-        />
+          )}_${index}`" :class="{ 'list-item-inferable': item.inferable }">
+            <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(
+              ' ',
+              '-'
+            )}`" />
+          </li>
+        </ul>
       </li>
     </ul>
   </div>
   <div v-else>
-    <customLink
-      :isDeprecated="`${entityLabel.deprecated}`"
-      :name="entityLabel.label"
-      :query="entityLabel.iri"
-    />
-    <ul v-if="value.length > 0">
-      <li
-        v-for="(item, index) in value.slice(0, 5)"
-        :key="`${identifier}_${item.fullRenderedString.replace(
-          ' ',
-          '-'
-        )}_${index}`"
-        :class="{ 'list-item-inferable': item.inferable }"
-      >
-        <AXIOM
-          :value="item.value"
-          :entityMaping="item.entityMaping"
-          :inferable="item.inferable"
-          :identifier="`${identifier}-${item.fullRenderedString.replace(
+    <customLink :isDeprecated="`${entityLabel.deprecated}`" :name="entityLabel.label" :query="entityLabel.iri" />
+    <ul>
+      <li>
+        <ul v-if="value.length > 0">
+          <li v-for="(item, index) in value.slice(0, 5)" :key="`${identifier}_${item.fullRenderedString.replace(
             ' ',
             '-'
-          )}`"
-        />
+          )}_${index}`" :class="{ 'list-item-inferable': item.inferable }">
+            <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(
+              ' ',
+              '-'
+            )}`" />
+          </li>
+        </ul>
       </li>
     </ul>
+
     <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
         <ul v-if="value.length > 0" ref="scrollTarget">
-          <li
-            v-for="(item, index) in value.slice(5)"
-            :key="`${identifier}_${item.fullRenderedString.replace(
+          <li v-for="(item, index) in value.slice(5)" :key="`${identifier}_${item.fullRenderedString.replace(
+            ' ',
+            '-'
+          )}_${index}`" :class="{ 'list-item-inferable': item.inferable }">
+            <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(
               ' ',
               '-'
-            )}_${index}`"
-            :class="{ 'list-item-inferable': item.inferable }"
-          >
-            <AXIOM
-              :value="item.value"
-              :entityMaping="item.entityMaping"
-              :inferable="item.inferable"
-              :identifier="`${identifier}-${item.fullRenderedString.replace(
-                ' ',
-                '-'
-              )}`"
-            />
+            )}`" />
           </li>
         </ul>
       </transition>
@@ -123,7 +97,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 li.list-item-inferable::marker {
   color: rgba(0, 0, 0, 0.6) !important;
 }
