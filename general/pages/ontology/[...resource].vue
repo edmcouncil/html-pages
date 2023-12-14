@@ -206,6 +206,8 @@
                 <CompareButton @compareToggled="compareButtonHandler" />
               </div>
             </transition>
+
+            <!-- module tree title --->
             <transition>
               <div
                 class="secondary-column__tree multiselect-container"
@@ -1623,7 +1625,10 @@ export default {
       }
 
       this.$nextTick(async function () {
-        if (this.isComparing) this.fetchCompareDataAndMerge(this.query);
+        if (this.isComparing) {
+          this.fetchCompareDataAndMerge(this.query);
+          this.scrollToOntologyViewerTopOfContainer();
+        }
         else this.fetchData(this.query);
       });
     }

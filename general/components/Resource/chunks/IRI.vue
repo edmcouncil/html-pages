@@ -12,10 +12,17 @@ export default {
   props: ['value', 'entityMaping'],
   computed: {
     processedHtml() {
-      const html = `<customLink name="${this.value.label}" query="${this.value.iri}" isDeprecated="${this.value.deprecated}"></customLink>`;
+      const html = `<customLink name="${this.label}" query="${this.iri}" isDeprecated="${this.value.deprecated}"></customLink>`;
       return {
         template: `<div>${html}</div>`,
       };
+    },
+    label() {
+      if (this.value.label) return this.value.label;
+      else return this.value.iri ? this.value.iri : this.value;
+    },
+    iri() {
+      return this.value.iri ? this.value.iri : this.value;
     },
   },
 };

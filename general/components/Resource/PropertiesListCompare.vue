@@ -49,18 +49,35 @@
         </transition>
       </bs-collapse>
     </div>
-
     <div class="show-more-list-compare__short" v-else>
-      <div class="compare-item row" v-for="field in list" :key="field.id">
-        <ChunkResolver :value="field.left" :class="{ 'has-list': field.left.hasList }" class="top-level top-level--single compare-left col-6" />
-        <ComparedText
-          :currentItem="field.left"
-          :comparedItem="field.right"
-          :changeType="field.changeType"
-          :identifier="sectionId + '1'"
+      <div
+        v-for="field in list"
+        :key="field.id"
+        class="compare-item row"
+      >
+        <ul
+          :class="{ 'has-list': field.left.hasList }"
+          class="top-level top-level--single compare-left col-6"
+        >
+          <li>
+            <ChunkResolver
+              :value="field.left"
+            />
+          </li>
+        </ul>
+        <ul
           :class="{ 'has-list': field.right.hasList || field.left.hasList }"
           class="top-level top-level--single compare-right col-6"
-        />
+        >
+          <li>
+            <ComparedText
+              :currentItem="field.left"
+              :comparedItem="field.right"
+              :changeType="field.changeType"
+              :identifier="sectionId + '1'"
+            />
+          </li>
+        </ul>
       </div>
     </div>
 

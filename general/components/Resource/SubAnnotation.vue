@@ -34,7 +34,7 @@ export default {
     margin-right: 10px;
     color: rgb(102, 102, 102);
     position: relative;
-    white-space: nowrap;
+    word-break: break-all;
     overflow: hidden;
     display: inline-block;
   }
