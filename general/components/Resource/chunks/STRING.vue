@@ -34,7 +34,8 @@ export default {
         url: (value) => /^https?:\/\//.test(value),
       },
     };
-    const linkifiedValue = linkifyHtml(this.value, linkifyOptions);
+    const parsedValue = this.value.replace('<', '&lt;').replace('>', '&gt;')
+    const linkifiedValue = linkifyHtml(parsedValue, linkifyOptions);
 
     const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
     const lines = linkifiedValue.split(/(?:\r\n|\r|\n)/g);

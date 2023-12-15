@@ -80,6 +80,8 @@ export default {
   computed: {
     processedTitle() {
       const html = this.processedHtml(this.lines[0]);
+      html.replace('<', '&lt;');
+      html.replace('>', '&gt;');
       return {
         template:
           `<span>${html}</span>`
@@ -128,6 +130,7 @@ export default {
     processedHtml(htmlInput) {
       let htmlResult = htmlInput;
       if (htmlResult.startsWith('- ')) htmlResult = htmlResult.substring(2);
+      htmlResult = htmlResult.replace('<', '&lt;').replace('>', '&gt;');
       if (this.entityMaping) {
         Object.keys(this.entityMaping).forEach((name) => {
           const value = this.entityMaping[name];

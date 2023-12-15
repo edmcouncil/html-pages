@@ -1,37 +1,29 @@
 <template>
   <div v-if="value.length < 6">
     <customLink :isDeprecated="`${entityLabel.deprecated}`" :name="entityLabel.label" :query="entityLabel.iri" />
-    <ul>
-      <li>
-        <ul v-if="value.length > 0">
-          <li v-for="(item, index) in value" :key="`${identifier}_${item.fullRenderedString.replace(
-            ' ',
-            '-'
-          )}_${index}`" :class="{ 'list-item-inferable': item.inferable }">
-            <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(
-              ' ',
-              '-'
-            )}`" />
-          </li>
-        </ul>
+    <ul v-if="value.length > 0">
+      <li v-for="(item, index) in value" :key="`${identifier}_${item.fullRenderedString.replace(
+        ' ',
+        '-'
+      )}_${index}`" :class="{ 'list-item-inferable': item.inferable }">
+        <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(
+          ' ',
+          '-'
+        )}`" />
       </li>
     </ul>
   </div>
   <div v-else>
     <customLink :isDeprecated="`${entityLabel.deprecated}`" :name="entityLabel.label" :query="entityLabel.iri" />
-    <ul>
-      <li>
-        <ul v-if="value.length > 0">
-          <li v-for="(item, index) in value.slice(0, 5)" :key="`${identifier}_${item.fullRenderedString.replace(
-            ' ',
-            '-'
-          )}_${index}`" :class="{ 'list-item-inferable': item.inferable }">
-            <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(
-              ' ',
-              '-'
-            )}`" />
-          </li>
-        </ul>
+    <ul v-if="value.length > 0">
+      <li v-for="(item, index) in value.slice(0, 5)" :key="`${identifier}_${item.fullRenderedString.replace(
+        ' ',
+        '-'
+      )}_${index}`" :class="{ 'list-item-inferable': item.inferable }">
+        <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(
+          ' ',
+          '-'
+        )}`" />
       </li>
     </ul>
 
