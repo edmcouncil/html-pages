@@ -2,7 +2,7 @@ ARG	NODE_ENV=development
 ARG	BRANCH_NAME=develop
 ARG	TAG_NAME=latest
 
-FROM	node:18-alpine AS buildnpm
+FROM	node:20-alpine AS buildnpm
 ARG	NODE_ENV BRANCH_NAME TAG_NAME
 ENV	NODE_ENV="${NODE_ENV}" BRANCH_NAME="${BRANCH_NAME}" TAG_NAME="${TAG_NAME}" \
 	HOST=0.0.0.0 \
