@@ -15,11 +15,15 @@ done
 if [ -n "${FAMILY_REGEX}" ] ; then
  sed -i "s#\((?<family>\)[^)]*\()\)#\1${FAMILY_REGEX}\2#g" /etc/nginx/conf.d/default.conf
  for i in $(echo "${FAMILY_REGEX}" | sed 's/|/ /g') ; do
-  export SPEC_HOST=spec.edmcouncil.org ; test "${i}" = "iof" && export SPEC_HOST=spec.industrialontologies.org
-  viewer="$(getent hosts ${i}-viewer | awk '{print $1}')" ; echo -e "upstream ${i}-viewer {\n\tserver\t${viewer:-${SPEC_HOST}}:80;\n}"
-  viewer_ver="$(getent hosts ${i}-viewer-ver | awk '{print $1}')" ; echo -e "upstream ${i}-viewer-ver {\n\tserver\t${viewer_ver:-${SPEC_HOST}}:80;\n}"
-  pages="$(getent hosts ${i}-pages | awk '{print $1}')" ; echo -e "upstream ${i}-pages {\n\tserver\t${pages:-127.0.0.1}:80;\n}"
-  strapi="$(getent hosts ${i}-strapi | awk '{print $1}')" ; echo -e "upstream ${i}-strapi {\n\tserver\t${strapi:-127.0.0.1}:1337;\n}"
+  unset pages ; unset viewer ; unset viewer_ver
+  pages="$(getent hosts ${i}-pages | awk '{print $1}')"
+  if [ -z "${pages}" ] ; then
+   echo "ERR: missing required service \"${i}-pages\""
+   exit 1
+  fi
+  echo -e "upstream ${i}-pages {\n\tserver\t${pages}:80;\n}"
+  viewer="$(getent hosts ${i}-viewer | awk '{print $1}')" ; echo -e "upstream ${i}-viewer {\n\tserver\t${viewer:-${pages}}:80;\n}"
+  viewer_ver="$(getent hosts ${i}-viewer-ver | awk '{print $1}')" ; echo -e "upstream ${i}-viewer-ver {\n\tserver\t${viewer_ver:-${pages}}:80;\n}"
  done > /etc/nginx/conf.d/upstream.conf
 fi
 

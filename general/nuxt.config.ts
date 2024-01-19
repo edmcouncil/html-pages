@@ -110,7 +110,7 @@ export default defineNuxtConfig({
     server: {
       proxy: {
         [
-          `/${VUE_ONTOLOGY_NAME}/ontology/api`
+          `^\/${VUE_ONTOLOGY_NAME}\/ontology(\/[^\/]+\/[^\/]+)?\/api`
         ]: {
           target: DEV_BASE_URL,
           changeOrigin: true,
