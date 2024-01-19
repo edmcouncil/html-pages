@@ -19,6 +19,7 @@ const VUE_BASE_URL = process.env.BASE_URL
   || `https://spec.${VUE_ONTOLOGY_NAME === 'idmp' ? 'pistoiaalliance' : 'edmcouncil'}.org/`;
 
 const VUE_RESOURCES_BASE_URL = `${VUE_BASE_URL + VUE_ONTOLOGY_NAME}/ontology/`;
+const STRAPI_PATH = `/${VUE_ONTOLOGY_NAME}/strapi`;
 const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
 
 const DEV_BASE_URL = VUE_BASE_URL.replace(
@@ -64,7 +65,7 @@ export default defineNuxtConfig({
       generateDir: `dist/${VUE_ONTOLOGY_NAME}${VUE_DIST_DIR}`,
       assetsDir: VUE_ASSETS_DIR,
       staticGenerationMode: process.env.NODE_ENV === 'production',
-      strapiBasePath: `/${VUE_ONTOLOGY_NAME}/strapi`,
+      strapiBasePath: STRAPI_PATH,
       strapiBaseUrl: STRAPI_URL,
       tagName: process.env.VUE_APP_TAG || 'latest',
       showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER === 'true' || true,
@@ -114,8 +115,9 @@ export default defineNuxtConfig({
           target: DEV_BASE_URL,
           changeOrigin: true,
         },
-        [`/${VUE_ONTOLOGY_NAME}/strapi`]: {
-          target: DEV_BASE_URL,
+        [`${STRAPI_PATH}`]: {
+          target: STRAPI_URL,
+          rewrite: (path) => path.slice(`${STRAPI_PATH}`.length),
           changeOrigin: true,
         },
       },
