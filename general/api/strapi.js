@@ -2,7 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 import fs from 'fs';
 
-async function baseURL(runtimeConfig) {
+function baseURL(runtimeConfig) {
  return (typeof window !== 'undefined') ? window.location.origin + `${runtimeConfig.public.strapiBasePath}` : `${runtimeConfig.public.strapiBaseUrl}`;
 }
 
@@ -17,7 +17,7 @@ export async function getStrapiSingleType(singleTypeName, populateParams, runtim
   );
 
   let response = await axios.get(`/api/${singleTypeName}?${query}`, {
-    baseURL: await baseURL(runtimeConfig),
+    baseURL: baseURL(runtimeConfig),
   });
 
   // save image and edit response to use downloaded image instead of link to strapi resources
@@ -45,7 +45,7 @@ export async function getStrapiElementFromCollection(
   });
 
   let response = await axios.get(`/api/${collectionName}?${query}`, {
-    baseURL: await baseURL(runtimeConfig),
+    baseURL: baseURL(runtimeConfig),
   });
 
   // save image and edit response to use downloaded image instead of link to strapi resources
@@ -71,7 +71,7 @@ export async function getStrapiCollection(
   });
 
   const response = await axios.get(`/api/${collectionName}?${query}`, {
-    baseURL: await baseURL(runtimeConfig),
+    baseURL: baseURL(runtimeConfig),
   });
   // currently only release notes is processed in this function, so we don't need to download images, they don't have them
   return response.data;
@@ -161,7 +161,7 @@ export async function getAppConfigurationData(runtimeConfig) {
 
     if (imgPath && runtimeConfig.public.staticGenerationMode) {
       const imageName = imgPath.split('/').pop();
-      const imageUrl = await baseURL(runtimeConfig) + imgPath;
+      const imageUrl = baseURL(runtimeConfig) + imgPath;
       downloadImage(imageUrl, imageDestination, imageName);
       data.ontologyLogoUrl = `/${runtimeConfig.public.ontologyName}${runtimeConfig.public.assetsDir}downloads/${imageName}`;
     } else {
@@ -231,7 +231,7 @@ async function tryToDownloadImages(
         const imageResponseUrl = item?.image?.data?.attributes?.url;
         if (imageResponseUrl != undefined) {
           const imageName = imageResponseUrl.split('/').pop();
-          const imageUrl = await baseURL(runtimeConfig) + imageResponseUrl;
+          const imageUrl = baseURL(runtimeConfig) + imageResponseUrl;
           downloadImage(imageUrl, imageDestination, imageName);
           item.image.data.attributes.url = `/${runtimeConfig.public.ontologyName}${runtimeConfig.public.assetsDir}downloads/${imageName}`;
         }
