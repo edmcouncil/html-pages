@@ -55,7 +55,7 @@ export type ChangeChunk = [
 export interface LeftRightChange {
   changeType: 'added' | 'removed' | 'changed' | 'unchanged';
   left: DataChunk | EmptyData;
-  right: LinesChunk | EmptyData;
+  right: LinesChunk;
 }
 
 export interface EmptyData {
@@ -69,9 +69,15 @@ export interface TempDataProperties {
   };
 }
 
+export interface TitleNameChange {
+  oldName: string,
+  newName: string
+}
+
 export interface MergedData {
   headerLeft: Header,
   headerRight: Header,
+  titleNameChanges: TitleNameChange[],
   properties: {
     [section: string]: {
       [title: string]: LeftRightChange[];

@@ -12,6 +12,7 @@ import type {
   LeftRightChange,
   EmptyData,
   TempDataProperties,
+  TitleNameChange,
   MergedData
 } from './compare.types.js';
 
@@ -252,20 +253,21 @@ function computeDiffs(titleAsLines1: LinesChunk[], titleAsLines2: LinesChunk[]):
   return titleDiff;
 }
 
-function handleInnerListDiff(changeChunk: ChangeChunk): LeftRightChange {
-  const lines = changeChunk[1].lines;
-
+function handleInnerListDiff(lines: LineDiff[]): void {
   // go through LineDiffs of the 'changed' chunk and try to find
   // similar lines that will be merged into modified line representation ('~')
   for (let i = 0; i < lines.length; i++) {
-    // lines will be of 'LineDiff' type because changeType of the changeChunk here is 'changed'
-    const current = lines[i] as LineDiff;
+    const current = lines[i];
 
     // we only consider adds and removes
     if (current[0] != '+' && current[0] != '-') continue;
     let match: LineDiff | null = null;
-    for (let j = i + 1; j < lines.length; j++) {
+    for (let j = 0; j < lines.length; j++) {
       const comparedLine = lines[j] as LineDiff;
+
+      // skip already handled lines and the same symbol
+      if ((comparedLine[0] != '+' && comparedLine[0] != '-') || comparedLine[0] == current[0]) continue;
+
       if (isStringSimilar(current[1] as string, comparedLine[1] as string)) {
         match = comparedLine;
         break;
@@ -277,8 +279,8 @@ function handleInnerListDiff(changeChunk: ChangeChunk): LeftRightChange {
       const updatedCurrent: LineDiff = [
         '~',
         {
-          __old: current[1],
-          __new: match[1],
+          __old: current[0] === '-' ? current[1] : match[1],
+          __new: current[0] === '+' ? current[1] : match[1],
         }
       ]
       lines[i] = updatedCurrent;
@@ -287,13 +289,7 @@ function handleInnerListDiff(changeChunk: ChangeChunk): LeftRightChange {
         lines.splice(index, 1);
       }
     }
-  }
-
-  return {
-    changeType: 'changed',
-    left: changeChunk[1].originalData ? changeChunk[1].originalData : EMPTY_DATA,
-    right: changeChunk[1],
-  } as LeftRightChange;
+  };
 }
 
 function convertToLeftRightChange(propertyDiffs: ChangeChunk[]): LeftRightChange[] {
@@ -301,7 +297,13 @@ function convertToLeftRightChange(propertyDiffs: ChangeChunk[]): LeftRightChange
     const changeType = getChangeType(changeChunk[0]);
 
     if (changeType === 'changed') {
-      return handleInnerListDiff(changeChunk);
+      handleInnerListDiff(changeChunk[1].lines as LineDiff[]);
+
+      return {
+        changeType: 'changed',
+        left: changeChunk[1].originalData ? changeChunk[1].originalData : EMPTY_DATA,
+        right: changeChunk[1],
+      }
     } else {
       const leftData = changeType === 'added' ? EMPTY_DATA : changeChunk[1].originalData!;
       const rightData = changeType === 'removed' ? EMPTY_DATA : changeChunk[1];
@@ -311,10 +313,226 @@ function convertToLeftRightChange(propertyDiffs: ChangeChunk[]): LeftRightChange
   });
 }
 
+function getAddedAndRemovedTitles(mergedData: MergedData): [string[], string[]] {
+  const addedTitles: string[] = [];
+  const removedTitles: string[] = [];
+
+  // find titles that have only adds or removes
+  for (const section in mergedData.properties) {
+    for (const title in mergedData.properties[section]) {
+      const titleItem = mergedData.properties[section][title];
+      let titleChangeType = titleItem[0].changeType;
+      if (titleChangeType !== 'added' && titleChangeType !== 'removed')
+        continue;
+
+      let isConsistent = true;
+
+      for (const change of titleItem) {
+        if (change.changeType !== titleChangeType) {
+          // title is not strictly adds or removes only - skip it
+          isConsistent = false;
+          break;
+        }
+      }
+
+      if (isConsistent) {
+        if (titleChangeType === 'added') addedTitles.push(title);
+        else removedTitles.push(title);
+      }
+    }
+  }
+
+  return [addedTitles, removedTitles];
+}
+
+function getFullTitleString(title: LeftRightChange[]): string {
+  let result = '';
+
+  for (const item of title) {
+    // we assume string[] here,
+    // because handleTitleNameChanges provides us 'added' and 'removed' items
+    // only 'changed' can have LineDiffs
+    let lines: string[] = [];
+
+    if (item.changeType === 'added') lines = item.right.lines as string[];
+    else if (item.changeType === 'removed') lines = getLinesChunk(item.left).lines as string[];
+
+    result = result.concat(...lines);
+  }
+
+  return result;
+}
+
+function findTitleMatches(
+  mergedData: MergedData,
+  addedTitles: string[],
+  removedTitles: string[]
+): [LeftRightChange[], LeftRightChange[]][] {
+  const titleMatches: [LeftRightChange[], LeftRightChange[]][] = [];
+
+  // go through each title in properties
+  for (const section1 in mergedData.properties) {
+    for (const title1 in mergedData.properties[section1]) {
+      if (addedTitles.includes(title1)) {
+        let matchFound = false;
+        // inner loop to find matches
+        for (const section2 in mergedData.properties) {
+          if (matchFound) break;
+          for (const title2 in mergedData.properties[section2]) {
+            if (matchFound) break;
+            if (removedTitles.includes(title2)) {
+              const addedTitle = mergedData.properties[section1][title1];
+              const removedTitle = mergedData.properties[section2][title2];
+
+              const fullStringAdded = getFullTitleString(addedTitle);
+              const fullStringRemoved = getFullTitleString(removedTitle);
+
+              // if titles in string format are similar it's a match
+              if (isStringSimilar(fullStringAdded, fullStringRemoved)) {
+                // save in mergedData.titleNameChanges
+                mergedData.titleNameChanges.push({
+                  newName: title2,
+                  oldName: title1
+                });
+
+                titleMatches.push([removedTitle, addedTitle]);
+
+                // we only leave one the 'removed' title
+                delete mergedData.properties[section1][title1];
+                matchFound = true;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return titleMatches;
+}
+
+function extractSortingString(item: LeftRightChange): string {
+  if (item.changeType === 'removed') {
+    // take from left
+    const lines = getLinesChunk(item.left).lines;
+    return lines.join(' ');
+  } else {
+    // take from right
+    const lines = item.right.lines;
+
+    if (!lines || !lines[0]) return '';
+
+    if (typeof lines[0] === 'string') {
+      // string[]
+      return lines.join(' ');
+    } else {
+      // LineDiff[]
+      return lines.map(i => {
+        const content = i as LineDiff;
+        if (typeof content[1] === 'string')
+          return content[1];
+        else
+          return content[1]['__new'];
+      }).join(' ');
+    }
+  }
+}
+
+function sortTitleAlphabetically(title: LeftRightChange[]): void {
+  title.sort((a, b) => {
+    const aString = extractSortingString(a);
+    const bString = extractSortingString(b);
+
+    return aString.localeCompare(bString);
+  });
+}
+
+function handleTitleNameChanges(mergedData: MergedData): void {
+  // if title changed name, then one title has only adds and another one has only removes
+  const [addedTitles, removedTitles] = getAddedAndRemovedTitles(mergedData);
+
+  const titleMatches = findTitleMatches(mergedData, addedTitles, removedTitles);
+
+  // for each matched title
+  for (let i = 0; i < titleMatches.length; i++) {
+    const match = titleMatches[i];
+    const removedTitle: LeftRightChange[] = match[0];
+    const addedTitle: LeftRightChange[] = match[1];
+
+    const finalTitle: LeftRightChange[] = [];
+
+    // find matches between elements of the titles
+    // go through elements of addedTitle
+    for (let addedIndex = 0; addedIndex < addedTitle.length; addedIndex++) {
+      const addedItem = addedTitle[addedIndex];
+      let matchFound = false;
+
+      // go through elements of removedTitle
+      for (let removedIndex = 0; removedIndex < removedTitle.length; removedIndex++) {
+        const removedItem = removedTitle[removedIndex];
+        const addedItemLines = addedItem.right.lines;
+        const removedItemLines = getLinesChunk(removedItem.left).lines;
+
+        const addedItemAsString = (addedItemLines as string[]).join();
+        const removedItemAsString = (removedItemLines as string[]).join();
+
+        // compare element from addedTitle and element from removedTitle
+        if (isStringSimilar(addedItemAsString, removedItemAsString)) {
+          if (addedItemAsString === removedItemAsString) {
+            //items are identical - add 'unchanged' LeftRightChange
+            const removedLinesAsLineDiffs = removedItemLines as string[];
+
+            const totalLines = [...removedLinesAsLineDiffs];
+            finalTitle.push({
+              changeType: 'unchanged',
+              left: removedItem.left,
+              right: {
+                type: addedItem.right.type,
+                originalData: removedItem.left,
+                lines: totalLines
+              } as LinesChunk
+            } as LeftRightChange);
+          } else {
+            //items are similar but not identical
+            // handle inner list differences and add 'changed' LeftRightChange
+            const addedLinesAsLineDiffs = addedItemLines.map(l => ['+', l] as LineDiff);
+            const removedLinesAsLineDiffs = removedItemLines.map(l => ['-', l] as LineDiff);
+
+            const totalLines = [...addedLinesAsLineDiffs, ...removedLinesAsLineDiffs];
+
+            handleInnerListDiff(totalLines);
+
+            finalTitle.push({
+              changeType: 'changed',
+              left: removedItem.left,
+              right: {
+                type: addedItem.right.type,
+                originalData: removedItem.left,
+                lines: totalLines
+              } as LinesChunk
+            } as LeftRightChange);
+          }
+
+          // delete original item from title
+          removedTitle.splice(removedIndex, 1);
+          matchFound = true;
+          break;
+        }
+      }
+      if (!matchFound) {
+        finalTitle.push(addedItem);
+      }
+    }
+    removedTitle.push(...finalTitle);
+    sortTitleAlphabetically(removedTitle);
+  }
+}
+
 export function mergeData(data1: Data, data2: Data): MergedData {
   const mergedData: MergedData = {
     headerLeft: createHeader(data1),
     headerRight: createHeader(data2),
+    titleNameChanges: [],
     properties: {},
   };
 
@@ -348,6 +566,8 @@ export function mergeData(data1: Data, data2: Data): MergedData {
       mergedData.properties[section][title] = convertToLeftRightChange(chunkData);
     }
   }
+
+  handleTitleNameChanges(mergedData);
 
   return mergedData;
 }
