@@ -36,7 +36,6 @@ services:
     volumes:
       - spec_root:/opt/html-pages
     depends_on:
-      - fibo-strapi
       - fibo-pages
     ports:
       - 8080:80
