@@ -1225,9 +1225,7 @@ export default {
       this.error.entityData = false;
 
       // merge data 1 and 2
-      const mergedData = mergeData(data1, data2);
-
-      this.mergedData = mergedData;
+      this.mergedData = mergeData(data1, data2);
 
       this.loader = false;
       this.data = savedData;

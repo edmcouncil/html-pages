@@ -53,28 +53,21 @@
       <div
         v-for="field in list"
         :key="field.id"
-        class="compare-item row"
       >
-        <ul
-          :class="{ 'has-list': field.left.hasList }"
-          class="top-level top-level--single compare-left col-6"
-        >
-          <li>
+        <ul>
+          <li class="compare-item row">
             <ChunkResolver
               :value="field.left"
+              :class="{ 'has-list': field.left.hasList }"
+              class="top-level top-level--single compare-left col-6"
             />
-          </li>
-        </ul>
-        <ul
-          :class="{ 'has-list': field.right.hasList || field.left.hasList }"
-          class="top-level top-level--single compare-right col-6"
-        >
-          <li>
             <ComparedText
               :currentItem="field.left"
               :comparedItem="field.right"
               :changeType="field.changeType"
               :identifier="sectionId + '1'"
+              :class="{ 'has-list': field.right.hasList || field.left.hasList }"
+              class="top-level top-level--single compare-right col-6"
             />
           </li>
         </ul>
@@ -158,9 +151,6 @@ export default {
         ) item.hasList = true;
       }
     },
-    resolved(name) {
-      return resolveComponent(name.replaceAll('_', ''));
-    }
   },
   computed: {
     howManyMore() {
