@@ -252,7 +252,7 @@ export default {
     async fetchVersions() {
       try {
         const result = await getOntologyVersions(
-          `/${this.ontologyName}/ontology/`,
+          `/${this.ontologyName}/ontology/api/`,
         );
         const ontologyVersions = await result.json();
 
