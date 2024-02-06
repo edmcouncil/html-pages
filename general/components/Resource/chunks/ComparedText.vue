@@ -57,7 +57,7 @@ export default {
   },
   mounted() {
     const lines1 = this.getLinesFromItem(this.currentItem);
-    const lines2 = this.getLinesFromItem(this.comparedItem);
+    const lines2 = this.comparedItem?.lines || [];
 
     this.compareLines(lines1, lines2);
     this.type = this.currentItem.type === 'EMPTY'
@@ -151,11 +151,11 @@ export default {
         const comparedLine = linesCompared[i] || '';
 
         if (this.changeType === 'changed') {
-          const lineType = linesCompared[i] ? linesCompared[i][0] : ' ';
-          const lineContent = linesCompared[i] ? linesCompared[i][1] || '' : '';
+          const lineType = linesCompared[i]?.[0] || ' ';
+          const lineContent = linesCompared[i]?.[1] || '';
 
           if (lineType === ' ') {
-            diff = dmp.diff_main(lineContent, lineContent);
+            diff = dmp.diff_main(originalLine, lineContent);
           } else if (lineType === '-') {
             diff = dmp.diff_main(lineContent, '');
           } else if (lineType === '+') {

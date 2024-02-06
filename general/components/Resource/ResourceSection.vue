@@ -14,7 +14,15 @@
           v-for="(property, name) in section"
           :key="name"
         >
-          <dt class="col-md-2 col-sm-12">
+          <TitleNameChange
+            v-if="isComparing && isTitleChanged(name)"
+            :currentTitle="name"
+            :titleNameChanges="titleNameChanges"
+          />
+          <dt
+            v-else
+            class="col-md-2 col-sm-12"
+          >
             <div
               class="content-item__title sticky-top"
               :class="{ isComparing }"
@@ -109,7 +117,7 @@ import tooltips from '../../constants/tooltips';
 
 export default {
   name: 'ResourceSection',
-  props: ['section', 'sectionName', 'sectionIndex', 'isComparing'],
+  props: ['section', 'sectionName', 'sectionIndex', 'isComparing', 'titleNameChanges'],
   data() {
     return {
       collapsed: false,
@@ -120,7 +128,16 @@ export default {
     toggleCollapsed() {
       this.collapsed = !this.collapsed;
     },
+    isTitleChanged(title) {
+      return this.titlesChanged.includes(title);
+    }
   },
+  computed: {
+    titlesChanged() {
+      if (!this.titleNameChanges) return [];
+      return [...this.titleNameChanges.map(i => i.newName)];
+    }
+  }
 };
 </script>
 

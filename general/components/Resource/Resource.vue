@@ -47,6 +47,7 @@
           :sectionName="sectionName"
           :sectionIndex="sectionIndex"
           :isComparing="isComparing"
+          :titleNameChanges="data.titleNameChanges"
         />
       </div>
     </div>
@@ -92,6 +93,10 @@ export default {
   methods: {
     handleVersionChanged(version) {
       this.$emit('versionChanged', version);
+    },
+    getTitleNameChanges() {
+      if (this.data) return this.data.titleNameChanges;
+      return null;
     }
   },
   computed: {
