@@ -17,17 +17,16 @@
             <h3>Michael Meriton, EDMC Co-Founder & COO</h3>
             <ul>
               <li>
-                Mike is a Co-Founder of the EDM Council and served as the first
-                Chairman and active Board member since inception in 2005.
+                Mike is a Co-Founder of the EDM Council and served as the first Chairman and active
+                Board member since inception in 2005.
               </li>
               <li>
-                Mike joined in 2015 as a Senior Advisor, promoted to COO in
-                2020, to lead Industry Engagement strategy, new member services
-                and Council Operations.
+                Mike joined in 2015 as a Senior Advisor, promoted to COO in 2020, to lead Industry
+                Engagement strategy, new member services and Council Operations.
               </li>
               <li>
-                Previously, Mike was the CEO of GoldenSource and held key
-                executive roles at CheckFree (Fiserv), D&B and Oracle.
+                Previously, Mike was the CEO of GoldenSource and held key executive roles at
+                CheckFree (Fiserv), D&B and Oracle.
               </li>
             </ul>
             <p>
@@ -57,12 +56,12 @@
             <h3>Robert Rummel, Americas Regional Advocate</h3>
             <ul>
               <li>
-                Robert Rummel provides account management and sales services for
-                all EDM Council members and prospective members.
+                Robert Rummel provides account management and sales services for all EDM Council
+                members and prospective members.
               </li>
               <li>
-                Robert has over 20 years experience of providing similar
-                services to the financial markets industry.
+                Robert has over 20 years experience of providing similar services to the financial
+                markets industry.
               </li>
             </ul>
             <p>
@@ -90,17 +89,14 @@
             <h3>Colin Gibson, EMEA Regional Advocate</h3>
             <ul>
               <li>
-                Colin is a senior executive and consultant with 30 years’
-                experience in financial services. He specialises in
-                architecture, data governance and data management, most recently
-                as head of data architecture for the investment banking
-                divisions of RBS and HSBC and as head of enterprise architecture
-                for Willis Towers Watson.
+                Colin is a senior executive and consultant with 30 years’ experience in financial
+                services. He specialises in architecture, data governance and data management, most
+                recently as head of data architecture for the investment banking divisions of RBS
+                and HSBC and as head of enterprise architecture for Willis Towers Watson.
               </li>
               <li>
-                Colin combines an enthusiasm for all things data with experience
-                in software development, technology operations and management of
-                major change programmes.
+                Colin combines an enthusiasm for all things data with experience in software
+                development, technology operations and management of major change programmes.
               </li>
             </ul>
             <p>
@@ -128,16 +124,15 @@
             <h3>Preeti Singh, VP & Country Head - India</h3>
             <ul>
               <li>
-                Preeti is the Regional Advocate for India. She has 20 years of
-                pan India and Overseas experience in business development,
-                strategic alliance, customer relationship and training in
-                various industries ranging from IT & ITES, Finance, Education,
-                Startup & Skills Ecosystem.
+                Preeti is the Regional Advocate for India. She has 20 years of pan India and
+                Overseas experience in business development, strategic alliance, customer
+                relationship and training in various industries ranging from IT & ITES, Finance,
+                Education, Startup & Skills Ecosystem.
               </li>
               <li>
-                Preeti is supporting the Council with membership activities and
-                bringing high-quality data management best practices, training
-                and eLearning certification programs to the Indian region.
+                Preeti is supporting the Council with membership activities and bringing
+                high-quality data management best practices, training and eLearning certification
+                programs to the Indian region.
               </li>
             </ul>
             <p>
@@ -166,15 +161,13 @@
             <h3>David Chew, APAC Regional Advocate Singapore</h3>
             <ul>
               <li>
-                David is the Regional Advocate and evangelist for the Asia
-                Pacific (APAC) Region. David has over 20 years of enterprise
-                solutions and data management experience supporting Financial
-                Institutions and Large Enterprises cross Industry.
+                David is the Regional Advocate and evangelist for the Asia Pacific (APAC) Region.
+                David has over 20 years of enterprise solutions and data management experience
+                supporting Financial Institutions and Large Enterprises cross Industry.
               </li>
               <li>
-                David is based in Singapore and will assist the EDM Council on a
-                part-time basis with membership activities and initiatives in
-                the APAC region.
+                David is based in Singapore and will assist the EDM Council on a part-time basis
+                with membership activities and initiatives in the APAC region.
               </li>
             </ul>
             <p>
@@ -200,24 +193,17 @@
             />
           </div>
           <div class="contact-card__right">
-            <h3>
-              Michael O'Sullivan, APAC Regional Advocate Australia & New Zealand
-            </h3>
+            <h3>Michael O'Sullivan, APAC Regional Advocate Australia & New Zealand</h3>
             <ul>
+              <li>Michael is a Regional Advocate for the Asia Pacific (APAC) Region.</li>
               <li>
-                Michael is a Regional Advocate for the Asia Pacific (APAC)
-                Region.
+                Michael is passionate about all things data and has spent his career working in the
+                data & analytics domain for companies in Europe, the Middle East and Asia Pacific.
               </li>
               <li>
-                Michael is passionate about all things data and has spent his
-                career working in the data & analytics domain for companies in
-                Europe, the Middle East and Asia Pacific.
-              </li>
-              <li>
-                Michael is based in Sydney, Australia where he works as an
-                independent data management consultant. Michael assists the EDM
-                Council on a part-time basis and provides on the ground support
-                to our Australian and New Zealand membership.
+                Michael is based in Sydney, Australia where he works as an independent data
+                management consultant. Michael assists the EDM Council on a part-time basis and
+                provides on the ground support to our Australian and New Zealand membership.
               </li>
             </ul>
             <p>
@@ -309,8 +295,8 @@ export default {
       if (to === 'contact') {
         this.scrollTop();
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

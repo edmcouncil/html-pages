@@ -9,8 +9,10 @@
   letter-spacing: 0.01em;
 }
 
-h1, h2, h3 {
-    margin: 0;
+h1,
+h2,
+h3 {
+  margin: 0;
 }
 
 /* Heading / Desktop */
@@ -80,7 +82,6 @@ p.small {
 
   letter-spacing: 0.01em;
 }
-
 
 /* Mobile */
 @media (max-width: 991px) {

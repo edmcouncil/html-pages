@@ -24,10 +24,7 @@
         </div>
         <div class="carousel-item">
           <span class="text-display">Open Knowledge Graph Training</span>
-          <h2>
-            EDMC offers courses in Knowledge Graph and FIBO, available in
-            multiple forms.
-          </h2>
+          <h2>EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms.</h2>
 
           <a
             href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-training/okg-training-events"
@@ -43,9 +40,9 @@
         <div class="carousel-item">
           <span class="text-display">FIBO</span>
           <h2>
-            The Financial Industry Business Ontology (FIBO) defines the sets of
-            things that are of interest in financial business applications and
-            the ways that those things can relate to one another.
+            The Financial Industry Business Ontology (FIBO) defines the sets of things that are of
+            interest in financial business applications and the ways that those things can relate to
+            one another.
           </h2>
 
           <a
@@ -58,8 +55,8 @@
         <div class="carousel-item">
           <span class="text-display">AUTO</span>
           <h2>
-            The Automotive Ontology (AUTO) defines the shared conceptual
-            structures in the automotive industry.
+            The Automotive Ontology (AUTO) defines the shared conceptual structures in the
+            automotive industry.
           </h2>
 
           <a
@@ -72,9 +69,9 @@
         <div class="carousel-item">
           <span class="text-display">IDMP</span>
           <h2>
-            The Identification of Medicinal Products Ontology (IDMP) aims to demonstrates
-            added value to the ISO IDMP standards for data usability across organizational
-            boundaries and regulatory jurisdictions.
+            The Identification of Medicinal Products Ontology (IDMP) aims to demonstrates added
+            value to the ISO IDMP standards for data usability across organizational boundaries and
+            regulatory jurisdictions.
           </h2>
 
           <a
@@ -116,10 +113,8 @@
 
 <script>
 import $ from 'jquery';
-import helpers from '../store/helpers';
 
 export default {
-  extends: helpers,
   name: 'SlideCarousel',
   mounted() {
     $('#carouselController').on('slide.bs.carousel', (e) => {
@@ -129,9 +124,9 @@ export default {
   data() {
     return {
       currentSlide: 1,
-      slideCount: 5,
+      slideCount: 5
     };
-  },
+  }
 };
 </script>
 
@@ -170,7 +165,7 @@ export default {
       position: relative;
 
       &:after {
-        content: "";
+        content: '';
         padding: 50px;
         position: absolute;
         left: -25px;
@@ -184,11 +179,11 @@ export default {
       }
 
       .carousel-control-prev-icon {
-        background-image: url("@/assets/icons/carousel-previous.svg");
+        background-image: url('@/assets/icons/carousel-previous.svg');
       }
 
       .carousel-control-next-icon {
-        background-image: url("@/assets/icons/carousel-next.svg");
+        background-image: url('@/assets/icons/carousel-next.svg');
       }
     }
   }
@@ -200,10 +195,10 @@ export default {
   }
   h2 {
     margin: 40px 0;
-    color: map-get($colors-map, "black-80");
+    color: map-get($colors-map, 'black-80');
   }
   a {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -214,25 +209,31 @@ export default {
     letter-spacing: 0.02em;
     text-decoration-line: underline;
 
-    color: map-get($colors-map, "black");
+    color: map-get($colors-map, 'black');
 
     &:hover {
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
     }
   }
   // transition
   &.active {
     opacity: 1;
-    transition: transform 1s ease-out, opacity 1s ease;
+    transition:
+      transform 1s ease-out,
+      opacity 1s ease;
   }
   // entering slide
   &.carousel-item-next {
     opacity: 0;
-    transition: transform 1s ease-out, opacity 1s ease;
+    transition:
+      transform 1s ease-out,
+      opacity 1s ease;
   }
   &.carousel-item-prev {
     opacity: 0;
-    transition: transform 1s ease-out, opacity 1s ease;
+    transition:
+      transform 1s ease-out,
+      opacity 1s ease;
   }
   &.active.carousel-item-right,
   &.carousel-item-next:not(.carousel-item-left) {
@@ -245,11 +246,15 @@ export default {
   // leaving slide
   &.active.carousel-item-left {
     opacity: 0;
-    transition: transform 1s ease-in, opacity 0.5s ease-out;
+    transition:
+      transform 1s ease-in,
+      opacity 0.5s ease-out;
   }
   &.active.carousel-item-right {
     opacity: 0;
-    transition: transform 1s ease-in, opacity 0.5s ease-out;
+    transition:
+      transform 1s ease-in,
+      opacity 0.5s ease-out;
   }
 }
 
@@ -261,7 +266,7 @@ export default {
   .carousel-item {
     h2 {
       margin: 32px 0;
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
     }
     a {
       font-size: 18px;
@@ -292,7 +297,7 @@ export default {
       font-size: 16px;
       line-height: 24px;
       margin: 15px 0;
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
     }
     a {
       font-size: 16px;

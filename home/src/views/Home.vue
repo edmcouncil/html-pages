@@ -25,14 +25,12 @@
                     The
                     <a
                       href="https://github.com/edmcouncil/"
-                      @click="
-                        outboundLinkClick('https://github.com/edmcouncil/fibo')
-                      "
+                      @click="outboundLinkClick('https://github.com/edmcouncil/fibo')"
                     >
                       EDMC GitHub space
                     </a>
-                    is the main EDMC development space and the space where all
-                    the official dev materials are located.
+                    is the main EDMC development space and the space where all the official dev
+                    materials are located.
                   </p>
                 </div>
                 <div>
@@ -78,10 +76,7 @@
               </div>
             </div>
             <div class="image-container">
-              <img
-                src="../assets/img/Open Knowledge Graph logo.png"
-                alt="OKG Logo"
-              />
+              <img src="../assets/img/Open Knowledge Graph logo.png" alt="OKG Logo" />
             </div>
           </div>
 
@@ -89,9 +84,7 @@
 
           <h2>Quick access</h2>
 
-          <p>
-            EDMC actively supports the development of the following ontologies:
-          </p>
+          <p>EDMC actively supports the development of the following ontologies:</p>
           <div class="table-container">
             <div class="table-box">
               <div class="table-box__column title">
@@ -103,12 +96,11 @@
 
               <div class="table-box__column long-description">
                 <p class="small">
-                  The Financial Industry Business Ontology (FIBO) defines the
-                  sets of things that are of interest in financial business
-                  applications and the ways that those things can relate to one
-                  another. In this way, FIBO can give meaning to any data (e.g.,
-                  spreadsheets, relational databases, XML documents) that
-                  describe the business of finance.
+                  The Financial Industry Business Ontology (FIBO) defines the sets of things that
+                  are of interest in financial business applications and the ways that those things
+                  can relate to one another. In this way, FIBO can give meaning to any data (e.g.,
+                  spreadsheets, relational databases, XML documents) that describe the business of
+                  finance.
                 </p>
               </div>
               <div class="table-box__column mobile-visit-btn">
@@ -131,12 +123,11 @@
 
               <div class="table-box__column long-description">
                 <p class="small">
-                  The Automotive Ontology (AUTO) defines the shared conceptual
-                  structures in the automotive industry. It is an OWL ontology.
-                  It is build upon the auto schema.org extension created by the
-                  W3C Automotive Ontology Community Group and it refers to the
-                  essential real-world objects related to popular vehicles like
-                  cars, buses (coaches), and motorcycles.
+                  The Automotive Ontology (AUTO) defines the shared conceptual structures in the
+                  automotive industry. It is an OWL ontology. It is build upon the auto schema.org
+                  extension created by the W3C Automotive Ontology Community Group and it refers to
+                  the essential real-world objects related to popular vehicles like cars, buses
+                  (coaches), and motorcycles.
                 </p>
               </div>
               <div class="table-box__column mobile-visit-btn">
@@ -159,13 +150,11 @@
 
               <div class="table-box__column long-description">
                 <p class="small">
-                  A well-defined ontology that bridges between regional and
-                  functional perspectives on common substance-related data
-                  objects and global and scientifically objective
-                  representations is required. The goal of our project is to
-                  build an IDMP Ontology that enables deep, semantic
-                  interoperability based on FAIR principles to enhance and
-                  augment the existing ISO IDMP standards.
+                  A well-defined ontology that bridges between regional and functional perspectives
+                  on common substance-related data objects and global and scientifically objective
+                  representations is required. The goal of our project is to build an IDMP Ontology
+                  that enables deep, semantic interoperability based on FAIR principles to enhance
+                  and augment the existing ISO IDMP standards.
                 </p>
               </div>
               <div class="table-box__column mobile-visit-btn">
@@ -191,24 +180,20 @@
           <h2>OKG Innovation Lab</h2>
 
           <p>
-            EDMC recognizes the urgent need to bring this new architecture and
-            approach to its members and beyond. In consultations with various
-            members, analysts, and software vendors, we have launched the Open
-            Knowledge Graph Lab. You can be in touch with its activities by
-            joining
-            <a
-              href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community"
+            EDMC recognizes the urgent need to bring this new architecture and approach to its
+            members and beyond. In consultations with various members, analysts, and software
+            vendors, we have launched the Open Knowledge Graph Lab. You can be in touch with its
+            activities by joining
+            <a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community"
               >OKG Interest Community</a
             >.
           </p>
 
           <h2>OKG Training</h2>
           <p>
-            EDMC currently offers the introductory course in Knowledge Graph
-            technology - it is available as a
-            <a href="https://edmcouncil.org/page/OKGVirtualTraining">
-              virtual class</a
-            >.
+            EDMC currently offers the introductory course in Knowledge Graph technology - it is
+            available as a
+            <a href="https://edmcouncil.org/page/OKGVirtualTraining"> virtual class</a>.
           </p>
 
           <div style="clear: both"></div>
@@ -220,11 +205,9 @@
 
 <script>
 import ScrollTopHandler from '@/components/Articles/ScrollTopHandler.vue';
-import helpers from '../store/helpers';
 import { outboundClick, outboundLinkClick } from '../helpers/ga';
 
 export default {
-  extends: helpers,
   name: 'HomeView',
   components: { ScrollTopHandler },
   methods: {
@@ -253,8 +236,8 @@ export default {
       if (to === '/') {
         this.scrollTop();
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -1,5 +1,5 @@
-@import 'setup/variables.scss';
-@import 'setup/bootstrap-override.scss';
+@import 'setup/_variables.scss';
+@import 'setup/_bootstrap-override.scss';
 @import 'typography.scss';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
 
@@ -14,8 +14,7 @@ $custom-control-indicator-indeterminate-bg: #ffffff;
 $custom-control-indicator-indeterminate-box-shadow: 0px 0px 0px 6px rgba(0, 0, 0, 0.4);
 $custom-control-indicator-icon-indeterminate: url('@/assets/icons/checkbox-check.svg');
 $custom-control-disabled-bg: rgba(0, 0, 0, 0.05);
-$custom-control-disabled-fill: rgb(153,153,153);
-
+$custom-control-disabled-fill: rgb(153, 153, 153);
 
 // button
 $normal-button-default-bg: rgba(0, 0, 0, 0.8);
@@ -335,7 +334,8 @@ article {
     margin: 0px;
   }
 
-  ul, ol {
+  ul,
+  ol {
     padding-left: 30px;
   }
 
