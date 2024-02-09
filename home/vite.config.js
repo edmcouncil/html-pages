@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig(({ mode }) => {
@@ -12,6 +13,18 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
+      viteStaticCopy({
+        targets: [
+            {
+              src: 'dist/index.html',
+              dest: `${PRODUCT}/${BRANCH}/${TAG}`,
+            },
+            {
+              src: 'public/*',
+              dest: `${PRODUCT}/${BRANCH}/${TAG}`,
+            }
+        ]
+      }),
     ],
     resolve: {
       alias: {
@@ -28,9 +41,8 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 8080,
     },
-    base: '/',
     build: {
-      outDir: `dist/${PRODUCT}/${BRANCH}/${TAG}`,
+      assetsDir: `${PRODUCT}/${BRANCH}/${TAG}`,
       rollupOptions: {
         input: {
           main: fileURLToPath(new URL('./index.html', import.meta.url)),
