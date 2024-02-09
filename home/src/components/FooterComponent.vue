@@ -51,9 +51,7 @@
       </div>
       <div class="row">
         <div class="col col-lg-12">
-          <p class="copyright">
-            © {{ new Date().getFullYear() }} All rights reserved.
-          </p>
+          <p class="copyright">© {{ new Date().getFullYear() }} All rights reserved.</p>
         </div>
       </div>
     </div>
@@ -61,15 +59,13 @@
 </template>
 
 <script>
-import helpers from '../store/helpers';
 import { outboundClick } from '../helpers/ga';
 
 export default {
-  extends: helpers,
   name: 'FooterComponent',
   methods: {
-    outboundClick,
-  },
+    outboundClick
+  }
 };
 </script>
 
@@ -83,16 +79,16 @@ footer {
   }
 
   a {
-    color: map-get($colors-map, "black");
+    color: map-get($colors-map, 'black');
 
     &:hover {
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
     }
   }
 
   p {
     font-size: 12px;
-    color: map-get($colors-map, "black");
+    color: map-get($colors-map, 'black');
   }
   .footer-contact {
     .footer-contact__col {
@@ -104,9 +100,9 @@ footer {
     }
 
     .footer-contact__title {
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
 
-      font-family: "Inter";
+      font-family: 'Inter';
       font-style: normal;
       font-weight: 700;
       font-size: 18px;
@@ -117,9 +113,9 @@ footer {
       padding-top: 20px;
 
       a {
-        color: map-get($colors-map, "black-80");
+        color: map-get($colors-map, 'black-80');
 
-        font-family: "Inter";
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 400;
         font-size: 24px;
@@ -128,7 +124,7 @@ footer {
         white-space: nowrap;
 
         &:hover {
-          color: map-get($colors-map, "black-60");
+          color: map-get($colors-map, 'black-60');
         }
       }
     }
@@ -138,11 +134,11 @@ footer {
     border: 0 !important;
   }
   .copyright {
-    color: map-get($colors-map, "black-60");
+    color: map-get($colors-map, 'black-60');
 
     margin: 60px 0;
 
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -188,7 +184,7 @@ footer {
       margin: 0;
       font-size: 18px;
       line-height: 30px;
-      color: map-get($colors-map, "black-80");
+      color: map-get($colors-map, 'black-80');
 
       &:last-child {
         padding-right: 0;
@@ -250,7 +246,7 @@ footer {
         padding-bottom: 40px;
         font-size: 16px;
         line-height: 24px;
-        color: map-get($colors-map, "black-80");
+        color: map-get($colors-map, 'black-80');
 
         &:last-child {
           padding-bottom: 0px;

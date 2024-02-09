@@ -1,30 +1,27 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Vue from 'vue';
-import Clipboard from 'v-clipboard';
-import VueGtm from '@gtm-support/vue2-gtm';
-import router from './router';
+
+import { createApp } from 'vue';
+import { createGtm } from '@gtm-support/vue-gtm';
+
 import App from './App.vue';
-import store from './store';
+import router from './router';
 
-Vue.config.productionTip = false;
-Vue.use(Clipboard);
+const app = createApp(App);
 
-Vue.config.productionTip = false;
+app.use(router);
 
-Vue.use(VueGtm, {
-  id: 'GTM-N7GL2D5',
+app.use(
+  createGtm({
+    id: 'GTM-N7GL2D5',
 
-  defer: false,
-  compatibility: false,
-  enabled: true,
-  debug: false,
-  loadScript: true,
-  vueRouter: router,
-});
+    defer: false,
+    compatibility: false,
+    enabled: true,
+    debug: false,
+    loadScript: true,
+    vueRouter: router,
+  }),
+);
 
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount('#app');
+app.mount('#app');

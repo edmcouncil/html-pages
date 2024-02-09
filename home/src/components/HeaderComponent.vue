@@ -25,20 +25,10 @@
                   </a>
                 </li>
                 <li class="nav-item d-none d-lg-block">
-                  <a
-                    class="nav-link"
-                    href="https://edmcouncil.org"
-                    target="_blank"
-                  >
-                    EDMConnect
-                  </a>
+                  <a class="nav-link" href="https://edmcouncil.org" target="_blank"> EDMConnect </a>
                 </li>
                 <li class="nav-item d-none d-lg-block">
-                  <a
-                    class="nav-link"
-                    href="https://edmcouncil.org"
-                    target="_blank"
-                  >
+                  <a class="nav-link" href="https://edmcouncil.org" target="_blank">
                     Sign in / Register
                   </a>
                 </li>
@@ -62,10 +52,7 @@
                       <h3>MENU</h3>
                     </div>
                   </a>
-                  <div
-                    class="dropdown-menu dropdown-menu-right"
-                    aria-labelledby="navbarDropdown"
-                  >
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a
                       class="nav-link dropdown-item d-lg-none"
                       href="https://edmcouncil.org/events/event_list.asp"
@@ -102,27 +89,21 @@
                     <a
                       class="nav-link dropdown-item"
                       href="https://spec.edmcouncil.org/fibo/"
-                      v-on:click="
-                        outboundLinkClick('https://spec.edmcouncil.org/fibo/')
-                      "
+                      v-on:click="outboundLinkClick('https://spec.edmcouncil.org/fibo/')"
                     >
                       FIBO Home
                     </a>
                     <a
                       class="nav-link dropdown-item"
                       href="https://spec.edmcouncil.org/auto/"
-                      v-on:click="
-                        outboundLinkClick('https://spec.edmcouncil.org/auto/')
-                      "
+                      v-on:click="outboundLinkClick('https://spec.edmcouncil.org/auto/')"
                     >
                       AUTO Home
                     </a>
                     <a
                       class="nav-link dropdown-item"
                       href="https://spec.edmcouncil.org/idmp/"
-                      v-on:click="
-                        outboundLinkClick('https://spec.edmcouncil.org/idmp/')
-                      "
+                      v-on:click="outboundLinkClick('https://spec.edmcouncil.org/idmp/')"
                     >
                       IDMP Home
                     </a>
@@ -148,11 +129,9 @@
 <script>
 import $ from 'jquery';
 import SlideCarousel from '@/components/SlideCarousel.vue';
-import helpers from '../store/helpers';
 import { outboundClick } from '../helpers/ga';
 
 export default {
-  extends: helpers,
   name: 'HeaderComponent',
   components: { SlideCarousel },
   mounted() {
@@ -167,20 +146,16 @@ export default {
       }
       this.$emit('navigationEvent', to);
     },
-    outboundClick,
-  },
+    outboundClick
+  }
 };
 </script>
 
 <style lang="scss">
 header {
-  background: linear-gradient(
-      98.03deg,
-      rgba(255, 255, 255, 0.9) 5.63%,
-      rgba(255, 255, 255, 0) 100%
-    ),
+  background: linear-gradient(98.03deg, rgba(255, 255, 255, 0.9) 5.63%, rgba(255, 255, 255, 0) 100%),
     linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
-    url("@/assets/img/header-white.jpg");
+    url('@/assets/img/header-white.jpg');
   background-size: cover;
   background-position: center;
   padding: 0;
@@ -218,8 +193,8 @@ header {
 .dropdown {
   .burger-button {
     align-items: center;
-    background-color: map-get($colors-map, "white");
-    color: map-get($colors-map, "black-80");
+    background-color: map-get($colors-map, 'white');
+    color: map-get($colors-map, 'black-80');
     border-radius: 2px;
     box-shadow: 0px 5px 20px #07539526;
     display: flex;
@@ -235,7 +210,7 @@ header {
   }
 
   &.show .burger-button {
-    background-color: map-get($colors-map, "white-60");
+    background-color: map-get($colors-map, 'white-60');
   }
 }
 
@@ -248,14 +223,16 @@ header {
   width: 320px;
   max-width: calc(100vw - 75px);
   border: none;
-  background-color: map-get($colors-map, "white");
+  background-color: map-get($colors-map, 'white');
   box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
   border-radius: 0;
 
   margin-top: 5px;
   opacity: 0;
 
-  transition: opacity 0.35s ease, margin-top 0.35s ease;
+  transition:
+    opacity 0.35s ease,
+    margin-top 0.35s ease;
 
   &.show {
     user-select: unset;
@@ -278,7 +255,7 @@ header {
 
 // nav items - title list
 .navbar-expand .navbar-nav .nav-link {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -286,39 +263,39 @@ header {
 
   padding: 0;
 
-  color: map-get($colors-map, "black");
+  color: map-get($colors-map, 'black');
 
   &:hover {
     cursor: pointer;
     user-select: none;
-    color: map-get($colors-map, "black-60");
+    color: map-get($colors-map, 'black-60');
   }
 }
 
 // nav items inside menu
 .navbar-light .navbar-nav .dropdown-menu > .nav-link {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 30px;
 
-  color: map-get($colors-map, "black-80");
+  color: map-get($colors-map, 'black-80');
 
   margin: 0;
   padding: 15px 40px;
 
   &:hover {
-    color: map-get($colors-map, "black-80");
-    background-color: map-get($colors-map, "black-5");
+    color: map-get($colors-map, 'black-80');
+    background-color: map-get($colors-map, 'black-5');
   }
   &:focus {
-    color: map-get($colors-map, "black-80");
+    color: map-get($colors-map, 'black-80');
     background-color: unset;
   }
   &:active {
-    color: map-get($colors-map, "black-80");
-    background-color: map-get($colors-map, "black-20");
+    color: map-get($colors-map, 'black-80');
+    background-color: map-get($colors-map, 'black-20');
   }
 
   // sub items collapse (category title)
@@ -327,8 +304,8 @@ header {
     position: relative;
 
     &::after {
-      content: "";
-      background-image: url("@/assets/icons/triangle-down.svg");
+      content: '';
+      background-image: url('@/assets/icons/triangle-down.svg');
       background-size: 24px;
       background-position: center;
       width: 24px;
@@ -348,30 +325,30 @@ header {
   }
 }
 .dropdown-divider {
-  border-top: 1px solid map-get($colors-map, "black-5");
+  border-top: 1px solid map-get($colors-map, 'black-5');
 }
 
 // nav items inside menu - sub items
 .navbar-expand .navbar-nav .nav-link.sub-nav-item {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 30px;
 
-  color: map-get($colors-map, "black-80");
+  color: map-get($colors-map, 'black-80');
 
   margin: 0;
   padding: 15px 40px 15px 60px;
 
   &:hover {
-    background-color: map-get($colors-map, "black-5");
+    background-color: map-get($colors-map, 'black-5');
   }
   &:focus {
     background-color: unset;
   }
   &:active {
-    background-color: map-get($colors-map, "black-20");
+    background-color: map-get($colors-map, 'black-20');
   }
 }
 

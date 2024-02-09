@@ -11,6 +11,10 @@ for P in /htmlpages/*/*.tar.xz ; do
  tar xJpf "${P}" -C /opt/html-pages/
 done
 
+if [ ! -e /opt/html-pages/favicon.ico ] && [ -n "${BRANCH_NAME}" ] && [ -n "${TAG_NAME}" ] ; then
+ test -e /opt/html-pages/htmlpages/"${BRANCH_NAME}"/"${TAG_NAME}"/favicon.ico && ln -sf htmlpages/"${BRANCH_NAME}"/"${TAG_NAME}"/favicon.ico /opt/html-pages/favicon.ico
+fi
+
 #	e.g. FAMILY_REGEX="fibo|idmp|iof"
 if [ -n "${FAMILY_REGEX}" ] ; then
  sed -i "s#\((?<family>\)[^)]*\()\)#\1${FAMILY_REGEX}\2#g" /etc/nginx/conf.d/default.conf

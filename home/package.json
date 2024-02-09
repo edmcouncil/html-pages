@@ -1,41 +1,31 @@
 {
-  "name": "home-vue",
-  "version": "0.1.0",
+  "name": "home",
+  "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
   },
   "dependencies": {
-    "@gtm-support/vue2-gtm": "^2.0.0",
-    "bootstrap": "^4.6.1",
-    "core-js": "^3.22.2",
-    "jquery": "^3.6.0",
-    "path-browserify": "^1.0.1",
-    "popper.js": "^1.16.1",
-    "serialize-javascript": "^3.1.0",
-    "v-clipboard": "^2.2.3",
-    "vis-network": "^9.1.2",
-    "vue": "^2.6.14",
-    "vue-gtag": "^1.16.1",
-    "vue-multiselect": "^2.1.6",
-    "vue-router": "^3.5.3",
-    "vuex": "^3.6.2"
+    "@gtm-support/vue-gtm": "^2.2.0",
+    "bootstrap": "^4.6.2",
+    "jquery": "^3.7.1",
+    "vite-plugin-static-copy": "^1.0.1",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.4",
-    "@vue/cli-plugin-eslint": "~5.0.4",
-    "@vue/cli-service": "~5.0.4",
-    "@vue/eslint-config-airbnb": "^6.0.0",
-    "eslint": "^8.14.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-vue": "^8.7.1",
-    "eslint-plugin-vuejs-accessibility": "^1.1.0",
-    "sass": "^1.51.0",
-    "sass-loader": "^12.6.0",
-    "vue-template-compiler": "^2.7.14"
+    "@rushstack/eslint-patch": "^1.3.3",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "prettier": "^3.0.3",
+    "sass": "^1.70.0",
+    "vite": "^5.0.11"
   }
 }

@@ -7,7 +7,7 @@
 
 ## General setup
 
-- `nodejs v16.14.2`
+- `nodejs v20`
 
 ## Build and run frontend
 
@@ -29,4 +29,4 @@ $ npm run serve
 $ npm run build
 ```
 
-Application run default on: `http://localhost:8080`.
+The application runs by default on: `http://localhost:8080`.
