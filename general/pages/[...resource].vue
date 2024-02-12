@@ -801,20 +801,23 @@ export default {
       keepalive: true,
       key: 'ontology',
       layout: 'minimal',
-      middleware: defineNuxtRouteMiddleware((to, from) => {
+      // middleware: defineNuxtRouteMiddleware((to, from) => {
         // This middleware prevents navigation bug in full static mode.
         // SPA mode in this route is an option, but then the app doesn't have
         // stores populated (initializeStores.server.ts).
 
         // This solution is required unless a better one is found.
-        if (
-          from.fullPath.startsWith('/ontology')
-          && from.params?.resource?.length > 0
-          && (to.fullPath === '/ontology' || to.fullPath.startsWith('/ontology?version'))
-        ) {
-          return abortNavigation();
-        }
-      }),
+      //   if (
+      //     from.fullPath.startsWith('/ontology')
+      //     && from.params?.resource?.length > 0
+      //     && (to.fullPath === '/ontology' || to.fullPath.startsWith('/ontology?version'))
+      //   ) {
+      //     return abortNavigation();
+      //   }
+      // }),
+      validate: async (route) => {
+        return route.path.startsWith('/ontology');
+      }
     });
   },
   data() {
@@ -1517,7 +1520,7 @@ export default {
         || this.$route.query?.search
       ) {
         this.$router.push({
-          path: '/ontology',
+          path: '/ontology/asd/trzy',
           query: {
             ...(this.$route.query && this.$route.query.version
               ? { version: encodeURI(this.$route.query.version) }
