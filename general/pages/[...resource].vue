@@ -1520,7 +1520,7 @@ export default {
         || this.$route.query?.search
       ) {
         this.$router.push({
-          path: '/ontology/asd/trzy',
+          path: '/ontology',
           query: {
             ...(this.$route.query && this.$route.query.version
               ? { version: encodeURI(this.$route.query.version) }
