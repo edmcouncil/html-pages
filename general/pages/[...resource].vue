@@ -456,6 +456,7 @@
               v-if="hasVersions"
               class="secondary-column__versions secondary-column__versions--mobile"
               :icon="'icon-clock'"
+              :id="'modal-mobile-versions'"
             >
               <template v-slot:label> Select version </template>
               <template v-slot:multiselect>
@@ -543,6 +544,7 @@
             <MobileMenuBox
               class="secondary-column__tree secondary-column__tree--mobile"
               :icon="'icon-directory'"
+              :id="'modal-mobile-modules'"
             >
               <template v-slot:label>
                 Browse {{ ontologyNameUppercase }} domains
@@ -564,6 +566,7 @@
 
             <MobileMenuBox
               :icon="'icon-search'"
+              :id="'modal-mobile-search'"
               class="search-box search-box--mobile"
               ref="mobileSearchbox"
             >
@@ -662,6 +665,7 @@
               v-if="searchBox.isAdvancedExpanded"
             >
               <MobileMenuBox
+                :id="'modal-mobile-advanced-search'"
                 class="advanced-search-box advanced-search-box--mobile card"
               >
                 <template v-slot:label> Search by properties </template>

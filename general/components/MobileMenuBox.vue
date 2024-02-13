@@ -23,6 +23,7 @@
       :open="showModal"
       :headerClass="noMultiselect ? '' : 'no-shadow'"
       :noFade="true"
+      :id="id"
       fullscreen
       modalClass="mobile-menu-box"
       footerClass="mobile-modal-footer"
@@ -60,7 +61,7 @@
 <script>
 export default {
   name: 'MobileModal',
-  props: ['icon'],
+  props: ['icon', 'id'],
   data() {
     return {
       showModal: false,
