@@ -9,4 +9,4 @@ export default defineNuxtPlugin(async (nuxtApp: any) => {
 
   await configurationStore.initialize(runtimeConfig);
   await contentStore.initialize(runtimeConfig);
-})
+});

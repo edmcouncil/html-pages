@@ -180,7 +180,9 @@ export default {
   },
   computed: {
     ...mapState(useConfigurationStore, {
-      ontologyNameUppercase: store => store.config.ontpubFamily.toUpperCase(),
+      ontologyNameUppercase: store => {
+        return store.config.ontpubFamily.toUpperCase()
+      },
     }),
   },
 };

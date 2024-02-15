@@ -28,6 +28,9 @@ const DEV_BASE_URL = VUE_BASE_URL.replace(
 );
 
 export default defineNuxtConfig({
+  experimental: {
+    sharedPrerenderData: true
+  },
   vue: {
     runtimeCompiler: true,
   },
