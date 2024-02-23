@@ -17,19 +17,16 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <img src="@/assets/icons/show-more.svg" alt="Show more" />
+                More
+                <img src="@/assets/icons/show-more-white.svg" alt="Show more" />
               </button>
               <div class="dropdown-menu dropdown-menu-end">
                 <DescribeButton
-                  v-if="data.iri.slice(-1) !== '/'"
+                  v-if="hasDescribeButton"
                   :data="data"
                 />
                 <button
-                  v-if="
-                    ontologyRepositoryUrl &&
-                      data.iri.startsWith(uriSpace) &&
-                      !(this.$route.query && this.$route.query.version)
-                  "
+                  v-if="hasReportProblemButton"
                   @click="githubNewIssue()"
                   type="button"
                   class="report-a-problem dropdown-item"
@@ -158,13 +155,16 @@ export default {
       ontologyRepositoryUrl: store => store.config.ontologyRepositoryUrl,
       uriSpace: store => store.config.uriSpace,
     }),
+    hasDescribeButton() {
+      return this.data.iri.slice(-1) !== '/';
+    },
+    hasReportProblemButton() {
+      return this.ontologyRepositoryUrl &&
+      this.data.iri.startsWith(this.uriSpace) &&
+        !(this.$route.query && this.$route.query.version);
+    },
     hasDropdownMenu() {
-      return (
-        (this.ontologyRepositoryUrl
-          && this.data.iri.startsWith(this.uriSpace)
-          && !(this.$route.query && this.$route.query.version))
-        || this.data.iri.slice(-1) !== '/'
-      );
+      return this.hasDescribeButton || this.hasReportProblemButton;
     },
     hasStatus() {
       return (
@@ -275,45 +275,47 @@ export default {
 
   // more button
   .resource-more {
-    margin-top: 32.5px;
-    margin-left: 10px;
+    margin-top: 40px;
+    margin-left: 20px;
     border-radius: 2px;
     padding: 0;
     border: none;
     text-decoration: none;
-    font-family: Inter;
-    font-style: normal;
-    font-weight: normal;
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
 
     &.centered {
-      margin-top: 45px;
+      margin-top: 50px;
     }
 
     .btn.dropdown-toggle {
       border: none;
       outline: none;
       box-shadow: none;
-      padding: 0;
+      padding: 5px 15px 5px 15px;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 2px;
+      color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: opacity 0.3s;
 
       &::after {
         display: none;
       }
 
       img {
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
+      }
+
+      &.show {
         opacity: 0.8;
-      }
-
-      &:hover img {
-        opacity: 1;
-      }
-
-      &::after {
-        display: none;
       }
     }
 
@@ -334,7 +336,7 @@ export default {
       bottom: 0;
       inset: 0px 0px auto auto;
       opacity: 0;
-      transform: translate3d(0px, 35px, 0px);
+      transform: translate3d(0px, 30px, 0px);
 
       transition: opacity 0.35s ease, margin-top 0.35s ease, transform 0.35s;
 
@@ -343,6 +345,7 @@ export default {
         pointer-events: unset;
 
         opacity: 1;
+        transform: translate3d(0px, 40px, 0px)!important;
       }
 
       .dropdown-item {
@@ -505,10 +508,19 @@ export default {
 
 @media (max-width: 991px) {
   .ontology-item__header {
-    // maturity alert
-    .ontology-item__header__status {
-      margin-top: 40px;
-      margin-left: 0px;
+    .ontology-item__header__title-segment {
+      flex-direction: column;
+
+      .resource-more {
+        justify-content: flex-end;
+        margin-top: 40px;
+      }
+
+      .ontology-item__header__status {
+        margin-top: 40px;
+        margin-left: 0px;
+        margin-right: 55px;
+      }
     }
 
     h2 {
