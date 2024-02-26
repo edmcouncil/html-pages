@@ -11,6 +11,8 @@ export default class Ontograph {
 
   distance = 30;
 
+  verticalDistance = 12;
+
   keepLabels = false;
 
   labelOpacity = 0.8;
@@ -495,10 +497,20 @@ export default class Ontograph {
   distanceUpdate(value) {
     this.distance = value;
 
-    if (this.layout === 'tree') this.toTree();
-    else if (this.layout === 'clusterTree') this.toClusterTree();
-    else if (this.layout === 'radial') this.toRadial();
-    else if (this.layout === 'clusterRadial') this.toClusterRadial();
+    if (this.layout === 'tree') this.toTree({ skipTransition: true });
+    else if (this.layout === 'clusterTree') this.toClusterTree({ skipTransition: true });
+    else if (this.layout === 'radial') this.toRadial({ skipTransition: true });
+    else if (this.layout === 'clusterRadial') this.toClusterRadial({ skipTransition: true });
+    else if (this.layout === 'force') this.toForce();
+  }
+
+  verticalDistanceUpdate(value) {
+    this.verticalDistance = value;
+
+    if (this.layout === 'tree') this.toTree({ skipTransition: true });
+    else if (this.layout === 'clusterTree') this.toClusterTree({ skipTransition: true });
+    else if (this.layout === 'radial') this.toRadial({ skipTransition: true });
+    else if (this.layout === 'clusterRadial') this.toClusterRadial({ skipTransition: true });
     else if (this.layout === 'force') this.toForce();
   }
 
@@ -802,11 +814,11 @@ export default class Ontograph {
     this.layout = to;
   }
 
-  toTree() {
+  toTree({ skipTransition } = {}) {
     this.simulation.stop();
 
     const dx = this.distance * 4;
-    const dy = 12;
+    const dy = this.verticalDistance;
 
     const treeLayout = d3.tree().nodeSize([dy, dx])(this.root);
 
@@ -816,7 +828,7 @@ export default class Ontograph {
     this.linkPaths
       .data(this.links, (d) => d.target.id)
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'd',
         d3
@@ -828,13 +840,13 @@ export default class Ontograph {
     this.node
       .data(this.nodes, (d) => d.data.id)
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr('transform', (d) => `translate(${d.y}, ${d.x})`);
 
     this.node
       .selectAll('text')
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr('x', (d) => (d.children?.length ? -6 : 6))
       .attr('text-anchor', (d) => (d.children?.length ? 'end' : 'start'))
       .attr('transform', '');
@@ -848,7 +860,7 @@ export default class Ontograph {
 
     this.linkLabels
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
         (d) => `translate(${(d.target.x + d.source.x) / 2}, ${
@@ -857,14 +869,14 @@ export default class Ontograph {
       );
   }
 
-  toClusterTree() {
+  toClusterTree({ skipTransition } = {}) {
     this.simulation.stop();
 
     this.links = this.root.links();
     this.nodes = this.root.descendants();
 
     const dx = this.distance * 4;
-    const dy = 12;
+    const dy = this.verticalDistance;
 
     const treeLayout = d3.cluster().nodeSize([dy, dx])(this.root);
 
@@ -874,7 +886,7 @@ export default class Ontograph {
     this.linkPaths
       .data(this.links, (d) => d.target.id)
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'd',
         d3
@@ -886,13 +898,13 @@ export default class Ontograph {
     this.node
       .data(this.nodes, (d) => d.data.id)
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr('transform', (d) => `translate(${d.y}, ${d.x})`);
 
     this.node
       .selectAll('text')
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr('x', (d) => (d.children?.length ? -6 : 6))
       .attr('text-anchor', (d) => (d.children?.length ? 'end' : 'start'))
       .attr('transform', '');
@@ -906,7 +918,7 @@ export default class Ontograph {
 
     this.linkLabels
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
         (d) => `translate(${(d.target.x + d.source.x) / 2}, ${
@@ -915,7 +927,7 @@ export default class Ontograph {
       );
   }
 
-  toRadial() {
+  toRadial({ skipTransition } = {}) {
     this.simulation.stop();
 
     const radius = this.root.height * this.distance * 4;
@@ -931,7 +943,7 @@ export default class Ontograph {
     this.linkPaths
       .data(this.links, (d) => d.target.id)
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'd',
         d3
@@ -948,7 +960,7 @@ export default class Ontograph {
     this.node
       .data(this.nodes, (d) => d.data.id)
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`,
@@ -972,7 +984,7 @@ export default class Ontograph {
 
     this.linkLabels
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
         (d) => `translate(${(d.target.x + d.source.x) / 2}, ${
@@ -981,7 +993,7 @@ export default class Ontograph {
       );
   }
 
-  toClusterRadial() {
+  toClusterRadial({ skipTransition } = {}) {
     this.simulation.stop();
 
     const radius = this.root.height * this.distance * 4;
@@ -997,7 +1009,7 @@ export default class Ontograph {
     this.linkPaths
       .data(this.links, (d) => d.target.id)
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'd',
         d3
@@ -1012,7 +1024,7 @@ export default class Ontograph {
     this.node
       .data(this.nodes, (d) => d.data.id)
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`,
@@ -1034,7 +1046,7 @@ export default class Ontograph {
 
     this.linkLabels
       .transition()
-      .duration(this.transitionSpeed)
+      .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
         (d) => `translate(${(d.target.x + d.source.x) / 2}, ${
