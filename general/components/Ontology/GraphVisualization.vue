@@ -344,6 +344,29 @@
                     @input="handleDistanceUpdate()"
                   />
                 </div>
+                <div
+                  v-if="hasVerticalDistanceControl"
+                  class="configuration-vertical-distance"
+                >
+                  <p>
+                    Vertical distance
+                    <button
+                      class="btn chip-button"
+                      disabled
+                    >
+                      {{ verticalDistanceValue }}
+                    </button>
+                  </p>
+                  <input
+                    v-model="verticalDistanceValue"
+                    type="range"
+                    min="6"
+                    max="40"
+                    step="2"
+                    class="custom-slider"
+                    @input="handleVerticalDistanceUpdate()"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -401,6 +424,7 @@ export default {
       required: true,
 
       distanceValue: 30,
+      verticalDistanceValue: 12,
       isKeepLabels: false,
 
       alerts: [],
@@ -465,6 +489,9 @@ export default {
     },
     handleDistanceUpdate() {
       this.ontograph.distanceUpdate(this.distanceValue);
+    },
+    handleVerticalDistanceUpdate() {
+      this.ontograph.verticalDistanceUpdate(this.verticalDistanceValue);
     },
     handleKeepLabelsUpdate() {
       this.ontograph.keepLabelsUpdate(this.isKeepLabels);
@@ -610,6 +637,9 @@ export default {
       uriSpace: store => store.config.uriSpace,
       ontologyName: store => store.config.ontpubFamily.toLowerCase(),
     }),
+    hasVerticalDistanceControl() {
+      return this.layout === 'tree' || this.layout === 'clusterTree';
+    }
   },
   watch: {
     distanceValue(newValue) {
