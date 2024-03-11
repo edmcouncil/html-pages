@@ -54,6 +54,8 @@ export default {
     if (lines.length == 1) {
       lines = html.split('<br />');
     }
+    lines = lines.map(line => line.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+
     lines.forEach((part, index) => {
       const regexMatch = part.match(regex);
       if (regexMatch != null) {
@@ -79,9 +81,8 @@ export default {
   },
   computed: {
     processedTitle() {
-      const html = this.processedHtml(this.lines[0]);
-      html.replace('<', '&lt;');
-      html.replace('>', '&gt;');
+      let html = this.processedHtml(this.lines[0]);
+
       return {
         template:
           `<span>${html}</span>`
@@ -130,7 +131,6 @@ export default {
     processedHtml(htmlInput) {
       let htmlResult = htmlInput;
       if (htmlResult.startsWith('- ')) htmlResult = htmlResult.substring(2);
-      htmlResult = htmlResult.replace('<', '&lt;').replace('>', '&gt;');
       if (this.entityMaping) {
         Object.keys(this.entityMaping).forEach((name) => {
           const value = this.entityMaping[name];
