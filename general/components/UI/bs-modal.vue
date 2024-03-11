@@ -3,12 +3,13 @@
     <div
       class="modal"
       :class="
-      [
-        modalClass, {
-          fade: !noFade,
-          fullscreen,
-          'second-level': secondLevel
-        }]
+        [
+          modalClass, {
+            fade: !noFade,
+            fullscreen,
+            'second-level': secondLevel
+          }
+        ]
       "
       :id="correctId"
       :aria-labelledby="correctId + 'Label'"
@@ -17,7 +18,7 @@
       tabindex="-1"
       ref="modalElement"
     >
-      <div class="modal-dialog modal-dialog-centered" :class="{'modal-dialog-scrollable': scrollable}">
+      <div class="modal-dialog modal-dialog-centered" :class="{ 'modal-dialog-scrollable': scrollable }">
         <div class="modal-content">
           <div class="modal-header">
             <slot name="modal-header" :class="headerClass"></slot>
@@ -156,6 +157,6 @@ export default {
 
 <style lang="scss">
 .modal .modal-dialog-scrollable .modal-body {
-  overflow-y: scroll!important;
+  overflow-y: scroll !important;
 }
 </style>
