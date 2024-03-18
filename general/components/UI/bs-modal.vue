@@ -17,10 +17,7 @@
       data-bs-backdrop="static"
       tabindex="-1"
     >
-      <div
-        class="modal-dialog modal-dialog-centered"
-        :class="{ 'modal-dialog-scrollable': scrollable }"
-      >
+      <div class="modal-dialog modal-dialog-centered" :class="{'modal-dialog-scrollable': scrollable}">
         <div class="modal-content">
           <div class="modal-header">
             <slot name="modal-header" :class="headerClass"></slot>

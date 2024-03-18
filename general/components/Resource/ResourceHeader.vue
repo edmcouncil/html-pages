@@ -5,20 +5,11 @@
         <div class="ontology-item__header__title-segment">
           <div class="right">
             <!-- show more menu -->
-            <div
-              v-if="hasDropdownMenu"
-              class="dropdown resource-more"
-              :class="{ centered: !hasStatus }"
-            >
-              <button
-                type="button"
-                class="btn dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
+            <div v-if="hasDropdownMenu" class="dropdown resource-more" :class="{ centered: !hasStatus }">
+              <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
                 More
-                <img src="@/assets/icons/show-more-white.svg" alt="Show more" />
+                <div class="icon-show-more-white"></div>
               </button>
               <div class="dropdown-menu dropdown-menu-end">
                 <DescribeButton v-if="hasDescribeButton" :data="data" />
@@ -59,11 +50,7 @@
                 This resource has maturity level
                 {{ data.maturityLevel.label.toLowerCase() }}.
 
-                <customLink
-                  class="custom-link"
-                  :name="'Read more'"
-                  :query="data.maturityLevel.iri"
-                ></customLink>
+                <customLink class="custom-link" :name="'Read more'" :query="data.maturityLevel.iri"></customLink>
               </div>
             </div>
 
@@ -308,7 +295,9 @@ export default {
         display: none;
       }
 
-      img {
+      .icon-show-more-white {
+        background-image: url('../../assets/icons/show-more-white.svg');
+        background-size: 100%;
         width: 20px;
         height: 20px;
       }
@@ -367,10 +356,12 @@ export default {
           color: map-get($colors-map, 'black-80');
           background-color: map-get($colors-map, 'black-5');
         }
+
         &:focus {
           color: map-get($colors-map, 'black-80');
           background-color: unset;
         }
+
         &:active {
           color: map-get($colors-map, 'black-80');
           background-color: map-get($colors-map, 'black-20');
@@ -405,6 +396,7 @@ export default {
     margin-bottom: 40px;
     position: relative;
     max-width: 100%;
+
     &::before {
       content: '';
 
@@ -420,27 +412,32 @@ export default {
 
       position: absolute;
     }
+
     &.maturity-provisional {
       &::before {
         background-image: url('@/assets/icons/provisional-maturity.svg');
       }
     }
+
     &.maturity-informative {
       &::before {
         background-image: url('@/assets/icons/informative-maturity.svg');
       }
     }
+
     &.maturity-mixed {
       &::before {
         background-image: url('@/assets/icons/mixed-maturity.svg');
       }
     }
+
     &.maturity-production {
       &::before {
         background-image: url('@/assets/icons/production-maturity.svg');
       }
     }
   }
+
   h6 {
     font-style: normal;
     font-weight: normal;
@@ -450,17 +447,20 @@ export default {
     letter-spacing: 0.01em;
     color: rgba(0, 0, 0, 0.6);
   }
+
   // data iri
   .data-iri {
     margin: 0px 0px;
     padding: 0;
     word-break: break-all;
   }
+
   // qname
   .qname {
     margin: 0px 0px;
     padding: 0;
   }
+
   // copy url button
   .btn-copy-url {
     color: rgba(0, 0, 0, 0.8);
@@ -498,11 +498,13 @@ export default {
       border: none;
     }
   }
+
   .url-buttons-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
+
   .card {
     background: none;
   }
@@ -532,15 +534,19 @@ export default {
       &.maturity-provisional {
         margin-left: 34px;
       }
+
       &.maturity-informative {
         margin-left: 34px;
       }
+
       &.maturity-production {
         margin-left: 34px;
       }
+
       &.maturity-mixed {
         margin-left: 34px;
       }
+
       &::before {
         top: 5.83px;
       }
@@ -551,19 +557,23 @@ export default {
       margin: 0px 0px;
       padding: 0;
     }
+
     // qname
     .qname {
       margin: 0px 0px;
       padding: 0;
     }
+
     .url-buttons-container {
       align-items: flex-end;
       justify-content: right;
     }
+
     // copy url button
     .btn-copy-url {
       font-size: 16px;
       line-height: 24px;
+
       &::before {
         content: '';
         background-image: url('@/assets/icons/copy-url-icon.svg');
@@ -577,6 +587,7 @@ export default {
         margin-left: 6px;
       }
     }
+
     .card {
       background: none;
     }
