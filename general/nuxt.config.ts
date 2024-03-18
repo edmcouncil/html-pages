@@ -150,15 +150,7 @@ export default defineNuxtConfig({
     '@/assets/scss/Ontology.scss',
     'vue-multiselect/dist/vue-multiselect.css'
   ],
-  modules: [
-    '@nuxtjs/google-fonts',
-    '@pinia/nuxt',
-    '@zadigetvoltaire/nuxt-gtm',
-    [
-      '@nuxtjs/eslint-module',
-      { lintOnStart: false, emitWarning: false, emitError: false }
-    ]
-  ],
+  modules: ['@nuxtjs/google-fonts', '@pinia/nuxt', '@zadigetvoltaire/nuxt-gtm'],
   googleFonts: {
     families: {
       Inter: [400, 600, 700, 800]
