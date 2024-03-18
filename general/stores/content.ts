@@ -8,16 +8,16 @@ export const useContentStore = defineStore({
       headerData: {
         menuDropdown: null,
         menuTop: null,
-        carousel: null,
+        carousel: null
       },
       footerData: {
         copyright: null,
         contacts: null,
         socials: null,
         links: null,
-        useCustomFooterData: null,
-      },
-    }
+        useCustomFooterData: null
+      }
+    };
   },
   actions: {
     setContentData(data: any) {
@@ -35,5 +35,5 @@ export const useContentStore = defineStore({
       const pageData = await getPageElementsStrapiData(runtimeConfig);
       this.setContentData(pageData);
     }
-  },
-})
+  }
+});

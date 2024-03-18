@@ -8,14 +8,13 @@
           class="card-title"
           :class="{
             'maturity-provisional':
-              this.data.headerLeft.maturityLevel.label === 'Provisional' ||
-              this.data.headerLeft.maturityLevel.label === 'Preliminary',
+              data.headerLeft.maturityLevel.label === 'Provisional' ||
+              data.headerLeft.maturityLevel.label === 'Preliminary',
             'maturity-informative':
-              this.data.headerLeft.maturityLevel.label === 'Informative',
+              data.headerLeft.maturityLevel.label === 'Informative',
             'maturity-production':
-              this.data.headerLeft.maturityLevel.label === 'Release',
-            'maturity-mixed':
-              this.data.headerLeft.maturityLevel.label === 'Mixed',
+              data.headerLeft.maturityLevel.label === 'Release',
+            'maturity-mixed': data.headerLeft.maturityLevel.label === 'Mixed'
           }"
         >
           {{ data.headerLeft.label }}
@@ -31,14 +30,13 @@
           class="card-title"
           :class="{
             'maturity-provisional':
-              this.data.headerRight.maturityLevel.label === 'Provisional' ||
-              this.data.headerRight.maturityLevel.label === 'Preliminary',
+              data.headerRight.maturityLevel.label === 'Provisional' ||
+              data.headerRight.maturityLevel.label === 'Preliminary',
             'maturity-informative':
-              this.data.headerRight.maturityLevel.label === 'Informative',
+              data.headerRight.maturityLevel.label === 'Informative',
             'maturity-production':
-              this.data.headerRight.maturityLevel.label === 'Release',
-            'maturity-mixed':
-              this.data.headerRight.maturityLevel.label === 'Mixed',
+              data.headerRight.maturityLevel.label === 'Release',
+            'maturity-mixed': data.headerRight.maturityLevel.label === 'Mixed'
           }"
         >
           {{ data.headerRight.label }}
@@ -88,7 +86,7 @@
 <script>
 export default {
   name: 'ResourceHeaderCompare',
-  props: ['data'],
+  props: ['data']
 };
 </script>
 
@@ -110,7 +108,7 @@ export default {
     font-weight: normal;
     font-size: 18px;
     line-height: 30px;
-    color: map-get($colors-map, "black-60");
+    color: map-get($colors-map, 'black-60');
 
     border-right: 2px solid white;
     padding: 20px 20px;
@@ -139,7 +137,7 @@ export default {
   .not-found {
     text-align: center;
     h2 {
-      color: map-get($colors-map, "black-20");
+      color: map-get($colors-map, 'black-20');
       font-style: normal;
       font-weight: bold;
       font-size: 42px;
@@ -147,7 +145,7 @@ export default {
       padding-top: 40px;
     }
     p {
-      color: map-get($colors-map, "black-40");
+      color: map-get($colors-map, 'black-40');
       padding-top: 5px;
     }
   }
@@ -164,7 +162,7 @@ export default {
     position: relative;
     max-width: 100%;
     &::before {
-      content: "";
+      content: '';
 
       background-repeat: no-repeat;
       background-size: 24px 24px;
@@ -181,25 +179,25 @@ export default {
     &.maturity-provisional {
       margin-left: 29px;
       &::before {
-        background-image: url("@/assets/icons/provisional-maturity.svg");
+        background-image: url('@/assets/icons/provisional-maturity.svg');
       }
     }
     &.maturity-informative {
       margin-left: 29px;
       &::before {
-        background-image: url("@/assets/icons/informative-maturity.svg");
+        background-image: url('@/assets/icons/informative-maturity.svg');
       }
     }
     &.maturity-mixed {
       margin-left: 29px;
       &::before {
-        background-image: url("@/assets/icons/mixed-maturity.svg");
+        background-image: url('@/assets/icons/mixed-maturity.svg');
       }
     }
     &.maturity-production {
       margin-left: 29px;
       &::before {
-        background-image: url("@/assets/icons/production-maturity.svg");
+        background-image: url('@/assets/icons/production-maturity.svg');
       }
     }
   }
@@ -274,8 +272,8 @@ export default {
       font-size: 16px;
       line-height: 24px;
       &::before {
-        content: "";
-        background-image: url("@/assets/icons/copy-url-icon.svg");
+        content: '';
+        background-image: url('@/assets/icons/copy-url-icon.svg');
         background-repeat: no-repeat;
         background-size: 24px;
 

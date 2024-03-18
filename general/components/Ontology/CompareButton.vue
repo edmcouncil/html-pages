@@ -13,17 +13,18 @@
 <script>
 export default {
   name: 'CompareButton',
+  emits: ['compareToggled'],
   data() {
     return {
-      open: false,
+      open: false
     };
   },
   methods: {
     pressed() {
       this.open = !this.open;
       this.$emit('compareToggled', this.open);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -46,8 +47,8 @@ export default {
   }
 
   &::before {
-    content: "";
-    background-image: url("@/assets/icons/compare.svg");
+    content: '';
+    background-image: url('@/assets/icons/compare.svg');
     background-repeat: no-repeat;
     background-size: 24px;
     background-position: center;
@@ -66,7 +67,7 @@ export default {
 }
 .btn-compare-versions.open {
   &::before {
-    background-image: url("@/assets/icons/close.svg");
+    background-image: url('@/assets/icons/close.svg');
   }
 }
 </style>

@@ -2,12 +2,12 @@
   <div class="ontology-viewer-header">
     <div class="ontology-viewer-header__text">
       <span class="text-display">{{ ontologyNameUppercase }} Viewer</span>
-      <p class="big">Access both the {{ ontologyNameUppercase }} structure and its content in the easiest possible way.</p>
+      <p class="big">
+        Access both the {{ ontologyNameUppercase }} structure and its content in
+        the easiest possible way.
+      </p>
     </div>
-    <button
-      class="btn normal-button small"
-      @click="howToUseHandler()"
-    >
+    <button class="btn normal-button small" @click="howToUseHandler()">
       How to use
     </button>
   </div>
@@ -16,7 +16,7 @@
 <script>
 export default {
   name: 'HowToUseTopBanner',
-  props: ['ontologyNameUppercase', 'howToUseHandler'],
+  props: ['ontologyNameUppercase', 'howToUseHandler']
 };
 </script>
 
@@ -49,9 +49,9 @@ export default {
     flex-direction: column;
 
     .ontology-viewer-header__text p {
-        margin-top: 20px;
-        font-size: 16px;
-        line-height: 24px;
+      margin-top: 20px;
+      font-size: 16px;
+      line-height: 24px;
     }
 
     .btn.normal-button.small {

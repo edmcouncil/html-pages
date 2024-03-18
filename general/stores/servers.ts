@@ -29,14 +29,15 @@ export const useServersStore = defineStore({
       modulesServerCompare: '',
       statsServerCompare: '',
       missingImportsServerCompare: '',
-      graphServerCompare: '',
-    }
+      graphServerCompare: ''
+    };
   },
   actions: {
     updateServers(route: any, to: any): void {
       const configurationStore = useConfigurationStore();
       let internalRoute = route;
-      let ontoviewerDefaultDomain = configurationStore.config.ontoviewerServerUrl;
+      let ontoviewerDefaultDomain =
+        configurationStore.config.ontoviewerServerUrl;
       let version = null;
 
       if (to !== undefined) {
@@ -46,21 +47,21 @@ export const useServersStore = defineStore({
       if (internalRoute.query?.version) {
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
           '{version}/',
-          `${internalRoute.query.version}/`,
+          `${internalRoute.query.version}/`
         );
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
           '{version}',
-          `${internalRoute.query.version}`,
+          `${internalRoute.query.version}`
         );
         version = internalRoute.query.version;
       } else {
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
           '{version}/',
-          '',
+          ''
         );
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
           '{version}',
-          '',
+          ''
         );
         version = null;
       }
@@ -68,7 +69,8 @@ export const useServersStore = defineStore({
       const searchServer = ontoviewerDefaultDomain + this.searchSegment;
       const ontologyServer = ontoviewerDefaultDomain + this.ontologySegment;
       const statsServer = ontoviewerDefaultDomain + this.statsSegment;
-      const missingImportsServer = ontoviewerDefaultDomain + this.missingImportsSegment;
+      const missingImportsServer =
+        ontoviewerDefaultDomain + this.missingImportsSegment;
       const modulesServer = ontoviewerDefaultDomain + this.modulesSegment;
       const graphServer = ontoviewerDefaultDomain + this.graphSegment;
       const describeServer = ontoviewerDefaultDomain + this.describeSegment;
@@ -84,27 +86,28 @@ export const useServersStore = defineStore({
     },
     updateCompareServers(compareVersion: string | null): void {
       const configurationStore = useConfigurationStore();
-      let ontoviewerDefaultDomain = configurationStore.config.ontoviewerServerUrl;
+      let ontoviewerDefaultDomain =
+        configurationStore.config.ontoviewerServerUrl;
       let version = null;
 
       if (compareVersion) {
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
           '{version}/',
-          `${compareVersion}/`,
+          `${compareVersion}/`
         );
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
           '{version}',
-          `${compareVersion}`,
+          `${compareVersion}`
         );
         version = compareVersion;
       } else {
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
           '{version}/',
-          '',
+          ''
         );
         ontoviewerDefaultDomain = ontoviewerDefaultDomain.replace(
           '{version}',
-          '',
+          ''
         );
         version = null;
       }
@@ -112,7 +115,8 @@ export const useServersStore = defineStore({
       const searchServer = ontoviewerDefaultDomain + this.searchSegment;
       const ontologyServer = ontoviewerDefaultDomain + this.ontologySegment;
       const statsServer = ontoviewerDefaultDomain + this.statsSegment;
-      const missingImportsServer = ontoviewerDefaultDomain + this.missingImportsSegment;
+      const missingImportsServer =
+        ontoviewerDefaultDomain + this.missingImportsSegment;
       const modulesServer = ontoviewerDefaultDomain + this.modulesSegment;
       const graphServer = ontoviewerDefaultDomain + this.graphSegment;
 
@@ -133,22 +137,13 @@ export const useServersStore = defineStore({
       let result = configurationStore.config.ontoviewerServerUrl;
 
       if (version !== null) {
-        result = result.replace(
-          '{version}',
-          version,
-        );
+        result = result.replace('{version}', version);
       } else {
-        result = result.replace(
-          '{version}/',
-          '',
-        );
-        result = result.replace(
-          '{version}',
-          '',
-        );
+        result = result.replace('{version}/', '');
+        result = result.replace('{version}', '');
       }
 
       return result + segment;
     }
-  },
-})
+  }
+});

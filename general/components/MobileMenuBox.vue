@@ -20,16 +20,16 @@
     </div>
 
     <bs-modal
-      :open="showModal"
-      :headerClass="noMultiselect ? '' : 'no-shadow'"
-      :noFade="true"
       :id="id"
+      :open="showModal"
+      :header-class="noMultiselect ? '' : 'no-shadow'"
+      :no-fade="true"
       fullscreen
-      modalClass="mobile-menu-box"
-      footerClass="mobile-modal-footer"
+      modal-class="mobile-menu-box"
+      footer-class="mobile-modal-footer"
       @shown="onModalShown()"
     >
-      <template v-slot:modal-header>
+      <template #modal-header>
         <div
           type="button"
           class="close-btn"
@@ -50,7 +50,7 @@
           class="mobile-multiselect-container multiselect-container inside-modal"
         >
           <div class="menu-box">
-            <div class="menu-box__content-text" ref="modalTarget"></div>
+            <div ref="modalTarget" class="menu-box__content-text"></div>
           </div>
         </div>
       </div>
@@ -64,15 +64,18 @@ export default {
   props: ['icon', 'id'],
   data() {
     return {
-      showModal: false,
+      showModal: false
     };
+  },
+  computed: {
+    noMultiselect() {
+      return !this.$slots.multiselect;
+    }
   },
   methods: {
     hideModal() {
       if (this.$refs.modalTarget)
-        this.$refs.outsideTarget.appendChild(
-          this.$refs.modalTarget.firstChild,
-        );
+        this.$refs.outsideTarget.appendChild(this.$refs.modalTarget.firstChild);
       this.showModal = false;
     },
     openModal() {
@@ -80,20 +83,13 @@ export default {
       if (this.noMultiselect) return;
     },
     onModalShown() {
-      this.$refs.modalTarget?.appendChild(
-        this.$refs.outsideTarget.firstChild,
-      );
+      this.$refs.modalTarget?.appendChild(this.$refs.outsideTarget.firstChild);
     },
     toggleModal() {
       if (this.showModal) this.hideModal();
       else this.openModal();
-    },
-  },
-  computed: {
-    noMultiselect() {
-      return !this.$slots.multiselect;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -131,11 +127,11 @@ export default {
   }
 
   &::-webkit-scrollbar-track {
-    background: map-get($colors-map, "black-40");
+    background: map-get($colors-map, 'black-40');
   }
 
   &::-webkit-scrollbar-thumb {
-    background: map-get($colors-map, "black-80");
+    background: map-get($colors-map, 'black-80');
   }
 }
 
@@ -168,11 +164,11 @@ export default {
     }
 
     &::-webkit-scrollbar-track {
-      background: map-get($colors-map, "black-40");
+      background: map-get($colors-map, 'black-40');
     }
 
     &::-webkit-scrollbar-thumb {
-      background: map-get($colors-map, "black-80");
+      background: map-get($colors-map, 'black-80');
     }
   }
 
@@ -189,11 +185,11 @@ export default {
       }
 
       &::-webkit-scrollbar-track {
-        background: map-get($colors-map, "black-40");
+        background: map-get($colors-map, 'black-40');
       }
 
       &::-webkit-scrollbar-thumb {
-        background: map-get($colors-map, "black-80");
+        background: map-get($colors-map, 'black-80');
       }
     }
   }
@@ -213,7 +209,7 @@ export default {
     top: 34px;
     width: 24px;
     height: 24px;
-    background-image: url("@/assets/icons/search.svg");
+    background-image: url('@/assets/icons/search.svg');
   }
 
   .multiselect__select {
@@ -272,8 +268,8 @@ export default {
       padding: 0;
 
       &::before {
-        content: "";
-        background-image: url("../assets/icons/return-arrow.svg");
+        content: '';
+        background-image: url('../assets/icons/return-arrow.svg');
         background-repeat: no-repeat;
         background-size: 24px 24px;
         width: 24px;
@@ -282,7 +278,7 @@ export default {
     }
 
     h5.modal-title {
-      color: var(--black-60, rgba(0, 0, 0, 0.60));
+      color: var(--black-60, rgba(0, 0, 0, 0.6));
       font-family: Inter;
       font-size: 16px;
       font-style: normal;

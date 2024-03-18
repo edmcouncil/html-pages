@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'ANY_URI',
-  props: ['value'],
+  name: 'ANYURI',
+  props: ['value']
 };
 </script>

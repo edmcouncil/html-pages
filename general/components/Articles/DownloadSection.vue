@@ -15,6 +15,7 @@
 export default {
   name: 'DownloadSection',
   props: ['sectionItem'],
+  computed: {},
   methods: {
     visit(url) {
       const aElement = document.createElement('a');
@@ -24,9 +25,8 @@ export default {
       document.body.appendChild(aElement);
       aElement.click();
       aElement.remove();
-    },
-  },
-  computed: {},
+    }
+  }
 };
 </script>
 

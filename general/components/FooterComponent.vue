@@ -2,11 +2,20 @@
   <footer>
     <div class="container">
       <div v-if="useCustomFooterData" class="footer-contact row">
-        <div v-for="contact of contacts" class="footer-contact__col col col-12 col-lg-auto">
+        <div
+          v-for="contact of contacts"
+          class="footer-contact__col col col-12 col-lg-auto"
+        >
           <span class="footer-contact__title">{{ contact.title }}</span>
           <div class="footer-contact__content">
-            <a v-if="contact.type === 'phone'" :href="'tel:' + contact.value">{{ contact.value }}</a>
-            <a v-else-if="contact.type === 'mail'" :href="'mailto:' + contact.value">{{ contact.value }}</a>
+            <a v-if="contact.type === 'phone'" :href="'tel:' + contact.value">{{
+              contact.value
+            }}</a>
+            <a
+              v-else-if="contact.type === 'mail'"
+              :href="'mailto:' + contact.value"
+              >{{ contact.value }}</a
+            >
             <a v-else :href="contact.value">{{ contact.value }}</a>
           </div>
         </div>
@@ -17,8 +26,14 @@
             class="social-icons"
             target="_blank"
           >
-            <img v-if="social.type === 'youtube'" src="../assets/icons/social-icons-yt.svg" />
-            <img v-else-if="social.type === 'twitter'" src="../assets/icons/social-icons-twitter.svg" />
+            <img
+              v-if="social.type === 'youtube'"
+              src="../assets/icons/social-icons-yt.svg"
+            />
+            <img
+              v-else-if="social.type === 'twitter'"
+              src="../assets/icons/social-icons-twitter.svg"
+            />
             <img v-else src="../assets/icons/social-icons-in.svg" />
           </a>
         </div>
@@ -74,10 +89,7 @@
           <div v-if="showTermsLinkOnFooter" class="footer-links">
             <ul v-if="useCustomFooterData">
               <li v-for="link of links">
-                <a
-                  :href="link.value"
-                  target="_blank"
-                >
+                <a :href="link.value" target="_blank">
                   {{ link.name }}
                 </a>
               </li>
@@ -126,18 +138,18 @@ export default {
     const runtimeConfig = useRuntimeConfig();
 
     return {
-      showTermsLinkOnFooter: runtimeConfig.public.showTermsLinkOnFooter,
+      showTermsLinkOnFooter: runtimeConfig.public.showTermsLinkOnFooter
     };
   },
   computed: {
     ...mapState(useContentStore, {
-      copyright: store => store.footerData.copyright,
-      contacts: store => store.footerData.contacts,
-      socials: store => store.footerData.socials,
-      links: store => store.footerData.links,
-      useCustomFooterData: store => store.footerData.useCustomFooterData,
-    }),
-  },
+      copyright: (store) => store.footerData.copyright,
+      contacts: (store) => store.footerData.contacts,
+      socials: (store) => store.footerData.socials,
+      links: (store) => store.footerData.links,
+      useCustomFooterData: (store) => store.footerData.useCustomFooterData
+    })
+  }
 };
 </script>
 
@@ -151,16 +163,16 @@ footer {
   }
 
   a {
-    color: map-get($colors-map, "black");
+    color: map-get($colors-map, 'black');
 
     &:hover {
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
     }
   }
 
   p {
     font-size: 12px;
-    color: map-get($colors-map, "black");
+    color: map-get($colors-map, 'black');
   }
   .footer-contact {
     .footer-contact__col {
@@ -172,9 +184,9 @@ footer {
     }
 
     .footer-contact__title {
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
 
-      font-family: "Inter";
+      font-family: 'Inter';
       font-style: normal;
       font-weight: 700;
       font-size: 18px;
@@ -185,9 +197,9 @@ footer {
       padding-top: 20px;
 
       a {
-        color: map-get($colors-map, "black-80");
+        color: map-get($colors-map, 'black-80');
 
-        font-family: "Inter";
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 400;
         font-size: 24px;
@@ -196,7 +208,7 @@ footer {
         white-space: nowrap;
 
         &:hover {
-          color: map-get($colors-map, "black-60");
+          color: map-get($colors-map, 'black-60');
         }
       }
     }
@@ -206,11 +218,11 @@ footer {
     border: 0 !important;
   }
   .copyright {
-    color: map-get($colors-map, "black-60");
+    color: map-get($colors-map, 'black-60');
 
     margin: 60px 0;
 
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -256,7 +268,7 @@ footer {
       margin: 0;
       font-size: 18px;
       line-height: 30px;
-      color: map-get($colors-map, "black-80");
+      color: map-get($colors-map, 'black-80');
 
       &:last-child {
         padding-right: 0;
@@ -316,7 +328,7 @@ footer {
         padding-bottom: 40px;
         font-size: 16px;
         line-height: 24px;
-        color: map-get($colors-map, "black-80");
+        color: map-get($colors-map, 'black-80');
 
         &:last-child {
           padding-bottom: 0px;

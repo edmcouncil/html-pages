@@ -9,13 +9,13 @@
 <script>
 export default {
   name: 'TooltipChip',
-  props: ['chipText', 'tooltipText'],
+  props: ['chipText', 'tooltipText']
 };
 </script>
 
 <style lang="scss">
 .resource-tooltip-chip {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;

@@ -2,6 +2,6 @@
  * config controller
  */
 
-const { createCoreController } = require("@strapi/strapi").factories;
+const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController("api::config.config");
+module.exports = createCoreController('api::config.config');

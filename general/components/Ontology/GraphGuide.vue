@@ -1,13 +1,13 @@
 <template>
   <div>
     <GraphGuideModal
-      modalId="guide-main"
-      :open="currentPage=='guide-main'"
-      @closeEvent="closeHandler()"
+      modal-id="guide-main"
+      :open="currentPage == 'guide-main'"
+      @close-event="closeHandler()"
     >
-      <template v-slot:label> User Guide: Overview </template>
+      <template #label> User Guide: Overview </template>
 
-      <template v-slot:content>
+      <template #content>
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
@@ -18,7 +18,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
                 @keydown="navigateToPage('guide-connections')"
-              >Connections</span
+                >Connections</span
               >
             </p>
             <p>
@@ -27,7 +27,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
                 @keydown="navigateToPage('guide-layouts')"
-              >Layouts</span
+                >Layouts</span
               >
             </p>
             <p>
@@ -36,7 +36,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 @keydown="navigateToPage('guide-sorting')"
-              >Sorting</span
+                >Sorting</span
               >
             </p>
             <p>
@@ -45,7 +45,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
                 @keydown="navigateToPage('guide-configuration')"
-              >Configuration</span
+                >Configuration</span
               >
             </p>
           </div>
@@ -77,7 +77,7 @@
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
               @keydown="navigateToPage('guide-connections')"
-            >connections</span
+              >connections</span
             >
             filters. The graph visualization is fully interactive and the data
             can be explored. The viewport can be panned by dragging with left
@@ -103,8 +103,8 @@
             screen which translates to more comfortable experience.
           </p>
           <p>
-            The "View options" button in top right corner can be used to
-            open the <b>View options</b> menu.
+            The "View options" button in top right corner can be used to open
+            the <b>View options</b> menu.
           </p>
 
           <div class="img-zoom">
@@ -124,7 +124,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
                 @keydown="navigateToPage('guide-connections')"
-              >Connections</span
+                >Connections</span
               >
               section,
             </li>
@@ -136,7 +136,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
                 @keydown="navigateToPage('guide-layouts')"
-              >Layouts</span
+                >Layouts</span
               >
               section,
             </li>
@@ -147,18 +147,18 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 @keydown="navigateToPage('guide-sorting')"
-              >Sorting</span
+                >Sorting</span
               >
               section,
             </li>
             <li>
-              <b>Configuration</b> - configure node distance and toggle all labels visibility.
-              Read more in the
+              <b>Configuration</b> - configure node distance and toggle all
+              labels visibility. Read more in the
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
                 @keydown="navigateToPage('guide-configuration')"
-              >Configuration</span
+                >Configuration</span
               >
               section,
             </li>
@@ -194,7 +194,7 @@
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
               @keydown="navigateToPage('guide-connections')"
-            >Connections</span
+              >Connections</span
             >
             section.
           </p>
@@ -210,12 +210,12 @@
     </GraphGuideModal>
 
     <GraphGuideModal
-      modalId="guide-connections"
-      :open="currentPage=='guide-connections'"
-      @closeEvent="closeHandler()"
+      modal-id="guide-connections"
+      :open="currentPage == 'guide-connections'"
+      @close-event="closeHandler()"
     >
-      <template v-slot:label> User Guide: Connections </template>
-      <template v-slot:content>
+      <template #label> User Guide: Connections </template>
+      <template #content>
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
@@ -225,7 +225,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
                 @keydown="navigateToPage('guide-main')"
-              >Overview</span
+                >Overview</span
               >
             </p>
             <p><b>2. Connections</b></p>
@@ -235,7 +235,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
                 @keydown="navigateToPage('guide-layouts')"
-              >Layouts</span
+                >Layouts</span
               >
             </p>
             <p>
@@ -244,7 +244,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 @keydown="navigateToPage('guide-sorting')"
-              >Sorting</span
+                >Sorting</span
               >
             </p>
             <p>
@@ -253,7 +253,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
                 @keydown="navigateToPage('guide-configuration')"
-              >Configuration</span
+                >Configuration</span
               >
             </p>
           </div>
@@ -366,12 +366,12 @@
     </GraphGuideModal>
 
     <GraphGuideModal
-      modalId="guide-layouts"
-      :open="currentPage=='guide-layouts'"
-      @closeEvent="closeHandler()"
+      modal-id="guide-layouts"
+      :open="currentPage == 'guide-layouts'"
+      @close-event="closeHandler()"
     >
-      <template v-slot:label> User Guide: Layouts </template>
-      <template v-slot:content>
+      <template #label> User Guide: Layouts </template>
+      <template #content>
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
@@ -381,7 +381,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
                 @keydown="navigateToPage('guide-main')"
-              >Overview</span
+                >Overview</span
               >
             </p>
             <p>
@@ -390,7 +390,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
                 @keydown="navigateToPage('guide-connections')"
-              >Connections</span
+                >Connections</span
               >
             </p>
             <p><b>3. Layouts</b></p>
@@ -400,7 +400,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 @keydown="navigateToPage('guide-sorting')"
-              >Sorting</span
+                >Sorting</span
               >
             </p>
             <p>
@@ -409,7 +409,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
                 @keydown="navigateToPage('guide-configuration')"
-              >Configuration</span
+                >Configuration</span
               >
             </p>
           </div>
@@ -506,12 +506,12 @@
     </GraphGuideModal>
 
     <GraphGuideModal
-      modalId="guide-sorting"
-      :open="currentPage=='guide-sorting'"
-      @closeEvent="closeHandler()"
+      modal-id="guide-sorting"
+      :open="currentPage == 'guide-sorting'"
+      @close-event="closeHandler()"
     >
-      <template v-slot:label> User Guide: Sorting </template>
-      <template v-slot:content>
+      <template #label> User Guide: Sorting </template>
+      <template #content>
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
@@ -521,7 +521,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
                 @keydown="navigateToPage('guide-main')"
-              >Overview</span
+                >Overview</span
               >
             </p>
             <p>
@@ -530,7 +530,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
                 @keydown="navigateToPage('guide-connections')"
-              >Connections</span
+                >Connections</span
               >
             </p>
             <p>
@@ -539,7 +539,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
                 @keydown="navigateToPage('guide-layouts')"
-              >Layouts</span
+                >Layouts</span
               >
             </p>
             <p><b>4. Sorting</b></p>
@@ -549,7 +549,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
                 @keydown="navigateToPage('guide-configuration')"
-              >Configuration</span
+                >Configuration</span
               >
             </p>
           </div>
@@ -620,7 +620,7 @@
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
               @keydown="navigateToPage('guide-connections')"
-            >Connections</span
+              >Connections</span
             >
             section.
           </p>
@@ -641,7 +641,7 @@
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
               @keydown="navigateToPage('guide-connections')"
-            >Connections</span
+              >Connections</span
             >
             section.
           </p>
@@ -650,12 +650,12 @@
     </GraphGuideModal>
 
     <GraphGuideModal
-      modalId="guide-configuration"
-      :open="currentPage=='guide-configuration'"
-      @closeEvent="closeHandler()"
+      modal-id="guide-configuration"
+      :open="currentPage == 'guide-configuration'"
+      @close-event="closeHandler()"
     >
-      <template v-slot:label> User Guide: Configuration </template>
-      <template v-slot:content>
+      <template #label> User Guide: Configuration </template>
+      <template #content>
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
@@ -665,7 +665,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
                 @keydown="navigateToPage('guide-main')"
-              >Overview</span
+                >Overview</span
               >
             </p>
             <p>
@@ -674,7 +674,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
                 @keydown="navigateToPage('guide-connections')"
-              >Connections</span
+                >Connections</span
               >
             </p>
             <p>
@@ -683,7 +683,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
                 @keydown="navigateToPage('guide-layouts')"
-              >Layouts</span
+                >Layouts</span
               >
             </p>
             <p>
@@ -692,7 +692,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 @keydown="navigateToPage('guide-sorting')"
-              >Sorting</span
+                >Sorting</span
               >
             </p>
             <p><b>5. Configuration</b></p>
@@ -737,8 +737,13 @@ export default {
   name: 'GraphGuide',
   data() {
     return {
-      currentPage: null,
+      currentPage: null
     };
+  },
+  computed: {
+    ...mapState(useConfigurationStore, {
+      ontologyName: (store) => store.config.ontpubFamily.toLowerCase()
+    })
   },
   mounted() {},
   methods: {
@@ -751,13 +756,8 @@ export default {
     navigateToPage(id) {
       this.closeHandler();
       this.openGuide(id);
-    },
-  },
-  computed: {
-    ...mapState(useConfigurationStore, {
-      ontologyName: store => store.config.ontpubFamily.toLowerCase(),
-    }),
-  },
+    }
+  }
 };
 </script>
 
@@ -784,15 +784,15 @@ span.guide-navigation {
 }
 
 .modal.help article {
-    .see-also-box {
-      h3 {
-        margin-bottom: 15px;
-      }
-      p {
-        padding: 7px 0;
-      }
+  .see-also-box {
+    h3 {
+      margin-bottom: 15px;
+    }
+    p {
+      padding: 7px 0;
     }
   }
+}
 
 @media (max-width: 991px) {
   .modal.help article {

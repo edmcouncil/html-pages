@@ -1,9 +1,7 @@
 <template>
   <dt class="title-name-change col-md-2 col-sm-12">
-    <div
-      class="content-item__title isComparing sticky-top"
-    >
-      <ComparedDiff :line="line" :changeType="'changed'" />
+    <div class="content-item__title isComparing sticky-top">
+      <ComparedDiff :line="line" :change-type="'changed'" />
     </div>
   </dt>
 </template>
@@ -30,9 +28,9 @@ export default {
   },
   methods: {
     getOldTitle(title) {
-      return this.titleNameChanges.find(i => i.newName === title).oldName;
-    },
-  },
+      return this.titleNameChanges.find((i) => i.newName === title).oldName;
+    }
+  }
 };
 </script>
 

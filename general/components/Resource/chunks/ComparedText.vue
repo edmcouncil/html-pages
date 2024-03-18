@@ -1,32 +1,55 @@
 <template>
-  <div v-if="!isShowMore" :class="{
-    'text-changed': changeType == 'changed',
-    'text-added': changeType == 'added',
-    'text-removed': changeType == 'removed',
-  }">
-    <ComparedDiff :line="lines[0]" :changeType="changeType" />
+  <div
+    v-if="!isShowMore"
+    :class="{
+      'text-changed': changeType == 'changed',
+      'text-added': changeType == 'added',
+      'text-removed': changeType == 'removed'
+    }"
+  >
+    <ComparedDiff :line="lines[0]" :change-type="changeType" />
     <ul :class="{ 'string-list': type === 'STRING' }">
-      <li v-for="(item, index) in lines.slice(1)" :key="`${item}_${index}`" :class="{ 'string-item': type === 'STRING' }">
-        <ComparedDiff :line="item" :changeType="changeType" />
+      <li
+        v-for="(item, index) in lines.slice(1)"
+        :key="`${item}_${index}`"
+        :class="{ 'string-item': type === 'STRING' }"
+      >
+        <ComparedDiff :line="item" :change-type="changeType" />
       </li>
     </ul>
   </div>
-  <div v-else :class="{
-    'text-changed': changeType == 'changed',
-    'text-added': changeType == 'added',
-    'text-removed': changeType == 'removed',
-  }">
-    <ComparedDiff :line="lines[0]" :changeType="changeType" />
+  <div
+    v-else
+    :class="{
+      'text-changed': changeType == 'changed',
+      'text-added': changeType == 'added',
+      'text-removed': changeType == 'removed'
+    }"
+  >
+    <ComparedDiff :line="lines[0]" :change-type="changeType" />
     <ul :class="{ 'string-list': type === 'STRING' }">
-      <li v-for="(item, index) in lines.slice(1, 6)" :key="`${item}_${index}`" :class="{ 'string-item': type === 'STRING' }">
-        <ComparedDiff :line="item" :changeType="changeType" />
+      <li
+        v-for="(item, index) in lines.slice(1, 6)"
+        :key="`${item}_${index}`"
+        :class="{ 'string-item': type === 'STRING' }"
+      >
+        <ComparedDiff :line="item" :change-type="changeType" />
       </li>
     </ul>
     <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
-        <ul class="animated-list" :class="{ 'string-list': type === 'STRING' }" v-show="isMoreVisible" ref="scrollTarget">
-          <li v-for="(item, index) in lines.slice(6)" :key="`${item}_${index}`" :class="{ 'string-item': type === 'STRING' }">
-            <ComparedDiff :line="item" :changeType="changeType" />
+        <ul
+          v-show="isMoreVisible"
+          ref="scrollTarget"
+          class="animated-list"
+          :class="{ 'string-list': type === 'STRING' }"
+        >
+          <li
+            v-for="(item, index) in lines.slice(6)"
+            :key="`${item}_${index}`"
+            :class="{ 'string-item': type === 'STRING' }"
+          >
+            <ComparedDiff :line="item" :change-type="changeType" />
           </li>
         </ul>
       </transition>
@@ -52,7 +75,7 @@ export default {
       lines: [],
       type: null,
       isShowMore: false,
-      isMoreVisible: false,
+      isMoreVisible: false
     };
   },
   mounted() {
@@ -60,9 +83,10 @@ export default {
     const lines2 = this.comparedItem?.lines || [];
 
     this.compareLines(lines1, lines2);
-    this.type = this.currentItem.type === 'EMPTY'
-      ? this.comparedItem.type
-      : this.currentItem.type;
+    this.type =
+      this.currentItem.type === 'EMPTY'
+        ? this.comparedItem.type
+        : this.currentItem.type;
 
     if (this.lines.length > 6) {
       this.isShowMore = true;
@@ -77,7 +101,7 @@ export default {
         this.isMoreVisible = !this.isMoreVisible;
       } else if (topOffset < 0) {
         element.scrollIntoView({
-          behavior: 'smooth',
+          behavior: 'smooth'
         });
         setTimeout(() => {
           this.isMoreVisible = !this.isMoreVisible;
@@ -89,20 +113,27 @@ export default {
     getLinesFromItem(item) {
       if (!item || !item.value) return [];
 
-      if (Array.isArray(item.value) && item.type !== 'OWL_LABELED_MULTI_AXIOM') {
+      if (
+        Array.isArray(item.value) &&
+        item.type !== 'OWL_LABELED_MULTI_AXIOM'
+      ) {
         return item.value;
       }
 
       if (item.type === 'AXIOM') {
-        let lines = item.fullRenderedString ? item.fullRenderedString.split('<br />') : [];
-        lines = lines.map(line => line.trim());
-        lines = lines.map(line => line.startsWith('- ') ? line.substring(2) : line);
+        let lines = item.fullRenderedString
+          ? item.fullRenderedString.split('<br />')
+          : [];
+        lines = lines.map((line) => line.trim());
+        lines = lines.map((line) =>
+          line.startsWith('- ') ? line.substring(2) : line
+        );
         return lines;
       }
 
       if (item.type === 'OWL_LABELED_MULTI_AXIOM') {
         if (Array.isArray(item.value[0])) {
-          return item.value.map(tuple => {
+          return item.value.map((tuple) => {
             const changeType = tuple[0];
             const content = tuple[1];
 
@@ -121,12 +152,20 @@ export default {
           });
         }
 
-        if (typeof item.value[0] === 'string' || item.value[0] instanceof String) {
+        if (
+          typeof item.value[0] === 'string' ||
+          item.value[0] instanceof String
+        ) {
           return item.value;
         }
 
-        const entityLabel = item.entityLabel && item.entityLabel.label ? item.entityLabel.label : '';
-        const linesFromValue = item.value.map(val => val.fullRenderedString || '');
+        const entityLabel =
+          item.entityLabel && item.entityLabel.label
+            ? item.entityLabel.label
+            : '';
+        const linesFromValue = item.value.map(
+          (val) => val.fullRenderedString || ''
+        );
         return [entityLabel, ...linesFromValue];
       }
 
@@ -134,7 +173,9 @@ export default {
         return item.value.split('\n');
       }
 
-      if (['DIRECT_SUBCLASSES', 'INSTANCES', 'IRI', 'MODULES'].includes(item.type)) {
+      if (
+        ['DIRECT_SUBCLASSES', 'INSTANCES', 'IRI', 'MODULES'].includes(item.type)
+      ) {
         return [item.value.label || ''];
       }
 
@@ -172,8 +213,8 @@ export default {
         dmp.diff_cleanupSemantic(diff);
         this.lines.push(diff);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

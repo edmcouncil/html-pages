@@ -1,6 +1,6 @@
 export type DiffSymbol = ' ' | '+' | '-' | '~';
 
-export type LineDiff = [DiffSymbol, { '__old': any, '__new': any } | string];
+export type LineDiff = [DiffSymbol, { __old: any; __new: any } | string];
 
 export interface DataChunk {
   type?: string;
@@ -34,10 +34,12 @@ export interface Header {
   label: string;
   iri: string;
   qName: string | undefined;
-  maturityLevel: {
-    label: string;
-    iri: string;
-  } | undefined;
+  maturityLevel:
+    | {
+        label: string;
+        iri: string;
+      }
+    | undefined;
   versionIri: string | undefined;
 }
 
@@ -47,10 +49,7 @@ export interface LinesChunk {
   originalData?: DataChunk;
 }
 
-export type ChangeChunk = [
-  DiffSymbol,
-  LinesChunk
-]
+export type ChangeChunk = [DiffSymbol, LinesChunk];
 
 export interface LeftRightChange {
   changeType: 'added' | 'removed' | 'changed' | 'unchanged';
@@ -70,17 +69,17 @@ export interface TempDataProperties {
 }
 
 export interface TitleNameChange {
-  oldName: string,
-  newName: string
+  oldName: string;
+  newName: string;
 }
 
 export interface MergedData {
-  headerLeft: Header,
-  headerRight: Header,
-  titleNameChanges: TitleNameChange[],
+  headerLeft: Header;
+  headerRight: Header;
+  titleNameChanges: TitleNameChange[];
   properties: {
     [section: string]: {
       [title: string]: LeftRightChange[];
     };
-  }
+  };
 }

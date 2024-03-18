@@ -2,6 +2,6 @@
  * page service.
  */
 
-const { createCoreService } = require("@strapi/strapi").factories;
+const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService("api::page.page");
+module.exports = createCoreService('api::page.page');

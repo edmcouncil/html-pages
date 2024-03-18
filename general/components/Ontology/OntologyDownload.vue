@@ -17,10 +17,10 @@
                   <h3>{{ data.label }}</h3>
                   <div class="form-check form-switch">
                     <input
-                      type="checkbox"
-                      class="form-check-input"
                       id="download-imports-switch"
                       v-model="includeImports"
+                      type="checkbox"
+                      class="form-check-input"
                       :disabled="!hasImports"
                     />
                     <label
@@ -67,8 +67,14 @@ export default {
       filename: null,
 
       downloadUrl: null,
-      downloadWithImportsUrl: null,
+      downloadWithImportsUrl: null
     };
+  },
+  computed: {
+    ...mapState(useConfigurationStore, {
+      ontologyName: (store) => store.config.ontpubFamily,
+      ontologyResourcesBaseUri: (store) => store.config.uriSpace
+    })
   },
   async mounted() {
     // find download urls
@@ -118,7 +124,7 @@ export default {
         this.loader = true;
         return await fetch(`${this.downloadWithImportsUrl}/`, {
           method: 'HEAD',
-          headers: { Accept: 'application/rdf+xml' },
+          headers: { Accept: 'application/rdf+xml' }
         }).then((res) => {
           if (res.status != 200) throw new Error('Bad response from server');
 
@@ -128,17 +134,11 @@ export default {
 
           return false;
         });
-      } catch(e) {
+      } catch (e) {
         return false;
       }
-    },
-  },
-  computed: {
-    ...mapState(useConfigurationStore, {
-      ontologyName: store => store.config.ontpubFamily,
-      ontologyResourcesBaseUri: store => store.config.uriSpace,
-    }),
-  },
+    }
+  }
 };
 </script>
 

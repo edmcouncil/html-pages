@@ -9,54 +9,54 @@
       <div class="col-md-12 px-0">
         <ResourceHistory
           v-if="!isComparing && ontologyVersions.isGrouped"
-          :ontologyVersions="ontologyVersions"
+          :ontology-versions="ontologyVersions"
           :data="data"
-          @versionChanged="handleVersionChanged"
+          @version-changed="handleVersionChanged"
         />
       </div>
 
       <!-- paths -->
       <div
-        class="ontology-item__paths col-md-12"
         v-if="!isComparing && data.taxonomy && data.taxonomy.value"
         ref="ontologyPaths"
+        class="ontology-item__paths col-md-12"
       >
         <PathsSection :data="data" />
       </div>
 
       <!-- ontology download -->
       <div
-        class="col-12 px-0"
         v-if="
           !isComparing &&
-            data.iri.slice(-1) === '/' &&
-            data.iri.startsWith(this.uriSpace)
+          data.iri.slice(-1) === '/' &&
+          data.iri.startsWith(uriSpace)
         "
+        class="col-12 px-0"
       >
         <OntologyDownload :data="data" :version="version" />
       </div>
 
       <!-- sections -->
       <div
-        class="col-md-12 px-0"
         v-for="(section, sectionName, sectionIndex) in data.properties"
         :key="sectionName + (isComparing ? data.headerLeft.label : data.label)"
+        class="col-md-12 px-0"
       >
         <ResourceSection
           :section="section"
-          :sectionName="sectionName"
-          :sectionIndex="sectionIndex"
-          :isComparing="isComparing"
-          :titleNameChanges="data.titleNameChanges"
+          :section-name="sectionName"
+          :section-index="sectionIndex"
+          :is-comparing="isComparing"
+          :title-name-changes="data.titleNameChanges"
         />
       </div>
     </div>
 
     <!-- DATA GRAPH -->
-    <div class="row" v-if="hasGraph">
+    <div v-if="hasGraph" class="row">
       <div class="col-12 px-0">
         <div class="card">
-          <div class="card-body" ref="dataGraph" v-if="hasGraph">
+          <div v-if="hasGraph" ref="dataGraph" class="card-body">
             <h5
               class="card-title section-title"
               @click="
@@ -90,6 +90,15 @@ export default {
   name: 'Resource',
   props: ['version', 'data', 'isComparing', 'ontologyVersions'],
   emits: ['versionChanged'],
+  computed: {
+    ...mapState(useConfigurationStore, {
+      ontologyName: (store) => store.config.ontpubFamily,
+      uriSpace: (store) => store.config.uriSpace
+    }),
+    hasGraph() {
+      return this.data?.graph?.nodes?.length > 1;
+    }
+  },
   methods: {
     handleVersionChanged(version) {
       this.$emit('versionChanged', version);
@@ -98,16 +107,7 @@ export default {
       if (this.data) return this.data.titleNameChanges;
       return null;
     }
-  },
-  computed: {
-    ...mapState(useConfigurationStore, {
-      ontologyName: store => store.config.ontpubFamily,
-      uriSpace: store => store.config.uriSpace,
-    }),
-    hasGraph() {
-      return this.data?.graph?.nodes?.length > 1;
-    },
-  },
+  }
 };
 </script>
 

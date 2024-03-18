@@ -8,41 +8,38 @@
       >
         {{ sectionName }}
       </h5>
-      <div class="card-content" v-if="isComparing">
+      <div v-if="isComparing" class="card-content">
         <dl
-          class="row content-item"
           v-for="(property, name) in section"
           :key="name"
+          class="row content-item"
         >
           <TitleNameChange
             v-if="isComparing && isTitleChanged(name)"
-            :currentTitle="name"
-            :titleNameChanges="titleNameChanges"
+            :current-title="name"
+            :title-name-changes="titleNameChanges"
           />
-          <dt
-            v-else
-            class="col-md-2 col-sm-12"
-          >
+          <dt v-else class="col-md-2 col-sm-12">
             <div
+              :id="`content-item__title-${name}`"
               class="content-item__title sticky-top"
               :class="{ isComparing }"
-              :id="`content-item__title-${name}`"
             >
               <TooltipText
                 v-if="name == 'generated description'"
-                :tooltipText="tooltips['generated description']"
+                :tooltip-text="tooltips['generated description']"
                 :content="name"
                 defining="generated description"
               />
               <TooltipText
                 v-else-if="name.includes('external')"
-                :tooltipText="tooltips['external']"
+                :tooltip-text="tooltips['external']"
                 :content="name"
                 defining="external"
               />
               <TooltipText
                 v-else-if="name.includes('internal')"
-                :tooltipText="tooltips['internal']"
+                :tooltip-text="tooltips['internal']"
                 :content="name"
                 defining="internal"
               />
@@ -55,40 +52,40 @@
             <PropertiesListCompare
               :list="property"
               :limit="5"
-              :sectionId="
+              :section-id="
                 'section_' + sectionName + '_' + sectionIndex + '_' + name
               "
             />
           </dd>
         </dl>
       </div>
-      <div class="card-content" v-else>
+      <div v-else class="card-content">
         <dl
-          class="row content-item"
           v-for="(property, name) in section"
           :key="name"
+          class="row content-item"
         >
           <dt class="col-md-3 col-sm-12">
             <div
+              :id="`content-item__title-${name}`"
               class="content-item__title sticky-top"
               :class="{ isComparing }"
-              :id="`content-item__title-${name}`"
             >
               <TooltipText
                 v-if="name == 'generated description'"
-                :tooltipText="tooltips['generated description']"
+                :tooltip-text="tooltips['generated description']"
                 :content="name"
                 defining="generated description"
               />
               <TooltipText
                 v-else-if="name.includes('external')"
-                :tooltipText="tooltips['external']"
+                :tooltip-text="tooltips['external']"
                 :content="name"
                 defining="external"
               />
               <TooltipText
                 v-else-if="name.includes('internal')"
-                :tooltipText="tooltips['internal']"
+                :tooltip-text="tooltips['internal']"
                 :content="name"
                 defining="internal"
               />
@@ -101,7 +98,7 @@
             <PropertiesList
               :list="property"
               :limit="5"
-              :sectionId="
+              :section-id="
                 'section_' + sectionName + '_' + sectionIndex + '_' + name
               "
             />
@@ -117,12 +114,24 @@ import tooltips from '../../constants/tooltips';
 
 export default {
   name: 'ResourceSection',
-  props: ['section', 'sectionName', 'sectionIndex', 'isComparing', 'titleNameChanges'],
+  props: [
+    'section',
+    'sectionName',
+    'sectionIndex',
+    'isComparing',
+    'titleNameChanges'
+  ],
   data() {
     return {
       collapsed: false,
-      tooltips,
+      tooltips
     };
+  },
+  computed: {
+    titlesChanged() {
+      if (!this.titleNameChanges) return [];
+      return [...this.titleNameChanges.map((i) => i.newName)];
+    }
   },
   methods: {
     toggleCollapsed() {
@@ -130,12 +139,6 @@ export default {
     },
     isTitleChanged(title) {
       return this.titlesChanged.includes(title);
-    }
-  },
-  computed: {
-    titlesChanged() {
-      if (!this.titleNameChanges) return [];
-      return [...this.titleNameChanges.map(i => i.newName)];
     }
   }
 };
@@ -152,7 +155,7 @@ export default {
     font-weight: normal;
     font-size: 18px;
     line-height: 30px;
-    color: map-get($colors-map, "black-60");
+    color: map-get($colors-map, 'black-60');
 
     margin: 0;
     padding: 0 20px 0 20px;
@@ -200,12 +203,12 @@ export default {
 
       &.top-level--list {
         padding: 10px 20px 10px 44px;
-        background-image: url("@/assets/icons/dot.svg");
+        background-image: url('@/assets/icons/dot.svg');
       }
 
       &.has-list {
         padding: 10px 20px 10px 44px;
-        background-image: url("@/assets/icons/triangle-down.svg");
+        background-image: url('@/assets/icons/triangle-down.svg');
       }
     }
 
@@ -239,12 +242,12 @@ export default {
 
       &.top-level--list {
         padding: 10px 20px 10px 44px;
-        background-image: url("@/assets/icons/dot.svg");
+        background-image: url('@/assets/icons/dot.svg');
       }
 
       &.has-list {
         padding: 10px 20px 10px 44px;
-        background-image: url("@/assets/icons/triangle-down.svg");
+        background-image: url('@/assets/icons/triangle-down.svg');
       }
     }
 
@@ -339,7 +342,7 @@ export default {
         padding: 5px 20px 5px 40px;
         display: block;
         border-bottom: none;
-        background-image: url("@/assets/icons/dot.svg");
+        background-image: url('@/assets/icons/dot.svg');
         background-repeat: no-repeat;
         background-size: 24px 24px;
         background-position: 12px 6px;
@@ -349,7 +352,7 @@ export default {
         }
 
         &.has-list {
-          background-image: url("@/assets/icons/triangle-down.svg");
+          background-image: url('@/assets/icons/triangle-down.svg');
         }
       }
 
@@ -377,7 +380,7 @@ export default {
           padding: 5px 20px 5px 40px;
           display: block;
           border-bottom: none;
-          background-image: url("@/assets/icons/dot.svg");
+          background-image: url('@/assets/icons/dot.svg');
           background-repeat: no-repeat;
           background-size: 24px 24px;
           background-position: 8px 6px;
@@ -387,12 +390,12 @@ export default {
           }
 
           &.has-list {
-            background-image: url("@/assets/icons/triangle-down.svg");
+            background-image: url('@/assets/icons/triangle-down.svg');
           }
         }
 
         & > li {
-          background: url("@/assets/icons/dot.svg") no-repeat 0px 0px;
+          background: url('@/assets/icons/dot.svg') no-repeat 0px 0px;
           list-style: none;
           padding: 0px 0px 0px 30px;
 

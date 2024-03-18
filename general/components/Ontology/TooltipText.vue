@@ -1,10 +1,16 @@
 <template>
-  <span v-if="found"><!--
-  -->{{ textBefore}}<!--
-    --><bs-tooltip :text="tooltipText"><!--
-      --><span class="resource-text-tooltip">{{ textWrapped }}</span><!--
-    --></bs-tooltip><!--
-    -->{{ textAfter }}<!--
+  <span v-if="found"
+    ><!--
+  -->{{ textBefore
+    }}<!--
+    --><bs-tooltip :text="tooltipText"
+      ><!--
+      --><span class="resource-text-tooltip">{{ textWrapped }}</span
+      ><!--
+    --></bs-tooltip
+    ><!--
+    -->{{ textAfter
+    }}<!--
   --></span>
   <span v-else>
     {{ content }}
@@ -20,7 +26,7 @@ export default {
       textBefore: '',
       textWrapped: '',
       textAfter: '',
-      found: false,
+      found: false
     };
   },
   mounted() {
@@ -34,7 +40,7 @@ export default {
       this.textAfter = content.slice(index + length);
       this.textWrapped = this.defining;
     }
-  },
+  }
 };
 </script>
 
@@ -43,7 +49,7 @@ export default {
   text-decoration-line: underline;
   text-decoration-style: dashed;
   text-underline-position: under;
-  text-decoration-color: map-get($colors-map, "black-40");
+  text-decoration-color: map-get($colors-map, 'black-40');
   overflow: visible;
 }
 </style>

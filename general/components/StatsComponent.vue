@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="secondary-column__tree multiselect-container"
-  >
+  <div class="secondary-column__tree multiselect-container">
     <div class="menu-box">
       <div class="menu-box__label">Browse logs</div>
       <div class="menu-box__content-text">
@@ -26,7 +24,7 @@
         </div>
         <bs-collapse :open="numbersExpanded">
           <transition name="list">
-            <div class="stats-box__content" v-if="numbersExpanded">
+            <div v-if="numbersExpanded" class="stats-box__content">
               <div
                 v-if="isComparing"
                 class="stats-box__entry stats-box__comparing-title"
@@ -39,9 +37,9 @@
                 </div>
               </div>
               <div
-                class="stats-box__entry"
                 v-for="stat in stats"
                 :key="stat.label"
+                class="stats-box__entry"
               >
                 <div class="stats-box__entry__label">{{ stat.label }}</div>
                 <div class="stats-box__entry__value">
@@ -51,7 +49,7 @@
                     <span
                       :class="{
                         'value-decrease': stat.value > stat.compareValue,
-                        'value-increase': stat.value < stat.compareValue,
+                        'value-increase': stat.value < stat.compareValue
                       }"
                     >
                       {{ stat.compareValue || 0 }}
@@ -79,10 +77,10 @@
         </div>
         <bs-collapse :open="statusExpanded">
           <transition name="list">
-            <div class="stats-box__content" v-if="statusExpanded">
+            <div v-if="statusExpanded" class="stats-box__content">
               <div
-                class="stats-box__content__wrapper"
                 v-if="missingImports.length > 0"
+                class="stats-box__content__wrapper"
               >
                 <div class="stats-box stats-box--status__imports">
                   <div
@@ -99,12 +97,12 @@
                   </div>
                   <bs-collapse :open="importsExpanded">
                     <transition name="list">
-                      <div class="stats-box__content" v-if="importsExpanded">
+                      <div v-if="importsExpanded" class="stats-box__content">
                         <div class="stats-box__content__wrapper">
                           <div
-                            class="stats-box__entry"
                             v-for="item in missingImports"
                             :key="item.iri"
+                            class="stats-box__entry"
                           >
                             <div class="stats-box__entry__label">
                               {{ item.iri }}
@@ -116,7 +114,7 @@
                   </bs-collapse>
                 </div>
               </div>
-              <div class="stats-box__content__no-missing-import" v-else>
+              <div v-else class="stats-box__content__no-missing-import">
                 Everything is loaded correctly!
               </div>
             </div>
@@ -142,8 +140,35 @@ export default {
       statusExpanded: false,
       importsExpanded: false,
       stats: {},
-      missingImports: [],
+      missingImports: []
     };
+  },
+  computed: {
+    ...mapState(useConfigurationStore, {
+      ontpubFamily: (store) => store.config.ontpubFamily,
+      defaultBranchName: (store) => store.config.defaultBranchName
+    }),
+    ...mapState(useServersStore, {
+      version: (store) => store.version,
+      versionCompare: (store) => store.versionCompare,
+      statsServer: (store) => store.statsServer,
+      statsServerCompare: (store) => store.statsServerCompare,
+      missingImportsServer: (store) => store.missingImportsServer,
+      missingImportsServerCompare: (store) => store.missingImportsServerCompare
+    }),
+    ontologyNameUppercase() {
+      return this.ontpubFamily?.toUpperCase();
+    },
+    versionsString() {
+      return this.version + this.versionCompare;
+    }
+  },
+  watch: {
+    versionsString() {
+      if (this.statsServer == this.statsServerCompare) return;
+      this.fetchStats();
+      this.fetchMissingImports();
+    }
   },
   mounted() {
     this.fetchStats();
@@ -191,35 +216,8 @@ export default {
     },
     limitSize(str, maxLength) {
       return str.length > maxLength ? `${str.substring(0, maxLength)}...` : str;
-    },
-  },
-  watch: {
-    versionsString() {
-      if (this.statsServer == this.statsServerCompare) return;
-      this.fetchStats();
-      this.fetchMissingImports();
-    },
-  },
-  computed: {
-    ...mapState(useConfigurationStore, {
-      ontpubFamily: store => store.config.ontpubFamily,
-      defaultBranchName: store => store.config.defaultBranchName,
-    }),
-    ...mapState(useServersStore, {
-      version: store => store.version,
-      versionCompare: store => store.versionCompare,
-      statsServer: store => store.statsServer,
-      statsServerCompare: store => store.statsServerCompare,
-      missingImportsServer: store => store.missingImportsServer,
-      missingImportsServerCompare: store => store.missingImportsServerCompare,
-    }),
-    ontologyNameUppercase() {
-      return this.ontpubFamily?.toUpperCase();
-    },
-    versionsString() {
-      return this.version + this.versionCompare;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -263,7 +261,7 @@ export default {
         position: absolute;
         left: -30px;
 
-        background-image: url("../assets/icons/arrow.svg");
+        background-image: url('../assets/icons/arrow.svg');
         background-position: center;
 
         transition: transform 0.4s;
@@ -303,7 +301,7 @@ export default {
           display: inline-block;
           width: 16px;
           height: 20px;
-          background-image: url("@/assets/icons/arrow-right.svg");
+          background-image: url('@/assets/icons/arrow-right.svg');
           background-size: 12px 12px;
           background-repeat: no-repeat;
           background-position: center;

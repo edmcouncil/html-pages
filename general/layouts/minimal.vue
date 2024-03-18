@@ -14,8 +14,8 @@ export default {
   data() {
     return {
       noscriptContent:
-        '<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N7GL2D5" height="0" width="0" style="display: none; visibility: hidden"></iframe>',
+        '<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N7GL2D5" height="0" width="0" style="display: none; visibility: hidden"></iframe>'
     };
-  },
+  }
 };
 </script>

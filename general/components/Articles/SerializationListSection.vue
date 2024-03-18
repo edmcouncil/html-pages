@@ -7,14 +7,17 @@
         </div>
         <div class="col-12 col-md-4 px-0">
           <div
-            class="secondary-column__versions multiselect-container container"
             v-show="hasVersions"
+            class="secondary-column__versions multiselect-container container"
           >
             <div class="menu-box">
               <div class="activators-container">
                 <div
+                  v-if="
+                    $refs.versionsSelectDesktop &&
+                    !$refs.versionsSelectDesktop.isOpen
+                  "
                   class="versions-activator multiselect-activator"
-                  v-if="$refs.versionsSelectDesktop && !$refs.versionsSelectDesktop.isOpen"
                   @click="$refs.versionsSelectDesktop.activate()"
                   @keydown="$refs.versionsSelectDesktop.activate()"
                 ></div>
@@ -25,14 +28,14 @@
               <div class="menu-box__content-text">
                 <multiselect
                   v-if="ontologyVersions.isGrouped"
-                  v-model="ontologyVersions.selectedData"
-                  ref="versionsSelectDesktop"
                   id="ontologyVersionsMultiselect--products"
+                  ref="versionsSelectDesktop"
+                  v-model="ontologyVersions.selectedData"
                   label="@id"
                   track-by="url"
                   placeholder="Select..."
-                  tagPlaceholder="Select..."
-                  selectLabel=""
+                  tag-placeholder="Select..."
+                  select-label=""
                   open-direction="bottom"
                   group-values="versions"
                   group-label="group"
@@ -50,7 +53,7 @@
                   :hide-selected="true"
                   :taggable="true"
                 >
-                  <template v-slot:tag="{ option }">
+                  <template #tag="{ option }">
                     <span class="custom__tag">
                       <span>{{ option.label }}</span>
                     </span>
@@ -58,14 +61,14 @@
                 </multiselect>
                 <multiselect
                   v-else
-                  v-model="ontologyVersions.selectedData"
-                  ref="versionsSelectDesktop"
                   id="ontologyVersionsMultiselect--products"
+                  ref="versionsSelectDesktop"
+                  v-model="ontologyVersions.selectedData"
                   label="@id"
                   track-by="url"
                   placeholder="Select..."
-                  tagPlaceholder="Select..."
-                  selectLabel=""
+                  tag-placeholder="Select..."
+                  select-label=""
                   open-direction="bottom"
                   :options="ontologyVersions.data"
                   :multiple="false"
@@ -80,7 +83,7 @@
                   :hide-selected="true"
                   :taggable="true"
                 >
-                  <template v-slot:tag="{ option }">
+                  <template #tag="{ option }">
                     <span class="custom__tag">
                       <span>{{ option.label }}</span>
                     </span>
@@ -99,9 +102,9 @@
 
     <div class="table-container">
       <div
-        class="table-box"
         v-for="element in serialization"
         :key="element.name"
+        class="table-box"
       >
         <div class="table-box__column title">
           <h3>{{ element.name }}</h3>
@@ -239,17 +242,14 @@
 import { mapState } from 'pinia';
 import { useConfigurationStore } from '@/stores/configuration';
 import Multiselect from 'vue-multiselect';
-import {
-  getOntologyVersions,
-  getJenkinsJobs,
-} from '../../api/ontology';
+import { getOntologyVersions, getJenkinsJobs } from '../../api/ontology';
 
 export default {
   name: 'SerializationListSection',
-  props: ['sectionItem'],
   components: {
     Multiselect
   },
+  props: ['sectionItem'],
   data() {
     return {
       version: 'master/latest',
@@ -259,7 +259,7 @@ export default {
         isLoading: false,
         defaultData: {
           '@id': 'current',
-          url: '',
+          'url': ''
         },
         data: [],
         selectedData: null,
@@ -267,8 +267,21 @@ export default {
           version: false,
           compare: false
         }
-      },
+      }
     };
+  },
+  computed: {
+    ...mapState(useConfigurationStore, {
+      ontologyName: (store) => store.config.ontpubFamily,
+      defaultBranchName: (store) => store.config.defaultBranchName,
+      jenkinsJobUrl: (store) => store.config.jenkinsJobUrl
+    }),
+    ontologyNameUppercase() {
+      return this.ontologyName.toUpperCase();
+    },
+    hasVersions() {
+      return this.ontologyVersions.data.length > 0;
+    }
   },
   async mounted() {
     this.serialization = this.sectionItem.serialization;
@@ -294,12 +307,14 @@ export default {
     async fetchVersions() {
       try {
         const result = await getOntologyVersions(
-          `/${this.ontologyName}/ontology/api/`,
+          `/${this.ontologyName}/ontology/api/`
         );
         const ontologyVersions = await result.json();
 
         const first = 'master/latest';
-        ontologyVersions.sort((x, y) => (x['@id'] == first ? -1 : y['@id'] == first ? 1 : 0));
+        ontologyVersions.sort((x, y) =>
+          x['@id'] == first ? -1 : y['@id'] == first ? 1 : 0
+        );
 
         this.ontologyVersions.data = ontologyVersions;
 
@@ -318,7 +333,8 @@ export default {
             return false;
           });
         } else {
-          this.ontologyVersions.selectedData = this.ontologyVersions.defaultData;
+          this.ontologyVersions.selectedData =
+            this.ontologyVersions.defaultData;
         }
       } catch (err) {
         console.error(err);
@@ -343,16 +359,20 @@ export default {
           const tags = tagsJson.jobs.map((item) => item.name.toLowerCase());
 
           const pullRequestsResult = await getJenkinsJobs(
-            `${jenkinsJobUrl}/view/change-requests/api/json`,
+            `${jenkinsJobUrl}/view/change-requests/api/json`
           );
           const pullRequestsJson = await pullRequestsResult.json();
-          const pullRequests = pullRequestsJson.jobs.map((item) => item.name.toLowerCase());
+          const pullRequests = pullRequestsJson.jobs.map((item) =>
+            item.name.toLowerCase()
+          );
 
           const defaultViewResult = await getJenkinsJobs(
-            `${jenkinsJobUrl}/view/default/api/json`,
+            `${jenkinsJobUrl}/view/default/api/json`
           );
           const defaultViewJson = await defaultViewResult.json();
-          const defaultView = defaultViewJson.jobs.map((item) => item.name.toLowerCase());
+          const defaultView = defaultViewJson.jobs.map((item) =>
+            item.name.toLowerCase()
+          );
 
           // group versions
           const branchesGroup = [];
@@ -368,27 +388,33 @@ export default {
             versionToCompare = versionToCompare.replace('/', '_');
 
             if (
-              versionToCompare === 'master'
-              || versionToCompare === this.defaultBranchName
-            ) defaultGroup.push(version);
-            else if (tags.find((item) => item == versionToCompare)) releasesGroup.push(version);
-            else if (pullRequests.find((item) => item == versionToCompare)) pullRequestsGroup.push(version);
-            else if (defaultView.find((item) => item == versionToCompare)) branchesGroup.push(version);
+              versionToCompare === 'master' ||
+              versionToCompare === this.defaultBranchName
+            )
+              defaultGroup.push(version);
+            else if (tags.find((item) => item == versionToCompare))
+              releasesGroup.push(version);
+            else if (pullRequests.find((item) => item == versionToCompare))
+              pullRequestsGroup.push(version);
+            else if (defaultView.find((item) => item == versionToCompare))
+              branchesGroup.push(version);
           }
 
           const options = [];
 
-          if (defaultGroup.length) options.push({ group: 'Default', versions: defaultGroup });
+          if (defaultGroup.length)
+            options.push({ group: 'Default', versions: defaultGroup });
           if (releasesGroup.length) {
             options.push({ group: 'Releases', versions: releasesGroup });
           }
           if (pullRequestsGroup.length) {
             options.push({
               group: 'Pull requests',
-              versions: pullRequestsGroup,
+              versions: pullRequestsGroup
             });
           }
-          if (branchesGroup.length) options.push({ group: 'Branches', versions: branchesGroup });
+          if (branchesGroup.length)
+            options.push({ group: 'Branches', versions: branchesGroup });
 
           this.ontologyVersions.isGrouped = true;
           this.ontologyVersions.data = options;
@@ -397,21 +423,8 @@ export default {
           console.error(err);
         }
       }
-    },
-  },
-  computed: {
-    ...mapState(useConfigurationStore, {
-      ontologyName: store => store.config.ontpubFamily,
-      defaultBranchName: store => store.config.defaultBranchName,
-      jenkinsJobUrl: store => store.config.jenkinsJobUrl,
-    }),
-    ontologyNameUppercase() {
-      return this.ontologyName.toUpperCase();
-    },
-    hasVersions() {
-      return this.ontologyVersions.data.length > 0;
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -7,7 +7,7 @@
       :class="{
         'diff-added': part[0] === 1,
         'diff-removed': part[0] === -1,
-        fullChange: changeType == 'added' || changeType == 'removed',
+        'fullChange': changeType == 'added' || changeType == 'removed'
       }"
       v-html="part[1]"
     ></span>
@@ -17,16 +17,16 @@
 <script>
 export default {
   name: 'ComparedDiff',
-  props: ['line', 'changeType'],
+  props: ['line', 'changeType']
 };
 </script>
 
 <style lang="scss" scoped>
 .compared-diff {
-  color: map-get($colors-map, "black");
+  color: map-get($colors-map, 'black');
 
   &.diff-added {
-    color: map-get($colors-map, "black-80");
+    color: map-get($colors-map, 'black-80');
     background-color: #89c2a372;
     border-radius: 5px;
     padding: 4px;

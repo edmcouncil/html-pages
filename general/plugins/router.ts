@@ -1,7 +1,7 @@
-import { defineNuxtPlugin } from '#app'
+import { defineNuxtPlugin } from '#app';
 
 export default defineNuxtPlugin((nuxtApp: any) => {
   nuxtApp.$router.options.scrollBehavior = () => {
-    return { top: 0 }
+    return { top: 0 };
   };
 });
