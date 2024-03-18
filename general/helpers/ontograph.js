@@ -14,7 +14,7 @@ export default class Ontograph {
     external: true,
     internal: true,
     optional: true,
-    required: true,
+    required: true
   };
   isFullscreen = false;
   selectedNode = null;
@@ -26,7 +26,7 @@ export default class Ontograph {
     alertHandler,
     contextMenuHandler,
     graphServer,
-    onHeightUpdate,
+    onHeightUpdate
   ) {
     this.target = target;
     this.nav = navigationHandler;
@@ -56,7 +56,9 @@ export default class Ontograph {
     this.height = target.clientHeight;
     this.svg = this.getSvg();
 
-    this.svg.append('defs').append('marker')
+    this.svg
+      .append('defs')
+      .append('marker')
       .attr('id', 'arrowhead')
       .attr('viewBox', '-0 -5 10 10')
       .attr('refX', 12)
@@ -85,19 +87,19 @@ export default class Ontograph {
   setupZoom() {
     const wheelDelta = (event) => {
       return (
-        -event.deltaY
-        * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002)
+        -event.deltaY *
+        (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002)
       );
-    }
+    };
 
     const filter = (event) => {
       return (
-        this.isFullscreen
-        || event.ctrlKey
-        || event.metaKey
-        || event.type === 'mousedown'
+        this.isFullscreen ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.type === 'mousedown'
       );
-    }
+    };
 
     const zoomHandler = (e) => {
       this.currentTransform = e.transform;
@@ -129,26 +131,26 @@ export default class Ontograph {
 
       return edge
         ? {
-          nodeIri: node.iri,
-          nodeLabel: node.label,
-          type: node.type,
-          optional: node.optional,
-          id: node.id,
+            nodeIri: node.iri,
+            nodeLabel: node.label,
+            type: node.type,
+            optional: node.optional,
+            id: node.id,
 
-          pathLabel: edge.label,
-          pathIri: edge.iri,
-          from: edge.from,
-          dashes: edge.dashes,
-        }
+            pathLabel: edge.label,
+            pathIri: edge.iri,
+            from: edge.from,
+            dashes: edge.dashes
+          }
         : {
-          nodeIri: node.iri,
-          nodeLabel: node.label,
-          type: node.type,
-          optional: node.optional,
-          id: node.id,
+            nodeIri: node.iri,
+            nodeLabel: node.label,
+            type: node.type,
+            optional: node.optional,
+            id: node.id,
 
-          from: '',
-        };
+            from: ''
+          };
     });
 
     return newNodes;
@@ -159,16 +161,19 @@ export default class Ontograph {
       event.preventDefault();
     });
 
-    this.contextMenu = d3.select(this.target).append('div')
+    this.contextMenu = d3
+      .select(this.target)
+      .append('div')
       .attr('class', 'custom-context-menu')
       .style('display', 'none');
 
-    this.contextMenu.append('ul')
+    this.contextMenu
+      .append('ul')
       .selectAll('li')
       .data(['Expand', 'Navigate'])
       .enter()
       .append('li')
-      .text(d => d)
+      .text((d) => d)
       .on('click', (event, d) => {
         event.stopPropagation();
         this.closeContextMenu();
@@ -180,31 +185,34 @@ export default class Ontograph {
       });
 
     d3.select('body').on('click', () => {
-        this.closeContextMenu();
-      });
+      this.closeContextMenu();
+    });
   }
 
   openContextMenu(event, d) {
     event.preventDefault();
     this.selectedNode = d;
 
-    const primaryAction = (d._children || (!d.children && !d._children)) ? 'Expand' : 'Collapse';
+    const primaryAction =
+      d._children || (!d.children && !d._children) ? 'Expand' : 'Collapse';
 
     const menuOptions = [primaryAction, 'Navigate...'];
 
-    this.contextMenu.select('ul').selectAll('li')
+    this.contextMenu
+      .select('ul')
+      .selectAll('li')
       .data(menuOptions)
       .join('li')
-      .text(d => d)
+      .text((d) => d)
       .on('click', (event, d) => {
         event.stopPropagation();
         this.closeContextMenu();
         if (d === 'Expand') {
-            this.expandGraph(this.selectedNode);
+          this.expandGraph(this.selectedNode);
         } else if (d === 'Collapse') {
-            this.expandGraph(this.selectedNode);
+          this.expandGraph(this.selectedNode);
         } else if (d === 'Navigate...') {
-            this.nav(this.selectedNode.data.nodeIri);
+          this.nav(this.selectedNode.data.nodeIri);
         }
       });
 
@@ -254,7 +262,7 @@ export default class Ontograph {
                 xcontrol,
                 ycontrol,
                 x1,
-                y1,
+                y1
               ].join(' ');
             })
             .attr('marker-end', 'url(#arrowhead)')
@@ -312,7 +320,7 @@ export default class Ontograph {
 
           return updatedLink;
         },
-        (exit) => exit.remove(),
+        (exit) => exit.remove()
       );
 
     this.linkPaths = this.link.selectAll('path');
@@ -330,19 +338,19 @@ export default class Ontograph {
         setTimeout(() => {
           d3.select(this).raise();
         }, 100);
-      }
+      };
 
       const dragged = (event, d) => {
         if (this.layout !== 'force') return;
         d.fx = event.x;
         d.fy = event.y;
-      }
+      };
 
       const dragEnded = (event, d) => {
         if (!event.active) simulation.alphaTarget(0);
         d.fx = null;
         d.fy = null;
-      }
+      };
 
       return d3
         .drag()
@@ -363,9 +371,10 @@ export default class Ontograph {
             .attr('id', (d) => `node-id-${d.data.id}`)
             .attr(
               'transform',
-              (d) => `translate(${at ? at.x : d.parent ? d.parent.x : d.x},${
-                at ? at.y : d.parent ? d.parent.y : d.y
-              })`,
+              (d) =>
+                `translate(${at ? at.x : d.parent ? d.parent.x : d.x},${
+                  at ? at.y : d.parent ? d.parent.y : d.y
+                })`
             );
 
           newNode
@@ -383,9 +392,11 @@ export default class Ontograph {
               }
               return '#999';
             })
-            .attr('filter', (d) => (d.parent
-              ? null
-              : 'drop-shadow(0px 5px 20px -5px rgba(8, 84, 150, 0.15))'))
+            .attr('filter', (d) =>
+              d.parent
+                ? null
+                : 'drop-shadow(0px 5px 20px -5px rgba(8, 84, 150, 0.15))'
+            )
             .attr('stroke', (d) => (d.children ? null : '#000'));
 
           newNode
@@ -417,8 +428,7 @@ export default class Ontograph {
                 .transition()
                 .duration(0)
                 .attr('opacity', (l) => {
-                  if (parseInt(l.target.id) === d.data.id)
-                    return '1';
+                  if (parseInt(l.target.id) === d.data.id) return '1';
                   else {
                     return this.keepLabels ? this.labelOpacity : '0';
                   }
@@ -426,8 +436,12 @@ export default class Ontograph {
               this.node
                 .transition()
                 .duration(0)
-                .attr('opacity', (n) => (n.id === d.id || n.id === d.parent?.id ? '1' : '0.2'))
-                .attr('font-weight', (n) => (n.id === d.id || n.id === d.parent?.id ? 'bold' : 'normal'));
+                .attr('opacity', (n) =>
+                  n.id === d.id || n.id === d.parent?.id ? '1' : '0.2'
+                )
+                .attr('font-weight', (n) =>
+                  n.id === d.id || n.id === d.parent?.id ? 'bold' : 'normal'
+                );
             })
             .on('mouseout', () => {
               if (this.isShifting != null) return;
@@ -442,7 +456,7 @@ export default class Ontograph {
           return newNode;
         },
         (update) => update,
-        (exit) => exit.remove(),
+        (exit) => exit.remove()
       );
   }
 
@@ -453,7 +467,7 @@ export default class Ontograph {
         -this.width / 2,
         -this.height / 2,
         this.width,
-        this.height,
+        this.height
       ]);
   }
 
@@ -474,15 +488,15 @@ export default class Ontograph {
           .forceLink(this.links)
           .id((d) => d.id)
           .distance(0.5)
-          .strength(0.5),
+          .strength(0.5)
       )
       .force(
         'charge',
         d3
           .forceManyBody()
           .strength(
-            (d) => (-1600 * (d.parent ? 1 : 5)) / (d.children ? 0.5 : 3),
-          ),
+            (d) => (-1600 * (d.parent ? 1 : 5)) / (d.children ? 0.5 : 3)
+          )
       )
       .force('center', d3.forceCenter().strength(0.2))
       .force('x', d3.forceX())
@@ -509,15 +523,16 @@ export default class Ontograph {
           xcontrol,
           ycontrol,
           x1,
-          y1,
+          y1
         ].join(' ');
       });
 
       this.linkLabels.attr(
         'transform',
-        (d) => `translate(${(d.target.x + d.source.x) / 2}, ${
-          (d.target.y + d.source.y) / 2
-        })`,
+        (d) =>
+          `translate(${(d.target.x + d.source.x) / 2}, ${
+            (d.target.y + d.source.y) / 2
+          })`
       );
 
       this.node.attr('transform', (d) => `translate(${d.x}, ${d.y})`);
@@ -535,15 +550,16 @@ export default class Ontograph {
           .forceLink(this.links)
           .id((d) => d.id)
           .distance(0.5)
-          .strength(0.5),
+          .strength(0.5)
       )
       .force(
         'charge',
         d3
           .forceManyBody()
           .strength(
-            (d) => (-this.distance * 30 * (d.parent ? 1 : 4)) / (d.children ? 1 : 3),
-          ),
+            (d) =>
+              (-this.distance * 30 * (d.parent ? 1 : 4)) / (d.children ? 1 : 3)
+          )
       )
       .force('center', d3.forceCenter().strength(0.2))
       .force('x', d3.forceX())
@@ -563,9 +579,11 @@ export default class Ontograph {
     this.distance = value;
 
     if (this.layout === 'tree') this.toTree({ skipTransition: true });
-    else if (this.layout === 'clusterTree') this.toClusterTree({ skipTransition: true });
+    else if (this.layout === 'clusterTree')
+      this.toClusterTree({ skipTransition: true });
     else if (this.layout === 'radial') this.toRadial({ skipTransition: true });
-    else if (this.layout === 'clusterRadial') this.toClusterRadial({ skipTransition: true });
+    else if (this.layout === 'clusterRadial')
+      this.toClusterRadial({ skipTransition: true });
     else if (this.layout === 'force') this.toForce();
   }
 
@@ -573,9 +591,11 @@ export default class Ontograph {
     this.verticalDistance = value;
 
     if (this.layout === 'tree') this.toTree({ skipTransition: true });
-    else if (this.layout === 'clusterTree') this.toClusterTree({ skipTransition: true });
+    else if (this.layout === 'clusterTree')
+      this.toClusterTree({ skipTransition: true });
     else if (this.layout === 'radial') this.toRadial({ skipTransition: true });
-    else if (this.layout === 'clusterRadial') this.toClusterRadial({ skipTransition: true });
+    else if (this.layout === 'clusterRadial')
+      this.toClusterRadial({ skipTransition: true });
     else if (this.layout === 'force') this.toForce();
   }
 
@@ -614,7 +634,9 @@ export default class Ontograph {
 
     if (type === 'az') {
       this.root.each((d) => {
-        d._totalChildren?.sort((a, b) => d3.ascending(a.data.nodeLabel, b.data.nodeLabel));
+        d._totalChildren?.sort((a, b) =>
+          d3.ascending(a.data.nodeLabel, b.data.nodeLabel)
+        );
       });
     } else if (type === 'height') {
       this.root.each((d) => {
@@ -622,11 +644,15 @@ export default class Ontograph {
       });
     } else if (type === 'optional') {
       this.root.each((d) => {
-        d._totalChildren?.sort((a, b) => d3.descending(a.data.dashes, b.data.dashes));
+        d._totalChildren?.sort((a, b) =>
+          d3.descending(a.data.dashes, b.data.dashes)
+        );
       });
     } else if (type === 'inherited') {
       this.root.each((d) => {
-        d._totalChildren?.sort((a, b) => d3.descending(a.data.type, b.data.type));
+        d._totalChildren?.sort((a, b) =>
+          d3.descending(a.data.type, b.data.type)
+        );
       });
     }
 
@@ -635,9 +661,7 @@ export default class Ontograph {
 
   filter(filters) {
     this.filters = filters;
-    const {
-      external, internal, optional, required,
-    } = filters;
+    const { external, internal, optional, required } = filters;
 
     this.root.each((d) => {
       if (!d._totalChildren) return;
@@ -651,10 +675,10 @@ export default class Ontograph {
 
       totalChildren.forEach((child) => {
         if (
-          (child.data.dashes && !optional)
-          || (!child.data.dashes && !required)
-          || (child.data.type === 'EXTERNAL' && !external)
-          || (child.data.type === 'INTERNAL' && !internal)
+          (child.data.dashes && !optional) ||
+          (!child.data.dashes && !required) ||
+          (child.data.type === 'EXTERNAL' && !external) ||
+          (child.data.type === 'INTERNAL' && !internal)
         ) {
           filteredOut.push(child);
           return;
@@ -722,8 +746,8 @@ export default class Ontograph {
         tmp = tmp.parent;
 
         if (
-          d.data.nodeIri === tmp.data.nodeIri
-          && d.data.nodeLabel === tmp.data.nodeLabel
+          d.data.nodeIri === tmp.data.nodeIri &&
+          d.data.nodeLabel === tmp.data.nodeLabel
         ) {
           this.pushAlert('duplicate', d.data.nodeLabel);
           this.isShifting = null;
@@ -749,11 +773,11 @@ export default class Ontograph {
 
         // fetch children from server
         const domain = `${this.graphServer}?iri=${encodeURI(
-          d.data.nodeIri,
+          d.data.nodeIri
         )}&nodeId=${d.id}&lastId=${this.lastId}`;
         const result = await fetch(domain, {
           method: 'GET',
-          headers: { Accept: 'application/json' },
+          headers: { Accept: 'application/json' }
         });
         let body = null;
 
@@ -899,7 +923,7 @@ export default class Ontograph {
         d3
           .linkHorizontal()
           .x((d) => d.y)
-          .y((d) => d.x),
+          .y((d) => d.x)
       );
 
     this.node
@@ -928,9 +952,10 @@ export default class Ontograph {
       .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
-        (d) => `translate(${(d.target.x + d.source.x) / 2}, ${
-          (d.target.y + d.source.y) / 2
-        })`,
+        (d) =>
+          `translate(${(d.target.x + d.source.x) / 2}, ${
+            (d.target.y + d.source.y) / 2
+          })`
       );
   }
 
@@ -957,7 +982,7 @@ export default class Ontograph {
         d3
           .linkHorizontal()
           .x((d) => d.y)
-          .y((d) => d.x),
+          .y((d) => d.x)
       );
 
     this.node
@@ -986,9 +1011,10 @@ export default class Ontograph {
       .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
-        (d) => `translate(${(d.target.x + d.source.x) / 2}, ${
-          (d.target.y + d.source.y) / 2
-        })`,
+        (d) =>
+          `translate(${(d.target.x + d.source.x) / 2}, ${
+            (d.target.y + d.source.y) / 2
+          })`
       );
   }
 
@@ -1014,7 +1040,7 @@ export default class Ontograph {
         d3
           .linkRadial()
           .angle((d) => d.x)
-          .radius((d) => d.y),
+          .radius((d) => d.y)
       );
 
     // .attr("transform", d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`);
@@ -1028,7 +1054,7 @@ export default class Ontograph {
       .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
-        (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`,
+        (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       );
 
     this.nodes.forEach((node) => {
@@ -1052,9 +1078,10 @@ export default class Ontograph {
       .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
-        (d) => `translate(${(d.target.x + d.source.x) / 2}, ${
-          (d.target.y + d.source.y) / 2
-        })`,
+        (d) =>
+          `translate(${(d.target.x + d.source.x) / 2}, ${
+            (d.target.y + d.source.y) / 2
+          })`
       );
   }
 
@@ -1080,7 +1107,7 @@ export default class Ontograph {
         d3
           .linkRadial()
           .angle((d) => d.x)
-          .radius((d) => d.y),
+          .radius((d) => d.y)
       );
 
     const x0 = (d) => Math.cos(d.x - Math.PI / 2) * d.y;
@@ -1092,7 +1119,7 @@ export default class Ontograph {
       .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
-        (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`,
+        (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       );
 
     this.nodes.forEach((node) => {
@@ -1114,9 +1141,10 @@ export default class Ontograph {
       .duration(skipTransition ? 0 : this.transitionSpeed)
       .attr(
         'transform',
-        (d) => `translate(${(d.target.x + d.source.x) / 2}, ${
-          (d.target.y + d.source.y) / 2
-        })`,
+        (d) =>
+          `translate(${(d.target.x + d.source.x) / 2}, ${
+            (d.target.y + d.source.y) / 2
+          })`
       );
   }
 
@@ -1147,7 +1175,8 @@ export default class Ontograph {
     const finalMargin = margin || 60;
     const controlPanelOffset = this.isControlPanelOpen ? 300 : 0;
 
-    const scaleX = (this.width - controlPanelOffset - finalMargin) / nodesBBox.width;
+    const scaleX =
+      (this.width - controlPanelOffset - finalMargin) / nodesBBox.width;
     const scaleY = (this.height - finalMargin) / nodesBBox.height;
     const scale = Math.min(d3.min([scaleX, scaleY]), 2.5);
 
@@ -1163,7 +1192,7 @@ export default class Ontograph {
         this.zoomController.transform,
         d3.zoomIdentity
           .translate(-x * scale - controlPanelOffset / 2, -y * scale)
-          .scale(scale),
+          .scale(scale)
       );
   }
 
@@ -1184,7 +1213,7 @@ export default class Ontograph {
       -this.width / 2,
       -this.height / 2,
       this.width,
-      this.height,
+      this.height
     ]);
 
     this.center();
