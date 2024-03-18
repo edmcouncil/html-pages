@@ -2,48 +2,40 @@ import * as d3 from 'd3';
 
 export default class Ontograph {
   layout = 'force';
-
   sortType = 'az';
-
   transitionSpeed = 400;
-
   mouseoverTransitionSpeed = 300;
-
   distance = 30;
-
   verticalDistance = 12;
-
   keepLabels = false;
-
   labelOpacity = 0.8;
-
   alertId = 0;
-
   filters = {
     external: true,
     internal: true,
     optional: true,
     required: true,
   };
-
   isFullscreen = false;
+  selectedNode = null;
 
   constructor(
     data,
     target,
     navigationHandler,
     alertHandler,
+    contextMenuHandler,
     graphServer,
     onHeightUpdate,
   ) {
     this.target = target;
     this.nav = navigationHandler;
     this.alertHandler = alertHandler;
+    this.contextMenuHandler = contextMenuHandler;
     this.graphServer = graphServer;
     this.onHeightUpdate = onHeightUpdate;
-
+    this.currentTransform = d3.zoomIdentity;
     this.lastId = data.graph.lastId;
-
     this.parsedNodes = Ontograph.parseNodes(data.graph);
 
     this.root = d3
@@ -81,21 +73,26 @@ export default class Ontograph {
     this.svg.append('g').attr('class', 'links');
     this.svg.append('g').attr('class', 'nodes');
 
+    this.initContextMenu();
+
     this.initLinks();
     this.initNodes();
     this.toForce();
 
-    // zoom specific functions
-    const that = this;
-    function wheelDelta(event) {
+    this.setupZoom();
+  }
+
+  setupZoom() {
+    const wheelDelta = (event) => {
       return (
         -event.deltaY
         * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002)
       );
     }
-    function filter(event) {
+
+    const filter = (event) => {
       return (
-        that.isFullscreen
+        this.isFullscreen
         || event.ctrlKey
         || event.metaKey
         || event.type === 'mousedown'
@@ -103,6 +100,8 @@ export default class Ontograph {
     }
 
     const zoomHandler = (e) => {
+      this.currentTransform = e.transform;
+      this.closeContextMenu();
       this.svg.select('.links').attr('transform', e.transform);
       this.svg.select('.nodes').attr('transform', e.transform);
     };
@@ -114,7 +113,7 @@ export default class Ontograph {
       .wheelDelta(wheelDelta);
     this.svg.call(this.zoomController).on('dblclick.zoom', null);
 
-    target.append(this.svg.node());
+    this.target.append(this.svg.node());
 
     setTimeout(() => {
       this.center(120);
@@ -153,6 +152,73 @@ export default class Ontograph {
     });
 
     return newNodes;
+  }
+
+  initContextMenu() {
+    this.svg.on('contextmenu', (event) => {
+      event.preventDefault();
+    });
+
+    this.contextMenu = d3.select(this.target).append('div')
+      .attr('class', 'custom-context-menu')
+      .style('display', 'none');
+
+    this.contextMenu.append('ul')
+      .selectAll('li')
+      .data(['Expand', 'Navigate'])
+      .enter()
+      .append('li')
+      .text(d => d)
+      .on('click', (event, d) => {
+        event.stopPropagation();
+        this.closeContextMenu();
+        if (d === 'Expand') {
+          this.expandGraph(this.selectedNode);
+        } else if (d === 'Navigate') {
+          this.nav(this.selectedNode.data.nodeIri);
+        }
+      });
+
+    d3.select('body').on('click', () => {
+        this.closeContextMenu();
+      });
+  }
+
+  openContextMenu(event, d) {
+    event.preventDefault();
+    this.selectedNode = d;
+
+    const primaryAction = (d._children || (!d.children && !d._children)) ? 'Expand' : 'Collapse';
+
+    const menuOptions = [primaryAction, 'Navigate...'];
+
+    this.contextMenu.select('ul').selectAll('li')
+      .data(menuOptions)
+      .join('li')
+      .text(d => d)
+      .on('click', (event, d) => {
+        event.stopPropagation();
+        this.closeContextMenu();
+        if (d === 'Expand') {
+            this.expandGraph(this.selectedNode);
+        } else if (d === 'Collapse') {
+            this.expandGraph(this.selectedNode);
+        } else if (d === 'Navigate...') {
+            this.nav(this.selectedNode.data.nodeIri);
+        }
+      });
+
+    const positionX = event.clientX;
+    const positionY = event.clientY;
+
+    this.contextMenu
+      .style('left', `${positionX}px`)
+      .style('top', `${positionY}px`)
+      .style('display', 'block');
+  }
+
+  closeContextMenu() {
+    this.contextMenu.style('display', 'none');
   }
 
   initLinks(at) {
@@ -256,10 +322,8 @@ export default class Ontograph {
 
   initNodes(at) {
     const drag = (simulation) => {
-      const that = this;
-
-      function dragStarted(event, d) {
-        if (that.layout !== 'force') return;
+      const dragStarted = (event, d) => {
+        if (this.layout !== 'force') return;
         if (!event.active) simulation.alphaTarget(0.3).restart();
         d.fx = d.x;
         d.fy = d.y;
@@ -268,13 +332,13 @@ export default class Ontograph {
         }, 100);
       }
 
-      function dragged(event, d) {
-        if (that.layout !== 'force') return;
+      const dragged = (event, d) => {
+        if (this.layout !== 'force') return;
         d.fx = event.x;
         d.fy = event.y;
       }
 
-      function dragEnded(event, d) {
+      const dragEnded = (event, d) => {
         if (!event.active) simulation.alphaTarget(0);
         d.fx = null;
         d.fy = null;
@@ -370,7 +434,8 @@ export default class Ontograph {
 
               this.blurHighlight();
             })
-            .on('click', (e, d) => this.nodeClick(e, d));
+            .on('click', (e, d) => this.nodeClick(e, d))
+            .on('contextmenu', (e, d) => this.openContextMenu(e, d));
 
           newNode.call(drag(this.simulation));
 
@@ -1105,7 +1170,6 @@ export default class Ontograph {
   nodeClick(event, node) {
     if (event.defaultPrevented) return;
     this.expandGraph(node);
-    // this.nav(node.data.nodeIri);
   }
 
   removeGraph() {

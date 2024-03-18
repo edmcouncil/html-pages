@@ -429,7 +429,8 @@ export default {
 
       alerts: [],
 
-      scrollPreventedVisible: false, // overlay on graph when scrolling without ctrl
+      // overlay on graph when scrolling without ctrl
+      scrollPreventedVisible: false,
       scrollPreventedTimeout: null,
     };
   },
@@ -440,6 +441,7 @@ export default {
       target,
       this.navigationHandler,
       this.alertHandler,
+      this.contextMenuHandler,
       this.graphServer,
       this.onHeightUpdate,
     );
@@ -656,6 +658,44 @@ export default {
 .graph-section {
   background: rgba(0, 0, 0, 0.05);
   position: relative;
+
+  .custom-context-menu {
+    position: fixed;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+    z-index: 2000;
+  }
+
+  .custom-context-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .custom-context-menu ul li {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 30px;
+    cursor: pointer;
+
+    color: map-get($colors-map, "black-80");
+
+    margin: 0;
+    padding: 15px 30px;
+
+    cursor: pointer;
+
+    &:first-child {
+      font-weight: bold;
+    }
+  }
+
+  .custom-context-menu ul li:hover {
+    background-color: #f7f7f7;
+  }
 }
 
 .alerts-container {
