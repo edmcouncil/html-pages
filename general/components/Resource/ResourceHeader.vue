@@ -5,9 +5,18 @@
         <div class="ontology-item__header__title-segment">
           <div class="right">
             <!-- show more menu -->
-            <div v-if="hasDropdownMenu" class="dropdown resource-more" :class="{ centered: !hasStatus }">
-              <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
+            <div
+              v-if="hasDropdownMenu"
+              class="dropdown resource-more"
+              :class="{ centered: !hasStatus }"
+            >
+              <button
+                type="button"
+                class="btn dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
                 More
                 <div class="icon-show-more-white"></div>
               </button>
@@ -50,7 +59,11 @@
                 This resource has maturity level
                 {{ data.maturityLevel.label.toLowerCase() }}.
 
-                <customLink class="custom-link" :name="'Read more'" :query="data.maturityLevel.iri"></customLink>
+                <customLink
+                  class="custom-link"
+                  :name="'Read more'"
+                  :query="data.maturityLevel.iri"
+                ></customLink>
               </div>
             </div>
 

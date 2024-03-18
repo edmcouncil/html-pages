@@ -106,7 +106,10 @@
           <div class="img-zoom">
             <div
               class="img-zoom__content basics-3"
-              style="transform-origin: top right; background-position: right top;"
+              style="
+                transform-origin: top right;
+                background-position: right top;
+              "
             ></div>
           </div>
           <p>The view options menu is divided into four sections:</p>
@@ -177,11 +180,12 @@
             node to show or hide it's children.
           </p>
           <p>
-            Nodes have <b>two visual traits</b> that express connection type they have
-            with their parent node: the <b>link path</b> (solid or dashed) depending on
-            whether it's required or optional, and <b>color</b> (dark or light)
-            depending on whether the resource is class specific or inherited.
-            Read more about graphical representation of nodes in the
+            Nodes have <b>two visual traits</b> that express connection type
+            they have with their parent node: the <b>link path</b> (solid or
+            dashed) depending on whether it's required or optional, and
+            <b>color</b> (dark or light) depending on whether the resource is
+            class specific or inherited. Read more about graphical
+            representation of nodes in the
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
@@ -190,6 +194,26 @@
             >
             section.
           </p>
+
+          <h2>5. Context menu</h2>
+          <div class="img-zoom">
+            <div
+              class="img-zoom__content basics-4"
+              style="transform-origin: right"
+            ></div>
+          </div>
+
+          <p>
+            You can right click on a node to open the context menu. In the
+            context menu there are two options:
+          </p>
+          <ul>
+            <li>
+              <b>Expand/Collapse</b> - show or hide node's children, the same as
+              clicking on a node.
+            </li>
+            <li><b>Navigate...</b> - open the resource's page.</li>
+          </ul>
 
           <br />
 
@@ -254,7 +278,10 @@
           <div class="img-zoom">
             <div
               class="img-zoom__content layouts-0"
-              style="transform-origin: top right; background-position: right top"
+              style="
+                transform-origin: top right;
+                background-position: right top;
+              "
             ></div>
           </div>
           <p>
@@ -312,8 +339,8 @@
             ></div>
           </div>
           <p>
-            The node is Optional when the restrictions describe a relation
-            where the node entity <b>is not</b> required to define the class.
+            The node is Optional when the restrictions describe a relation where
+            the node entity <b>is not</b> required to define the class.
           </p>
           <p>
             The visual representation of Optional connection is a
@@ -332,8 +359,8 @@
             ></div>
           </div>
           <p>
-            The node is Required when the restrictions describe a relation
-            where the node entity <b>is</b> required to define the class.
+            The node is Required when the restrictions describe a relation where
+            the node entity <b>is</b> required to define the class.
           </p>
           <p>
             The visual representation of Required connection is a
@@ -400,14 +427,17 @@
           <div class="img-zoom">
             <div
               class="img-zoom__content layouts-0"
-              style="transform-origin: center right; background-position: right center"
+              style="
+                transform-origin: center right;
+                background-position: right center;
+              "
             ></div>
           </div>
           <p>
             The visualization tool offers multiple node layouts. The user can
             select node placement most optimal for his use. The layouts can be
-            selected by pressing corresponding buttons in the Layout view options
-            section.
+            selected by pressing corresponding buttons in the Layout view
+            options section.
           </p>
 
           <h2>2. Tree layout</h2>
@@ -528,14 +558,17 @@
           <div class="img-zoom">
             <div
               class="img-zoom__content sort-0"
-              style="transform-origin: right center; background-position: right center"
+              style="
+                transform-origin: right center;
+                background-position: right center;
+              "
             ></div>
           </div>
           <p>
             Sorting allows the user to select order in which nodes appear in a
             hierarchy. This feature is available in calculated layouts (Tree,
-            Cluster Tree, Radial, Cluster Radial) and is unavailable in the Force
-            layout.
+            Cluster Tree, Radial, Cluster Radial) and is unavailable in the
+            Force layout.
           </p>
           <p>
             The nodes can be sorted by pressing corresponding buttons in the
@@ -559,9 +592,9 @@
             ></div>
           </div>
           <p>
-            Nodes get sorted based on height - the maximum distance from any child
-            node to the root. This means that more nested nodes will appear
-            first in a hierarchy.
+            Nodes get sorted based on height - the maximum distance from any
+            child node to the root. This means that more nested nodes will
+            appear first in a hierarchy.
           </p>
           <p>
             Sorting based on height can be helpful in cluster layouts where it
@@ -690,8 +723,8 @@
             ></div>
           </div>
           <p>
-            In the Tree and Cluster Tree layouts, the user can adjust
-            the vertical spacing between nodes.
+            In the Tree and Cluster Tree layouts, the user can adjust the
+            vertical spacing between nodes.
           </p>
         </article>
       </template>

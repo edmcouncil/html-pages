@@ -66,6 +66,11 @@ export default {
         background-image: url('../../assets/img/graph-guide-basics-3.png');
       }
 
+      &.basics-4 {
+        background-position: right;
+        background-image: url('../../assets/img/graph-guide-basics-4.png');
+      }
+
       &.layouts-0 {
         background-image: url('../../assets/img/graph-guide-layouts-0.png');
       }

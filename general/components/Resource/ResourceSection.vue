@@ -395,10 +395,6 @@ export default {
         }
 
         & > li {
-          background: url('@/assets/icons/dot.svg') no-repeat 0px 0px;
-          list-style: none;
-          padding: 0px 0px 0px 30px;
-
           ul {
             padding-left: 20px;
           }
