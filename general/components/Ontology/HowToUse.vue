@@ -139,6 +139,6 @@
 <script>
 export default {
   name: 'HowToUse',
-  props: ['hasVersions', 'ontologyNameUppercase'],
+  props: ['hasVersions', 'ontologyNameUppercase']
 };
 </script>

@@ -1,13 +1,13 @@
 <template>
   <div>
     <GraphGuideModal
-      modalId="guide-main"
-      :open="currentPage=='guide-main'"
-      @closeEvent="closeHandler()"
+      modal-id="guide-main"
+      :open="currentPage == 'guide-main'"
+      @close-event="closeHandler()"
     >
-      <template v-slot:label> User Guide: Overview </template>
+      <template #label> User Guide: Overview </template>
 
-      <template v-slot:content>
+      <template #content>
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
@@ -18,7 +18,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
                 @keydown="navigateToPage('guide-connections')"
-              >Connections</span
+                >Connections</span
               >
             </p>
             <p>
@@ -27,7 +27,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
                 @keydown="navigateToPage('guide-layouts')"
-              >Layouts</span
+                >Layouts</span
               >
             </p>
             <p>
@@ -36,7 +36,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 @keydown="navigateToPage('guide-sorting')"
-              >Sorting</span
+                >Sorting</span
               >
             </p>
             <p>
@@ -45,7 +45,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
                 @keydown="navigateToPage('guide-configuration')"
-              >Configuration</span
+                >Configuration</span
               >
             </p>
           </div>
@@ -75,7 +75,7 @@
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
               @keydown="navigateToPage('guide-connections')"
-            >connections</span
+              >connections</span
             >
             filters. The graph visualization is fully interactive and the data
             can be explored. The viewport can be panned by dragging with left
@@ -99,14 +99,17 @@
             screen which translates to more comfortable experience.
           </p>
           <p>
-            The "View options" button in top right corner can be used to
-            open the <b>View options</b> menu.
+            The "View options" button in top right corner can be used to open
+            the <b>View options</b> menu.
           </p>
 
           <div class="img-zoom">
             <div
               class="img-zoom__content basics-3"
-              style="transform-origin: top right; background-position: right top;"
+              style="
+                transform-origin: top right;
+                background-position: right top;
+              "
             ></div>
           </div>
           <p>The view options menu is divided into four sections:</p>
@@ -118,7 +121,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
                 @keydown="navigateToPage('guide-connections')"
-              >Connections</span
+                >Connections</span
               >
               section,
             </li>
@@ -130,7 +133,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
                 @keydown="navigateToPage('guide-layouts')"
-              >Layouts</span
+                >Layouts</span
               >
               section,
             </li>
@@ -141,18 +144,18 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 @keydown="navigateToPage('guide-sorting')"
-              >Sorting</span
+                >Sorting</span
               >
               section,
             </li>
             <li>
-              <b>Configuration</b> - configure node distance and toggle all labels visibility.
-              Read more in the
+              <b>Configuration</b> - configure node distance and toggle all
+              labels visibility. Read more in the
               <span
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
                 @keydown="navigateToPage('guide-configuration')"
-              >Configuration</span
+                >Configuration</span
               >
               section,
             </li>
@@ -177,19 +180,40 @@
             node to show or hide it's children.
           </p>
           <p>
-            Nodes have <b>two visual traits</b> that express connection type they have
-            with their parent node: the <b>link path</b> (solid or dashed) depending on
-            whether it's required or optional, and <b>color</b> (dark or light)
-            depending on whether the resource is class specific or inherited.
-            Read more about graphical representation of nodes in the
+            Nodes have <b>two visual traits</b> that express connection type
+            they have with their parent node: the <b>link path</b> (solid or
+            dashed) depending on whether it's required or optional, and
+            <b>color</b> (dark or light) depending on whether the resource is
+            class specific or inherited. Read more about graphical
+            representation of nodes in the
             <span
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
               @keydown="navigateToPage('guide-connections')"
-            >Connections</span
+              >Connections</span
             >
             section.
           </p>
+
+          <h2>5. Context menu</h2>
+          <div class="img-zoom">
+            <div
+              class="img-zoom__content basics-4"
+              style="transform-origin: right"
+            ></div>
+          </div>
+
+          <p>
+            You can right click on a node to open the context menu. In the
+            context menu there are two options:
+          </p>
+          <ul>
+            <li>
+              <b>Expand/Collapse</b> - show or hide node's children, the same as
+              clicking on a node.
+            </li>
+            <li><b>Navigate...</b> - open the resource's page.</li>
+          </ul>
 
           <br />
 
@@ -202,12 +226,12 @@
     </GraphGuideModal>
 
     <GraphGuideModal
-      modalId="guide-connections"
-      :open="currentPage=='guide-connections'"
-      @closeEvent="closeHandler()"
+      modal-id="guide-connections"
+      :open="currentPage == 'guide-connections'"
+      @close-event="closeHandler()"
     >
-      <template v-slot:label> User Guide: Connections </template>
-      <template v-slot:content>
+      <template #label> User Guide: Connections </template>
+      <template #content>
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
@@ -217,7 +241,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
                 @keydown="navigateToPage('guide-main')"
-              >Overview</span
+                >Overview</span
               >
             </p>
             <p><b>2. Connections</b></p>
@@ -227,7 +251,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
                 @keydown="navigateToPage('guide-layouts')"
-              >Layouts</span
+                >Layouts</span
               >
             </p>
             <p>
@@ -236,7 +260,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 @keydown="navigateToPage('guide-sorting')"
-              >Sorting</span
+                >Sorting</span
               >
             </p>
             <p>
@@ -245,7 +269,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
                 @keydown="navigateToPage('guide-configuration')"
-              >Configuration</span
+                >Configuration</span
               >
             </p>
           </div>
@@ -254,7 +278,10 @@
           <div class="img-zoom">
             <div
               class="img-zoom__content layouts-0"
-              style="transform-origin: top right; background-position: right top"
+              style="
+                transform-origin: top right;
+                background-position: right top;
+              "
             ></div>
           </div>
           <p>
@@ -312,8 +339,8 @@
             ></div>
           </div>
           <p>
-            The node is Optional when the restrictions describe a relation
-            where the node entity <b>is not</b> required to define the class.
+            The node is Optional when the restrictions describe a relation where
+            the node entity <b>is not</b> required to define the class.
           </p>
           <p>
             The visual representation of Optional connection is a
@@ -332,8 +359,8 @@
             ></div>
           </div>
           <p>
-            The node is Required when the restrictions describe a relation
-            where the node entity <b>is</b> required to define the class.
+            The node is Required when the restrictions describe a relation where
+            the node entity <b>is</b> required to define the class.
           </p>
           <p>
             The visual representation of Required connection is a
@@ -348,12 +375,12 @@
     </GraphGuideModal>
 
     <GraphGuideModal
-      modalId="guide-layouts"
-      :open="currentPage=='guide-layouts'"
-      @closeEvent="closeHandler()"
+      modal-id="guide-layouts"
+      :open="currentPage == 'guide-layouts'"
+      @close-event="closeHandler()"
     >
-      <template v-slot:label> User Guide: Layouts </template>
-      <template v-slot:content>
+      <template #label> User Guide: Layouts </template>
+      <template #content>
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
@@ -363,7 +390,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
                 @keydown="navigateToPage('guide-main')"
-              >Overview</span
+                >Overview</span
               >
             </p>
             <p>
@@ -372,7 +399,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
                 @keydown="navigateToPage('guide-connections')"
-              >Connections</span
+                >Connections</span
               >
             </p>
             <p><b>3. Layouts</b></p>
@@ -382,7 +409,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 @keydown="navigateToPage('guide-sorting')"
-              >Sorting</span
+                >Sorting</span
               >
             </p>
             <p>
@@ -391,7 +418,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
                 @keydown="navigateToPage('guide-configuration')"
-              >Configuration</span
+                >Configuration</span
               >
             </p>
           </div>
@@ -400,14 +427,17 @@
           <div class="img-zoom">
             <div
               class="img-zoom__content layouts-0"
-              style="transform-origin: center right; background-position: right center"
+              style="
+                transform-origin: center right;
+                background-position: right center;
+              "
             ></div>
           </div>
           <p>
             The visualization tool offers multiple node layouts. The user can
             select node placement most optimal for his use. The layouts can be
-            selected by pressing corresponding buttons in the Layout view options
-            section.
+            selected by pressing corresponding buttons in the Layout view
+            options section.
           </p>
 
           <h2>2. Tree layout</h2>
@@ -476,12 +506,12 @@
     </GraphGuideModal>
 
     <GraphGuideModal
-      modalId="guide-sorting"
-      :open="currentPage=='guide-sorting'"
-      @closeEvent="closeHandler()"
+      modal-id="guide-sorting"
+      :open="currentPage == 'guide-sorting'"
+      @close-event="closeHandler()"
     >
-      <template v-slot:label> User Guide: Sorting </template>
-      <template v-slot:content>
+      <template #label> User Guide: Sorting </template>
+      <template #content>
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
@@ -491,7 +521,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
                 @keydown="navigateToPage('guide-main')"
-              >Overview</span
+                >Overview</span
               >
             </p>
             <p>
@@ -500,7 +530,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
                 @keydown="navigateToPage('guide-connections')"
-              >Connections</span
+                >Connections</span
               >
             </p>
             <p>
@@ -509,7 +539,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
                 @keydown="navigateToPage('guide-layouts')"
-              >Layouts</span
+                >Layouts</span
               >
             </p>
             <p><b>4. Sorting</b></p>
@@ -519,7 +549,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-configuration')"
                 @keydown="navigateToPage('guide-configuration')"
-              >Configuration</span
+                >Configuration</span
               >
             </p>
           </div>
@@ -528,14 +558,17 @@
           <div class="img-zoom">
             <div
               class="img-zoom__content sort-0"
-              style="transform-origin: right center; background-position: right center"
+              style="
+                transform-origin: right center;
+                background-position: right center;
+              "
             ></div>
           </div>
           <p>
             Sorting allows the user to select order in which nodes appear in a
             hierarchy. This feature is available in calculated layouts (Tree,
-            Cluster Tree, Radial, Cluster Radial) and is unavailable in the Force
-            layout.
+            Cluster Tree, Radial, Cluster Radial) and is unavailable in the
+            Force layout.
           </p>
           <p>
             The nodes can be sorted by pressing corresponding buttons in the
@@ -559,9 +592,9 @@
             ></div>
           </div>
           <p>
-            Nodes get sorted based on height - the maximum distance from any child
-            node to the root. This means that more nested nodes will appear
-            first in a hierarchy.
+            Nodes get sorted based on height - the maximum distance from any
+            child node to the root. This means that more nested nodes will
+            appear first in a hierarchy.
           </p>
           <p>
             Sorting based on height can be helpful in cluster layouts where it
@@ -582,7 +615,7 @@
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
               @keydown="navigateToPage('guide-connections')"
-            >Connections</span
+              >Connections</span
             >
             section.
           </p>
@@ -601,7 +634,7 @@
               class="guide-navigation"
               @click="navigateToPage('guide-connections')"
               @keydown="navigateToPage('guide-connections')"
-            >Connections</span
+              >Connections</span
             >
             section.
           </p>
@@ -610,12 +643,12 @@
     </GraphGuideModal>
 
     <GraphGuideModal
-      modalId="guide-configuration"
-      :open="currentPage=='guide-configuration'"
-      @closeEvent="closeHandler()"
+      modal-id="guide-configuration"
+      :open="currentPage == 'guide-configuration'"
+      @close-event="closeHandler()"
     >
-      <template v-slot:label> User Guide: Configuration </template>
-      <template v-slot:content>
+      <template #label> User Guide: Configuration </template>
+      <template #content>
         <article>
           <div class="see-also-box">
             <h3>User Guide pages:</h3>
@@ -625,7 +658,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-main')"
                 @keydown="navigateToPage('guide-main')"
-              >Overview</span
+                >Overview</span
               >
             </p>
             <p>
@@ -634,7 +667,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-connections')"
                 @keydown="navigateToPage('guide-connections')"
-              >Connections</span
+                >Connections</span
               >
             </p>
             <p>
@@ -643,7 +676,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-layouts')"
                 @keydown="navigateToPage('guide-layouts')"
-              >Layouts</span
+                >Layouts</span
               >
             </p>
             <p>
@@ -652,7 +685,7 @@
                 class="guide-navigation"
                 @click="navigateToPage('guide-sorting')"
                 @keydown="navigateToPage('guide-sorting')"
-              >Sorting</span
+                >Sorting</span
               >
             </p>
             <p><b>5. Configuration</b></p>
@@ -690,8 +723,8 @@
             ></div>
           </div>
           <p>
-            In the Tree and Cluster Tree layouts, the user can adjust
-            the vertical spacing between nodes.
+            In the Tree and Cluster Tree layouts, the user can adjust the
+            vertical spacing between nodes.
           </p>
         </article>
       </template>
@@ -707,8 +740,13 @@ export default {
   name: 'GraphGuide',
   data() {
     return {
-      currentPage: null,
+      currentPage: null
     };
+  },
+  computed: {
+    ...mapState(useConfigurationStore, {
+      ontologyName: (store) => store.config.ontpubFamily.toLowerCase()
+    })
   },
   mounted() {},
   methods: {
@@ -721,13 +759,8 @@ export default {
     navigateToPage(id) {
       this.closeHandler();
       this.openGuide(id);
-    },
-  },
-  computed: {
-    ...mapState(useConfigurationStore, {
-      ontologyName: store => store.config.ontpubFamily.toLowerCase(),
-    }),
-  },
+    }
+  }
 };
 </script>
 

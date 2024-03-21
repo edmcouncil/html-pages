@@ -8,7 +8,7 @@
         :class="{
           left: item.image_align === 'left',
           right: item.image_align === 'right',
-          center: item.image_align === 'center',
+          center: item.image_align === 'center'
         }"
       >
         <div v-if="getImageUrl(item) != 'undefined'" class="image-container">
@@ -30,6 +30,7 @@
 export default {
   name: 'ImageTextSection',
   props: ['sectionItem'],
+  computed: {},
   methods: {
     getImageUrl(item) {
       const runtimeConfig = useRuntimeConfig();
@@ -42,14 +43,14 @@ export default {
         return location;
       }
       return strapiUrl + location;
-    },
-  },
-  computed: {},
+    }
+  }
 };
 </script>
 
 <style scoped lang="scss">
-h1, h2 {
+h1,
+h2 {
   max-width: 800px;
 }
 .image-text-content-container {

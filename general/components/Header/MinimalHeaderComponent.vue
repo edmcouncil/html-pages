@@ -6,27 +6,35 @@
           <div class="navigation-container d-block d-lg-block">
             <nav class="navbar navbar-expand navbar-light">
               <a
+                v-if="isCustomLogo"
                 class="navbar-brand"
                 href="/"
                 target="_blank"
-                v-if="isCustomLogo"
               >
-                <img id="ontology-logo" alt="ontology logo" :src="ontologyLogoUrl" />
+                <img
+                  id="ontology-logo"
+                  alt="ontology logo"
+                  :src="ontologyLogoUrl"
+                />
               </a>
               <a
+                v-else
                 class="navbar-brand"
                 href="https://edmcouncil.org"
                 target="_blank"
-                v-else
               >
-                <img id="ontology-logo" alt="ontology logo" src="@/assets/img/logo.png" />
+                <img
+                  id="ontology-logo"
+                  alt="ontology logo"
+                  src="@/assets/img/logo.png"
+                />
               </a>
 
               <ul class="navbar-nav ml-auto align-items-center">
                 <li
-                  class="nav-item d-none d-lg-block"
                   v-for="item in dropdownTop"
                   :key="item.id"
+                  class="nav-item d-none d-lg-block"
                 >
                   <nuxt-link
                     v-if="item.item.type === 'router-link'"
@@ -47,9 +55,9 @@
 
                 <li class="nav-item dropdown">
                   <a
+                    id="navbarDropdown"
                     class="dropdown-toggle"
                     href="#"
-                    id="navbarDropdown"
                     role="button"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
@@ -70,9 +78,10 @@
                   >
                     <!-- mobile only menu items -->
 
-                    <template v-for="item in dropdownTop">
+                    <template v-for="(item, index) in dropdownTop">
                       <nuxt-link
                         v-if="item.item.type === 'router-link'"
+                        :key="`link-${index}`"
                         class="nav-link dropdown-item d-lg-none"
                         :to="{ path: item.item.link }"
                       >
@@ -85,10 +94,7 @@
                       >
                         {{ item.item.name }}
                       </a>
-                      <span
-                        v-else
-                        class="nav-link dropdown-item d-lg-none"
-                      >
+                      <span v-else class="nav-link dropdown-item d-lg-none">
                         {{ item.item.name }}
                       </span>
                     </template>
@@ -97,12 +103,12 @@
 
                     <!-- regular menu items -->
 
-                    <template v-for="item in dropdownMenu">
+                    <template v-for="(item, index) in dropdownMenu">
                       <nuxt-link
                         v-if="item.item.type === 'router-link'"
+                        :key="item.id"
                         class="nav-link dropdown-item"
                         :to="{ path: item.item.link }"
-                        :key="item.id"
                       >
                         {{ item.item.name }}
                       </nuxt-link>
@@ -116,13 +122,11 @@
 
                       <MenuItemGroup
                         v-else-if="item.item.type === 'group'"
+                        :key="`item-group-${index}`"
                         :item="item"
                       />
 
-                      <span
-                        v-else
-                        class="nav-link dropdown-item"
-                      >
+                      <span v-else class="nav-link dropdown-item">
                         {{ item.item.name }}
                       </span>
                     </template>
@@ -146,16 +150,16 @@ export default {
   name: 'MinimalHeaderComponent',
   computed: {
     ...mapState(useContentStore, {
-      dropdownMenu: store => store.headerData.menuDropdown,
-      dropdownTop: store => store.headerData.menuTop,
+      dropdownMenu: (store) => store.headerData.menuDropdown,
+      dropdownTop: (store) => store.headerData.menuTop
     }),
     ...mapState(useConfigurationStore, {
-      ontologyLogoUrl: store => store.config.ontologyLogoUrl,
+      ontologyLogoUrl: (store) => store.config.ontologyLogoUrl
     }),
     isCustomLogo() {
       return this.ontologyLogoUrl && this.ontologyLogoUrl.length > 0;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -167,7 +171,7 @@ header.website-header--minimal {
       rgba(255, 255, 255, 0) 100%
     ),
     linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
-    url("@/assets/img/header-white.jpg");
+    url('@/assets/img/header-white.jpg');
   background-size: cover;
   background-position: center;
   padding: 0;
@@ -207,8 +211,8 @@ header.website-header--minimal {
   .dropdown {
     .burger-button {
       align-items: center;
-      background-color: map-get($colors-map, "white");
-      color: map-get($colors-map, "black-80");
+      background-color: map-get($colors-map, 'white');
+      color: map-get($colors-map, 'black-80');
       border-radius: 2px;
       box-shadow: 0px 5px 20px #07539526;
       display: flex;
@@ -224,7 +228,7 @@ header.website-header--minimal {
     }
 
     .dropdown-toggle.show .burger-button {
-      background-color: map-get($colors-map, "white-60");
+      background-color: map-get($colors-map, 'white-60');
     }
   }
 
@@ -237,7 +241,7 @@ header.website-header--minimal {
     width: 320px;
     max-width: calc(100vw - 75px);
     border: none;
-    background-color: map-get($colors-map, "white");
+    background-color: map-get($colors-map, 'white');
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     border-radius: 0;
     right: 0;
@@ -246,7 +250,9 @@ header.website-header--minimal {
     margin-top: 5px;
     opacity: 0;
 
-    transition: opacity 0.35s ease, margin-top 0.35s ease;
+    transition:
+      opacity 0.35s ease,
+      margin-top 0.35s ease;
 
     &.show {
       user-select: unset;
@@ -269,7 +275,7 @@ header.website-header--minimal {
 
   // nav items - title list
   .navbar-expand .navbar-nav .nav-link {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -277,38 +283,38 @@ header.website-header--minimal {
 
     padding: 0;
 
-    color: map-get($colors-map, "black");
+    color: map-get($colors-map, 'black');
 
     &:hover {
       text-decoration: none;
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
     }
   }
 
   // nav items inside menu
   .navbar-light .navbar-nav .dropdown-menu > .nav-link {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
     line-height: 30px;
 
-    color: map-get($colors-map, "black-80");
+    color: map-get($colors-map, 'black-80');
 
     margin: 0;
     padding: 15px 40px;
 
     &:hover {
-      color: map-get($colors-map, "black-80");
-      background-color: map-get($colors-map, "black-5");
+      color: map-get($colors-map, 'black-80');
+      background-color: map-get($colors-map, 'black-5');
     }
     &:focus {
-      color: map-get($colors-map, "black-80");
+      color: map-get($colors-map, 'black-80');
       background-color: unset;
     }
     &:active {
-      color: map-get($colors-map, "black-80");
-      background-color: map-get($colors-map, "black-20");
+      color: map-get($colors-map, 'black-80');
+      background-color: map-get($colors-map, 'black-20');
     }
 
     // sub items collapse (category title)
@@ -317,8 +323,8 @@ header.website-header--minimal {
       position: relative;
 
       &::after {
-        content: "";
-        background-image: url("@/assets/icons/triangle-down.svg");
+        content: '';
+        background-image: url('@/assets/icons/triangle-down.svg');
         background-size: 24px;
         background-position: center;
         width: 24px;
@@ -338,30 +344,30 @@ header.website-header--minimal {
     }
   }
   .dropdown-divider {
-    border-top: 1px solid map-get($colors-map, "black-5");
+    border-top: 1px solid map-get($colors-map, 'black-5');
   }
 
   // nav items inside menu - sub items
   .navbar-expand .navbar-nav .nav-link.sub-nav-item {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
     line-height: 30px;
 
-    color: map-get($colors-map, "black-80");
+    color: map-get($colors-map, 'black-80');
 
     margin: 0;
     padding: 15px 40px 15px 60px;
 
     &:hover {
-      background-color: map-get($colors-map, "black-5");
+      background-color: map-get($colors-map, 'black-5');
     }
     &:focus {
       background-color: unset;
     }
     &:active {
-      background-color: map-get($colors-map, "black-20");
+      background-color: map-get($colors-map, 'black-20');
     }
   }
 }

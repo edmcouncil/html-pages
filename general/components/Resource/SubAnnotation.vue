@@ -11,8 +11,8 @@
 
 <script>
 export default {
-    name: 'SubAnnotation',
-    props: ['title', 'subannotation'],
+  name: 'SubAnnotation',
+  props: ['title', 'subannotation']
 };
 </script>
 

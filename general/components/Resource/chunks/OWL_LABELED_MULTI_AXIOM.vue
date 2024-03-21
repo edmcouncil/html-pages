@@ -1,43 +1,78 @@
 <template>
   <div v-if="value.length < 6">
-    <customLink :isDeprecated="`${entityLabel.deprecated}`" :name="entityLabel.label" :query="entityLabel.iri" />
+    <customLink
+      :is-deprecated="`${entityLabel.deprecated}`"
+      :name="entityLabel.label"
+      :query="entityLabel.iri"
+    />
     <ul v-if="value.length > 0">
-      <li v-for="(item, index) in value" :key="`${identifier}_${item.fullRenderedString.replace(
-        ' ',
-        '-'
-      )}_${index}`" :class="{ 'list-item-inferable': item.inferable }">
-        <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(
+      <li
+        v-for="(item, index) in value"
+        :key="`${identifier}_${item.fullRenderedString.replace(
           ' ',
           '-'
-        )}`" />
+        )}_${index}`"
+        :class="{ 'list-item-inferable': item.inferable }"
+      >
+        <AXIOM
+          :value="item.value"
+          :entity-maping="item.entityMaping"
+          :inferable="item.inferable"
+          :identifier="`${identifier}-${item.fullRenderedString.replace(
+            ' ',
+            '-'
+          )}`"
+        />
       </li>
     </ul>
   </div>
   <div v-else>
-    <customLink :isDeprecated="`${entityLabel.deprecated}`" :name="entityLabel.label" :query="entityLabel.iri" />
+    <customLink
+      :is-deprecated="`${entityLabel.deprecated}`"
+      :name="entityLabel.label"
+      :query="entityLabel.iri"
+    />
     <ul v-if="value.length > 0">
-      <li v-for="(item, index) in value.slice(0, 5)" :key="`${identifier}_${item.fullRenderedString.replace(
-        ' ',
-        '-'
-      )}_${index}`" :class="{ 'list-item-inferable': item.inferable }">
-        <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(
+      <li
+        v-for="(item, index) in value.slice(0, 5)"
+        :key="`${identifier}_${item.fullRenderedString.replace(
           ' ',
           '-'
-        )}`" />
+        )}_${index}`"
+        :class="{ 'list-item-inferable': item.inferable }"
+      >
+        <AXIOM
+          :value="item.value"
+          :entity-maping="item.entityMaping"
+          :inferable="item.inferable"
+          :identifier="`${identifier}-${item.fullRenderedString.replace(
+            ' ',
+            '-'
+          )}`"
+        />
       </li>
     </ul>
 
     <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
         <ul v-if="value.length > 0" ref="scrollTarget">
-          <li v-for="(item, index) in value.slice(5)" :key="`${identifier}_${item.fullRenderedString.replace(
-            ' ',
-            '-'
-          )}_${index}`" :class="{ 'list-item-inferable': item.inferable }">
-            <AXIOM :value="item.value" :entityMaping="item.entityMaping" :inferable="item.inferable" :identifier="`${identifier}-${item.fullRenderedString.replace(
+          <li
+            v-for="(item, index) in value.slice(5)"
+            :key="`${identifier}_${item.fullRenderedString.replace(
               ' ',
               '-'
-            )}`" />
+            )}_${index}`"
+            :class="{ 'list-item-inferable': item.inferable }"
+          >
+            <AXIOM
+              :value="item.value"
+              :entity-maping="item.entityMaping"
+              :inferable="item.inferable"
+              :identifier="`${identifier}-${item.fullRenderedString.replace(
+                ' ',
+                '-'
+              )}`"
+            />
           </li>
         </ul>
       </transition>
@@ -54,12 +89,12 @@
 
 <script>
 export default {
-  name: 'OWL_LABELED_MULTI_AXIOM',
+  name: 'OWLLABELEDMULTIAXIOM',
   props: ['value', 'entityMaping', 'entityLabel', 'identifier'],
   data() {
     return {
       isShowMore: false,
-      isMoreVisible: false,
+      isMoreVisible: false
     };
   },
   mounted() {
@@ -76,7 +111,7 @@ export default {
         this.isMoreVisible = !this.isMoreVisible;
       } else if (topOffset < 0) {
         element.scrollIntoView({
-          behavior: 'smooth',
+          behavior: 'smooth'
         });
         setTimeout(() => {
           this.isMoreVisible = !this.isMoreVisible;
@@ -84,8 +119,8 @@ export default {
       } else {
         this.isMoreVisible = !this.isMoreVisible;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

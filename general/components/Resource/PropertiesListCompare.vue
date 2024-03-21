@@ -8,11 +8,15 @@
           ref="sliceList"
           class="compare-item row"
         >
-          <ChunkResolver :value="field.left" :class="{ 'has-list': field.left.hasList }" class="top-level top-level--list compare-left col-6" />
+          <ChunkResolver
+            :value="field.left"
+            :class="{ 'has-list': field.left.hasList }"
+            class="top-level top-level--list compare-left col-6"
+          />
           <ComparedText
-            :currentItem="field.left"
-            :comparedItem="field.right"
-            :changeType="field.changeType"
+            :current-item="field.left"
+            :compared-item="field.right"
+            :change-type="field.changeType"
             :identifier="sectionId + '1'"
             :class="{ 'has-list': field.right.hasList || field.left.hasList }"
             class="top-level top-level--list compare-right col-6"
@@ -20,40 +24,39 @@
         </li>
       </ul>
       <bs-collapse :id="sectionId" :open="expanded">
-        <transition name="list">
-          <ul
-            class="animated-list"
-            :id="sectionId"
-            :class="{ 'is-show-more': list.length > limit }"
+        <ul
+          :id="sectionId"
+          class="animated-list"
+          :class="{ 'is-show-more': list.length > limit }"
+        >
+          <li
+            v-for="field in list.slice(limit)"
+            :key="field.id"
+            ref="collapsedList"
+            :class="{ 'has-list': field.hasList }"
+            class="compare-item row"
           >
-            <li
-              v-for="(field, index) in list.slice(limit)"
-              :key="field.id"
-              :class="{ 'has-list': field.hasList }"
-              class="compare-item row"
-              ref="collapsedList"
-            >
-              <ChunkResolver :value="field.left" :class="{ 'has-list': field.left.hasList }" class="top-level top-level--list compare-left col-6" />
-              <ComparedText
-                :currentItem="field.left"
-                :comparedItem="field.right"
-                :changeType="field.changeType"
-                :identifier="sectionId + '1'"
-                :class="{
-                  'has-list': field.right.hasList || field.left.hasList,
-                }"
-                class="top-level top-level--list compare-right col-6"
-              />
-            </li>
-          </ul>
-        </transition>
+            <ChunkResolver
+              :value="field.left"
+              :class="{ 'has-list': field.left.hasList }"
+              class="top-level top-level--list compare-left col-6"
+            />
+            <ComparedText
+              :current-item="field.left"
+              :compared-item="field.right"
+              :change-type="field.changeType"
+              :identifier="sectionId + '1'"
+              :class="{
+                'has-list': field.right.hasList || field.left.hasList
+              }"
+              class="top-level top-level--list compare-right col-6"
+            />
+          </li>
+        </ul>
       </bs-collapse>
     </div>
-    <div class="show-more-list-compare__short" v-else>
-      <div
-        v-for="field in list"
-        :key="field.id"
-      >
+    <div v-else class="show-more-list-compare__short">
+      <div v-for="field in list" :key="field.id">
         <ul>
           <li class="compare-item row">
             <ChunkResolver
@@ -62,9 +65,9 @@
               class="top-level top-level--single compare-left col-6"
             />
             <ComparedText
-              :currentItem="field.left"
-              :comparedItem="field.right"
-              :changeType="field.changeType"
+              :current-item="field.left"
+              :compared-item="field.right"
+              :change-type="field.changeType"
               :identifier="sectionId + '1'"
               :class="{ 'has-list': field.right.hasList || field.left.hasList }"
               class="top-level top-level--single compare-right col-6"
@@ -81,16 +84,16 @@
     >
       <div
         v-if="!expanded"
-        class="see-more-btn"
         :key="'see-more-btn'"
+        class="see-more-btn"
         @click="toggleExpanded()"
       >
         <div>Show {{ howManyMore }} more</div>
       </div>
       <div
         v-else
-        class="see-less-btn"
         :key="'see-less-btn'"
+        class="see-less-btn"
         @click="toggleExpanded()"
       >
         <div>Show less</div>
@@ -105,12 +108,17 @@ export default {
   props: [
     'list',
     'limit', // specifies how many items can be displayed without collapsing
-    'sectionId',
+    'sectionId'
   ],
   data() {
     return {
-      expanded: false,
+      expanded: false
     };
+  },
+  computed: {
+    howManyMore() {
+      return this.list.length - this.limit;
+    }
   },
   created() {
     this.list.forEach((element) => {
@@ -127,7 +135,7 @@ export default {
         this.expanded = !this.expanded;
       } else if (topOffset < 0) {
         element.scrollIntoView({
-          behavior: 'smooth',
+          behavior: 'smooth'
         });
         setTimeout(() => {
           this.expanded = !this.expanded;
@@ -139,24 +147,22 @@ export default {
     checkHasList(item) {
       if (item.type === 'AXIOM') {
         if (
-          (Array.isArray(item.value) && item.value && item.value.length > 1)
-          || item.fullRenderedString?.includes('<br />')
-        ) item.hasList = true;
+          (Array.isArray(item.value) && item.value && item.value.length > 1) ||
+          item.fullRenderedString?.includes('<br />')
+        )
+          item.hasList = true;
       } else if (item.type === 'OWL_LABELED_MULTI_AXIOM') {
-        if (Array.isArray(item.value) && item.value && item.value.length > 0) item.hasList = true;
+        if (Array.isArray(item.value) && item.value && item.value.length > 0)
+          item.hasList = true;
       } else if (item.type === 'STRING') {
         if (
-          (Array.isArray(item.value) && item.value && item.value.length > 1)
-          || item.value?.includes('\n')
-        ) item.hasList = true;
+          (Array.isArray(item.value) && item.value && item.value.length > 1) ||
+          item.value?.includes('\n')
+        )
+          item.hasList = true;
       }
-    },
-  },
-  computed: {
-    howManyMore() {
-      return this.list.length - this.limit;
-    },
-  },
+    }
+  }
 };
 </script>
 

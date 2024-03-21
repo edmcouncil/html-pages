@@ -2,9 +2,9 @@
   <div>
     <h1 v-if="sectionItem.title">{{ sectionItem.title }}</h1>
     <div
-      class="table-container"
       v-for="item in sectionItem.items"
       :key="item.id"
+      class="table-container"
     >
       <div class="table-box">
         <div class="table-box__column title">
@@ -21,9 +21,9 @@
         ></div>
         <div class="table-box__column mobile-visit-btn">
           <button
+            v-if="item.title_link"
             type="button"
             class="btn normal-button"
-            v-if="item.title_link"
             @click="visit(item.title_link)"
           >
             Learn more
@@ -47,15 +47,15 @@ export default {
       document.body.appendChild(aElement);
       aElement.click();
       aElement.remove();
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped lang="scss">
 .table-box {
   // min-height: 150px;
-  align-items: flex-start!important;
+  align-items: flex-start !important;
 }
 
 .table-container .table-box .table-box__column {
@@ -78,9 +78,9 @@ export default {
       }
 
       &::after {
-        content: "";
+        content: '';
         display: inline-block;
-        background-image: url("../../assets/icons/arrow-right.svg");
+        background-image: url('../../assets/icons/arrow-right.svg');
         background-size: 16px 16px;
         width: 16px;
         height: 16px;

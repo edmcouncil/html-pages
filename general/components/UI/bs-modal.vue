@@ -1,24 +1,26 @@
 <template>
   <Teleport to="body">
     <div
-      class="modal"
-      :class="
-        [
-          modalClass, {
-            fade: !noFade,
-            fullscreen,
-            'second-level': secondLevel
-          }
-        ]
-      "
       :id="correctId"
+      ref="modalElement"
+      class="modal"
+      :class="[
+        modalClass,
+        {
+          'fade': !noFade,
+          fullscreen,
+          'second-level': secondLevel
+        }
+      ]"
       :aria-labelledby="correctId + 'Label'"
       aria-hidden="true"
       data-bs-backdrop="static"
       tabindex="-1"
-      ref="modalElement"
     >
-      <div class="modal-dialog modal-dialog-centered" :class="{ 'modal-dialog-scrollable': scrollable }">
+      <div
+        class="modal-dialog modal-dialog-centered"
+        :class="{ 'modal-dialog-scrollable': scrollable }"
+      >
         <div class="modal-content">
           <div class="modal-header">
             <slot name="modal-header" :class="headerClass"></slot>
@@ -37,7 +39,7 @@
 
 <script>
 export default {
-  name: 'bs-modal',
+  name: 'BsModal',
   props: {
     open: Boolean,
     id: String,
@@ -47,22 +49,78 @@ export default {
     noFade: Boolean,
     scrollable: Boolean,
     fullscreen: Boolean,
-    secondLevel: Boolean,
+    secondLevel: Boolean
   },
   emits: ['shown', 'hidden'],
   data() {
     return {
       instance: null,
-      shownListener: null,
+      shownListener: null
     };
+  },
+  computed: {
+    correctId() {
+      if (this.id) return this.id.replaceAll(' ', '-') + '-modal';
+      else return 'modal-' + Math.random().toString(16).slice(2);
+    }
+  },
+  watch: {
+    async open(newValue) {
+      if (newValue) {
+        await nextTick();
+        this.instance.show();
+
+        // Associate modal with it's modal-backdrop
+        const allBackdrops = document.querySelectorAll('.modal-backdrop');
+        allBackdrops.forEach((element) => {
+          if (!element.id) {
+            element.id = `backdrop-${this.correctId}`;
+            if (this.secondLevel) element.classList.add('second-level');
+          }
+        });
+      } else {
+        this.instance.hide();
+      }
+    }
+  },
+  mounted() {
+    const { $bootstrap } = useNuxtApp();
+    const element = this.$refs.modalElement;
+    this.instance = new $bootstrap.Modal(element);
+    this.shownListener = element.addEventListener(
+      'shown.bs.modal',
+      this.onShown
+    );
+    this.hiddenListener = element.addEventListener(
+      'hidden.bs.modal',
+      this.onHidden
+    );
+
+    if (this.open) this.instance.show();
+    else this.instance.hide();
+  },
+  beforeUnmount() {
+    this.instance.dispose();
+    const bodyElement = window?.document?.body;
+    if (bodyElement) {
+      document.getElementById(`backdrop-${this.correctId}`)?.remove();
+      const allBackdrops = bodyElement.querySelectorAll('.modal-backdrop');
+
+      if (allBackdrops.length === 0) {
+        bodyElement.classList.remove('modal-open');
+      }
+    }
+
+    const element = this.$refs.modalElement;
+    element.removeEventListener('shown.bs.modal', this.onShown);
+    element.removeEventListener('hidden.bs.modal', this.onHidden);
   },
   methods: {
     onShown() {
       this.$emit('shown');
       if (this.open) {
         this.instance.show();
-      }
-      else {
+      } else {
         this.instance.hide();
       }
     },
@@ -70,8 +128,7 @@ export default {
       this.$emit('hidden');
       if (this.open) {
         this.instance.show();
-      }
-      else {
+      } else {
         this.instance.hide();
       }
 
@@ -93,63 +150,6 @@ export default {
       if (allBackdrops.length === 0) {
         bodyElement.classList.remove('modal-open');
       }
-    }
-  },
-  mounted() {
-    const { $bootstrap } = useNuxtApp();
-    const element = this.$refs.modalElement;
-    this.instance = new $bootstrap.Modal(element);
-    this.shownListener = element.addEventListener('shown.bs.modal', this.onShown);
-    this.hiddenListener = element.addEventListener('hidden.bs.modal', this.onHidden);
-
-    if (this.open)
-      this.instance.show();
-    else
-      this.instance.hide();
-  },
-  beforeUnmount() {
-    this.instance.dispose();
-    const bodyElement = window?.document?.body;
-    if (bodyElement) {
-      document.getElementById(`backdrop-${this.correctId}`)?.remove();
-      const allBackdrops = bodyElement.querySelectorAll('.modal-backdrop');
-
-      if (allBackdrops.length === 0) {
-        bodyElement.classList.remove('modal-open');
-      }
-    }
-
-    const element = this.$refs.modalElement;
-    element.removeEventListener('shown.bs.modal', this.onShown);
-    element.removeEventListener('hidden.bs.modal', this.onHidden);
-  },
-  watch: {
-    async open(newValue) {
-      if (newValue) {
-        await nextTick();
-        this.instance.show();
-
-        // Associate modal with it's modal-backdrop
-        const allBackdrops = document.querySelectorAll('.modal-backdrop');
-        allBackdrops.forEach(element => {
-          if (!element.id) {
-            element.id = `backdrop-${this.correctId}`;
-            if (this.secondLevel)
-              element.classList.add('second-level');
-          }
-        });
-      }
-      else {
-        this.instance.hide();
-      }
-    }
-  },
-  computed: {
-    correctId() {
-      if (this.id)
-        return this.id.replaceAll(' ', '-') + '-modal';
-      else
-        return 'modal-' + Math.random().toString(16).slice(2);
     }
   }
 };

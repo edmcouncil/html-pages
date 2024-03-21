@@ -12,7 +12,6 @@ import type {
   LeftRightChange,
   EmptyData,
   TempDataProperties,
-  TitleNameChange,
   MergedData
 } from './compare.types.js';
 
@@ -24,7 +23,7 @@ const EXACT_MATCH_TYPES: string[] = [
   'INSTANCES',
   'MODULES',
   'IRI',
-  'OWL_LABELED_MULTI_AXIOM',
+  'OWL_LABELED_MULTI_AXIOM'
 ];
 
 const SIMILARITY_THRESHOLD: number = 0.6;
@@ -34,16 +33,21 @@ function getLinesChunk(item: DataChunk): LinesChunk {
     case 'AXIOM':
       return {
         type: item.type,
-        lines: item.fullRenderedString!
-          .split('<br />')
+        lines: item
+          .fullRenderedString!.split('<br />')
           .map((line: string) => line.trim())
-          .map((line: string) => (line.startsWith('- ') ? line.substring(2) : line))
+          .map((line: string) =>
+            line.startsWith('- ') ? line.substring(2) : line
+          )
       };
 
     case 'OWL_LABELED_MULTI_AXIOM':
       return {
         type: item.type,
-        lines: [item.entityLabel!.label, ...item.value!.map((v: DataChunk) => v.fullRenderedString)]
+        lines: [
+          item.entityLabel!.label,
+          ...item.value!.map((v: DataChunk) => v.fullRenderedString)
+        ]
       };
 
     case 'STRING':
@@ -75,15 +79,22 @@ function isChangeItem(item: any): boolean {
 
 function getChangeType(symbol: DiffSymbol): string {
   switch (symbol) {
-    case '+': return 'added';
-    case '-': return 'removed';
-    case '~': return 'changed';
-    default: return 'unchanged';
+    case '+':
+      return 'added';
+    case '-':
+      return 'removed';
+    case '~':
+      return 'changed';
+    default:
+      return 'unchanged';
   }
 }
 
 function isStringSimilar(string1: string, string2: string): boolean {
-  return stringComparison.diceCoefficient.similarity(string1, string2) > SIMILARITY_THRESHOLD;
+  return (
+    stringComparison.diceCoefficient.similarity(string1, string2) >
+    SIMILARITY_THRESHOLD
+  );
 }
 
 function createHeader(data: Data): Header {
@@ -91,14 +102,17 @@ function createHeader(data: Data): Header {
   return { label, iri, qName, maturityLevel, versionIri };
 }
 
-function initializePropertiesStructure(data1: Data, data2: Data): TempDataProperties {
+function initializePropertiesStructure(
+  data1: Data,
+  data2: Data
+): TempDataProperties {
   let newProperties: TempDataProperties = {};
 
   if (data1.properties) {
     for (const section in data1.properties) {
       newProperties = {
         ...newProperties,
-        [section]: {},
+        [section]: {}
       };
     }
   }
@@ -107,7 +121,7 @@ function initializePropertiesStructure(data1: Data, data2: Data): TempDataProper
     for (const section in data2.properties) {
       newProperties = {
         ...newProperties,
-        [section]: {},
+        [section]: {}
       };
     }
   }
@@ -117,7 +131,7 @@ function initializePropertiesStructure(data1: Data, data2: Data): TempDataProper
       for (const title in data1.properties[section]) {
         newProperties[section] = {
           ...newProperties[section],
-          [title]: [],
+          [title]: []
         };
       }
     }
@@ -126,7 +140,7 @@ function initializePropertiesStructure(data1: Data, data2: Data): TempDataProper
       for (const title in data2.properties[section]) {
         newProperties[section] = {
           ...newProperties[section],
-          [title]: [],
+          [title]: []
         };
       }
     }
@@ -135,7 +149,12 @@ function initializePropertiesStructure(data1: Data, data2: Data): TempDataProper
   return newProperties;
 }
 
-function populateTitleLines(data: Data, section: string, title: string, includeOriginalData = false): LinesChunk[] {
+function populateTitleLines(
+  data: Data,
+  section: string,
+  title: string,
+  includeOriginalData = false
+): LinesChunk[] {
   const titleAsLines: LinesChunk[] = [];
 
   // check if title exists in Data object
@@ -153,7 +172,10 @@ function populateTitleLines(data: Data, section: string, title: string, includeO
   return titleAsLines;
 }
 
-function computeDiffs(titleAsLines1: LinesChunk[], titleAsLines2: LinesChunk[]): ChangeChunk[] {
+function computeDiffs(
+  titleAsLines1: LinesChunk[],
+  titleAsLines2: LinesChunk[]
+): ChangeChunk[] {
   const matches: [LinesChunk, LinesChunk][] = [];
   const addedBuffer: LinesChunk[] = [];
   const removedBuffer: LinesChunk[] = [];
@@ -188,10 +210,14 @@ function computeDiffs(titleAsLines1: LinesChunk[], titleAsLines2: LinesChunk[]):
     }
   }
 
-  let titleDiff: ChangeChunk[] = [];
+  const titleDiff: ChangeChunk[] = [];
 
   // if the title has matches or buffered adds/removes then add them, otherwise do regular diff
-  if (matches.length > 0 || removedBuffer.length > 0 || addedBuffer.length > 0) {
+  if (
+    matches.length > 0 ||
+    removedBuffer.length > 0 ||
+    addedBuffer.length > 0
+  ) {
     for (const match of matches) {
       const linesDiff = diff(match[0].lines, match[1].lines, { full: true });
       titleDiff.push([
@@ -200,52 +226,64 @@ function computeDiffs(titleAsLines1: LinesChunk[], titleAsLines2: LinesChunk[]):
           type: match[1].type,
           lines: linesDiff,
           originalData: match[0].originalData
-        },
+        }
       ] as ChangeChunk);
     }
 
-    titleDiff.push(...removedBuffer.map(removed => ([
-      '-',
-      {
-        type: removed.type,
-        lines: removed.lines,
-        originalData: removed.originalData,
-      }
-    ]) as ChangeChunk));
+    titleDiff.push(
+      ...removedBuffer.map(
+        (removed) =>
+          [
+            '-',
+            {
+              type: removed.type,
+              lines: removed.lines,
+              originalData: removed.originalData
+            }
+          ] as ChangeChunk
+      )
+    );
 
-    titleDiff.push(...addedBuffer.map(added => ([
-      '+',
-      {
-        lines: added.lines,
-        type: added.type,
-      }
-    ]) as ChangeChunk));
+    titleDiff.push(
+      ...addedBuffer.map(
+        (added) =>
+          [
+            '+',
+            {
+              lines: added.lines,
+              type: added.type
+            }
+          ] as ChangeChunk
+      )
+    );
 
     // alphabetical order in titleDiff
     titleDiff.sort((x, y) => {
       const getComparedValue = (item: [string, any]): string => {
-        let value = item[0] === '~' ? (item[1].lines as LineDiff[])[0][1] : (item[1].lines as string[])[0];
-        return (typeof value !== 'string' ? value['__new'] : value).toLowerCase();
+        const value =
+          item[0] === '~'
+            ? (item[1].lines as LineDiff[])[0][1]
+            : (item[1].lines as string[])[0];
+        return (
+          typeof value !== 'string' ? value['__new'] : value
+        ).toLowerCase();
       };
-      let comparedValue1 = getComparedValue(x);
-      let comparedValue2 = getComparedValue(y);
+      const comparedValue1 = getComparedValue(x);
+      const comparedValue2 = getComparedValue(y);
 
       return comparedValue1.localeCompare(comparedValue2);
     });
   } else {
     const tempDiff = diff(titleAsLines1, titleAsLines2, {
       full: true,
-      excludeKeys: 'originalData',
+      excludeKeys: 'originalData'
     });
 
     for (const item of tempDiff) {
       if (isChangeItem(item)) {
         titleDiff.push(item as ChangeChunk);
       } else {
-        titleDiff.push([
-          ' ',
-          item,
-        ] as ChangeChunk);
+        titleDiff.push([' ', item] as ChangeChunk);
       }
     }
   }
@@ -266,7 +304,11 @@ function handleInnerListDiff(lines: LineDiff[]): void {
       const comparedLine = lines[j] as LineDiff;
 
       // skip already handled lines and the same symbol
-      if ((comparedLine[0] != '+' && comparedLine[0] != '-') || comparedLine[0] == current[0]) continue;
+      if (
+        (comparedLine[0] != '+' && comparedLine[0] != '-') ||
+        comparedLine[0] == current[0]
+      )
+        continue;
 
       if (isStringSimilar(current[1] as string, comparedLine[1] as string)) {
         match = comparedLine;
@@ -280,20 +322,22 @@ function handleInnerListDiff(lines: LineDiff[]): void {
         '~',
         {
           __old: current[0] === '-' ? current[1] : match[1],
-          __new: current[0] === '+' ? current[1] : match[1],
+          __new: current[0] === '+' ? current[1] : match[1]
         }
-      ]
+      ];
       lines[i] = updatedCurrent;
       const index = (lines as LineDiff[]).indexOf(match);
       if (index !== -1) {
         lines.splice(index, 1);
       }
     }
-  };
+  }
 }
 
-function convertToLeftRightChange(propertyDiffs: ChangeChunk[]): LeftRightChange[] {
-  return propertyDiffs.map(changeChunk => {
+function convertToLeftRightChange(
+  propertyDiffs: ChangeChunk[]
+): LeftRightChange[] {
+  return propertyDiffs.map((changeChunk) => {
     const changeType = getChangeType(changeChunk[0]);
 
     if (changeType === 'changed') {
@@ -301,19 +345,28 @@ function convertToLeftRightChange(propertyDiffs: ChangeChunk[]): LeftRightChange
 
       return {
         changeType: 'changed',
-        left: changeChunk[1].originalData ? changeChunk[1].originalData : EMPTY_DATA,
-        right: changeChunk[1],
-      }
+        left: changeChunk[1].originalData
+          ? changeChunk[1].originalData
+          : EMPTY_DATA,
+        right: changeChunk[1]
+      };
     } else {
-      const leftData = changeType === 'added' ? EMPTY_DATA : changeChunk[1].originalData!;
+      const leftData =
+        changeType === 'added' ? EMPTY_DATA : changeChunk[1].originalData!;
       const rightData = changeType === 'removed' ? EMPTY_DATA : changeChunk[1];
 
-      return { changeType, left: leftData, right: rightData } as LeftRightChange;
+      return {
+        changeType,
+        left: leftData,
+        right: rightData
+      } as LeftRightChange;
     }
   });
 }
 
-function getAddedAndRemovedTitles(mergedData: MergedData): [string[], string[]] {
+function getAddedAndRemovedTitles(
+  mergedData: MergedData
+): [string[], string[]] {
   const addedTitles: string[] = [];
   const removedTitles: string[] = [];
 
@@ -321,7 +374,7 @@ function getAddedAndRemovedTitles(mergedData: MergedData): [string[], string[]] 
   for (const section in mergedData.properties) {
     for (const title in mergedData.properties[section]) {
       const titleItem = mergedData.properties[section][title];
-      let titleChangeType = titleItem[0].changeType;
+      const titleChangeType = titleItem[0].changeType;
       if (titleChangeType !== 'added' && titleChangeType !== 'removed')
         continue;
 
@@ -355,7 +408,8 @@ function getFullTitleString(title: LeftRightChange[]): string {
     let lines: string[] = [];
 
     if (item.changeType === 'added') lines = item.right.lines as string[];
-    else if (item.changeType === 'removed') lines = getLinesChunk(item.left).lines as string[];
+    else if (item.changeType === 'removed')
+      lines = getLinesChunk(item.left).lines as string[];
 
     result = result.concat(...lines);
   }
@@ -427,13 +481,13 @@ function extractSortingString(item: LeftRightChange): string {
       return lines.join(' ');
     } else {
       // LineDiff[]
-      return lines.map(i => {
-        const content = i as LineDiff;
-        if (typeof content[1] === 'string')
-          return content[1];
-        else
-          return content[1]['__new'];
-      }).join(' ');
+      return lines
+        .map((i) => {
+          const content = i as LineDiff;
+          if (typeof content[1] === 'string') return content[1];
+          else return content[1]['__new'];
+        })
+        .join(' ');
     }
   }
 }
@@ -468,7 +522,11 @@ function handleTitleNameChanges(mergedData: MergedData): void {
       let matchFound = false;
 
       // go through elements of removedTitle
-      for (let removedIndex = 0; removedIndex < removedTitle.length; removedIndex++) {
+      for (
+        let removedIndex = 0;
+        removedIndex < removedTitle.length;
+        removedIndex++
+      ) {
         const removedItem = removedTitle[removedIndex];
         const addedItemLines = addedItem.right.lines;
         const removedItemLines = getLinesChunk(removedItem.left).lines;
@@ -495,10 +553,17 @@ function handleTitleNameChanges(mergedData: MergedData): void {
           } else {
             //items are similar but not identical
             // handle inner list differences and add 'changed' LeftRightChange
-            const addedLinesAsLineDiffs = addedItemLines.map(l => ['+', l] as LineDiff);
-            const removedLinesAsLineDiffs = removedItemLines.map(l => ['-', l] as LineDiff);
+            const addedLinesAsLineDiffs = addedItemLines.map(
+              (l) => ['+', l] as LineDiff
+            );
+            const removedLinesAsLineDiffs = removedItemLines.map(
+              (l) => ['-', l] as LineDiff
+            );
 
-            const totalLines = [...addedLinesAsLineDiffs, ...removedLinesAsLineDiffs];
+            const totalLines = [
+              ...addedLinesAsLineDiffs,
+              ...removedLinesAsLineDiffs
+            ];
 
             handleInnerListDiff(totalLines);
 
@@ -533,12 +598,15 @@ export function mergeData(data1: Data, data2: Data): MergedData {
     headerLeft: createHeader(data1),
     headerRight: createHeader(data2),
     titleNameChanges: [],
-    properties: {},
+    properties: {}
   };
 
   // create properties structure that holds
   // sections and titles from both data1 and data2
-  let tempProperties: TempDataProperties = initializePropertiesStructure(data1, data2);
+  const tempProperties: TempDataProperties = initializePropertiesStructure(
+    data1,
+    data2
+  );
 
   // compare all titles in tempProperties
   for (const section in tempProperties) {
@@ -548,7 +616,7 @@ export function mergeData(data1: Data, data2: Data): MergedData {
       const titleAsLines2 = populateTitleLines(data2, section, title, false);
 
       // get ChangeChunks by comparing the two LinesChunk arrays
-      let titleDiff = computeDiffs(titleAsLines1, titleAsLines2);
+      const titleDiff = computeDiffs(titleAsLines1, titleAsLines2);
 
       tempProperties[section][title] = titleDiff;
     }
@@ -560,10 +628,10 @@ export function mergeData(data1: Data, data2: Data): MergedData {
       const chunkData = tempProperties[section][title];
 
       // we need to create sections in mergedData before adding titles to them
-      if (!mergedData.properties[section])
-        mergedData.properties[section] = {};
+      if (!mergedData.properties[section]) mergedData.properties[section] = {};
 
-      mergedData.properties[section][title] = convertToLeftRightChange(chunkData);
+      mergedData.properties[section][title] =
+        convertToLeftRightChange(chunkData);
     }
   }
 

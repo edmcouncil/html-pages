@@ -15,30 +15,30 @@
           >
             <ImageTextSection
               v-if="sectionItem['__component'] == 'sections.image-text-section'"
-              :sectionItem="sectionItem"
+              :section-item="sectionItem"
             />
             <TextSection
               v-else-if="sectionItem['__component'] == 'sections.text-section'"
-              :sectionItem="sectionItem"
+              :section-item="sectionItem"
             />
             <DownloadSection
               v-else-if="
                 sectionItem['__component'] == 'sections.download-section'
               "
-              :sectionItem="sectionItem"
+              :section-item="sectionItem"
             />
             <TableListSection
               v-else-if="
                 sectionItem['__component'] == 'sections.table-list-section'
               "
-              :sectionItem="sectionItem"
+              :section-item="sectionItem"
             />
             <SerializationListSection
               v-else-if="
                 sectionItem['__component'] ==
-                  'sections.serialization-list-section'
+                'sections.serialization-list-section'
               "
-              :sectionItem="sectionItem"
+              :section-item="sectionItem"
             />
           </section>
         </article>
@@ -48,41 +48,42 @@
 </template>
 
 <script setup>
-  import { useConfigurationStore } from '~/stores/configuration';
-  import { prepareDescription } from '../helpers/meta';
-  import { getStrapiElementFromCollection } from '../api/strapi';
+import { useConfigurationStore } from '~/stores/configuration';
+import { prepareDescription } from '../helpers/meta';
+import { getStrapiElementFromCollection } from '../api/strapi';
 
-  const route = useRoute();
-  const articleTopElement = ref(null);
+const route = useRoute();
+const articleTopElement = ref(null);
 
-  const configurationStore = useConfigurationStore();
+const configurationStore = useConfigurationStore();
 
-  const slugName = route.params.slug.toLowerCase();
+const slugName = route.params.slug.toLowerCase();
 
-  definePageMeta({
-    key: route => {
-      return `page-${route.params.slug}`
-    },
-    layout: 'minimal',
-  });
+const runtimeConfig = useRuntimeConfig();
 
-  const { data } = await useAsyncData(`get${slugName}`, () => {
-      const populateParams = [
-        'sections',
-        'sections.items',
-        'sections.items.image',
-      ];
-      return getStrapiElementFromCollection(
-          'pages',
-          populateParams,
-          slugName,
-        );
-    });
-  const page = data?.value?.data?.[0]?.attributes?.sections;
-  const title = data?.value?.data?.[0]?.attributes?.title || configurationStore.config.ontpubFamily;
-  const description = prepareDescription(
-      data?.value?.data?.[0]?.attributes?.sections?.[0]?.text_content ?? '',
-    );
+definePageMeta({
+  key: (route) => {
+    return `page-${route.params.slug}`;
+  },
+  layout: 'minimal'
+});
+
+const { data } = await useAsyncData(`get${slugName}`, () => {
+  const populateParams = ['sections', 'sections.items', 'sections.items.image'];
+  return getStrapiElementFromCollection(
+    'pages',
+    populateParams,
+    slugName,
+    runtimeConfig
+  );
+});
+const page = data?.value?.data?.[0]?.attributes?.sections;
+const title =
+  data?.value?.data?.[0]?.attributes?.title ||
+  configurationStore.config.ontpubFamily;
+const description = prepareDescription(
+  data?.value?.data?.[0]?.attributes?.sections?.[0]?.text_content ?? ''
+);
 </script>
 
 <style lang="scss" scoped>

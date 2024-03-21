@@ -1,11 +1,11 @@
 <template>
   <div
+    ref="tooltipElement"
     :data-bs-title="text"
-    :data-bs-placement="placement? placement : 'bottom'"
+    :data-bs-placement="placement ? placement : 'bottom'"
     :data-bs-offset="offset ? offset : '0,0'"
     class="bs-tooltip"
     data-bs-toggle="tooltip"
-    ref="tooltipElement"
   >
     <slot></slot>
   </div>
@@ -13,11 +13,11 @@
 
 <script>
 export default {
-  name: 'bs-tooltip',
+  name: 'BsTooltip',
   props: ['text', 'placement', 'offset'],
   data() {
     return {
-      instance: null,
+      instance: null
     };
   },
   mounted() {

@@ -1,5 +1,5 @@
 <template>
-  <component v-bind:is="processedHtml"></component>
+  <component :is="processedHtml"></component>
 </template>
 <script>
 import customLink from './customLink';
@@ -7,14 +7,14 @@ import customLink from './customLink';
 export default {
   name: 'IRI',
   components: {
-    customLink,
+    customLink
   },
   props: ['value', 'entityMaping'],
   computed: {
     processedHtml() {
       const html = `<customLink name="${this.label}" query="${this.iri}" isDeprecated="${this.value.deprecated}"></customLink>`;
       return {
-        template: `<div>${html}</div>`,
+        template: `<div>${html}</div>`
       };
     },
     label() {
@@ -23,7 +23,7 @@ export default {
     },
     iri() {
       return this.value.iri ? this.value.iri : this.value;
-    },
-  },
+    }
+  }
 };
 </script>

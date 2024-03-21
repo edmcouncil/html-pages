@@ -1,45 +1,46 @@
 const path = require('path');
 
-const VUE_APP_PRODUCT = process.env.PRODUCT
-  || process.env.ontology_publisher_current_product
-  || 'pages';
+const VUE_APP_PRODUCT =
+  process.env.PRODUCT ||
+  process.env.ontology_publisher_current_product ||
+  'pages';
 
 const VUE_APP_BRANCH = (
-  process.env.BRANCH
-  || (process.env.BRANCH_NAME === process.env.TAG_NAME
+  process.env.BRANCH ||
+  (process.env.BRANCH_NAME === process.env.TAG_NAME
     ? 'develop'
     : process.env.BRANCH_NAME || 'develop')
 ).toLowerCase();
 
 const VUE_ONTOLOGY_NAME = process.env.ONTPUB_FAMILY || 'fibo';
 const VUE_APP_TAG = process.env.TAG || process.env.TAG_NAME || 'latest';
-const VUE_DIST_DIR = process.env.VUE_DIST_DIR || `/${VUE_APP_PRODUCT}/${VUE_APP_BRANCH}/${VUE_APP_TAG}`;
+const VUE_DIST_DIR =
+  process.env.VUE_DIST_DIR ||
+  `/${VUE_APP_PRODUCT}/${VUE_APP_BRANCH}/${VUE_APP_TAG}`;
 const VUE_ASSETS_DIR = `${VUE_DIST_DIR}/_nuxt/`;
-const VUE_BASE_URL = process.env.BASE_URL
-  || `https://spec.${VUE_ONTOLOGY_NAME === 'idmp' ? 'pistoiaalliance' : 'edmcouncil'}.org/`;
+const VUE_BASE_URL =
+  process.env.BASE_URL ||
+  `https://spec.${VUE_ONTOLOGY_NAME === 'idmp' ? 'pistoiaalliance' : 'edmcouncil'}.org/`;
 
 const VUE_RESOURCES_BASE_URL = `${VUE_BASE_URL + VUE_ONTOLOGY_NAME}/ontology/`;
 const STRAPI_PATH = `/${VUE_ONTOLOGY_NAME}/strapi`;
 const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
 
-const DEV_BASE_URL = VUE_BASE_URL.replace(
-  'pistoiaalliance',
-  'edmcouncil',
-);
+const DEV_BASE_URL = VUE_BASE_URL.replace('pistoiaalliance', 'edmcouncil');
 
 export default defineNuxtConfig({
   experimental: {
     sharedPrerenderData: true
   },
   vue: {
-    runtimeCompiler: true,
+    runtimeCompiler: true
   },
   app: {
     baseURL: `/${VUE_ONTOLOGY_NAME}`,
     head: {
       title: VUE_ONTOLOGY_NAME.toUpperCase(),
       htmlAttrs: {
-        lang: 'en',
+        lang: 'en'
       },
       meta: [
         { charset: 'utf-8' },
@@ -49,12 +50,12 @@ export default defineNuxtConfig({
           hid: 'keywords',
           name: 'keywords',
           content:
-            'ontology, Open Knowledge Graph, OKG, EDM Council, Enterprise Data Management Council',
+            'ontology, Open Knowledge Graph, OKG, EDM Council, Enterprise Data Management Council'
         },
-        { name: 'format-detection', content: 'telephone=no' },
+        { name: 'format-detection', content: 'telephone=no' }
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    },
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    }
   },
   runtimeConfig: {
     public: {
@@ -71,10 +72,11 @@ export default defineNuxtConfig({
       strapiBasePath: STRAPI_PATH,
       strapiBaseUrl: STRAPI_URL,
       tagName: process.env.VUE_APP_TAG || 'latest',
-      showTermsLinkOnFooter: process.env.SHOW_TERMS_LINK_ON_FOOTER === 'true' || true,
+      showTermsLinkOnFooter:
+        process.env.SHOW_TERMS_LINK_ON_FOOTER === 'true' || true,
       ontologyResourcesBaseUri: VUE_RESOURCES_BASE_URL,
-      ontologyName: VUE_ONTOLOGY_NAME,
-    },
+      ontologyName: VUE_ONTOLOGY_NAME
+    }
   },
   components: {
     global: true,
@@ -93,11 +95,11 @@ export default defineNuxtConfig({
       },
       {
         path: '~/components/UI',
-        pathPrefix: false,
+        pathPrefix: false
       },
       {
         path: '~/components/Ontology',
-        pathPrefix: false,
+        pathPrefix: false
       },
       {
         path: '~/components/Articles',
@@ -106,40 +108,41 @@ export default defineNuxtConfig({
       {
         path: '~/components',
         pathPrefix: false
-      },
-    ],
+      }
+    ]
   },
   vite: {
     server: {
       proxy: {
-        [
-          `^\/${VUE_ONTOLOGY_NAME}\/ontology(\/[^\/]+\/[^\/]+)?\/api`
-        ]: {
+        [`^/${VUE_ONTOLOGY_NAME}/ontology(/[^/]+/[^/]+)?/api`]: {
           target: DEV_BASE_URL,
-          changeOrigin: true,
+          changeOrigin: true
         },
         [`${STRAPI_PATH}`]: {
           target: STRAPI_URL,
           rewrite: (path) => path.slice(`${STRAPI_PATH}`.length),
-          changeOrigin: true,
-        },
-      },
+          changeOrigin: true
+        }
+      }
     },
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "@/assets/scss/_variables.scss" as *;',
-        },
-      },
-    },
+          additionalData: '@use "@/assets/scss/_variables.scss" as *;'
+        }
+      }
+    }
   },
   nitro: {
     compressPublicAssets: true,
     output: {
-      publicDir: path.join(__dirname, `dist/${VUE_ONTOLOGY_NAME}${VUE_DIST_DIR}`)
+      publicDir: path.join(
+        __dirname,
+        `dist/${VUE_ONTOLOGY_NAME}${VUE_DIST_DIR}`
+      )
     },
     prerender: {
-      crawlLinks: true,
+      crawlLinks: true
     }
   },
   css: [
@@ -147,14 +150,10 @@ export default defineNuxtConfig({
     '@/assets/scss/Ontology.scss',
     'vue-multiselect/dist/vue-multiselect.css'
   ],
-  modules: [
-    '@nuxtjs/google-fonts',
-    '@pinia/nuxt',
-    '@zadigetvoltaire/nuxt-gtm'
-  ],
+  modules: ['@nuxtjs/google-fonts', '@pinia/nuxt', '@zadigetvoltaire/nuxt-gtm'],
   googleFonts: {
     families: {
-      Inter: [400, 600, 700, 800],
+      Inter: [400, 600, 700, 800]
     }
-  },
-})
+  }
+});

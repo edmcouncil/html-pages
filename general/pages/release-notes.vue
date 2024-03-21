@@ -7,16 +7,16 @@
       <ScrollTopHandler ref="scrollTopHandler" />
       <article class="full-page">
         <section>
-          <span class="text-display">{{ ontologyNameUppercase }} Release Notes</span>
+          <span class="text-display"
+            >{{ ontologyNameUppercase }} Release Notes</span
+          >
         </section>
 
         <div class="release-content">
           <div class="left">
             <div class="left-content">
               <div class="release-tree-title">
-                <div class="release-tree-title__subtitle">
-                  Choose version
-                </div>
+                <div class="release-tree-title__subtitle">Choose version</div>
                 <div class="release-tree-title__content">
                   {{ ontologyNameUppercase }} Releases
                 </div>
@@ -24,7 +24,7 @@
               <TreeExpandable
                 v-for="(releaseTreeGroupKey, index) in releaseTree.keys()"
                 :key="releaseTreeGroupKey"
-                :defaultExpanded="index == 0 ? true : false"
+                :default-expanded="index == 0 ? true : false"
               >
                 <template #title>
                   <p class="title" v-html="releaseTreeGroupKey"></p>
@@ -36,8 +36,8 @@
                       :key="item.title"
                     >
                       <a
-                        @click="expandNotes"
                         :href="'release-notes#' + item.tag"
+                        @click="expandNotes"
                         v-html="item.title"
                       ></a>
                     </li>
@@ -49,21 +49,21 @@
 
           <div class="right">
             <section :id="topRelease.tag" class="blank">
-              <h1>{{ topRelease.title || "" }}</h1>
+              <h1>{{ topRelease.title || '' }}</h1>
               <div v-html="$md.render(topRelease.content || '')"></div>
             </section>
 
             <LongContentCollapse
-              :collapsedText="'Show more notes'"
               ref="longContentCollapse"
+              :collapsed-text="'Show more notes'"
             >
               <section
                 v-for="(item, index) in releaseList"
-                :key="index"
                 :id="item.tag"
+                :key="index"
                 class="blank"
               >
-                <h1>{{ item.title || "" }}</h1>
+                <h1>{{ item.title || '' }}</h1>
                 <div v-html="$md.render(item.content || '')"></div>
               </section>
             </LongContentCollapse>
@@ -72,10 +72,10 @@
       </article>
     </main>
     <button
+      ref="topButton"
       class="top-button"
       title="Go to top"
       @click="topBtnClick"
-      ref="topButton"
     ></button>
   </div>
 </template>
@@ -89,7 +89,7 @@ export default {
   name: 'ReleaseNotes',
   async setup() {
     definePageMeta({
-      layout: 'minimal',
+      layout: 'minimal'
     });
 
     const collectionTypeName = 'release-notes';
@@ -112,7 +112,7 @@ export default {
           `Page data(sections) is not recognized in the response from the server.
         Error occurred while rendering page ${collectionTypeName}.\n
         Current server response:\n`,
-          response,
+          response
         );
         // error({ statusCode: 503, message: 'Service Unavailable' });
       }
@@ -142,7 +142,7 @@ export default {
       return {
         releaseTree,
         topRelease: releaseList[0] || {},
-        releaseList: releaseList.slice(1) || [],
+        releaseList: releaseList.slice(1) || []
       };
     } catch (e) {
       console.error(e);
@@ -151,12 +151,19 @@ export default {
       return {};
     }
   },
+  computed: {
+    ...mapState(useConfigurationStore, {
+      ontologyNameUppercase: (store) => {
+        return store.config.ontpubFamily.toUpperCase();
+      }
+    })
+  },
   mounted() {
     const self = this;
     window.onscroll = function () {
       if (
-        document.body.scrollTop > 20
-        || document.documentElement.scrollTop > 20
+        document.body.scrollTop > 20 ||
+        document.documentElement.scrollTop > 20
       ) {
         self.$refs.topButton.style.display = 'block';
       } else {
@@ -176,15 +183,8 @@ export default {
     },
     expandNotes() {
       this.$refs.longContentCollapse.expand();
-    },
-  },
-  computed: {
-    ...mapState(useConfigurationStore, {
-      ontologyNameUppercase: store => {
-        return store.config.ontpubFamily.toUpperCase()
-      },
-    }),
-  },
+    }
+  }
 };
 </script>
 
@@ -194,7 +194,7 @@ article {
 }
 .top-button {
   &:after {
-    content: "↑";
+    content: '↑';
   }
   display: none;
   position: fixed;
@@ -241,7 +241,7 @@ article {
   cursor: default;
 
   .release-tree-title__subtitle {
-    color: var(--black-40, rgba(0, 0, 0, 0.40));
+    color: var(--black-40, rgba(0, 0, 0, 0.4));
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
@@ -286,7 +286,7 @@ article {
     }
 
     .right {
-      max-width:  unset;
+      max-width: unset;
     }
   }
 }

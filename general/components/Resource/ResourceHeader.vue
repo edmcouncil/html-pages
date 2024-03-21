@@ -5,16 +5,29 @@
         <div class="ontology-item__header__title-segment">
           <div class="right">
             <!-- show more menu -->
-            <div v-if="hasDropdownMenu" class="dropdown resource-more" :class="{ centered: !hasStatus }">
-              <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
+            <div
+              v-if="hasDropdownMenu"
+              class="dropdown resource-more"
+              :class="{ centered: !hasStatus }"
+            >
+              <button
+                type="button"
+                class="btn dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
                 More
                 <div class="icon-show-more-white"></div>
               </button>
               <div class="dropdown-menu dropdown-menu-end">
                 <DescribeButton v-if="hasDescribeButton" :data="data" />
-                <button v-if="hasReportProblemButton" @click="githubNewIssue()" type="button"
-                  class="report-a-problem dropdown-item">
+                <button
+                  v-if="hasReportProblemButton"
+                  type="button"
+                  class="report-a-problem dropdown-item"
+                  @click="githubNewIssue()"
+                >
                   Report a problem
                 </button>
               </div>
@@ -24,58 +37,81 @@
           <div class="left">
             <!-- maturity alert -->
             <div class="ontology-item__header__status">
-              <div class="alert alert-error alert-deprecated" role="alert" v-if="data.deprecated">
+              <div
+                v-if="data.deprecated"
+                class="alert alert-error alert-deprecated"
+                role="alert"
+              >
                 This resource is deprecated and may be removed shortly.
               </div>
-              <div class="alert alert-primary alert-maturity" :class="{
-              informative: data.maturityLevel.label === 'Informative',
-            }" role="alert" v-if="data.maturityLevel.label === 'Informative' ||
-              data.maturityLevel.label === 'Provisional' ||
-              data.maturityLevel.label === 'Preliminary'
-              ">
+              <div
+                v-if="
+                  data.maturityLevel.label === 'Informative' ||
+                  data.maturityLevel.label === 'Provisional' ||
+                  data.maturityLevel.label === 'Preliminary'
+                "
+                class="alert alert-primary alert-maturity"
+                :class="{
+                  informative: data.maturityLevel.label === 'Informative'
+                }"
+                role="alert"
+              >
                 This resource has maturity level
-                {{ this.data.maturityLevel.label.toLowerCase() }}.
+                {{ data.maturityLevel.label.toLowerCase() }}.
 
-                <customLink class="custom-link" :name="'Read more'" :query="data.maturityLevel.iri"></customLink>
+                <customLink
+                  class="custom-link"
+                  :name="'Read more'"
+                  :query="data.maturityLevel.iri"
+                ></customLink>
               </div>
             </div>
 
             <!-- header item title -->
-            <h2 class="card-title" :class="{
-              'maturity-provisional':
-                this.data.maturityLevel.label === 'Provisional' ||
-                this.data.maturityLevel.label === 'Preliminary',
-              'maturity-informative':
-                this.data.maturityLevel.label === 'Informative',
-              'maturity-production':
-                this.data.maturityLevel.label === 'Release',
-              'maturity-mixed': this.data.maturityLevel.label === 'Mixed',
-            }">
+            <h2
+              class="card-title"
+              :class="{
+                'maturity-provisional':
+                  data.maturityLevel.label === 'Provisional' ||
+                  data.maturityLevel.label === 'Preliminary',
+                'maturity-informative':
+                  data.maturityLevel.label === 'Informative',
+                'maturity-production': data.maturityLevel.label === 'Release',
+                'maturity-mixed': data.maturityLevel.label === 'Mixed'
+              }"
+            >
               {{ data.label }}
             </h2>
           </div>
         </div>
 
-        <h6 class="card-subtitle data-iri" v-if="data.iri">
+        <h6 v-if="data.iri" class="card-subtitle data-iri">
           {{ data.iri }}
         </h6>
         <div class="url-buttons-container">
-          <CopyButton :copyContent="data.iri" :text="'Copy IRI'" />
+          <CopyButton :copy-content="data.iri" :text="'Copy IRI'" />
         </div>
-        <h6 class="card-subtitle data-iri" v-if="data.versionIri">
+        <h6 v-if="data.versionIri" class="card-subtitle data-iri">
           {{ data.versionIri }}
         </h6>
-        <div class="url-buttons-container" v-if="data.versionIri">
-          <CopyButton :copyContent="data.versionIri" :text="'Copy versioned IRI'" class="btn-copy-iri" />
+        <div v-if="data.versionIri" class="url-buttons-container">
+          <CopyButton
+            :copy-content="data.versionIri"
+            :text="'Copy versioned IRI'"
+            class="btn-copy-iri"
+          />
         </div>
 
-        <h6 class="card-subtitle qname" v-if="data.qName && data.qName !== ''">
+        <h6 v-if="data.qName && data.qName !== ''" class="card-subtitle qname">
           {{ data.qName }}
         </h6>
 
         <div class="url-buttons-container">
-          <CopyButton v-if="data.qName && data.qName !== ''" :copyContent="data.qName.replace('QName: ', '')"
-            :text="'Copy QName'" />
+          <CopyButton
+            v-if="data.qName && data.qName !== ''"
+            :copy-content="data.qName.replace('QName: ', '')"
+            :text="'Copy QName'"
+          />
         </div>
       </div>
     </div>
@@ -92,6 +128,34 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    ...mapState(useConfigurationStore, {
+      // configuration
+      ontologyRepositoryUrl: (store) => store.config.ontologyRepositoryUrl,
+      uriSpace: (store) => store.config.uriSpace
+    }),
+    hasDescribeButton() {
+      return this.data.iri.slice(-1) !== '/';
+    },
+    hasReportProblemButton() {
+      return (
+        this.ontologyRepositoryUrl &&
+        this.data.iri.startsWith(this.uriSpace) &&
+        !(this.$route.query && this.$route.query.version)
+      );
+    },
+    hasDropdownMenu() {
+      return this.hasDescribeButton || this.hasReportProblemButton;
+    },
+    hasStatus() {
+      return (
+        this.data.deprecated ||
+        this.data.maturityLevel.label === 'Informative' ||
+        this.data.maturityLevel.label === 'Provisional' ||
+        this.data.maturityLevel.label === 'Preliminary'
+      );
+    }
+  },
   methods: {
     githubNewIssue() {
       const ontologyQuery = this.data.iri.replace(this.uriSpace, '');
@@ -99,42 +163,17 @@ export default {
       const details = {
         label,
         title: `Problem with ${this.data.label.toUpperCase()}`,
-        body: `Resource URL:\n${this.data.iri}`,
+        body: `Resource URL:\n${this.data.iri}`
       };
-      const url = `${this.ontologyRepositoryUrl}/issues/new`
-        + `?labels=${encodeURI(details.label)}`
-        + '&template=issue.md'
-        + `&title=${encodeURI(details.title)}`
-        + `&body=${encodeURI(details.body)}`;
+      const url =
+        `${this.ontologyRepositoryUrl}/issues/new` +
+        `?labels=${encodeURI(details.label)}` +
+        '&template=issue.md' +
+        `&title=${encodeURI(details.title)}` +
+        `&body=${encodeURI(details.body)}`;
       window.open(url, '_blank');
-    },
-  },
-  computed: {
-    ...mapState(useConfigurationStore, {
-      // configuration
-      ontologyRepositoryUrl: store => store.config.ontologyRepositoryUrl,
-      uriSpace: store => store.config.uriSpace,
-    }),
-    hasDescribeButton() {
-      return this.data.iri.slice(-1) !== '/';
-    },
-    hasReportProblemButton() {
-      return this.ontologyRepositoryUrl &&
-        this.data.iri.startsWith(this.uriSpace) &&
-        !(this.$route.query && this.$route.query.version);
-    },
-    hasDropdownMenu() {
-      return this.hasDescribeButton || this.hasReportProblemButton;
-    },
-    hasStatus() {
-      return (
-        this.data.deprecated
-        || this.data.maturityLevel.label === 'Informative'
-        || this.data.maturityLevel.label === 'Provisional'
-        || this.data.maturityLevel.label === 'Preliminary'
-      );
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -184,7 +223,7 @@ export default {
     }
 
     &::before {
-      content: "";
+      content: '';
       display: block;
       height: 20px;
       width: 20px;
@@ -199,7 +238,7 @@ export default {
     }
 
     &.informative {
-      background: map-get($colors-map, "orange");
+      background: map-get($colors-map, 'orange');
     }
   }
 
@@ -228,7 +267,7 @@ export default {
     }
 
     &::before {
-      content: "";
+      content: '';
       display: none;
     }
   }
@@ -290,7 +329,7 @@ export default {
       width: 320px;
       max-width: calc(100vw - 75px);
       border: none;
-      background-color: map-get($colors-map, "white");
+      background-color: map-get($colors-map, 'white');
       box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
       border-radius: 0;
       position: absolute;
@@ -300,7 +339,10 @@ export default {
       opacity: 0;
       transform: translate3d(0px, 30px, 0px);
 
-      transition: opacity 0.35s ease, margin-top 0.35s ease, transform 0.35s;
+      transition:
+        opacity 0.35s ease,
+        margin-top 0.35s ease,
+        transform 0.35s;
 
       &.show {
         user-select: unset;
@@ -311,38 +353,38 @@ export default {
       }
 
       .dropdown-item {
-        font-family: "Inter";
+        font-family: 'Inter';
         font-style: normal;
         font-weight: normal;
         font-size: 18px;
         line-height: 30px;
         cursor: pointer;
 
-        color: map-get($colors-map, "black-80");
+        color: map-get($colors-map, 'black-80');
 
         margin: 0;
         padding: 15px 30px;
 
         &:hover {
-          color: map-get($colors-map, "black-80");
-          background-color: map-get($colors-map, "black-5");
+          color: map-get($colors-map, 'black-80');
+          background-color: map-get($colors-map, 'black-5');
         }
 
         &:focus {
-          color: map-get($colors-map, "black-80");
+          color: map-get($colors-map, 'black-80');
           background-color: unset;
         }
 
         &:active {
-          color: map-get($colors-map, "black-80");
-          background-color: map-get($colors-map, "black-20");
+          color: map-get($colors-map, 'black-80');
+          background-color: map-get($colors-map, 'black-20');
         }
       }
 
       .report-a-problem {
         &::before {
-          content: "";
-          background-image: url("@/assets/icons/flag.svg");
+          content: '';
+          background-image: url('@/assets/icons/flag.svg');
           background-repeat: no-repeat;
           background-size: 20px;
           background-position: center;
@@ -369,7 +411,7 @@ export default {
     max-width: 100%;
 
     &::before {
-      content: "";
+      content: '';
 
       background-repeat: no-repeat;
       background-size: 24px 24px;
@@ -386,25 +428,25 @@ export default {
 
     &.maturity-provisional {
       &::before {
-        background-image: url("@/assets/icons/provisional-maturity.svg");
+        background-image: url('@/assets/icons/provisional-maturity.svg');
       }
     }
 
     &.maturity-informative {
       &::before {
-        background-image: url("@/assets/icons/informative-maturity.svg");
+        background-image: url('@/assets/icons/informative-maturity.svg');
       }
     }
 
     &.maturity-mixed {
       &::before {
-        background-image: url("@/assets/icons/mixed-maturity.svg");
+        background-image: url('@/assets/icons/mixed-maturity.svg');
       }
     }
 
     &.maturity-production {
       &::before {
-        background-image: url("@/assets/icons/production-maturity.svg");
+        background-image: url('@/assets/icons/production-maturity.svg');
       }
     }
   }
@@ -451,8 +493,8 @@ export default {
     }
 
     &::before {
-      content: "";
-      background-image: url("@/assets/icons/copy-url-icon.svg");
+      content: '';
+      background-image: url('@/assets/icons/copy-url-icon.svg');
       background-repeat: no-repeat;
       background-size: 24px;
       background-position: center;
@@ -546,8 +588,8 @@ export default {
       line-height: 24px;
 
       &::before {
-        content: "";
-        background-image: url("@/assets/icons/copy-url-icon.svg");
+        content: '';
+        background-image: url('@/assets/icons/copy-url-icon.svg');
         background-repeat: no-repeat;
         background-size: 24px;
 

@@ -1,9 +1,9 @@
 <template>
   <div class="ontology-item__paths__list-item">
     <div
+      ref="listItemContainer"
       class="ontology-item__paths__list-item__container"
       :class="{ collapsed: !isFullPathVisible }"
-      ref="listItemContainer"
     >
       <div class="taxonomy-wrapper">
         <span
@@ -13,7 +13,7 @@
           <span
             v-if="element.iri.includes('http://org.semanticweb.owlapi/error#')"
             class="error-iri-element"
-          >{{ element.label }}</span
+            >{{ element.label }}</span
           >
           <customLink
             v-else
@@ -21,8 +21,8 @@
             :query="element.iri"
           ></customLink>
           <span
-            class="card-subtitle taxonomy-separator"
             v-if="index != Object.keys(itemData).length - 1"
+            class="card-subtitle taxonomy-separator"
           >
             /
           </span>
@@ -30,8 +30,8 @@
       </div>
 
       <div
-        class="collapseButtons"
         v-if="hasOverflow"
+        class="collapseButtons"
         @click="toggleFullPathVisible"
       >
         <div v-if="!isFullPathVisible" class="see-more-btn">Show full path</div>
@@ -49,7 +49,7 @@ export default {
     return {
       isFullPathVisible: false,
       hasOverflow: false,
-      resizeDebounce: null,
+      resizeDebounce: null
     };
   },
   mounted() {
@@ -82,8 +82,8 @@ export default {
     onResize() {
       clearTimeout(this.resizeDebounce);
       this.resizeDebounce = setTimeout(this.checkOverflow, 300);
-    },
-  },
+    }
+  }
 };
 </script>
 

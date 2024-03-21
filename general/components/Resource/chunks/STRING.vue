@@ -7,7 +7,7 @@
 
     <bs-collapse :id="identifier" :open="isMoreVisible">
       <transition name="list">
-        <div class="animated-list" v-show="isMoreVisible" ref="scrollTarget">
+        <div v-show="isMoreVisible" ref="scrollTarget" class="animated-list">
           <component :is="moreProcessedHtml" />
         </div>
       </transition>
@@ -31,25 +31,26 @@ export default {
   data() {
     const linkifyOptions = {
       validate: {
-        url: (value) => /^https?:\/\//.test(value),
-      },
+        url: (value) => /^https?:\/\//.test(value)
+      }
     };
-    const parsedValue = this.value.replace('<', '&lt;').replace('>', '&gt;')
+    const parsedValue = this.value.replace('<', '&lt;').replace('>', '&gt;');
     const linkifiedValue = linkifyHtml(parsedValue, linkifyOptions);
 
-    const regex = /\[[a-z]{2}\-[a-z]{2}\]|@[a-z]{2}\-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
+    const regex =
+      /\[[a-z]{2}-[a-z]{2}\]|@[a-z]{2}-[a-z]{2}|\[[a-z]{3}\]|@[a-z]{3}|\[[a-z]{2}\]|@[a-z]{2}/g;
     const lines = linkifiedValue.split(/(?:\r\n|\r|\n)/g);
     lines.forEach((part, index) => {
       const regexMatch = part.match(regex);
       if (regexMatch != null) {
-        regexMatch.forEach((match, indexMatch) => {
+        regexMatch.forEach((match) => {
           const replacementLang = match
             .replace('[', '')
             .replace(']', '')
             .replace('@', '');
           const rep = part.replace(
             match,
-            `<langCodeFlags iso="${replacementLang}" />`,
+            `<langCodeFlags iso="${replacementLang}" />`
           );
           lines[index] = rep;
         }, regexMatch);
@@ -58,8 +59,36 @@ export default {
     return {
       lines,
       isShowMore: false,
-      isMoreVisible: false,
+      isMoreVisible: false
     };
+  },
+  // need this and use as components to display flags
+  computed: {
+    fullProcessedHtml() {
+      const html = this.lines.join('<br />');
+      return {
+        template: `<div>${html}</div>`
+      };
+    },
+    sliceProcessedHtml() {
+      const html = this.lines.slice(0, 6).join('<br />');
+      return {
+        template: `<div>${html}</div>`
+      };
+    },
+    moreProcessedHtml() {
+      const html = this.lines.slice(6).join('<br />');
+      return {
+        template: `<div>${html}</div>`
+      };
+    }
+  },
+
+  mounted() {
+    if (this.lines.length > 6) {
+      // yes 6, first line is "title"
+      this.isShowMore = true;
+    }
   },
   methods: {
     toggleIsMoreVisible() {
@@ -70,7 +99,7 @@ export default {
         this.isMoreVisible = !this.isMoreVisible;
       } else if (topOffset < 0) {
         element.scrollIntoView({
-          behavior: 'smooth',
+          behavior: 'smooth'
         });
         setTimeout(() => {
           this.isMoreVisible = !this.isMoreVisible;
@@ -78,36 +107,8 @@ export default {
       } else {
         this.isMoreVisible = !this.isMoreVisible;
       }
-    },
-  },
-  // need this and use as components to display flags
-  computed: {
-    fullProcessedHtml() {
-      const html = this.lines.join('<br />');
-      return {
-        template: `<div>${html}</div>`,
-      };
-    },
-    sliceProcessedHtml() {
-      const html = this.lines.slice(0, 6).join('<br />');
-      return {
-        template: `<div>${html}</div>`,
-      };
-    },
-    moreProcessedHtml() {
-      const html = this.lines.slice(6).join('<br />');
-      return {
-        template: `<div>${html}</div>`,
-      };
-    },
-  },
-
-  mounted() {
-    if (this.lines.length > 6) {
-      // yes 6, first line is "title"
-      this.isShowMore = true;
     }
-  },
+  }
 };
 </script>
 

@@ -6,9 +6,9 @@
     </div>
     <div class="row d-none d-lg-flex">
       <div class="col-2 title">Comparing</div>
-      <div class="col-5 version-name left">{{ version || "current" }}</div>
+      <div class="col-5 version-name left">{{ version || 'current' }}</div>
       <div class="col-5 version-name right">
-        {{ versionCompare || "current" }}
+        {{ versionCompare || 'current' }}
       </div>
     </div>
   </div>
@@ -22,10 +22,10 @@ export default {
   name: 'CompareBanner',
   computed: {
     ...mapState(useServersStore, {
-      version: store => store.version,
-      versionCompare: store => store.versionCompare,
-    }),
-  },
+      version: (store) => store.version,
+      versionCompare: (store) => store.versionCompare
+    })
+  }
 };
 </script>
 

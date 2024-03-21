@@ -10,8 +10,8 @@ export const useOntologyStore = defineStore({
       iri: '' as string,
       entityData: {} as Record<string, any>,
       releases: [] as Array<string | null>,
-      errorFlags: {} as Record<string, boolean>,
-    }
+      errorFlags: {} as Record<string, boolean>
+    };
   },
   actions: {
     async getEntityData(version: string | null, iri: string): Promise<any> {
@@ -20,11 +20,13 @@ export const useOntologyStore = defineStore({
         this.iri = iri;
       }
       const configuration = useConfigurationStore();
-      let versionIdentifier: string = version ? version : configuration.config.defaultBranchName;
+      const versionIdentifier: string = version
+        ? version
+        : configuration.config.defaultBranchName;
 
       if (
-        this.entityData[versionIdentifier]
-        || this.entityData[versionIdentifier] === null
+        this.entityData[versionIdentifier] ||
+        this.entityData[versionIdentifier] === null
       ) {
         return this.entityData[versionIdentifier];
       } else {
@@ -33,11 +35,17 @@ export const useOntologyStore = defineStore({
         return this.entityData[versionIdentifier];
       }
     },
-    async fetchEntityData(versionIdentifier: string, iri: string): Promise<any> {
+    async fetchEntityData(
+      versionIdentifier: string,
+      iri: string
+    ): Promise<any> {
       const servers = useServersStore();
       const configuration = useConfigurationStore();
       try {
-        const version = versionIdentifier === configuration.config.defaultBranchName ? null : versionIdentifier;
+        const version =
+          versionIdentifier === configuration.config.defaultBranchName
+            ? null
+            : versionIdentifier;
         const domain = `${servers.getVersionedOntologyServer(version)}?iri=${iri}`;
         const response = await getEntity(domain);
 
@@ -61,12 +69,13 @@ export const useOntologyStore = defineStore({
       }
     },
     async preloadEntityData(iri: string): Promise<void> {
-      const promises = this.releases.map(release => this.getEntityData(release, iri));
+      const promises = this.releases.map((release) =>
+        this.getEntityData(release, iri)
+      );
       await Promise.all(promises);
     },
     async initialEntityLoad(version: string | null, iri: string): Promise<any> {
-      if (this.releases.length)
-        await this.preloadEntityData(iri);
+      if (this.releases.length) await this.preloadEntityData(iri);
 
       return await this.getEntityData(version, iri);
     },
@@ -79,5 +88,5 @@ export const useOntologyStore = defineStore({
     getErrorFlags(): Record<string, boolean> {
       return this.errorFlags;
     }
-  },
-})
+  }
+});

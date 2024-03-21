@@ -1,6 +1,12 @@
 <template>
-  <bs-modal :id="modalId" modalClass="help modal-lg" footerClass="d-none" scrollable secondLevel>
-    <template v-slot:modal-header>
+  <bs-modal
+    :id="modalId"
+    modal-class="help modal-lg"
+    footer-class="d-none"
+    scrollable
+    second-level
+  >
+    <template #modal-header>
       <h5 class="modal-title">
         <slot name="label"></slot>
       </h5>
@@ -21,7 +27,7 @@
 export default {
   name: 'GraphGuideModal',
   props: ['modalId'],
-  emits: ['closeEvent'],
+  emits: ['closeEvent']
 };
 </script>
 
@@ -58,6 +64,11 @@ export default {
 
       &.basics-3 {
         background-image: url('../../assets/img/graph-guide-basics-3.png');
+      }
+
+      &.basics-4 {
+        background-position: right;
+        background-image: url('../../assets/img/graph-guide-basics-4.png');
       }
 
       &.layouts-0 {
@@ -134,7 +145,7 @@ export default {
 
   article {
     .see-also-box {
-      background: map-get($colors-map, "black-5");
+      background: map-get($colors-map, 'black-5');
       margin-bottom: 60px;
       padding: 30px;
       border-radius: 2px;
@@ -168,8 +179,8 @@ export default {
       margin-left: 20px;
 
       &::before {
-        content: "";
-        background-image: url("../../assets/icons/close.svg");
+        content: '';
+        background-image: url('../../assets/icons/close.svg');
         background-repeat: no-repeat;
         background-size: 24px 24px;
         width: 24px;

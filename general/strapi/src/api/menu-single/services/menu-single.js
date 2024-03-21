@@ -2,6 +2,6 @@
  * menu-single service.
  */
 
-const { createCoreService } = require("@strapi/strapi").factories;
+const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService("api::menu-single.menu-single");
+module.exports = createCoreService('api::menu-single.menu-single');
