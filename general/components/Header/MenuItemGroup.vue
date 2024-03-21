@@ -6,13 +6,11 @@
   >
     {{ item.item.name }}
   </button>
-  <bs-collapse
-    :open="isOpen"
-    :id="item.item.name + item.id"
-  >
-    <template v-for="subitem in item.submenu">
+  <bs-collapse :id="item.item.name + item.id" :open="isOpen">
+    <template v-for="(subitem, index) in item.submenu">
       <nuxt-link
         v-if="subitem.type === 'router-link'"
+        :key="`nav-link-subitem-${index}`"
         class="nav-link dropdown-item sub-nav-item"
         :to="{ path: subitem.link }"
       >
@@ -40,22 +38,14 @@ export default {
       isOpen: false
     };
   },
+  computed: {},
+  watch: {},
+  mounted() {},
+  beforeUnmount() {},
   methods: {
     toggleOpen() {
       this.isOpen = !this.isOpen;
-    },
-  },
-  mounted() {
-
-  },
-  beforeUnmount() {
-
-  },
-  watch: {
-
-  },
-  computed: {
-
+    }
   }
 };
 </script>

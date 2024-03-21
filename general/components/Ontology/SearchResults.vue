@@ -1,7 +1,7 @@
 <template>
   <div
-    class="search-section"
     v-if="searchBox.selectedData && searchBox.selectedData.isSearch"
+    class="search-section"
   >
     <div class="search-section__header">
       <h5>Search results for “{{ searchBox.selectedData.iri }}”</h5>
@@ -51,13 +51,13 @@
           </div>
 
           <div
-            class="search-item__description-wrapper"
             v-if="result.highlights.length > 0"
+            class="search-item__description-wrapper"
           >
             <div
+              v-for="(highlight, highlightIndex) in result.highlights"
+              :key="highlightIndex + highlight.fieldIdentifier"
               class="search-item__description"
-              v-for="(highlight, index) in result.highlights"
-              :key="index + highlight.fieldIdentifier"
             >
               <span class="search-item__description__label">
                 {{ getPropertyLabel(highlight.fieldIdentifier) }}
@@ -85,16 +85,16 @@
     </div>
 
     <div
-      class="search-section__load-more"
       v-if="searchBox.totalResultsCount > 0"
+      class="search-section__load-more"
     >
       <bs-pagination
-        v-model="searchBox.page"
-        :totalResults="searchBox.totalResultsCount"
-        :perPage="searchBox.perPage"
-        @pageSelected="paginationHandler()"
         v-if="searchBox.totalResultsCount > searchBox.perPage"
-      ></bs-pagination> 
+        v-model="searchBox.page"
+        :total-results="searchBox.totalResultsCount"
+        :per-page="searchBox.perPage"
+        @page-selected="paginationHandler()"
+      ></bs-pagination>
 
       <p v-else>There is only one page.</p>
     </div>
@@ -114,15 +114,15 @@ export default {
           ...{ page: this.searchBox.page },
           ...(this.$route.query && this.$route.query.version
             ? { version: encodeURI(this.$route.query.version) }
-            : null),
-        },
+            : null)
+        }
       });
     },
     getPropertyLabel(identifier) {
       return this.searchBox.findPropertiesAll.find(
-        (property) => property.identifier === identifier,
+        (property) => property.identifier === identifier
       ).label;
-    },
-  },
+    }
+  }
 };
 </script>

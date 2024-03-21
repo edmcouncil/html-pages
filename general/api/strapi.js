@@ -3,26 +3,36 @@ import qs from 'qs';
 import fs from 'fs';
 
 function baseURL(runtimeConfig) {
- return (typeof window !== 'undefined') ? window.location.origin + `${runtimeConfig.public.strapiBasePath}` : `${runtimeConfig.public.strapiBaseUrl}`;
+  return typeof window !== 'undefined'
+    ? window.location.origin + `${runtimeConfig.public.strapiBasePath}`
+    : `${runtimeConfig.public.strapiBaseUrl}`;
 }
 
-export async function getStrapiSingleType(singleTypeName, populateParams, runtimeConfig) {
+export async function getStrapiSingleType(
+  singleTypeName,
+  populateParams,
+  runtimeConfig
+) {
   const query = qs.stringify(
     {
-      populate: populateParams,
+      populate: populateParams
     },
     {
-      encodeValuesOnly: true,
-    },
+      encodeValuesOnly: true
+    }
   );
 
   let response = await axios.get(`/api/${singleTypeName}?${query}`, {
-    baseURL: baseURL(runtimeConfig),
+    baseURL: baseURL(runtimeConfig)
   });
 
   // save image and edit response to use downloaded image instead of link to strapi resources
   if (runtimeConfig.public.staticGenerationMode) {
-    response = await downloadImagesFromStrapi(response, singleTypeName, runtimeConfig);
+    response = await downloadImagesFromStrapi(
+      response,
+      singleTypeName,
+      runtimeConfig
+    );
   }
 
   return response.data;
@@ -32,25 +42,28 @@ export async function getStrapiElementFromCollection(
   collectionName,
   populateParams,
   collectionItemSlug,
+  runtimeConfig
 ) {
-  const runtimeConfig = useRuntimeConfig();
-
   const queryParams = { populate: populateParams };
   if (collectionItemSlug) {
     queryParams.filters = { slug: { $eq: collectionItemSlug } };
   }
 
   const query = qs.stringify(queryParams, {
-    encodeValuesOnly: true,
+    encodeValuesOnly: true
   });
 
   let response = await axios.get(`/api/${collectionName}?${query}`, {
-    baseURL: baseURL(runtimeConfig),
+    baseURL: baseURL(runtimeConfig)
   });
 
   // save image and edit response to use downloaded image instead of link to strapi resources
   if (runtimeConfig.public.staticGenerationMode) {
-    response = await downloadImagesFromStrapi(response, collectionName, runtimeConfig);
+    response = await downloadImagesFromStrapi(
+      response,
+      collectionName,
+      runtimeConfig
+    );
   }
   return response.data;
 }
@@ -67,11 +80,11 @@ export async function getStrapiCollection(
   }
 
   const query = qs.stringify(queryParams, {
-    encodeValuesOnly: true,
+    encodeValuesOnly: true
   });
 
   const response = await axios.get(`/api/${collectionName}?${query}`, {
-    baseURL: baseURL(runtimeConfig),
+    baseURL: baseURL(runtimeConfig)
   });
   // currently only release notes is processed in this function, so we don't need to download images, they don't have them
   return response.data;
@@ -84,7 +97,11 @@ export async function getPageElementsStrapiData(runtimeConfig) {
   let populateParams = ['contacts', 'links', 'socials'];
 
   try {
-    const response = await getStrapiSingleType(singleTypeName, populateParams, runtimeConfig);
+    const response = await getStrapiSingleType(
+      singleTypeName,
+      populateParams,
+      runtimeConfig
+    );
     data.copyright = response.data.attributes.copyright;
     data.footerContacts = response.data.attributes.contacts;
     data.footerLinks = response.data.attributes.links;
@@ -98,7 +115,11 @@ export async function getPageElementsStrapiData(runtimeConfig) {
   singleTypeName = 'carousel';
   populateParams = ['items', 'items.link'];
   try {
-    const response = await getStrapiSingleType(singleTypeName, populateParams, runtimeConfig);
+    const response = await getStrapiSingleType(
+      singleTypeName,
+      populateParams,
+      runtimeConfig
+    );
     data.carousel = response.data.attributes.items;
   } catch (error) {
     return {};
@@ -108,7 +129,11 @@ export async function getPageElementsStrapiData(runtimeConfig) {
   singleTypeName = 'menu-single';
   populateParams = ['items', 'items.item', 'items.submenu'];
   try {
-    const response = await getStrapiSingleType(singleTypeName, populateParams, runtimeConfig);
+    const response = await getStrapiSingleType(
+      singleTypeName,
+      populateParams,
+      runtimeConfig
+    );
     data.menuDropdown = response.data.attributes.items;
   } catch (error) {
     return {};
@@ -118,7 +143,11 @@ export async function getPageElementsStrapiData(runtimeConfig) {
   singleTypeName = 'menu-top';
   populateParams = ['items', 'items.item', 'items.submenu'];
   try {
-    const response = await getStrapiSingleType(singleTypeName, populateParams, runtimeConfig);
+    const response = await getStrapiSingleType(
+      singleTypeName,
+      populateParams,
+      runtimeConfig
+    );
     data.menuTop = response.data.attributes.items;
   } catch (error) {
     data.menuTop = [];
@@ -134,7 +163,11 @@ export async function getAppConfigurationData(runtimeConfig) {
   const singleTypeName = 'config';
   const populateParams = ['ontologyLogo'];
   try {
-    const response = await getStrapiSingleType(singleTypeName, populateParams, runtimeConfig);
+    const response = await getStrapiSingleType(
+      singleTypeName,
+      populateParams,
+      runtimeConfig
+    );
 
     data.ontpubFamily = response.data.attributes.ontpubFamily;
     data.ontoviewerServerUrl = response.data.attributes.ontoviewerServerUrl;
@@ -148,12 +181,13 @@ export async function getAppConfigurationData(runtimeConfig) {
     if (variables) {
       data = {
         ...data,
-        ...variables,
+        ...variables
       };
     }
 
     // download logo
-    const imgPath = response.data.attributes.ontologyLogo?.data?.attributes?.url;
+    const imgPath =
+      response.data.attributes.ontologyLogo?.data?.attributes?.url;
 
     const imageDownloadPath = '/_nuxt/downloads/';
     const distDir = runtimeConfig.public.generateDir;
@@ -177,7 +211,7 @@ async function downloadImage(url, imageDestination, imageName) {
   const response = await axios({
     url,
     method: 'GET',
-    responseType: 'stream',
+    responseType: 'stream'
   });
   if (!fs.existsSync(imageDestination)) {
     fs.mkdirSync(imageDestination, { recursive: true });
@@ -191,14 +225,18 @@ async function downloadImage(url, imageDestination, imageName) {
   });
 }
 
-async function downloadImagesFromStrapi(response, elementTypeName, runtimeConfig) {
+async function downloadImagesFromStrapi(
+  response,
+  elementTypeName,
+  runtimeConfig
+) {
   // only 'about' can have images in content from single types element
   if (elementTypeName === 'about' || elementTypeName === 'pages') {
     const imageDownloadPath = '/_nuxt/downloads/';
     const distDir = runtimeConfig.public.generateDir;
     const imageDestination = distDir + imageDownloadPath;
     if (response.data.data && response.data.data.attributes) {
-      for (var section of response.data.data.attributes.sections) {
+      for (let section of response.data.data.attributes.sections) {
         section = await tryToDownloadImages(
           section,
           imageDestination,
@@ -207,7 +245,7 @@ async function downloadImagesFromStrapi(response, elementTypeName, runtimeConfig
       }
     } else if (response.data.data[0]) {
       for (const dataElement of response.data.data) {
-        for (var section of dataElement.attributes.sections) {
+        for (let section of dataElement.attributes.sections) {
           section = await tryToDownloadImages(
             section,
             imageDestination,
@@ -220,11 +258,7 @@ async function downloadImagesFromStrapi(response, elementTypeName, runtimeConfig
   return response;
 }
 
-async function tryToDownloadImages(
-  section,
-  imageDestination,
-  runtimeConfig
-) {
+async function tryToDownloadImages(section, imageDestination, runtimeConfig) {
   if (section.__component == 'sections.image-text-section' && section.items) {
     for (const item of section.items) {
       if (item.image) {

@@ -19,6 +19,6 @@
 
 <script>
 export default {
-  name: 'EntityNotFound',
+  name: 'EntityNotFound'
 };
 </script>

@@ -6,15 +6,26 @@
     <div class="card-content" :class="{ loaded: !isLoading }">
       <div class="overlay-left"></div>
       <div class="overlay-right"></div>
-      <div class="history-banner" ref="historyBanner">
+      <div ref="historyBanner" class="history-banner">
         <div class="timeline">
           <div class="line start-line"></div>
           <div v-for="release of versionsData" class="line">
-            <div @click="handleVersionClick(release)" class="version" :class="{
-              exists: release && release.maturityLevel && release.maturityLevel.label,
-              selected: release.version == (version || defaultBranchName)
-            }">
-              <BsTooltip :text="getTooltip(release)" placement="top" offset="[0,10]">
+            <div
+              class="version"
+              :class="{
+                exists:
+                  release &&
+                  release.maturityLevel &&
+                  release.maturityLevel.label,
+                selected: release.version == (version || defaultBranchName)
+              }"
+              @click="handleVersionClick(release)"
+            >
+              <BsTooltip
+                :text="getTooltip(release)"
+                placement="top"
+                offset="[0,10]"
+              >
                 <div class="circle" :class="getCircleClass(release)"></div>
               </BsTooltip>
               <div class="value">{{ release.version }}</div>
@@ -39,7 +50,25 @@ export default {
   data() {
     return {
       isLoading: true,
-      versionsData: {},
+      versionsData: {}
+    };
+  },
+  computed: {
+    ...mapState(useServersStore, {
+      version: (store) => store.version,
+      versionCompare: (store) => store.versionCompare
+    }),
+    ...mapState(useConfigurationStore, {
+      defaultBranchName: (store) => store.config.defaultBranchName
+    }),
+    releases() {
+      const data = [...this.ontologyVersions.data];
+      const releasesArray =
+        data
+          .find((v) => v.group === 'Releases')
+          ?.versions.slice()
+          .reverse() || [];
+      return [...releasesArray, { '@id': this.defaultBranchName }];
     }
   },
   async mounted() {
@@ -51,21 +80,24 @@ export default {
     async fetchVersionsData() {
       this.isLoading = true;
 
-      const promises = this.releases.map(release => this.getEntityData(release['@id'], this.data.iri));
+      const promises = this.releases.map((release) =>
+        this.getEntityData(release['@id'], this.data.iri)
+      );
       const versionsData = await Promise.all(promises);
 
       this.versionsData = this.releases.map((release, index) => {
         return {
           version: release['@id'],
-          maturityLevel: versionsData[index] ? versionsData[index].result.maturityLevel : null,
-        }
-      })
+          maturityLevel: versionsData[index]
+            ? versionsData[index].result.maturityLevel
+            : null
+        };
+      });
 
       this.isLoading = false;
     },
     handleVersionClick(release) {
-      if (!release?.maturityLevel?.label)
-        return;
+      if (!release?.maturityLevel?.label) return;
 
       const version = { '@id': release.version };
       this.$emit('versionChanged', version);
@@ -126,22 +158,8 @@ export default {
         return `Maturity not set`;
       }
       return `${release.maturityLevel.label} maturity`;
-    },
-  },
-  computed: {
-    ...mapState(useServersStore, {
-      version: store => store.version,
-      versionCompare: store => store.versionCompare,
-    }),
-    ...mapState(useConfigurationStore, {
-      defaultBranchName: store => store.config.defaultBranchName,
-    }),
-    releases() {
-      const data = [...this.ontologyVersions.data];
-      const releasesArray = data.find(v => v.group === 'Releases')?.versions.slice().reverse() || [];
-      return [...releasesArray, { '@id': this.defaultBranchName }];
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -166,7 +184,6 @@ export default {
   background-color: rgba(242, 242, 242, 1);
   overflow-x: scroll;
   user-select: none;
-
 
   &::-webkit-scrollbar {
     display: none;
@@ -215,8 +232,11 @@ export default {
           width: 100%;
           height: 2px;
           z-index: 50;
-          background-image: linear-gradient(90deg,
-          rgba(242, 242, 242, 1) 15%, rgba(0, 0, 0, 0) 100%);
+          background-image: linear-gradient(
+            90deg,
+            rgba(242, 242, 242, 1) 15%,
+            rgba(0, 0, 0, 0) 100%
+          );
         }
       }
 
@@ -237,8 +257,11 @@ export default {
           width: 100%;
           height: 2px;
           z-index: 50;
-          background-image: linear-gradient(270deg,
-              rgba(242, 242, 242, 1) 15%, rgba(0, 0, 0, 0) 100%);
+          background-image: linear-gradient(
+            270deg,
+            rgba(242, 242, 242, 1) 15%,
+            rgba(0, 0, 0, 0) 100%
+          );
         }
       }
 
@@ -281,7 +304,7 @@ export default {
           padding-left: 15px;
           transform-origin: top left;
           transform: rotate(25deg);
-          color: map-get($colors-map, "black-40");
+          color: map-get($colors-map, 'black-40');
 
           max-width: 200px;
           overflow: hidden;
@@ -307,7 +330,7 @@ export default {
             width: 16px;
             height: 16px;
             border-radius: 16px;
-            border: 2px solid rgba(0, 0, 0, .6);
+            border: 2px solid rgba(0, 0, 0, 0.6);
             background: white;
             display: flex;
             justify-content: center;
@@ -318,25 +341,25 @@ export default {
             }
 
             &.maturity-provisional {
-              background-color: map-get($colors-map, "yellow");
+              background-color: map-get($colors-map, 'yellow');
             }
 
             &.maturity-production {
-              background-color: map-get($colors-map, "green");
+              background-color: map-get($colors-map, 'green');
             }
 
             &.maturity-informative {
-              background-color: map-get($colors-map, "orange");
+              background-color: map-get($colors-map, 'orange');
             }
 
             &.maturity-mixed {
-              background-image: url("@/assets/icons/mixed-maturity.svg");
+              background-image: url('@/assets/icons/mixed-maturity.svg');
               background-size: 100%;
             }
           }
 
           .value {
-            color: map-get($colors-map, "black-80");
+            color: map-get($colors-map, 'black-80');
           }
         }
 
@@ -358,12 +381,12 @@ export default {
 
   .history-banner .timeline .line {
     &.start-line {
-        min-width: 100px;
-      }
+      min-width: 100px;
+    }
 
-      &:last-child {
-        min-width: 150px;
-      }
+    &:last-child {
+      min-width: 150px;
+    }
   }
 }
 </style>

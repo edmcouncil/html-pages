@@ -5,6 +5,6 @@
 <script>
 export default {
   name: 'OTHER',
-  props: ['value'],
+  props: ['value']
 };
 </script>

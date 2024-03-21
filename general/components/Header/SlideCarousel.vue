@@ -1,6 +1,11 @@
 <template>
   <div class="carousel-container">
-    <div id="carouselController" class="carousel slide" ref="carousel" data-bs-ride="carousel">
+    <div
+      id="carouselController"
+      ref="carousel"
+      class="carousel slide"
+      data-bs-ride="carousel"
+    >
       <div class="carousel-inner">
         <div
           v-for="(item, index) in carousel"
@@ -98,8 +103,16 @@ export default {
       currentSlide: 0,
       isSliding: false,
       carouselThrottle: null,
-      instance: null,
+      instance: null
     };
+  },
+  computed: {
+    ...mapState(useContentStore, {
+      carousel: (store) => store.headerData.carousel
+    }),
+    slideCount() {
+      return this.carousel?.length || 1;
+    }
   },
   mounted() {
     const { $bootstrap } = useNuxtApp();
@@ -136,16 +149,8 @@ export default {
     },
     onSlide(event) {
       this.currentSlide = event.to;
-    },
-  },
-  computed: {
-    ...mapState(useContentStore, {
-      carousel: store => store.headerData.carousel,
-    }),
-    slideCount() {
-      return this.carousel?.length || 1;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -202,7 +207,7 @@ export default {
       position: relative;
 
       &:after {
-        content: "";
+        content: '';
         padding: 50px;
         position: absolute;
         left: -25px;
@@ -216,11 +221,11 @@ export default {
       }
 
       .carousel-control-prev-icon {
-        background-image: url("@/assets/icons/carousel-previous.svg");
+        background-image: url('@/assets/icons/carousel-previous.svg');
       }
 
       .carousel-control-next-icon {
-        background-image: url("@/assets/icons/carousel-next.svg");
+        background-image: url('@/assets/icons/carousel-next.svg');
       }
     }
   }
@@ -241,14 +246,14 @@ export default {
   }
   span.text-display {
     display: inline-block;
-    color: map-get($colors-map, "black");
+    color: map-get($colors-map, 'black');
   }
   h2 {
     margin: 40px 0;
-    color: map-get($colors-map, "black-80");
+    color: map-get($colors-map, 'black-80');
   }
   a {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -259,34 +264,44 @@ export default {
     letter-spacing: 0.02em;
     text-decoration-line: underline;
 
-    color: map-get($colors-map, "black");
+    color: map-get($colors-map, 'black');
 
     &:hover {
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
     }
   }
   // transition
   &.active {
     opacity: 1;
-    transition: transform 1s ease-out 0.2s, opacity 0.5s ease-out 0.2s;
+    transition:
+      transform 1s ease-out 0.2s,
+      opacity 0.5s ease-out 0.2s;
   }
   // entering slide
   &.carousel-item-next {
     opacity: 1;
-    transition: transform 1.2s ease-out, opacity 1s ease-out .6s;
+    transition:
+      transform 1.2s ease-out,
+      opacity 1s ease-out 0.6s;
   }
   &.carousel-item-prev {
     opacity: 1;
-    transition: transform 1.2s ease-out, opacity 1s ease-out .6s;
+    transition:
+      transform 1.2s ease-out,
+      opacity 1s ease-out 0.6s;
   }
   // leaving slide
   &.active.carousel-item-left {
     opacity: 0;
-    transition: transform 1s ease-in, opacity 0.3s ease-out;
+    transition:
+      transform 1s ease-in,
+      opacity 0.3s ease-out;
   }
   &.active.carousel-item-right {
     opacity: 0;
-    transition: transform 1s ease-in, opacity 0.3s ease-out;
+    transition:
+      transform 1s ease-in,
+      opacity 0.3s ease-out;
   }
 
   //new
@@ -311,7 +326,7 @@ export default {
   .carousel-item {
     h2 {
       margin: 30px 0;
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
     }
     a {
       font-size: 18px;
@@ -346,7 +361,7 @@ export default {
       font-size: 16px;
       line-height: 24px;
       margin: 15px 0;
-      color: map-get($colors-map, "black-60");
+      color: map-get($colors-map, 'black-60');
     }
     a {
       font-size: 16px;

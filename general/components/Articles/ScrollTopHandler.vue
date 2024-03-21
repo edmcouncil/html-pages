@@ -1,5 +1,5 @@
 <template>
-  <div class="article-scroll-top" id="article-top-element"></div>
+  <div id="article-top-element" class="article-scroll-top"></div>
 </template>
 
 <script>
@@ -12,9 +12,9 @@ export default {
     scrollBackUp() {
       const element = document.getElementById('article-top-element');
       element.scrollIntoView({
-        behavior: 'smooth',
+        behavior: 'smooth'
       });
-    },
-  },
+    }
+  }
 };
 </script>

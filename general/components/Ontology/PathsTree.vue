@@ -1,17 +1,17 @@
 <template>
   <li :class="{ selected: !isFolder }">
     <div class="guiding-lines">
-      <div class="parent-link" :class="{ only: isOnly }" v-if="!isRoot"></div>
-      <div class="line" v-if="!isLast && !isRoot"></div>
+      <div v-if="!isRoot" class="parent-link" :class="{ only: isOnly }"></div>
+      <div v-if="!isLast && !isRoot" class="line"></div>
     </div>
     <div
+      v-if="isFolder"
       class="icon"
       :class="{ 'item-open': isOpen }"
       @click="toggleOpen"
-      v-if="isFolder"
     ></div>
     <span>
-      <div class="wrapping-line-fill" v-if="isFolder && isOpen"></div>
+      <div v-if="isFolder && isOpen" class="wrapping-line-fill"></div>
       <customLink
         class="custom-link"
         :name="item.value.label"
@@ -23,9 +23,9 @@
         v-for="(child, index) in item.children"
         :key="child.label"
         :item="child"
-        :isLast="index == item.children.length - 1"
-        :isOnly="item.children.length === 1"
-        :isRoot="false"
+        :is-last="index == item.children.length - 1"
+        :is-only="item.children.length === 1"
+        :is-root="false"
       />
     </ul>
   </li>
@@ -33,28 +33,28 @@
 
 <script>
 export default {
-  name: 'paths-tree',
+  name: 'PathsTree',
   props: {
     item: Object,
     isLast: Boolean,
     isOnly: Boolean,
-    isRoot: Boolean,
+    isRoot: Boolean
   },
   data() {
     return {
-      isOpen: true,
+      isOpen: true
     };
-  },
-  methods: {
-    toggleOpen() {
-      this.isOpen = !this.isOpen;
-    },
   },
   computed: {
     isFolder() {
       return this.item.children && this.item.children.length;
-    },
+    }
   },
+  methods: {
+    toggleOpen() {
+      this.isOpen = !this.isOpen;
+    }
+  }
 };
 </script>
 
@@ -103,7 +103,7 @@ li {
   }
 
   .icon {
-    background-image: url("@/assets/icons/arrow.svg");
+    background-image: url('@/assets/icons/arrow.svg');
     background-repeat: no-repeat;
     background-size: 24px 24px;
     background-position: center;

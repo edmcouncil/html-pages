@@ -9,7 +9,7 @@
 export default {
   name: 'TextSection',
   props: ['sectionItem'],
-  computed: {},
+  computed: {}
 };
 </script>
 

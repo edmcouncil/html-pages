@@ -1,14 +1,14 @@
 <template>
   <div class="describe-container dropdown-item">
     <bs-modal
-      :open="isOpen"
       id="describe-modal"
-      modalClass="describe-modal"
-      footerClass="d-none"
+      :open="isOpen"
+      modal-class="describe-modal"
+      footer-class="d-none"
       scrollable
       fullscreen
     >
-      <template v-slot:modal-header>
+      <template #modal-header>
         <div
           type="button"
           class="close-btn"
@@ -19,8 +19,14 @@
           <h5 class="modal-title">Return</h5>
         </div>
         <div class="help-icon" @click="openInfo()"></div>
-        <bs-modal :open="isInfoOpen" id="info-modal" modalClass="info-modal" footerClass="d-none" secondLevel>
-          <template v-slot:modal-header>
+        <bs-modal
+          id="info-modal"
+          :open="isInfoOpen"
+          modal-class="info-modal"
+          footer-class="d-none"
+          second-level
+        >
+          <template #modal-header>
             <h5 class="modal-title">About</h5>
             <div
               type="button"
@@ -45,7 +51,7 @@
           <span class="sr-only">Loading...</span>
         </div>
       </div>
-      <div v-else class="code-content" ref="codeContent">
+      <div v-else ref="codeContent" class="code-content">
         <button
           type="button"
           class="btn-copy-code"
@@ -72,11 +78,11 @@
       type="button"
       class="btn-describe disabled"
       :class="{ copied }"
-      @click="openModal()"
       disabled
+      @click="openModal()"
     >
       <span class="content-text"
-      >Describe {{ error ? "unavailable" : null }}</span
+        >Describe {{ error ? 'unavailable' : null }}</span
       >
     </button>
   </div>
@@ -99,8 +105,13 @@ export default {
       code: '',
       highlightedCode: '',
       isOpen: false,
-      isInfoOpen: false,
+      isInfoOpen: false
     };
+  },
+  computed: {
+    ...mapState(useServersStore, {
+      describeServer: (store) => store.describeServer
+    })
   },
   async mounted() {
     if (this.code && this.highlightedCode) return;
@@ -125,8 +136,8 @@ export default {
       const data = await result.clone().json();
 
       if (
-        data?.msg === 'breakdown'
-        || data?.message === 'Integration is not configured'
+        data?.msg === 'breakdown' ||
+        data?.message === 'Integration is not configured'
       ) {
         this.error = true;
         return;
@@ -175,15 +186,8 @@ export default {
       setTimeout(() => {
         this.copied = false;
       }, 1500);
-    },
-  },
-  computed: {
-    ...mapState(
-      useServersStore, {
-        describeServer: store => store.describeServer,
-      }
-    ),
-  },
+    }
+  }
 };
 </script>
 
@@ -222,8 +226,8 @@ export default {
   text-align: left;
 
   &::before {
-    content: "";
-    background-image: url("@/assets/icons/describe.svg");
+    content: '';
+    background-image: url('@/assets/icons/describe.svg');
     background-repeat: no-repeat;
     background-size: 20px;
     background-position: center;
@@ -271,8 +275,8 @@ export default {
   }
 
   &::before {
-    content: "";
-    background-image: url("@/assets/icons/copy-url-icon.svg");
+    content: '';
+    background-image: url('@/assets/icons/copy-url-icon.svg');
     background-repeat: no-repeat;
     background-size: 24px;
     background-position: center;
@@ -306,7 +310,12 @@ export default {
       overflow: visible;
     }
     * {
-      font-family: Roboto Mono, Monaco, Andale Mono, Ubuntu Mono, monospace !important;
+      font-family:
+        Roboto Mono,
+        Monaco,
+        Andale Mono,
+        Ubuntu Mono,
+        monospace !important;
     }
   }
 }
@@ -336,8 +345,8 @@ export default {
       margin-left: 20px;
 
       &::before {
-        content: "";
-        background-image: url("../../assets/icons/close.svg");
+        content: '';
+        background-image: url('../../assets/icons/close.svg');
         background-repeat: no-repeat;
         background-size: 24px 24px;
         width: 24px;
@@ -412,8 +421,8 @@ export default {
       position: absolute;
       cursor: pointer;
 
-      content: "";
-      background-image: url("../../assets/icons/help.svg");
+      content: '';
+      background-image: url('../../assets/icons/help.svg');
       opacity: 0.8;
       background-repeat: no-repeat;
       background-position: center;
@@ -433,8 +442,8 @@ export default {
       padding: 0;
 
       &::before {
-        content: "";
-        background-image: url("../../assets/icons/return-arrow.svg");
+        content: '';
+        background-image: url('../../assets/icons/return-arrow.svg');
         background-repeat: no-repeat;
         background-size: 24px 24px;
         width: 24px;

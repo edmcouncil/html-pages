@@ -1,19 +1,15 @@
 <template>
-  <div
-    class="carousel slide"
-    :id="correctId"
-    ref="carouselElement"
-  >
-      <slot></slot>
+  <div :id="correctId" ref="carouselElement" class="carousel slide">
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'bs-carousel',
+  name: 'BsCarousel',
   props: {
     open: Boolean,
-    id: String,
+    id: String
   },
   emits: ['shown', 'hidden'],
   data() {
@@ -21,25 +17,21 @@ export default {
       instance: null
     };
   },
-  methods: {
-    onShown() {
-      this.$emit('shown');
-      if (this.open) {
+  computed: {
+    correctId() {
+      if (this.id) return this.id.replaceAll(' ', '-') + '-carousel';
+      else return Math.random().toString(16).slice(2);
+    }
+  },
+  watch: {
+    async open(newValue) {
+      if (newValue) {
+        await nextTick();
         this.instance.show();
-      }
-      else {
+      } else {
         this.instance.hide();
       }
-    },
-    onHidden() {
-      this.$emit('hidden');
-      if (this.open) {
-        this.instance.show();
-      }
-      else {
-        this.instance.hide();
-      }
-    },
+    }
   },
   mounted() {
     const { $bootstrap } = useNuxtApp();
@@ -48,33 +40,30 @@ export default {
     element.addEventListener('shown.bs.collapse', this.onShown);
     element.addEventListener('hidden.bs.collapse', this.onHidden);
 
-    if (this.open)
-      this.instance.show();
-    else
-      this.instance.hide();
+    if (this.open) this.instance.show();
+    else this.instance.hide();
   },
   beforeUnmount() {
     const element = this.$refs.collapseElement;
     element.removeEventListener('shown.bs.collapse', this.onShown);
     element.removeEventListener('hidden.bs.collapse', this.onHidden);
   },
-  watch: {
-    async open(newValue) {
-      if (newValue) {
-        await nextTick();
+  methods: {
+    onShown() {
+      this.$emit('shown');
+      if (this.open) {
         this.instance.show();
-      }
-      else {
+      } else {
         this.instance.hide();
       }
-    }
-  },
-  computed: {
-    correctId() {
-      if (this.id)
-        return this.id.replaceAll(' ', '-') + '-carousel';
-      else
-        return Math.random().toString(16).slice(2);
+    },
+    onHidden() {
+      this.$emit('hidden');
+      if (this.open) {
+        this.instance.show();
+      } else {
+        this.instance.hide();
+      }
     }
   }
 };

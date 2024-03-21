@@ -1,13 +1,13 @@
 <template>
   <bs-tooltip :text="text">
-    <div class="resource-inline-tooltip" ref="resourceInlineTooltip"></div>
+    <div ref="resourceInlineTooltip" class="resource-inline-tooltip"></div>
   </bs-tooltip>
 </template>
 
 <script>
 export default {
   name: 'TooltipInline',
-  props: ['text'],
+  props: ['text']
 };
 </script>
 
@@ -17,7 +17,7 @@ export default {
   display: inline-block;
   width: 16px;
   height: 16px;
-  background-image: url("../../assets/icons/tooltip.svg");
+  background-image: url('../../assets/icons/tooltip.svg');
   background-size: 100%;
   opacity: 0.5;
   margin-left: 5px;

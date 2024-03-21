@@ -1,37 +1,35 @@
 <template>
   <div>
     <h5
+      ref="scrollTarget"
       class="section-title"
       :class="{ 'section-collapse': sectionCollapsed }"
       @click="toggleSectionCollapsed()"
-      ref="scrollTarget"
     >
       Path(s)
     </h5>
     <div class="section-content-wrapper">
       <div class="form-check form-switch">
-        <label class="form-check-label-prev" for="paths-switch">
-          List
-        </label>
+        <label class="form-check-label-prev" for="paths-switch"> List </label>
         <input
-          type="checkbox"
-          class="form-check-input"
           id="paths-switch"
           v-model="isTreeView"
+          type="checkbox"
+          class="form-check-input"
         />
         <label class="form-check-label" for="paths-switch"> Tree </label>
       </div>
 
       <transition name="fade" mode="out-in">
         <div
+          v-if="!isTreeView"
           key="path-view"
           class="ontology-item__paths__path-view"
-          v-if="!isTreeView"
         >
           <PathsListItem
             v-for="(listItem, index) in data.taxonomy.value.slice(0, 2)"
             :key="'taxonomyParagraph' + index + data.iri"
-            :itemData="listItem"
+            :item-data="listItem"
           />
 
           <div v-if="data.taxonomy.value.length > 2">
@@ -41,8 +39,8 @@
                   <PathsListItem
                     v-for="(listItem, index) in data.taxonomy.value.slice(2)"
                     :key="'taxonomyParagraph' + index + data.iri"
-                    :itemData="listItem"
                     ref="collapseList"
+                    :item-data="listItem"
                   />
                 </div>
               </transition>
@@ -51,7 +49,7 @@
             <div v-show="!isPathsMoreVisible" @click="togglePathsMoreVisible()">
               <div class="see-more-btn">
                 Show {{ data.taxonomy.value.length - 2 }} more
-                {{ data.taxonomy.value.length - 2 > 1 ? "paths" : "path" }}
+                {{ data.taxonomy.value.length - 2 > 1 ? 'paths' : 'path' }}
               </div>
             </div>
 
@@ -60,15 +58,15 @@
             </div>
           </div>
         </div>
-        <div key="tree-view" class="ontology-item__paths__tree-view" v-else>
+        <div v-else key="tree-view" class="ontology-item__paths__tree-view">
           <ul class="ontology-item__paths__tree-view__root">
             <PathsTree
               v-for="(child, index) in treeView"
               :key="child.label"
               :item="child"
-              :isLast="index == treeView.length - 1"
-              :isOnly="treeView.length === 1"
-              :isRoot="true"
+              :is-last="index == treeView.length - 1"
+              :is-only="treeView.length === 1"
+              :is-root="true"
             />
           </ul>
         </div>
@@ -86,8 +84,13 @@ export default {
       sectionCollapsed: false,
       treeView: [],
       isTreeView: false,
-      isPathsMoreVisible: false,
+      isPathsMoreVisible: false
     };
+  },
+  watch: {
+    isTreeView(newValue) {
+      localStorage.isTreeView = newValue;
+    }
   },
   created() {
     if (localStorage.isTreeView && localStorage.isTreeView === 'true') {
@@ -105,7 +108,7 @@ export default {
 
       if (this.isPathsMoreVisible && topOffset < 0) {
         this.$refs.scrollTarget.scrollIntoView({
-          behavior: 'smooth',
+          behavior: 'smooth'
         });
         setTimeout(() => {
           this.isPathsMoreVisible = false;
@@ -124,7 +127,7 @@ export default {
       if (this.data.taxonomy?.value) {
         this.treeView = [];
         const tempTaxonomy = JSON.parse(
-          JSON.stringify(this.data.taxonomy.value),
+          JSON.stringify(this.data.taxonomy.value)
         );
         tempTaxonomy.forEach((element) => {
           this.getTreeFromList(element, this.treeView);
@@ -140,7 +143,7 @@ export default {
         if (parts[0].label === treeNode[i].value.label) {
           this.getTreeFromList(
             parts.splice(1, parts.length),
-            treeNode[i].children,
+            treeNode[i].children
           );
           return;
         }
@@ -149,13 +152,8 @@ export default {
       const newNode = { value: parts[0], children: [] };
       treeNode.push(newNode);
       this.getTreeFromList(parts.splice(1, parts.length), newNode.children);
-    },
-  },
-  watch: {
-    isTreeView: (newValue) => {
-      localStorage.isTreeView = newValue;
-    },
-  },
+    }
+  }
 };
 </script>
 

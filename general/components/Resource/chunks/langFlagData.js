@@ -105,5 +105,5 @@ export default {
   ssLang: { flag: 'sz', name: 'Swati' },
   loLang: { flag: 'la', name: 'Laotian' },
   sgLang: { flag: 'cf', name: 'Sango' },
-  naLang: { flag: 'nr', name: 'Nauruan' },
+  naLang: { flag: 'nr', name: 'Nauruan' }
 };

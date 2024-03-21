@@ -10,50 +10,59 @@ const parseServerError = (response) => {
   return response;
 };
 
-const getEntity = (domain) => fetch(domain, {
-  method: 'GET',
-  headers: { Accept: 'application/json' },
-}).then(parseServerError);
+const getEntity = (domain) =>
+  fetch(domain, {
+    method: 'GET',
+    headers: { Accept: 'application/json' }
+  }).then(parseServerError);
 
-const getModules = (domain) => fetch(domain, {
-  method: 'GET',
-  headers: { Accept: 'application/json' },
-}).then(parseServerError);
+const getModules = (domain) =>
+  fetch(domain, {
+    method: 'GET',
+    headers: { Accept: 'application/json' }
+  }).then(parseServerError);
 
-const getOntologyVersions = (domain) => fetch(domain, {
-  method: 'GET',
-  headers: { Accept: 'application/json' },
-}).then(parseServerError);
+const getOntologyVersions = (domain) =>
+  fetch(domain, {
+    method: 'GET',
+    headers: { Accept: 'application/json' }
+  }).then(parseServerError);
 
-const getJenkinsJobs = (domain) => fetch(domain, {
-  method: 'GET',
-  headers: { Accept: 'application/json' },
-}).then(parseServerError);
+const getJenkinsJobs = (domain) =>
+  fetch(domain, {
+    method: 'GET',
+    headers: { Accept: 'application/json' }
+  }).then(parseServerError);
 
-const getFindSearch = (domain) => fetch(domain, {
-  method: 'GET',
-  headers: { Accept: 'application/json' },
-}).then(parseServerError);
+const getFindSearch = (domain) =>
+  fetch(domain, {
+    method: 'GET',
+    headers: { Accept: 'application/json' }
+  }).then(parseServerError);
 
-const getFindProperties = (domain) => fetch(domain, {
-  method: 'GET',
-  headers: { Accept: 'application/json' },
-}).then(parseServerError);
+const getFindProperties = (domain) =>
+  fetch(domain, {
+    method: 'GET',
+    headers: { Accept: 'application/json' }
+  }).then(parseServerError);
 
-const getStats = (domain) => fetch(domain, {
-  method: 'GET',
-  headers: { Accept: 'application/json' },
-}).then(parseServerError);
+const getStats = (domain) =>
+  fetch(domain, {
+    method: 'GET',
+    headers: { Accept: 'application/json' }
+  }).then(parseServerError);
 
-const getMissingImports = (domain) => fetch(domain, {
-  method: 'GET',
-  headers: { Accept: 'application/json' },
-}).then(parseServerError);
+const getMissingImports = (domain) =>
+  fetch(domain, {
+    method: 'GET',
+    headers: { Accept: 'application/json' }
+  }).then(parseServerError);
 
-const getDescribeIntegration = (domain) => fetch(domain, {
-  method: 'GET',
-  headers: { Accept: 'application/rdf+xml' },
-}).then(parseServerError);
+const getDescribeIntegration = (domain) =>
+  fetch(domain, {
+    method: 'GET',
+    headers: { Accept: 'application/rdf+xml' }
+  }).then(parseServerError);
 
 export {
   getEntity,
@@ -64,5 +73,5 @@ export {
   getStats,
   getMissingImports,
   getDescribeIntegration,
-  getJenkinsJobs,
+  getJenkinsJobs
 };

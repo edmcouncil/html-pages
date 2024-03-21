@@ -13,7 +13,7 @@
         <slot name="title"></slot>
       </div>
     </div>
-    <div class="expandable__content" v-if="isExpanded">
+    <div v-if="isExpanded" class="expandable__content">
       <slot name="content"></slot>
     </div>
   </div>
@@ -25,9 +25,9 @@ export default {
   props: ['defaultExpanded'],
   data() {
     return {
-      isExpanded: this.defaultExpanded || false,
+      isExpanded: this.defaultExpanded || false
     };
-  },
+  }
 };
 </script>
 
@@ -53,7 +53,7 @@ export default {
 
       margin-right: 10px;
 
-      background-image: url("../../assets/icons/arrow.svg");
+      background-image: url('../../assets/icons/arrow.svg');
       background-position: center;
 
       &.expanded {

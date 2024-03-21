@@ -5,8 +5,8 @@
     </div>
     <div class="button-container">
       <button class="btn normal-button" @click="toggleExpanded()">
-        <span v-if="isExpanded">{{ expandedText || "Show less" }}</span>
-        <span v-else>{{ collapsedText || "Show more" }}</span>
+        <span v-if="isExpanded">{{ expandedText || 'Show less' }}</span>
+        <span v-else>{{ collapsedText || 'Show more' }}</span>
       </button>
     </div>
   </div>
@@ -18,7 +18,7 @@ export default {
   props: ['expandedText', 'collapsedText'],
   data() {
     return {
-      isExpanded: false,
+      isExpanded: false
     };
   },
   methods: {
@@ -27,8 +27,8 @@ export default {
     },
     expand() {
       this.isExpanded = true;
-    },
-  },
+    }
+  }
 };
 </script>
 

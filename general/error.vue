@@ -17,9 +17,10 @@
         </p>
 
         <nuxt-link v-if="error.statusCode === 404" to="/"
-        >Return to homepage</nuxt-link>
+          >Return to homepage</nuxt-link
+        >
         <a v-else href="https://spec.edmcouncil.org/"
-        >Return to spec.edmcouncil.org</a
+          >Return to spec.edmcouncil.org</a
         >
       </section>
     </article>
@@ -29,8 +30,8 @@
 <script>
 export default {
   name: 'Error',
-  props: ['error'],
   layout: 'empty',
+  props: ['error'],
   mounted() {
     console.error(this.error.message);
   }
@@ -66,12 +67,12 @@ export default {
     }
 
     a {
-      color: map-get($colors-map, "black");
+      color: map-get($colors-map, 'black');
       transition: none;
       text-decoration: none;
 
       &:hover {
-        color: map-get($colors-map, "black-60");
+        color: map-get($colors-map, 'black-60');
       }
     }
   }
@@ -84,7 +85,7 @@ export default {
 
   &::before {
     position: absolute;
-    content: "";
+    content: '';
     width: 0px;
     height: 0px;
     top: 45%;

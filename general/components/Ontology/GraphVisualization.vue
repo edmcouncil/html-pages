@@ -15,12 +15,12 @@
           <div class="collapsible-section-content">
             <div class="form-check">
               <input
+                id="internal-minimal"
+                v-model="internal"
                 class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
-                id="internal-minimal"
                 value="internal"
-                v-model="internal"
                 @change="filterHandler()"
               />
               <label class="form-check-label" for="internal-minimal">
@@ -29,40 +29,40 @@
             </div>
             <div class="form-check">
               <input
+                id="external-minimal"
+                v-model="external"
                 class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
-                id="external-minimal"
                 value="external"
-                v-model="external"
                 @change="filterHandler()"
               />
               <label class="form-check-label" for="external-minimal"
-              >Inherited</label
+                >Inherited</label
               >
             </div>
             <div class="form-check">
               <input
+                id="optional-minimal"
+                v-model="optional"
                 class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
-                id="optional-minimal"
                 value="optional"
-                v-model="optional"
                 @change="filterHandler()"
               />
               <label class="form-check-label" for="optional-minimal"
-              >Optional</label
+                >Optional</label
               >
             </div>
             <div class="form-check">
               <input
+                id="non_optional-minimal"
+                v-model="required"
                 class="form-check-input"
                 type="checkbox"
                 name="edgesFilter"
-                id="non_optional-minimal"
                 value="non_optional"
-                v-model="required"
                 @change="filterHandler()"
               />
               <label class="form-check-label" for="non_optional-minimal">
@@ -75,7 +75,7 @@
           <button
             type="button"
             class="btn normal-button small icon-button download-png-button"
-            v-on:click="downloadAsPng()"
+            @click="downloadAsPng()"
           >
             Download as PNG
             <div class="b-icon download"></div>
@@ -98,15 +98,15 @@
       <div>or open Fullscreen mode</div>
     </div>
     <div
-      class="ontograph-minimal"
       ref="ontograph"
+      class="ontograph-minimal"
       @wheel="handleScrollOnMinimal()"
     ></div>
     <div class="fullscreen-btn-wrapper row">
       <button
         type="button"
         class="btn normal-button icon-button fullscreen-button"
-        v-on:click="showModal()"
+        @click="showModal()"
       >
         Full screen
         <div class="b-icon"></div>
@@ -115,12 +115,12 @@
 
     <bs-modal
       :open="fullscreen"
-      footerClass="d-none"
-      modalClass="fullscreen graph-visualization"
+      footer-class="d-none"
+      modal-class="fullscreen graph-visualization"
       @shown="modalShown()"
       @hidden="modalHidden()"
     >
-      <template v-slot:modal-header>
+      <template #modal-header>
         <div class="left">
           <div
             type="button"
@@ -138,7 +138,7 @@
         <div class="right" :class="{ visible: isControlPanelOpen }">
           <button
             class="btn normal-button small icon-button download-png-button"
-            v-on:click="downloadAsPng()"
+            @click="downloadAsPng()"
           >
             Download as PNG
             <div class="b-icon download"></div>
@@ -151,8 +151,8 @@
           </button>
           <button
             class="btn normal-button small"
-            @click="toggleControlPanelOpen()"
             :disabled="isControlPanelOpen"
+            @click="toggleControlPanelOpen()"
           >
             View options
           </button>
@@ -161,22 +161,27 @@
             :class="{ visible: isControlPanelOpen }"
           >
             <div class="control-panel-header">
-              <h3 class="control-panel-title" @click="toggleControlPanelOpen()">View options</h3>
+              <h3 class="control-panel-title" @click="toggleControlPanelOpen()">
+                View options
+              </h3>
             </div>
             <div class="control-panel-content">
               <div class="panel-section-title">
                 <h3>Connections</h3>
-                <div class="help-icon" @click="openGuide('guide-connections')"></div>
+                <div
+                  class="help-icon"
+                  @click="openGuide('guide-connections')"
+                ></div>
               </div>
               <div class="filters-container">
                 <div class="form-check">
                   <input
+                    id="internal"
+                    v-model="internal"
                     class="form-check-input"
                     type="checkbox"
                     name="edgesFilter"
-                    id="internal"
                     value="internal"
-                    v-model="internal"
                     @change="filterHandler()"
                   />
                   <label class="form-check-label" for="internal">
@@ -185,36 +190,40 @@
                 </div>
                 <div class="form-check">
                   <input
-                    class="form-check-input"
-                    type="checkbox"
-                    name="edgesFilter"
                     id="external"
-                    value="external"
                     v-model="external"
-                    @change="filterHandler()"
-                  />
-                  <label class="form-check-label" for="external">Inherited</label>
-                </div>
-                <div class="form-check">
-                  <input
                     class="form-check-input"
                     type="checkbox"
                     name="edgesFilter"
+                    value="external"
+                    @change="filterHandler()"
+                  />
+                  <label class="form-check-label" for="external"
+                    >Inherited</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
                     id="optional"
-                    value="optional"
                     v-model="optional"
-                    @change="filterHandler()"
-                  />
-                  <label class="form-check-label" for="optional">Optional</label>
-                </div>
-                <div class="form-check">
-                  <input
                     class="form-check-input"
                     type="checkbox"
                     name="edgesFilter"
+                    value="optional"
+                    @change="filterHandler()"
+                  />
+                  <label class="form-check-label" for="optional"
+                    >Optional</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
                     id="non_optional"
-                    value="non_optional"
                     v-model="required"
+                    class="form-check-input"
+                    type="checkbox"
+                    name="edgesFilter"
+                    value="non_optional"
                     @change="filterHandler()"
                   />
                   <label class="form-check-label" for="non_optional">
@@ -224,78 +233,93 @@
               </div>
               <div class="panel-section-title">
                 <h3>Layout</h3>
-                <div class="help-icon" @click="openGuide('guide-layouts')"></div>
+                <div
+                  class="help-icon"
+                  @click="openGuide('guide-layouts')"
+                ></div>
               </div>
               <div class="panel-flex-container layouts-container">
                 <button
                   class="btn chip-button"
                   :class="{ selected: layout === 'tree' }"
-                  @click="toTree">
+                  @click="toTree"
+                >
                   Tree
                 </button>
                 <button
                   class="btn chip-button"
                   :class="{ selected: layout === 'clusterTree' }"
-                  @click="toClusterTree"
                   :disabled="height < 2"
+                  @click="toClusterTree"
                 >
                   Cluster Tree
                 </button>
                 <button
                   class="btn chip-button"
                   :class="{ selected: layout === 'radial' }"
-                  @click="toRadial">
+                  @click="toRadial"
+                >
                   Radial
                 </button>
                 <button
                   class="btn chip-button"
                   :class="{ selected: layout === 'clusterRadial' }"
-                  @click="toClusterRadial"
                   :disabled="height < 2"
+                  @click="toClusterRadial"
                 >
                   Cluster Radial
                 </button>
                 <button
                   class="btn chip-button"
                   :class="{ selected: layout === 'force' }"
-                  @click="toForce">
+                  @click="toForce"
+                >
                   Force
                 </button>
               </div>
               <div class="panel-section-title">
                 <h3>Sort</h3>
-                <div class="help-icon" @click="openGuide('guide-sorting')"></div>
+                <div
+                  class="help-icon"
+                  @click="openGuide('guide-sorting')"
+                ></div>
               </div>
               <div class="panel-flex-container layouts-container">
                 <button
                   class="btn chip-button"
-                  @click="sort('az')"
                   :class="{ selected: sortType === 'az' && layout !== 'force' }"
                   :disabled="layout == 'force'"
+                  @click="sort('az')"
                 >
                   A - Z
                 </button>
                 <button
                   class="btn chip-button"
-                  @click="sort('height')"
-                  :class="{ selected: sortType === 'height' && layout !== 'force' }"
+                  :class="{
+                    selected: sortType === 'height' && layout !== 'force'
+                  }"
                   :disabled="height < 2 || layout == 'force'"
+                  @click="sort('height')"
                 >
                   Height
                 </button>
                 <button
                   class="btn chip-button"
-                  @click="sort('inherited')"
-                  :class="{ selected: sortType === 'inherited' && layout !== 'force' }"
+                  :class="{
+                    selected: sortType === 'inherited' && layout !== 'force'
+                  }"
                   :disabled="layout == 'force'"
+                  @click="sort('inherited')"
                 >
                   Inherited
                 </button>
                 <button
                   class="btn chip-button"
-                  @click="sort('optional')"
-                  :class="{ selected: sortType === 'optional' && layout !== 'force' }"
+                  :class="{
+                    selected: sortType === 'optional' && layout !== 'force'
+                  }"
                   :disabled="layout == 'force'"
+                  @click="sort('optional')"
                 >
                   Optional
                 </button>
@@ -312,10 +336,10 @@
                   <p>Display all edge labels</p>
                   <div class="form-check form-switch">
                     <input
-                      type="checkbox"
-                      class="form-check-input"
                       id="keep-labels-switch"
                       v-model="isKeepLabels"
+                      type="checkbox"
+                      class="form-check-input"
                       @change="handleKeepLabelsUpdate()"
                     />
                     <label
@@ -327,10 +351,7 @@
                 <div class="configuration-distance">
                   <p>
                     Node distance
-                    <button
-                      class="btn chip-button"
-                      disabled
-                    >
+                    <button class="btn chip-button" disabled>
                       {{ distanceValue }}
                     </button>
                   </p>
@@ -350,10 +371,7 @@
                 >
                   <p>
                     Vertical distance
-                    <button
-                      class="btn chip-button"
-                      disabled
-                    >
+                    <button class="btn chip-button" disabled>
                       {{ verticalDistanceValue }}
                     </button>
                   </p>
@@ -371,10 +389,9 @@
             </div>
           </div>
         </div>
-
       </template>
       <div class="alerts-container">
-        <div class="node-alert" v-for="alert in alerts" :key="alert.id">
+        <div v-for="alert in alerts" :key="alert.id" class="node-alert">
           <p v-if="alert.type == 'noChildren'">
             Child nodes not found in "{{ alert.source }}".
           </p>
@@ -384,8 +401,10 @@
         </div>
       </div>
 
-      <button class="btn normal-button small center-btn" @click="center">Center</button>
-      <div class="graph-modal-content" ref="graphModalTarget"></div>
+      <button class="btn normal-button small center-btn" @click="center">
+        Center
+      </button>
+      <div ref="graphModalTarget" class="graph-modal-content"></div>
     </bs-modal>
 
     <GraphGuide ref="graphGuide" />
@@ -429,9 +448,30 @@ export default {
 
       alerts: [],
 
-      scrollPreventedVisible: false, // overlay on graph when scrolling without ctrl
-      scrollPreventedTimeout: null,
+      // overlay on graph when scrolling without ctrl
+      scrollPreventedVisible: false,
+      scrollPreventedTimeout: null
     };
+  },
+  computed: {
+    ...mapState(useServersStore, {
+      graphServer: (store) => store.graphServer
+    }),
+    ...mapState(useConfigurationStore, {
+      uriSpace: (store) => store.config.uriSpace,
+      ontologyName: (store) => store.config.ontpubFamily.toLowerCase()
+    }),
+    hasVerticalDistanceControl() {
+      return this.layout === 'tree' || this.layout === 'clusterTree';
+    }
+  },
+  watch: {
+    distanceValue(newValue) {
+      localStorage.distanceValue = newValue;
+    },
+    isKeepLabels(newValue) {
+      localStorage.isKeepLabels = newValue;
+    }
   },
   mounted() {
     const target = this.$refs.ontograph;
@@ -440,8 +480,9 @@ export default {
       target,
       this.navigationHandler,
       this.alertHandler,
+      this.contextMenuHandler,
       this.graphServer,
-      this.onHeightUpdate,
+      this.onHeightUpdate
     );
     this.ontograph.sort(this.sortType);
     this.height = this.ontograph.getHeight();
@@ -501,7 +542,7 @@ export default {
         external: this.external,
         internal: this.internal,
         optional: this.optional,
-        required: this.required,
+        required: this.required
       });
       this.height = this.ontograph.getHeight();
       this.layout = this.ontograph.getLayout();
@@ -519,7 +560,7 @@ export default {
       this.alerts.push({
         type,
         id,
-        source,
+        source
       });
       setTimeout(() => {
         this.alerts.shift();
@@ -535,7 +576,7 @@ export default {
         format: 'png',
         quality: 1,
         download: false,
-        background: 'white',
+        background: 'white'
       }).then((fileData) => {
         const download = document.createElement('a');
         download.href = fileData;
@@ -578,8 +619,8 @@ export default {
           query: {
             ...(this.$route.query && this.$route.query.version
               ? { version: encodeURI(this.$route.query.version) }
-              : null),
-          },
+              : null)
+          }
         });
       } else {
         // external ontology
@@ -589,8 +630,8 @@ export default {
             ...{ query: encodeURI(to) },
             ...(this.$route.query && this.$route.query.version
               ? { version: encodeURI(this.$route.query.version) }
-              : null),
-          },
+              : null)
+          }
         });
       }
     },
@@ -627,28 +668,8 @@ export default {
       this.scrollPreventedTimeout = setTimeout(() => {
         this.scrollPreventedVisible = false;
       }, 1500);
-    },
-  },
-  computed: {
-    ...mapState(useServersStore, {
-      graphServer: store => store.graphServer,
-    }),
-    ...mapState(useConfigurationStore, {
-      uriSpace: store => store.config.uriSpace,
-      ontologyName: store => store.config.ontpubFamily.toLowerCase(),
-    }),
-    hasVerticalDistanceControl() {
-      return this.layout === 'tree' || this.layout === 'clusterTree';
     }
-  },
-  watch: {
-    distanceValue(newValue) {
-      localStorage.distanceValue = newValue;
-    },
-    isKeepLabels(newValue) {
-      localStorage.isKeepLabels = newValue;
-    },
-  },
+  }
 };
 </script>
 
@@ -656,6 +677,44 @@ export default {
 .graph-section {
   background: rgba(0, 0, 0, 0.05);
   position: relative;
+
+  .custom-context-menu {
+    position: fixed;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+    z-index: 2000;
+  }
+
+  .custom-context-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .custom-context-menu ul li {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 30px;
+    cursor: pointer;
+
+    color: map-get($colors-map, 'black-80');
+
+    margin: 0;
+    padding: 15px 30px;
+
+    cursor: pointer;
+
+    &:first-child {
+      font-weight: bold;
+    }
+  }
+
+  .custom-context-menu ul li:hover {
+    background-color: #f7f7f7;
+  }
 }
 
 .alerts-container {
@@ -668,14 +727,14 @@ export default {
   pointer-events: none;
 
   p {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 30px;
 
-    color: map-get($colors-map, "black-80");
-    background: map-get($colors-map, "white");
+    color: map-get($colors-map, 'black-80');
+    background: map-get($colors-map, 'white');
     width: max-content;
     border-radius: 2px;
     padding: 5px 15px;
@@ -779,8 +838,8 @@ export default {
 
       .help-icon {
         position: absolute;
-        content: "";
-        background-image: url("../../assets/icons/help.svg");
+        content: '';
+        background-image: url('../../assets/icons/help.svg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: 24px 24px;
@@ -805,8 +864,8 @@ export default {
       &::after {
         position: absolute;
 
-        content: "";
-        background-image: url("../../assets/icons/close.svg");
+        content: '';
+        background-image: url('../../assets/icons/close.svg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: 24px 24px;
@@ -889,13 +948,13 @@ export default {
   bottom: 100px;
   margin-right: 5px;
   .b-icon {
-    background-image: url("../../assets/icons/maximize.svg");
+    background-image: url('../../assets/icons/maximize.svg');
   }
 }
 
 .download-png-button {
   .b-icon.download {
-    background-image: url("../../assets/icons/download.svg");
+    background-image: url('../../assets/icons/download.svg');
     width: 20px;
     height: 20px;
   }
@@ -956,8 +1015,8 @@ export default {
         margin-right: 20px;
 
         &::before {
-          content: "";
-          background-image: url("../../assets/icons/return-arrow.svg");
+          content: '';
+          background-image: url('../../assets/icons/return-arrow.svg');
           background-repeat: no-repeat;
           background-size: 24px 24px;
           width: 24px;
@@ -1093,8 +1152,8 @@ export default {
       cursor: pointer;
 
       .collapse-icon {
-        content: "";
-        background-image: url("../../assets/icons/triangle-up.svg");
+        content: '';
+        background-image: url('../../assets/icons/triangle-up.svg');
         background-repeat: no-repeat;
         background-size: 24px 24px;
         width: 24px;
@@ -1123,7 +1182,7 @@ export default {
 
     &.collapsed {
       .collapsible-section-title .collapse-icon {
-        background-image: url("../../assets/icons/triangle-down.svg");
+        background-image: url('../../assets/icons/triangle-down.svg');
       }
       .collapsible-section-content {
         height: 0px;
@@ -1184,8 +1243,8 @@ export default {
         cursor: pointer;
 
         .collapse-icon {
-          content: "";
-          background-image: url("../../assets/icons/triangle-up.svg");
+          content: '';
+          background-image: url('../../assets/icons/triangle-up.svg');
           background-repeat: no-repeat;
           background-size: 24px 24px;
           width: 24px;
@@ -1208,7 +1267,7 @@ export default {
 
       &.collapsed {
         .collapsible-section-title .collapse-icon {
-          background-image: url("../../assets/icons/triangle-down.svg");
+          background-image: url('../../assets/icons/triangle-down.svg');
         }
         .collapsible-section-content {
           height: 0px;
