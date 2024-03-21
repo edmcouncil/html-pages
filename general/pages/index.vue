@@ -58,7 +58,7 @@ const { data } = await useAsyncData('getAbout', () => {
   return getStrapiSingleType(singleTypeName, populateParams, runtimeConfig);
 });
 const page = data?.value?.data?.attributes?.sections;
-const description = prepareDescription(page[0]?.text_content ?? '');
+const description = prepareDescription(page?.[0]?.text_content ?? '');
 </script>
 
 <style lang="scss" scoped>
