@@ -1,6 +1,7 @@
-@import "bootstrap/scss/bootstrap";
-@import "typography";
-@import "highlight";
+@import 'flag-icons/css/flag-icons.css';
+@import 'bootstrap/scss/bootstrap';
+@import 'typography';
+@import 'highlight';
 
 * {
   box-sizing: border-box;
@@ -18,8 +19,13 @@ a {
 
 // Bootstrap
 
-.container, .container-fluid, .container-xxl, .container-xl, .container-lg,
-.container-md, .container-sm {
+.container,
+.container-fluid,
+.container-xxl,
+.container-xl,
+.container-lg,
+.container-md,
+.container-sm {
   --bs-gutter-x: 30px;
 }
 
@@ -98,8 +104,8 @@ body.modal-open {
     border-color: $form-checked-color;
   }
 
-  .form-check-input:checked[type=checkbox] {
-    --bs-form-check-bg-image: url("@/assets/icons/checkbox-check.svg");
+  .form-check-input:checked[type='checkbox'] {
+    --bs-form-check-bg-image: url('@/assets/icons/checkbox-check.svg');
     background-size: 24px;
   }
 
@@ -239,7 +245,7 @@ body.modal-open {
     background: $normal-button-active-bg;
   }
   &:disabled,
-  &[disabled="disabled"] {
+  &[disabled='disabled'] {
     color: rgba(255, 255, 255, 0.9);
     background: $normal-button-disabled-bg;
     border: none;
@@ -270,9 +276,9 @@ body.modal-open {
 .chip-button {
   background: none;
   border-radius: 8px;
-  border: 1px solid var(--black-80, rgba(0, 0, 0, 0.80));
+  border: 1px solid var(--black-80, rgba(0, 0, 0, 0.8));
 
-  color: var(--black-80, rgba(0, 0, 0, 0.80));
+  color: var(--black-80, rgba(0, 0, 0, 0.8));
 
   font-size: 12px;
   font-style: normal;
@@ -284,7 +290,7 @@ body.modal-open {
 
   &:hover {
     background: none;
-    border: 1px solid var(--black-80, rgba(0, 0, 0, 0.80));
+    border: 1px solid var(--black-80, rgba(0, 0, 0, 0.8));
   }
   &:focus {
     background: none;
@@ -294,12 +300,11 @@ body.modal-open {
     background: none;
   }
   &:disabled,
-  &[disabled="disabled"] {
+  &[disabled='disabled'] {
     opacity: 1;
-    border: 1px solid var(--black-40, rgba(0, 0, 0, 0.40));
-    background: var(--white-white-80, rgba(255, 255, 255, 0.80));
-    color: var(--black-40, rgba(0, 0, 0, 0.40));
-
+    border: 1px solid var(--black-40, rgba(0, 0, 0, 0.4));
+    background: var(--white-white-80, rgba(255, 255, 255, 0.8));
+    color: var(--black-40, rgba(0, 0, 0, 0.4));
   }
   &.selected {
     color: rgba(255, 255, 255);
@@ -608,11 +613,11 @@ article {
   }
 
   ::-webkit-scrollbar-track {
-    background: map-get($colors-map, "black-40");
+    background: map-get($colors-map, 'black-40');
   }
 
   ::-webkit-scrollbar-thumb {
-    background: map-get($colors-map, "black-80");
+    background: map-get($colors-map, 'black-80');
   }
 }
 
@@ -621,7 +626,7 @@ article {
 }
 
 .clearfix::after {
-  content: "";
+  content: '';
   clear: both;
   display: table;
 }

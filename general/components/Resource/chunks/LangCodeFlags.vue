@@ -8,8 +8,7 @@
   <span v-else v-once>@{{ iso }} </span>
 </template>
 <script>
-import 'flag-icons/css/flag-icons.css';
-import relation from './langFlagData';
+import relation from '@/helpers/langFlagData';
 
 export default {
   name: 'LangCodeFlags',

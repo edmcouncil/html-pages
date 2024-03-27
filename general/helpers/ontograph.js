@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import relation from '@/helpers/langFlagData';
 
 export default class Ontograph {
   layout = 'force';
@@ -400,8 +401,25 @@ export default class Ontograph {
             .attr('stroke', (d) => (d.children ? null : '#000'));
 
           newNode
+            .append('foreignObject')
+            .attr('width', 20)
+            .attr('height', 10)
+            .attr('font-size', '7px')
+            .attr('x', 6)
+            .attr('y', -5)
+            .html((d) => {
+              const match = d.data.nodeLabel.match(/@\w\w|\[\w\w\]/);
+              if (match) {
+                const code = match[0].replace(/@|\[|\]/g, '').toLowerCase();
+                const flagIso = relation[`${code}Lang`]?.flag;
+                return flagIso ? `<span class='fi fi-${flagIso}'></span>` : '';
+              }
+              return '';
+            });
+
+          newNode
             .append('text')
-            .attr('dy', '2px')
+            .attr('dy', '3px')
             .attr('font-size', '8px')
             .attr('paint-order', 'stroke')
             .attr('stroke', '#f2f2f2')
@@ -415,7 +433,19 @@ export default class Ontograph {
               }
               return '#999';
             })
-            .text((d) => d.data.nodeLabel)
+            .text((d) => d.data.nodeLabel.replace(/@\w\w|\[\w\w\]/g, ''))
+            .attr('dx', (d) => {
+              const match = d.data.nodeLabel.match(/@\w\w|\[\w\w\]/);
+              const isFlag =
+                match &&
+                relation[
+                  `${match[0].replace(/@|\[|\]/g, '').toLowerCase()}Lang`
+                ]?.flag;
+
+              return isFlag ? '12px' : '0px';
+            });
+
+          newNode
             .on('mouseover', (e, d) => {
               if (this.isShifting != null) return;
 
