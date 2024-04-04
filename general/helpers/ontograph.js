@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import relation from '@/helpers/langFlagData';
 
 export default class Ontograph {
   layout = 'force';
@@ -82,6 +83,8 @@ export default class Ontograph {
     this.toForce();
 
     this.setupZoom();
+
+    this.updateFlagDistance();
   }
 
   setupZoom() {
@@ -129,10 +132,20 @@ export default class Ontograph {
     const newNodes = nodes.map((node) => {
       const edge = edges.find((e) => e.to === node.id);
 
+      // handle lang flags
+      const match = node.label.match(/@\w\w|\[\w\w\]/);
+      let flag = null;
+
+      if (match) {
+        const code = match[0].replace(/@|\[|\]/g, '').toLowerCase() + 'Lang';
+        flag = relation[code]?.flag;
+      }
+
       return edge
         ? {
             nodeIri: node.iri,
             nodeLabel: node.label,
+            nodeFlag: flag,
             type: node.type,
             optional: node.optional,
             id: node.id,
@@ -145,6 +158,7 @@ export default class Ontograph {
         : {
             nodeIri: node.iri,
             nodeLabel: node.label,
+            nodeFlag: flag,
             type: node.type,
             optional: node.optional,
             id: node.id,
@@ -378,9 +392,8 @@ export default class Ontograph {
             );
 
           newNode
-            .attr('fill', '#000')
-            .attr('stroke', '#000')
             .append('circle')
+            .attr('stroke', '#000')
             .attr('r', (d) => (d.parent ? 2 : 4))
             .attr('stroke-width', 0)
             .attr('fill', (d) => {
@@ -400,9 +413,22 @@ export default class Ontograph {
             .attr('stroke', (d) => (d.children ? null : '#000'));
 
           newNode
+            .append('foreignObject')
+            .attr('width', '1.333333em')
+            .attr('height', '1em')
+            .attr('font-size', '11px')
+            .attr('y', '-0.5em')
+            .html((d) => {
+              if (!d.data.nodeFlag) return '';
+              return `<div class='fib fi-${d.data.nodeFlag}' style='width:100%;height:100%;border: 2px solid #f2f2f2'></div>`;
+            });
+
+          newNode
             .append('text')
-            .attr('dy', '2px')
+            .attr('dominant-baseline', 'central')
+            .attr('alignment-baseline', 'central')
             .attr('font-size', '8px')
+            .attr('line-height', '8px')
             .attr('paint-order', 'stroke')
             .attr('stroke', '#f2f2f2')
             .attr('stroke-width', '2px')
@@ -415,10 +441,25 @@ export default class Ontograph {
               }
               return '#999';
             })
-            .text((d) => d.data.nodeLabel)
+            .text((d) => d.data.nodeLabel.replace(/@\w\w|\[\w\w\]/g, ''));
+
+          newNode
             .on('mouseover', (e, d) => {
               if (this.isShifting != null) return;
 
+              this.node
+                .transition()
+                .duration(0)
+                .attr('opacity', (n) =>
+                  n.id === d.id || n.id === d.parent?.id ? '1' : '0.2'
+                )
+                .attr('font-weight', (n) =>
+                  n.id === d.id || n.id === d.parent?.id ? 'bold' : 'normal'
+                )
+                .end()
+                .then(() => {
+                  this.updateFlagDistance();
+                });
               this.link
                 .transition()
                 .duration(0)
@@ -433,15 +474,6 @@ export default class Ontograph {
                     return this.keepLabels ? this.labelOpacity : '0';
                   }
                 });
-              this.node
-                .transition()
-                .duration(0)
-                .attr('opacity', (n) =>
-                  n.id === d.id || n.id === d.parent?.id ? '1' : '0.2'
-                )
-                .attr('font-weight', (n) =>
-                  n.id === d.id || n.id === d.parent?.id ? 'bold' : 'normal'
-                );
             })
             .on('mouseout', () => {
               if (this.isShifting != null) return;
@@ -458,6 +490,23 @@ export default class Ontograph {
         (update) => update,
         (exit) => exit.remove()
       );
+  }
+
+  updateFlagDistance() {
+    this.node.each(function (d) {
+      if (!d.data.nodeFlag) {
+        return;
+      }
+
+      const textElement = d3.select(this).select('text');
+      const foreignObject = d3.select(this).select('foreignObject');
+
+      const textWidth = textElement.node().getBBox().width;
+
+      const padding = 6;
+
+      foreignObject.attr('x', textWidth + padding);
+    });
   }
 
   getSvg() {
@@ -617,11 +666,20 @@ export default class Ontograph {
       .transition()
       .duration(this.mouseoverTransitionSpeed)
       .attr('opacity', this.keepLabels ? this.labelOpacity : '0');
+
     this.node
       .transition()
-      .duration(this.mouseoverTransitionSpeed)
-      .attr('opacity', '1')
-      .attr('font-weight', 'normal');
+      .duration(0)
+      .attr('font-weight', 'normal')
+      .end()
+      .then(() => {
+        this.updateFlagDistance();
+
+        this.node
+          .transition()
+          .duration(this.mouseoverTransitionSpeed)
+          .attr('opacity', '1');
+      });
   }
 
   sort(type) {
