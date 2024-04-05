@@ -684,6 +684,7 @@ export default {
     border-radius: 2px;
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     z-index: 2000;
+    min-width: 150px;
   }
 
   .custom-context-menu ul {
@@ -705,15 +706,24 @@ export default {
     margin: 0;
     padding: 15px 30px;
 
-    cursor: pointer;
+    user-select: none;
 
     &:first-child {
       font-weight: bold;
+    }
+
+    &.disabled {
+      color: map-get($colors-map, 'black-40');
     }
   }
 
   .custom-context-menu ul li:hover {
     background-color: #f7f7f7;
+
+    &.disabled {
+      background-color: white;
+      cursor: default;
+    }
   }
 }
 
