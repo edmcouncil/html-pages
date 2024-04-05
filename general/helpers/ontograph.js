@@ -1144,10 +1144,7 @@ export default class Ontograph {
 
     this.node
       .select('text')
-      // .transition()
-      // .duration(this.transitionSpeed)
       .attr('transform', (d) => `rotate(${d.x <= 0 ? 180 : 0})`)
-      .attr('dy', '2px')
       .attr('x', (d) => (d.x > 0 === !d.children ? 6 : -6))
       .attr('text-anchor', (d) => (d.x > 0 === !d.children ? 'start' : 'end'));
 
@@ -1210,7 +1207,6 @@ export default class Ontograph {
     this.node
       .select('text')
       .attr('transform', (d) => `rotate(${d.x <= 0 ? 180 : 0})`)
-      .attr('dy', '2px')
       .attr('x', (d) => (d.x > 0 === !d.children ? 6 : -6))
       .attr('text-anchor', (d) => (d.x > 0 === !d.children ? 'start' : 'end'));
 
