@@ -777,6 +777,7 @@ export default class Ontograph {
     this.isShifting = null;
     this.isShifting = setTimeout(() => {
       this.isShifting = null;
+      this.updateFlagDistance();
     }, this.transitionSpeed);
 
     this.links = this.root.links();
