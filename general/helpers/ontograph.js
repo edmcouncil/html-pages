@@ -134,18 +134,28 @@ export default class Ontograph {
 
       // handle lang flags
       const match = node.label.match(/@\w\w|\[\w\w\]/);
-      let flag = null;
+      let nodeFlag = null;
 
       if (match) {
         const code = match[0].replace(/@|\[|\]/g, '').toLowerCase() + 'Lang';
-        flag = relation[code]?.flag;
+        nodeFlag = relation[code]?.flag;
       }
+
+      const literalIdentifiers = [
+        'http://www.w3.org/2000/01/rdf-schema%23Literal',
+        'http://www.w3.org/2001/XMLSchema'
+      ];
+
+      const isLiteral = literalIdentifiers.some((identifier) =>
+        node.iri.toLowerCase().startsWith(identifier.toLowerCase())
+      );
 
       return edge
         ? {
             nodeIri: node.iri,
             nodeLabel: node.label,
-            nodeFlag: flag,
+            nodeFlag,
+            isLiteral,
             type: node.type,
             optional: node.optional,
             id: node.id,
@@ -158,7 +168,8 @@ export default class Ontograph {
         : {
             nodeIri: node.iri,
             nodeLabel: node.label,
-            nodeFlag: flag,
+            nodeFlag,
+            isLiteral,
             type: node.type,
             optional: node.optional,
             id: node.id,
@@ -207,10 +218,14 @@ export default class Ontograph {
     event.preventDefault();
     this.selectedNode = d;
 
+    const isLiteral = d.data.isLiteral;
     const primaryAction =
       d._children || (!d.children && !d._children) ? 'Expand' : 'Collapse';
+    let menuOptions = [primaryAction];
 
-    const menuOptions = [primaryAction, 'Navigate...'];
+    if (!isLiteral) {
+      menuOptions.push('Navigate...');
+    }
 
     this.contextMenu
       .select('ul')
@@ -218,12 +233,13 @@ export default class Ontograph {
       .data(menuOptions)
       .join('li')
       .text((d) => d)
+      .attr('class', (d) => (d === 'Expand' && isLiteral ? 'disabled' : ''))
       .on('click', (event, d) => {
         event.stopPropagation();
         this.closeContextMenu();
-        if (d === 'Expand') {
+        if (d === 'Expand' && !isLiteral) {
           this.expandGraph(this.selectedNode);
-        } else if (d === 'Collapse') {
+        } else if (d === 'Collapse' && !isLiteral) {
           this.expandGraph(this.selectedNode);
         } else if (d === 'Navigate...') {
           this.nav(this.selectedNode.data.nodeIri);
@@ -393,14 +409,19 @@ export default class Ontograph {
 
           newNode
             .append('circle')
-            .attr('stroke', '#000')
             .attr('r', (d) => (d.parent ? 2 : 4))
-            .attr('stroke-width', 0)
+            .attr('stroke-width', (d) => (d.data.isLiteral ? 1 : 0))
             .attr('fill', (d) => {
-              if (d.data.type === 'MAIN') {
+              if (d.data.isLiteral) {
+                return '#f2f2f2';
+              } else if (d.data.type === 'MAIN' || d.data.type === 'INTERNAL') {
                 return '#222';
+              } else {
+                return '#999';
               }
-              if (d.data.type === 'INTERNAL') {
+            })
+            .attr('stroke', (d) => {
+              if (d.data.type === 'MAIN' || d.data.type === 'INTERNAL') {
                 return '#222';
               }
               return '#999';
@@ -409,8 +430,7 @@ export default class Ontograph {
               d.parent
                 ? null
                 : 'drop-shadow(0px 5px 20px -5px rgba(8, 84, 150, 0.15))'
-            )
-            .attr('stroke', (d) => (d.children ? null : '#000'));
+            );
 
           newNode
             .append('foreignObject')
@@ -775,7 +795,7 @@ export default class Ontograph {
   }
 
   async expandGraph(d) {
-    if (this.isShifting) {
+    if (this.isShifting || d.data.isLiteral) {
       return;
     }
     this.isShifting = true;

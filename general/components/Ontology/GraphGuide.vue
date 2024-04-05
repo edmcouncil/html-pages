@@ -195,6 +195,15 @@
             section.
           </p>
 
+          <div class="img-zoom">
+            <div
+              class="img-zoom__content basics-5"
+              style="transform-origin: right 60%"
+            ></div>
+          </div>
+
+          <p>Nodes that are literals are marked by an empty circle.</p>
+
           <h2>5. Context menu</h2>
           <div class="img-zoom">
             <div
