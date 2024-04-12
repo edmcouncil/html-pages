@@ -1,34 +1,45 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">History</h5>
-    </div>
-    <div class="card-content" :class="{ loaded: !isLoading }">
-      <div class="overlay-left"></div>
-      <div class="overlay-right"></div>
-      <div ref="historyBanner" class="history-banner">
-        <div class="timeline">
-          <div class="line start-line"></div>
-          <div v-for="release of versionsData" class="line">
-            <div
-              class="version"
-              :class="{
-                exists:
-                  release &&
-                  release.maturityLevel &&
-                  release.maturityLevel.label,
-                selected: release.version == (version || defaultBranchName)
-              }"
-              @click="handleVersionClick(release)"
-            >
-              <BsTooltip
-                :text="getTooltip(release)"
-                placement="top"
-                offset="[0,10]"
+      <h5
+        class="section-title"
+        :class="{ 'section-collapse': collapsed }"
+        @click="toggleCollapsed"
+      >
+        History
+      </h5>
+      <div class="card-content" :class="{ loaded: !isLoading }">
+        <div class="overlay-left"></div>
+        <div class="overlay-right"></div>
+        <div ref="historyBanner" class="history-banner">
+          <div class="timeline">
+            <div class="line start-line"></div>
+            <div v-for="release of versionsData" class="line">
+              <div
+                class="version"
+                :class="{
+                  exists:
+                    release &&
+                    release.maturityLevel &&
+                    release.maturityLevel.label,
+                  selected: release.version == (version || defaultBranchName)
+                }"
+                @click="handleVersionClick(release)"
               >
-                <div class="circle" :class="getCircleClass(release)"></div>
-              </BsTooltip>
-              <div class="value">{{ release.version }}</div>
+                <BsTooltip
+                  :text="getTooltip(release)"
+                  placement="top"
+                  offset="[0,10]"
+                >
+                  <div class="circle" :class="getCircleClass(release)"></div>
+                </BsTooltip>
+                <div
+                  :id="`history-banner-version-${release.version}`"
+                  class="value"
+                >
+                  {{ release.version }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -49,6 +60,7 @@ export default {
   emits: ['versionChanged'],
   data() {
     return {
+      collapsed: false,
       isLoading: true,
       versionsData: {}
     };
@@ -74,6 +86,7 @@ export default {
   async mounted() {
     await this.fetchVersionsData();
     this.initializeScroll();
+    this.scrollToVersion();
   },
   methods: {
     ...mapActions(useOntologyStore, ['getEntityData']),
@@ -96,8 +109,31 @@ export default {
 
       this.isLoading = false;
     },
+    scrollToVersion() {
+      const slider = this.$refs.historyBanner;
+      const targetVersion = this.version || this.defaultBranchName;
+      const versionElement = document.getElementById(
+        `history-banner-version-${targetVersion}`
+      );
+
+      if (slider && versionElement) {
+        const versionRect = versionElement.getBoundingClientRect();
+        const sliderRect = slider.getBoundingClientRect();
+        const relativePosition = versionRect.left - sliderRect.left;
+
+        const centerPosition =
+          relativePosition - slider.clientWidth / 2 + versionRect.width / 2;
+
+        slider.scrollLeft =
+          centerPosition + slider.scrollLeft - (slider.clientLeft || 0);
+      }
+    },
+    toggleCollapsed() {
+      this.collapsed = !this.collapsed;
+    },
     handleVersionClick(release) {
       if (!release?.maturityLevel?.label) return;
+      if (release.version == (this.version || this.defaultBranchName)) return;
 
       const version = { '@id': release.version };
       this.$emit('versionChanged', version);
@@ -133,7 +169,6 @@ export default {
         const walk = (x - startX) * 4;
         slider.scrollLeft = scrollLeft - walk;
       });
-      slider.scrollLeft = slider.scrollWidth;
     },
     getCircleClass(release) {
       if (!release || !release.maturityLevel) return '';
@@ -182,12 +217,13 @@ export default {
   color: rgba(0, 0, 0, 0.8);
   text-overflow: ellipsis;
   background-color: rgba(242, 242, 242, 1);
+  background-image: linear-gradient(
+    90deg,
+    rgba(242, 242, 242, 1) 20%,
+    rgba(242, 242, 242, 1) 80%
+  );
   overflow-x: scroll;
   user-select: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 
   &.scrolls {
     cursor: grab;
@@ -373,7 +409,49 @@ export default {
   }
 }
 
+@media (min-width: 991px) {
+  .history-banner {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
 @media (max-width: 991px) {
+  .overlay-left {
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: -1px;
+    width: 10%;
+    max-width: 50px;
+    height: 100%;
+    z-index: 60;
+    background-image: linear-gradient(
+      90deg,
+      rgba(242, 242, 242, 1) 20%,
+      rgba(242, 242, 242, 0) 80%
+    );
+  }
+
+  .overlay-right {
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: -1px;
+    width: 10%;
+    max-width: 50px;
+    height: 100%;
+    z-index: 50;
+    background-image: linear-gradient(
+      270deg,
+      rgba(242, 242, 242, 1) 20%,
+      rgba(242, 242, 242, 0) 80%
+    );
+  }
+
   .history-banner .timeline .line .version .value {
     font-size: 16px;
     line-height: 24px;
@@ -382,10 +460,12 @@ export default {
   .history-banner .timeline .line {
     &.start-line {
       min-width: 100px;
+      max-width: 100px;
     }
 
     &:last-child {
       min-width: 150px;
+      max-width: 150px;
     }
   }
 }
