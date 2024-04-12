@@ -6,7 +6,7 @@
     @click="pressed()"
   >
     <span v-if="copied" class="copied-text">Copied to clipboard!</span>
-    <span class="content-text">{{ text }}</span>
+    <span class="content-text">{{ copied ? '' : text }}</span>
   </button>
 </template>
 
