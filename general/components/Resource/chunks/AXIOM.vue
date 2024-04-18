@@ -4,7 +4,11 @@
       <component :is="processedTitle"></component>
     </span>
 
-    <TooltipInline v-if="inferable" :text="tooltips.inferable" />
+    <TooltipInline
+      v-if="inferable"
+      :text="tooltips.inferable"
+      :variant="'warning'"
+    />
     <ul v-if="processedList.length > 0">
       <li
         v-for="(item, index) in processedList"
@@ -19,7 +23,11 @@
       <component :is="processedTitle"></component>
     </span>
 
-    <TooltipInline v-if="inferable" :text="tooltips.inferable" />
+    <TooltipInline
+      v-if="inferable"
+      :text="tooltips.inferable"
+      :variant="'warning'"
+    />
     <ul>
       <li
         v-for="(item, index) in processedListSlice"

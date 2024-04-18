@@ -1,14 +1,23 @@
 <template>
-  <bs-tooltip :text="text">
+  <bs-tooltip :text="text" :variant="variant">
     <div ref="resourceInlineTooltip" class="resource-inline-tooltip"></div>
   </bs-tooltip>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+export default defineComponent({
   name: 'TooltipInline',
-  props: ['text']
-};
+  props: {
+    text: {
+      type: String,
+      required: true
+    },
+    variant: {
+      type: String as PropType<'default' | 'warning'>,
+      default: 'default'
+    }
+  }
+});
 </script>
 
 <style lang="scss">

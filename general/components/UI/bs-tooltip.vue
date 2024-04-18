@@ -2,8 +2,8 @@
   <div
     ref="tooltipElement"
     :data-bs-title="text"
-    :data-bs-placement="placement ? placement : 'bottom'"
-    :data-bs-offset="offset ? offset : '0,0'"
+    :data-bs-placement="placement"
+    :data-bs-offset="offset"
     class="bs-tooltip"
     data-bs-toggle="tooltip"
   >
@@ -11,24 +11,52 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'BsTooltip',
-  props: ['text', 'placement', 'offset'],
+  props: {
+    text: {
+      type: String,
+      required: true
+    },
+    placement: {
+      type: String as PropType<'auto' | 'top' | 'bottom' | 'left' | 'right'>,
+      default: 'bottom'
+    },
+    offset: {
+      type: String,
+      default: '0,0'
+    },
+    variant: {
+      type: String as PropType<'default' | 'warning'>,
+      default: 'default'
+    }
+  },
   data() {
     return {
-      instance: null
+      instance: null as any
     };
   },
   mounted() {
     const { $bootstrap } = useNuxtApp();
-    const element = this.$refs.tooltipElement;
-    this.instance = new $bootstrap.Tooltip(element);
+    const element = this.$refs.tooltipElement as HTMLElement;
+    if (element) {
+      this.instance = new $bootstrap.Tooltip(element, {
+        title: this.text,
+        placement: this.placement,
+        offset: this.offset,
+        customClass: this.variant
+      });
+    }
   },
   beforeUnmount() {
-    this.instance.dispose();
+    if (this.instance) {
+      this.instance.dispose();
+    }
   }
-};
+});
 </script>
 
 <style lang="scss">
@@ -47,5 +75,15 @@ export default {
   --bs-tooltip-arrow-width: 0.8rem;
   --bs-tooltip-arrow-height: 0.4rem;
   font-family: Inter;
+
+  &.warning {
+    --bs-tooltip-bg: #feb700;
+    --bs-tooltip-color: black;
+  }
+
+  &.default {
+    --bs-tooltip-bg: black;
+    --bs-tooltip-color: var(--bs-body-bg);
+  }
 }
 </style>
