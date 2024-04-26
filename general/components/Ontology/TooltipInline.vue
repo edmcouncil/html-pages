@@ -1,14 +1,27 @@
 <template>
-  <bs-tooltip :text="text">
-    <div ref="resourceInlineTooltip" class="resource-inline-tooltip"></div>
+  <bs-tooltip :text="text" :variant="variant">
+    <div
+      ref="resourceInlineTooltip"
+      class="resource-inline-tooltip"
+      :class="{ warn: variant === 'warning' }"
+    ></div>
   </bs-tooltip>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+export default defineComponent({
   name: 'TooltipInline',
-  props: ['text']
-};
+  props: {
+    text: {
+      type: String,
+      required: true
+    },
+    variant: {
+      type: String as PropType<'default' | 'warning'>,
+      default: 'default'
+    }
+  }
+});
 </script>
 
 <style lang="scss">
@@ -22,5 +35,10 @@ export default {
   opacity: 0.5;
   margin-left: 5px;
   margin-right: 5px;
+
+  &.warn {
+    background-image: url('../../assets/icons/tooltip-warn.svg');
+    opacity: 1;
+  }
 }
 </style>
