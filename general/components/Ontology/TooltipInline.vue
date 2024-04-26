@@ -1,6 +1,10 @@
 <template>
   <bs-tooltip :text="text" :variant="variant">
-    <div ref="resourceInlineTooltip" class="resource-inline-tooltip"></div>
+    <div
+      ref="resourceInlineTooltip"
+      class="resource-inline-tooltip"
+      :class="{ warn: variant === 'warning' }"
+    ></div>
   </bs-tooltip>
 </template>
 
@@ -31,5 +35,10 @@ export default defineComponent({
   opacity: 0.5;
   margin-left: 5px;
   margin-right: 5px;
+
+  &.warn {
+    background-image: url('../../assets/icons/tooltip-warn.svg');
+    opacity: 1;
+  }
 }
 </style>
