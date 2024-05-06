@@ -532,6 +532,7 @@ export default class Ontograph {
   getSvg() {
     return d3
       .create('svg')
+      .attr('id', 'visualization-svg')
       .attr('viewBox', [
         -this.width / 2,
         -this.height / 2,
@@ -1297,5 +1298,35 @@ export default class Ontograph {
   pushAlert(type, source) {
     this.alertId += 1;
     this.alertHandler(type, this.alertId, source);
+  }
+
+  convertToGML() {
+    let output = 'graph [\n\tdirected 1\n';
+
+    for (let node of this.nodes) {
+      output += `\tnode [\n`;
+      output += `\t\tid ${node.index}\n`;
+      output += `\t\tlabel "${node.data.nodeLabel}"\n`;
+      output += `\t]\n`;
+    }
+
+    for (let edge of this.links) {
+      output += `\tedge [\n`;
+      output += `\t\tsource ${edge.source.index}\n`;
+      output += `\t\ttarget ${edge.target.index}\n`;
+      output += `\t\tlabel "${edge.target.data.pathLabel}"\n`;
+      output += `\t]\n`;
+    }
+
+    output += ']';
+
+    return output;
+  }
+
+  downloadAsFile(format) {
+    switch (format) {
+      case 'gml':
+        return this.convertToGML();
+    }
   }
 }

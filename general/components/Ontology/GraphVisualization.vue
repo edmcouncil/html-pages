@@ -1,5 +1,5 @@
 <template>
-  <div class="graph-section">
+  <div class="graph-section" id="graph-section">
     <div class="control-panel control-panel--minimal">
       <div class="connections-and-guide-container">
         <div ref="connectionsTitle" class="collapsible-section collapsed">
@@ -72,14 +72,34 @@
           </div>
         </div>
         <div class="minimal-menu">
-          <button
-            type="button"
-            class="btn normal-button small icon-button download-png-button"
-            @click="downloadAsPng()"
-          >
-            Download as PNG
-            <div class="b-icon download"></div>
-          </button>
+          <div class="dropdown resource-more">
+            <button
+              type="button"
+              class="btn dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Download as
+              <div class="icon-show-more-white"></div>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end">
+              <button
+                type="button"
+                class="dropdown-item download-icon"
+                @click="downloadAsGML()"
+              >
+                GML file
+              </button>
+              <button
+                type="button"
+                class="dropdown-item download-icon"
+                @click="downloadAsPng()"
+              >
+                PNG image
+              </button>
+            </div>
+          </div>
           <button
             class="btn normal-button small"
             @click="openGuide('guide-main')"
@@ -136,13 +156,34 @@
           </h3>
         </div>
         <div class="right" :class="{ visible: isControlPanelOpen }">
-          <button
-            class="btn normal-button small icon-button download-png-button"
-            @click="downloadAsPng()"
-          >
-            Download as PNG
-            <div class="b-icon download"></div>
-          </button>
+          <div class="dropdown resource-more">
+            <button
+              type="button"
+              class="btn dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Download as
+              <div class="icon-show-more-white"></div>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end">
+              <button
+                type="button"
+                class="dropdown-item download-icon"
+                @click="downloadAsGML()"
+              >
+                GML file
+              </button>
+              <button
+                type="button"
+                class="dropdown-item download-icon"
+                @click="downloadAsPng()"
+              >
+                PNG image
+              </button>
+            </div>
+          </div>
           <button
             class="btn normal-button small"
             @click="openGuide('guide-main')"
@@ -571,7 +612,7 @@ export default {
       this.ontograph.sort(type);
     },
     downloadAsPng() {
-      d3ToPng('svg', `${this.data.label}`, {
+      d3ToPng('#visualization-svg', `${this.data.label}`, {
         scale: 1,
         format: 'png',
         quality: 1,
@@ -583,6 +624,29 @@ export default {
         download.download = `${this.data.label}.png`;
         download.click();
       });
+    },
+    downloadFile(fileContent, fileName, fileType) {
+      const blob = new Blob([fileContent], { type: fileType });
+
+      const downloadLink = document.createElement('a');
+      downloadLink.download = fileName;
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.dataset.downloadurl = `${fileType}:${downloadLink.download}:${downloadLink.href}`;
+      downloadLink.style.display = 'none';
+
+      document.body.appendChild(downloadLink);
+
+      downloadLink.click();
+      URL.revokeObjectURL(downloadLink.href);
+
+      document.body.removeChild(downloadLink);
+    },
+    downloadAsGML() {
+      const fileContent = this.ontograph.downloadAsFile('gml');
+      const fileName = `${this.data.label.replaceAll(' ', '-')}-export.gml`;
+      const fileType = 'text/gml';
+
+      this.downloadFile(fileContent, fileName, fileType);
     },
     showModal() {
       this.fullscreen = true;
@@ -723,6 +787,127 @@ export default {
     &.disabled {
       background-color: white;
       cursor: default;
+    }
+  }
+}
+
+.resource-more {
+  border-radius: 2px;
+  padding: 0;
+  border: none;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+
+  .btn.dropdown-toggle {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 5px 15px 5px 15px;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 2px;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 0.3s;
+
+    &::after {
+      display: none;
+    }
+
+    .icon-show-more-white {
+      background-image: url('../../assets/icons/show-more-white.svg');
+      background-size: 100%;
+      width: 20px;
+      height: 20px;
+    }
+
+    &.show {
+      opacity: 0.8;
+    }
+  }
+
+  .dropdown-menu {
+    user-select: none;
+    pointer-events: none;
+
+    display: block;
+    padding: 0;
+    width: 240px;
+    max-width: calc(100vw - 75px);
+    border: none;
+    background-color: map-get($colors-map, 'white');
+    box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
+    border-radius: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    inset: 0px 0px auto auto;
+    opacity: 0;
+    transform: translate3d(0px, 30px, 0px);
+
+    transition:
+      opacity 0.35s ease,
+      margin-top 0.35s ease,
+      transform 0.35s;
+
+    &.show {
+      user-select: unset;
+      pointer-events: unset;
+
+      opacity: 1;
+      transform: translate3d(0px, 40px, 0px) !important;
+    }
+
+    .dropdown-item {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 30px;
+      cursor: pointer;
+
+      color: map-get($colors-map, 'black-80');
+
+      margin: 0;
+      padding: 15px 30px;
+
+      &:hover {
+        color: map-get($colors-map, 'black-80');
+        background-color: map-get($colors-map, 'black-5');
+      }
+
+      &:focus {
+        color: map-get($colors-map, 'black-80');
+        background-color: unset;
+      }
+
+      &:active {
+        color: map-get($colors-map, 'black-80');
+        background-color: map-get($colors-map, 'black-20');
+      }
+    }
+
+    .download-icon {
+      &::before {
+        content: '';
+        background-image: url('@/assets/icons/download-dark.svg');
+        opacity: 0.8;
+        background-repeat: no-repeat;
+        background-size: 20px;
+        background-position: center;
+
+        display: block;
+        width: 24px;
+        height: 30px;
+        float: left;
+        margin: 0 10px 0 0;
+      }
     }
   }
 }
@@ -962,14 +1147,6 @@ export default {
   }
 }
 
-.download-png-button {
-  .b-icon.download {
-    background-image: url('../../assets/icons/download.svg');
-    width: 20px;
-    height: 20px;
-  }
-}
-
 .collapsible-section {
   h6 {
     padding: 0;
@@ -1128,6 +1305,12 @@ export default {
 
 //mobile
 @media (max-width: 768px) {
+  .resource-more {
+    .dropdown-menu {
+      left: 0;
+    }
+  }
+
   .modal.fullscreen .modal-header {
     padding: 15px 40px 20px 40px;
     .left {
@@ -1237,8 +1420,8 @@ export default {
       flex-direction: column-reverse;
       align-items: stretch;
 
-      button {
-        margin: 0 10px 20px 0 !important;
+      button:not(.dropdown-item) {
+        margin: 0 0 20px 0 !important;
       }
     }
   }
