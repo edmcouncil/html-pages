@@ -45,30 +45,30 @@ docker compose ps
 if they work correctly, the following message will appear:
 ```
 NAME                       IMAGE                    COMMAND                  SERVICE             CREATED              STATUS                        PORTS
-html-pages-fibo-pages-1    edmcouncil/fibo-pages    "docker-entrypoint.s…"   fibo-pages          About a minute ago   Up About a minute (healthy)
-html-pages-fibo-strapi-1   edmcouncil/fibo-strapi   "docker-entrypoint.s…"   fibo-strapi         About a minute ago   Up About a minute (healthy)
-html-pages-spec-1          edmcouncil/spec          "/docker-entrypoint.…"   spec                About a minute ago   Up About a minute (healthy)   0.0.0.0:8080->80/tcp, :::8080->80/tcp
+html-pages-dev-pages-1    edmcouncil/dev-pages    "docker-entrypoint.s…"   dev-pages          About a minute ago   Up About a minute (healthy)
+html-pages-dev-strapi-1   edmcouncil/dev-strapi   "docker-entrypoint.s…"   dev-strapi         About a minute ago   Up About a minute (healthy)
+html-pages-spec-1         edmcouncil/spec         "/docker-entrypoint.…"   spec               About a minute ago   Up About a minute (healthy)      0.0.0.0:8080->80/tcp, :::8080->80/tcp
 ```
 
-The STRAPI instance database is inside the `fibo-strapi` container image, so any changes will be lost when stopped.
+The STRAPI instance database is inside the `dev-strapi` container image, so any changes will be lost when stopped.
 If you want a "permanent" database, see [comment](./docker-compose.yaml#) in the `docker-compose.yaml` file
-and uncomment the following line in the `.services.fibo-strapi.volumes` section:
+and uncomment the following line in the `.services.dev-strapi.volumes` section:
 ```
      - ./general/strapi/db:/strapi
 ```
 
 The services provide endpoints at the following URLs:
 - [http://localhost:8080](http://localhost:8080) :- [html-pages home page](https://github.com/edmcouncil/html-pages/blob/develop/home/README.md)
-- [http://localhost:8080/fibo](http://localhost:8080/fibo) :- [html-pages general template](https://github.com/edmcouncil/html-pages/tree/develop/general) for [FIBO](https://github.com/edmcouncil/fibo) ontology
-- [http://localhost:8080/fibo/strapi/admin](http://localhost:8080/fibo/strapi/admin) :- [Strapi admin panel](https://docs.strapi.io/user-docs/intro#accessing-the-admin-panel) for for [FIBO](https://github.com/edmcouncil/fibo) ontology (Email: *edmc-strapi@dev.com*, Password: *devDBonly1*)
+- [http://localhost:8080/dev](http://localhost:8080/dev) :- [html-pages general template](https://github.com/edmcouncil/html-pages/tree/develop/general)
+- [http://localhost:8080/dev/strapi/admin](http://localhost:8080/dev/strapi/admin) :- [Strapi admin panel](https://docs.strapi.io/user-docs/intro#accessing-the-admin-panel) (Email: *edmc-strapi@dev.com*, Password: *devDBonly1*)
 
-If you want to see logs from one *<SERVICE>* (`fibo-pages`, `fibo-strapi` or `spec`), use:
+If you want to see logs from one *<SERVICE>* (`dev-pages`, `dev-strapi` or `spec`), use:
 ```bash
-# to view continuous log output for <SERVICE>=fibo-pages
-docker compose logs --follow fibo-pages
+# to view continuous log output for <SERVICE>=dev-pages
+docker compose logs --follow dev-pages
 
-# to view *100* latest log lines for <SERVICE>=fibo-strapi
-docker compose logs --tail 100 fibo-strapi
+# to view *100* latest log lines for <SERVICE>=dev-strapi
+docker compose logs --tail 100 dev-strapi
 ```
 
 Stop the services with the command:
