@@ -88,7 +88,7 @@
         <div v-if="isBNode" class="blank-node-alert" role="alert">
           <div class="blank-node-icon"></div>
           <div class="description">
-            This is blank node, which does not have an IRI.
+            This is a blank node, which does not have an IRI.
             <a href="https://www.w3.org/wiki/BlankNodes" target="_blank">
               Learn more
             </a>
