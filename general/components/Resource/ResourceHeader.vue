@@ -204,7 +204,7 @@ export default {
     margin-top: 0;
     margin-bottom: 20px;
     border-radius: 2px;
-    padding: 15px 15px 15px 15px;
+    padding: 10px 15px;
     width: fit-content;
 
     display: flex;
