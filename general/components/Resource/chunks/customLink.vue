@@ -12,8 +12,12 @@
     }"
     :class="{ deprecated: isDeprecated === 'true' }"
     @click.native="linkClickNative"
-    >{{ name
-    }}<TooltipInline
+    ><TooltipText
+      v-if="isBNode"
+      :tooltip-text="'This is a Blank Node'"
+      :content="name"
+      :defining="name" /><span v-else>{{ name }}</span
+    ><TooltipInline
       v-if="isDeprecated === 'true'"
       :text="tooltips['deprecated']"
   /></nuxt-link>
@@ -30,8 +34,12 @@
       }
     }"
     :class="{ deprecated: isDeprecated === 'true' }"
-    >{{ name
-    }}<TooltipInline
+    ><TooltipText
+      v-if="isBNode"
+      :tooltip-text="tooltips['bnode']"
+      :content="name"
+      :defining="name" /><span v-else>{{ name }}</span
+    ><TooltipInline
       v-if="isDeprecated === 'true'"
       :text="tooltips['deprecated']"
   /></nuxt-link>
@@ -41,6 +49,7 @@
 import { mapState } from 'pinia';
 import { useConfigurationStore } from '@/stores/configuration';
 import tooltips from '~/constants/tooltips';
+import { isResourceBNode } from '~/helpers/ontology';
 
 export default {
   name: 'CustomLink',
@@ -61,7 +70,10 @@ export default {
   computed: {
     ...mapState(useConfigurationStore, {
       uriSpace: (store) => store.config.uriSpace
-    })
+    }),
+    isBNode() {
+      return isResourceBNode(this.query);
+    }
   },
   methods: {
     linkClickNative(event) {

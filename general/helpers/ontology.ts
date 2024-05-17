@@ -1,9 +1,10 @@
+import type { Data } from './compare.types';
 import { prepareDescription } from './meta';
 
-export function generateTitleAndDescription(body) {
+export function generateTitleAndDescription(body: { result: Data }) {
   let title = null;
   let description = null;
-  if (body.result.properties.Glossary) {
+  if (body?.result?.properties?.Glossary) {
     // check is title or label exist and set it to title page
     if (
       body.result.properties.Glossary.title &&
@@ -37,12 +38,10 @@ export function generateTitleAndDescription(body) {
   return { title, description };
 }
 
-export function handleDeprecatedResource(body) {
+export function handleDeprecatedResource(body: { result: Data }) {
   if (
-    body.result.properties['Ontological characteristic'] &&
-    body.result.properties['Ontological characteristic'].deprecated &&
-    body.result.properties['Ontological characteristic'].deprecated[0].value ===
-      'true'
+    body.result.properties?.['Ontological characteristic']?.deprecated?.[0]
+      ?.value === 'true'
   ) {
     body.result.deprecated = true;
     delete body.result.properties['Ontological characteristic'].deprecated;
@@ -55,4 +54,8 @@ export function handleDeprecatedResource(body) {
   } else {
     body.result.deprecated = false;
   }
+}
+
+export function isResourceBNode(iri: string) {
+  return iri.startsWith('_:');
 }

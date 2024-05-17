@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-12 ontology-item__header">
+  <div class="ontology-item__header">
     <div class="card">
       <div class="card-body">
         <div class="ontology-item__header__title-segment">
@@ -85,6 +85,16 @@
           </div>
         </div>
 
+        <div v-if="isBNode" class="blank-node-alert" role="alert">
+          <div class="blank-node-icon"></div>
+          <div class="description">
+            This is a blank node, which does not have an IRI.
+            <a href="https://www.w3.org/wiki/BlankNodes" target="_blank">
+              Learn more
+            </a>
+          </div>
+        </div>
+
         <h6 v-if="data.iri" class="card-subtitle data-iri">
           {{ data.iri }}
         </h6>
@@ -121,6 +131,7 @@
 <script>
 import { mapState } from 'pinia';
 import { useConfigurationStore } from '@/stores/configuration';
+import { isResourceBNode } from '~/helpers/ontology';
 
 export default {
   name: 'ResourceHeader',
@@ -154,6 +165,9 @@ export default {
         this.data.maturityLevel.label === 'Provisional' ||
         this.data.maturityLevel.label === 'Preliminary'
       );
+    },
+    isBNode() {
+      return isResourceBNode(this.data.iri);
     }
   },
   methods: {
@@ -184,6 +198,54 @@ export default {
   margin-bottom: 60px;
   margin-top: 40px;
   padding: 0;
+
+  .blank-node-alert {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    padding: 10px 15px;
+    width: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #feb700;
+
+    .description {
+      z-index: 1;
+    }
+
+    .blank-node-icon {
+      width: 24px;
+      height: 24px;
+      background-image: url('../../assets/icons/warning.svg');
+      display: inline-block;
+      z-index: 1;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      height: 20px;
+      width: 20px;
+      background-color: inherit;
+      border: inherit;
+      position: absolute;
+      bottom: -3px;
+      left: 4px;
+      clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+      transform: rotate(-45deg);
+      border-radius: 2px;
+    }
+  }
 
   .ontology-item__header__title-segment {
     display: flex;
@@ -400,6 +462,7 @@ export default {
   }
 
   h2 {
+    word-break: break-word;
     font-style: normal;
     font-weight: bold;
     font-size: 42px;
@@ -603,6 +666,19 @@ export default {
 
     .card {
       background: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .blank-node-alert .description {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    a {
+      align-self: flex-end;
     }
   }
 }

@@ -1,17 +1,10 @@
 <template>
   <span v-if="found"
-    ><!--
-  -->{{ textBefore
-    }}<!--
-    --><bs-tooltip :text="tooltipText"
-      ><!--
-      --><span class="resource-text-tooltip">{{ textWrapped }}</span
-      ><!--
-    --></bs-tooltip
-    ><!--
-    -->{{ textAfter
-    }}<!--
-  --></span>
+    >{{ textBefore
+    }}<bs-tooltip :text="tooltipText" offset="0,10"
+      ><span class="resource-text-tooltip">{{ textWrapped }}</span></bs-tooltip
+    >{{ textAfter }}</span
+  >
   <span v-else>
     {{ content }}
   </span>
