@@ -6,5 +6,6 @@ export default {
     'A resource is internal to an ontology if it is defined in this ontology.',
   'external':
     'A resource is external to an ontology if it is defined outside of this ontology.',
-  'inferable': 'This restriction is inferable from other restrictions.'
+  'inferable': 'This restriction is inferable from other restrictions.',
+  'bnode': 'This is a Blank Node.'
 };
