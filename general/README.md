@@ -16,7 +16,7 @@ Strapi is used as a content management system. This frontend application(html-pa
 - create directory for strapi instance for run (`strapiDir`)
 - install strapi using quick start with no additional arguments
   ```
-  npx create-strapi-app@latest strapi-dashboard --quickstart
+  npx create-strapi-app@latest strapi-dashboard --quickstart --skip-cloud
   ```
   for advanced options see strapi documentation [Strapi quick start](https://docs.strapi.io/developer-docs/latest/getting-started/quick-start.html)
 - after the installation and first run, close strapi and import the database and structure definition.
