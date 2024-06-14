@@ -1,3 +1,47 @@
+import axios from 'axios';
+import {
+  useAuthStore,
+  useOntologyStore,
+  useConfigurationStore
+} from '#imports';
+export const axiosClient = axios.create();
+
+axiosClient.interceptors.request.use((config) => {
+  const authStore = useAuthStore();
+  const configStore = useConfigurationStore();
+
+  const currentOrigin = window.location.origin;
+  const requestUrl = new URL(config.url, currentOrigin);
+
+  if (
+    configStore.config.authEnabled === 'true' &&
+    authStore.jwt &&
+    !config.noAuth &&
+    requestUrl.origin === currentOrigin
+  ) {
+    config.headers.Authorization = `Bearer ${authStore.jwt}`;
+  }
+
+  return config;
+});
+
+axiosClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const authStore = useAuthStore();
+    const ontologyStore = useOntologyStore();
+
+    if (error.response && error.response.status === 401) {
+      authStore.clear();
+    }
+    if (error.response && error.response.status === 403) {
+      ontologyStore.unauthorizedError = true;
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 function ServerError(message, status) {
   this.message = message;
   this.status = status;
@@ -10,59 +54,83 @@ const parseServerError = (response) => {
   return response;
 };
 
-const getEntity = (domain) =>
-  fetch(domain, {
-    method: 'GET',
-    headers: { Accept: 'application/json' }
-  }).then(parseServerError);
+const getEntity = (domain, config = {}) =>
+  axiosClient
+    .get(domain, {
+      ...config,
+      headers: { Accept: 'application/json', ...config.headers }
+    })
+    .then(parseServerError)
+    .then((response) => response.data);
 
-const getModules = (domain) =>
-  fetch(domain, {
-    method: 'GET',
-    headers: { Accept: 'application/json' }
-  }).then(parseServerError);
+const getModules = (domain, config = {}) =>
+  axiosClient
+    .get(domain, {
+      ...config,
+      headers: { Accept: 'application/json', ...config.headers }
+    })
+    .then(parseServerError)
+    .then((response) => response.data);
 
-const getOntologyVersions = (domain) =>
-  fetch(domain, {
-    method: 'GET',
-    headers: { Accept: 'application/json' }
-  }).then(parseServerError);
+const getOntologyVersions = (domain, config = {}) =>
+  axiosClient
+    .get(domain, {
+      ...config,
+      headers: { Accept: 'application/json', ...config.headers }
+    })
+    .then(parseServerError)
+    .then((response) => response.data);
 
 const getJenkinsJobs = (domain) =>
-  fetch(domain, {
-    method: 'GET',
-    headers: { Accept: 'application/json' }
-  }).then(parseServerError);
+  axiosClient
+    .get(domain, { noAuth: true, headers: { Accept: 'application/json' } })
+    .then(parseServerError)
+    .then((response) => response.data);
 
-const getFindSearch = (domain) =>
-  fetch(domain, {
-    method: 'GET',
-    headers: { Accept: 'application/json' }
-  }).then(parseServerError);
+const getFindSearch = (domain, config = {}) =>
+  axiosClient
+    .get(domain, {
+      ...config,
+      headers: { Accept: 'application/json', ...config.headers }
+    })
+    .then(parseServerError)
+    .then((response) => response.data);
 
-const getFindProperties = (domain) =>
-  fetch(domain, {
-    method: 'GET',
-    headers: { Accept: 'application/json' }
-  }).then(parseServerError);
+const getFindProperties = (domain, config = {}) =>
+  axiosClient
+    .get(domain, {
+      ...config,
+      headers: { Accept: 'application/json', ...config.headers }
+    })
+    .then(parseServerError)
+    .then((response) => response.data);
 
-const getStats = (domain) =>
-  fetch(domain, {
-    method: 'GET',
-    headers: { Accept: 'application/json' }
-  }).then(parseServerError);
+const getStats = (domain, config = {}) =>
+  axiosClient
+    .get(domain, {
+      ...config,
+      headers: { Accept: 'application/json', ...config.headers }
+    })
+    .then(parseServerError)
+    .then((response) => response.data);
 
-const getMissingImports = (domain) =>
-  fetch(domain, {
-    method: 'GET',
-    headers: { Accept: 'application/json' }
-  }).then(parseServerError);
+const getMissingImports = (domain, config = {}) =>
+  axiosClient
+    .get(domain, {
+      ...config,
+      headers: { Accept: 'application/json', ...config.headers }
+    })
+    .then(parseServerError)
+    .then((response) => response.data);
 
-const getDescribeIntegration = (domain) =>
-  fetch(domain, {
-    method: 'GET',
-    headers: { Accept: 'application/rdf+xml' }
-  }).then(parseServerError);
+const getDescribeIntegration = (domain, config = {}) =>
+  axiosClient
+    .get(domain, {
+      ...config,
+      headers: { Accept: 'application/rdf+xml', ...config.headers }
+    })
+    .then(parseServerError)
+    .then((response) => response.data);
 
 export {
   getEntity,

@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col px-0">
-          <div class="navigation-container d-block d-lg-block">
+          <div class="navigation-container">
             <nav class="navbar navbar-expand navbar-light">
               <a
                 v-if="isCustomLogo"
@@ -52,6 +52,8 @@
                   </a>
                   <span v-else class="nav-link">{{ item.item.name }}</span>
                 </li>
+
+                <AuthComponent />
 
                 <li class="nav-item dropdown">
                   <a
@@ -431,7 +433,7 @@ header.website-header {
     right: 30px;
   }
 
-  .navigation-container {
+  header.website-header .navigation-container {
     padding: 20px 30px 60px 30px;
   }
 }

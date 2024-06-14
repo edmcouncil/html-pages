@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import relation from '@/helpers/langFlagData';
+import { axiosClient } from '~/api/ontology';
 
 export default class Ontograph {
   layout = 'force';
@@ -855,29 +856,15 @@ export default class Ontograph {
         const domain = `${this.graphServer}?iri=${encodeURI(
           d.data.nodeIri
         )}&nodeId=${d.id}&lastId=${this.lastId}`;
-        const result = await fetch(domain, {
-          method: 'GET',
-          headers: { Accept: 'application/json' }
-        });
-        let body = null;
+        const result = await axiosClient.get(domain);
+        let body = result.data;
 
-        try {
-          body = await result.json();
-        } catch (e) {
-          this.pushAlert('noChildren', d.data.nodeLabel);
-          this.isShifting = null;
-          this.svg
-            .select('.nodes')
-            .selectAll('g')
-            .data(this.nodes, (n) => n.data.id)
-            .filter((n) => n.data.id === d.data.id)
-            .select('.node-loader')
-            .remove();
-          this.blurHighlight();
-          return;
-        }
-
-        if (body.nodes.length === 1) {
+        if (
+          !body ||
+          Object.keys(body).length === 0 ||
+          body.nodes.length === 0 ||
+          body.nodes.length === 1
+        ) {
           this.pushAlert('noChildren', d.data.nodeLabel);
           this.isShifting = null;
           this.svg

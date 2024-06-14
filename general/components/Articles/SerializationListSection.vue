@@ -306,10 +306,9 @@ export default {
     },
     async fetchVersions() {
       try {
-        const result = await getOntologyVersions(
+        const ontologyVersions = await getOntologyVersions(
           `/${this.ontologyName}/ontology/api/`
         );
-        const ontologyVersions = await result.json();
 
         const first = 'master/latest';
         ontologyVersions.sort((x, y) =>
@@ -352,24 +351,21 @@ export default {
           const tagName = runtimeConfig.public.tagName;
 
           // group versions by tags, pull requests and releases
-          const tagsResult = await getJenkinsJobs(
+          const tagsJson = await getJenkinsJobs(
             `${jenkinsJobUrl}/view/tags/api/json`
           );
-          const tagsJson = await tagsResult.json();
           const tags = tagsJson.jobs.map((item) => item.name.toLowerCase());
 
-          const pullRequestsResult = await getJenkinsJobs(
+          const pullRequestsJson = await getJenkinsJobs(
             `${jenkinsJobUrl}/view/change-requests/api/json`
           );
-          const pullRequestsJson = await pullRequestsResult.json();
           const pullRequests = pullRequestsJson.jobs.map((item) =>
             item.name.toLowerCase()
           );
 
-          const defaultViewResult = await getJenkinsJobs(
+          const defaultViewJson = await getJenkinsJobs(
             `${jenkinsJobUrl}/view/default/api/json`
           );
-          const defaultViewJson = await defaultViewResult.json();
           const defaultView = defaultViewJson.jobs.map((item) =>
             item.name.toLowerCase()
           );

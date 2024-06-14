@@ -767,6 +767,10 @@
                 :ontology-name-uppercase="ontologyNameUppercase"
               />
 
+              <UnauthorizedError
+                v-else-if="!loader && !isComparing && unauthorizedError"
+              />
+
               <EntityNotFound
                 v-else-if="!loader && !isComparing && error.entityNotFound"
               />
@@ -830,7 +834,7 @@ export default {
         if (this.isComparing) {
           this.fetchCompareDataAndMerge(this.query);
           this.scrollToOntologyViewerTopOfContainer();
-        } else this.fetchData(this.query);
+        } else this.fetchEntity(this.query);
       });
     }
     if (!to.query.search) {
@@ -957,6 +961,12 @@ export default {
       missingImportsServer: (store) => store.missingImportsServer,
       ontologyServerCompare: (store) => store.ontologyServerCompare
     }),
+    ...mapState(useOntologyStore, {
+      unauthorizedError: (store) => store.unauthorizedError
+    }),
+    ...mapState(useAuthStore, {
+      jwt: (store) => store.jwt
+    }),
     isError() {
       return (
         this.error.versions ||
@@ -964,7 +974,8 @@ export default {
         this.error.properties ||
         this.error.search ||
         this.error.entityData ||
-        this.error.entityNotFound
+        this.error.entityNotFound ||
+        this.unauthorizedError
       );
     },
     isLoader() {
@@ -985,6 +996,11 @@ export default {
         this.versionsCompare.selectedCompareData['@id'] !=
           this.ontologyVersions.selectedData['@id']
       );
+    }
+  },
+  watch: {
+    jwt() {
+      this.fetchData();
     }
   },
   async mounted() {
@@ -1014,12 +1030,7 @@ export default {
       this.scrollToOntologyViewerTopOfContainer();
     }
 
-    this.updateServers(this.$route);
-    this.updateCompareServers(null);
-    this.fetchModules();
-    this.fetchSearchProperties();
-    await this.fetchVersions();
-    this.fetchData(this.query, { noScroll: true });
+    await this.fetchData();
 
     // disable input autocomplete in multiselect
     this.$refs.searchBoxInputMobile.$refs.search.setAttribute(
@@ -1047,9 +1058,19 @@ export default {
       'getEntityData',
       'initialEntityLoad',
       'setReleases',
-      'getErrorFlags'
+      'getErrorFlags',
+      'clearUnauthorizedError'
     ]),
-    async fetchData(iri, options) {
+    async fetchData() {
+      this.updateServers(this.$route);
+      this.updateCompareServers(null);
+      this.fetchModules();
+      this.fetchSearchProperties();
+      await this.fetchVersions();
+      this.fetchEntity(this.query, { noScroll: true });
+    },
+    async fetchEntity(iri, options) {
+      this.clearUnauthorizedError();
       const noScroll = options?.noScroll;
       if (iri) {
         if (!noScroll) this.scrollToOntologyViewerTopOfContainer();
@@ -1091,10 +1112,9 @@ export default {
     },
     async fetchVersions() {
       try {
-        const result = await getOntologyVersions(
+        const ontologyVersions = await getOntologyVersions(
           `/${this.ontologyName}/ontology/api/`
         );
-        const ontologyVersions = await result.json();
 
         const first = 'master/latest';
         ontologyVersions.sort((x, y) =>
@@ -1152,24 +1172,21 @@ export default {
           const tagName = runtimeConfig.public.tagName;
 
           // group versions by tags, pull requests and releases
-          const tagsResult = await getJenkinsJobs(
+          const tagsJson = await getJenkinsJobs(
             `${jenkinsJobUrl}/view/tags/api/json`
           );
-          const tagsJson = await tagsResult.json();
           const tags = tagsJson.jobs.map((item) => item.name.toLowerCase());
 
-          const pullRequestsResult = await getJenkinsJobs(
+          const pullRequestsJson = await getJenkinsJobs(
             `${jenkinsJobUrl}/view/change-requests/api/json`
           );
-          const pullRequestsJson = await pullRequestsResult.json();
           const pullRequests = pullRequestsJson.jobs.map((item) =>
             item.name.toLowerCase()
           );
 
-          const defaultViewResult = await getJenkinsJobs(
+          const defaultViewJson = await getJenkinsJobs(
             `${jenkinsJobUrl}/view/default/api/json`
           );
-          const defaultViewJson = await defaultViewResult.json();
           const defaultView = defaultViewJson.jobs.map((item) =>
             item.name.toLowerCase()
           );
@@ -1231,8 +1248,7 @@ export default {
     },
     async fetchModules() {
       try {
-        const result = await getModules(this.modulesServer);
-        this.modulesList = await result.json();
+        this.modulesList = await getModules(this.modulesServer);
         this.error.modules = false;
       } catch (err) {
         console.error(err);
@@ -1241,10 +1257,9 @@ export default {
     },
     async fetchSearchProperties() {
       try {
-        const result = await getFindProperties(
+        this.searchBox.findPropertiesAll = await getFindProperties(
           `${this.searchServer}/properties`
         );
-        this.searchBox.findPropertiesAll = await result.json();
 
         if (this.searchBox.findPropertiesAll.length > 0) {
           this.searchBox.findProperties.push(
@@ -1414,7 +1429,7 @@ export default {
         this.fetchCompareDataAndMerge(this.query);
       } else {
         this.updateCompareServers(version['@id']);
-        this.fetchData(this.query, { noScroll: true });
+        this.fetchEntity(this.query, { noScroll: true });
       }
     },
     swapSelectedVersions() {
@@ -1447,7 +1462,7 @@ export default {
       ) {
         this.fetchCompareDataAndMerge(this.query);
       } else if (!isCompareExpanded && this.data == null)
-        this.fetchData(this.query, { noScroll: true });
+        this.fetchEntity(this.query, { noScroll: true });
     },
     searchBox_limitText(count) {
       return `and ${count} other results`;
@@ -1520,8 +1535,7 @@ export default {
             `${this.searchServer}?term=${searchBQuery}&mode=advance&useHighlighting=${isHighlighting}&findProperties=${this.searchBox.encodedProperties}&page=${page}`
           );
 
-          const result = await getFindSearch(domain);
-          const body = await result.json();
+          const body = await getFindSearch(domain);
 
           this.searchBox.pageResults = body.results;
 
@@ -1581,8 +1595,7 @@ export default {
             `${this.searchServer}?term=${query}&mode=advance&useHighlighting=false&findProperties=${this.searchBox.encodedProperties}`
           );
           const result = await getFindSearch(domain);
-          const json = await result.json();
-          const hints = json.results;
+          const hints = result.results;
 
           hints.forEach((el) => {
             // eslint-disable-next-line no-param-reassign

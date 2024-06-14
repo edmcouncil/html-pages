@@ -194,8 +194,7 @@ export default {
     async getStatsObject(server) {
       const output = {};
       try {
-        const result = await getStats(server);
-        const body = await result.json();
+        const body = await getStats(server);
         for (const key in body.stats) {
           output[key] = {};
           output[key].label = body.labels[key];
@@ -208,8 +207,9 @@ export default {
     },
     async fetchMissingImports() {
       try {
-        const result = await getMissingImports(this.missingImportsServer);
-        this.missingImports = await result.json();
+        this.missingImports = await getMissingImports(
+          this.missingImportsServer
+        );
       } catch (err) {
         console.error(err);
       }
