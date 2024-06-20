@@ -33,68 +33,76 @@
         @click="hideModal"
       ></div>
     </template>
-    <div class="modal-card">
-      <div v-if="error" class="modal-error mb-2">
-        {{ error }}
+
+    <Transition mode="out-in">
+      <div v-if="!successPage" class="modal-card">
+        <div v-if="error" class="modal-error mb-2">
+          {{ error }}
+        </div>
+        <form
+          id="register-form"
+          class="modal-form"
+          autocomplete="nope"
+          @submit.prevent="handleSubmit"
+        >
+          <div class="mb-1">
+            <CustomInput
+              id="emailRegister"
+              v-model="email"
+              autocomplete="email"
+              label="E-mail"
+              type="email"
+              required
+            />
+          </div>
+          <div class="mb-1">
+            <CustomInput
+              id="usernameRegister"
+              v-model="username"
+              autocomplete="nope"
+              label="Username"
+              type="text"
+              required
+            />
+          </div>
+          <div class="mb-1">
+            <CustomInput
+              id="passwordRegister"
+              v-model="password"
+              autocomplete="nope"
+              label="Password"
+              type="password"
+              required
+            />
+          </div>
+          <div class="mb-1">
+            <CustomInput
+              id="passwordRepeatRegister"
+              v-model="repeatPassword"
+              autocomplete="nope"
+              label="Repeat password"
+              type="password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn normal-button mt-4">Register</button>
+        </form>
       </div>
-      <form
-        id="register-form"
-        class="modal-form"
-        autocomplete="nope"
-        @submit.prevent="handleSubmit"
-      >
-        <div class="mb-1">
-          <CustomInput
-            id="emailRegister"
-            v-model="email"
-            autocomplete="email"
-            label="E-mail"
-            type="email"
-            required
-          />
-        </div>
-        <div class="mb-1">
-          <CustomInput
-            id="usernameRegister"
-            v-model="username"
-            autocomplete="nope"
-            label="Username"
-            type="text"
-            required
-          />
-        </div>
-        <div class="mb-1">
-          <CustomInput
-            id="passwordRegister"
-            v-model="password"
-            autocomplete="nope"
-            label="Password"
-            type="password"
-            required
-          />
-        </div>
-        <div class="mb-1">
-          <CustomInput
-            id="passwordRepeatRegister"
-            v-model="repeatPassword"
-            autocomplete="nope"
-            label="Repeat password"
-            type="password"
-            required
-          />
-        </div>
-        <button type="submit" class="btn normal-button mt-4">Register</button>
-      </form>
-    </div>
+      <div v-else class="modal-card">
+        <p class="small">
+          You created an account. A verification e-mail has been sent to the
+          provided e-mail address. Please check your inbox and follow the
+          instructions provided to verify your e-mail address.
+        </p>
+      </div>
+    </Transition>
   </BsModal>
 </template>
 
 <script lang="ts" setup>
-import { useAuthStore, type UserData } from '~/stores/auth';
 import { useAuthModalStore } from '~/stores/authModal';
 import { useRuntimeConfig } from '#app';
 
-const authStore = useAuthStore();
 const authModalStore = useAuthModalStore();
 
 const email = ref<string>('');
@@ -103,11 +111,7 @@ const password = ref<string>('');
 const repeatPassword = ref<string>('');
 const error = ref<string | null>(null);
 const renderForm = ref<boolean>(false);
-
-interface AuthResponse {
-  jwt: string;
-  user: UserData;
-}
+const successPage = ref<boolean>(false);
 
 const runtimeConfig = useRuntimeConfig();
 
@@ -119,38 +123,33 @@ const baseURL = () => {
 
 const hideModal = () => {
   authModalStore.closeModal();
+  successPage.value = false;
+  clearForm();
 };
 
 const handleReturn = () => {
   authModalStore.openModal('login');
+  successPage.value = false;
+  clearForm();
 };
 
 const handleSubmit = async () => {
   error.value = null;
 
   try {
-    const response = await $fetch<AuthResponse>(
-      `${baseURL()}/api/auth/local/register`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          username: username.value,
-          email: email.value,
-          password: password.value
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+    await $fetch(`${baseURL()}/api/auth/local/register`, {
+      method: 'POST',
+      body: JSON.stringify({
+        username: username.value,
+        email: email.value,
+        password: password.value
+      }),
+      headers: {
+        'Content-Type': 'application/json'
       }
-    );
+    });
 
-    if (response.jwt && response.user) {
-      authStore.setJwt(response.jwt);
-      authStore.setUserData(response.user);
-      hideModal();
-    } else {
-      throw new Error('Invalid response from server');
-    }
+    successPage.value = true;
   } catch (err: any) {
     let message: string | null = null;
 
@@ -169,15 +168,19 @@ const handleSubmit = async () => {
   }
 };
 
+const clearForm = () => {
+  email.value = '';
+  username.value = '';
+  password.value = '';
+  repeatPassword.value = '';
+  error.value = null;
+};
+
 const modalOpen = computed(() => authModalStore.authModal === 'register');
 watch(modalOpen, (newValue) => {
   if (newValue) renderForm.value = true;
   else {
-    email.value = '';
-    username.value = '';
-    password.value = '';
-    repeatPassword.value = '';
-    error.value = null;
+    clearForm();
     renderForm.value = false;
   }
 });

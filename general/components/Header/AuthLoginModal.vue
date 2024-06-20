@@ -76,6 +76,9 @@
 import { useAuthStore, type UserData } from '~/stores/auth';
 import { useAuthModalStore } from '~/stores/authModal';
 import { useRuntimeConfig } from '#app';
+import { useToastStore } from '~/stores/toast';
+
+const toastStore = useToastStore();
 
 const authStore = useAuthStore();
 const authModalStore = useAuthModalStore();
@@ -120,6 +123,7 @@ const handleSubmit = async () => {
     if (response.jwt && response.user) {
       authStore.setJwt(response.jwt);
       authStore.setUserData(response.user);
+      toastStore.addToast('You are logged in.');
       hideModal();
     } else {
       throw new Error('Invalid response from server');

@@ -107,6 +107,7 @@ const hideModal = () => {
   authModalStore.closeModal();
   password.value = '';
   repeatPassword.value = '';
+  successPage.value = false;
   error.value = null;
 };
 

@@ -4,6 +4,7 @@
     <AuthRegisterModal />
     <AuthRecoverModal />
     <AuthResetModal />
+    <AuthConfirmEmailModal />
     <div class="auth-component dropdown">
       <div v-if="isLoggedIn">
         <a

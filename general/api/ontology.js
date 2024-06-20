@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   useAuthStore,
   useOntologyStore,
-  useConfigurationStore
+  useConfigurationStore,
+  useToastStore
 } from '#imports';
 export const axiosClient = axios.create();
 
@@ -28,10 +29,12 @@ axiosClient.interceptors.request.use((config) => {
 axiosClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    const toastStore = useToastStore();
     const authStore = useAuthStore();
     const ontologyStore = useOntologyStore();
 
     if (error.response && error.response.status === 401) {
+      toastStore.addToast('Session expired. Please log in again.');
       authStore.clear();
     }
     if (error.response && error.response.status === 403) {
