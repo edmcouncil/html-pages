@@ -1020,9 +1020,9 @@ export default {
       queryParam = this.$route.query.query + this.$route.hash || '';
     }
     this.query = queryParam;
-
+    console.log(this.$route.query.recoveryCode);
     const scrollTopElement = this.$refs['article-top-element'];
-    if (!this.query) {
+    if (!this.query && !this.$route.query.recoveryCode) {
       scrollTopElement.scrollIntoView({
         behavior: 'smooth'
       });
@@ -1676,6 +1676,8 @@ export default {
       });
     },
     scrollToOntologyViewerTopOfContainer(behavior) {
+      if (this.$route.query.recoveryCode) return;
+
       const element = this.$refs.ontologyViewerTopOfContainer;
 
       const rect = element.getBoundingClientRect();

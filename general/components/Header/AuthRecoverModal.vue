@@ -27,7 +27,7 @@
       ></div>
     </template>
     <Transition mode="out-in">
-      <div v-if="!codePage" class="modal-card">
+      <div v-if="!sentPage" class="modal-card">
         <div v-if="error" class="modal-error mb-2">
           {{ error }}
         </div>
@@ -37,8 +37,7 @@
           @submit.prevent="sendRecoveryEmail"
         >
           <p class="small mb-4">
-            Please enter your email address below and click "Send Email". You
-            will receive an email with instructions to reset your password.
+            Please enter your email address and click "Send e-mail".
           </p>
           <CustomInput
             id="emailRecover"
@@ -47,77 +46,17 @@
             type="email"
             required
           />
-          <a
-            class="muted-link"
-            href="#"
-            role="button"
-            tabindex="0"
-            @click.prevent="
-              () => {
-                codePage = true;
-              }
-            "
-          >
-            <span>I already have a code</span>
-          </a>
           <button type="submit" class="btn normal-button mt-2">
             Send e-mail
           </button>
         </form>
       </div>
       <div v-else class="modal-card">
-        <div v-if="error" class="modal-error mb-2">
-          {{ error }}
-        </div>
-        <form
-          id="reset-form"
-          autocomplete="off"
-          class="modal-form"
-          @submit.prevent="resetPassword"
-        >
-          <p class="small mb-4">
-            Enter the code you received in email. Then enter new password and
-            press save to confirm changes.
-          </p>
-          <CustomInput
-            id="resetCode"
-            v-model="code"
-            label="Recovery code:"
-            autocomplete="none"
-            type="text"
-            required
-          />
-          <CustomInput
-            id="resetPasswordNew"
-            v-model="password"
-            label="New password:"
-            autocomplete="none"
-            type="password"
-            required
-          />
-          <CustomInput
-            id="resetRepeatPasswordNew"
-            v-model="repeatPassword"
-            label="Repeat new password:"
-            autocomplete="none"
-            type="password"
-            required
-          />
-          <a
-            class="muted-link"
-            href="#"
-            role="button"
-            tabindex="0"
-            @click.prevent="
-              () => {
-                codePage = false;
-              }
-            "
-          >
-            <span>I don't have the code</span>
-          </a>
-          <button type="submit" class="btn normal-button mt-2">Save</button>
-        </form>
+        <p class="small">
+          A recovery e-mail has been sent to the provided e-mail address. Please
+          check your inbox and follow the instructions provided to reset your
+          password.
+        </p>
       </div>
     </Transition>
   </BsModal>
@@ -131,12 +70,9 @@ import { useRuntimeConfig } from '#app';
 const authModalStore = useAuthModalStore();
 
 const email = ref<string>('');
-const code = ref<string>('');
-const password = ref<string>('');
-const repeatPassword = ref<string>('');
 const error = ref<string | null>(null);
 
-const codePage = ref<boolean>(false);
+const sentPage = ref<boolean>(false);
 
 const runtimeConfig = useRuntimeConfig();
 
@@ -148,15 +84,12 @@ const baseURL = () => {
 
 const hideModal = () => {
   authModalStore.closeModal();
-  codePage.value = false;
-  password.value = '';
-  repeatPassword.value = '';
+  sentPage.value = false;
   error.value = null;
 };
 
 const handleReturn = () => {
-  if (codePage.value) codePage.value = false;
-  else authModalStore.openModal('login');
+  authModalStore.openModal('login');
 };
 
 const sendRecoveryEmail = async () => {
@@ -168,30 +101,7 @@ const sendRecoveryEmail = async () => {
         email: email.value
       }
     });
-    codePage.value = true;
-  } catch (err: any) {
-    error.value = 'An error occurred. Please try again.';
-  }
-};
-
-const resetPassword = async () => {
-  error.value = null;
-  if (password.value !== repeatPassword.value) {
-    error.value = 'Passwords do not match.';
-    return;
-  }
-
-  try {
-    await $fetch(`${baseURL()}/api/auth/reset-password`, {
-      method: 'POST',
-      body: {
-        code: code.value,
-        password: password.value,
-        passwordConfirmation: repeatPassword.value
-      }
-    });
-
-    hideModal();
+    sentPage.value = true;
   } catch (err: any) {
     error.value = 'An error occurred. Please try again.';
   }

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-type ModalKey = 'login' | 'register' | 'recover';
+type ModalKey = 'login' | 'register' | 'reset' | 'recover';
 
 interface AuthModalState {
   authModal: ModalKey | null;

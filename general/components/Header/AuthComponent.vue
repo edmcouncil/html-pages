@@ -3,6 +3,7 @@
     <AuthLoginModal />
     <AuthRegisterModal />
     <AuthRecoverModal />
+    <AuthResetModal />
     <div class="auth-component dropdown">
       <div v-if="isLoggedIn">
         <a
@@ -31,7 +32,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
 import { useAuthStore } from '~/stores/auth';
 import { useAuthModalStore } from '~/stores/authModal';
 
