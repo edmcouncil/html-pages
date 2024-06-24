@@ -6,11 +6,6 @@
     footer-class="d-none"
     :can-escape="true"
     @on-modal-hidden="hideModal"
-    @hidden="
-      () => {
-        renderForm = false;
-      }
-    "
   >
     <template #modal-header>
       <div class="left">
@@ -20,11 +15,9 @@
           data-dismiss="modal"
           aria-label="Return"
           @click="handleReturn"
-          @keydown="handleReturn"
         ></div>
         <h5 class="modal-title">Register</h5>
       </div>
-
       <div
         type="button"
         class="close-btn"
@@ -34,86 +27,160 @@
       ></div>
     </template>
 
-    <Transition mode="out-in">
-      <div v-if="!successPage" class="modal-card">
-        <div v-if="error" class="modal-error mb-2">
-          {{ error }}
+    <div v-if="!successPage" class="modal-card">
+      <div v-if="serverError" class="modal-error mb-2" role="alert">
+        {{ serverError }}
+      </div>
+      <form
+        id="register-form"
+        class="modal-form"
+        autocomplete="off"
+        @submit.prevent="handleSubmit"
+      >
+        <CustomInput
+          v-for="field in formFields.filter((f) => f.type !== 'checkbox')"
+          :id="`${field.name}Register`"
+          :key="field.name"
+          v-bind="field"
+          :model-value="form[field.name] as string"
+          :error="shouldShowError(field.name) ? errors[field.name] : null"
+          @update:model-value="(value) => updateField(field.name, value)"
+          @blur="touchField(field.name)"
+        />
+        <div class="form-check pb-0 pt-2">
+          <input
+            id="privacyPolicyCheckbox"
+            :checked="!!form.privacyPolicy"
+            class="form-check-input"
+            type="checkbox"
+            name="privacyPolicyCheckbox"
+            @change="handlePrivacyPolicyChange"
+          />
+          <label class="form-check-label" for="privacyPolicyCheckbox">
+            I agree to the privacy policy.
+          </label>
         </div>
-        <form
-          id="register-form"
-          class="modal-form"
-          autocomplete="nope"
-          @submit.prevent="handleSubmit"
+        <div
+          v-if="shouldShowError('privacyPolicy')"
+          class="invalid-feedback d-block"
         >
-          <div class="mb-1">
-            <CustomInput
-              id="emailRegister"
-              v-model="email"
-              autocomplete="email"
-              label="E-mail"
-              type="email"
-              required
-            />
-          </div>
-          <div class="mb-1">
-            <CustomInput
-              id="usernameRegister"
-              v-model="username"
-              autocomplete="nope"
-              label="Username"
-              type="text"
-              required
-            />
-          </div>
-          <div class="mb-1">
-            <CustomInput
-              id="passwordRegister"
-              v-model="password"
-              autocomplete="nope"
-              label="Password"
-              type="password"
-              required
-            />
-          </div>
-          <div class="mb-1">
-            <CustomInput
-              id="passwordRepeatRegister"
-              v-model="repeatPassword"
-              autocomplete="nope"
-              label="Repeat password"
-              type="password"
-              required
-            />
-          </div>
-          <button type="submit" class="btn normal-button mt-4">Register</button>
-        </form>
-      </div>
-      <div v-else class="modal-card">
-        <p class="small">
-          You created an account. A verification e-mail has been sent to the
-          provided e-mail address. Please check your inbox and follow the
-          instructions provided to verify your e-mail address.
-        </p>
-      </div>
-    </Transition>
+          {{ errors.privacyPolicy }}
+        </div>
+        <button
+          type="submit"
+          class="btn normal-button mt-5"
+          :disabled="!isFormValid || isSubmitting"
+        >
+          {{ isSubmitting ? 'Registering...' : 'Register' }}
+        </button>
+      </form>
+    </div>
+    <div v-else class="modal-card">
+      <p class="small">
+        You created an account. A verification e-mail has been sent to the
+        provided e-mail address. Please check your inbox and follow the
+        instructions provided to verify your e-mail address.
+      </p>
+    </div>
   </BsModal>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
+import { ref, computed } from 'vue';
 import { useAuthModalStore } from '~/stores/authModal';
 import { useRuntimeConfig } from '#app';
+import {
+  useFormValidation,
+  type FieldConfig
+} from '~/composables/useFormValidation';
+import {
+  emailRules,
+  usernameRules,
+  passwordRules
+} from '~/helpers/inputValidation';
 
 const authModalStore = useAuthModalStore();
-
-const email = ref<string>('');
-const username = ref<string>('');
-const password = ref<string>('');
-const repeatPassword = ref<string>('');
-const error = ref<string | null>(null);
-const renderForm = ref<boolean>(false);
-const successPage = ref<boolean>(false);
-
 const runtimeConfig = useRuntimeConfig();
+
+const successPage = ref(false);
+const serverError = ref<string | null>(null);
+const isSubmitting = ref(false);
+
+const formFields: FieldConfig[] = [
+  {
+    name: 'email',
+    label: 'E-mail',
+    type: 'email',
+    autocomplete: 'email',
+    required: true,
+    rules: emailRules
+  },
+  {
+    name: 'username',
+    label: 'Username',
+    type: 'text',
+    autocomplete: 'username',
+    required: true,
+    rules: usernameRules
+  },
+  {
+    name: 'password',
+    label: 'Password',
+    type: 'password',
+    autocomplete: 'new-password',
+    required: true,
+    rules: passwordRules
+  },
+  {
+    name: 'repeatPassword',
+    label: 'Repeat password',
+    type: 'password',
+    autocomplete: 'new-password',
+    required: true,
+    rules: []
+  },
+  {
+    name: 'privacyPolicy',
+    label: 'I agree to the privacy policy',
+    type: 'checkbox',
+    required: true,
+    rules: [
+      {
+        validate: (value) => value === 'true',
+        message: 'You must agree to the privacy policy'
+      }
+    ]
+  }
+];
+
+const {
+  form,
+  errors,
+  updateField,
+  touchField,
+  shouldShowError,
+  isFormValid,
+  resetForm,
+  validateAllFields
+} = useFormValidation(formFields);
+
+const handlePrivacyPolicyChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  updateField('privacyPolicy', target.checked);
+  touchField('privacyPolicy');
+};
+
+const hideModal = () => {
+  authModalStore.closeModal();
+  resetForm();
+  successPage.value = false;
+  serverError.value = null;
+};
+
+const handleReturn = () => {
+  hideModal();
+  authModalStore.openModal('login');
+};
 
 const baseURL = () => {
   return typeof window !== 'undefined'
@@ -121,28 +188,21 @@ const baseURL = () => {
     : `${runtimeConfig.public.strapiBaseUrl}`;
 };
 
-const hideModal = () => {
-  authModalStore.closeModal();
-  successPage.value = false;
-  clearForm();
-};
-
-const handleReturn = () => {
-  authModalStore.openModal('login');
-  successPage.value = false;
-  clearForm();
-};
-
 const handleSubmit = async () => {
-  error.value = null;
+  validateAllFields();
+
+  if (!isFormValid.value) return;
+
+  isSubmitting.value = true;
+  serverError.value = null;
 
   try {
     await $fetch(`${baseURL()}/api/auth/local/register`, {
       method: 'POST',
       body: JSON.stringify({
-        username: username.value,
-        email: email.value,
-        password: password.value
+        username: form.username,
+        email: form.email,
+        password: form.password
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -161,27 +221,14 @@ const handleSubmit = async () => {
 
     if (message) {
       message = message.charAt(0).toUpperCase() + message.slice(1);
-      error.value = `Can't register. ${message}.`;
+      serverError.value = `Can't register. ${message}.`;
     } else {
-      error.value = `Can't register. Please fill the form and try again.`;
+      serverError.value = "Can't register. Please fill the form and try again.";
     }
+  } finally {
+    isSubmitting.value = false;
   }
-};
-
-const clearForm = () => {
-  email.value = '';
-  username.value = '';
-  password.value = '';
-  repeatPassword.value = '';
-  error.value = null;
 };
 
 const modalOpen = computed(() => authModalStore.authModal === 'register');
-watch(modalOpen, (newValue) => {
-  if (newValue) renderForm.value = true;
-  else {
-    clearForm();
-    renderForm.value = false;
-  }
-});
 </script>

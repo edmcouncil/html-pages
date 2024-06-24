@@ -6,11 +6,6 @@
     footer-class="d-none"
     :can-escape="true"
     @on-modal-hidden="hideModal"
-    @hidden="
-      () => {
-        renderForm = false;
-      }
-    "
   >
     <template #modal-header>
       <h5 class="modal-title">Login</h5>
@@ -23,7 +18,7 @@
       ></div>
     </template>
     <div class="modal-card">
-      <div v-if="error" class="modal-error mb-2">
+      <div v-if="error" :key="'error-message'" class="modal-error mb-2">
         {{ error }}
       </div>
       <form id="login-form" class="modal-form" @submit.prevent="handleSubmit">
@@ -31,6 +26,7 @@
           <CustomInput
             id="emailOrUsername"
             v-model="identifier"
+            name="emailOrUsername"
             label="E-mail or username"
             autocomplete="email"
             type="text"
@@ -41,6 +37,7 @@
           <CustomInput
             id="password"
             v-model="password"
+            name="password"
             autocomplete="password"
             label="Password"
             type="password"
@@ -86,7 +83,6 @@ const authModalStore = useAuthModalStore();
 const identifier = ref<string>('');
 const password = ref<string>('');
 const error = ref<string | null>(null);
-const renderForm = ref<boolean>(false);
 
 interface AuthResponse {
   jwt: string;
@@ -147,7 +143,4 @@ const handleSubmit = async () => {
 };
 
 const modalOpen = computed(() => authModalStore.authModal === 'login');
-watch(modalOpen, (newValue) => {
-  if (newValue) renderForm.value = true;
-});
 </script>

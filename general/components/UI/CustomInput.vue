@@ -1,47 +1,51 @@
 <template>
-  <div>
-    <label v-if="label" :for="id" class="form-label">
-      {{ label }}
-    </label>
+  <div class="custom-input-container">
+    <label v-if="label" :for="id" class="form-label">{{ label }}</label>
     <input
       :id="id"
-      :name="id"
+      :name="name"
       :value="modelValue"
       :autocomplete="autocomplete"
       :type="type"
       class="form-control"
       :required="required"
-      @input="handleInput($event)"
-      @change="handleInput($event)"
+      :class="{ 'is-invalid': error }"
+      @input="
+        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+      "
+      @blur="$emit('blur')"
     />
+    <div v-if="error" class="invalid-feedback">
+      {{ error }}
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-interface Props {
+defineProps<{
   id: string;
-  autocomplete?: string;
-  type: string;
+  name: string;
   modelValue: string;
   label?: string;
+  autocomplete?: string;
+  type?: string;
   required?: boolean;
-}
+  error?: string | null;
+}>();
 
-const { id, modelValue, label, type } = defineProps<Props>();
-
-const emit = defineEmits(['update:modelValue']);
-
-const handleInput = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  if (target && target.value !== undefined) {
-    emit('update:modelValue', target.value);
-  }
-};
+defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+  (e: 'blur'): void;
+}>();
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.custom-input-container {
+  margin-bottom: 15px;
+}
+
 .form-label {
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -50,28 +54,36 @@ const handleInput = (event: Event) => {
 }
 
 .form-control {
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-family: 'Inter';
+  padding: 5px 10px;
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-size: 14px;
   line-height: 24px;
   color: rgba(0, 0, 0, 0.8);
   border-radius: 2px;
-  background-color: rgba(255, 255, 255, 0);
-  box-shadow: none;
   background-color: white;
-  margin-bottom: 15px;
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.6);
 
   &::placeholder {
     color: rgba(0, 0, 0, 0.4);
     opacity: 1;
   }
 
-  &:focus {
+  &:focus:not(.is-invalid) {
     border-color: rgba(0, 0, 0, 0.8);
+    outline: none;
+    box-shadow: none;
   }
+
+  &.is-invalid {
+    border-color: #dc3545;
+  }
+}
+
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
 }
 </style>

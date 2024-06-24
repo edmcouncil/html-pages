@@ -1,7 +1,7 @@
 <template>
   <BsModal
     id="recover-modal"
-    :open="authModalStore.authModal === 'recover'"
+    :open="modalOpen"
     modal-class="recover-modal"
     footer-class="d-none"
     @on-modal-hidden="hideModal"
@@ -28,8 +28,8 @@
     </template>
     <Transition mode="out-in">
       <div v-if="!sentPage" class="modal-card">
-        <div v-if="error" class="modal-error mb-2">
-          {{ error }}
+        <div v-if="serverError" class="modal-error mb-2">
+          {{ serverError }}
         </div>
         <form
           id="recover-form"
@@ -40,13 +40,20 @@
             Please enter your email address and click "Send e-mail".
           </p>
           <CustomInput
-            id="emailRecover"
-            v-model="email"
-            label="E-mail"
-            type="email"
-            required
+            v-for="field in formFields"
+            :id="`${field.name}Recover`"
+            :key="field.name"
+            v-bind="field"
+            :model-value="form[field.name] as string"
+            :error="shouldShowError(field.name) ? errors[field.name] : null"
+            @update:model-value="(value) => updateField(field.name, value)"
+            @blur="touchField(field.name)"
           />
-          <button type="submit" class="btn normal-button mt-2">
+          <button
+            type="submit"
+            class="btn normal-button mt-4"
+            :disabled="!isFormValid"
+          >
             Send e-mail
           </button>
         </form>
@@ -62,19 +69,43 @@
   </BsModal>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue';
+<script setup lang="ts">
+import { ref, computed } from 'vue';
 import { useAuthModalStore } from '~/stores/authModal';
 import { useRuntimeConfig } from '#app';
+import {
+  useFormValidation,
+  type FieldConfig
+} from '~/composables/useFormValidation';
+import { emailRules } from '~/helpers/inputValidation';
 
 const authModalStore = useAuthModalStore();
-
-const email = ref<string>('');
-const error = ref<string | null>(null);
-
-const sentPage = ref<boolean>(false);
-
 const runtimeConfig = useRuntimeConfig();
+
+const sentPage = ref(false);
+const serverError = ref<string | null>(null);
+
+const formFields: FieldConfig[] = [
+  {
+    name: 'email',
+    label: 'E-mail',
+    type: 'email',
+    autocomplete: 'email',
+    required: true,
+    rules: emailRules
+  }
+];
+
+const {
+  form,
+  errors,
+  updateField,
+  touchField,
+  shouldShowError,
+  isFormValid,
+  resetForm,
+  validateAllFields
+} = useFormValidation(formFields);
 
 const baseURL = () => {
   return typeof window !== 'undefined'
@@ -84,26 +115,35 @@ const baseURL = () => {
 
 const hideModal = () => {
   authModalStore.closeModal();
+  resetForm();
   sentPage.value = false;
-  error.value = null;
+  serverError.value = null;
 };
 
 const handleReturn = () => {
+  hideModal();
   authModalStore.openModal('login');
 };
 
 const sendRecoveryEmail = async () => {
-  error.value = null;
+  validateAllFields();
+
+  if (!isFormValid.value) return;
+
+  serverError.value = null;
+
   try {
     await $fetch(`${baseURL()}/api/auth/forgot-password`, {
       method: 'POST',
       body: {
-        email: email.value
+        email: form.email
       }
     });
     sentPage.value = true;
   } catch (err: any) {
-    error.value = 'An error occurred. Please try again.';
+    serverError.value = 'An error occurred. Please try again.';
   }
 };
+
+const modalOpen = computed(() => authModalStore.authModal === 'recover');
 </script>
