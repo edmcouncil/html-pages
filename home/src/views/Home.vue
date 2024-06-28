@@ -4,18 +4,9 @@
       <ScrollTopHandler ref="scrollTopHandler" />
       <article class="full-page">
         <section class="blank">
-          <!--
-            <h1>
-                <span> webinar: Knowledge Graph in Action</span>
-            </h1>
-            <a href="https://register.gotowebinar.com/register/3618900380478224">
-            <img style='width: 70%; object-fit: contain;  display: block;margin-left:
-            auto;margin-right: auto;' src="../assets/img/OKGWebinar.png" alt="REGISTER" />
-            </a><br>
-          -->
-          <h1>EDMC Open Knowledge Graph specifications</h1>
+          <h1>EDMC Data Innovation Lab specifications</h1>
 
-          <h2>OKG Community spaces</h2>
+          <h2>DIL Community spaces</h2>
           <div class="community-spaces-container">
             <div class="communities-list">
               <div class="communities-list__item">
@@ -57,7 +48,7 @@
                     >
                       EDMConnect platform
                     </a>
-                    is an official discussion forum for the OKG Community.
+                    is an official discussion forum for the DIL Community.
                   </p>
                 </div>
                 <div>
@@ -76,7 +67,7 @@
               </div>
             </div>
             <div class="image-container">
-              <img src="../assets/img/Open Knowledge Graph logo.png" alt="OKG Logo" />
+              <img src="../assets/img/dil_logo.png" alt="DIL Logo" />
             </div>
           </div>
 
@@ -177,19 +168,19 @@
             <li>... more to come soon</li>
           </ul> -->
 
-          <h2>OKG Innovation Lab</h2>
+          <h2>Data Innovation Lab</h2>
 
           <p>
             EDMC recognizes the urgent need to bring this new architecture and approach to its
             members and beyond. In consultations with various members, analysts, and software
-            vendors, we have launched the Open Knowledge Graph Lab. You can be in touch with its
+            vendors, we have launched the Data Innovation Lab. You can be in touch with its
             activities by joining
             <a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community"
               >OKG Interest Community</a
             >.
           </p>
 
-          <h2>OKG Training</h2>
+          <h2>DIL Training</h2>
           <p>
             EDMC currently offers the introductory course in Knowledge Graph technology - it is
             available as a

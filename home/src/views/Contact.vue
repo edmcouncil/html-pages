@@ -4,7 +4,7 @@
     <article class="full-page">
       <section class="blank">
         <h1>Contact Person</h1>
-        <h2>OKG Lab</h2>
+        <h2>DIL Lab</h2>
         <div class="contact-card">
           <div class="contact-card__left">
             <img
@@ -33,15 +33,15 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:mmeriton@edmcouncil.org?subject=OKGL"
+                href="mailto:mmeriton@edmcouncil.org?subject=DIL"
                 ><b>Contact Michael Meriton</b></a
               >
-              to learn more about OKG initiative.
+              to learn more about DIL initiative.
             </p>
           </div>
         </div>
 
-        <h2>OKG training</h2>
+        <h2>DIL training</h2>
 
         <div class="contact-card">
           <div class="contact-card__left">
@@ -68,10 +68,10 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:rrummel@edmcouncil.org?subject=Question about the OKG Training"
+                href="mailto:rrummel@edmcouncil.org?subject=Question about the DIL Training"
                 ><b>Contact Robert Rummel</b></a
               >
-              to learn more about Open Knowledge Graph training opportunities.
+              to learn more about DIL training opportunities.
             </p>
           </div>
         </div>
@@ -103,10 +103,10 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:cgibson@edmcouncil.org?subject=Question about the OKG Training"
+                href="mailto:cgibson@edmcouncil.org?subject=Question about the DIL Training"
                 ><b>Contact Colin Gibson</b></a
               >
-              to learn more about Open Knowledge Graph training opportunities.
+              to learn more about DIL training opportunities.
             </p>
           </div>
         </div>
@@ -139,11 +139,11 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:psingh@edmcouncil.org?subject=Question about the OKG Training"
+                href="mailto:psingh@edmcouncil.org?subject=Question about the DIL Training"
               >
                 <b>Contact Preeti Singh</b>
               </a>
-              to learn more about Open Knowledge Graph training opportunities.
+              to learn more about DIL training opportunities.
             </p>
           </div>
         </div>
@@ -174,11 +174,11 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:dchew@edmcouncil.org?subject=Question about the OKG Training"
+                href="mailto:dchew@edmcouncil.org?subject=Question about the DIL Training"
               >
                 <b>Contact David Chew</b>
               </a>
-              to learn more about Open Knowledge Graph training opportunities.
+              to learn more about DIL training opportunities.
             </p>
           </div>
         </div>
@@ -210,10 +210,10 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:mosullivan@edmcouncil.org?subject=Question about the OKG Training"
+                href="mailto:mosullivan@edmcouncil.org?subject=Question about the DIL Training"
                 ><b>Contact Michael O'Sullivan</b></a
               >
-              to learn more about Open Knowledge Graph training opportunities.
+              to learn more about Data Innovation Lab training opportunities.
             </p>
           </div>
         </div>
@@ -231,37 +231,37 @@
               <th>Phone Numbers</th>
             </tr>
             <tr>
-              <td>OKG Lab</td>
-              <td><b>Michael Meriton</b></td>
-              <td>EDMC Co-Founder & COO</td>
+              <td>DIL</td>
+              <td><b>Jan Kroh</b></td>
+              <td>EGlobal Head, Data Innovation Lab</td>
               <td>+1 908 720 7044</td>
             </tr>
             <tr>
-              <td>OKG Training</td>
+              <td>DIL Training</td>
               <td><b>Robert Rummel</b></td>
               <td>Americas Regional Advocate</td>
               <td>+1 646 435 4628, +1 609 439 2848</td>
             </tr>
             <tr>
-              <td>OKG Training</td>
+              <td>DIL Training</td>
               <td><b>Colin Gibson</b></td>
               <td>EMEA Regional Advocate</td>
               <td>+44 (0)7875 365022</td>
             </tr>
             <tr>
-              <td>OKG Training</td>
+              <td>DIL Training</td>
               <td><b>Preeti Singh</b></td>
               <td>VP & Country Head – India</td>
               <td>+91 9571377333, +91 120 3054 505</td>
             </tr>
             <tr>
-              <td>OKG Training</td>
+              <td>DIL Training</td>
               <td><b>David Chew</b></td>
               <td>APAC Regional Advocate, Singapore</td>
               <td>+65 8186 8708</td>
             </tr>
             <tr>
-              <td>OKG Training</td>
+              <td>DIL Training</td>
               <td><b>Michael O'Sullivan</b></td>
               <td>APAC Regional Advocate, Australia & New Zealand</td>
               <td>+61 415 652 507</td>
@@ -269,11 +269,6 @@
           </tbody>
         </table>
         <br />
-        <!-- Contacts
-            Robert Trypuz
-            Dean Allemang
-            Harsh Sharma
-            Robert Rummel -->
       </section>
     </article>
   </div>

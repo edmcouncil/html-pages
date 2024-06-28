@@ -84,7 +84,7 @@
                       @click="navigationHandler('/')"
                       @keydown.enter="navigationHandler('/')"
                     >
-                      About OKG
+                      About DIL
                     </div>
                     <a
                       class="nav-link dropdown-item"
