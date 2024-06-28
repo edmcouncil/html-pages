@@ -9,7 +9,7 @@
           <div class="contact-card__left">
             <img
               class="img-avatar"
-              src="../assets/img/edm_staff_michael_meriton.png"
+              src="../assets/img/kroh.png"
               alt="Michael Meriton, EDMC Co-Founder & COO<"
             />
           </div>
