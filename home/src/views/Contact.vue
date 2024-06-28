@@ -14,7 +14,7 @@
             />
           </div>
           <div class="contact-card__right">
-            <h3>Michael Meriton, EDMC Co-Founder & COO</h3>
+            <h3>Jan Kroh, Global Head, Data Innovation Lab</h3>
             <ul>
               <li>
                 Jan has earned a PhD in artificial neural networks from the University of Strathclyde in Glasgow.
@@ -32,8 +32,8 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:mmeriton@edmcouncil.org?subject=DIL"
-                ><b>Contact Michael Meriton</b></a
+                href="mailto:jkroh@edmcouncil.org?subject=DIL"
+                ><b>Contact Jan Kroh</b></a
               >
               to learn more about DIL initiative.
             </p>
