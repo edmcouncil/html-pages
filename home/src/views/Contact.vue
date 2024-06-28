@@ -233,7 +233,7 @@
             <tr>
               <td>DIL</td>
               <td><b>Jan Kroh</b></td>
-              <td>EGlobal Head, Data Innovation Lab</td>
+              <td>Global Head, Data Innovation Lab</td>
               <td>+1 908 720 7044</td>
             </tr>
             <tr>

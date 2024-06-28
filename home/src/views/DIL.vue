@@ -24,7 +24,7 @@
 
           <p>
             EDMC recognizes the urgent need to bring this new architecture and approach to its
-            members and beyond. In consultations with various members, analysts, and software
+            members and beyond. In consultation with various members, analysts, and software
             vendors, we have launched the Data Innovation Lab (DIL). DIL mission is to:
           </p>
           <ol>
