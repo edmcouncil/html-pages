@@ -8,7 +8,7 @@
     >
       <div class="carousel-inner col-lg-10">
         <div class="carousel-item active">
-          <span class="text-display">Data Inovation Lab</span>
+          <span class="text-display">Data Innovation Lab</span>
           <h2>We deliver Graph Powered Agile Intelligence</h2>
 
           <a

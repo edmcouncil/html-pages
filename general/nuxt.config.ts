@@ -50,7 +50,7 @@ export default defineNuxtConfig({
           hid: 'keywords',
           name: 'keywords',
           content:
-            'ontology, knowledge graph, Data Inovation Lab, EDM Council, Enterprise Data Management Council'
+            'ontology, knowledge graph, Data Innovation Lab, EDM Council, Enterprise Data Management Council'
         },
         { name: 'format-detection', content: 'telephone=no' }
       ],
