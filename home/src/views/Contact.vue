@@ -17,16 +17,15 @@
             <h3>Michael Meriton, EDMC Co-Founder & COO</h3>
             <ul>
               <li>
-                Mike is a Co-Founder of the EDM Council and served as the first Chairman and active
-                Board member since inception in 2005.
+                Jan has earned a PhD in artificial neural networks from the University of Strathclyde in Glasgow.
               </li>
               <li>
-                Mike joined in 2015 as a Senior Advisor, promoted to COO in 2020, to lead Industry
-                Engagement strategy, new member services and Council Operations.
+                Jan has 30 years of professional experience in the management consulting, business development, acquisitions, alignment, 
+                integration and transformation of business organizations, complex program and project delivery.
               </li>
               <li>
-                Previously, Mike was the CEO of GoldenSource and held key executive roles at
-                CheckFree (Fiserv), D&B and Oracle.
+                Jan’s mission in the Data Innovation Lab is to promote and grow the concept of knowledge graph, 
+                as well as a variety of collaborative project initiatives in the space of AI.
               </li>
             </ul>
             <p>
