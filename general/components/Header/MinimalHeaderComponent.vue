@@ -30,7 +30,9 @@
                 />
               </a>
 
-              <ul class="navbar-nav ml-auto align-items-center">
+              <ul
+                class="navbar-nav flex-column-reverse flex-lg-row ml-auto align-items-end align-items-lg-center gap-3 gap-lg-0"
+              >
                 <li
                   v-for="item in dropdownTop"
                   :key="item.id"
@@ -374,7 +376,7 @@ header.website-header--minimal {
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 430px) {
   header.website-header--minimal .dropdown {
     .burger-button {
       .icon-burger {

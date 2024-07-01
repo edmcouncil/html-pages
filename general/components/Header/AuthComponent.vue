@@ -5,8 +5,8 @@
     <AuthRecoverModal />
     <AuthResetModal />
     <AuthConfirmEmailModal />
-    <div class="auth-component dropdown">
-      <div v-if="isLoggedIn">
+    <div class="auth-component dropdown me-1 me-lg-0">
+      <div v-if="isLoggedIn" class="auth-component-wrapper">
         <a
           id="authDropdown"
           class="dropdown-toggle user-email"
@@ -57,6 +57,12 @@ const openLogin = () => {
   display: flex;
   align-items: center;
   margin-left: 40px;
+
+  .auth-component-wrapper {
+    width: 40vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   .avatar {
     border-radius: 50%;

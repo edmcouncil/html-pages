@@ -57,7 +57,11 @@
             @change="handlePrivacyPolicyChange"
           />
           <label class="form-check-label" for="privacyPolicyCheckbox">
-            I agree to the privacy policy.
+            I agree to the
+            <a
+              href="https://edmcouncil.org/wp-content/uploads/2022/11/EDMC_Privacy_Compliance.pdf"
+              >privacy policy</a
+            >.
           </label>
         </div>
         <div
