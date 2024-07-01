@@ -10,7 +10,7 @@
             <img
               class="img-avatar"
               src="../assets/img/kroh.png"
-              alt="Michael Meriton, EDMC Co-Founder & COO<"
+              alt="Jan Kroh, Global Head, Data Innovation Lab<"
             />
           </div>
           <div class="contact-card__right">
@@ -186,23 +186,23 @@
           <div class="contact-card__left">
             <img
               class="img-avatar"
-              src="../assets/img/edm_staff_michael_osullivan.png"
-              alt="Michael O'Sullivan, APAC Regional Advocate Australia & New Zealand"
+              src="../assets/img/shaunr.png"
+              alt="Shaun Rolls, Senior Advisor Open Knowledge Graph Innovation Lab & Training"
               align="left"
             />
           </div>
           <div class="contact-card__right">
-            <h3>Michael O'Sullivan, APAC Regional Advocate Australia & New Zealand</h3>
+            <h3>Shaun Rolls, Senior Advisor Open Knowledge Graph Innovation Lab & Training</h3>
             <ul>
-              <li>Michael is a Regional Advocate for the Asia Pacific (APAC) Region.</li>
+              <li>Shaun is a senior advisor with the EDM Council and official certified trainer across the DCAM, CDMC and OKG training courses.</li>
               <li>
-                Michael is passionate about all things data and has spent his career working in the
-                data & analytics domain for companies in Europe, the Middle East and Asia Pacific.
+                Where Shaun’s passion lies in educating teams around data best practices and accelerating the adoption of the important 'next gen' data competencies 
+                across organisations in the enabling technologies such as 
+                Artificial Intelligence, Knowledge Graphs & Graph Technology, Semantics and Cloud Data Platforms.
               </li>
               <li>
-                Michael is based in Sydney, Australia where he works as an independent data
-                management consultant. Michael assists the EDM Council on a part-time basis and
-                provides on the ground support to our Australian and New Zealand membership.
+                Shaun is a long standing member of the EDM Council and FIBO teams, the founder and leader of the Europe Business Architecture Guild Community 
+                and currently head of the Europe Data Leadership Circle.
               </li>
             </ul>
             <p>
@@ -261,9 +261,9 @@
             </tr>
             <tr>
               <td>DIL Training</td>
-              <td><b>Michael O'Sullivan</b></td>
+              <td><b>Shaun Rolls</b></td>
               <td>APAC Regional Advocate, Australia & New Zealand</td>
-              <td>+61 415 652 507</td>
+              <td>+61 486 001129</td>
             </tr>
           </tbody>
         </table>
