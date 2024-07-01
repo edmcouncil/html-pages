@@ -47,6 +47,7 @@
           @update:model-value="(value) => updateField(field.name, value)"
           @blur="touchField(field.name)"
         />
+        <PasswordStrength v-if="passwordValue" :password="passwordValue" />
         <div class="form-check pb-0 pt-2">
           <input
             id="privacyPolicyCheckbox"
@@ -60,6 +61,7 @@
             I agree to the
             <a
               href="https://edmcouncil.org/wp-content/uploads/2022/11/EDMC_Privacy_Compliance.pdf"
+              target="_blank"
               >privacy policy</a
             >.
           </label>
@@ -235,4 +237,6 @@ const handleSubmit = async () => {
 };
 
 const modalOpen = computed(() => authModalStore.authModal === 'register');
+
+const passwordValue = computed(() => form.password as string);
 </script>

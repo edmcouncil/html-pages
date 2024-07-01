@@ -51,6 +51,7 @@
             @update:model-value="(value) => updateField(field.name, value)"
             @blur="touchField(field.name)"
           />
+          <PasswordStrength v-if="passwordValue" :password="passwordValue" />
           <button
             type="submit"
             class="btn normal-button mt-2"
@@ -195,4 +196,6 @@ const resetPassword = async () => {
 };
 
 const modalOpen = computed(() => authModalStore.authModal === 'reset');
+
+const passwordValue = computed(() => form.password as string);
 </script>
