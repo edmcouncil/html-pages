@@ -18,8 +18,8 @@
       ></div>
     </template>
     <div class="modal-card">
-      <div v-if="error" :key="'error-message'" class="modal-error mb-2">
-        {{ error }}
+      <div v-show="!!error" :key="'error-message'" class="modal-error mb-2">
+        {{ error ? error : '' }}
       </div>
       <form id="login-form" class="modal-form" @submit.prevent="handleSubmit">
         <div class="mb-1">
