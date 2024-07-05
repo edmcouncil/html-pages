@@ -44,5 +44,12 @@ export const useAuthStore = defineStore({
       this.user = null;
     }
   },
-  persist: true
+  persist: {
+    key: () => {
+      const runtimeConfig = useRuntimeConfig();
+      return `ontoviewer-auth-${runtimeConfig.public.ontologyName}`;
+    },
+    storage: process.client ? localStorage : undefined,
+    paths: ['jwt', 'user']
+  }
 });

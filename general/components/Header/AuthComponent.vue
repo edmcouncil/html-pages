@@ -1,35 +1,37 @@
 <template>
-  <div v-if="configStore.config.authEnabled === 'true'">
-    <AuthLoginModal />
-    <AuthRegisterModal />
-    <AuthRecoverModal />
-    <AuthResetModal />
-    <AuthConfirmEmailModal />
-    <div class="auth-component dropdown me-1 me-lg-0">
-      <div v-if="isLoggedIn" class="auth-component-wrapper">
-        <a
-          id="authDropdown"
-          class="dropdown-toggle user-email"
-          href="#"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <span class="me-2">{{ user?.email }}</span>
-        </a>
-        <div
-          class="dropdown-menu dropdown-menu-end"
-          aria-labelledby="authDropdown"
-        >
-          <a class="dropdown-item" @click="logout"> Logout </a>
+  <ClientOnly>
+    <div v-if="configStore.config.authEnabled === 'true'">
+      <AuthLoginModal />
+      <AuthRegisterModal />
+      <AuthRecoverModal />
+      <AuthResetModal />
+      <AuthConfirmEmailModal />
+      <div class="auth-component dropdown me-1 me-lg-0">
+        <div v-if="isLoggedIn" class="auth-component-wrapper">
+          <a
+            id="authDropdown"
+            class="dropdown-toggle user-email"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <span class="me-2">{{ user?.username }}</span>
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="authDropdown"
+          >
+            <a class="dropdown-item" @click="logout"> Logout </a>
+          </div>
+        </div>
+        <div v-else>
+          <a class="login-link" @click="openLogin"> Login </a>
         </div>
       </div>
-      <div v-else>
-        <a class="login-link" @click="openLogin"> Login </a>
-      </div>
     </div>
-  </div>
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>
@@ -59,7 +61,7 @@ const openLogin = () => {
   margin-left: 40px;
 
   .auth-component-wrapper {
-    width: 40vw;
+    max-width: 40vw;
     overflow: hidden;
     text-overflow: ellipsis;
   }
