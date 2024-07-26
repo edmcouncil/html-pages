@@ -42,6 +42,13 @@
             Enter your new password, then click "Save" to complete the update.
           </p>
           <CustomInput
+            id="emailReset"
+            v-model="userEmail"
+            label="E-mail"
+            name="emailReset"
+            disabled
+          />
+          <CustomInput
             v-for="field in formFields"
             :id="`${field.name}Reset`"
             :key="field.name"
@@ -87,6 +94,7 @@ const router = useRouter();
 const successPage = ref(false);
 const serverError = ref<string | null>(null);
 const isSubmitting = ref(false);
+const userEmail = ref<string>('');
 const code = ref<string>('');
 
 const passwordMatchRule: ValidationRule = {
@@ -97,7 +105,7 @@ const passwordMatchRule: ValidationRule = {
 const formFields: FieldConfig[] = [
   {
     name: 'password',
-    label: 'New password:',
+    label: 'New password',
     type: 'password',
     autocomplete: 'new-password',
     required: true,
@@ -105,7 +113,7 @@ const formFields: FieldConfig[] = [
   },
   {
     name: 'repeatPassword',
-    label: 'Repeat new password:',
+    label: 'Repeat new password',
     type: 'password',
     autocomplete: 'new-password',
     required: true,
@@ -125,9 +133,10 @@ const {
 } = useFormValidation(formFields);
 
 onMounted(() => {
-  if (route.query.recoveryCode) {
-    const { recoveryCode, ...restQuery } = route.query;
+  if (route.query.recoveryCode && route.query.email) {
+    const { recoveryCode, email, ...restQuery } = route.query;
     code.value = recoveryCode as string;
+    userEmail.value = email as string;
 
     router.replace({ query: restQuery });
 

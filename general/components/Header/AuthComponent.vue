@@ -17,7 +17,12 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <span class="me-2">{{ user?.username }}</span>
+            <span class="me-3">{{ user?.username }}</span>
+            <img
+              src="@/assets/icons/user.svg"
+              alt="User icon"
+              class="user-icon me-2"
+            />
           </a>
           <div
             class="dropdown-menu dropdown-menu-end"

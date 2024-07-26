@@ -9,6 +9,7 @@
       :type="type"
       class="form-control"
       :required="required"
+      :disabled="disabled"
       :class="{ 'is-invalid': error }"
       @input="
         $emit('update:modelValue', ($event.target as HTMLInputElement).value)
@@ -30,6 +31,7 @@ defineProps<{
   autocomplete?: string;
   type?: string;
   required?: boolean;
+  disabled?: boolean;
   error?: string | null;
 }>();
 
