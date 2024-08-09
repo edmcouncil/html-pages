@@ -12,7 +12,8 @@ export const useConfigurationStore = defineStore({
         ontoviewerServerUrl: null as any,
         ontologyRepositoryUrl: null as any,
         defaultBranchName: null as any,
-        jenkinsJobUrl: null as any
+        jenkinsJobUrl: null as any,
+        authEnabled: null as any
       }
     };
   },
@@ -32,6 +33,7 @@ export const useConfigurationStore = defineStore({
       this.config.ontologyRepositoryUrl = `https://github.com/edmcouncil/${this.config.ontpubFamily}`;
       this.config.defaultBranchName = 'current';
       this.config.jenkinsJobUrl = null;
+      this.config.authEnabled = null;
 
       const configData = await getAppConfigurationData(runtimeConfig);
       this.setConfigurationData(configData);

@@ -4,6 +4,7 @@
     <noscript v-html="noscriptContent"></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <MinimalHeaderComponent></MinimalHeaderComponent>
+    <ToastContainer />
     <slot></slot>
     <FooterComponent></FooterComponent>
   </div>

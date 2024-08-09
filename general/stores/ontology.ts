@@ -10,7 +10,8 @@ export const useOntologyStore = defineStore({
       iri: '' as string,
       entityData: {} as Record<string, any>,
       releases: [] as Array<string | null>,
-      errorFlags: {} as Record<string, boolean>
+      errorFlags: {} as Record<string, boolean>,
+      unauthorizedError: false
     };
   },
   actions: {
@@ -49,20 +50,18 @@ export const useOntologyStore = defineStore({
         const domain = `${servers.getVersionedOntologyServer(version)}?iri=${iri}`;
         const response = await getEntity(domain);
 
-        if (response.ok) {
-          this.errorFlags[versionIdentifier] = false;
-          return await response.json();
-        } else {
-          this.errorFlags[versionIdentifier] = true;
-          return null;
-        }
+        this.errorFlags[versionIdentifier] = false;
+        return response;
       } catch (error: any) {
-        if (error.status == 404) {
+        if (error.response && error.response.status === 404) {
           // Resource doesn't exist in this version
           this.errorFlags[versionIdentifier] = false;
           return null;
-        } else if (error.status == 503) {
+        } else if (error.response && error.response.status === 503) {
           // Server error
+          this.errorFlags[versionIdentifier] = true;
+          return null;
+        } else {
           this.errorFlags[versionIdentifier] = true;
           return null;
         }
@@ -81,6 +80,9 @@ export const useOntologyStore = defineStore({
     },
     clearData(): void {
       this.entityData = {};
+    },
+    clearUnauthorizedError() {
+      this.unauthorizedError = false;
     },
     setReleases(releases: Array<string | null>) {
       this.releases = releases;

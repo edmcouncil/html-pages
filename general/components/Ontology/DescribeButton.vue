@@ -92,7 +92,7 @@
 import hljs from 'highlight.js';
 import { mapState } from 'pinia';
 import { useServersStore } from '@/stores/servers';
-import { getDescribeIntegration } from '@/api/ontology';
+import { axiosClient, getDescribeIntegration } from '@/api/ontology';
 
 export default {
   name: 'DescribeButton',
@@ -133,11 +133,9 @@ export default {
 
     // check if integration is configured and there is no error message
     try {
-      const data = await result.clone().json();
-
       if (
-        data?.msg === 'breakdown' ||
-        data?.message === 'Integration is not configured'
+        result?.msg === 'breakdown' ||
+        result?.message === 'Integration is not configured'
       ) {
         this.error = true;
         return;
@@ -148,8 +146,19 @@ export default {
     }
 
     // highlight code
-    this.code = await result.text();
-    this.highlightedCode = hljs.highlight(this.code, { language: 'xml' }).value;
+    try {
+      const response = await axiosClient.get(
+        `${this.describeServer}?iri=${this.data.iri}`,
+        { responseType: 'text' }
+      );
+      this.code = response.data;
+      this.highlightedCode = hljs.highlight(this.code, {
+        language: 'xml'
+      }).value;
+    } catch (e) {
+      console.error(e);
+      this.error = true;
+    }
   },
   methods: {
     async openModal() {

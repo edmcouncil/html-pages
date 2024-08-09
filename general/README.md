@@ -66,6 +66,8 @@ The following values can be defined in `variables`:
 
 - `jenkinsJobUrl` - used to group versions based on Jenkins jobs. DEFAULT: `null`, EXAMPLE: `https://jenkins.edmcouncil.org/job/idmp/`
 
+- `authEnabled` - used to enable authorization feature, login and register functionality will be enabled when value is set to `true`.
+
 ## Build and run frontend
 
 - create directory for frontend application instance

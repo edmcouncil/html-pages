@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col px-0">
-          <div class="navigation-container d-block d-lg-block">
+          <div class="navigation-container">
             <nav class="navbar navbar-expand navbar-light">
               <a
                 v-if="isCustomLogo"
@@ -30,7 +30,9 @@
                 />
               </a>
 
-              <ul class="navbar-nav ml-auto align-items-center">
+              <ul
+                class="navbar-nav flex-column-reverse flex-lg-row ml-auto align-items-end align-items-lg-center gap-3 gap-lg-0"
+              >
                 <li
                   v-for="item in dropdownTop"
                   :key="item.id"
@@ -52,6 +54,8 @@
                   </a>
                   <span v-else class="nav-link">{{ item.item.name }}</span>
                 </li>
+
+                <AuthComponent />
 
                 <li class="nav-item dropdown">
                   <a
@@ -378,8 +382,12 @@ header.website-header {
   }
 }
 
-@media (max-width: 350px) {
-  .dropdown {
+@media (max-width: 430px) {
+  header.website-header {
+    min-height: 520px;
+  }
+
+  header.website-header .dropdown {
     .burger-button {
       .icon-burger {
         margin: 0;
@@ -391,14 +399,8 @@ header.website-header {
   }
 }
 
-@media (max-width: 430px) {
-  header.website-header {
-    min-height: 520px;
-  }
-}
-
 @media (max-width: 991px) {
-  .navbar-brand {
+  header.website-header .navbar-brand {
     #ontology-logo {
       width: 105px;
     }
@@ -407,11 +409,15 @@ header.website-header {
   .navbar li {
     margin-left: 0px;
   }
-  .dropdown {
+  header.website-header .dropdown {
     .burger-button {
       padding: 15px 30px;
     }
   }
+  .navbar-light .navbar-nav {
+    flex-direction: column-reverse;
+  }
+
   .navbar-light .navbar-nav .dropdown-menu > .nav-link,
   .navbar-expand .navbar-nav .nav-link.sub-nav-item {
     padding: 10px 30px;
@@ -431,7 +437,7 @@ header.website-header {
     right: 30px;
   }
 
-  .navigation-container {
+  header.website-header .navigation-container {
     padding: 20px 30px 60px 30px;
   }
 }

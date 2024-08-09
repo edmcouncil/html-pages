@@ -174,6 +174,7 @@ export async function getAppConfigurationData(runtimeConfig) {
     data.uriSpace = response.data.attributes.uriSpace;
     data.ontologyRepositoryUrl = response.data.attributes.ontologyRepositoryUrl;
     data.jenkinsJobUrl = response.data.attributes.jenkinsJobUrl;
+    data.authEnabled = response.data.attributes.authEnabled;
 
     // overwrite with 'variables' data
     const { variables } = response.data.attributes;

@@ -14,7 +14,6 @@
       ]"
       :aria-labelledby="correctId + 'Label'"
       aria-hidden="true"
-      data-bs-backdrop="static"
       tabindex="-1"
     >
       <div
@@ -49,9 +48,10 @@ export default {
     noFade: Boolean,
     scrollable: Boolean,
     fullscreen: Boolean,
-    secondLevel: Boolean
+    secondLevel: Boolean,
+    canEscape: Boolean
   },
-  emits: ['shown', 'hidden'],
+  emits: ['shown', 'hidden', 'on-modal-hidden'],
   data() {
     return {
       instance: null,
@@ -86,6 +86,7 @@ export default {
   mounted() {
     const { $bootstrap } = useNuxtApp();
     const element = this.$refs.modalElement;
+    if (!this.canEscape) element.setAttribute('data-bs-backdrop', 'static');
     this.instance = new $bootstrap.Modal(element);
     this.shownListener = element.addEventListener(
       'shown.bs.modal',
@@ -127,7 +128,11 @@ export default {
     onHidden() {
       this.$emit('hidden');
       if (this.open) {
-        this.instance.show();
+        if (this.canEscape) {
+          this.$emit('on-modal-hidden');
+        } else {
+          this.instance.show();
+        }
       } else {
         this.instance.hide();
       }

@@ -1,5 +1,5 @@
 <template>
-  <div class="graph-section" id="graph-section">
+  <div id="graph-section" class="graph-section">
     <div class="control-panel control-panel--minimal">
       <div class="connections-and-guide-container">
         <div ref="connectionsTitle" class="collapsible-section collapsed">

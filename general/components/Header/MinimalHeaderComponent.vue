@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col px-0">
-          <div class="navigation-container d-block d-lg-block">
+          <div class="navigation-container">
             <nav class="navbar navbar-expand navbar-light">
               <a
                 v-if="isCustomLogo"
@@ -30,7 +30,9 @@
                 />
               </a>
 
-              <ul class="navbar-nav ml-auto align-items-center">
+              <ul
+                class="navbar-nav flex-column-reverse flex-lg-row ml-auto align-items-end align-items-lg-center gap-3 gap-lg-0"
+              >
                 <li
                   v-for="item in dropdownTop"
                   :key="item.id"
@@ -52,6 +54,8 @@
                   </a>
                   <span v-else class="nav-link">{{ item.item.name }}</span>
                 </li>
+
+                <AuthComponent />
 
                 <li class="nav-item dropdown">
                   <a
@@ -372,7 +376,7 @@ header.website-header--minimal {
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 430px) {
   header.website-header--minimal .dropdown {
     .burger-button {
       .icon-burger {
