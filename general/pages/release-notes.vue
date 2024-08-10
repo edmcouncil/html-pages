@@ -117,7 +117,7 @@ export default {
         // error({ statusCode: 503, message: 'Service Unavailable' });
       }
 
-      const responseData = response.data.value.data;
+      const responseData = response?.data?.value?.data || [];
       const releaseTree = new Map();
       const releaseList = [];
       for (const releaseItem of responseData) {
