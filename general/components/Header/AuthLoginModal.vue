@@ -95,6 +95,8 @@ const toastStore = useToastStore();
 const authStore = useAuthStore();
 const authModalStore = useAuthModalStore();
 
+const route = useRoute();
+
 const identifier = ref<string>('');
 const password = ref<string>('');
 const error = ref<string | null>(null);
@@ -132,8 +134,7 @@ const handleSubmit = async () => {
     });
 
     if (response.jwt && response.user) {
-      authStore.setJwt(response.jwt);
-      authStore.setUserData(response.user);
+      await authStore.loginAndFetchProfile(response.jwt, response.user);
       toastStore.addToast('You are logged in.');
       hideModal();
     } else {
@@ -159,6 +160,8 @@ const handleSubmit = async () => {
 
 const connectGithub = () => {
   const githubConnectUrl = `${baseURL()}/api/connect/github`;
+
+  authStore.setRedirectLink(route.fullPath);
 
   window.location.href = githubConnectUrl;
 };

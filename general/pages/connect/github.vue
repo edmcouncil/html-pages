@@ -68,11 +68,14 @@ onMounted(async () => {
     );
 
     if (response.jwt && response.user) {
-      authStore.setJwt(response.jwt);
-      authStore.setUserData(response.user);
+      await authStore.loginAndFetchProfile(response.jwt, response.user);
       toastStore.addToast('Successfully logged in with GitHub.');
       statusMessage.value = 'Authentication successful. Redirecting...';
-      setTimeout(() => router.push('/ontology'), 2000);
+
+      const redirectUrl = authStore.redirectLink || '/ontology';
+      authStore.clearRedirectLink();
+
+      setTimeout(() => router.push(redirectUrl), 2000);
     } else {
       throw new Error('Invalid response from server');
     }
@@ -86,7 +89,11 @@ const handleError = (message: string) => {
   statusMessage.value = 'Authentication failed. Redirecting...';
   toastStore.addToast(`GitHub authentication failed!`, 'error');
   authStore.clear();
-  setTimeout(() => router.push('/'), 2000);
+
+  const redirectUrl = authStore.redirectLink || '/';
+  authStore.clearRedirectLink();
+
+  setTimeout(() => router.push(redirectUrl), 2000);
 };
 </script>
 
