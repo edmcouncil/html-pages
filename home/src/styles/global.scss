@@ -27,6 +27,23 @@ $normal-button-disabled-bg: rgba(0, 0, 0, 0.4);
   font-family: Inter;
 }
 
+@media (min-width: 991px) {
+  // scrollbar
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: map-get($colors-map, 'black-40');
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: map-get($colors-map, 'black-80');
+  }
+}
+
 // Common elements
 
 .custom-switch {

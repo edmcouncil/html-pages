@@ -25,15 +25,16 @@
             href="https://www.youtube.com/user/EDMCouncil"
             class="social-icons"
             target="_blank"
-            v-on:click="outboundClick('youtube')"
+            @click="outboundClick('youtube')"
             aria-label="youtube"
-            ><img src="../assets/icons/social-icons-yt.svg" alt="youtube icon"
-          /></a>
+          >
+            <img src="../assets/icons/social-icons-yt.svg" alt="youtube icon" />
+          </a>
           <a
             href="https://twitter.com/edmcouncil"
             class="social-icons"
             target="_blank"
-            v-on:click="outboundClick('twitter')"
+            @click="outboundClick('twitter')"
             aria-label="twitter"
           >
             <img src="../assets/icons/social-icons-twitter.svg" alt="twitter icon" />
@@ -42,7 +43,7 @@
             href="https://www.linkedin.com/company/edm-council/"
             class="social-icons"
             target="_blank"
-            v-on:click="outboundClick('linkedin')"
+            @click="outboundClick('linkedin')"
             aria-label="linkedin"
           >
             <img src="../assets/icons/social-icons-in.svg" alt="linkedin icon" />
