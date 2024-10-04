@@ -20,8 +20,8 @@ app.use(
     enabled: true,
     debug: false,
     loadScript: true,
-    vueRouter: router,
-  }),
+    vueRouter: router
+  })
 );
 
 app.mount('#app');
