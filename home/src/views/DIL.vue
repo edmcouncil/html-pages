@@ -3,7 +3,7 @@
     <main>
       <article class="full-page">
         <section class="blank">
-          <h1>Open Knowledge Graph Lab</h1>
+          <h1>Data Innovation Lab</h1>
 
           <p class="big muted">We deliver Graph Powered Agile Intelligence</p>
 

@@ -4,44 +4,43 @@
     <article class="full-page">
       <section class="blank">
         <h1>Contact Person</h1>
-        <h2>OKG Lab</h2>
+        <h2>DIL Lab</h2>
         <div class="contact-card">
           <div class="contact-card__left">
             <img
               class="img-avatar"
-              src="../assets/img/edm_staff_michael_meriton.png"
-              alt="Michael Meriton, EDMC Co-Founder & COO<"
+              src="../assets/img/kroh.png"
+              alt="Jan Kroh, Global Head, Data Innovation Lab<"
             />
           </div>
           <div class="contact-card__right">
-            <h3>Michael Meriton, EDMC Co-Founder & COO</h3>
+            <h3>Jan Kroh, Global Head, Data Innovation Lab</h3>
             <ul>
               <li>
-                Mike is a Co-Founder of the EDM Council and served as the first Chairman and active
-                Board member since inception in 2005.
+                Jan has earned a PhD in artificial neural networks from the University of Strathclyde in Glasgow.
               </li>
               <li>
-                Mike joined in 2015 as a Senior Advisor, promoted to COO in 2020, to lead Industry
-                Engagement strategy, new member services and Council Operations.
+                Jan has 30 years of professional experience in the management consulting, business development, acquisitions, alignment, 
+                integration and transformation of business organizations, complex program and project delivery.
               </li>
               <li>
-                Previously, Mike was the CEO of GoldenSource and held key executive roles at
-                CheckFree (Fiserv), D&B and Oracle.
+                Jan’s mission in the Data Innovation Lab is to promote and grow the concept of knowledge graph, 
+                as well as a variety of collaborative project initiatives in the space of AI.
               </li>
             </ul>
             <p>
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:mmeriton@edmcouncil.org?subject=OKGL"
-                ><b>Contact Michael Meriton</b></a
+                href="mailto:jkroh@edmcouncil.org?subject=DIL"
+                ><b>Contact Jan Kroh</b></a
               >
-              to learn more about OKG initiative.
+              to learn more about DIL initiative.
             </p>
           </div>
         </div>
 
-        <h2>OKG training</h2>
+        <h2>DIL training</h2>
 
         <div class="contact-card">
           <div class="contact-card__left">
@@ -68,10 +67,10 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:rrummel@edmcouncil.org?subject=Question about the OKG Training"
+                href="mailto:rrummel@edmcouncil.org?subject=Question about the DIL Training"
                 ><b>Contact Robert Rummel</b></a
               >
-              to learn more about Open Knowledge Graph training opportunities.
+              to learn more about DIL training opportunities.
             </p>
           </div>
         </div>
@@ -103,10 +102,10 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:cgibson@edmcouncil.org?subject=Question about the OKG Training"
+                href="mailto:cgibson@edmcouncil.org?subject=Question about the DIL Training"
                 ><b>Contact Colin Gibson</b></a
               >
-              to learn more about Open Knowledge Graph training opportunities.
+              to learn more about DIL training opportunities.
             </p>
           </div>
         </div>
@@ -139,11 +138,11 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:psingh@edmcouncil.org?subject=Question about the OKG Training"
+                href="mailto:psingh@edmcouncil.org?subject=Question about the DIL Training"
               >
                 <b>Contact Preeti Singh</b>
               </a>
-              to learn more about Open Knowledge Graph training opportunities.
+              to learn more about DIL training opportunities.
             </p>
           </div>
         </div>
@@ -174,11 +173,11 @@
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:dchew@edmcouncil.org?subject=Question about the OKG Training"
+                href="mailto:dchew@edmcouncil.org?subject=Question about the DIL Training"
               >
                 <b>Contact David Chew</b>
               </a>
-              to learn more about Open Knowledge Graph training opportunities.
+              to learn more about DIL training opportunities.
             </p>
           </div>
         </div>
@@ -187,33 +186,33 @@
           <div class="contact-card__left">
             <img
               class="img-avatar"
-              src="../assets/img/edm_staff_michael_osullivan.png"
-              alt="Michael O'Sullivan, APAC Regional Advocate Australia & New Zealand"
+              src="../assets/img/shaunr.png"
+              alt="Shaun Rolls, Senior Advisor Open Knowledge Graph Innovation Lab & Training"
               align="left"
             />
           </div>
           <div class="contact-card__right">
-            <h3>Michael O'Sullivan, APAC Regional Advocate Australia & New Zealand</h3>
+            <h3>Shaun Rolls, Senior Advisor Open Knowledge Graph Innovation Lab & Training</h3>
             <ul>
-              <li>Michael is a Regional Advocate for the Asia Pacific (APAC) Region.</li>
+              <li>Shaun is a senior advisor with the EDM Council and official certified trainer across the DCAM, CDMC and OKG training courses.</li>
               <li>
-                Michael is passionate about all things data and has spent his career working in the
-                data & analytics domain for companies in Europe, the Middle East and Asia Pacific.
+                Where Shaun’s passion lies in educating teams around data best practices and accelerating the adoption of the important 'next gen' data competencies 
+                across organisations in the enabling technologies such as 
+                Artificial Intelligence, Knowledge Graphs & Graph Technology, Semantics and Cloud Data Platforms.
               </li>
               <li>
-                Michael is based in Sydney, Australia where he works as an independent data
-                management consultant. Michael assists the EDM Council on a part-time basis and
-                provides on the ground support to our Australian and New Zealand membership.
+                Shaun is a long standing member of the EDM Council and FIBO teams, the founder and leader of the Europe Business Architecture Guild Community 
+                and currently head of the Europe Data Leadership Circle.
               </li>
             </ul>
             <p>
               <a
                 class="bttn"
                 id="email_1524650877557"
-                href="mailto:mosullivan@edmcouncil.org?subject=Question about the OKG Training"
+                href="mailto:mosullivan@edmcouncil.org?subject=Question about the DIL Training"
                 ><b>Contact Michael O'Sullivan</b></a
               >
-              to learn more about Open Knowledge Graph training opportunities.
+              to learn more about Data Innovation Lab training opportunities.
             </p>
           </div>
         </div>
@@ -231,49 +230,44 @@
               <th>Phone Numbers</th>
             </tr>
             <tr>
-              <td>OKG Lab</td>
-              <td><b>Michael Meriton</b></td>
-              <td>EDMC Co-Founder & COO</td>
+              <td>DIL</td>
+              <td><b>Jan Kroh</b></td>
+              <td>Global Head, Data Innovation Lab</td>
               <td>+1 908 720 7044</td>
             </tr>
             <tr>
-              <td>OKG Training</td>
+              <td>DIL Training</td>
               <td><b>Robert Rummel</b></td>
               <td>Americas Regional Advocate</td>
               <td>+1 646 435 4628, +1 609 439 2848</td>
             </tr>
             <tr>
-              <td>OKG Training</td>
+              <td>DIL Training</td>
               <td><b>Colin Gibson</b></td>
               <td>EMEA Regional Advocate</td>
               <td>+44 (0)7875 365022</td>
             </tr>
             <tr>
-              <td>OKG Training</td>
+              <td>DIL Training</td>
               <td><b>Preeti Singh</b></td>
               <td>VP & Country Head – India</td>
               <td>+91 9571377333, +91 120 3054 505</td>
             </tr>
             <tr>
-              <td>OKG Training</td>
+              <td>DIL Training</td>
               <td><b>David Chew</b></td>
               <td>APAC Regional Advocate, Singapore</td>
               <td>+65 8186 8708</td>
             </tr>
             <tr>
-              <td>OKG Training</td>
-              <td><b>Michael O'Sullivan</b></td>
+              <td>DIL Training</td>
+              <td><b>Shaun Rolls</b></td>
               <td>APAC Regional Advocate, Australia & New Zealand</td>
-              <td>+61 415 652 507</td>
+              <td>+61 486 001129</td>
             </tr>
           </tbody>
         </table>
         <br />
-        <!-- Contacts
-            Robert Trypuz
-            Dean Allemang
-            Harsh Sharma
-            Robert Rummel -->
       </section>
     </article>
   </div>

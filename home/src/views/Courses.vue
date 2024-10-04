@@ -200,7 +200,7 @@
             </p>
           </div>
 
-          <h2><span>OKG / FIBO Training Instructors</span></h2>
+          <h2><span>DIL Training Instructors</span></h2>
 
           <div class="contact-card">
             <div class="contact-card__left">

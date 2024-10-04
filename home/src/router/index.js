@@ -15,8 +15,8 @@ const router = createRouter({
     },
     {
       path: '/okgl',
-      name: 'OKGL',
-      component: () => import('../views/OKGL.vue')
+      name: 'DIL',
+      component: () => import('../views/DIL.vue')
     },
     {
       path: '/courses',

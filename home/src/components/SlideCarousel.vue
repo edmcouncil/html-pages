@@ -8,7 +8,7 @@
     >
       <div class="carousel-inner col-lg-10">
         <div class="carousel-item active">
-          <span class="text-display">Open Knowledge Graph Lab</span>
+          <span class="text-display">Data Innovation Lab</span>
           <h2>We deliver Graph Powered Agile Intelligence</h2>
 
           <a
@@ -19,11 +19,11 @@
               )
             "
           >
-            OKGSL mission
+            DIL mission
           </a>
         </div>
         <div class="carousel-item">
-          <span class="text-display">Open Knowledge Graph Training</span>
+          <span class="text-display">Data Innovation Lab Training</span>
           <h2>EDMC offers courses in Knowledge Graph and FIBO, available in multiple forms.</h2>
 
           <a

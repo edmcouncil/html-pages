@@ -4,18 +4,9 @@
       <ScrollTopHandler ref="scrollTopHandler" />
       <article class="full-page">
         <section class="blank">
-          <!--
-            <h1>
-                <span> webinar: Knowledge Graph in Action</span>
-            </h1>
-            <a href="https://register.gotowebinar.com/register/3618900380478224">
-            <img style='width: 70%; object-fit: contain;  display: block;margin-left:
-            auto;margin-right: auto;' src="../assets/img/OKGWebinar.png" alt="REGISTER" />
-            </a><br>
-          -->
-          <h1>EDMC Open Knowledge Graph specifications</h1>
+          <h1>EDMC Data Innovation Lab specifications</h1>
 
-          <h2>OKG Community spaces</h2>
+          <h2>DIL Community spaces</h2>
           <div class="community-spaces-container">
             <div class="communities-list">
               <div class="communities-list__item">
@@ -29,7 +20,7 @@
                     >
                       EDMC GitHub space
                     </a>
-                    is the main EDMC development space and the space where all the official dev
+                    is the main EDMC development space where all the official dev
                     materials are located.
                   </p>
                 </div>
@@ -57,7 +48,7 @@
                     >
                       EDMConnect platform
                     </a>
-                    is an official discussion forum for the OKG Community.
+                    is an official discussion forum for the DIL Community.
                   </p>
                 </div>
                 <div>
@@ -76,7 +67,7 @@
               </div>
             </div>
             <div class="image-container">
-              <img src="../assets/img/Open Knowledge Graph logo.png" alt="OKG Logo" />
+              <img src="../assets/img/dil_logo.png" alt="DIL Logo" />
             </div>
           </div>
 
@@ -124,7 +115,7 @@
               <div class="table-box__column long-description">
                 <p class="small">
                   The Automotive Ontology (AUTO) defines the shared conceptual structures in the
-                  automotive industry. It is an OWL ontology. It is build upon the auto schema.org
+                  automotive industry. It is an OWL ontology. It is built upon the auto schema.org
                   extension created by the W3C Automotive Ontology Community Group and it refers to
                   the essential real-world objects related to popular vehicles like cars, buses
                   (coaches), and motorcycles.
@@ -150,7 +141,7 @@
 
               <div class="table-box__column long-description">
                 <p class="small">
-                  A well-defined ontology that bridges between regional and functional perspectives
+                  A well-defined ontology that bridges regional and functional perspectives
                   on common substance-related data objects and global and scientifically objective
                   representations is required. The goal of our project is to build an IDMP Ontology
                   that enables deep, semantic interoperability based on FAIR principles to enhance
@@ -177,21 +168,21 @@
             <li>... more to come soon</li>
           </ul> -->
 
-          <h2>OKG Innovation Lab</h2>
+          <h2>Data Innovation Lab</h2>
 
           <p>
             EDMC recognizes the urgent need to bring this new architecture and approach to its
-            members and beyond. In consultations with various members, analysts, and software
-            vendors, we have launched the Open Knowledge Graph Lab. You can be in touch with its
+            members and beyond. In consultation with various members, analysts, and software
+            vendors, we have launched the Data Innovation Lab. You can be in touch with its
             activities by joining
             <a href="https://edmconnect.edmcouncil.org/okginterestcommunity/okg-interest-community"
               >OKG Interest Community</a
             >.
           </p>
 
-          <h2>OKG Training</h2>
+          <h2>DIL Training</h2>
           <p>
-            EDMC currently offers the introductory course in Knowledge Graph technology - it is
+            EDMC currently offers an introductory course in Knowledge Graph technology - it is
             available as a
             <a href="https://edmcouncil.org/page/OKGVirtualTraining"> virtual class</a>.
           </p>
