@@ -987,7 +987,7 @@ export default {
       );
     },
     hasVersions() {
-      return this.ontologyVersions.data.length > 1;
+      return this.ontologyVersions.data.length >= 1;
     },
     isComparing() {
       return (
