@@ -243,7 +243,7 @@
 
             <transition mode="out-in">
               <StatsComponent
-                v-if="statsServer && missingImportsServer"
+                v-if="statsServer && missingImportsServer && !unauthorizedError"
                 :is-comparing="isComparing"
               />
             </transition>
@@ -722,7 +722,7 @@
           </div>
 
           <!-- errors -->
-          <Errors :error="error" />
+          <Errors v-if="!unauthorizedError" :error="error" />
 
           <div v-if="isLoader" class="text-center mt-5">
             <div class="spinner-border" role="status">
@@ -987,7 +987,7 @@ export default {
       );
     },
     hasVersions() {
-      return this.ontologyVersions.data.length > 1;
+      return this.ontologyVersions.data.length >= 1;
     },
     isComparing() {
       return (
@@ -1003,6 +1003,10 @@ export default {
       this.fetchData();
     },
     async version() {
+      this.error.entityNotFound = false;
+      this.error.entityData = false;
+      this.error.modules = false;
+      this.error.properties = false;
       this.clearUnauthorizedError();
       await Promise.all([
         this.fetchModules(),
