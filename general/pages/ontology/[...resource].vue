@@ -243,7 +243,7 @@
 
             <transition mode="out-in">
               <StatsComponent
-                v-if="statsServer && missingImportsServer"
+                v-if="statsServer && missingImportsServer && !unauthorizedError"
                 :is-comparing="isComparing"
               />
             </transition>
@@ -722,7 +722,7 @@
           </div>
 
           <!-- errors -->
-          <Errors :error="error" />
+          <Errors v-if="!unauthorizedError" :error="error" />
 
           <div v-if="isLoader" class="text-center mt-5">
             <div class="spinner-border" role="status">
@@ -746,9 +746,13 @@
             class="container"
           >
             <div class="row">
+              <UnauthorizedError
+                v-if="!loader && !isComparing && unauthorizedError"
+              />
+
               <!-- SHOW ITEM -->
               <Resource
-                v-if="isComparing ? mergedData : data"
+                v-else-if="isComparing ? mergedData : data"
                 :data="isComparing ? mergedData : data"
                 :is-comparing="isComparing"
                 :ontology-versions="ontologyVersions"
@@ -765,10 +769,6 @@
                 "
                 :has-versions="hasVersions"
                 :ontology-name-uppercase="ontologyNameUppercase"
-              />
-
-              <UnauthorizedError
-                v-else-if="!loader && !isComparing && unauthorizedError"
               />
 
               <EntityNotFound
@@ -1001,6 +1001,18 @@ export default {
   watch: {
     jwt() {
       this.fetchData();
+    },
+    async version() {
+      this.error.entityNotFound = false;
+      this.error.entityData = false;
+      this.error.modules = false;
+      this.error.properties = false;
+      this.clearUnauthorizedError();
+      await Promise.all([
+        this.fetchModules(),
+        this.fetchSearchProperties(),
+        this.fetchEntity(this.query, { noScroll: true })
+      ]);
     }
   },
   async mounted() {
@@ -1066,15 +1078,25 @@ export default {
       'clearUnauthorizedError'
     ]),
     async fetchData() {
+      this.clearUnauthorizedError();
+      this.data = null;
+      this.mergedData = null;
+      this.modulesList = null;
+      this.searchBox.findPropertiesAll = [];
+      this.searchBox.findProperties = [];
+
       this.updateServers(this.$route);
       this.updateCompareServers(null);
-      this.fetchModules();
-      this.fetchSearchProperties();
+
       await this.fetchVersions();
-      this.fetchEntity(this.query, { noScroll: true });
+
+      await Promise.all([
+        this.fetchModules(),
+        this.fetchSearchProperties(),
+        this.fetchEntity(this.query, { noScroll: true })
+      ]);
     },
     async fetchEntity(iri, options) {
-      this.clearUnauthorizedError();
       const noScroll = options?.noScroll;
       if (iri) {
         if (!noScroll) this.scrollToOntologyViewerTopOfContainer();
@@ -1135,12 +1157,9 @@ export default {
         ontologyVersions.unshift(this.ontologyVersions.defaultData); // add default at the beginning
 
         if (this.version != null) {
-          this.ontologyVersions.selectedData = ontologyVersions.find((val) => {
-            if (val['@id'] === this.version) {
-              return true;
-            }
-            return false;
-          });
+          this.ontologyVersions.selectedData = ontologyVersions.find(
+            (val) => val['@id'] === this.version
+          );
         } else {
           this.ontologyVersions.selectedData =
             this.ontologyVersions.defaultData;
@@ -1179,21 +1198,23 @@ export default {
           const tagsJson = await getJenkinsJobs(
             `${jenkinsJobUrl}/view/tags/api/json`
           );
-          const tags = tagsJson.jobs.map((item) => item.name.toLowerCase());
+          const tags = tagsJson.jobs.map((item) => {
+            return item.name.toLowerCase();
+          });
 
           const pullRequestsJson = await getJenkinsJobs(
             `${jenkinsJobUrl}/view/change-requests/api/json`
           );
-          const pullRequests = pullRequestsJson.jobs.map((item) =>
-            item.name.toLowerCase()
-          );
+          const pullRequests = pullRequestsJson.jobs.map((item) => {
+            return item.name.toLowerCase();
+          });
 
           const defaultViewJson = await getJenkinsJobs(
             `${jenkinsJobUrl}/view/default/api/json`
           );
-          const defaultView = defaultViewJson.jobs.map((item) =>
-            item.name.toLowerCase()
-          );
+          const defaultView = defaultViewJson.jobs.map((item) => {
+            return item.name.toLowerCase();
+          });
 
           // group versions
           const branchesGroup = [];
