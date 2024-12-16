@@ -1019,7 +1019,7 @@ export default {
     let queryParam = '';
 
     const pathParams = this.$route.params?.resource;
-    if (pathParams && pathParams[1]?.length > 0) {
+    if (pathParams && pathParams[0]?.length > 0) {
       const fullPath = window.location.pathname;
 
       const pathPrefix = 'ontology/';
