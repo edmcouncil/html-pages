@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "access_releases",
+  "info": {
+    "singularName": "access-release",
+    "pluralName": "access-releases",
+    "displayName": "Access Release",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "releases": {
+      "type": "json"
+    }
+  }
+}

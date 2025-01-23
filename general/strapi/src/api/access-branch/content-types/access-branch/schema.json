@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "access_branches",
+  "info": {
+    "singularName": "access-branch",
+    "pluralName": "access-branches",
+    "displayName": "Access Branch"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "branches": {
+      "type": "json"
+    }
+  }
+}

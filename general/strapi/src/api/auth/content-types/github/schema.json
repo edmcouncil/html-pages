@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "githubs",
+  "info": {
+    "singularName": "github",
+    "pluralName": "githubs",
+    "displayName": "GitHub role map",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "role": {
+      "type": "relation",
+      "required": true,
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.role"
+    },
+    "organization": {
+      "type": "string",
+      "required": true,
+      "regex": "^[a-zA-Z0-9\\-]+$"
+    },
+    "slug": {
+      "type": "string"
+    }
+  }
+}
