@@ -1,8 +1,8 @@
 @use "sass:map";
+@use 'typography';
+@use 'highlight';
 @import 'flag-icons/css/flag-icons.css';
 @import 'bootstrap/scss/bootstrap';
-@import 'typography';
-@import 'highlight';
 
 * {
   box-sizing: border-box;
