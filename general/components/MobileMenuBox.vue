@@ -94,6 +94,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:map';
 .modal-header.no-shadow {
   box-shadow: none !important;
 }
@@ -127,11 +128,11 @@ export default {
   }
 
   &::-webkit-scrollbar-track {
-    background: map-get($colors-map, 'black-40');
+    background: map.get($colors-map, 'black-40');
   }
 
   &::-webkit-scrollbar-thumb {
-    background: map-get($colors-map, 'black-80');
+    background: map.get($colors-map, 'black-80');
   }
 }
 
@@ -164,11 +165,11 @@ export default {
     }
 
     &::-webkit-scrollbar-track {
-      background: map-get($colors-map, 'black-40');
+      background: map.get($colors-map, 'black-40');
     }
 
     &::-webkit-scrollbar-thumb {
-      background: map-get($colors-map, 'black-80');
+      background: map.get($colors-map, 'black-80');
     }
   }
 
@@ -185,11 +186,11 @@ export default {
       }
 
       &::-webkit-scrollbar-track {
-        background: map-get($colors-map, 'black-40');
+        background: map.get($colors-map, 'black-40');
       }
 
       &::-webkit-scrollbar-thumb {
-        background: map-get($colors-map, 'black-80');
+        background: map.get($colors-map, 'black-80');
       }
     }
   }

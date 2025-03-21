@@ -47,12 +47,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:map';
 .content-text {
   opacity: 1;
   transition: opacity 0.5s;
 }
 .copied {
-  color: map-get($colors-map, 'black-40') !important;
+  color: map.get($colors-map, 'black-40') !important;
 
   .copied-text {
     animation: 0.3s copiedFadeOut 1.2s ease-in forwards;

@@ -155,6 +155,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:map';
 .carousel-container {
   flex: 1;
   padding: 0px 60px 60px 60px;
@@ -246,11 +247,11 @@ export default {
   }
   span.text-display {
     display: inline-block;
-    color: map-get($colors-map, 'black');
+    color: map.get($colors-map, 'black');
   }
   h2 {
     margin: 40px 0;
-    color: map-get($colors-map, 'black-80');
+    color: map.get($colors-map, 'black-80');
   }
   a {
     font-family: 'Inter';
@@ -264,10 +265,10 @@ export default {
     letter-spacing: 0.02em;
     text-decoration-line: underline;
 
-    color: map-get($colors-map, 'black');
+    color: map.get($colors-map, 'black');
 
     &:hover {
-      color: map-get($colors-map, 'black-60');
+      color: map.get($colors-map, 'black-60');
     }
   }
   // transition
@@ -326,7 +327,7 @@ export default {
   .carousel-item {
     h2 {
       margin: 30px 0;
-      color: map-get($colors-map, 'black-60');
+      color: map.get($colors-map, 'black-60');
     }
     a {
       font-size: 18px;
@@ -361,7 +362,7 @@ export default {
       font-size: 16px;
       line-height: 24px;
       margin: 15px 0;
-      color: map-get($colors-map, 'black-60');
+      color: map.get($colors-map, 'black-60');
     }
     a {
       font-size: 16px;

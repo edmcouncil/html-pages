@@ -192,6 +192,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:map';
 .ontology-item__header {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 2px;
@@ -300,7 +301,7 @@ export default {
     }
 
     &.informative {
-      background: map-get($colors-map, 'orange');
+      background: map.get($colors-map, 'orange');
     }
   }
 
@@ -391,7 +392,7 @@ export default {
       width: 320px;
       max-width: calc(100vw - 75px);
       border: none;
-      background-color: map-get($colors-map, 'white');
+      background-color: map.get($colors-map, 'white');
       box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
       border-radius: 0;
       position: absolute;
@@ -422,24 +423,24 @@ export default {
         line-height: 30px;
         cursor: pointer;
 
-        color: map-get($colors-map, 'black-80');
+        color: map.get($colors-map, 'black-80');
 
         margin: 0;
         padding: 15px 30px;
 
         &:hover {
-          color: map-get($colors-map, 'black-80');
-          background-color: map-get($colors-map, 'black-5');
+          color: map.get($colors-map, 'black-80');
+          background-color: map.get($colors-map, 'black-5');
         }
 
         &:focus {
-          color: map-get($colors-map, 'black-80');
+          color: map.get($colors-map, 'black-80');
           background-color: unset;
         }
 
         &:active {
-          color: map-get($colors-map, 'black-80');
-          background-color: map-get($colors-map, 'black-20');
+          color: map.get($colors-map, 'black-80');
+          background-color: map.get($colors-map, 'black-20');
         }
       }
 

@@ -145,6 +145,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:map';
 .card-body .card-content .content-item {
   background: rgba(0, 0, 0, 0.05);
   padding: 0px;
@@ -155,7 +156,7 @@ export default {
     font-weight: normal;
     font-size: 18px;
     line-height: 30px;
-    color: map-get($colors-map, 'black-60');
+    color: map.get($colors-map, 'black-60');
 
     margin: 0;
     padding: 0 20px 0 20px;

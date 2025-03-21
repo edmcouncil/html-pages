@@ -1,3 +1,4 @@
+@use "sass:map";
 @import 'flag-icons/css/flag-icons.css';
 @import 'bootstrap/scss/bootstrap';
 @import 'typography';
@@ -614,11 +615,11 @@ article {
   }
 
   ::-webkit-scrollbar-track {
-    background: map-get($colors-map, 'black-40');
+    background: map.get($colors-map, 'black-40');
   }
 
   ::-webkit-scrollbar-thumb {
-    background: map-get($colors-map, 'black-80');
+    background: map.get($colors-map, 'black-80');
   }
 }
 

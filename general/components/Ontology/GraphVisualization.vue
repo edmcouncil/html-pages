@@ -738,6 +738,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:map';
 .graph-section {
   background: rgba(0, 0, 0, 0.05);
   position: relative;
@@ -765,7 +766,7 @@ export default {
     line-height: 30px;
     cursor: pointer;
 
-    color: map-get($colors-map, 'black-80');
+    color: map.get($colors-map, 'black-80');
 
     margin: 0;
     padding: 15px 30px;
@@ -777,7 +778,7 @@ export default {
     }
 
     &.disabled {
-      color: map-get($colors-map, 'black-40');
+      color: map.get($colors-map, 'black-40');
     }
   }
 
@@ -841,7 +842,7 @@ export default {
     width: 240px;
     max-width: calc(100vw - 75px);
     border: none;
-    background-color: map-get($colors-map, 'white');
+    background-color: map.get($colors-map, 'white');
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     border-radius: 0;
     position: absolute;
@@ -872,24 +873,24 @@ export default {
       line-height: 30px;
       cursor: pointer;
 
-      color: map-get($colors-map, 'black-80');
+      color: map.get($colors-map, 'black-80');
 
       margin: 0;
       padding: 15px 30px;
 
       &:hover {
-        color: map-get($colors-map, 'black-80');
-        background-color: map-get($colors-map, 'black-5');
+        color: map.get($colors-map, 'black-80');
+        background-color: map.get($colors-map, 'black-5');
       }
 
       &:focus {
-        color: map-get($colors-map, 'black-80');
+        color: map.get($colors-map, 'black-80');
         background-color: unset;
       }
 
       &:active {
-        color: map-get($colors-map, 'black-80');
-        background-color: map-get($colors-map, 'black-20');
+        color: map.get($colors-map, 'black-80');
+        background-color: map.get($colors-map, 'black-20');
       }
     }
 
@@ -928,8 +929,8 @@ export default {
     font-size: 18px;
     line-height: 30px;
 
-    color: map-get($colors-map, 'black-80');
-    background: map-get($colors-map, 'white');
+    color: map.get($colors-map, 'black-80');
+    background: map.get($colors-map, 'white');
     width: max-content;
     border-radius: 2px;
     padding: 5px 15px;

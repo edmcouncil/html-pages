@@ -22,11 +22,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:map';
 .compared-diff {
-  color: map-get($colors-map, 'black');
+  color: map.get($colors-map, 'black');
 
   &.diff-added {
-    color: map-get($colors-map, 'black-80');
+    color: map.get($colors-map, 'black-80');
     background-color: #89c2a372;
     border-radius: 5px;
     padding: 4px;
