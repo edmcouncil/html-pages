@@ -29,6 +29,7 @@ const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
 const DEV_BASE_URL = VUE_BASE_URL.replace('pistoiaalliance', 'edmcouncil');
 
 export default defineNuxtConfig({
+  telemetry: false,
   experimental: {
     sharedPrerenderData: true
   },
