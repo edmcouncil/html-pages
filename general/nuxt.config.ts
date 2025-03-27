@@ -113,6 +113,13 @@ export default defineNuxtConfig({
     ]
   },
   vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          sanitizeFileName: true,
+        },
+      },
+    },
     server: {
       proxy: {
         [`^/${VUE_ONTOLOGY_NAME}/ontology(/[^/]+/[^/]+)?/api`]: {
