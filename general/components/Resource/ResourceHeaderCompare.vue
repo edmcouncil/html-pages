@@ -91,6 +91,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:map';
 .ontology-item__header--compare {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 2px;
@@ -108,7 +109,7 @@ export default {
     font-weight: normal;
     font-size: 18px;
     line-height: 30px;
-    color: map-get($colors-map, 'black-60');
+    color: map.get($colors-map, 'black-60');
 
     border-right: 2px solid white;
     padding: 20px 20px;
@@ -137,7 +138,7 @@ export default {
   .not-found {
     text-align: center;
     h2 {
-      color: map-get($colors-map, 'black-20');
+      color: map.get($colors-map, 'black-20');
       font-style: normal;
       font-weight: bold;
       font-size: 42px;
@@ -145,7 +146,7 @@ export default {
       padding-top: 40px;
     }
     p {
-      color: map-get($colors-map, 'black-40');
+      color: map.get($colors-map, 'black-40');
       padding-top: 5px;
     }
   }

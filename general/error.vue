@@ -39,6 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:map';
 .connectionProblemScreen {
   background: rgba(0, 0, 0, 0.05);
   text-align: center;
@@ -67,12 +68,12 @@ export default {
     }
 
     a {
-      color: map-get($colors-map, 'black');
+      color: map.get($colors-map, 'black');
       transition: none;
       text-decoration: none;
 
       &:hover {
-        color: map-get($colors-map, 'black-60');
+        color: map.get($colors-map, 'black-60');
       }
     }
   }

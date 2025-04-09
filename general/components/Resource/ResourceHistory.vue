@@ -199,6 +199,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:map';
 .card-content {
   position: relative;
 
@@ -340,7 +341,7 @@ export default {
           padding-left: 15px;
           transform-origin: top left;
           transform: rotate(25deg);
-          color: map-get($colors-map, 'black-40');
+          color: map.get($colors-map, 'black-40');
 
           max-width: 200px;
           overflow: hidden;
@@ -377,15 +378,15 @@ export default {
             }
 
             &.maturity-provisional {
-              background-color: map-get($colors-map, 'yellow');
+              background-color: map.get($colors-map, 'yellow');
             }
 
             &.maturity-production {
-              background-color: map-get($colors-map, 'green');
+              background-color: map.get($colors-map, 'green');
             }
 
             &.maturity-informative {
-              background-color: map-get($colors-map, 'orange');
+              background-color: map.get($colors-map, 'orange');
             }
 
             &.maturity-mixed {
@@ -395,7 +396,7 @@ export default {
           }
 
           .value {
-            color: map-get($colors-map, 'black-80');
+            color: map.get($colors-map, 'black-80');
           }
         }
 

@@ -117,6 +117,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:map';
 .module {
   user-select: none;
 
@@ -197,7 +198,7 @@ export default {
     }
     .custom-link {
       font-size: 14px;
-      color: map-get($colors-map, 'black');
+      color: map.get($colors-map, 'black');
     }
   }
 }

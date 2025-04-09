@@ -173,6 +173,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:map';
 header.website-header {
   background: linear-gradient(
       98.03deg,
@@ -221,8 +222,8 @@ header.website-header {
   .dropdown {
     .burger-button {
       align-items: center;
-      background-color: map-get($colors-map, 'white');
-      color: map-get($colors-map, 'black-80');
+      background-color: map.get($colors-map, 'white');
+      color: map.get($colors-map, 'black-80');
       border-radius: 2px;
       box-shadow: 0px 5px 20px #07539526;
       display: flex;
@@ -238,7 +239,7 @@ header.website-header {
     }
 
     &.show .burger-button {
-      background-color: map-get($colors-map, 'white-60');
+      background-color: map.get($colors-map, 'white-60');
     }
   }
 
@@ -251,7 +252,7 @@ header.website-header {
     width: 320px;
     max-width: calc(100vw - 75px);
     border: none;
-    background-color: map-get($colors-map, 'white');
+    background-color: map.get($colors-map, 'white');
     box-shadow: 0px 5px 20px -5px rgba(8, 84, 150, 0.15);
     border-radius: 0;
     right: 0;
@@ -293,11 +294,11 @@ header.website-header {
 
     padding: 0;
 
-    color: map-get($colors-map, 'black');
+    color: map.get($colors-map, 'black');
 
     &:hover {
       text-decoration: none;
-      color: map-get($colors-map, 'black-60');
+      color: map.get($colors-map, 'black-60');
     }
   }
 
@@ -309,22 +310,22 @@ header.website-header {
     font-size: 18px;
     line-height: 30px;
 
-    color: map-get($colors-map, 'black-80');
+    color: map.get($colors-map, 'black-80');
 
     margin: 0;
     padding: 15px 40px;
 
     &:hover {
-      color: map-get($colors-map, 'black-80');
-      background-color: map-get($colors-map, 'black-5');
+      color: map.get($colors-map, 'black-80');
+      background-color: map.get($colors-map, 'black-5');
     }
     &:focus {
-      color: map-get($colors-map, 'black-80');
+      color: map.get($colors-map, 'black-80');
       background-color: unset;
     }
     &:active {
-      color: map-get($colors-map, 'black-80');
-      background-color: map-get($colors-map, 'black-20');
+      color: map.get($colors-map, 'black-80');
+      background-color: map.get($colors-map, 'black-20');
     }
 
     // sub items collapse (category title)
@@ -354,7 +355,7 @@ header.website-header {
     }
   }
   .dropdown-divider {
-    border-top: 1px solid map-get($colors-map, 'black-5');
+    border-top: 1px solid map.get($colors-map, 'black-5');
   }
 
   // nav items inside menu - sub items
@@ -365,19 +366,19 @@ header.website-header {
     font-size: 18px;
     line-height: 30px;
 
-    color: map-get($colors-map, 'black-80');
+    color: map.get($colors-map, 'black-80');
 
     margin: 0;
     padding: 15px 40px 15px 60px;
 
     &:hover {
-      background-color: map-get($colors-map, 'black-5');
+      background-color: map.get($colors-map, 'black-5');
     }
     &:focus {
       background-color: unset;
     }
     &:active {
-      background-color: map-get($colors-map, 'black-20');
+      background-color: map.get($colors-map, 'black-20');
     }
   }
 }
