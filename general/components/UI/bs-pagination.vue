@@ -114,6 +114,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:map';
 .pagination {
   gap: 10px;
   justify-content: center;
@@ -140,7 +141,7 @@ export default {
       box-shadow 0.05s ease-in-out;
 
     &:hover {
-      background-color: map-get($colors-map, 'black-20');
+      background-color: map.get($colors-map, 'black-20');
     }
 
     &:active {
@@ -157,19 +158,19 @@ export default {
     &.active {
       background-color: rgb(51, 51, 51);
       border: 2px solid rgb(51, 51, 51);
-      color: map-get($colors-map, 'white');
+      color: map.get($colors-map, 'white');
     }
 
     &.active:active {
-      background-color: map-get($colors-map, 'black');
-      border: 2px solid map-get($colors-map, 'black');
-      color: map-get($colors-map, 'white');
+      background-color: map.get($colors-map, 'black');
+      border: 2px solid map.get($colors-map, 'black');
+      color: map.get($colors-map, 'white');
     }
 
     &.disabled {
       background-color: transparent;
       border: 2px solid transparent;
-      color: map-get($colors-map, 'black-40');
+      color: map.get($colors-map, 'black-40');
     }
   }
 }

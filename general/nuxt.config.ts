@@ -29,6 +29,7 @@ const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
 const DEV_BASE_URL = VUE_BASE_URL.replace('pistoiaalliance', 'edmcouncil');
 
 export default defineNuxtConfig({
+  telemetry: false,
   experimental: {
     sharedPrerenderData: true
   },
@@ -112,6 +113,13 @@ export default defineNuxtConfig({
     ]
   },
   vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          sanitizeFileName: true,
+        },
+      },
+    },
     server: {
       proxy: {
         [`^/${VUE_ONTOLOGY_NAME}/ontology(/[^/]+/[^/]+)?/api`]: {
@@ -153,7 +161,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/google-fonts',
     '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
     '@zadigetvoltaire/nuxt-gtm'
   ],
   googleFonts: {

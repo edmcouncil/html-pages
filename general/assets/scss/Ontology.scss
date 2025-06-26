@@ -1,3 +1,5 @@
+@use "sass:map";
+
 @media (min-width: 992px) {
   .ontology-container {
     padding: 60px 60px 0 60px;
@@ -69,7 +71,7 @@
     .multiselect__tags {
       background-color: rgba(255, 255, 255, 0);
 
-      border: 0px solid map-get($colors-map, "white");
+      border: 0px solid map.get($colors-map, "white");
       padding-left: 30px;
       padding-right: 90px;
       padding-top: 0px;
@@ -82,10 +84,10 @@
       font-weight: bold;
       font-size: 18px;
       line-height: 30px;
-      color: map-get($colors-map, "black-80");
+      color: map.get($colors-map, "black-80");
 
       &::placeholder {
-        color: map-get($colors-map, "black-40");
+        color: map.get($colors-map, "black-40");
         opacity: 1;
       }
     }
@@ -95,7 +97,7 @@
       font-weight: bold;
       font-size: 18px;
       line-height: 30px;
-      color: map-get($colors-map, "black-80");
+      color: map.get($colors-map, "black-80");
       padding: 0px;
       margin: 0px;
     }
@@ -110,7 +112,7 @@
 .menu-box {
   position: relative;
   align-items: center;
-  background-color: map-get($colors-map, "white");
+  background-color: map.get($colors-map, "white");
   border-radius: 2px;
   box-shadow: 0px 5px 20px #07539526;
 
@@ -118,7 +120,7 @@
     position: absolute;
     top: 15px;
     left: 30px;
-    color: map-get($colors-map, "black-40");
+    color: map.get($colors-map, "black-40");
     letter-spacing: 0.01em;
     font-size: 14px;
     line-height: 20px;
@@ -274,7 +276,7 @@
     width: 100%;
     min-height: 30px;
     .multiselect__placeholder {
-      color: map-get($colors-map, "black") !important;
+      color: map.get($colors-map, "black") !important;
       font-weight: 700;
       font-size: 18px;
       padding-top: 0px;
@@ -393,7 +395,7 @@
       display: none;
     }
     .multiselect__placeholder {
-      color: map-get($colors-map, "black-80") !important;
+      color: map.get($colors-map, "black-80") !important;
       font-weight: 700;
       font-size: 18px;
       padding-top: 0px;
@@ -657,7 +659,7 @@
       background-position: center;
     }
     .multiselect__placeholder {
-      color: map-get($colors-map, "black") !important;
+      color: map.get($colors-map, "black") !important;
       font-weight: 700;
       font-size: 18px;
       padding-top: 0px;
@@ -810,7 +812,7 @@
 
     letter-spacing: 0.01em;
 
-    background: map-get($colors-map, "red");
+    background: map.get($colors-map, "red");
     border: none;
     border-radius: 2px;
 
@@ -818,11 +820,11 @@
     padding: 5px 15px 5px 15px;
 
     &.red {
-      background: map-get($colors-map, "red");
+      background: map.get($colors-map, "red");
     }
 
     &.yellow {
-      background: map-get($colors-map, "yellow");
+      background: map.get($colors-map, "yellow");
     }
 
     .dismiss-alert-button {
@@ -853,7 +855,7 @@
 
     letter-spacing: 0.01em;
 
-    background: map-get($colors-map, "red");
+    background: map.get($colors-map, "red");
     border: none;
     width: fit-content;
     block-size: fit-content;
@@ -942,7 +944,7 @@
 
       letter-spacing: 0.01em;
 
-      color: map-get($colors-map, "black-20");
+      color: map.get($colors-map, "black-20");
 
       margin-top: 60px;
       margin-bottom: 90px;

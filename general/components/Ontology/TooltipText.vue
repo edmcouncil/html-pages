@@ -38,11 +38,12 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:map';
 .resource-text-tooltip {
   text-decoration-line: underline;
   text-decoration-style: dashed;
   text-underline-position: under;
-  text-decoration-color: map-get($colors-map, 'black-40');
+  text-decoration-color: map.get($colors-map, 'black-40');
   overflow: visible;
 }
 </style>

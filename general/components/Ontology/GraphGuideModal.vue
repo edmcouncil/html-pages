@@ -32,6 +32,7 @@ export default {
 </script>
 
 <style lang="scss">
+@use 'sass:map';
 .modal.help {
   article .img-zoom {
     max-width: 70%;
@@ -150,7 +151,7 @@ export default {
 
   article {
     .see-also-box {
-      background: map-get($colors-map, 'black-5');
+      background: map.get($colors-map, 'black-5');
       margin-bottom: 60px;
       padding: 30px;
       border-radius: 2px;

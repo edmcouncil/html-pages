@@ -154,6 +154,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use 'sass:map';
 footer {
   background-color: transparent;
   padding: 120px 60px 60px 60px;
@@ -163,16 +164,16 @@ footer {
   }
 
   a {
-    color: map-get($colors-map, 'black');
+    color: map.get($colors-map, 'black');
 
     &:hover {
-      color: map-get($colors-map, 'black-60');
+      color: map.get($colors-map, 'black-60');
     }
   }
 
   p {
     font-size: 12px;
-    color: map-get($colors-map, 'black');
+    color: map.get($colors-map, 'black');
   }
   .footer-contact {
     .footer-contact__col {
@@ -184,7 +185,7 @@ footer {
     }
 
     .footer-contact__title {
-      color: map-get($colors-map, 'black-60');
+      color: map.get($colors-map, 'black-60');
 
       font-family: 'Inter';
       font-style: normal;
@@ -197,7 +198,7 @@ footer {
       padding-top: 20px;
 
       a {
-        color: map-get($colors-map, 'black-80');
+        color: map.get($colors-map, 'black-80');
 
         font-family: 'Inter';
         font-style: normal;
@@ -208,7 +209,7 @@ footer {
         white-space: nowrap;
 
         &:hover {
-          color: map-get($colors-map, 'black-60');
+          color: map.get($colors-map, 'black-60');
         }
       }
     }
@@ -218,7 +219,7 @@ footer {
     border: 0 !important;
   }
   .copyright {
-    color: map-get($colors-map, 'black-60');
+    color: map.get($colors-map, 'black-60');
 
     margin: 60px 0;
 
@@ -268,7 +269,7 @@ footer {
       margin: 0;
       font-size: 18px;
       line-height: 30px;
-      color: map-get($colors-map, 'black-80');
+      color: map.get($colors-map, 'black-80');
 
       &:last-child {
         padding-right: 0;
@@ -328,7 +329,7 @@ footer {
         padding-bottom: 40px;
         font-size: 16px;
         line-height: 24px;
-        color: map-get($colors-map, 'black-80');
+        color: map.get($colors-map, 'black-80');
 
         &:last-child {
           padding-bottom: 0px;
