@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "access_pull_requests",
+  "info": {
+    "singularName": "access-pull-request",
+    "pluralName": "access-pull-requests",
+    "displayName": "Access Pull Request"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pull_requests": {
+      "type": "json"
+    }
+  }
+}

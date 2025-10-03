@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "access_products",
+  "info": {
+    "singularName": "access-product",
+    "pluralName": "access-products",
+    "displayName": "Access Product"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "products": {
+      "type": "json"
+    }
+  }
+}

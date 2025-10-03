@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "access_currents",
+  "info": {
+    "singularName": "access-current",
+    "pluralName": "access-currents",
+    "displayName": "Access Current",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "currents": {
+      "type": "json"
+    }
+  }
+}
